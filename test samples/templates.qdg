@@ -1,0 +1,92 @@
+﻿//templates ---------------------------------------------------------------------
+
+//mides:
+//nau: 1
+//planeta: 5->10 (radi)
+//distancia mínima entre planetes: 35
+
+/* comentari */
+
+template GrupPlanetes(colorHue : float) {
+  Hue( colorHue )
+}
+
+
+template Planeta( posicio:Vector3f, grup: Entity<Hue>, radi: float) {
+    Geometry( model = "Assets/Planeta.j3o", 
+              translation = posicio, 
+              scale = new Vector3f(radi,radi,radi) )
+   
+    Material( name  = "Assets/Planeta.material", 
+              colors["Ambient"] = Utils.colorHSV(grup[Hue].hue, rnd[0.7:1], rnd[0.7:1]))
+              
+    Grup( grup )
+    
+    Position( posicio )
+    
+    Radi( radi )
+    
+    Naus()
+    
+    Edificis()
+    
+    EsPlaneta()
+}
+
+template Bandol(colorHue : float) {
+  Hue( colorHue )
+  Naus()
+  MaxNaus()
+  EsBandol()
+  EdificiEnConstruccio(null)
+}
+
+template Nau(tipus:TipusDeNau, planeta: Entity<Position, Radi, EsPlaneta>, bandol: Entity<Hue>) {
+  Tipus(tipus)
+  
+  Position( Utils.moveToRandom(planeta[Position],planeta[Radi]*3) )
+  
+  Geometry( model = tipus.model, 
+            parent = Entity.getFromName("RootNode"), 
+            translation = Position )
+            
+  Material( name = "Assets/Nau.material",
+            colors["Ambient"] = Utils.colorHSV(bandol[Hue].hue, tipus.saturation, tipus.value))
+            
+  EsNau()
+  
+  Bandol(bandol)
+  
+  PlantetTo(planeta)
+}
+
+template Aresta(planeta1: Entity<Veïns>, planeta2: Entity<Veïns>) {
+  ArestaComp( {planeta1,planeta2} )
+}
+
+template Edifici(planeta: Entity<Edificis>, bandol: Entity< Hue, EdificiEnConstruccio>, tipusDeEdifici: TipusDeEdifici) {
+  PlanetTo(planeta)
+  Bandol(bandol)
+  Construint(tipusDeEdifici.tempsDeConstruccio)
+  EdificiTipus(tipusDeEdifici)
+}
+
+const float PLANETA_MIN       = 5
+const float PLANETA_MAX       = 10
+const float MIN_DISTANCE      = 35
+const float MAX_REL_DISTANCE  = 60
+
+template NivellAleatori(numGrups: int, numPlanetes: int, numArestesEntreGrups: int, numArestesEntrePlanetes: int, numBandols: int) {
+  components {
+    Bandols()
+    Planetes()
+    GrupsPlanetes()
+    NivellAleatoriComp(
+              numGrups = numGrups,
+              numPlanetes = numPlanetes,
+              numArestesEntreGrups = numArestesEntreGrups,
+              numArestesEntrePlanetes = numArestesEntrePlanetes,
+              numBandols = numBandols
+                      )
+  }
+}

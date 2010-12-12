@@ -1,0 +1,215 @@
+
+system NauSystem {
+  components {
+    EsNau,
+    Tipus,
+    Bandol,
+    PlanetTo
+  }
+  
+  init {
+    Map< Tupla<TipusDeNau, Entity>, Set<Entity>> nausAlPlaneta, nausAlBandol;
+    Tupla<TipusDeNau, Entity> clau;
+    
+    Entity<Hue> bandol = entity[Bandol];
+    Entity<EsPlaneta> planeta = entity[PlanetTo];
+    TipusDeNau tipus = entity[Tipus];
+    clau = Tupla.get<TipusDeNau, Entity>(tipus,bandol);
+    
+    nausAlPlaneta = planeta[Naus];
+    nausAlPlaneta[clau].add( entity );
+    
+    nausAlBandol = bandol[Naus];
+    nausAlBandol[clau].add( entity );
+  }
+}
+
+system ArestaSystem {
+  components {
+    ArestaComp
+  }
+  init {
+    Entity<Veïns> planeta1 = entity[ArestaComp][0];
+    Entity<Veïns> planeta2 = entity[ArestaComp][0];
+    planeta1[Veïns].add(planeta2);
+    planeta2[Veïns].add(planeta1);
+  }
+}
+
+system EdificiSystem {
+  components {
+    PlanetTo,
+    Bandol,
+    EsEdifici
+  }
+  init {
+    Entity planeta = entity[PlanetTo];
+    Entity bandol  = entity[Bandol];
+    planeta[Edificis].add( entity );
+    bandol[EdificiEnConstruccio] = entity;
+  }
+}
+
+system NivellAleatori {
+  component {
+    NivellAleatoriComp
+  }
+  init {
+    NivellAleatoriComp params = entity[NivellAleatoriComp];
+    
+    int numGrups                = params.numGrups;
+    int numPlanetes             = params.numPlanetes;
+    int numArestesEntreGrups    = params.numArestesEntreGrups;
+    int numArestesEntrePlanetes = params.numArestesEntrePlanetes;
+    int numBandols              = params.numBandols;
+  
+    if(   numPlanetes < numGrups || 
+          numArestesEntreGrups < numGrups-1 || 
+          numArestesEntrePlanetes < numArestesEntreGrups || 
+          numArestesEntrePlanetes < numPlanetes-1 ||
+          numBandols > numGrups) {
+      //throw new IllegalArgumentsException();
+      delete entity;
+    }
+    int baseHue = rndi[0:360];
+    int difHue = 360/numGrups;
+    
+    Entity<Hue, EdificiEnConstruccio>[]  grups = new Entity<Hue, EdificiEnConstruccio>[numGrups];
+    Entity<Veïns,Grup,Edificis>[] planetes = new Entity<Veïns,Grup>[numPlanetes];
+    
+    for(int i = 0; i < numGrups; i++) {
+      int hue = (baseHue + difHue) % 360;
+      Entity<Hue, EdificiEnConstruccio> grup = new Entity GrupPlanetes(hue);
+      entity[GrupsPlanetes].add(grup);
+      grups[i] = grup;
+    }
+    
+    Vector3f[] posicions = new Vector3f[numPlanetes]
+    posicions[0] = new Vector3f(0,0,0);
+    
+    for(int i = 1; i < numPlanetes; i++) {
+      boolean posicioCorrecte;
+      do {
+        //agafar referencia
+        int ref = rndi[0:i];
+        //distancia amb la referencia
+        float dist = rnd[MIN_DISTANCE:MAX_REL_DISTANCE];
+        //direccio
+        float yaw = rnd[0:2*Math.PI];
+        float pitch = Math.asin(rnd[-1:1]);
+        
+        Vector3f desplaçament = new Vector3f(
+                                        Math.cos(yaw) * Math.cos(pitch),
+                                        Math.sin(yaw) * Math.cos(pitch),
+                                        Math.sin(pitch)
+                                            );
+                                            
+        posicions[i] = posicions[ref] + desplaçament;
+        
+        posicioCorrecte = true;
+        for(int j = 0; j < i; j++) {
+          if(posicions[i].distanceSquared(posicions[j]) < MIN_DISTANCE*MIN_DISTANCE) {
+            posicioCorrecte = false;
+            break;
+          }
+        }
+        
+      } while(!posicioCorrecte);
+    }
+    
+    Set<int> centres = new Set<int>();
+    for(int i = 0; i < numGrups; i++) {
+      int centre = rndi(0:numPlanetes-1);
+      while(centres.contains(centre) ) {
+        centre = rndi(0:numPlanetes-1);
+      }
+      centres.add(centre);
+    }
+    
+    int[] referencies = centres.toArray(new int[numGrups]);
+    
+    //finalment, els planetes
+    for(int i = 0; i < numPlanetes; i++) {
+      int grupAssignat = 0;
+      float dist2Assignat = posicions[referencies[grupAssignat]].distanceSquared(posicions[i]);
+      //cercar nou grup
+      for(int j = 1; j < numGrups; j++) {
+        float dist2Nou = posicions[referencies[j]].distanceSquared(posicions[i]);
+        if(dist2Nou < dist2Assignat) {
+          grupAssignat = j;
+          dist2Assignat = dist2Nou;
+        }
+      }
+      float radi = rnd[PLANETA_MIN:PLANETA_MAX];
+      Entity<Veïns,Grup,Edificis> planeta = new Planeta(posicions[i],grups[grupAssignat],radi);
+      planetes[i] = planeta;
+      entity[Planetes].add(planeta);
+    }
+    
+    //i les arestes...
+    boolean[][] dePlanetaAPlaneta = new boolean[numPlanetes][];
+    
+    do {
+      //netegem les arestes
+      for(int i = 0; i < numPlanetes; i++) {dePlanetaAPlaneta[i] = new boolean[numPlanetes]; dePlanetaAPlaneta[i][i] = true;}
+      int arestesRestants = numArestesEntrePlanetes;
+      int arestesGrupsRestants = numArestesEntreGrups;
+      int planeta1, planeta2;
+      do {
+        boolean planetesCorrectes = true;
+        do {
+          planeta1 = rndi[0:numPlanetes-1];
+          planeta2 = rndi[0:numPlanetes-1];
+          if(planeta1 == planeta2) {
+            planetesCorrectes = false;
+          } else if(dePlanetaAPlaneta[planeta1][planeta2]) {
+            planetesCorrectes = false;
+          } else if(arestesGrupsRestants == 0 && planetes[planeta1][Grup] == planetes[planeta1][Grup]) {
+            planetesCorrectes = false;
+          } else if(arestesGrupsRestants == arestesRestants && planetes[planeta1][Grup] != planetes[planeta1][Grup]) {
+            planetesCorrectes = false;
+          }
+        } while(!planetesCorrectes);
+        dePlanetaAPlaneta[planeta1][planeta2] = true;
+        dePlanetaAPlaneta[planeta2][planeta1] = true;
+        arestesRestants--;
+        if(planetes[planeta1][Grup] == planetes[planeta1][Grup]) {
+          arestesGrupsRestants--;
+        }
+      } while(arestesRestants>0);
+    } while(!Utils.OnlyOneGroup(dePlanetaAPlaneta))
+    
+    //crear les arestes
+    for(int planeta1 = 0; planeta1 < numPlanetes; planeta1++) {
+      for(int planeta2 = 0; planeta2 < planeta1; planeta2++) {
+        if(dePlanetaAPlaneta[planeta1][planeta2]) {
+          new Aresta(planetes[planeta1],planetes[planeta2]);
+        }
+      }
+    }
+    
+    //crea els bandols
+    Set<Entity<Hue>> grupsTriats;
+    for(int i = 0; i < numBandols; i++) {
+      Entity<Veïns,Grup,Edificis> planeta;
+      do {
+        int planetaInicial = rnd[0:numGrups-1];
+        planeta = planetes[planetaInicial];
+      } while(grupsTriats.contains(planeta[Grup]));
+      
+      //crear
+      grupsTriats.add(planeta[Grup]);
+      
+      Entity< Hue, EdificiEnConstruccio > bandol = new Bandol(planeta[Grup][Hue]);
+      entity[Bandols].add(bandol);
+      Entity<Construint> edifici = new Edifici(planeta, bandol, TipusDeEdifici.HQ)
+      remove edifici[Construint];
+      for(TipusDeNau tip : TipusDeNau.getArray()) {
+        Nau(tip, planeta, bandol);
+        Nau(tip, planeta, bandol);
+        Nau(tip, planeta, bandol);
+        bandol[MaxNaus][TipusDeNau] = TipusDeNau.MAX_NAUS_HQ;
+      }
+    }
+  }
+}
