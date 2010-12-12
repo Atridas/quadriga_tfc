@@ -1,0 +1,126 @@
+﻿//al java ---------------------------------------------------------------------
+
+enum TipusDeNau {
+  PEDRA ("Assets/Pedra.j3o" ,0.7f,1f),
+  PAPER ("Assets/Paper.j3o" ,0.9f,0.6f),
+  TISORA("Assets/Tisora.j3o",0.5f,0.9f);
+  
+  public final String model;
+  public final float saturation, value
+  
+  public TipusDeNau(String m, float s, float v) {
+    model = m;
+    saturation = s;
+    value = v;
+  }
+}
+
+enum TipusDeEdifici {
+  HQ("Assets/HQ.j3o",120.f,null),
+  BOOSTER("Assets/Booster.j3o",35.f,null),
+  CONSTRUCTOR_PEDRA ("Assets/ConstructorPedra.j3o" , 20.f, PEDRA );
+  CONSTRUCTOR_PAPER ("Assets/ConstructorPaper.j3o" , 20.f, PAPER );
+  CONSTRUCTOR_TISORA("Assets/ConstructorTisora.j3o", 20.f, TISORA);
+  
+  public final String model;
+  public final float tempsDeConstruccio;
+  public final TipusDeNau tipus;
+  
+  public static final MAX_NAUS    = 5;
+  public static final MAX_NAUS_HQ = 10;
+  
+  public TipusDeNau(String m, float t, TipusDeNau tip) {
+    model = m;
+    tempsDeConstruccio = t;
+    tipus = tip;
+  }
+}
+
+//structs ------------------------------------------------------------------------
+
+struct Color {
+  r, g, b, a: float
+}
+
+//components ---------------------------------------------------------------------
+
+component Position: Vector3f
+component Rotation: Quaternion
+
+component Spatial {
+  translation:Vector3f
+  rotation:Quaternion
+  scale:Vector3f
+}
+
+component Geometry extends Spatial {
+  model:String
+  parent:Entity<Node>
+}
+
+component Material {
+  name:String
+  colors:Map<String,Color>
+  floats:Map<String,float>
+  ints:Map<String,int>
+  booleans:Map<String,boolean>
+  matrixes:Map<String,Matrix4f>
+  vectors2:Map<String,Vector2f>
+  vectors3:Map<String,Vector3f>
+}
+  
+component Node extends Spatial {
+  parent:Entity with Node
+}
+
+component Naus: Map< Tupla<TipusDeNau, Entity>, Set<Entity>>
+
+component MaxNaus: Map<TipusDeNau, Integer>
+
+component Edificis Set<Entity>
+
+component PlanetTo: Entity<EsPlaneta>
+
+component NivellAleatoriComp {
+  numGrups: int
+  numPlanetes: int
+  numArestesEntreGrups: int
+  numArestesEntrePlanetes: int
+  numBandols: int
+}
+
+component Construint: float
+
+component EdificiEnConstruccio: Entity with Construint
+
+component EdificiTipus: TipusDeEdifici
+
+component EsEdifici: void
+
+component Veïns: Set<Entity>
+
+component ArestaComp: Entity<Veïns>[]
+
+component Hue: float
+
+component Radi: float
+
+component Grup: Entity<Hue>
+
+component Bandol: Entity<Hue>
+
+component Tipus: TipusDeNau
+
+component TimeToDie: float
+
+component EsPlaneta: void
+
+component EsNau: void
+
+component EsBandol: void
+
+component Bandols: Set<Entity>
+
+component Planetes: Set<Entity>
+
+component GrupsPlanetes: Set<Entity>
