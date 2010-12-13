@@ -62,6 +62,17 @@ template Nau(tipus:TipusDeNau, planeta: Entity<Position, Radi, EsPlaneta>, bando
 
 template Aresta(planeta1: Entity<Veïns>, planeta2: Entity<Veïns>) {
   ArestaComp( {planeta1,planeta2} )
+  
+  Geometry( model       = "Assets/Aresta.j3o", 
+            translation = Utils.posAresta(planeta1[Position], planeta2[Position]) , 
+            rotation    = Utils.rotAresta(planeta1[Position], planeta2[Position]) ,
+            scale       = Utils.scaAresta(planeta1[Position], planeta2[Position]))
+   
+  Material( name  = "Assets/Aresta.material", 
+            colors["Ambient"] = Utils.colorHSV(
+                                        (planeta1[Grup][Hue].hue + planeta1[Grup][Hue].hue) / 2, 
+                                        rnd[0.7:1], rnd[0.7:1]))
+			  
 }
 
 template Edifici(planeta: Entity<Edificis>, bandol: Entity< Hue, EdificiEnConstruccio>, tipusDeEdifici: TipusDeEdifici) {
