@@ -36,6 +36,10 @@ enum TipusDeEdifici {
   }
 }
 
+enum Shapes {
+  BOX, SPHERE
+}
+
 //structs ------------------------------------------------------------------------
 
 struct Color {
@@ -67,6 +71,11 @@ component Material {
   matrixes:Map<String,Matrix4f>
   vectors2:Map<String,Vector2f>
   vectors3:Map<String,Vector3f>
+}
+
+component Collidable {
+  shape: Shapes
+  param1, param2, param3: float
 }
   
 component Node extends Spatial {
