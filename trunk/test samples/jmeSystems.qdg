@@ -1,0 +1,101 @@
+﻿// en algun lloc de java...
+
+public class JME_Quadriga_API {
+  public com.jme3.scene.Node getRootNode() ...
+}
+
+abstract system JME3Spatials {
+  components {
+    Spatial
+  }
+  
+  additionalInfo {
+    jME3Spatial: com.jme3.scene.Spatial
+  }
+  
+  onNewEntity(com.jme3.scene.Spatial spatial) {
+    entity[jME3Spatial] = spatial;
+  }
+  
+  onChange {
+    entity[jME3Spatial].setLocalTranslation(entity[Node].translation);
+    entity[jME3Spatial].setLocalRotation(entity[Node].rotation);
+    entity[jME3Spatial].setLocalScale(entity[Node].scale);
+  }
+}
+
+system JME3Nodes implements JME3Spatials {
+  components {
+    Node
+  }
+  
+  additionalInfo {
+    jME3Node: com.jme3.scene.Node
+  }
+  
+  init() {
+    Entity rootNode = new Entity("RootNode");
+    addComponent Node(parent = null) @ rootNode;
+    rootNode[jME3Node] = JME_Quadriga_API.getRootNode();
+  }
+  
+  onNewEntity() {
+    if(entity[Node].parent == null) {
+      if(entity.name.equals("RootNode")) {
+        super.onNewEntity(node);
+        return;
+      } else {
+        entity[Node].parent = Entity.getFromName("RootNode");
+      }
+    }
+  
+    com.jme3.scene.Node node = new com.jme3.scene.Node("Entity node: " + entity);
+    com.jme3.scene.Node parent = entity[Node].parent[jME3Node];
+    
+    parent.attachChild(node);
+    
+    entity[jME3Node] = node;
+    super(node);
+  }
+  
+  onChange {
+    super;
+  }
+  
+  onEraseEntity {
+    entity[jME3Node].removeFromParent();
+  }
+}
+
+system JME3Geometries implements JME3Spatials {
+  components {
+    Geometry
+  }
+  
+  additionalInfo {
+    jME3Geometry: com.jme3.scene.Geometry
+  }
+  
+  externInfo {
+    jME3Node: JME3Nodes.jME3Node
+  }
+  
+  onNewEntity {
+    com.jme3.scene.Mesh mesh = JME_Quadriga_API.getAssetManager().loadModel(entity[Geometry].model);
+    com.jme3.scene.Geometry geometry = new com.jme3.scene.Geometry("Entity geo: " + entity, mesh);
+    com.jme3.scene.Node parent = entity[Geometry].parent[jME3Node];
+    
+    parent.attachChild(geometry);
+    
+    entity[jME3Geometry] = geometry;
+    super(geometry);
+  }
+  
+  onChange {
+    super;
+  }
+  
+  onEraseEntity {
+    entity[jME3Geometry].removeFromParent();
+  }
+}
