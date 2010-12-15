@@ -4,6 +4,10 @@ public class JME_Quadriga_API {
   public com.jme3.scene.Node getRootNode() ...
 }
 
+//----------------------------------------------
+
+const String ROOT_NODE = "RootNode";
+
 abstract system JME3Spatials {
   components {
     Spatial
@@ -33,19 +37,14 @@ system JME3Nodes implements JME3Spatials {
     jME3Node: com.jme3.scene.Node
   }
   
-  init() {
-    Entity rootNode = new Entity("RootNode");
-    addComponent Node(parent = null) @ rootNode;
-    rootNode[jME3Node] = JME_Quadriga_API.getRootNode();
-  }
-  
   onNewEntity() {
     if(entity[Node].parent == null) {
-      if(entity.name.equals("RootNode")) {
+      if(entity.name.equals(ROOT_NODE)) {
+        entity[jME3Node] = JME_Quadriga_API.getRootNode();
         super.onNewEntity(node);
         return;
       } else {
-        entity[Node].parent = Entity.getFromName("RootNode");
+        entity[Node].parent = Entity.getFromName(ROOT_NODE);
       }
     }
   

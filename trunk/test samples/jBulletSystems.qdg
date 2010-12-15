@@ -1,0 +1,101 @@
+﻿
+const String BULLET_CENTRAL_ENTITY = "BulletCentralEntity";
+
+component JBulletCentral: void
+component JBulletCollidable: void
+
+event JBulletCollision {
+  entityA, entityB: Entity
+}
+event JBulletUnCollision {
+  entityA, entityB: Entity
+}
+
+system jBulletCentralSystem {
+  components {
+    JBulletCentral
+  }
+
+  additionalInfo {
+    jBulletCollisionWorld: com.bulletphysics.collision.dispatch.CollisionWorld
+    jBulletDispatcher: com.bulletphysics.collision.dispatch.Dispatcher
+    prevCollisions: Set<Pair<Entity,Entity>>
+    collisionCache: Set<Pair<Entity,Entity>>
+  }
+  
+  onNewEntity() {
+    if(Entity.getAllEntitiesWith(JBulletCentral).size() > 1) {
+      throw new IllegalStateException("Only one JBulletCentral entity is permitted");
+    }
+    
+    entity[prevCollisions] = new Set<Pair<Entity,Entity>>();
+    entity[collisionCache] = new Set<Pair<Entity,Entity>>();
+    
+    CollisionConfiguration collisionConfiguration = new DefaultCollisionConfiguration();
+    entity[jBulletDispatcher] = new CollisionDispatcher(collisionConfiguration) 
+    BroadphaseInterface broadphasePairCache = new DbvtBroadphase();
+    
+    entity[jBulletCollisionWorld] = new CollisionWorld(entity[jBulletDispatcher], broadphasePairCache, collisionConfiguration) 
+  }
+  
+  update() {
+    entity[jBulletCollisionWorld].performDiscreteCollisionDetection();
+    
+    //entity[collisionCache].clear();
+    
+    int numManifolds = entity[jBulletDispatcher].getNumManifolds();
+    for(int i = 0; i < numManifolds; i++)
+    {
+      PersistentManifold contactManifold = entity[jBulletDispatcher].getManifoldByIndexInternal(i);
+      CollisionObject objectA = (CollisionObject) contactManifold.getBody0();
+      CollisionObject objectB = (CollisionObject) contactManifold.getBody1();
+      
+      Entity entityA = objectA.getUserPointer(),
+      Entity entityB = objectB.getUserPointer()
+      if(entityA.getId() > entityB.getId())
+      {
+        //swap, sempre A < B
+        Entity aux = entityA;
+        entityA = entityB;
+        entityB = aux;
+      }
+      
+      Pair<Entity,Entity> parella = new Pair<Entity,Entity>(entityA,entityB);
+      
+      if(!entity[prevCollisions].contains(parella)) {   
+        throw new JBulletCollision( entityA, entityB );
+      }
+      entity[collisionCache].add(parella);
+    }
+    
+    for(Pair<Entity, Entity> removed: entity[prevCollisions].removeAll(entity[collisionCache])) {
+      throw new JBulletCollision( removed.entityA, removed.entityB );
+    }
+    
+    Set<Pair<Entity,Entity>> auxiliarSet = entity[prevCollisions];
+    entity[prevCollisions] = entity[collisionCache];
+    entity[collisionCache] = auxiliarSet;
+    entity[collisionCache].clear();
+  }
+}
+
+system jBulletCollisionSystem {
+  components {
+    JBulletCollidable
+  }
+  
+  externInfo {
+    jBulletCollisionWorld: jBulletCollisionSystem.jBulletCollisionWorld
+  }
+  
+  onNewEntity {
+    CollisionWorld collisionWorld = Entity.getFromName(BULLET_CENTRAL_ENTITY)[jBulletCollisionWorld];
+    
+    //TODO
+  }
+  
+  onEraseEntity {
+    CollisionWorld collisionWorld = Entity.getFromName(BULLET_CENTRAL_ENTITY)[jBulletCollisionWorld];
+  
+  }
+}

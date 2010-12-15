@@ -7,7 +7,7 @@ system NauSystem {
     PlanetTo
   }
   
-  init {
+  onNewEntity() {
     Map< Tupla<TipusDeNau, Entity>, Set<Entity>> nausAlPlaneta, nausAlBandol;
     Tupla<TipusDeNau, Entity> clau;
     
@@ -28,7 +28,7 @@ system ArestaSystem {
   components {
     ArestaComp
   }
-  init {
+  onNewEntity() {
     Entity<Veïns> planeta1 = entity[ArestaComp][0];
     Entity<Veïns> planeta2 = entity[ArestaComp][0];
     planeta1[Veïns].add(planeta2);
@@ -42,7 +42,7 @@ system EdificiSystem {
     Bandol,
     EsEdifici
   }
-  init {
+  onNewEntity() {
     Entity planeta = entity[PlanetTo];
     Entity bandol  = entity[Bandol];
     planeta[Edificis].add( entity );
@@ -54,7 +54,7 @@ system NivellAleatori {
   component {
     NivellAleatoriComp
   }
-  init {
+  onNewEntity() {
     NivellAleatoriComp params = entity[NivellAleatoriComp];
     
     int numGrups                = params.numGrups;
