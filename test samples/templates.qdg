@@ -47,7 +47,7 @@ template Nau(tipus:TipusDeNau, planeta: Entity<Position, Radi, EsPlaneta>, bando
   Position( Utils.moveToRandom(planeta[Position],planeta[Radi]*3) )
   
   Geometry( model = tipus.model, 
-            parent = Entity.getFromName("RootNode"), 
+            parent = Entity.getFromName(ROOT_NODE), //si es queda a null, ho faria automàticament
             translation = Position )
             
   Material( name = "Assets/Nau.material",
