@@ -11,6 +11,7 @@ const String ROOT_NODE = "RootNode";
 abstract system JME3Spatials {
   components {
     Spatial
+    Transform
   }
   
   additionalInfo {
@@ -22,9 +23,9 @@ abstract system JME3Spatials {
   }
   
   onChange {
-    entity[jME3Spatial].setLocalTranslation(entity[Node].translation);
-    entity[jME3Spatial].setLocalRotation(entity[Node].rotation);
-    entity[jME3Spatial].setLocalScale(entity[Node].scale);
+    entity[jME3Spatial].setLocalTranslation(entity[Transform].translation);
+    entity[jME3Spatial].setLocalRotation(entity[Transform].rotation);
+    entity[jME3Spatial].setLocalScale(entity[Transform].scale);
   }
 }
 
