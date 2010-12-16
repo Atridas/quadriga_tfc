@@ -48,13 +48,20 @@ struct Color {
 
 //components ---------------------------------------------------------------------
 
+/*
 component Position: Vector3f
+component Scale: Vector3f
 component Rotation: Quaternion
+*/
 
-component Spatial {
+component Transform {
   translation:Vector3f
   rotation:Quaternion
   scale:Vector3f
+}
+
+component Spatial {
+  needs Transform
 }
 
 component Geometry extends Spatial {

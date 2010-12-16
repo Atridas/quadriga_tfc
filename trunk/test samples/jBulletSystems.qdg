@@ -1,8 +1,51 @@
-﻿
+﻿//Java code
+
+public class ShapeParams implements Serializable {
+  private static final long serialVersionUID = 4969206546105395467L;
+  private static Map<ShapeParams,CollisionShape> cache = new WeakHashMap<ShapeParams, CollisionShape>();
+  
+  public Shape shape;
+  public Vector3f vecParam1;
+  public float fParam1;
+  
+  //TODO equals hashcode
+  public CollisionShape getCollisionShape() {
+    CollisionShape cs = cache.get(this);
+    if(cs!=null) {
+      return cs;
+    }
+    
+    switch(shape) {
+    case BOX:
+      cs = new BoxShape(vecParam1);
+      break;
+    case SPHERE:
+      cs = new SphereShape(fParam1);
+      break;
+    default:
+      return null;
+    }
+    
+    cache.put(this, cs);
+    return cs;
+  }
+  
+  public enum Shape {
+    BOX, SPHERE;
+  }
+}
+  
+
+///////////////////////////////
+
+
 const String BULLET_CENTRAL_ENTITY = "BulletCentralEntity";
 
 component JBulletCentral: void
-component JBulletCollidable: void
+
+component JBulletCollidable {
+  shape: ShapeParams
+}
 
 event JBulletCollision {
   entityA, entityB: Entity
@@ -63,7 +106,7 @@ system jBulletCentralSystem {
       Pair<Entity,Entity> parella = new Pair<Entity,Entity>(entityA,entityB);
       
       if(!entity[prevCollisions].contains(parella)) {   
-        throw new JBulletCollision( entityA, entityB );
+        throw new JBulletUnCollision( entityA, entityB );
       }
       entity[collisionCache].add(parella);
     }
@@ -82,6 +125,11 @@ system jBulletCentralSystem {
 system jBulletCollisionSystem {
   components {
     JBulletCollidable
+    Transform
+  }
+  
+  additionalInfo {
+    jBulletCollisionObject: CollisionObject
   }
   
   externInfo {
@@ -91,11 +139,32 @@ system jBulletCollisionSystem {
   onNewEntity {
     CollisionWorld collisionWorld = Entity.getFromName(BULLET_CENTRAL_ENTITY)[jBulletCollisionWorld];
     
-    //TODO
+    
+    entity[jBulletCollisionObject] = new CollisionObject();
+    
+    entity[jBulletCollisionObject].setCollisionShape(entity[JBulletCollidable].shape.getCollisionShape());
+    
+    Transform transform = Utils.getJBulletTransform(entity[Transform].position,entity[Transform].rotation,entity[Transform].scale);
+    entity[jBulletCollisionObject].setWorldTransform(transform);
+    
+    entity[jBulletCollisionObject].setUserPointer(entity);
+    
+    collisionWorld.addCollisionObject(entity[jBulletCollisionObject]);
+  }
+  
+  onChange {
+    if( entity[JBulletCollidable].hasChanged() ) {
+      entity[jBulletCollisionObject].setCollisionShape(entity[JBulletCollidable].shape.getCollisionShape());
+    }
+    if( entity[Transform].hasChanged() ) {
+      Transform transform = Utils.getJBulletTransform(entity[Transform].position,entity[Transform].rotation,entity[Transform].scale);
+      entity[jBulletCollisionObject].setWorldTransform(transform);
+    }
   }
   
   onEraseEntity {
     CollisionWorld collisionWorld = Entity.getFromName(BULLET_CENTRAL_ENTITY)[jBulletCollisionWorld];
   
+    collisionWorld.removeCollisionObject(entity[jBulletCollisionObject]);
   }
 }
