@@ -1,0 +1,97 @@
+﻿
+component SteeringBehavior {
+  *Transform
+  speed: Vector3f
+  rotation: Quaternion
+  maxSpeed: float
+  maxRotation: float
+  maxAcceleration: float
+  listLinearVelocity: List<Vector3f>
+  listRotations: List<Quaternion>
+}
+
+system Seek {
+  *SteeringBehavior
+  objective: Entity<Transform>
+  weight: float
+}
+
+system Arrive {
+  *SteeringBehavior
+  objective: Entity<Transform>
+  weight: float
+}
+
+system Orbit {
+  *SteeringBehavior
+  objective: Entity<Transform>
+  distance: float
+  weight: float
+}
+
+system Wander {
+  *SteeringBehavior
+  weight: float
+}
+
+system SteeringSystem {
+
+  components {
+    SteeringBehavior
+    Transform
+  }
+  
+  onUpdate(float s: Seconds, Entity<Transform, SteeringBehavior> entity: Updated Entity) {
+    entity[Transform].position += entity[SteeringBehavior].speed * s;
+    Utils.updateOrientation(entity[Transform].orientation,entity[SteeringBehavior].rotation, s);
+    
+    Vector3f linear = new Vector3f();
+    for(Vector3f linearInfluence: entity[SteeringBehavior].listLinearVelocity) {
+      linear += linearInfluence;
+    }
+    if(linear.lenghtSqared() > entity[SteeringBehavior].maxAcceleration * entity[SteeringBehavior].maxAcceleration) {
+      linear.normalize();
+      linear *= entity[SteeringBehavior].maxAcceleration;
+    }
+    
+    entity[SteeringBehavior].rotation = Utils.getNewNeutralRotation();
+    for(Quaternion rotationInfluence: entity[SteeringBehavior].listRotations) {
+      Utils.updateOrientation(entity[SteeringBehavior].rotation,rotationInfluence,1);
+    }
+    Utils.capRotation(entity[SteeringBehavior].rotation,entity[SteeringBehavior].maxRotation);
+    
+    entity[SteeringBehavior].speed += linear;
+    
+    if(entity[SteeringBehavior].speed.lenghtSqared() > entity[SteeringBehavior].maxSpeed * entity[SteeringBehavior].maxSpeed) {
+      entity[SteeringBehavior].speed.normalize();
+      entity[SteeringBehavior].speed *= entity[SteeringBehavior].maxSpeed;
+    }
+    
+    entity[SteeringBehavior].listLinearVelocity.clean();
+    entity[SteeringBehavior].listRotations.clean();
+  }
+}
+
+system SeekSystem {
+  components {
+    SteeringBehavior
+    Transform
+    Seek
+  }
+  
+  onUpdate(Entity<Transform, SteeringBehavior, Seek> entity: Updated Entity) {
+    Vector3f desiredAcc = entity[Seek].objective[Transform].position - entity[Transform].position;
+    
+    if(desiredAcc.lenghtSqared() > entity[SteeringBehavior].maxAcceleration * entity[SteeringBehavior].maxAcceleration) {
+      desiredAcc.normalize();
+      desiredAcc *= entity[SteeringBehavior].maxAcceleration;
+    }
+    
+    desiredAcc *= entity[Seek].weight;
+    
+    entity[SteeringBehavior].listLinearVelocity.add(desiredAcc);
+  }
+}
+
+
+//TODO altres sistemes

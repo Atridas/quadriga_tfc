@@ -20,6 +20,9 @@ abstract system JME3Spatials {
   
   onNewEntity(com.jme3.scene.Spatial spatial) {
     entity[jME3Spatial] = spatial;
+    entity[jME3Spatial].setLocalTranslation(entity[Transform].translation);
+    entity[jME3Spatial].setLocalRotation(entity[Transform].rotation);
+    entity[jME3Spatial].setLocalScale(entity[Transform].scale);
   }
   
   onChange {
