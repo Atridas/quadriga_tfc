@@ -106,13 +106,13 @@ system jBulletCentralSystem {
       Pair<Entity,Entity> parella = new Pair<Entity,Entity>(entityA,entityB);
       
       if(!entity[prevCollisions].contains(parella)) {   
-        throw new JBulletUnCollision( entityA, entityB );
+        throw new JBulletCollision( entityA, entityB );
       }
       entity[collisionCache].add(parella);
     }
     
     for(Pair<Entity, Entity> removed: entity[prevCollisions].removeAll(entity[collisionCache])) {
-      throw new JBulletCollision( removed.entityA, removed.entityB );
+      throw new JBulletUnCollision( removed.entityA, removed.entityB );
     }
     
     Set<Pair<Entity,Entity>> auxiliarSet = entity[prevCollisions];
