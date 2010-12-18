@@ -55,38 +55,9 @@ component Rotation: Quaternion
 */
 
 component Transform {
-  translation:Vector3f
-  rotation:Quaternion
-  scale:Vector3f
-}
-
-component Spatial {
-  needs Transform
-}
-
-component Geometry extends Spatial {
-  model:String
-  parent:Entity<Node>
-}
-
-component Material {
-  name:String
-  colors:Map<String,Color>
-  floats:Map<String,float>
-  ints:Map<String,int>
-  booleans:Map<String,boolean>
-  matrixes:Map<String,Matrix4f>
-  vectors2:Map<String,Vector2f>
-  vectors3:Map<String,Vector3f>
-}
-
-component Collidable {
-  shape: Shapes
-  param1, param2, param3: float
-}
-  
-component Node extends Spatial {
-  parent:Entity with Node
+  translation:Vector3f = new Vector3f(0,0,0);
+  rotation:Quaternion = new Quaternion(0,0,0,1);
+  scale:Vector3f = new Vector3f(0,0,0);
 }
 
 component Naus: Map< Tupla<TipusDeNau, Entity>, Set<Entity>>
@@ -129,9 +100,9 @@ component Tipus: TipusDeNau
 
 component TimeToDie: float
 
-component EsPlaneta: void
-
-component EsNau: void
+component EsPlaneta {
+  radi: float
+}
 
 component EsBandol: void
 

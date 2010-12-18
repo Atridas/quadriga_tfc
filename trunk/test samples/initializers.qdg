@@ -22,6 +22,22 @@ system NauSystem {
     nausAlBandol = bandol[Naus];
     nausAlBandol[clau].add( entity );
   }
+  
+  onEraseEntity() {
+    Map< Tupla<TipusDeNau, Entity>, Set<Entity>> nausAlPlaneta, nausAlBandol;
+    Tupla<TipusDeNau, Entity> clau;
+    
+    Entity<Hue> bandol = entity[Bandol];
+    Entity<EsPlaneta> planeta = entity[PlanetTo];
+    TipusDeNau tipus = entity[Tipus];
+    clau = Tupla.get<TipusDeNau, Entity>(tipus,bandol);
+    
+    nausAlPlaneta = planeta[Naus];
+    nausAlPlaneta[clau].remove( entity );
+    
+    nausAlBandol = bandol[Naus];
+    nausAlBandol[clau].remove( entity );
+  }
 }
 
 system ArestaSystem {
@@ -30,7 +46,7 @@ system ArestaSystem {
   }
   onNewEntity() {
     Entity<Veïns> planeta1 = entity[ArestaComp][0];
-    Entity<Veïns> planeta2 = entity[ArestaComp][0];
+    Entity<Veïns> planeta2 = entity[ArestaComp][1];
     planeta1[Veïns].add(planeta2);
     planeta2[Veïns].add(planeta1);
   }

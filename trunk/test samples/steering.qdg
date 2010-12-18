@@ -16,6 +16,24 @@ system Seek {
   weight: float
 }
 
+system MultipleSeek {
+  *SteeringBehavior
+  objectives: Set<Entity<Transform>>
+  weight: float
+}
+
+system Flee {
+  *SteeringBehavior
+  objective: Entity<Transform>
+  weight: float
+}
+
+system MultipleFlee {
+  *SteeringBehavior
+  objectives: Set<Entity<Transform>>
+  weight: float
+}
+
 system Arrive {
   *SteeringBehavior
   objective: Entity<Transform>

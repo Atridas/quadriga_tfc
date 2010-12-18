@@ -1,0 +1,130 @@
+﻿enum DetectorKind {
+  PLANET, LONG_SHIP, SHORT_SHIP
+}
+
+////-----------------------------------------------------------------
+
+component EsNau {
+  shipLongDetector: entity<JBulletCollidable>
+  shipShortDetector: entity<JBulletCollidable>
+  planetDetector: entity<JBulletCollidable>
+}
+
+component EsShipDetector {
+  ship: entity<EsNau>
+  kind: DetectorKind
+}
+
+system DetectorsSystem {
+  
+  onEvent JBulletCollision(JBulletCollision event: Incoming Event) {
+    if(!event.entityA.contains(EsShipDetector) && !event.entityB.contains(EsShipDetector)) {
+      throw event; //we do not handle this event
+    }
+    
+    Entity detector;
+    Entity otherObject;
+    
+    if(event.entityA.contains(EsShipDetector)) {
+      detector    = event.entityA;
+      otherObject = event.entityB;
+    } else {
+      detector    = event.entityB;
+      otherObject = event.entityA;
+    }
+    
+    Entity ship = detector[EsShipDetector].ship
+    
+    if(otherObject.equals( ship ) {
+      return; //we detected our own ship. Nothing to do here
+    }
+    
+    switch(detector[EsShipDetector].kind) {
+    case PLANET:
+      if(!otherObject.contains(EsPlaneta)) {
+        return;
+      }
+      if(ship.contains(Orbit)) {
+        return; //we're done
+      }
+      
+      remove Seek @ ship;
+      
+      Orbit orbit = new Orbit(
+                              objective = otherObject,
+                              distance  = otherObject[EsPlaneta].radi * 3.0f;
+                             );
+      add orbit @ ship;
+          
+      
+      //TODO coses del "recompte" de naus en un planeta
+      break;
+    case LONG_SHIP:
+      if(!otherObject.contains(EsNau)) {
+        return;
+      }
+      
+      if(otherObject[Bandol].equals(ship[Bandol])) {
+        ship[MultipleFlee].objectives.add(otherObject);
+      } else {
+        ship[MultipleSeek].objectives.add(otherObject);
+      }
+      
+      break;
+    case SHORT_SHIP:
+      if(!otherObject.contains(EsNau)) {
+        return;
+      }
+      
+      if(otherObject[Bandol].equals(ship[Bandol])) {
+        return;
+      } else {
+        //TODO shoot!!!!!
+      }
+      
+      break;
+    }
+  }
+
+  onEvent JBulletUnCollision(JBulletUnCollision event: Incoming Event) {
+    if(!event.entityA.contains(EsShipDetector) && !event.entityB.contains(EsShipDetector)) {
+      throw event; //we do not handle this event
+    }
+    
+    Entity detector;
+    Entity otherObject;
+    
+    if(event.entityA.contains(EsShipDetector)) {
+      detector    = event.entityA;
+      otherObject = event.entityB;
+    } else {
+      detector    = event.entityB;
+      otherObject = event.entityA;
+    }
+    
+    Entity ship = detector[EsShipDetector].ship
+    
+    if(otherObject.equals( ship ) {
+      return; //we detected our own ship. Nothing to do here
+    }
+    
+    switch(detector[EsShipDetector].kind) {
+    case PLANET:
+    case SHORT_SHIP:
+      return;
+    case LONG_SHIP:
+      if(!otherObject.contains(EsNau)) {
+        return;
+      }
+      
+      if(otherObject[Bandol].equals(ship[Bandol])) {
+        ship[MultipleFlee].objectives.remove(otherObject);
+      } else {
+        ship[MultipleSeek].objectives.remove(otherObject);
+      }
+      
+      break;
+    }
+    
+  }
+}
