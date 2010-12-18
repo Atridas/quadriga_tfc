@@ -8,6 +8,32 @@ public class JME_Quadriga_API {
 
 const String ROOT_NODE = "RootNode";
 
+
+
+component Spatial {
+  *Transform
+}
+
+component Geometry extends Spatial {
+  model:String
+  parent:Entity<Node>
+}
+  
+component Node extends Spatial {
+  parent:Entity with Node
+}
+
+component Material {
+  name:String
+  colors:Map<String,Color>
+  floats:Map<String,float>
+  ints:Map<String,int>
+  booleans:Map<String,boolean>
+  matrixes:Map<String,Matrix4f>
+  vectors2:Map<String,Vector2f>
+  vectors3:Map<String,Vector3f>
+}
+
 abstract system JME3Spatials {
   components {
     Spatial

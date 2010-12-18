@@ -8,6 +8,12 @@ public class ShapeParams implements Serializable {
   public Vector3f vecParam1;
   public float fParam1;
   
+  public ShapeParams(Shape shape, Vector3f vecParam1, float fParam1) {
+    this.shape = shape;
+    this.vecParam1 = new Vector3d(vecParam1);
+    this.fParam1 = fParam1;
+  }
+  
   //TODO equals hashcode
   public CollisionShape getCollisionShape() {
     CollisionShape cs = cache.get(this);
