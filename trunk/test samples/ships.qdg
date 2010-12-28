@@ -16,19 +16,36 @@
   kind: DetectorKind
 }
 
+@component EsExercit {
+  ships: Map<TipusDeNau, Entity<EsNau>>
+}
+
+@component Exercit: Entity<EsExercit>
+
 @component EsBandol {
-  ships: Map<TipusDeNau, Entity>
+  ships: Map<TipusDeNau, Entity<EsNau>>
+  exercitBuit: Entity<EsExercit>
+  exercits: Set<Entity<EsExercit>>
+  maxNaus: Map<TipusDeNau, Integer>
 }
 
 @component PlanetTo: Entity<EsPlaneta>
 
-@component MaxNaus: Map<TipusDeNau, Integer>
-
 @prototype Bandol(colorHue : float) {
-  Hue( colorHue )
-  MaxNaus()
-  EsBandol()
-  EdificiEnConstruccio(null)
+  Hue                 ( colorHue )
+  EsBandol            ( exercitBuit = new ExercitBuit(this) )
+  EdificiEnConstruccio( null )
+}
+
+@prototype Exercit(bandol: Entity<EsBandol>, planeta: Entity<EsPlaneta>) {
+  EsExercit()
+  Bandol(bandol)
+  PlanetTo(planeta)
+}
+
+@prototype ExercitBuit(bandol: Entity<EsBandol>) {
+  EsExercit()
+  Bandol(bandol)
 }
 
 @prototype Nau(tipus:TipusDeNau, planeta: Entity<Position, Radi, EsPlaneta>, bandol: Entity<Hue>) {
@@ -50,6 +67,8 @@
        )
   
   Bandol(bandol)
+  
+  Exercit(bandol[EsBandol].exercitBuit)
   
   PlantetTo(planeta)
   
@@ -90,17 +109,22 @@
   
   @newEntity() {
     
-    Entity<Hue> bandol = entity[Bandol];
+    Entity<EsBandol> bandol = entity[Bandol];
+    Entity<EsExercit> exercit = entity[Exercit];
     TipusDeNau tipus = entity[Tipus];
     
-    bandol[EsBandol][tipus].add( entity );
+    bandol[EsBandol].ships[tipus].add( entity );
+    exercit.ships[tipus].add( entity );
+    
   }
   
   @eraseEntity() {
-    Entity<Hue> bandol = entity[Bandol];
+    Entity<EsBandol> bandol = entity[Bandol];
+    Entity<EsExercit> exercit = entity[Exercit];
     TipusDeNau tipus = entity[Tipus];
     
-    bandol[EsBandol][tipus].remove( entity );
+    bandol[EsBandol].ships[tipus].remove( entity );
+    exercit.ships[tipus].remove( entity );
   }
 }
 
@@ -141,11 +165,11 @@
       Entity<EsPlanet> següentPlaneta = otherObject[EsPlaneta].direccionsExercits[entity[EsNau].exercit];
       
       if(següentPlaneta == null) {
-        ship[Seek] = null;
-        ship[Orbit] = new Orbit(
-                                objective = otherObject,
-                                distance  = otherObject[EsPlaneta].radi * 3.0f;
-                               );
+        @remove ship[Seek];
+        @add ship[ Orbit(
+                          objective = otherObject,
+                          distance  = otherObject[EsPlaneta].radi * 3.0f;
+                         ) ];
       } else {
         ship[Seek].objective = otherObject;
       }

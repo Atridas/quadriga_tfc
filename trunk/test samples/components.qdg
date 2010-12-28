@@ -76,9 +76,10 @@ component Rotation: Quaternion
 
 @component EdificiEnConstruccio: Entity<Construint>
 
-@component EdificiTipus: TipusDeEdifici
-
-@component EsEdifici: void
+@component EsEdifici {
+  construit: boolean
+  tipus: TipusDeEdifici
+}
 
 @component Veïns: Set<Entity>
 
