@@ -7,129 +7,27 @@
 
 /* comentari */
 
-template GrupPlanetes(colorHue : float) {
-  Hue( colorHue )
-}
-
-
-template Planeta( posicio:Vector3f, grup: Entity<Hue>, radi: float) {
-    Geometry( model = "Assets/Planeta.j3o", 
-              translation = posicio, 
-              scale = new Vector3f(radi,radi,radi) )
-   
-    Material( name  = "Assets/Planeta.material", 
-              colors["Ambient"] = Utils.colorHSV(grup[Hue].hue, rnd[0.7:1], rnd[0.7:1]))
-              
-    Grup( grup )
-    
-    Position( posicio )
-    
-    Radi( radi )
-    
-    Naus()
-    
-    Edificis()
-    
-    EsPlaneta(radi = radi)
-    
-    JBulletCollidable(shape = new ShapeParams(ShapeParams.Shape.SPHERE, null, radi))
-}
-
-template Bandol(colorHue : float) {
-  Hue( colorHue )
-  Naus()
-  MaxNaus()
-  EsBandol()
-  EdificiEnConstruccio(null)
-}
-
-template Nau(tipus:TipusDeNau, planeta: Entity<Position, Radi, EsPlaneta>, bandol: Entity<Hue>) {
-  Tipus(tipus)
-  
-  Transform( position = Utils.moveToRandom(planeta[Position],planeta[Radi]*3) )
-  
-  Geometry( model = tipus.model, 
-            parent = Entity.getFromName(ROOT_NODE), //si es queda a null, ho faria automàticament
-            translation = Position )
-            
-  Material( name = "Assets/Nau.material",
-            colors["Ambient"] = Utils.colorHSV(bandol[Hue].hue, tipus.saturation, tipus.value))
-            
-  EsNau(
-        shipLongDetector  = new ShipDetector(5.0f, this, DetectorKind.LONG_SHIP)
-        shipShortDetector = new ShipDetector(2.5f, this, DetectorKind.LONG_SHIP)
-        planetDetector    = new ShipDetector(Utils.getMaxPlanetRadi() * 5.f, this, DetectorKind.LONG_SHIP)
-       )
-  
-  Bandol(bandol)
-  
-  PlantetTo(planeta)
-  
-  SteeringBehavior(
-                    maxSpeed = 1.0f,
-                    maxRotation = 2.0f * Math.PI,
-                    maxAcceleration = 1.0f
-                  )
-             
-  Orbit(
-          objective = planeta,
-          distance = planeta[EsPlaneta].radi * 3.0f;
-        )
-        
-  MultipleSeek()
-  MultipleFlee()
-        
-  JBulletCollidable(shape = new ShapeParams(ShapeParams.Shape.SPHERE, null, 1.0f))
-}
-
-template ShipDetector(float radi, entity<EsNau> nau, DetectorKind kind) {
-  EsShipDetector( 
-                  ship = nau
-                  kind = kind
-                )
-  JBulletCollidable(
-                    shape = new ShapeParams(ShapeParams.Shape.SPHERE, null, radi)
-                   )
-}
-
-template Aresta(planeta1: Entity<Veïns>, planeta2: Entity<Veïns>) {
-  ArestaComp( {planeta1,planeta2} )
-  
-  Geometry( model       = "Assets/Aresta.j3o", 
-            translation = Utils.posAresta(planeta1[Position], planeta2[Position]) , 
-            rotation    = Utils.rotAresta(planeta1[Position], planeta2[Position]) ,
-            scale       = Utils.scaAresta(planeta1[Position], planeta2[Position]))
-   
-  Material( name  = "Assets/Aresta.material", 
-            colors["Ambient"] = Utils.colorHSV(
-                                        (planeta1[Grup][Hue].hue + planeta1[Grup][Hue].hue) / 2, 
-                                        rnd[0.7:1], rnd[0.7:1]))
-			  
-}
-
-template Edifici(planeta: Entity<Edificis>, bandol: Entity< Hue, EdificiEnConstruccio>, tipusDeEdifici: TipusDeEdifici) {
+@prototype Edifici(planeta: Entity<Edificis>, bandol: Entity< Hue, EdificiEnConstruccio>, tipusDeEdifici: TipusDeEdifici) {
   PlanetTo(planeta)
   Bandol(bandol)
   Construint(tipusDeEdifici.tempsDeConstruccio)
   EdificiTipus(tipusDeEdifici)
 }
 
-const float PLANETA_MIN       = 5
-const float PLANETA_MAX       = 10
-const float MIN_DISTANCE      = 35
-const float MAX_REL_DISTANCE  = 60
+@const float PLANETA_MIN       = 5
+@const float PLANETA_MAX       = 10
+@const float MIN_DISTANCE      = 35
+@const float MAX_REL_DISTANCE  = 60
 
-template NivellAleatori(numGrups: int, numPlanetes: int, numArestesEntreGrups: int, numArestesEntrePlanetes: int, numBandols: int) {
-  components {
-    Bandols()
-    Planetes()
-    GrupsPlanetes()
-    NivellAleatoriComp(
-              numGrups = numGrups,
-              numPlanetes = numPlanetes,
-              numArestesEntreGrups = numArestesEntreGrups,
-              numArestesEntrePlanetes = numArestesEntrePlanetes,
-              numBandols = numBandols
-                      )
-  }
+@prototype NivellAleatori(numGrups: int, numPlanetes: int, numArestesEntreGrups: int, numArestesEntrePlanetes: int, numBandols: int) {
+  Bandols()
+  Planetes()
+  GrupsPlanetes()
+  NivellAleatoriComp(
+            numGrups = numGrups,
+            numPlanetes = numPlanetes,
+            numArestesEntreGrups = numArestesEntreGrups,
+            numArestesEntrePlanetes = numArestesEntrePlanetes,
+            numBandols = numBandols
+                    )
 }

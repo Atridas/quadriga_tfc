@@ -1,0 +1,77 @@
+
+@component EsPlaneta {
+  radi: float
+  detector: Entity<EsPlanetaDetector>
+  recarga: float
+  tempsTotalRecarga: float
+  direccionsExercits: Map<Entity<EsExercit>, Entity<EsPlaneta>>
+}
+
+@component EsPlanetaDetector {
+  planeta: Entity
+}
+
+@prototype GrupPlanetes(colorHue : float) {
+  Hue( colorHue )
+}
+
+@prototype Planeta( posicio:Vector3f, grup: Entity<Hue>, radi: float) {
+    Geometry( model = "Assets/Planeta.j3o", 
+              translation = posicio, 
+              scale = new Vector3f(radi,radi,radi) )
+   
+    Material( name  = "Assets/Planeta.material", 
+              colors["Ambient"] = Utils.colorHSV(grup[Hue].hue, rnd[0.7:1], rnd[0.7:1]))
+              
+    Grup( grup )
+    
+    Position( posicio )
+    
+    Radi( radi )
+    
+    Edificis()
+    
+    Veïns()
+    
+    EsPlaneta(radi              = radi,
+              detector          = new PlanetaDetector( this, radi*4 ),
+              tempsTotalRecarga = 5.f,
+              recarga           = 10.f )
+    
+    JBulletCollidable(shape = new ShapeParams(ShapeParams.Shape.SPHERE, null, radi))
+}
+
+@prototype PlanetaDetector( planeta: Entity , radi: float) {
+  EsPlanetaDetector( planeta = planeta )
+  
+  JBulletCollidable(
+                    shape = new ShapeParams(ShapeParams.Shape.SPHERE, null, radi)
+                   )
+}
+
+@prototype Aresta(planeta1: Entity<Veïns>, planeta2: Entity<Veïns>) {
+  ArestaComp( {planeta1,planeta2} )
+  
+  Geometry( model       = "Assets/Aresta.j3o", 
+            translation = Utils.posAresta(planeta1[Position], planeta2[Position]) , 
+            rotation    = Utils.rotAresta(planeta1[Position], planeta2[Position]) ,
+            scale       = Utils.scaAresta(planeta1[Position], planeta2[Position]))
+   
+  Material( name  = "Assets/Aresta.material", 
+            colors["Ambient"] = Utils.colorHSV(
+                                        (planeta1[Grup][Hue].hue + planeta1[Grup][Hue].hue) / 2, 
+                                        rnd[0.7:1], rnd[0.7:1]))
+			  
+}
+
+@system ArestaSystem {
+  @components {
+    ArestaComp
+  }
+  @newEntity() {
+    Entity<Veïns> planeta1 = entity[ArestaComp][0];
+    Entity<Veïns> planeta2 = entity[ArestaComp][1];
+    planeta1[Veïns].add(planeta2);
+    planeta2[Veïns].add(planeta1);
+  }
+}

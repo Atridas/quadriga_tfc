@@ -1,5 +1,5 @@
 ﻿
-component SteeringBehavior {
+@component SteeringBehavior {
   *Transform
   speed: Vector3f
   rotation: Quaternion
@@ -10,56 +10,56 @@ component SteeringBehavior {
   listRotations: List<Quaternion>
 }
 
-system Seek {
+@component Seek {
   *SteeringBehavior
   objective: Entity<Transform>
   weight: float
 }
 
-system MultipleSeek {
+@component MultipleSeek {
   *SteeringBehavior
   objectives: Set<Entity<Transform>>
   weight: float
 }
 
-system Flee {
+@component Flee {
   *SteeringBehavior
   objective: Entity<Transform>
   weight: float
 }
 
-system MultipleFlee {
+@component MultipleFlee {
   *SteeringBehavior
   objectives: Set<Entity<Transform>>
   weight: float
 }
 
-system Arrive {
+@component Arrive {
   *SteeringBehavior
   objective: Entity<Transform>
   weight: float
 }
 
-system Orbit {
+@component Orbit {
   *SteeringBehavior
   objective: Entity<Transform>
   distance: float
   weight: float
 }
 
-system Wander {
+@component Wander {
   *SteeringBehavior
   weight: float
 }
 
-system SteeringSystem {
+@system SteeringSystem {
 
-  components {
+  @components {
     SteeringBehavior
     Transform
   }
   
-  onUpdate(float s: Seconds, Entity<Transform, SteeringBehavior> entity: Updated Entity) {
+  @update(float s: Seconds, Entity<Transform, SteeringBehavior> entity: Updated Entity) {
     entity[Transform].position += entity[SteeringBehavior].speed * s;
     Utils.updateOrientation(entity[Transform].orientation,entity[SteeringBehavior].rotation, s);
     
@@ -90,14 +90,14 @@ system SteeringSystem {
   }
 }
 
-system SeekSystem {
-  components {
+@system SeekSystem {
+  @components {
     SteeringBehavior
     Transform
     Seek
   }
   
-  onUpdate(Entity<Transform, SteeringBehavior, Seek> entity: Updated Entity) {
+  @update(Entity<Transform, SteeringBehavior, Seek> entity: Updated Entity) {
     Vector3f desiredAcc = entity[Seek].objective[Transform].position - entity[Transform].position;
     
     if(desiredAcc.lenghtSqared() > entity[SteeringBehavior].maxAcceleration * entity[SteeringBehavior].maxAcceleration) {

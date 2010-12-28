@@ -1,64 +1,13 @@
 
-system NauSystem {
-  components {
-    EsNau,
-    Tipus,
-    Bandol,
-    PlanetTo
-  }
-  
-  onNewEntity() {
-    Map< Tupla<TipusDeNau, Entity>, Set<Entity>> nausAlPlaneta, nausAlBandol;
-    Tupla<TipusDeNau, Entity> clau;
-    
-    Entity<Hue> bandol = entity[Bandol];
-    Entity<EsPlaneta> planeta = entity[PlanetTo];
-    TipusDeNau tipus = entity[Tipus];
-    clau = Tupla.get<TipusDeNau, Entity>(tipus,bandol);
-    
-    nausAlPlaneta = planeta[Naus];
-    nausAlPlaneta[clau].add( entity );
-    
-    nausAlBandol = bandol[Naus];
-    nausAlBandol[clau].add( entity );
-  }
-  
-  onEraseEntity() {
-    Map< Tupla<TipusDeNau, Entity>, Set<Entity>> nausAlPlaneta, nausAlBandol;
-    Tupla<TipusDeNau, Entity> clau;
-    
-    Entity<Hue> bandol = entity[Bandol];
-    Entity<EsPlaneta> planeta = entity[PlanetTo];
-    TipusDeNau tipus = entity[Tipus];
-    clau = Tupla.get<TipusDeNau, Entity>(tipus,bandol);
-    
-    nausAlPlaneta = planeta[Naus];
-    nausAlPlaneta[clau].remove( entity );
-    
-    nausAlBandol = bandol[Naus];
-    nausAlBandol[clau].remove( entity );
-  }
-}
 
-system ArestaSystem {
-  components {
-    ArestaComp
-  }
-  onNewEntity() {
-    Entity<Veïns> planeta1 = entity[ArestaComp][0];
-    Entity<Veïns> planeta2 = entity[ArestaComp][1];
-    planeta1[Veïns].add(planeta2);
-    planeta2[Veïns].add(planeta1);
-  }
-}
 
-system EdificiSystem {
-  components {
+@system EdificiSystem {
+  @components {
     PlanetTo,
     Bandol,
     EsEdifici
   }
-  onNewEntity() {
+  @newEntity() {
     Entity planeta = entity[PlanetTo];
     Entity bandol  = entity[Bandol];
     planeta[Edificis].add( entity );
@@ -66,11 +15,11 @@ system EdificiSystem {
   }
 }
 
-system NivellAleatori {
-  component {
+@system NivellAleatori {
+  @component {
     NivellAleatoriComp
   }
-  onNewEntity() {
+  @newEntity() {
     NivellAleatoriComp params = entity[NivellAleatoriComp];
     
     int numGrups                = params.numGrups;
