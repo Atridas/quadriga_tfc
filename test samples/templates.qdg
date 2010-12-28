@@ -11,7 +11,17 @@
   PlanetTo(planeta)
   Bandol(bandol)
   Construint(tipusDeEdifici.tempsDeConstruccio)
-  EdificiTipus(tipusDeEdifici)
+  EsEdifici ( tipus = tipusDeEdifici,
+              construit = false
+            )
+}
+
+@prototype EdificiInicial(planeta: Entity<Edificis>, bandol: Entity< Hue, EdificiEnConstruccio>) {
+  PlanetTo(planeta)
+  Bandol(bandol)
+  EsEdifici ( TipusDeEdifici.HQ,
+              construit = true
+            )
 }
 
 @const float PLANETA_MIN       = 5

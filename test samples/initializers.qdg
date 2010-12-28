@@ -19,7 +19,7 @@
   @component {
     NivellAleatoriComp
   }
-  @newEntity() {
+  @newEntity {
     NivellAleatoriComp params = entity[NivellAleatoriComp];
     
     int numGrups                = params.numGrups;
@@ -167,12 +167,13 @@
       
       Entity< Hue, EdificiEnConstruccio > bandol = new Bandol(planeta[Grup][Hue]);
       entity[Bandols].add(bandol);
-      Entity<Construint> edifici = new Edifici(planeta, bandol, TipusDeEdifici.HQ)
-      remove edifici[Construint];
+      Entity<Construint> edifici = new EdificiInicial(planeta, bandol)
+      Entity<EsExercit> exercit = new Exercit(bandol, planeta);
+      @add Exercit(exercit) @ edifici;
       for(TipusDeNau tip : TipusDeNau.getArray()) {
-        Nau(tip, planeta, bandol);
-        Nau(tip, planeta, bandol);
-        Nau(tip, planeta, bandol);
+        new Nau(tip, planeta, bandol);
+        new Nau(tip, planeta, bandol);
+        new Nau(tip, planeta, bandol);
         bandol[MaxNaus][TipusDeNau] = TipusDeNau.MAX_NAUS_HQ;
       }
     }
