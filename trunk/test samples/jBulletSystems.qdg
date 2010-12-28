@@ -45,34 +45,34 @@ public class ShapeParams implements Serializable {
 ///////////////////////////////
 
 
-const String BULLET_CENTRAL_ENTITY = "BulletCentralEntity";
+@const String BULLET_CENTRAL_ENTITY = "BulletCentralEntity";
 
-component JBulletCentral: void
+@component JBulletCentral: void
 
-component JBulletCollidable {
+@component JBulletCollidable {
   shape: ShapeParams
 }
 
-event JBulletCollision {
+@event JBulletCollision {
   entityA, entityB: Entity
 }
-event JBulletUnCollision {
+@event JBulletUnCollision {
   entityA, entityB: Entity
 }
 
-system jBulletCentralSystem {
-  components {
+@system jBulletCentralSystem {
+  @components {
     JBulletCentral
   }
 
-  additionalInfo {
+  @additionalInfo {
     jBulletCollisionWorld: com.bulletphysics.collision.dispatch.CollisionWorld
     jBulletDispatcher: com.bulletphysics.collision.dispatch.Dispatcher
     prevCollisions: Set<Pair<Entity,Entity>>
     collisionCache: Set<Pair<Entity,Entity>>
   }
   
-  onNewEntity() {
+  @newEntity() {
     if(Entity.getAllEntitiesWith(JBulletCentral).size() > 1) {
       throw new IllegalStateException("Only one JBulletCentral entity is permitted");
     }
@@ -87,7 +87,7 @@ system jBulletCentralSystem {
     entity[jBulletCollisionWorld] = new CollisionWorld(entity[jBulletDispatcher], broadphasePairCache, collisionConfiguration) 
   }
   
-  update() {
+   @update() {
     entity[jBulletCollisionWorld].performDiscreteCollisionDetection();
     
     //entity[collisionCache].clear();
@@ -128,21 +128,21 @@ system jBulletCentralSystem {
   }
 }
 
-system jBulletCollisionSystem {
-  components {
+@system jBulletCollisionSystem {
+  @components {
     JBulletCollidable
     Transform
   }
   
-  additionalInfo {
+  @additionalInfo {
     jBulletCollisionObject: CollisionObject
   }
   
-  externInfo {
+  @externInfo {
     jBulletCollisionWorld: jBulletCollisionSystem.jBulletCollisionWorld
   }
   
-  onNewEntity {
+  @newEntity {
     CollisionWorld collisionWorld = Entity.getFromName(BULLET_CENTRAL_ENTITY)[jBulletCollisionWorld];
     
     
@@ -158,7 +158,7 @@ system jBulletCollisionSystem {
     collisionWorld.addCollisionObject(entity[jBulletCollisionObject]);
   }
   
-  onChange {
+  @change {
     if( entity[JBulletCollidable].hasChanged() ) {
       entity[jBulletCollisionObject].setCollisionShape(entity[JBulletCollidable].shape.getCollisionShape());
     }
@@ -168,7 +168,7 @@ system jBulletCollisionSystem {
     }
   }
   
-  onEraseEntity {
+  @eraseEntity {
     CollisionWorld collisionWorld = Entity.getFromName(BULLET_CENTRAL_ENTITY)[jBulletCollisionWorld];
   
     collisionWorld.removeCollisionObject(entity[jBulletCollisionObject]);

@@ -4,20 +4,109 @@
 
 ////-----------------------------------------------------------------
 
-component EsNau {
+@component EsNau {
   shipLongDetector: entity<JBulletCollidable>
   shipShortDetector: entity<JBulletCollidable>
   planetDetector: entity<JBulletCollidable>
+  exercit: entity<EsExercit>
 }
 
-component EsShipDetector {
+@component EsShipDetector {
   ship: entity<EsNau>
   kind: DetectorKind
 }
 
-system DetectorsSystem {
+@component EsBandol {
+  ships: Map<TipusDeNau, Entity>
+}
+
+@component PlanetTo: Entity<EsPlaneta>
+
+@component MaxNaus: Map<TipusDeNau, Integer>
+
+@prototype Bandol(colorHue : float) {
+  Hue( colorHue )
+  MaxNaus()
+  EsBandol()
+  EdificiEnConstruccio(null)
+}
+
+@prototype Nau(tipus:TipusDeNau, planeta: Entity<Position, Radi, EsPlaneta>, bandol: Entity<Hue>) {
+  Tipus(tipus)
   
-  onEvent JBulletCollision(JBulletCollision event: Incoming Event) {
+  Transform( position = Utils.moveToRandom(planeta[Position],planeta[Radi]*3) )
+  
+  Geometry( model = tipus.model, 
+            parent = Entity.getFromName(ROOT_NODE), //si es queda a null, ho faria automàticament
+            translation = Position )
+            
+  Material( name = "Assets/Nau.material",
+            colors["Ambient"] = Utils.colorHSV(bandol[Hue].hue, tipus.saturation, tipus.value))
+            
+  EsNau(
+        shipLongDetector  = new ShipDetector(5.0f, this, DetectorKind.LONG_SHIP)
+        shipShortDetector = new ShipDetector(2.5f, this, DetectorKind.LONG_SHIP)
+        planetDetector    = new ShipDetector(Utils.getMaxPlanetRadi() * 5.f, this, DetectorKind.LONG_SHIP)
+       )
+  
+  Bandol(bandol)
+  
+  PlantetTo(planeta)
+  
+  SteeringBehavior(
+                    maxSpeed = 1.0f,
+                    maxRotation = 2.0f * Math.PI,
+                    maxAcceleration = 1.0f
+                  )
+             
+  Orbit(
+          objective = planeta,
+          distance = planeta[EsPlaneta].radi * 3.0f;
+        )
+        
+  MultipleSeek()
+  MultipleFlee()
+        
+  JBulletCollidable(shape = new ShapeParams(ShapeParams.Shape.SPHERE, null, 1.0f))
+}
+
+@prototype ShipDetector(float radi, entity<EsNau> nau, DetectorKind kind) {
+  EsShipDetector( 
+                  ship = nau
+                  kind = kind
+                )
+  JBulletCollidable(
+                    shape = new ShapeParams(ShapeParams.Shape.SPHERE, null, radi)
+                   )
+}
+
+@system NauSystem {
+  @components {
+    EsNau,
+    Tipus,
+    Bandol,
+    PlanetTo
+  }
+  
+  @newEntity() {
+    
+    Entity<Hue> bandol = entity[Bandol];
+    TipusDeNau tipus = entity[Tipus];
+    
+    bandol[EsBandol][tipus].add( entity );
+  }
+  
+  @eraseEntity() {
+    Entity<Hue> bandol = entity[Bandol];
+    TipusDeNau tipus = entity[Tipus];
+    
+    bandol[EsBandol][tipus].remove( entity );
+  }
+}
+
+@system DetectorsSystem {
+  
+  @event JBulletCollision(JBulletCollision event: Incoming Event) {
     if(!event.entityA.contains(EsShipDetector) && !event.entityB.contains(EsShipDetector)) {
       throw event; //we do not handle this event
     }
@@ -41,23 +130,26 @@ system DetectorsSystem {
     
     switch(detector[EsShipDetector].kind) {
     case PLANET:
-      if(!otherObject.contains(EsPlaneta)) {
+      if(!otherObject[EsPlaneta] != null) {
         return;
       }
-      if(ship.contains(Orbit)) {
+      if(ship[Orbit] != null) {
         return; //we're done
       }
       
-      remove Seek @ ship;
       
-      Orbit orbit = new Orbit(
-                              objective = otherObject,
-                              distance  = otherObject[EsPlaneta].radi * 3.0f;
-                             );
-      add orbit @ ship;
-          
+      Entity<EsPlanet> següentPlaneta = otherObject[EsPlaneta].direccionsExercits[entity[EsNau].exercit];
       
-      //TODO coses del "recompte" de naus en un planeta
+      if(següentPlaneta == null) {
+        ship[Seek] = null;
+        ship[Orbit] = new Orbit(
+                                objective = otherObject,
+                                distance  = otherObject[EsPlaneta].radi * 3.0f;
+                               );
+      } else {
+        ship[Seek].objective = otherObject;
+      }
+      
       break;
     case LONG_SHIP:
       if(!otherObject.contains(EsNau)) {
@@ -86,7 +178,7 @@ system DetectorsSystem {
     }
   }
 
-  onEvent JBulletUnCollision(JBulletUnCollision event: Incoming Event) {
+  @event JBulletUnCollision(JBulletUnCollision event: Incoming Event) {
     if(!event.entityA.contains(EsShipDetector) && !event.entityB.contains(EsShipDetector)) {
       throw event; //we do not handle this event
     }

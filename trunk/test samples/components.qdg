@@ -54,21 +54,17 @@ component Scale: Vector3f
 component Rotation: Quaternion
 */
 
-component Transform {
+@component Transform {
   translation:Vector3f = new Vector3f(0,0,0);
   rotation:Quaternion = new Quaternion(0,0,0,1);
   scale:Vector3f = new Vector3f(0,0,0);
 }
 
-component Naus: Map< Tupla<TipusDeNau, Entity>, Set<Entity>>
+@component Naus: Map< Tupla<TipusDeNau, Entity>, Set<Entity>>
 
-component MaxNaus: Map<TipusDeNau, Integer>
+@component Edificis: Set<Entity>
 
-component Edificis Set<Entity>
-
-component PlanetTo: Entity<EsPlaneta>
-
-component NivellAleatoriComp {
+@component NivellAleatoriComp {
   numGrups: int
   numPlanetes: int
   numArestesEntreGrups: int
@@ -76,38 +72,32 @@ component NivellAleatoriComp {
   numBandols: int
 }
 
-component Construint: float
+@component Construint: float
 
-component EdificiEnConstruccio: Entity with Construint
+@component EdificiEnConstruccio: Entity<Construint>
 
-component EdificiTipus: TipusDeEdifici
+@component EdificiTipus: TipusDeEdifici
 
-component EsEdifici: void
+@component EsEdifici: void
 
-component Veïns: Set<Entity>
+@component Veïns: Set<Entity>
 
-component ArestaComp: Entity<Veïns>[]
+@component ArestaComp: Entity<Veïns>[]
 
-component Hue: float
+@component Hue: float
 
-component Radi: float
+@component Radi: float
 
-component Grup: Entity<Hue>
+@component Grup: Entity<Hue>
 
-component Bandol: Entity<Hue>
+@component Bandol: Entity<Hue>
 
-component Tipus: TipusDeNau
+@component Tipus: TipusDeNau
 
-component TimeToDie: float
+@component TimeToDie: float
 
-component EsPlaneta {
-  radi: float
-}
+@component Bandols: Set<Entity>
 
-component EsBandol: void
+@component Planetes: Set<Entity>
 
-component Bandols: Set<Entity>
-
-component Planetes: Set<Entity>
-
-component GrupsPlanetes: Set<Entity>
+@component GrupsPlanetes: Set<Entity>
