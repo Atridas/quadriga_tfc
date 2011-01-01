@@ -15,23 +15,23 @@ public class JME_Quadriga_API {
 }
 
 @component Geometry extends Spatial {
-  model:String
-  parent:Entity<Node>
+  String model
+  Entity<Node> parent
 }
   
 @component Node extends Spatial {
-  parent:Entity with Node
+  Entity with Node parent
 }
 
 @component Material {
-  name:String
-  colors:Map<String,Color>
-  floats:Map<String,float>
-  ints:Map<String,int>
-  booleans:Map<String,boolean>
-  matrixes:Map<String,Matrix4f>
-  vectors2:Map<String,Vector2f>
-  vectors3:Map<String,Vector3f>
+  String name
+  Map<String,Color> colors
+  Map<String,float> floats
+  Map<String,int> ints
+  Map<String,boolean> booleans
+  Map<String,Matrix4f> matrixes
+  Map<String,Vector2f> vectors2
+  Map<String,Vector3f> vectors3
 }
 
 abstract @system JME3Spatials {
@@ -41,17 +41,17 @@ abstract @system JME3Spatials {
   }
   
   @additionalInfo {
-    jME3Spatial: com.jme3.scene.Spatial
+    com.jme3.scene.Spatial jME3Spatial
   }
   
-  @newEntity(com.jme3.scene.Spatial spatial) {
+  @newEntity(com.jme3.scene.Spatial spatial, Entity entity: ENTITY) {
     entity[jME3Spatial] = spatial;
     entity[jME3Spatial].setLocalTranslation(entity[Transform].translation);
     entity[jME3Spatial].setLocalRotation(entity[Transform].rotation);
     entity[jME3Spatial].setLocalScale(entity[Transform].scale);
   }
   
-  @change {
+  @change(Entity entity: ENTITY) {
     entity[jME3Spatial].setLocalTranslation(entity[Transform].translation);
     entity[jME3Spatial].setLocalRotation(entity[Transform].rotation);
     entity[jME3Spatial].setLocalScale(entity[Transform].scale);
@@ -64,10 +64,10 @@ abstract @system JME3Spatials {
   }
   
   @additionalInfo {
-    jME3Node: com.jme3.scene.Node
+    com.jme3.scene.Node jME3Node
   }
   
-  @newEntity() {
+  @newEntity(Entity entity: ENTITY) {
     if(entity[Node].parent == null) {
       if(entity.name.equals(ROOT_NODE)) {
         entity[jME3Node] = JME_Quadriga_API.getRootNode();
@@ -87,11 +87,11 @@ abstract @system JME3Spatials {
     super(node);
   }
   
-  @change {
-    super;
+  @change() {
+    super();
   }
   
-  @eraseEntity {
+  @eraseEntity(Entity entity: ENTITY) {
     entity[jME3Node].removeFromParent();
   }
 }
@@ -102,14 +102,14 @@ abstract @system JME3Spatials {
   }
   
   @additionalInfo {
-    jME3Geometry: com.jme3.scene.Geometry
+    com.jme3.scene.Geometry jME3Geometry
   }
   
   @externInfo {
-    jME3Node: JME3Nodes.jME3Node
+    com.jme3.scene.Node jME3Node: JME3Nodes.jME3Node
   }
   
-  @newEntity {
+  @newEntity(Entity entity: ENTITY) {
     com.jme3.scene.Mesh mesh = JME_Quadriga_API.getAssetManager().loadModel(entity[Geometry].model);
     com.jme3.scene.Geometry geometry = new com.jme3.scene.Geometry("Entity geo: " + entity, mesh);
     com.jme3.scene.Node parent = entity[Geometry].parent[jME3Node];
@@ -120,11 +120,11 @@ abstract @system JME3Spatials {
     super(geometry);
   }
   
-  @change {
-    super;
+  @change() {
+    super();
   }
   
-  @eraseEntity {
+  @eraseEntity(Entity entity: ENTITY) {
     entity[jME3Geometry].removeFromParent();
   }
 }

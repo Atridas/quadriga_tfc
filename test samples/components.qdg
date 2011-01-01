@@ -55,9 +55,9 @@ component Rotation: Quaternion
 */
 
 @component Transform {
-  translation:Vector3f = new Vector3f(0,0,0);
-  rotation:Quaternion = new Quaternion(0,0,0,1);
-  scale:Vector3f = new Vector3f(0,0,0);
+  Vector3f translation = new Vector3f(0,0,0);
+  Quaternion rotation = new Quaternion(0,0,0,1);
+  Vector3f scale = new Vector3f(0,0,0);
 }
 
 @component Naus: Map< Tupla<TipusDeNau, Entity>, Set<Entity>>
@@ -65,11 +65,7 @@ component Rotation: Quaternion
 @component Edificis: Set<Entity>
 
 @component NivellAleatoriComp {
-  numGrups: int
-  numPlanetes: int
-  numArestesEntreGrups: int
-  numArestesEntrePlanetes: int
-  numBandols: int
+  int numGrups, numPlanetes, numArestesEntreGrups, numArestesEntrePlanetes, numBandols
 }
 
 @component Construint: float
@@ -77,8 +73,8 @@ component Rotation: Quaternion
 @component EdificiEnConstruccio: Entity<Construint>
 
 @component EsEdifici {
-  construit: boolean
-  tipus: TipusDeEdifici
+  boolean construit
+  TipusDeEdifici tipus
 }
 
 @component Veïns: Set<Entity>

@@ -5,50 +5,48 @@
 ////-----------------------------------------------------------------
 
 @component EsNau {
-  shipLongDetector: entity<JBulletCollidable>
-  shipShortDetector: entity<JBulletCollidable>
-  planetDetector: entity<JBulletCollidable>
-  exercit: entity<EsExercit>
+  Entity<JBulletCollidable> shipLongDetector, shipShortDetector, planetDetector
+  Entity<EsExercit> exercit
 }
 
 @component EsShipDetector {
-  ship: entity<EsNau>
-  kind: DetectorKind
+  Entity<EsNau> ship
+  DetectorKind kind
 }
 
 @component EsExercit {
-  ships: Map<TipusDeNau, Entity<EsNau>>
+  Map<TipusDeNau, Entity<EsNau>> ships
 }
 
 @component Exercit: Entity<EsExercit>
 
 @component EsBandol {
-  ships: Map<TipusDeNau, Entity<EsNau>>
-  exercitBuit: Entity<EsExercit>
-  exercits: Set<Entity<EsExercit>>
-  maxNaus: Map<TipusDeNau, Integer>
+  Map<TipusDeNau, Entity<EsNau>> ships
+  Entity<EsExercit> exercitBuit
+  Set<Entity<EsExercit>> exercits
+  Map<TipusDeNau, Integer> maxNaus
 }
 
 @component PlanetTo: Entity<EsPlaneta>
 
-@prototype Bandol(colorHue : float) {
+@prototype Bandol(float colorHue) {
   Hue                 ( colorHue )
   EsBandol            ( exercitBuit = new ExercitBuit(this) )
   EdificiEnConstruccio( null )
 }
 
-@prototype Exercit(bandol: Entity<EsBandol>, planeta: Entity<EsPlaneta>) {
+@prototype Exercit(Entity<EsBandol> bandol, Entity<EsPlaneta> planeta) {
   EsExercit()
   Bandol(bandol)
   PlanetTo(planeta)
 }
 
-@prototype ExercitBuit(bandol: Entity<EsBandol>) {
+@prototype ExercitBuit(Entity<EsBandol> bandol) {
   EsExercit()
   Bandol(bandol)
 }
 
-@prototype Nau(tipus:TipusDeNau, planeta: Entity<Position, Radi, EsPlaneta>, bandol: Entity<Hue>) {
+@prototype Nau(TipusDeNau tipus, Entity<Position, Radi, EsPlaneta> planeta, Entity<Hue> bandol) {
   Tipus(tipus)
   
   Transform( position = Utils.moveToRandom(planeta[Position],planeta[Radi]*3) )
@@ -107,7 +105,7 @@
     PlanetTo
   }
   
-  @newEntity() {
+  @newEntity(Entity entity: ENTITY) {
     
     Entity<EsBandol> bandol = entity[Bandol];
     Entity<EsExercit> exercit = entity[Exercit];
@@ -118,7 +116,7 @@
     
   }
   
-  @eraseEntity() {
+  @eraseEntity(Entity entity: ENTITY) {
     Entity<EsBandol> bandol = entity[Bandol];
     Entity<EsExercit> exercit = entity[Exercit];
     TipusDeNau tipus = entity[Tipus];
@@ -130,7 +128,7 @@
 
 @system DetectorsSystem {
   
-  @event JBulletCollision(JBulletCollision event: Incoming Event) {
+  @event JBulletCollision(JBulletCollision event: EVENT) {
     if(!event.entityA.contains(EsShipDetector) && !event.entityB.contains(EsShipDetector)) {
       throw event; //we do not handle this event
     }
@@ -202,7 +200,7 @@
     }
   }
 
-  @event JBulletUnCollision(JBulletUnCollision event: Incoming Event) {
+  @event JBulletUnCollision(JBulletUnCollision event: EVENT) {
     if(!event.entityA.contains(EsShipDetector) && !event.entityB.contains(EsShipDetector)) {
       throw event; //we do not handle this event
     }

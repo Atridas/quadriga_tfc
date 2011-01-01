@@ -7,7 +7,7 @@
     Bandol,
     EsEdifici
   }
-  @newEntity() {
+  @newEntity(Entity entity: ENTITY) {
     Entity planeta = entity[PlanetTo];
     Entity bandol  = entity[Bandol];
     planeta[Edificis].add( entity );
@@ -19,7 +19,7 @@
   @component {
     NivellAleatoriComp
   }
-  @newEntity {
+  @newEntity(Entity entity: ENTITY) {
     NivellAleatoriComp params = entity[NivellAleatoriComp];
     
     int numGrups                = params.numGrups;

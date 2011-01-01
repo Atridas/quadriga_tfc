@@ -1,55 +1,52 @@
 ﻿
 @component SteeringBehavior {
   *Transform
-  speed: Vector3f
-  rotation: Quaternion
-  maxSpeed: float
-  maxRotation: float
-  maxAcceleration: float
-  listLinearVelocity: List<Vector3f>
-  listRotations: List<Quaternion>
+  Vector3f speed
+  Quaternion rotation
+  float maxSpeed, maxRotation, maxAcceleration
+  List<Vector3f> listLinearVelocity
+  List<Quaternion> listRotations
 }
 
 @component Seek {
   *SteeringBehavior
-  objective: Entity<Transform>
-  weight: float
+  Entity<Transform> objective
+  float weight
 }
 
 @component MultipleSeek {
   *SteeringBehavior
-  objectives: Set<Entity<Transform>>
-  weight: float
+  Set<Entity<Transform>> objectives
+  float weight
 }
 
 @component Flee {
   *SteeringBehavior
-  objective: Entity<Transform>
-  weight: float
+  Entity<Transform> objective
+  float weight
 }
 
 @component MultipleFlee {
   *SteeringBehavior
-  objectives: Set<Entity<Transform>>
-  weight: float
+  Set<Entity<Transform>> objectives
+  float weight
 }
 
 @component Arrive {
   *SteeringBehavior
-  objective: Entity<Transform>
-  weight: float
+  Entity<Transform> objective
+  float weight
 }
 
 @component Orbit {
   *SteeringBehavior
-  objective: Entity<Transform>
-  distance: float
-  weight: float
+  Entity<Transform> objective
+  float weight, distance
 }
 
 @component Wander {
   *SteeringBehavior
-  weight: float
+  float weight
 }
 
 @system SteeringSystem {
@@ -59,7 +56,7 @@
     Transform
   }
   
-  @update(float s: Seconds, Entity<Transform, SteeringBehavior> entity: Updated Entity) {
+  @update(float s: SECONDS, Entity entity: ENTITY) {
     entity[Transform].position += entity[SteeringBehavior].speed * s;
     Utils.updateOrientation(entity[Transform].orientation,entity[SteeringBehavior].rotation, s);
     
@@ -97,7 +94,7 @@
     Seek
   }
   
-  @update(Entity<Transform, SteeringBehavior, Seek> entity: Updated Entity) {
+  @update(Entity entity: ENTITY) {
     Vector3f desiredAcc = entity[Seek].objective[Transform].position - entity[Transform].position;
     
     if(desiredAcc.lenghtSqared() > entity[SteeringBehavior].maxAcceleration * entity[SteeringBehavior].maxAcceleration) {

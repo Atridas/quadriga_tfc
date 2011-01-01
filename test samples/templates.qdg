@@ -7,7 +7,7 @@
 
 /* comentari */
 
-@prototype Edifici(planeta: Entity<Edificis>, bandol: Entity< Hue, EdificiEnConstruccio>, tipusDeEdifici: TipusDeEdifici) {
+@prototype Edifici(Entity<Edificis> planeta, Entity< EsBandol> bandol, TipusDeEdifici tipusDeEdifici) {
   PlanetTo(planeta)
   Bandol(bandol)
   Construint(tipusDeEdifici.tempsDeConstruccio)
@@ -16,7 +16,7 @@
             )
 }
 
-@prototype EdificiInicial(planeta: Entity<Edificis>, bandol: Entity< Hue, EdificiEnConstruccio>) {
+@prototype EdificiInicial(Entity<Edificis> planeta, Entity< EsBandol> bandol) {
   PlanetTo(planeta)
   Bandol(bandol)
   EsEdifici ( TipusDeEdifici.HQ,
@@ -29,7 +29,7 @@
 @const float MIN_DISTANCE      = 35
 @const float MAX_REL_DISTANCE  = 60
 
-@prototype NivellAleatori(numGrups: int, numPlanetes: int, numArestesEntreGrups: int, numArestesEntrePlanetes: int, numBandols: int) {
+@prototype NivellAleatori(int numGrups, int numPlanetes, int numArestesEntreGrups, int numArestesEntrePlanetes, int numBandols) {
   Bandols()
   Planetes()
   GrupsPlanetes()

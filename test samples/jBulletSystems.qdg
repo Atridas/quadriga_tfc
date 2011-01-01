@@ -50,14 +50,14 @@ public class ShapeParams implements Serializable {
 @component JBulletCentral: void
 
 @component JBulletCollidable {
-  shape: ShapeParams
+  ShapeParams shape
 }
 
 @event JBulletCollision {
-  entityA, entityB: Entity
+  Entity entityA, entityB
 }
 @event JBulletUnCollision {
-  entityA, entityB: Entity
+  Entity entityA, entityB
 }
 
 @system jBulletCentralSystem {
@@ -66,13 +66,12 @@ public class ShapeParams implements Serializable {
   }
 
   @additionalInfo {
-    jBulletCollisionWorld: com.bulletphysics.collision.dispatch.CollisionWorld
-    jBulletDispatcher: com.bulletphysics.collision.dispatch.Dispatcher
-    prevCollisions: Set<Pair<Entity,Entity>>
-    collisionCache: Set<Pair<Entity,Entity>>
+    CollisionWorld jBulletCollisionWorld
+    Dispatcher jBulletDispatcher
+    Set<Pair<Entity,Entity>> prevCollisions, collisionCache
   }
   
-  @newEntity() {
+  @newEntity(Entity entity: ENTITY) {
     if(Entity.getAllEntitiesWith(JBulletCentral).size() > 1) {
       throw new IllegalStateException("Only one JBulletCentral entity is permitted");
     }
@@ -87,7 +86,7 @@ public class ShapeParams implements Serializable {
     entity[jBulletCollisionWorld] = new CollisionWorld(entity[jBulletDispatcher], broadphasePairCache, collisionConfiguration) 
   }
   
-   @update() {
+   @update(Entity entity: ENTITY) {
     entity[jBulletCollisionWorld].performDiscreteCollisionDetection();
     
     //entity[collisionCache].clear();
@@ -135,14 +134,14 @@ public class ShapeParams implements Serializable {
   }
   
   @additionalInfo {
-    jBulletCollisionObject: CollisionObject
+    CollisionObject jBulletCollisionObject
   }
   
   @externInfo {
-    jBulletCollisionWorld: jBulletCollisionSystem.jBulletCollisionWorld
+    CollisionWorld jBulletCollisionWorld: jBulletCollisionSystem.jBulletCollisionWorld
   }
   
-  @newEntity {
+  @newEntity(Entity entity: ENTITY) {
     CollisionWorld collisionWorld = Entity.getFromName(BULLET_CENTRAL_ENTITY)[jBulletCollisionWorld];
     
     
@@ -158,7 +157,7 @@ public class ShapeParams implements Serializable {
     collisionWorld.addCollisionObject(entity[jBulletCollisionObject]);
   }
   
-  @change {
+  @change(Entity entity: ENTITY) {
     if( entity[JBulletCollidable].hasChanged() ) {
       entity[jBulletCollisionObject].setCollisionShape(entity[JBulletCollidable].shape.getCollisionShape());
     }
@@ -168,7 +167,7 @@ public class ShapeParams implements Serializable {
     }
   }
   
-  @eraseEntity {
+  @eraseEntity(Entity entity: ENTITY) {
     CollisionWorld collisionWorld = Entity.getFromName(BULLET_CENTRAL_ENTITY)[jBulletCollisionWorld];
   
     collisionWorld.removeCollisionObject(entity[jBulletCollisionObject]);
