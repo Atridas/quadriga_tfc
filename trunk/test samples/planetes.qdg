@@ -1,21 +1,19 @@
 
 @component EsPlaneta {
-  radi: float
-  detector: Entity<EsPlanetaDetector>
-  recarga: float
-  tempsTotalRecarga: float
-  direccionsExercits: Map<Entity<EsExercit>, Entity<EsPlaneta>>
+  float radi, recarga, tempsTotalRecarga
+  Entity<EsPlanetaDetector> detector
+  Map<Entity<EsExercit>, Entity<EsPlaneta>> direccionsExercits
 }
 
 @component EsPlanetaDetector {
-  planeta: Entity
+  Entity<EsPlaneta> planeta
 }
 
-@prototype GrupPlanetes(colorHue : float) {
+@prototype GrupPlanetes(float colorHue) {
   Hue( colorHue )
 }
 
-@prototype Planeta( posicio:Vector3f, grup: Entity<Hue>, radi: float) {
+@prototype Planeta(Vector3f posicio, Entity<Hue> grup, float radi) {
     Geometry( model = "Assets/Planeta.j3o", 
               translation = posicio, 
               scale = new Vector3f(radi,radi,radi) )
@@ -41,7 +39,7 @@
     JBulletCollidable(shape = new ShapeParams(ShapeParams.Shape.SPHERE, null, radi))
 }
 
-@prototype PlanetaDetector( planeta: Entity , radi: float) {
+@prototype PlanetaDetector( Entity planeta, float radi) {
   EsPlanetaDetector( planeta = planeta )
   
   JBulletCollidable(
@@ -49,7 +47,7 @@
                    )
 }
 
-@prototype Aresta(planeta1: Entity<Veïns>, planeta2: Entity<Veïns>) {
+@prototype Aresta(Entity<Veïns> planeta1, Entity<Veïns> planeta2) {
   ArestaComp( {planeta1,planeta2} )
   
   Geometry( model       = "Assets/Aresta.j3o", 
@@ -68,7 +66,7 @@
   @components {
     ArestaComp
   }
-  @newEntity() {
+  @newEntity(Entity entity: ENTITY) {
     Entity<Veïns> planeta1 = entity[ArestaComp][0];
     Entity<Veïns> planeta2 = entity[ArestaComp][1];
     planeta1[Veïns].add(planeta2);
