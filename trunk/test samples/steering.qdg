@@ -1,4 +1,5 @@
-﻿
+﻿@quadriga steering
+
 @component SteeringBehavior {
   *Transform
   Vector3f speed
@@ -110,3 +111,8 @@
 
 
 //TODO altres sistemes
+
+@thread SteeringThread {
+  SeekSystem
+  SteeringSystem
+}

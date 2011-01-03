@@ -54,6 +54,8 @@ component Scale: Vector3f
 component Rotation: Quaternion
 */
 
+@quadriga components
+
 @component Transform {
   Vector3f translation = new Vector3f(0,0,0);
   Quaternion rotation = new Quaternion(0,0,0,1);

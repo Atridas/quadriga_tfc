@@ -4,6 +4,8 @@
 
 ////-----------------------------------------------------------------
 
+@quadriga ships 
+
 @component EsNau {
   Entity<JBulletCollidable> shipLongDetector, shipShortDetector, planetDetector
   Entity<EsExercit> exercit
@@ -164,10 +166,11 @@
       
       if(següentPlaneta == null) {
         @remove ship[Seek];
-        @add ship[ Orbit(
+        @add    Orbit(
                           objective = otherObject,
                           distance  = otherObject[EsPlaneta].radi * 3.0f;
-                         ) ];
+                         ) 
+                @ ship;
       } else {
         ship[Seek].objective = otherObject;
       }

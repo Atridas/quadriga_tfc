@@ -1,0 +1,33 @@
+
+@quadriga main
+
+@thread RiskPPT3D {
+  @systems {
+    ships.DetectorsSystem
+    ships.NauSystem
+    planetes.ArestaSystem
+    initializers.NivellAleatori
+    initializers.EdificiSystem
+  }
+  
+  @init {
+    new templates.NivellAleatori( 4,  // numGrups
+                                  20, // numPlanetes 
+                                  4,  // numArestesEntreGrups
+                                  30, // numArestesEntrePlanetes
+                                  2   // numBandols
+                                );
+  }
+}
+
+@main {
+  @mainThreads {
+    RiskPPT3D
+    jBulletSystems.Bullet
+    steering.SteeringThread
+  }
+  
+  @specialThreads {
+    jmeSystems.Monkey
+  }
+}
