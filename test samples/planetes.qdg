@@ -1,4 +1,6 @@
 
+@quadriga planetes
+
 @component EsPlaneta {
   float radi, recarga, tempsTotalRecarga
   Entity<EsPlanetaDetector> detector
@@ -59,7 +61,7 @@
             colors["Ambient"] = Utils.colorHSV(
                                         (planeta1[Grup][Hue].hue + planeta1[Grup][Hue].hue) / 2, 
                                         rnd[0.7:1], rnd[0.7:1]))
-			  
+        
 }
 
 @system ArestaSystem {
@@ -73,3 +75,4 @@
     planeta2[Veïns].add(planeta1);
   }
 }
+

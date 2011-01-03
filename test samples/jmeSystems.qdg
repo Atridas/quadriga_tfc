@@ -6,9 +6,16 @@ public class JME_Quadriga_API {
 
 //----------------------------------------------
 
+@quadriga jmeSystems 
+
 @const String ROOT_NODE = "RootNode";
 
-
+@thread Monkey {
+  @systems {
+    JME3Nodes
+    JME3Geometries
+  }
+}
 
 @component Spatial {
   *Transform

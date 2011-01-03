@@ -44,6 +44,7 @@ public class ShapeParams implements Serializable {
 
 ///////////////////////////////
 
+@quadriga jBulletSystems 
 
 @const String BULLET_CENTRAL_ENTITY = "BulletCentralEntity";
 
@@ -171,5 +172,16 @@ public class ShapeParams implements Serializable {
     CollisionWorld collisionWorld = Entity.getFromName(BULLET_CENTRAL_ENTITY)[jBulletCollisionWorld];
   
     collisionWorld.removeCollisionObject(entity[jBulletCollisionObject]);
+  }
+}
+
+@thread Bullet {
+  @systems {
+    jBulletCentralSystem
+    jBulletCollisionSystem
+  }
+  @init {
+    Entity central = new Entity(BULLET_CENTRAL_ENTITY);
+    @add JBulletCentral() @ central;
   }
 }
