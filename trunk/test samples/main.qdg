@@ -20,14 +20,20 @@
   }
 }
 
-@main {
-  @mainThreads {
-    RiskPPT3D
-    jBulletSystems.Bullet
-    steering.SteeringThread
-  }
-  
-  @specialThreads {
-    jmeSystems.Monkey
-  }
-}
+/* HOWTO
+
+Quadriga quadriga = new Quadriga();
+quadriga.addSourceFiles("quad/main.qdg");
+quadriga.addSourceFiles("quad/jBulletSystems.qdg", "quad/jmeSystems.qdg");
+
+quadriga.compileFiles();
+
+quadriga.initMainThreads("main.RiskPPT3D", "jBulletSystems.Bullet", "steering.SteeringThread");
+
+//quadriga.executeMainThreads();
+quadriga.runMainThreadsParallel();
+
+quadriga.initSpecialThread("jmeSystems.Monkey");
+quadriga.executeSpecialThread("jmeSystems.Monkey");
+
+*/
