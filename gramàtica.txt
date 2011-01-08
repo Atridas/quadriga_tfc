@@ -1,0 +1,51 @@
+
+
+Paraules clau especials:
+
+
+@quadriga 
+
+@struct 
+@system 
+@component 
+@prototype 
+@const 
+@event 
+@thread 
+
+@components 
+@additionalInfo 
+@externInfo 
+@affectedSystems 
+
+@newEntity 
+@eraseEntity 
+@change 
+@update 
+@init 
+@systems 
+
+@add 
+@remove 
+@changed 
+@discard 
+@old
+
+Construccions Especials:
+
+* Definició de Paquet: "@quadriga" identificador { "." identificador }
+
+* Estructura: "@struct" "{" {< Type > identifier {"," identifier} [";"]} "}"
+
+* Accés a Component:  < expresió (1)> "[" < expresió (2)> "]"
+        on (1) és de tipus Entity
+        i  (2) és un identificador d'un component [Class<? extends Component]
+
+* Constructor de Component: < ClassOrInterfaceType (1) > "(" [< expresió > | < Inicialitzadors Component >] ")"
+        on (1) és un identificador d'un component [Class<? extends Component]
+
+* Inicialitzadors Component: < Inicialitzador Component > {"," Inicialitzador Component} [","]
+
+* Inicialitzador Component: identificador "=" < expresió >
+
+*
