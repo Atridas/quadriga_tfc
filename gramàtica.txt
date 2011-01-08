@@ -35,9 +35,42 @@ Construccions Especials:
 
 * Definició de Paquet: "@quadriga" identificador { "." identificador }
 
-* Estructura: "@struct" "{" {< Type > identifier {"," identifier} [";"]} "}"
+* Estructura: "@struct" identifier "{" {< Type > identifier {"," identifier} [";"]} "}"
 
-* Accés a Component:  < expresió (1)> "[" < expresió (2)> "]"
+* Sistema: "@system" identifier "{" 
+                        < components > 
+                        {  < additionalInfo > 
+                         | < externInfo > 
+                         | < affectedSystems >
+                        }
+                        
+                        {  <AtNewEntity> 
+                         | <AtEraseEntity>
+                         | <AtChange>
+                         | <AtUpdate>
+                        }
+                     "}"
+
+* Constant:
+
+* Event:
+
+* Thread: 
+
+* Component: "@component" identifier "{"
+                              { "*" < Type (1) > [";"] }
+                              { <Type (2) > identifier {"," identifier } [;] }
+                           "}"
+          on (1) a Component
+          on (2) a Serializable (& Cloneable?)
+
+* Prototype "@prototype" identifier [ "extends" < Type (1) > { "," < Type (1) > } ] "{"
+                              [ < initializer > ]
+                              { < ComponentInitializer > [";"]}
+                           "}"
+          on (1) a Prototype
+          
+* Accés a Component:  < expresió (1) > "[" < expresió (2)> "]"
         on (1) és de tipus Entity
         i  (2) és un identificador d'un component [Class<? extends Component]
 
