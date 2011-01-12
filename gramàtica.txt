@@ -48,14 +48,21 @@ Construccions Especials:
                          | <AtEraseEntity>
                          | <AtChange>
                          | <AtUpdate>
+                         | < modifiers > < MethodDeclaration >
                         }
                      "}"
 
-* Constant:
+* Constant: "@const" < Type > identifier "=" <expresio>
 
-* Event:
+* Event: "@event" identifier "{"
+                            { <Type (1) > identifier {"," identifier } [;] }
+                             "}"
+          on (1) a Serializable (& Cloneable?)
 
-* Thread: 
+* Thread: "@thread" "{"
+              <systems>
+              [<AtInit>]
+                    "}"
 
 * Component: "@component" identifier "{"
                               { "*" < Type (1) > [";"] }
@@ -65,11 +72,49 @@ Construccions Especials:
           on (2) a Serializable (& Cloneable?)
 
 * Prototype "@prototype" identifier [ "extends" < Type (1) > { "," < Type (1) > } ] "{"
-                              [ < initializer > ]
+                              [ < AtInit > ]
                               { < ComponentInitializer > [";"]}
                            "}"
           on (1) a Prototype
           
+* AtNewEntity: "@newEntity" < paramsWithSemantics > < Block >
+
+* AtEraseEntity: "@eraseEntity" < paramsWithSemantics > < Block >
+
+* AtChange: "@change" < paramsWithSemantics > < Block >
+
+* AtUpdate: "@update" < paramsWithSemantics > < Block >
+
+* AtInit: "@init" "(" ")" < Block >
+
+* Components: "@components" "{"
+                        { < Type (1) > [";"] }
+                            "}"
+          on (1) a Component
+
+* AdditionalInfo: "@additionalInfo" "{"
+                        { < Type > identifier [";"] }
+                                    "}"
+
+* ExternInfo: "@externInfo" "{"
+                        { < Type > identifier ":" < Type (1) > "." identifier [";"] }
+                            "}"
+          on (1) a System
+
+* AffectedSystems: "@affectedSystems" "{"
+                        { < Type (1) > [";"] }
+                                      "}"
+          on (1) a System
+          
+* Systems: "@systems" "{"
+                        { < Type (1) > [";"] }
+                            "}"
+          on (1) a System
+
+* ParamsWithSemantics: "(" [ <ParamWithSemantic> {"," <ParamWithSemantic> } ] ")"
+
+* ParamWithSemantic: < Type > identifier [ ":" identifier ]
+
 * Accés a Component:  < expresió (1) > "[" < expresió (2)> "]"
         on (1) és de tipus Entity
         i  (2) és un identificador d'un component [Class<? extends Component]
