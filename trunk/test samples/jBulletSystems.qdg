@@ -87,7 +87,7 @@ public class ShapeParams implements Serializable {
     entity[jBulletCollisionWorld] = new CollisionWorld(entity[jBulletDispatcher], broadphasePairCache, collisionConfiguration) 
   }
   
-   @update(Entity entity: ENTITY) {
+  @update(Entity entity: ENTITY) {
     entity[jBulletCollisionWorld].performDiscreteCollisionDetection();
     
     //entity[collisionCache].clear();
