@@ -40,6 +40,7 @@ package cat.quadriga.parsers;
 
 import java.io.*;
 import java.util.*;
+import cat.quadriga.parsers.code.*;
 
 /**
  * Grammar to parse Java version 1.5
@@ -1378,12 +1379,18 @@ void Initializer():
  * Type, name and expression syntax follows.
  */
 
-void Type():
+List<PrintInfo> Type():
 {}
 {
-   LOOKAHEAD(2) ReferenceType()
- |
-   PrimitiveType()
+  (
+	    
+	   LOOKAHEAD(2) ReferenceType()
+	 |
+	   PrimitiveType()
+	)
+	{
+	  return null;
+	}
 }
 
 void ReferenceType():
@@ -1394,11 +1401,14 @@ void ReferenceType():
    ( ClassOrInterfaceType() ) ( LOOKAHEAD(2) "[" "]" )*
 }
 
-void ClassOrInterfaceType():
+List<PrintInfo> ClassOrInterfaceType():
 {}
 {
   <IDENTIFIER> [ LOOKAHEAD(2) TypeArguments() ]
   ( LOOKAHEAD(2) "." <IDENTIFIER> [ LOOKAHEAD(2) TypeArguments() ] )*
+  {
+    return null;
+  }
 }
 
 void TypeArguments():
@@ -1444,24 +1454,47 @@ void PrimitiveType():
   "double"
 }
 
-void ResultType():
-{}
+List<PrintInfo> ResultType():
 {
-  "void"
-|
-  Type()
+  List<PrintInfo> out = new Vector<PrintInfo>(1);
+}
+{
+  (   
+	  "void"
+	  {
+	    out.add(new PrintString("void"));
+	  }
+	|
+	  out = Type()
+	)
+	{
+	  return out;
+	}
 }
 
-void Name():
+List<PrintInfo> Name():
 /*
  * A lookahead of 2 is required below since "Name" can be followed
  * by a ".*" when used in the context of an "ImportDeclaration".
  */
-{}
 {
-  <IDENTIFIER>
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
+  Token t;
+}
+{
+  t=<IDENTIFIER>
+  {
+    out.add(new PrintString(t.image));
+  }
   ( LOOKAHEAD(2) "." <IDENTIFIER>
+    {
+      out.add(new PrintString("."));
+      out.add(new PrintString(t.image));
+    }
   )*
+  {
+    return out;
+  }
 }
 
 void NameList():
@@ -1475,7 +1508,7 @@ void NameList():
  * Expression syntax follows.
  */
 
-void Expression():
+List<PrintInfo> Expression():
 /*
  * This expansion has been written this way instead of:
  *   Assignment() | ConditionalExpression()
@@ -1492,6 +1525,9 @@ void Expression():
     LOOKAHEAD(2)
     AssignmentOperator() Expression()
   ]
+  {
+    return null;
+  }
 }
 
 void AssignmentOperator():
@@ -1643,110 +1679,204 @@ void PrimaryExpression():
   PrimaryPrefix() ( LOOKAHEAD(2) PrimarySuffix() )*
 }
 
-void MemberSelector():
+List<PrintInfo> MemberSelector():
 {}
 {
   "." TypeArguments() <IDENTIFIER>
+  {
+    return null;
+  }
 }
 
-void PrimaryPrefix():
-{}
+List<PrintInfo> PrimaryPrefix():
 {
-  Literal()
-|
-  LOOKAHEAD( ( <IDENTIFIER> "." )* "this" )
-  ( <IDENTIFIER> "." )*
-  "this"
-|
-  "super" "." <IDENTIFIER>
-|
-   // danson, added this part to support a construct like:
-   //   Buffer.super.setDirty(true);
-   // See Java Language Specification, 3rd edition, section 15.11.2.
-   LOOKAHEAD( ClassOrInterfaceType() "." "super" "." <IDENTIFIER> )
-   ClassOrInterfaceType() "." "super" "." <IDENTIFIER>
-|
-  "(" Expression() ")"
-|
-  AllocationExpression()
-|
-  LOOKAHEAD( ResultType() "." "class" )
-  ResultType() "." "class"
-|
-  Name()
+  List<PrintInfo> out = new LinkedList<PrintInfo>(), other;
+  Token t;
+}
+{
+  (
+	  out=Literal()
+	|
+	  LOOKAHEAD( ( <IDENTIFIER> "." )* "this" )
+	  ( t=<IDENTIFIER> "."
+	    {
+	      out.add(new PrintString(t.image));
+	      out.add(new PrintString("."));
+	    }
+	  )*
+	  "this"
+	  {
+	    out.add(new PrintString("this"));
+	  }
+	|
+	  "super" "." t=<IDENTIFIER>
+	  {
+	    out.add(new PrintString("super"));
+	    out.add(new PrintString("."));
+	    out.add(new PrintString(t.image));
+	  }
+	|
+	   // danson, added this part to support a construct like:
+	   //   Buffer.super.setDirty(true);
+	   // See Java Language Specification, 3rd edition, section 15.11.2.
+	   LOOKAHEAD( ClassOrInterfaceType() "." "super" "." <IDENTIFIER> )
+	   other = ClassOrInterfaceType() "." "super" "." t=<IDENTIFIER>
+	   {
+	     out.addAll(other);
+	     out.add(new PrintString("."));
+	     out.add(new PrintString("super"));
+	     out.add(new PrintString("."));
+	     out.add(new PrintString(t.image));
+	   }
+	|
+	  "(" other = Expression() ")"
+	  {
+	     out.add(new PrintString("("));
+	     out.addAll(other);
+	     out.add(new PrintString(")"));
+	  }
+	|
+	  out = AllocationExpression()
+	|
+	  LOOKAHEAD( ResultType() "." "class" )
+	  other = ResultType() "." "class"
+	  {
+	    out.addAll(other);
+	    out.add(new PrintString("."));
+	    out.add(new PrintString("class"));
+	  }
+	|
+	  out = Name()
+	)
+	{
+	  return out;
+	}
 }
 
-void PrimarySuffix():
-{}
+List<PrintInfo> PrimarySuffix():
 {
-  LOOKAHEAD("." "super" ".")
-  "." "super"
-|
-  LOOKAHEAD("." "this")
-  "." "this"
-|
-  LOOKAHEAD(2)
-  "." AllocationExpression()
-|
-  LOOKAHEAD(3)
-  MemberSelector()
-|
-  "[" Expression() "]"
-|
-  "." <IDENTIFIER>
-|
-  Arguments()
+  List<PrintInfo> out = new Vector(), other;
+  Token t;
+}
+{
+  ( 
+	  LOOKAHEAD("." "super" ".")
+	  "." "super"
+	  {
+	    out.add(new PrintString("."));
+	    out.add(new PrintString("super"));
+	  }
+	|
+	  LOOKAHEAD("." "this")
+	  "." "this"
+	  {
+	    out.add(new PrintString("."));
+	    out.add(new PrintString("this"));
+	  }
+	|
+	  LOOKAHEAD(2)
+	  "." other = AllocationExpression()
+	  {
+	    out.add(new PrintString("."));
+	    out.addAll(other);
+	  }
+	|
+	  LOOKAHEAD(3)
+	  out = MemberSelector()
+	|
+	  "[" other = Expression() "]"
+	  {
+	    out.add(new PrintString("["));
+	    out.addAll(other);
+	    out.add(new PrintString("]"));
+	  }
+	|
+	  "." t = <IDENTIFIER>
+	  {
+	    out.add(new PrintString("."));
+	    out.add(new PrintString(t.image));
+	  }
+	|
+	  out = Arguments()
+  )
+  {
+    return out;
+  }
 }
 
-void Literal():
-{}
+List<PrintInfo> Literal():
 {
-  <INTEGER_LITERAL>
-|
-  <FLOATING_POINT_LITERAL>
-|
-  <CHARACTER_LITERAL>
-|
-  <STRING_LITERAL>
-|
-  BooleanLiteral()
-|
-  NullLiteral()
+  List<PrintInfo> out = new Vector<PrintInfo>(1);
+  Token t;
+}
+{
+  (    
+	  t=<INTEGER_LITERAL>
+	  {
+      out.add(new PrintString(t.image));
+	  }
+	|
+	  t=<FLOATING_POINT_LITERAL>
+    {
+      out.add(new PrintString(t.image));
+    }
+	|
+	  t=<CHARACTER_LITERAL>
+    {
+      out.add(new PrintString(t.image));
+    }
+	|
+	  t=<STRING_LITERAL>
+    {
+      out.add(new PrintString(t.image));
+    }
+	|
+	  out=BooleanLiteral()
+	|
+	  out=NullLiteral()
+	)
+  {
+    return out;
+  }
 }
 
-List<String> BooleanLiteral():
+List<PrintInfo> BooleanLiteral():
 {
-  List<String> out = new Vector<String>(1);
+  List<PrintInfo> out = new Vector<PrintInfo>(1);
 }
 {
   "true"
   {
-    out.add("true");
+    out.add(new PrintString("true"));
     return out;
   }
 |
   "false"
   {
-    out.add("false");
+    out.add(new PrintString("false"));
     return out;
   }
 }
 
-List<String> NullLiteral():
+List<PrintInfo> NullLiteral():
 {
-  List<String> out = new Vector<String>(1);
-  out.add("null");
+  List<PrintInfo> out = new Vector<PrintInfo>(1);
+  out.add(new PrintString("null"));
 }
 {
   "null"
-  {    return out;
+  {
+    return out;
   }
 }
 
-void Arguments():
+List<PrintInfo> Arguments():
 {}
 {
   "(" [ ArgumentList() ] ")"
+  {
+    return null;
+  }
 }
 
 void ArgumentList():
@@ -1755,8 +1885,10 @@ void ArgumentList():
   Expression() ( "," Expression() )*
 }
 
-void AllocationExpression():
-{}
+List<PrintInfo> AllocationExpression():
+{
+  //TODO
+}
 {
   LOOKAHEAD(2)
   "new" PrimitiveType() ArrayDimsAndInits()
@@ -1767,6 +1899,9 @@ void AllocationExpression():
     |
       Arguments() [ ClassOrInterfaceBody(false) ]
     )
+  {
+    return null;
+  }
 }
 
 /*
