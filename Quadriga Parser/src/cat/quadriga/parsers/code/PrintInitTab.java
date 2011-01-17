@@ -11,4 +11,8 @@ public class PrintInitTab implements PrintInfo {
     }
     return instance;
   }
+  
+  public String toString() {
+    return "<init tab>";
+  }
 }

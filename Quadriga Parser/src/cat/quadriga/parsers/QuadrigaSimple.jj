@@ -165,6 +165,7 @@ public class QuadrigaSimple
       System.out.println("Java Parser Version 1.1:  Java program parsed successfully.");
       MegaPrinter mp = new MegaPrinter();
       System.out.println(mp.print(info));
+      mp.printToFile(info, "out.java");
     } catch (ParseException e) {
       System.out.println(e.getMessage());
       System.out.println("Java Parser Version 1.1:  Encountered errors during parse.");
@@ -1079,12 +1080,21 @@ TOKEN :
 
 List<PrintInfo> CompilationUnit():
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>(),other;
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
 }
 {
-  [LOOKAHEAD( ( Annotation() )* "package" ) PackageDeclaration(out) ]
+  [LOOKAHEAD( ( Annotation() )* "package" ) PackageDeclaration(out)
+    {
+      out.add(PrintIntro.getInstance());
+    }
+  ]
   ( ImportDeclaration(out) )*
-  ( TypeDeclaration() )+
+  ( 
+    {
+      out.add(PrintIntro.getInstance());
+    }
+    TypeDeclaration(out)
+  )+
   ( < "\u001a" > )?
   ( <STUFF_TO_IGNORE: ~[]> )?
   <EOF>
@@ -1094,36 +1104,32 @@ List<PrintInfo> CompilationUnit():
 
 void PackageDeclaration(List<PrintInfo> out):
 {
-  List<PrintInfo> other;
+  List<PrintInfo> other = new LinkedList<PrintInfo>();
 }
 {
-  Modifiers(out) "package" other=Name() ";"
+  Modifiers(out) "package" Name(other) ";"
   {
     out.add(new PrintString("package"));
+    out.add(PrintWhiteSpace.getInstance());
     out.addAll(other);
     out.add(new PrintString(";"));
     out.add(PrintIntro.getInstance());  }
 }
 
 void ImportDeclaration(List<PrintInfo> out):
-{
-  List<PrintInfo> other;
-}
+{}
 {
   "import"
   {    out.add(new PrintString("import"));
-    out.add(new PrintString(" "));
+    out.add(PrintWhiteSpace.getInstance());
   }
   [ "static"
     {
       out.add(new PrintString("static"));
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
     }
   ]
-  other=Name()
-  {
-    out.addAll(other);
-  }
+  Name(out)
   [ "." "*"
     {
       out.add(new PrintString("."));
@@ -1155,77 +1161,77 @@ int Modifiers(List<PrintInfo> out):
    {
      modifiers |= ModifierSet.PUBLIC;
      out.add(new PrintString("public"));
-     out.add(new PrintString(" "));
+     out.add(PrintWhiteSpace.getInstance());
    }
   |
    "static"
    {
      modifiers |= ModifierSet.STATIC;
      out.add(new PrintString("static"));
-     out.add(new PrintString(" "));
+     out.add(PrintWhiteSpace.getInstance());
    }
   |
    "protected"
    {
      modifiers |= ModifierSet.PROTECTED;
      out.add(new PrintString("protected"));
-     out.add(new PrintString(" "));
+     out.add(PrintWhiteSpace.getInstance());
    }
   |
    "private"
    {
      modifiers |= ModifierSet.PRIVATE;
      out.add(new PrintString("private"));
-     out.add(new PrintString(" "));
+     out.add(PrintWhiteSpace.getInstance());
    }
   |
    "final"
    {
      modifiers |= ModifierSet.FINAL;
      out.add(new PrintString("final"));
-     out.add(new PrintString(" "));
+     out.add(PrintWhiteSpace.getInstance());
    }
   |
    "abstract"
    {
      modifiers |= ModifierSet.ABSTRACT;
      out.add(new PrintString("abstract"));
-     out.add(new PrintString(" "));
+     out.add(PrintWhiteSpace.getInstance());
    }
   |
    "synchronized"
    {
      modifiers |= ModifierSet.SYNCHRONIZED;
      out.add(new PrintString("synchronized"));
-     out.add(new PrintString(" "));
+     out.add(PrintWhiteSpace.getInstance());
    }
   |
    "native"
    {
      modifiers |= ModifierSet.NATIVE;
      out.add(new PrintString("native"));
-     out.add(new PrintString(" "));
+     out.add(PrintWhiteSpace.getInstance());
    }
   |
    "transient"
    {
      modifiers |= ModifierSet.TRANSIENT;
      out.add(new PrintString("transient"));
-     out.add(new PrintString(" "));
+     out.add(PrintWhiteSpace.getInstance());
    }
   |
    "volatile"
    {
      modifiers |= ModifierSet.VOLATILE;
      out.add(new PrintString("volatile"));
-     out.add(new PrintString(" "));
+     out.add(PrintWhiteSpace.getInstance());
    }
   |
    "strictfp"
    {
      modifiers |= ModifierSet.STRICTFP;
      out.add(new PrintString("strictfp"));
-     out.add(new PrintString(" "));
+     out.add(PrintWhiteSpace.getInstance());
    }
   |
    Annotation(out)
@@ -1240,109 +1246,214 @@ int Modifiers(List<PrintInfo> out):
 /*
  * Declaration syntax follows.
  */
-void TypeDeclaration():
+void TypeDeclaration(List<PrintInfo> out):
 {
    int modifiers;
-   List<PrintInfo> out = new LinkedList<PrintInfo>();
 }
 {
-  ";"
-|
-  modifiers = Modifiers(out)
-  (
-     ClassOrInterfaceDeclaration(modifiers)
-   |
-     EnumDeclaration(modifiers)
-   |
-     AnnotationTypeDeclaration(modifiers)
+  (    ";"
+    {
+      out.add(new PrintString(";"));
+      out.add(PrintIntro.getInstance());    }
+  |
+    modifiers = Modifiers(out)
+    (
+      ClassOrInterfaceDeclaration(modifiers, out)
+    |
+      EnumDeclaration(modifiers, out)
+    |
+      AnnotationTypeDeclaration(modifiers, out)
+    )
   )
 }
 
 
-void ClassOrInterfaceDeclaration(int modifiers):
+void ClassOrInterfaceDeclaration(int modifiers, List<PrintInfo> out):
 {
    boolean isInterface = false;
+   Token t;
 }
 {
   ( "class" | "interface" { isInterface = true; } )
-  <IDENTIFIER>
-  [ TypeParameters() ]
-  [ ExtendsList(isInterface) ]
-  [ ImplementsList(isInterface) ]
-  ClassOrInterfaceBody(isInterface)
+  t=<IDENTIFIER>
+  {
+    out.add(new PrintString(isInterface?"interface":"class"));
+    out.add(PrintWhiteSpace.getInstance());
+    out.add(new PrintString(t.image));  }
+  [ TypeParameters(out) ]
+  {
+    out.add(PrintWhiteSpace.getInstance());
+  }
+  [ ExtendsList(isInterface, out) ]
+  [ ImplementsList(isInterface, out) ]
+  ClassOrInterfaceBody(isInterface, out)
 }
 
-void ExtendsList(boolean isInterface):
+void ExtendsList(boolean isInterface, List<PrintInfo> out):
 {
    boolean extendsMoreThanOne = false;
 }
 {
-   "extends" ClassOrInterfaceType()
-   ( "," ClassOrInterfaceType() { extendsMoreThanOne = true; } )*
+   "extends"
+   {
+     out.add(new PrintString("extends"));
+     out.add(PrintWhiteSpace.getInstance());
+   }
+   ClassOrInterfaceType(out)
+   ( "," 
+     {
+       out.add(new PrintString(","));
+       out.add(PrintWhiteSpace.getInstance());
+     }
+     ClassOrInterfaceType(out) { extendsMoreThanOne = true; }
+   )*
    {
       if (extendsMoreThanOne && !isInterface)
          throw new ParseException("A class cannot extend more than one other class");
    }
 }
 
-void ImplementsList(boolean isInterface):
+void ImplementsList(boolean isInterface, List<PrintInfo> out):
 {}
 {
-   "implements" ClassOrInterfaceType()
-   ( "," ClassOrInterfaceType() )*
+   "implements"
+   {
+     out.add(new PrintString("implements"));
+     out.add(PrintWhiteSpace.getInstance());   }
+   ClassOrInterfaceType(out)
+   ( "," 
+     {
+       out.add(new PrintString(","));
+       out.add(PrintWhiteSpace.getInstance());
+     }
+     ClassOrInterfaceType(out)
+   )*
    {
       if (isInterface)
          throw new ParseException("An interface cannot implement other interfaces");
    }
 }
 
-void EnumDeclaration(int modifiers):
-{}
+void EnumDeclaration(int modifiers, List<PrintInfo> out):
 {
-  "enum" <IDENTIFIER>
-  [ ImplementsList(false) ]
-  EnumBody()
+  Token t;
+}
+{
+  "enum" t=<IDENTIFIER>
+  {
+    out.add(new PrintString("enum"));
+    out.add(PrintWhiteSpace.getInstance());
+    out.add(new PrintString(t.image));
+  }
+  [ ImplementsList(false, out) 
+    {
+      out.add(PrintWhiteSpace.getInstance());
+    }
+  ]
+  EnumBody(out)
 }
 
-void EnumBody():
+void EnumBody(List<PrintInfo> out):
 {}
 {
    "{"
-   [ EnumConstant() ( LOOKAHEAD(2) "," EnumConstant() )* ]
+   {
+    out.add(new PrintString("{"));
+    out.add(PrintInitTab.getInstance());
+    out.add(PrintIntro.getInstance());   }
+   [ EnumConstant(out)
+     ( LOOKAHEAD(2) ","
+       {
+         out.add(new PrintString(","));
+         out.add(PrintWhiteSpace.getInstance());       }
+       EnumConstant(out)
+     )*
+   ]
     [ "," ]
-   [ ";" ( ClassOrInterfaceBodyDeclaration(false) )* ]
+   [ ";"
+     ( 
+     {
+       out.add(PrintIntro.getInstance());
+     }
+     ClassOrInterfaceBodyDeclaration(false, out) )*
+   ]
    "}"
+   {
+     out.add(PrintEndTab.getInstance());
+     out.add(PrintIntro.getInstance());
+     out.add(new PrintString("}"));
+   }
 }
 
-void EnumConstant():
+void EnumConstant(List<PrintInfo> out):
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>();
+  Token t;
 }
 {
-  Modifiers(out) <IDENTIFIER> [ Arguments() ] [ ClassOrInterfaceBody(false) ]
+  Modifiers(out) t=<IDENTIFIER>
+  {
+    out.add(new PrintString(t.image));  }
+  [ Arguments(out) ]
+  [ ClassOrInterfaceBody(false, out) ]
 }
 
-void TypeParameters():
+void TypeParameters(List<PrintInfo> out):
 {}
 {
-   "<" TypeParameter() ( "," TypeParameter() )* ">"
+   "<"
+   {     out.add(new PrintString("<"));
+   }
+   TypeParameter(out)
+   ( ","
+   {
+     out.add(new PrintString(","));
+     out.add(PrintWhiteSpace.getInstance());
+   }
+   TypeParameter(out)
+   )*
+   ">"
+   {
+     out.add(new PrintString(">"));
+   }
 }
 
-void TypeParameter():
+void TypeParameter(List<PrintInfo> out):
+{
+  Token t;
+}
+{
+   t=<IDENTIFIER>
+   {
+     out.add(new PrintString(t.image));
+   }
+   [
+     {
+       out.add(PrintWhiteSpace.getInstance());
+     }
+     TypeBound(out)
+   ]
+}
+
+void TypeBound(List<PrintInfo> out):
 {}
 {
-   <IDENTIFIER> [ TypeBound() ]
+   "extends"
+   {
+     out.add(new PrintString("extends"));
+     out.add(PrintWhiteSpace.getInstance());   }
+   ClassOrInterfaceType(out)
+   ( "&"
+     {
+       out.add(PrintWhiteSpace.getInstance());
+       out.add(new PrintString("&"));
+       out.add(PrintWhiteSpace.getInstance());
+     }
+     ClassOrInterfaceType(out)
+   )*
 }
 
-void TypeBound():
-{}
+void ClassOrInterfaceBody(boolean isInterface, List<PrintInfo> out):
 {
-   "extends" ClassOrInterfaceType() ( "&" ClassOrInterfaceType() )*
-}
-
-List<PrintInfo> ClassOrInterfaceBody(boolean isInterface):
-{
-  List<PrintInfo> out = new LinkedList<PrintInfo>(), other;
 }
 {
   "{"
@@ -1350,28 +1461,28 @@ List<PrintInfo> ClassOrInterfaceBody(boolean isInterface):
     out.add(PrintInitTab.getInstance());
     out.add(PrintIntro.getInstance());
   }
-  ( other=ClassOrInterfaceBodyDeclaration(isInterface)
-    {      out.addAll(other);
+  ( ClassOrInterfaceBodyDeclaration(isInterface, out)
+    {      out.add(PrintIntro.getInstance());
     }
   )*
   "}"
   {
-    out.add(new PrintString("}"));
     out.add(PrintEndTab.getInstance());
-    return out;
+    out.add(PrintIntro.getInstance());
+    out.add(new PrintString("}"));
+    out.add(PrintIntro.getInstance());
   }
 }
 
-List<PrintInfo> ClassOrInterfaceBodyDeclaration(boolean isInterface):
+void ClassOrInterfaceBodyDeclaration(boolean isInterface, List<PrintInfo> out):
 {
   //TODO
   boolean isNestedInterface = false;
   int modifiers;
-  List<PrintInfo> out = new LinkedList<PrintInfo>();
 }
 {
   (    LOOKAHEAD(2)
-    Initializer()
+    Initializer(out)
     {
        if (isInterface)
           throw new ParseException("An interface cannot have initializers");
@@ -1380,62 +1491,87 @@ List<PrintInfo> ClassOrInterfaceBodyDeclaration(boolean isInterface):
     modifiers = Modifiers(out) // Just get all the modifiers out of the way. If you want to do
                 // more checks, pass the modifiers down to the member
     (
-        ClassOrInterfaceDeclaration(modifiers)
+        ClassOrInterfaceDeclaration(modifiers, out)
       |
-        EnumDeclaration(modifiers)
+        EnumDeclaration(modifiers, out)
       |
         LOOKAHEAD( [ TypeParameters() ] <IDENTIFIER> "(" )
-        ConstructorDeclaration()
+        ConstructorDeclaration(out)
       |
         LOOKAHEAD( Type() <IDENTIFIER> ( "[" "]" )* ( "," | "=" | ";" ) )
-        FieldDeclaration(modifiers)
+        FieldDeclaration(modifiers, out)
       |
-        MethodDeclaration(modifiers)
+        MethodDeclaration(modifiers, out)
       |
-        AnnotationTypeDeclaration(modifiers)
+        AnnotationTypeDeclaration(modifiers, out)
     )
   |
     ";"
   )
-  {    return out;
-  }
 }
 
-void FieldDeclaration(int modifiers):
+void FieldDeclaration(int modifiers, List<PrintInfo> out):
 {}
 {
   // Modifiers are already matched in the caller
-  Type() VariableDeclarator() ( "," VariableDeclarator() )* ";"
-}
-
-void VariableDeclarator():
-{}
-{
-  VariableDeclaratorId() [ "=" VariableInitializer() ]
-}
-
-void VariableDeclaratorId():
-{}
-{
-  <IDENTIFIER> ( "[" "]" )*
-}
-
-List<PrintInfo> VariableInitializer():
-{
-  List<PrintInfo> out;
-}
-{
-  (    out=ArrayInitializer()
-  |
-    out=Expression()
-  )
-  {    return out;
+  Type(out)
+  {
+    out.add(PrintWhiteSpace.getInstance());
+  }
+  VariableDeclarator(out)
+  ( ","
+    {
+      out.add(PrintWhiteSpace.getInstance());
+    }
+    VariableDeclarator(out)
+  )* ";"
+  {
+    out.add(new PrintString(";"));
   }
 }
 
-List<PrintInfo> ArrayInitializer():
+void VariableDeclarator(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>(), other;
+  VariableDeclaratorId(out)
+  [ "="
+    {
+      out.add(PrintWhiteSpace.getInstance());
+      out.add(new PrintString("="));
+      out.add(PrintWhiteSpace.getInstance());
+    }
+    VariableInitializer(out)
+  ]
+}
+
+void VariableDeclaratorId(List<PrintInfo> out):
+{
+  Token t;
+}
+{
+  t=<IDENTIFIER>
+  {
+    out.add(new PrintString(t.image));  }
+  ( "[" "]" 
+  {
+    out.add(new PrintString("["));
+    out.add(new PrintString("]"));
+  }
+  )*
+}
+
+void VariableInitializer(List<PrintInfo> out):
+{}
+{
+  (    ArrayInitializer(out)
+  |
+    Expression(out)
+  )
+}
+
+void ArrayInitializer(List<PrintInfo> out):
+{
+  List<PrintInfo> other = new LinkedList<PrintInfo>();
 }
 {
   "{"
@@ -1444,13 +1580,15 @@ List<PrintInfo> ArrayInitializer():
     out.add(PrintInitTab.getInstance());
     out.add(PrintIntro.getInstance());
   }
-  [ other=VariableInitializer()
+  [ VariableInitializer(other)
     {      out.addAll(other);
+      other = new LinkedList<PrintInfo>();
     }
-    ( LOOKAHEAD(2) "," other=VariableInitializer()
+    ( LOOKAHEAD(2) "," VariableInitializer(other)
       {
         out.add(new PrintString(","));
-        out.add(new PrintString(" "));        out.addAll(other);
+        out.add(PrintWhiteSpace.getInstance());        out.addAll(other);
+        other = new LinkedList<PrintInfo>();
       }
     )*
   ]
@@ -1459,66 +1597,194 @@ List<PrintInfo> ArrayInitializer():
   {
     out.add(new PrintString("}"));
     out.add(PrintEndTab.getInstance());
-    return out;
   }
 }
 
-void MethodDeclaration(int modifiers):
-{}
+void MethodDeclaration(int modifiers, List<PrintInfo> out):
+{
+}
 {
   // Modifiers already matched in the caller!
-  [ TypeParameters() ]
-  ResultType()
-  MethodDeclarator() [ "throws" NameList() ]
-  ( Block() | ";" )
+  [ TypeParameters(out) ]
+  {
+    out.add(PrintWhiteSpace.getInstance());  }
+  ResultType(out)
+  {
+    out.add(PrintWhiteSpace.getInstance());
+  }
+  MethodDeclarator(out)
+  [ "throws"
+    {
+      out.add(PrintWhiteSpace.getInstance());
+      out.add(new PrintString("throws"));
+      out.add(PrintWhiteSpace.getInstance());
+    }
+    NameList(out)
+  ]
+  ( Block(out)
+  | ";"
+    {
+      out.add(new PrintString(";"));
+    }
+  )
 }
 
-void MethodDeclarator():
+void MethodDeclarator(List<PrintInfo> out):
+{
+  Token t;
+}
+{
+  t=<IDENTIFIER>
+  {    out.add(new PrintString(t.image));
+  }
+  FormalParameters(out)
+  ( "[" "]"
+    {
+      out.add(new PrintString("["));
+      out.add(new PrintString("]"));
+    }
+  )*
+}
+
+void FormalParameters(List<PrintInfo> out):
 {}
 {
-  <IDENTIFIER> FormalParameters() ( "[" "]" )*
+  "("  {
+    out.add(new PrintString("("));  }
+  [ FormalParameter(out)
+    ( ","
+    {
+      out.add(new PrintString(","));
+      out.add(PrintWhiteSpace.getInstance());
+    }
+    FormalParameter(out)
+    )*
+  ]
+  ")"
+  {
+    out.add(new PrintString(")"));
+  }
 }
 
-void FormalParameters():
-{}
+void FormalParameter(List<PrintInfo> out):
 {
-  "(" [ FormalParameter() ( "," FormalParameter() )* ] ")"
+  int modifiers;
 }
-
-void FormalParameter():
-{}
 {
   // danson, added
   //          [ "final" | Annotation() ]
   // See Java Language Specification, 3rd Edition, section 8.4.1
-  Modifiers(null) [ "final" | Annotation(null) ] Type() [ "..." ] VariableDeclaratorId()
+  modifiers = Modifiers(out)
+  {
+    if(modifiers > 0)
+      out.add(PrintWhiteSpace.getInstance());
+  }
+  [ "final"
+    {
+      out.add(new PrintString("final"));
+      out.add(PrintWhiteSpace.getInstance());
+    }
+  | Annotation(out)
+  ]
+  Type(out)
+  [ "..."
+  {
+    out.add(new PrintString("..."));
+  }
+  ]
+  {
+    out.add(PrintWhiteSpace.getInstance());
+  }
+  VariableDeclaratorId(out)
 }
 
-void ConstructorDeclaration():
-{}
+void ConstructorDeclaration(List<PrintInfo> out):
 {
-  [ TypeParameters() ]
+  Token t;
+  out.add(PrintWhiteSpace.getInstance());
+}
+{
+  [ TypeParameters(out) ]
   // Modifiers matched in the caller
-  <IDENTIFIER> FormalParameters() [ "throws" NameList() ]
+  t=<IDENTIFIER>
+  {
+    out.add(new PrintString(t.image));  }
+  FormalParameters(out)
+  [ "throws"
+    {
+      out.add(PrintWhiteSpace.getInstance());
+      out.add(new PrintString("throws"));
+      out.add(PrintWhiteSpace.getInstance());    }
+  NameList(out)
+  ]
   "{"
-    [ LOOKAHEAD(ExplicitConstructorInvocation())
-         ExplicitConstructorInvocation()
-    ]
-    ( BlockStatement() )*
+  {
+    out.add(PrintWhiteSpace.getInstance());
+    out.add(new PrintString("{"));
+    out.add(PrintInitTab.getInstance());
+    out.add(PrintIntro.getInstance());
+  } 
+  [ LOOKAHEAD(ExplicitConstructorInvocation())
+       ExplicitConstructorInvocation(out)
+  ]
+  ( BlockStatement(out)
+    {
+      out.add(PrintIntro.getInstance());    }
+  )*
   "}"
+  {
+    while(out.get(out.size()-1) == PrintIntro.getInstance())
+      out.remove(out.size()-1);
+    if(out.get(out.size()-1) != PrintInitTab.getInstance()) {
+      out.add(PrintEndTab.getInstance());
+      out.add(PrintIntro.getInstance());    } else {
+      out.add(PrintEndTab.getInstance());    }
+    out.add(new PrintString("}"));
+  }
 }
 
-void ExplicitConstructorInvocation():
-{}
+void ExplicitConstructorInvocation(List<PrintInfo> out):
 {
-  ( <IDENTIFIER> "." )* [ LOOKAHEAD(2) "this" "." ]
-  [ TypeArguments() ] ("this"|"super") Arguments() ";"
+  Token t;
+}
+{
+  ( t=<IDENTIFIER> "."
+    {
+      out.add(new PrintString(t.image));
+      out.add(new PrintString("."));    }
+  )*
+  [ LOOKAHEAD(2) "this" "."
+    {
+      out.add(new PrintString("this"));
+      out.add(new PrintString("."));
+    }
+  ]
+  [ TypeArguments(out) ]
+  ( "this"
+    {
+      out.add(new PrintString("this"));
+    }
+  | "super"
+    {
+      out.add(new PrintString("super"));
+    }
+  ) Arguments(out) ";"
+    {
+      out.add(new PrintString(";"));
+      out.add(PrintIntro.getInstance());
+    }
 }
 
-void Initializer():
+void Initializer(List<PrintInfo> out):
 {}
 {
-  [ "static" ] Block()
+  [ "static"
+  {
+    {
+      out.add(new PrintString("static"));
+      out.add(PrintWhiteSpace.getInstance());
+    }  }
+  ] Block(out)
 }
 
 
@@ -1526,141 +1792,111 @@ void Initializer():
  * Type, name and expression syntax follows.
  */
 
-List<PrintInfo> Type():
-{
-  List<PrintInfo> out;
-}
+void Type(List<PrintInfo> out):
+{}
 {
   ( 
-	LOOKAHEAD(2) out=ReferenceType()
+	LOOKAHEAD(2) ReferenceType(out)
   |
-	out=PrimitiveType()
+	PrimitiveType(out)
   )
-  {
-	return out;
-  }
 }
 
-List<PrintInfo> ReferenceType():
-{
-  List<PrintInfo> out;
-}
+void ReferenceType(List<PrintInfo> out):
+{}
 {
   (    
-   out=PrimitiveType()
-   ( LOOKAHEAD(2) "[" "]"
-     {
-       out.add(new PrintString("["));
-       out.add(new PrintString("]"));     }
-   )+
+    PrimitiveType(out)
+    ( LOOKAHEAD(2) "[" "]"
+      {
+        out.add(new PrintString("["));
+        out.add(new PrintString("]"));      }
+    )+
   |
-   ( out=ClassOrInterfaceType() )
-   ( LOOKAHEAD(2) "[" "]"
-     {
-       out.add(new PrintString("["));
-       out.add(new PrintString("]"));
-     }
+    ( ClassOrInterfaceType(out) )
+    ( LOOKAHEAD(2) "[" "]"
+      {
+        out.add(new PrintString("["));
+        out.add(new PrintString("]"));
+      }
    )*
   )
-  {    return out;
-  }
 }
 
-List<PrintInfo> ClassOrInterfaceType():
+void ClassOrInterfaceType(List<PrintInfo> out):
 {
   Token t;
-  List<PrintInfo> out = new LinkedList<PrintInfo>(), other;
 }
 {
   t=<IDENTIFIER>
   {    out.add(new PrintString(t.image));
   }
-  [ LOOKAHEAD(2)
-    other=TypeArguments()
-    {      out.addAll(other);
-    }
-  ]
+  [ LOOKAHEAD(2)TypeArguments(out) ]
   ( LOOKAHEAD(2) "." t=<IDENTIFIER>
     {
       out.add(new PrintString("."));
       out.add(new PrintString(t.image));
     }
-    [ LOOKAHEAD(2) other=TypeArguments()
-      {
-        out.addAll(other);
-      }
-    ]
+    [ LOOKAHEAD(2) TypeArguments(out) ]
   )*
-  {
-    return new LinkedList<PrintInfo>();
-  }
 }
 
-List<PrintInfo> TypeArguments():
+void TypeArguments(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>(),other;
-}
-{
-   "<" other=TypeArgument()
+   "<"
    {     out.add(new PrintString("<"));
-     out.addAll(other);
    }
-   ( "," other=TypeArgument()
+   TypeArgument(out)
+   ( ","
 	 {
        out.add(new PrintString(","));
-       out.add(new PrintString(" "));
-	   out.addAll(other);
+       out.add(PrintWhiteSpace.getInstance());
 	 }
-
+     TypeArgument(out)
    )* ">"
    {
      out.add(new PrintString(">"));
-     return out;
    }
 }
 
-List<PrintInfo> TypeArgument():
-{
-  List<PrintInfo> out = new LinkedList<PrintInfo>(),other;
-}
+void TypeArgument(List<PrintInfo> out):
+{}
 {
  ( 
-   out=ReferenceType()
+   ReferenceType(out)
  |
    "?"
    {     out.add(new PrintString("?"));
    }
-   [ other = WildcardBounds()
-     {
-       out.add(new PrintString(" "));       out.addAll(other);
+   [ {
+       out.add(PrintWhiteSpace.getInstance());
      }
+     WildcardBounds(out)
    ]
  )
- {   return out;
- }
 }
 
-List<PrintInfo> WildcardBounds():
+void WildcardBounds(List<PrintInfo> out):
 {
   Token t;
-  List<PrintInfo> other;
+  List<PrintInfo> other = new LinkedList<PrintInfo>();
 }
 {
  (
-   t="extends" other=ReferenceType()
+   t="extends" ReferenceType(other)
  |
-   t="super" other=ReferenceType()
+   t="super" ReferenceType(other)
  )
- {   List<PrintInfo> out = new LinkedList<PrintInfo>();
+ {
    out.add(new PrintString(t.image));
-   out.add(new PrintString(" "));
+   out.add(PrintWhiteSpace.getInstance());
    out.addAll(other);
-   return out;
  }
 }
 
 
-List<PrintInfo> PrimitiveType():
+void PrimitiveType(List<PrintInfo> out):
 {
   Token t;
 }
@@ -1682,15 +1918,11 @@ List<PrintInfo> PrimitiveType():
 	  t="double"
   )
   {
-    List<PrintInfo> out = new Vector(1);
-    out.add(new PrintString(t.image));
-    return out;  }
+    out.add(new PrintString(t.image));  }
 }
 
-List<PrintInfo> ResultType():
-{
-  List<PrintInfo> out = new Vector<PrintInfo>(1);
-}
+void ResultType(List<PrintInfo> out):
+{}
 {
   (   
 	  "void"
@@ -1698,20 +1930,16 @@ List<PrintInfo> ResultType():
 	    out.add(new PrintString("void"));
 	  }
 	|
-	  out = Type()
+	  Type(out)
 	)
-	{
-	  return out;
-	}
 }
 
-List<PrintInfo> Name():
+void Name(List<PrintInfo> out):
 /*
  * A lookahead of 2 is required below since "Name" can be followed
  * by a ".*" when used in the context of an "ImportDeclaration".
  */
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>();
   Token t;
 }
 {
@@ -1725,15 +1953,18 @@ List<PrintInfo> Name():
       out.add(new PrintString(t.image));
     }
   )*
-  {
-    return out;
-  }
 }
 
-void NameList():
+void NameList(List<PrintInfo> out):
 {}
 {
-  Name() ( "," Name() )*
+  Name(out)
+  ( ","
+    {
+      out.add(new PrintString(","));
+      out.add(PrintWhiteSpace.getInstance());    }
+    Name(out)
+  )*
 }
 
 
@@ -1741,7 +1972,7 @@ void NameList():
  * Expression syntax follows.
  */
 
-List<PrintInfo> Expression():
+void Expression(List<PrintInfo> out):
 /*
  * This expansion has been written this way instead of:
  *   Assignment() | ConditionalExpression()
@@ -1751,427 +1982,357 @@ List<PrintInfo> Expression():
  * a primary expression.  Consider adding a semantic predicate to work
  * around this.
  */
+{}
 {
-  List<PrintInfo> out, other, other2;}
-{
-  out=ConditionalExpression()
+  ConditionalExpression(out)
   [
     LOOKAHEAD(2)
-    other=AssignmentOperator() other2=Expression()
-    {
-      out.add(new PrintString(" "));      out.addAll(other);
-      out.add(new PrintString(" "));
-      out.addAll(other2);
+    {      out.add(PrintWhiteSpace.getInstance());
     }
+    AssignmentOperator(out)
+    {
+      out.add(PrintWhiteSpace.getInstance());
+    }
+    Expression(out)
   ]
-  {
-    return out;
-  }
 }
 
-List<PrintInfo> AssignmentOperator():
+void AssignmentOperator(final List<PrintInfo> out):
 {
   Token t;
 }
 {
   (t="=" | t="*=" | t="/=" | t="%=" | t="+=" | t="-=" | t="<<=" | t=">>=" | t=">>>=" | t="&=" | t="^=" | t="|=")
-  {    List<PrintInfo> out = new Vector<PrintInfo>(1);
+  {
     out.add(new PrintString(t.image));
-    return out;
   }
 }
 
-List<PrintInfo> ConditionalExpression():
+void ConditionalExpression(List<PrintInfo> out):
 {
-  List<PrintInfo> out, other, other2;
+  List<PrintInfo> other  = new LinkedList<PrintInfo>()
+                , other2 = new LinkedList<PrintInfo>();
 }
 {
-  out=ConditionalOrExpression()
-  [ "?" other=Expression() ":" other2=Expression()
+  ConditionalOrExpression(out)
+  [ "?" Expression(other) ":" Expression(other2)
     {      out.add(new PrintString("?"));
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.addAll(other);
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.add(new PrintString(":"));
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.addAll(other2);
     }
   ]
-  {    return out;
-  }
 }
 
-List<PrintInfo> ConditionalOrExpression():
+void ConditionalOrExpression(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> out, other;
-}
-{
-  out=ConditionalAndExpression()
-  ( "||" other=ConditionalAndExpression()
+  ConditionalAndExpression(out)
+  ( "||"
     {
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.add(new PrintString("||"));
-      out.add(new PrintString(" "));
-      out.addAll(other);    }
+      out.add(PrintWhiteSpace.getInstance());    }
+    ConditionalAndExpression(out)
   )*
-  {
-    return out;
-  }
 }
 
-List<PrintInfo> ConditionalAndExpression():
+void ConditionalAndExpression(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> out, other;
-}
-{
-  out=InclusiveOrExpression()
-  ( "&&" other=InclusiveOrExpression()
+  InclusiveOrExpression(out)
+  ( "&&"
     {
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.add(new PrintString("&&"));
-      out.add(new PrintString(" "));
-      out.addAll(other);
+      out.add(PrintWhiteSpace.getInstance());
     }
+    InclusiveOrExpression(out)
   )*
-  {    return out;
-  }
 }
 
-List<PrintInfo> InclusiveOrExpression():
+void InclusiveOrExpression(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> out, other;
-}
-{
-  out=ExclusiveOrExpression()
-  ( "|" other=ExclusiveOrExpression()
+  ExclusiveOrExpression(out)
+  ( "|"
     {
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.add(new PrintString("|"));
-      out.add(new PrintString(" "));
-      out.addAll(other);
+      out.add(PrintWhiteSpace.getInstance());
     }
+    ExclusiveOrExpression(out)
   )*
-  {    return out;
-  }
 }
 
-List<PrintInfo> ExclusiveOrExpression():
+void ExclusiveOrExpression(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> out, other;
-}
-{
-  out=AndExpression()
-  ( "^" other=AndExpression()
+  AndExpression(out)
+  ( "^"
     {
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.add(new PrintString("^"));
-      out.add(new PrintString(" "));
-      out.addAll(other);
+      out.add(PrintWhiteSpace.getInstance());
     }
+    AndExpression(out)
   )*
-  {    return out;
-  }
 }
 
-List<PrintInfo> AndExpression():
+void AndExpression(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> out, other;
-}
-{
-  out=EqualityExpression()
-  ( "&" other=EqualityExpression()
+  EqualityExpression(out)
+  ( "&"
     {
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.add(new PrintString("&"));
-      out.add(new PrintString(" "));
-      out.addAll(other);
+      out.add(PrintWhiteSpace.getInstance());
     }
+    EqualityExpression(out)
   )*
-  {    return out;
-  }
 }
 
-List<PrintInfo> EqualityExpression():
+void EqualityExpression(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> out, other;
-}
-{
-  out=InstanceOfExpression()
-  ( "=="  other=InstanceOfExpression()
+  InstanceOfExpression(out)
+  ( "=="
     {
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.add(new PrintString("=="));
-      out.add(new PrintString(" "));
-      out.addAll(other);
+      out.add(PrintWhiteSpace.getInstance());
     }
-  | "!="  other=InstanceOfExpression()
+    InstanceOfExpression(out)
+  | "!="
     {
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.add(new PrintString("!="));
-      out.add(new PrintString(" "));
-      out.addAll(other);
+      out.add(PrintWhiteSpace.getInstance());
     }
-    
+    InstanceOfExpression(out)
   )*
-  {    return out;
-  }
 }
 
-List<PrintInfo> InstanceOfExpression():
+void InstanceOfExpression(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> out, other;
-}
-{
-  out=RelationalExpression()
-  [ "instanceof" other=Type()
+  RelationalExpression(out)
+  [ "instanceof" 
     {
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.add(new PrintString("instanceof"));
-      out.add(new PrintString(" "));
-      out.addAll(other);
+      out.add(PrintWhiteSpace.getInstance());
     }
+    Type(out)
   ]
-  {    return out;
-  }
 }
 
-List<PrintInfo> RelationalExpression():
+void RelationalExpression(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> out, other;
-}
-{
-  out=ShiftExpression()
-  ( ( "<" other=ShiftExpression()
-    {
-      out.add(new PrintString(" "));
-      out.add(new PrintString("<"));
-      out.add(new PrintString(" "));
-      out.addAll(other);
-    }
-    | ">" other=ShiftExpression()
-    {
-      out.add(new PrintString(" "));
-      out.add(new PrintString(">"));
-      out.add(new PrintString(" "));
-      out.addAll(other);
-    }
-    | "<=" other=ShiftExpression()
-    {
-      out.add(new PrintString(" "));
-      out.add(new PrintString("<="));
-      out.add(new PrintString(" "));
-      out.addAll(other);
-    }
-    | ">=" other=ShiftExpression()
-    {
-      out.add(new PrintString(" "));
-      out.add(new PrintString(">="));
-      out.add(new PrintString(" "));
-      out.addAll(other);
-    }
+  ShiftExpression(out)
+  (
+    ( "<"
+      {
+        out.add(PrintWhiteSpace.getInstance());
+        out.add(new PrintString("<"));
+        out.add(PrintWhiteSpace.getInstance());
+      }
+      ShiftExpression(out)
+    | ">"
+      {
+        out.add(PrintWhiteSpace.getInstance());
+        out.add(new PrintString(">"));
+        out.add(PrintWhiteSpace.getInstance());
+      }
+      ShiftExpression(out)
+    | "<="
+      {
+        out.add(PrintWhiteSpace.getInstance());
+        out.add(new PrintString("<="));
+        out.add(PrintWhiteSpace.getInstance());
+      }
+      ShiftExpression(out)
+    | ">="
+      {
+        out.add(PrintWhiteSpace.getInstance());
+        out.add(new PrintString(">="));
+        out.add(PrintWhiteSpace.getInstance());
+      }
+      ShiftExpression(out)
     )
-
   )*
-  {    return out;
-  }
 }
 
-List<PrintInfo> ShiftExpression():
+void ShiftExpression(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> out, other;
-}
-{
-  out=AdditiveExpression()
-  ( "<<" other=AdditiveExpression()
+  AdditiveExpression(out)
+  ( "<<"
     {
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.add(new PrintString("<<"));
-      out.add(new PrintString(" "));
-      out.addAll(other);
+      out.add(PrintWhiteSpace.getInstance());
     }
-  | RSIGNEDSHIFT() other=AdditiveExpression()
+    AdditiveExpression(out)
+  | RSIGNEDSHIFT()
     {
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.add(new PrintString(">>"));
-      out.add(new PrintString(" "));
-      out.addAll(other);
+      out.add(PrintWhiteSpace.getInstance());
     }
-  | RUNSIGNEDSHIFT() other=AdditiveExpression()
+    AdditiveExpression(out)
+  | RUNSIGNEDSHIFT()
     {
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.add(new PrintString(">>>"));
-      out.add(new PrintString(" "));
-      out.addAll(other);
+      out.add(PrintWhiteSpace.getInstance());
     }
+    AdditiveExpression(out)
   )*
-  {    return out;
-  }
 }
 
-List<PrintInfo> AdditiveExpression():
+void AdditiveExpression(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> out, other;
-}
-{
-  out=MultiplicativeExpression()
-  ( "+" other=MultiplicativeExpression()
+  MultiplicativeExpression(out)
+  ( "+"
     {
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.add(new PrintString("+"));
-      out.add(new PrintString(" "));
-      out.addAll(other);
+      out.add(PrintWhiteSpace.getInstance());
     }
-  | "-" other=MultiplicativeExpression()
+    MultiplicativeExpression(out)
+  | "-"
     {
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.add(new PrintString("-"));
-      out.add(new PrintString(" "));
-      out.addAll(other);
+      out.add(PrintWhiteSpace.getInstance());
     }
+    MultiplicativeExpression(out)
   )*
-  {    return out;
-  }
 }
 
-List<PrintInfo> MultiplicativeExpression():
+void MultiplicativeExpression(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> out, other;
-}
-{
-  out=UnaryExpression()
-  ( "*" other=UnaryExpression()
+  UnaryExpression(out)
+  ( "*"
     {
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.add(new PrintString("*"));
-      out.add(new PrintString(" "));
-      out.addAll(other);
+      out.add(PrintWhiteSpace.getInstance());
     }
-  | "/" other=UnaryExpression()
+    UnaryExpression(out)
+  | "/"
     {
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.add(new PrintString("/"));
-      out.add(new PrintString(" "));
-      out.addAll(other);
+      out.add(PrintWhiteSpace.getInstance());
     }
-  | "%" other=UnaryExpression()
+    UnaryExpression(out)
+  | "%"
     {
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.add(new PrintString("%"));
-      out.add(new PrintString(" "));
-      out.addAll(other);
+      out.add(PrintWhiteSpace.getInstance());
     }
+    UnaryExpression(out)
   )*
-  {    return out;
-  }
 }
 
-List<PrintInfo> UnaryExpression():
-{
-  List<PrintInfo> out, other;
-}
+void UnaryExpression(List<PrintInfo> out):
+{}
 {
   (
-    ( "+" other=UnaryExpression()
-      {        out = new Vector<PrintInfo>(other.size()+1);
-        out.add(new PrintString("+"));
-        out.add(new PrintString(" "));
-        out.addAll(other);
-      }
-    | "-" other=UnaryExpression()
+    ( "+"
       {
-        out = new Vector<PrintInfo>(other.size()+1);
-        out.add(new PrintString("-"));
-        out.add(new PrintString(" "));
-        out.addAll(other);
+        out.add(new PrintString("+"));
+        out.add(PrintWhiteSpace.getInstance());
       }
+      UnaryExpression(out)
+    | "-"
+      {
+        out.add(new PrintString("-"));
+        out.add(PrintWhiteSpace.getInstance());
+      }
+      UnaryExpression(out)
     )
   |
-    out=PreIncrementExpression()
+    PreIncrementExpression(out)
   |
-    out=PreDecrementExpression()
+    PreDecrementExpression(out)
   |
-    out=UnaryExpressionNotPlusMinus()
+    UnaryExpressionNotPlusMinus(out)
   )
-  {    return out;
-  }
 }
 
-List<PrintInfo> PreIncrementExpression():
+void PreIncrementExpression(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> other;
-}
-{
-  "++" other=PrimaryExpression()
+  "++"
   {
-    List<PrintInfo> out = new Vector<PrintInfo>(other.size()+1);
-    out.add(new PrintString("++"));
-    out.addAll(other);
-    return out;  }
+    out.add(new PrintString("++"));  }
+  PrimaryExpression(out)
 }
 
-List<PrintInfo> PreDecrementExpression():
+void PreDecrementExpression(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> other;
-}
-{
-  "--" other=PrimaryExpression()
+  "--"
   {
-    List<PrintInfo> out = new Vector<PrintInfo>(other.size()+1);
     out.add(new PrintString("--"));
-    out.addAll(other);
-    return out;
   }
+  PrimaryExpression(out)
 }
 
-List<PrintInfo> UnaryExpressionNotPlusMinus():
+void UnaryExpressionNotPlusMinus(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> out, other;
-}
-{
-  (    ( "~" other=UnaryExpression()
+  (    ( "~"
       {
-        out = new Vector<PrintInfo>(other.size()+1);
         out.add(new PrintString("~"));
-        out.addAll(other);
       }
-    | "!" other=UnaryExpression()
+      UnaryExpression(out)
+    | "!"
       {
-        out = new Vector<PrintInfo>(other.size()+1);
         out.add(new PrintString("!"));
-        out.addAll(other);
       }
+      UnaryExpression(out)
     )
   |
     LOOKAHEAD( CastLookahead() )
-    out=CastExpression()
+    CastExpression(out)
   |
-    out=PostfixExpression()
+    PostfixExpression(out)
   )
-  {    return out;
-  }
 }
 
 // This production is to determine lookahead only.  The LOOKAHEAD specifications
 // below are not used, but they are there just to indicate that we know about
 // this.
 void CastLookahead():
-{}
+{
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
+}
 {
   LOOKAHEAD(2)
-  "(" PrimitiveType()
+  "(" PrimitiveType(out)
 |
   LOOKAHEAD("(" Type() "[")
-  "(" Type() "[" "]"
+  "(" Type(out) "[" "]"
 |
-  "(" Type() ")" ( "~" | "!" | "(" | <IDENTIFIER> | "this" | "super" | "new" | Literal() )
+  "(" Type(out) ")" ( "~" | "!" | "(" | <IDENTIFIER> | "this" | "super" | "new" | Literal(out) )
 }
 
-List<PrintInfo> PostfixExpression():
+void PostfixExpression(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> out;
-}
-{
-  out=PrimaryExpression()
+  PrimaryExpression(out)
   [ "++"
     {      out.add(new PrintString("++"));
     }
@@ -2180,129 +2341,114 @@ List<PrintInfo> PostfixExpression():
       out.add(new PrintString("--"));
     }
   ]
-  {    return out;
-  }
 }
 
-List<PrintInfo> CastExpression():
+void CastExpression(List<PrintInfo> out):
 {
-  List<PrintInfo> out, other, other2;
+  List<PrintInfo> other  = new LinkedList<PrintInfo>()
+                , other2 = new LinkedList<PrintInfo>();
 }
 {
   (
     LOOKAHEAD("(" PrimitiveType())
-    "(" other=Type() ")" other2=UnaryExpression()
+    "(" Type(other) ")" UnaryExpression(other2)
   |
-    "(" other=Type() ")" other2=UnaryExpressionNotPlusMinus()
+    "(" Type(other) ")" UnaryExpressionNotPlusMinus(other2)
   )
   {
-    out = new Vector<PrintInfo>(other.size()+other2.size()+2);
-    out.add(new PrintString(" "));
     out.add(new PrintString("("));
     out.addAll(other);
     out.add(new PrintString(")"));
-    out.add(new PrintString(" "));
-    out.addAll(other2);
-    return out;  }
+    out.add(PrintWhiteSpace.getInstance());
+    out.addAll(other2);  }
 }
 
-List<PrintInfo> PrimaryExpression():
+void PrimaryExpression(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> out, other;
-}
-{
-  out = PrimaryPrefix()
-  ( LOOKAHEAD(2) other = PrimarySuffix()
-    {
-      out.addAll(other);    }
-  )*
-  {    return out;
-  }
+  PrimaryPrefix(out)
+  ( LOOKAHEAD(2) PrimarySuffix(out) )*
 }
 
-List<PrintInfo> MemberSelector():
+void MemberSelector(List<PrintInfo> out):
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>(), other;
+  List<PrintInfo> other = new LinkedList<PrintInfo>();
   Token t;
 }
 {
-  "." other = TypeArguments() t=<IDENTIFIER>
+  "." TypeArguments(other) t=<IDENTIFIER>
   {
     out.add(new PrintString("."));
     out.addAll(other);
     out.add(new PrintString(t.image));
-    return out;
   }
 }
 
-List<PrintInfo> PrimaryPrefix():
+void PrimaryPrefix(List<PrintInfo> out):
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>(), other;
   Token t;
 }
 {
   (
-	  out=Literal()
-	|
-	  LOOKAHEAD( ( <IDENTIFIER> "." )* "this" )
-	  ( t=<IDENTIFIER> "."
-	    {
-	      out.add(new PrintString(t.image));
-	      out.add(new PrintString("."));
-	    }
-	  )*
-	  "this"
+    Literal(out)
+  |
+	LOOKAHEAD( ( <IDENTIFIER> "." )* "this" )
+	( t=<IDENTIFIER> "."
 	  {
-	    out.add(new PrintString("this"));
-	  }
-	|
-	  "super" "." t=<IDENTIFIER>
-	  {
-	    out.add(new PrintString("super"));
-	    out.add(new PrintString("."));
 	    out.add(new PrintString(t.image));
-	  }
-	|
-	   // danson, added this part to support a construct like:
-	   //   Buffer.super.setDirty(true);
-	   // See Java Language Specification, 3rd edition, section 15.11.2.
-	   LOOKAHEAD( ClassOrInterfaceType() "." "super" "." <IDENTIFIER> )
-	   other = ClassOrInterfaceType() "." "super" "." t=<IDENTIFIER>
-	   {
-	     out.addAll(other);
-	     out.add(new PrintString("."));
-	     out.add(new PrintString("super"));
-	     out.add(new PrintString("."));
-	     out.add(new PrintString(t.image));
-	   }
-	|
-	  "(" other = Expression() ")"
-	  {
-	     out.add(new PrintString("("));
-	     out.addAll(other);
-	     out.add(new PrintString(")"));
-	  }
-	|
-	  out = AllocationExpression()
-	|
-	  LOOKAHEAD( ResultType() "." "class" )
-	  other = ResultType() "." "class"
-	  {
-	    out.addAll(other);
 	    out.add(new PrintString("."));
-	    out.add(new PrintString("class"));
 	  }
-	|
-	  out = Name()
-	)
+	)*
+	"this"
 	{
-	  return out;
+      out.add(new PrintString("this"));
 	}
+  |
+    "super" "." t=<IDENTIFIER>
+	{
+	  out.add(new PrintString("super"));
+	  out.add(new PrintString("."));
+	  out.add(new PrintString(t.image));
+	}
+  |
+	 // danson, added this part to support a construct like:
+	 //   Buffer.super.setDirty(true);
+	 // See Java Language Specification, 3rd edition, section 15.11.2.
+	 LOOKAHEAD( ClassOrInterfaceType() "." "super" "." <IDENTIFIER> )
+	 ClassOrInterfaceType(out) "." "super" "." t=<IDENTIFIER>
+	 {
+	   out.add(new PrintString("."));
+	   out.add(new PrintString("super"));
+	   out.add(new PrintString("."));
+	   out.add(new PrintString(t.image));
+	 }
+  |
+    "("
+	{
+	   out.add(new PrintString("("));
+	   out.add(PrintWhiteSpace.getInstance());
+    }
+	Expression(out) ")"
+    {
+       out.add(PrintWhiteSpace.getInstance());
+       out.add(new PrintString(")"));
+    }
+  |
+	AllocationExpression(out)
+  |
+    LOOKAHEAD( ResultType() "." "class" )
+	ResultType(out) "." "class"
+	{
+	  out.add(new PrintString("."));
+	  out.add(new PrintString("class"));
+	}
+  |
+	Name(out)
+  )
 }
 
-List<PrintInfo> PrimarySuffix():
+void PrimarySuffix(List<PrintInfo> out):
 {
-  List<PrintInfo> out = new Vector(), other;
   Token t;
 }
 {
@@ -2322,21 +2468,23 @@ List<PrintInfo> PrimarySuffix():
 	  }
 	|
 	  LOOKAHEAD(2)
-	  "." other = AllocationExpression()
+	  "."
 	  {
 	    out.add(new PrintString("."));
-	    out.addAll(other);
 	  }
+	  AllocationExpression(out)
 	|
 	  LOOKAHEAD(3)
-	  out = MemberSelector()
+	  MemberSelector(out)
 	|
-	  "[" other = Expression() "]"
-	  {
-	    out.add(new PrintString("["));
-	    out.addAll(other);
-	    out.add(new PrintString("]"));
-	  }
+      "["
+      {
+         out.add(new PrintString("["));
+      }
+      Expression(out) "]"
+      {
+         out.add(new PrintString("]"));
+      }
 	|
 	  "." t = <IDENTIFIER>
 	  {
@@ -2344,175 +2492,133 @@ List<PrintInfo> PrimarySuffix():
 	    out.add(new PrintString(t.image));
 	  }
 	|
-	  out = Arguments()
+	  Arguments(out)
   )
-  {
-    return out;
-  }
 }
 
-List<PrintInfo> Literal():
+void Literal(List<PrintInfo> out):
 {
-  List<PrintInfo> out = new Vector<PrintInfo>(1);
   Token t;
 }
 {
   (    
-	  t=<INTEGER_LITERAL>
-	  {
-      out.add(new PrintString(t.image));
-	  }
-	|
-	  t=<FLOATING_POINT_LITERAL>
+	t=<INTEGER_LITERAL>
     {
       out.add(new PrintString(t.image));
     }
-	|
-	  t=<CHARACTER_LITERAL>
+  |
+    t=<FLOATING_POINT_LITERAL>
     {
       out.add(new PrintString(t.image));
     }
-	|
-	  t=<STRING_LITERAL>
+  |
+    t=<CHARACTER_LITERAL>
     {
       out.add(new PrintString(t.image));
     }
-	|
-	  out=BooleanLiteral()
-	|
-	  out=NullLiteral()
-	)
-  {
-    return out;
-  }
+  |
+    t=<STRING_LITERAL>
+    {
+      out.add(new PrintString(t.image));
+    }
+  |
+    BooleanLiteral(out)
+  |
+    NullLiteral(out)
+  )
 }
 
-List<PrintInfo> BooleanLiteral():
-{
-  List<PrintInfo> out = new Vector<PrintInfo>(1);
-}
+void BooleanLiteral(List<PrintInfo> out):
+{}
 {
   "true"
   {
     out.add(new PrintString("true"));
-    return out;
   }
 |
   "false"
   {
     out.add(new PrintString("false"));
-    return out;
   }
 }
 
-List<PrintInfo> NullLiteral():
+void NullLiteral(List<PrintInfo> out):
 {
-  List<PrintInfo> out = new Vector<PrintInfo>(1);
   out.add(new PrintString("null"));
 }
 {
   "null"
+}
+
+void Arguments(List<PrintInfo> out):
+{
+  List<PrintInfo> other = new LinkedList<PrintInfo>();
+}
+{
+  "(" [ ArgumentList(other) ] ")"
   {
-    return out;
+    out.add(new PrintString("("));
+    out.addAll(other);
+    out.add(new PrintString(")"));
   }
 }
 
-List<PrintInfo> Arguments():
+void ArgumentList(List<PrintInfo> out):
+{}
 {
-  List<PrintInfo> out, other = null;
-}
-{
-  "(" [ other=ArgumentList() ] ")"
-  {
-    if(other==null)    {      out = new Vector<PrintInfo>(2);
-      out.add(new PrintString("("));
-      out.add(new PrintString(")"));
-    } else    {
-      out = new Vector<PrintInfo>(other.size()+2);
-      out.add(new PrintString("("));
-      out.addAll(other);
-      out.add(new PrintString(")"));
-    }
-    return out;
-  }
-}
-
-List<PrintInfo> ArgumentList():
-{
-  List<PrintInfo> out, other;
-}
-{
-  out=Expression()
-  ( "," other=Expression()
+  Expression(out)
+  ( ","
     {      out.add(new PrintString(","));
-      out.add(new PrintString(" "));
-      out.addAll(other);
+      out.add(PrintWhiteSpace.getInstance());
     }
+    Expression(out)
   )*
-  {    return out;
-  }
 }
 
-List<PrintInfo> AllocationExpression():
+void AllocationExpression(List<PrintInfo> out):
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>(), other, other2;
+  List<PrintInfo> other = new LinkedList<PrintInfo>()
+                , other2= new LinkedList<PrintInfo>();
 }
 {
   (    
     LOOKAHEAD(2)
-    "new" other=PrimitiveType() other2=ArrayDimsAndInits()
+    "new" PrimitiveType(other) ArrayDimsAndInits(other2)
     {      out.add(new PrintString("new"));
-      out.add(new PrintString(" "));
+      out.add(PrintWhiteSpace.getInstance());
       out.addAll(other);
       out.addAll(other2);
     }
   |
-    "new" other=ClassOrInterfaceType()
+    "new"
     {
       out.add(new PrintString("new"));
-      out.add(new PrintString(" "));
-      out.addAll(other);
+      out.add(PrintWhiteSpace.getInstance());
     }
-    [ other=TypeArguments()
-      {
-        out.addAll(other);
-      }
-    ]
+    ClassOrInterfaceType(out)
+    [ TypeArguments(out) ]
       (
-        other=ArrayDimsAndInits()
-        {
-          out.addAll(other);
-        }
+        ArrayDimsAndInits(out)
       |
-        Arguments()
-        {
-          out.addAll(other);
-        }
-        [ other=ClassOrInterfaceBody(false)
-          {
-            out.addAll(other);
-          }
-        ]
+        Arguments(out)
+        [ ClassOrInterfaceBody(false, out) ]
       )
   )
-  {
-    return out;
-  }
 }
 
 /*
  * The third LOOKAHEAD specification below is to parse to PrimarySuffix
  * if there is an expression between the "[...]".
  */
-List<PrintInfo> ArrayDimsAndInits():
-{
-  List<PrintInfo> out = new LinkedList<PrintInfo>(), other;
-}
+void ArrayDimsAndInits(List<PrintInfo> out):
+{}
 {
   (    LOOKAHEAD(2)
-    ( LOOKAHEAD(2) "[" other=Expression() "]"
+    ( LOOKAHEAD(2) "["  
       {        out.add(new PrintString("["));
-        out.addAll(other);
+      }
+      Expression(out) "]"
+      {
         out.add(new PrintString("]"));
       }
     )+
@@ -2529,12 +2635,8 @@ List<PrintInfo> ArrayDimsAndInits():
         out.add(new PrintString("]"));
       }
     )+
-    other=ArrayInitializer()
-    {      out.addAll(other);
-    }
+    ArrayInitializer(out)
   )
-  {    return out;
-  }
 }
 
 
@@ -2542,87 +2644,146 @@ List<PrintInfo> ArrayDimsAndInits():
  * Statement syntax follows.
  */
 
-void Statement():
-{}
+void Statement(List<PrintInfo> out):
 {
-  LOOKAHEAD(2)
-  LabeledStatement()
-|
-  AssertStatement()
-|
-  Block()
-|
-  EmptyStatement()
-|
-  StatementExpression() ";"
-|
-  SwitchStatement()
-|
-  IfStatement()
-|
-  WhileStatement()
-|
-  DoStatement()
-|
-  ForStatement()
-|
-  BreakStatement()
-|
-  ContinueStatement()
-|
-  ReturnStatement()
-|
-  ThrowStatement()
-|
-  SynchronizedStatement()
-|
-  TryStatement()
+}
+{
+  (    LOOKAHEAD(2)
+    LabeledStatement(out)
+  |
+    AssertStatement(out)
+  |
+    Block(out)
+  |
+    EmptyStatement(out)
+  |
+    StatementExpression(out) ";"
+    {
+      out.add(new PrintString(";"));    }
+  |
+    SwitchStatement(out)
+  |
+    IfStatement(out)
+  |
+    WhileStatement(out)
+  |
+    DoStatement(out)
+  |
+    ForStatement(out)
+  |
+    BreakStatement(out)
+  |
+    ContinueStatement(out)
+  |
+    ReturnStatement(out)
+  |
+    ThrowStatement(out)
+  |
+    SynchronizedStatement(out)
+  |
+    TryStatement(out)
+  )
 }
 
-void AssertStatement():
+void AssertStatement(List<PrintInfo> out):
 {}
 {
-  "assert" Expression() [ ":" Expression() ] ";"
+  "assert"
+  {
+    out.add(new PrintString("assert"));
+    out.add(PrintWhiteSpace.getInstance());  }
+  Expression(out)
+  [ ":"
+    {
+      out.add(new PrintString(":"));
+      out.add(PrintWhiteSpace.getInstance());
+    }
+    Expression(out)
+    {
+      out.add(PrintWhiteSpace.getInstance());
+    }
+  ]
+  ";"
+  {
+    out.add(new PrintString(";"));
+  }
 }
 
-void LabeledStatement():
-{}
+void LabeledStatement(List<PrintInfo> out):
 {
-  <IDENTIFIER> ":" Statement()
+  Token t;
 }
-
-void Block():
-{}
 {
-  "{" ( BlockStatement() )* "}"
+  t=<IDENTIFIER> ":"
+  {
+    out.add(new PrintString(t.image));
+    out.add(PrintWhiteSpace.getInstance());
+    out.add(new PrintString(":"));
+    out.add(PrintWhiteSpace.getInstance());  }
+  Statement(out)
 }
 
-void BlockStatement():
+void Block(List<PrintInfo> out):
+{
+}
+{
+  "{"
+  {
+    out.add(new PrintString("{"));
+    out.add(PrintInitTab.getInstance());
+    out.add(PrintIntro.getInstance());  }
+  ( 
+    BlockStatement(out)
+    {
+      out.add(PrintIntro.getInstance());
+    }
+  )*
+  "}"
+  {
+    while(out.get(out.size()-1) == PrintIntro.getInstance())
+      out.remove(out.size()-1);
+    out.add(PrintEndTab.getInstance());
+    out.add(PrintIntro.getInstance());
+    out.add(new PrintString("}"));
+  }
+}
+
+void BlockStatement(List<PrintInfo> out):
 {}
 {
   LOOKAHEAD( Modifiers() Type() <IDENTIFIER> )
-  LocalVariableDeclaration() ";"
+  LocalVariableDeclaration(out) ";"
+  {
+    out.add(new PrintString(";"));  }
 |
-  Statement()
+  Statement(out)
 |
-  ClassOrInterfaceDeclaration(0)
+  ClassOrInterfaceDeclaration(0, out)
 }
 
-void LocalVariableDeclaration():
+void LocalVariableDeclaration(List<PrintInfo> out):
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>();
 }
 {
-  Modifiers(out) Type() VariableDeclarator() ( "," VariableDeclarator() )*
+  Modifiers(out) Type(out) VariableDeclarator(out)
+  ( ","
+    {
+      out.add(new PrintString(","));
+      out.add(PrintWhiteSpace.getInstance());
+    }
+    VariableDeclarator(out)
+  )*
 }
 
-void EmptyStatement():
-{}
+void EmptyStatement(List<PrintInfo> out):
+{
+  out.add(new PrintString(";"));
+}
 {
   ";"
 }
 
-void StatementExpression():
+void StatementExpression(List<PrintInfo> out):
 /*
  * The last expansion of this production accepts more than the legal
  * Java expansions for StatementExpression.  This expansion does not
@@ -2630,37 +2791,91 @@ void StatementExpression():
  */
 {}
 {
-  PreIncrementExpression()
-|
-  PreDecrementExpression()
-|
-  PrimaryExpression()
-  [
-    "++"
+  (    PreIncrementExpression(out)
   |
-    "--"
+    PreDecrementExpression(out)
   |
-    AssignmentOperator() Expression()
-  ]
+    PrimaryExpression(out)
+    [
+      "++"
+      {
+        out.add(new PrintString("++"));      }
+    |
+      "--"
+      {
+        out.add(new PrintString("++"));
+      }
+    |
+      {
+        out.add(PrintWhiteSpace.getInstance());
+      }
+      AssignmentOperator(out)
+      {
+        out.add(PrintWhiteSpace.getInstance());
+      }
+      Expression(out)
+    ]
+  )
 }
 
-void SwitchStatement():
+void SwitchStatement(List<PrintInfo> out):
 {}
 {
-  "switch" "(" Expression() ")" "{"
-    ( SwitchLabel() ( BlockStatement() )* )*
+  "switch" "("
+  {
+    out.add(new PrintString("switch"));
+    out.add(new PrintString("("));
+  }
+  Expression(out) ")" "{"
+  {
+    out.add(new PrintString(")"));
+    out.add(PrintWhiteSpace.getInstance());
+    out.add(new PrintString("{"));
+  }
+  (
+    {
+      out.add(PrintIntro.getInstance());
+    }
+    SwitchLabel(out)
+    {
+      out.add(PrintInitTab.getInstance());    }
+    (
+      {
+        out.add(PrintIntro.getInstance());
+      }
+      BlockStatement(out)
+    )*
+    {
+      out.add(PrintEndTab.getInstance());
+    }
+  )*
   "}"
+  {
+    out.add(PrintIntro.getInstance());
+    out.add(new PrintString("}"));
+  }
 }
 
-void SwitchLabel():
-{}
+void SwitchLabel(List<PrintInfo> out):
 {
-  "case" Expression() ":"
+  List<PrintInfo> other = new LinkedList<PrintInfo>();
+}
+{
+  "case" Expression(other) ":"
+  {
+    out.add(new PrintString("case"));
+    out.add(PrintWhiteSpace.getInstance());
+    out.addAll(other);
+    out.add(new PrintString(":"));  }
 |
   "default" ":"
+  {
+    out.add(new PrintString("default"));
+    out.add(new PrintString(":"));
+  }
 }
 
-void IfStatement():
+void IfStatement(List<PrintInfo> out):
 /*
  * The disambiguating algorithm of JavaCC automatically binds dangling
  * else's to the innermost if statement.  The LOOKAHEAD specification
@@ -2668,99 +2883,252 @@ void IfStatement():
  */
 {}
 {
-  "if" "(" Expression() ")" Statement() [ LOOKAHEAD(1) "else" Statement() ]
+  "if" "("
+  {
+    out.add(new PrintString("if"));
+    out.add(new PrintString("("));
+    out.add(PrintWhiteSpace.getInstance());  }
+  Expression(out)
+  ")"
+  {
+    out.add(PrintWhiteSpace.getInstance());
+    out.add(new PrintString(")"));
+    out.add(PrintWhiteSpace.getInstance());
+  }
+  Statement(out)
+  [ LOOKAHEAD(1) "else"
+    {
+      out.add(PrintIntro.getInstance());
+      out.add(new PrintString("else"));
+      out.add(PrintWhiteSpace.getInstance());
+    }
+    Statement(out)
+  ]
 }
 
-void WhileStatement():
+void WhileStatement(List<PrintInfo> out):
 {}
 {
-  "while" "(" Expression() ")" Statement()
+  "while" "("
+  {
+    out.add(new PrintString("while"));
+    out.add(new PrintString("("));
+    out.add(PrintWhiteSpace.getInstance());
+  }
+  Expression(out)
+  ")"
+  {
+    out.add(PrintWhiteSpace.getInstance());
+    out.add(new PrintString(")"));
+  }
+  Statement(out)
 }
 
-void DoStatement():
+void DoStatement(List<PrintInfo> out):
 {}
 {
-  "do" Statement() "while" "(" Expression() ")" ";"
+  "do"
+  {
+    out.add(new PrintString("do"));
+    out.add(PrintWhiteSpace.getInstance());
+  }
+  Statement(out)
+  "while" "("
+  {
+    out.add(new PrintString("while"));
+    out.add(new PrintString("("));
+    out.add(PrintWhiteSpace.getInstance());
+  }
+  Expression(out)
+  ")" ";"
+  {
+    out.add(PrintWhiteSpace.getInstance());
+    out.add(new PrintString(")"));
+    out.add(new PrintString(";"));
+  }
 }
 
-void ForStatement():
+void ForStatement(List<PrintInfo> out):
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>();
+  Token t;
 }
 {
   "for" "("
+  {
+    out.add(new PrintString("for"));
+    out.add(new PrintString("("));
+    out.add(PrintWhiteSpace.getInstance());
+  }
 
   (
-      LOOKAHEAD(Modifiers(out) Type() <IDENTIFIER> ":")
-      Modifiers(out) Type() <IDENTIFIER> ":" Expression()
+      LOOKAHEAD(Modifiers() Type() <IDENTIFIER> ":")
+      Modifiers(out) Type(out) t=<IDENTIFIER> ":"
+      {
+        out.add(PrintWhiteSpace.getInstance());
+        out.add(new PrintString(t.image));
+        out.add(new PrintString(":"));
+        out.add(PrintWhiteSpace.getInstance());
+      }
+      Expression(out)
     |
-     [ ForInit() ] ";" [ Expression() ] ";" [ ForUpdate() ]
-  )
+      [ ForInit(out) ] ";"
+      {
+        out.add(new PrintString(";"));
+        out.add(PrintWhiteSpace.getInstance());
+      }
 
-  ")" Statement()
+      [ Expression(out) ] ";"
+      {
+        out.add(new PrintString(";"));
+        out.add(PrintWhiteSpace.getInstance());
+      }
+
+      [ ForUpdate(out) ]
+  )
+  
+  {
+    out.add(new PrintString(")"));
+    out.add(PrintWhiteSpace.getInstance());
+  }
+
+  ")" Statement(out)
 }
 
-void ForInit():
+void ForInit(List<PrintInfo> out):
 {}
 {
   LOOKAHEAD( Modifiers() Type() <IDENTIFIER> )
-  LocalVariableDeclaration()
+  LocalVariableDeclaration(out)
 |
-  StatementExpressionList()
+  StatementExpressionList(out)
 }
 
-void StatementExpressionList():
+void StatementExpressionList(List<PrintInfo> out):
 {}
 {
-  StatementExpression() ( "," StatementExpression() )*
+  StatementExpression(out)
+  ( ","
+    {
+      out.add(new PrintString(","));
+      out.add(PrintWhiteSpace.getInstance());    }
+    StatementExpression(out)
+  )*
 }
 
-void ForUpdate():
+void ForUpdate(List<PrintInfo> out):
 {}
 {
-  StatementExpressionList()
+  StatementExpressionList(out)
 }
 
-void BreakStatement():
+void BreakStatement(List<PrintInfo> out):
+{
+  Token t = null;
+}
+{
+  "break" [ t=<IDENTIFIER> ] ";"
+  {
+    out.add(new PrintString("break"));
+    if(t != null)    {
+      out.add(PrintWhiteSpace.getInstance());      out.add(new PrintString(t.image));
+    }
+    out.add(new PrintString(";"));  }
+}
+
+void ContinueStatement(List<PrintInfo> out):
+{
+  Token t = null;
+}
+{
+  "continue" [ t=<IDENTIFIER> ] ";"
+  {
+    out.add(new PrintString("continue"));
+    if(t != null)
+    {
+      out.add(PrintWhiteSpace.getInstance());
+      out.add(new PrintString(t.image));
+    }
+    out.add(new PrintString(";"));
+  }
+}
+
+void ReturnStatement(List<PrintInfo> out):
 {}
 {
-  "break" [ <IDENTIFIER> ] ";"
+  "return"
+  {
+    out.add(new PrintString("return"));
+    out.add(PrintWhiteSpace.getInstance());  }
+  [ Expression(out) ] ";"
+  {
+    out.add(new PrintString(";"));
+  }
 }
 
-void ContinueStatement():
+void ThrowStatement(List<PrintInfo> out):
+{
+  List<PrintInfo> other = new LinkedList<PrintInfo>();
+}
+{
+  "throw" Expression(other) ";"
+  {
+    out.add(new PrintString("throw"));
+    out.add(PrintWhiteSpace.getInstance());
+    out.addAll(other);
+    out.add(new PrintString(";"));
+  }
+}
+
+void SynchronizedStatement(List<PrintInfo> out):
 {}
 {
-  "continue" [ <IDENTIFIER> ] ";"
+  "synchronized" "("
+  {
+    out.add(new PrintString("synchronized"));
+    out.add(new PrintString("("));  }
+  Expression(out)
+  ")"
+  {
+    out.add(new PrintString(")"));
+    out.add(PrintWhiteSpace.getInstance());
+  }
+  Block(out)
 }
 
-void ReturnStatement():
-{}
-{
-  "return" [ Expression() ] ";"
-}
-
-void ThrowStatement():
-{}
-{
-  "throw" Expression() ";"
-}
-
-void SynchronizedStatement():
-{}
-{
-  "synchronized" "(" Expression() ")" Block()
-}
-
-void TryStatement():
+void TryStatement(List<PrintInfo> out):
 /*
  * Semantic check required here to make sure that at least one
  * finally/catch is present.
  */
 {}
 {
-  "try" Block()
-  ( "catch" "(" FormalParameter() ")" Block() )*
-  [ "finally" Block() ]
+  "try"
+  {
+    out.add(new PrintString("try"));
+    out.add(PrintWhiteSpace.getInstance());  }
+  Block(out)
+  ( "catch" "("
+    {
+      out.add(PrintWhiteSpace.getInstance());
+      out.add(new PrintString("catch"));
+      out.add(new PrintString("("));
+    }
+    FormalParameter(out)
+    ")"
+    {
+      out.add(new PrintString(")"));
+      out.add(PrintWhiteSpace.getInstance());
+    }
+    Block(out)
+  )*
+  [ "finally"
+    {
+      out.add(PrintWhiteSpace.getInstance());
+      out.add(new PrintString("finally"));
+      out.add(PrintWhiteSpace.getInstance());
+    }
+    Block(out)
+  ]
 }
 
 /* We use productions to match >>>, >> and > so that we can keep the
@@ -2788,105 +3156,202 @@ void RSIGNEDSHIFT():
 /* Annotation syntax follows. */
 
 void Annotation(List<PrintInfo> out):
-{
-  //TODO
-}
+{}
 {
    LOOKAHEAD( "@" Name() "(" ( <IDENTIFIER> "=" | ")" ))
-   NormalAnnotation()
+   NormalAnnotation(out)
  |
    LOOKAHEAD( "@" Name() "(" )
-   SingleMemberAnnotation()
+   SingleMemberAnnotation(out)
  |
-   MarkerAnnotation()
+   MarkerAnnotation(out)
 }
 
-void NormalAnnotation():
-{}
+void NormalAnnotation(List<PrintInfo> out):
 {
-   "@" Name() "(" [ MemberValuePairs() ] ")"
+}
+{
+   "@"
+   {
+     out.add(new PrintString("@"));   }
+   Name(out)
+   "("
+   {
+     out.add(PrintWhiteSpace.getInstance());
+     out.add(new PrintString("("));
+   }
+   [ MemberValuePairs(out) ] ")"
+   {
+     out.add(new PrintString(")"));
+   }
 }
 
-void MarkerAnnotation():
+void MarkerAnnotation(List<PrintInfo> out):
 {}
 {
-  "@" Name()
+  "@"
+   {
+     out.add(new PrintString("@"));
+   }
+   Name(out)
 }
 
-void SingleMemberAnnotation():
+void SingleMemberAnnotation(List<PrintInfo> out):
 {}
 {
-  "@" Name() "(" MemberValue() ")"
+  "@"
+   {
+     out.add(new PrintString("@"));
+   }
+   Name(out) "("
+   {
+     out.add(PrintWhiteSpace.getInstance());
+     out.add(new PrintString("("));
+   }
+   MemberValue(out)
+   ")"
+   {
+     out.add(new PrintString(")"));
+   }
 }
 
-void MemberValuePairs():
+void MemberValuePairs(List<PrintInfo> out):
 {}
 {
-   MemberValuePair() ( "," MemberValuePair() )*
+   MemberValuePair(out)
+   ( ","
+     {
+       out.add(PrintWhiteSpace.getInstance());
+       out.add(new PrintString(","));
+     }
+     MemberValuePair(out)
+   )*
 }
 
-void MemberValuePair():
-{}
+void MemberValuePair(List<PrintInfo> out):
 {
-    <IDENTIFIER> "=" MemberValue()
+  Token t;
+}
+{
+   t=<IDENTIFIER> "="
+   {
+     out.add(new PrintString(t.image));
+     out.add(PrintWhiteSpace.getInstance());
+     out.add(new PrintString("="));
+     out.add(PrintWhiteSpace.getInstance());
+   }
+   MemberValue(out)
 }
 
-void MemberValue():
+void MemberValue(List<PrintInfo> out):
 {}
 {
-   Annotation(null)
+   Annotation(out)
  |
-   MemberValueArrayInitializer()
+   MemberValueArrayInitializer(out)
  |
-   ConditionalExpression()
+   ConditionalExpression(out)
 }
 
-void  MemberValueArrayInitializer():
+void  MemberValueArrayInitializer(List<PrintInfo> out):
 {}
 {
-  "{" (MemberValue() ( LOOKAHEAD(2) "," MemberValue() )* [ "," ])? "}"
+  "{"
+  {
+    out.add(new PrintString("{"));
+    out.add(PrintInitTab.getInstance());
+    out.add(PrintIntro.getInstance());
+  }
+  ( MemberValue(out)
+    ( LOOKAHEAD(2) ","
+    {
+      out.add(new PrintString("}"));
+      out.add(PrintWhiteSpace.getInstance());
+    }
+      MemberValue(out)
+    )* [ "," ]
+  )?
+  "}"
+  {
+    out.add(PrintEndTab.getInstance());
+    out.add(PrintIntro.getInstance());
+    out.add(new PrintString("}"));
+  }
 }
 
 
 /* Annotation Types. */
 
-void AnnotationTypeDeclaration(int modifiers):
-{}
+void AnnotationTypeDeclaration(int modifiers, List<PrintInfo> out):
 {
-  "@" "interface" <IDENTIFIER> AnnotationTypeBody()
+  Token t;
+}
+{
+  "@" "interface" t=<IDENTIFIER>
+  {
+    out.add(new PrintString("@"));
+    out.add(PrintWhiteSpace.getInstance());
+    out.add(new PrintString("interface"));
+    out.add(PrintWhiteSpace.getInstance());
+    out.add(new PrintString(t.image));
+    out.add(PrintWhiteSpace.getInstance());  }
+  AnnotationTypeBody(out)
 }
 
-void AnnotationTypeBody():
+void AnnotationTypeBody(List<PrintInfo> out):
 {}
 {
-  "{" ( AnnotationTypeMemberDeclaration() )* "}"
+  "{"
+  {
+    out.add(new PrintString("{"));
+    out.add(PrintInitTab.getInstance());
+    out.add(PrintIntro.getInstance());
+  }
+  ( AnnotationTypeMemberDeclaration(out) )*
+  "}"
+  {
+    out.add(PrintEndTab.getInstance());
+    out.add(PrintIntro.getInstance());
+    out.add(new PrintString("}"));
+  }
 }
 
-void AnnotationTypeMemberDeclaration():
+void AnnotationTypeMemberDeclaration(List<PrintInfo> out):
 {
    int modifiers;
-  List<PrintInfo> out = new LinkedList<PrintInfo>();
+   Token t;
 }
 {
  modifiers = Modifiers(out)
  (
    LOOKAHEAD(Type() <IDENTIFIER> "(")
-   Type() <IDENTIFIER> "(" ")" [ DefaultValue() ] ";"
+   Type(out) t=<IDENTIFIER> "(" ")"
+   {
+     out.add(new PrintString(t.image));
+     out.add(new PrintString("("));
+     out.add(new PrintString(")"));   }
+   [ DefaultValue(out) ] ";"
+   {
+     out.add(new PrintString(";"));   }
   |
-   ClassOrInterfaceDeclaration(modifiers)
+   ClassOrInterfaceDeclaration(modifiers, out)
   |
-   EnumDeclaration(modifiers)
+   EnumDeclaration(modifiers, out)
   |
-   AnnotationTypeDeclaration(modifiers)
+   AnnotationTypeDeclaration(modifiers, out)
   |
-   FieldDeclaration(modifiers)
+   FieldDeclaration(modifiers, out)
  )
  |
    ( ";" )
 }
 
-void DefaultValue():
+void DefaultValue(List<PrintInfo> out):
 {}
 {
-  "default" MemberValue()
+  "default"
+  {
+     out.add(new PrintString("default"));
+     out.add(PrintWhiteSpace.getInstance());  }
+  MemberValue(out)
 }
