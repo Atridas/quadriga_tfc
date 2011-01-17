@@ -11,4 +11,8 @@ public class PrintIntro implements PrintInfo {
     }
     return instance;
   }
+  
+  public String toString() {
+    return "<\\n>";
+  }
 }

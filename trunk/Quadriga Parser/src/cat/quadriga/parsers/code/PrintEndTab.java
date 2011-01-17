@@ -1,6 +1,6 @@
 package cat.quadriga.parsers.code;
 
-public class PrintEndTab implements PrintInfo {
+public final class PrintEndTab implements PrintInfo {
   private static PrintEndTab instance;
   
   private PrintEndTab() {}
@@ -10,5 +10,9 @@ public class PrintEndTab implements PrintInfo {
       instance = new PrintEndTab();
     }
     return instance;
+  }
+  
+  public String toString() {
+    return "<end tab>";
   }
 }
