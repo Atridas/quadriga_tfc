@@ -8,8 +8,9 @@
 @import quadriga.base.FontQuad
 @import quadriga.base.FontQuadPrototype
 @import quadriga.base.ColorUtils
+@import quadriga.base.MaterialUnshadedColor
 
-@component DadesPlaneta
+@component DadesComponent
 {
   float radi = 1.0;
 }
@@ -18,7 +19,7 @@
 {
   Transform()
   StaticMeshRenderer(mesh = "quadriga.baseassets.staticmeshes.Sphere")
-  DadesPlaneta();
+  DadesComponent();
 
   @child {
     PlanetaInfo() : "Info"
@@ -30,13 +31,13 @@
   Transform()
   BillboardRenderer()
   @child {
-    PlanetInfoQuad : "Quad"
+    PlanetInfoQuad() : "Quad"
   }
 }
 
 @prototype PlanetInfoQuad
 {
-  Transform(position = Vect3f(0, 0, super.super[DadesPlaneta].radi * 2))
+  Transform(position = Vect3f(0, 0, parentEntity().parentEntity()[DadesComponent].radi * 2))
   @child {
     TexturedQuadPrototype(TexturedQuad.texture = "riskppt3d/assets/planetinfo.png") : "Base"
     
