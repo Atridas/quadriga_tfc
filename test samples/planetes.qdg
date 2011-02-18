@@ -1,6 +1,7 @@
 
 @quadriga planetes
 
+
 @component EsPlaneta {
   float radi, recarga, tempsTotalRecarga
   Entity<EsPlanetaDetector> detector

@@ -4,6 +4,7 @@ Paraules clau especials:
 
 
 @quadriga 
+@import
 
 @struct 
 @system 
@@ -17,6 +18,8 @@ Paraules clau especials:
 @additionalInfo 
 @externInfo 
 @affectedSystems 
+
+@child
 
 @newEntity 
 @eraseEntity 
