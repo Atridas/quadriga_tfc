@@ -1,0 +1,13 @@
+@quadriga riskppt3d.aresta
+
+@import quadriga.base.Transform
+@import quadriga.base.CilinderRenderer
+
+@import riskppt3d.planeta.DadesComponent
+
+@prototype Aresta(Entity<DadesComponent, Transform> planeta1, Entity<DadesComponent, Transform> planeta2) {
+  Transform()
+  
+  CilynderRenderer(radi = 0.5f, pos1 = planeta1[Transform], pos2 = planeta1[Transform])
+
+}
