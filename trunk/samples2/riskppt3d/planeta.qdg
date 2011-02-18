@@ -1,0 +1,60 @@
+@quadriga riskppt3d.planeta
+
+@import quadriga.base.Transform
+@import quadriga.base.StaticMeshRenderer
+@import quadriga.base.BillboardRenderer
+@import quadriga.base.TexturedQuad
+@import quadriga.base.TexturedQuadPrototype
+@import quadriga.base.FontQuad
+@import quadriga.base.FontQuadPrototype
+@import quadriga.base.ColorUtils
+
+@component DadesPlaneta
+{
+  float radi = 1.0;
+}
+
+@prototype Planeta()
+{
+  Transform()
+  StaticMeshRenderer(mesh = "quadriga.baseassets.staticmeshes.Sphere")
+  DadesPlaneta();
+
+  @child {
+    PlanetaInfo() : "Info"
+  }
+}
+
+@prototype PlanetaInfo()
+{
+  Transform()
+  BillboardRenderer()
+  @child {
+    PlanetInfoQuad : "Quad"
+  }
+}
+
+@prototype PlanetInfoQuad
+{
+  Transform(position = Vect3f(0, 0, super.super[DadesPlaneta].radi * 2))
+  @child {
+    TexturedQuadPrototype(TexturedQuad.texture = "riskppt3d/assets/planetinfo.png") : "Base"
+    
+    //Edificis construits
+    TexturedQuadPrototype(TexturedQuad.texture = "riskppt3d/assets/gris.png",
+                          TexturedQuad.position = Vect3f(2, 2,0) ) : "Edifici1"
+    TexturedQuadPrototype(TexturedQuad.texture = "riskppt3d/assets/gris.png",
+                          TexturedQuad.position = Vect3f(2,25,0) ) : "Edifici2"
+    TexturedQuadPrototype(TexturedQuad.texture = "riskppt3d/assets/gris.png",
+                          TexturedQuad.position = Vect3f(2,48,0) ) : "Edifici3"
+                          
+    //Per indicar el nombre de naus
+    FontQuadPrototype( FontQuad.text = "", FontQuad.position = Vect3f(61, 2,0), FontQuad.color = ColorUtils.Green ) : "NumPedra"
+    FontQuadPrototype( FontQuad.text = "", FontQuad.position = Vect3f(61,25,0), FontQuad.color = ColorUtils.Green ) : "NumPaper"
+    FontQuadPrototype( FontQuad.text = "", FontQuad.position = Vect3f(61,48,0), FontQuad.color = ColorUtils.Green ) : "NumTisores"
+    FontQuadPrototype( FontQuad.text = "", FontQuad.position = Vect3f(111, 2,0), FontQuad.color = ColorUtils.Red ) : "NumPedraEnemics"
+    FontQuadPrototype( FontQuad.text = "", FontQuad.position = Vect3f(111,25,0), FontQuad.color = ColorUtils.Red ) : "NumPaperEnemics"
+    FontQuadPrototype( FontQuad.text = "", FontQuad.position = Vect3f(111,48,0), FontQuad.color = ColorUtils.Red ) : "NumTisoresEnemics"
+  }
+}
+
