@@ -1,4 +1,4 @@
-package cat.quadriga.parsers.code;
+package cat.quadriga.parsers.code.printers;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Vector;
 
 public class MegaPrinter {
   private int tabLen = 0;
@@ -76,5 +77,25 @@ public class MegaPrinter {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
+  }
+  
+  public List<PrintInfo> format(String in) {
+    String[] lines = in.split("\n");
+    List<PrintInfo> out = new Vector<PrintInfo>(lines.length);
+
+    for(int i = 0; i < lines.length; i++)
+    {
+      if(i != 0) {
+        out.add(PrintIntro.getInstance());
+      }
+      out.add( new PrintString(lines[i]) );
+    }
+    return out;
+  }
+  
+  private static MegaPrinter instance = new MegaPrinter();
+  private MegaPrinter() {};
+  public static MegaPrinter getInstance() {
+    return instance;
   }
 }

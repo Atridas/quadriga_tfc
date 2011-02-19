@@ -1,4 +1,4 @@
-package cat.quadriga.parsers.code;
+package cat.quadriga.parsers.code.printers;
 
 public class PrintWhiteSpace implements PrintInfo {
   private static PrintWhiteSpace instance;
