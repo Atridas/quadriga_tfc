@@ -5,6 +5,7 @@ Paraules clau especials:
 
 @quadriga 
 @import
+@java
 
 @struct 
 @system 
@@ -13,6 +14,7 @@ Paraules clau especials:
 @const 
 @event 
 @thread 
+@scene
 
 @components 
 @additionalInfo 
@@ -33,10 +35,16 @@ Paraules clau especials:
 @changed 
 @discard 
 @old
+@throw
+@new
 
 Construccions Especials:
 
 * Definició de Paquet: "@quadriga" identificador { "." identificador }
+
+* Importacio Quadriga: "@import" identificador { "." identificador }
+
+* Importacio Java: "@java" identificador { "." identificador }
 
 * Estructura: "@struct" identifier "{" {< Type > identifier {"," identifier} [";"]} "}"
 
@@ -74,11 +82,19 @@ Construccions Especials:
           on (1) a Component
           on (2) a Serializable (& Cloneable?)
 
-* Prototype "@prototype" identifier [ "extends" < Type (1) > { "," < Type (1) > } ] "{"
+* Prototype: "@prototype" identifier [ "extends" < Type (1) > { "," < Type (1) > } ] "{"
                               [ < AtInit > ]
                               { < ComponentInitializer > [";"]}
+                              [ < Child > ]
                            "}"
           on (1) a Prototype
+          
+* Scene: "@scene" "{"
+              < Named Entity Instantiation >
+              { "," < Named Entity Instantiation > }
+              
+              [ < AtInit > ]
+                  "}"
           
 * AtNewEntity: "@newEntity" < paramsWithSemantics > < Block >
 
@@ -88,7 +104,9 @@ Construccions Especials:
 
 * AtUpdate: "@update" < paramsWithSemantics > < Block >
 
-* AtInit: "@init" "(" ")" < Block >
+* AtInit: "@init" < paramsWithSemantics > < Block >
+
+* AtEvent "@event" < paramsWithSemantics > < Block >
 
 * Components: "@components" "{"
                         { < Type (1) > [";"] }
@@ -114,6 +132,11 @@ Construccions Especials:
                             "}"
           on (1) a System
 
+* Child "@child" "{" 
+                      < Named Entity Instantiation >
+                      { "," < Named Entity Instantiation > }
+                 "}"
+          
 * ParamsWithSemantics: "(" [ <ParamWithSemantic> {"," <ParamWithSemantic> } ] ")"
 
 * ParamWithSemantic: < Type > identifier [ ":" identifier ]
@@ -122,11 +145,29 @@ Construccions Especials:
         on (1) és de tipus Entity
         i  (2) és un identificador d'un component [Class<? extends Component]
 
-* Constructor de Component: < ClassOrInterfaceType (1) > "(" [< expresió > | < Inicialitzadors Component >] ")"
-        on (1) és un identificador d'un component [Class<? extends Component]
+* Constructor de Component: < ClassOrInterfaceType (1) >  < Quadriga Params > 
+        on (1) és un identificador d'un component [Class<? extends Component>]
 
-* Inicialitzadors Component: < Inicialitzador Component > {"," Inicialitzador Component} [","]
+* Quadriga Params:  "(" [
+                      ( < expresió > {"," < expresió > } {"," < Quadriga Params >} [","] )
+                      |
+                      ( < Quadriga Params > {"," < Quadriga Params >} [","] )
+                    ] ")"
+                    
 
-* Inicialitzador Component: identificador "=" < expresió >
+* Quadriga Param: identificador { "." identificador } "=" < expresió >
+
+* Named Entity Instantiation: < Type (1) > < Quadriga Params > ":" String
+                                    ["{"
+                                        < Named Entity Instantiation >
+                                        { "," < Named Entity Instantiation > }
+                                     "}"]
+          on (1) és un Prototip
+          
+* Event Trow: "@throw" < expresió (1) > [ ":" < expresió (2) > ]
+         on (1) és un Event
+         on (2) és una Entitat
+         
+* 
 
 *
