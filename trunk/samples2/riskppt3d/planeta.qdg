@@ -1,24 +1,27 @@
 @quadriga riskppt3d.planeta
 
-@import quadriga.base.Transform
-@import quadriga.base.StaticMeshRenderer
-@import quadriga.base.BillboardRenderer
-@import quadriga.base.TexturedQuad
-@import quadriga.base.TexturedQuadPrototype
-@import quadriga.base.FontQuad
-@import quadriga.base.FontQuadPrototype
-@import quadriga.base.ColorUtils
-@import quadriga.base.MaterialUnshadedColor
+@import cat.quadriga.base.Transform
+@import cat.quadriga.base.StaticMeshRenderer
+@import cat.quadriga.base.BillboardRenderer
+@import cat.quadriga.base.TexturedQuad
+@import cat.quadriga.base.TexturedQuadPrototype
+@import cat.quadriga.base.FontQuad
+@import cat.quadriga.base.FontQuadPrototype
+@import cat.quadriga.base.Materials
+
+@java cat.quadriga.java.base.ColorUtils
+@java cat.quadriga.java.base.MaterialUnshadedColor
 
 @component DadesComponent
 {
   float radi = 1.0;
 }
 
-@prototype Planeta()
+@prototype Planeta( float hue = 0.0 )
 {
   Transform()
-  StaticMeshRenderer(mesh = "quadriga.baseassets.staticmeshes.Sphere")
+  StaticMeshRenderer(mesh = "quadriga.baseassets.staticmeshes.Sphere", material = { 0 })
+  Materials( materials = { new MaterialUnshadedColor( ColorUtils.getHSV(hue, 0.8f, 0.9f) ) } )
   DadesComponent();
 
   @child {

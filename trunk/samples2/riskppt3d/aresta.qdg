@@ -1,7 +1,11 @@
 @quadriga riskppt3d.aresta
 
-@import quadriga.base.Transform
-@import quadriga.base.CilinderRenderer
+@import cat.quadriga.base.Transform
+@import cat.quadriga.base.CilinderRenderer
+@import cat.quadriga.base.Materials
+
+@java cat.quadriga.java.base.ColorUtils
+@java cat.quadriga.java.base.MaterialUnshadedColor
 
 @import riskppt3d.planeta.DadesComponent
 
@@ -9,5 +13,6 @@
   Transform()
   
   CilynderRenderer(radi = 0.5f, pos1 = planeta1[Transform], pos2 = planeta1[Transform])
+  Materials( materials = { new MaterialUnshadedColor( ColorUtils.getHSV(0, 0, 1) ) } )
 
 }
