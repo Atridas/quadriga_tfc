@@ -1,4 +1,4 @@
-package cat.quadriga.parsers.code;
+package cat.quadriga.parsers.code.printers;
 
 public class PrintInitTab implements PrintInfo {
   private static PrintInitTab instance;

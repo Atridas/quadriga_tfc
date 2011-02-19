@@ -41,6 +41,7 @@ package cat.quadriga.parsers;
 import java.io.*;
 import java.util.*;
 import cat.quadriga.parsers.code.*;
+import cat.quadriga.parsers.code.printers.*;
 
 /**
  * Grammar to parse Java version 1.5
@@ -163,7 +164,7 @@ public class QuadrigaSimple
     try {
       List<PrintInfo> info = parser.CompilationUnit();
       System.out.println("Java Parser Version 1.1:  Java program parsed successfully.");
-      MegaPrinter mp = new MegaPrinter();
+      MegaPrinter mp = MegaPrinter.getInstance();
       System.out.println(mp.print(info));
       mp.printToFile(info, "out.java");
     } catch (ParseException e) {
@@ -2010,7 +2011,7 @@ void NameList(List<PrintInfo> out):
  * Expression syntax follows.
  */
 
-void Expression(List<PrintInfo> out):
+ExpressionNode Expression(List<PrintInfo> out):
 /*
  * This expansion has been written this way instead of:
  *   Assignment() | ConditionalExpression()
@@ -2020,339 +2021,363 @@ void Expression(List<PrintInfo> out):
  * a primary expression.  Consider adding a semantic predicate to work
  * around this.
  */
-{}
 {
-  ConditionalExpression(out)
+  ExpressionNode finalNode, auxNode;
+  AssigmentStatementNode.Operator operator; 
+}
+{
+  finalNode = ConditionalExpression()
   [
     LOOKAHEAD(2)
     {
       out.add(PrintWhiteSpace.getInstance());
     }
-    AssignmentOperator(out)
+    operator = AssignmentOperator()
     {
       out.add(PrintWhiteSpace.getInstance());
     }
-    Expression(out)
+    auxNode = Expression(out)
+    {
+      finalNode = new AssigmentExpressionNode(operator, finalNode, auxNode);    }
   ]
+
+  {    return finalNode;
+  }
 }
 
-void AssignmentOperator(final List<PrintInfo> out):
+AssigmentStatementNode.Operator AssignmentOperator():
+{}
 {
+  ( "="    { return AssigmentStatementNode.Operator.ASSIGN; }
+  | "*="   { return AssigmentStatementNode.Operator.STARASSIGN; }
+  | "/="   { return AssigmentStatementNode.Operator.SLASHASSIGN; }
+  | "%="   { return AssigmentStatementNode.Operator.REMASSIGN; }
+  | "+="   { return AssigmentStatementNode.Operator.PLUSASSIGN; }
+  | "-="   { return AssigmentStatementNode.Operator.MINUSASSIGN; }
+  | "<<="  { return AssigmentStatementNode.Operator.LSHIFTASSIGN; }
+  | ">>="  { return AssigmentStatementNode.Operator.RSIGNEDSHIFTASSIGN; }
+  | ">>>=" { return AssigmentStatementNode.Operator.RUNSIGNEDSHIFTASSIGN; }
+  | "&="   { return AssigmentStatementNode.Operator.ANDASSIGN; }
+  | "^="   { return AssigmentStatementNode.Operator.XORASSIGN; }
+  | "|="   { return AssigmentStatementNode.Operator.ORASSIGN; }
+  )
+}
+
+ExpressionNode ConditionalExpression():
+{
+  List<PrintInfo> aux  = new LinkedList<PrintInfo>();
+
+  ExpressionNode finalNode, auxNode1, auxNode2;
+}
+{
+  finalNode = ConditionalOrExpression()
+  
+  [ "?" auxNode1=Expression(aux) ":" auxNode2=Expression(aux)
+    {
+      finalNode = new TernaryExpressionNode(finalNode, auxNode1, auxNode2);
+    }
+  ]
+  {
+    return finalNode;  }
+}
+
+ExpressionNode ConditionalOrExpression():
+{
+  ExpressionNode finalNode, auxiliarNode;
+  LogicalOperation.Operator operator;
+}
+{
+  finalNode = ConditionalAndExpression()
+  ( "||" { operator = LogicalOperation.Operator.OR; }
+    auxiliarNode = ConditionalAndExpression()
+    {
+      finalNode = new LogicalOperation(operator,finalNode,auxiliarNode);
+    }
+  )*
+  {
+    return finalNode;
+  }
+}
+
+ExpressionNode ConditionalAndExpression():
+{
+  ExpressionNode finalNode, auxiliarNode;
+  LogicalOperation.Operator operator;
+}
+{
+  finalNode = InclusiveOrExpression()
+  ( "&&" { operator = LogicalOperation.Operator.AND; }
+    auxiliarNode = InclusiveOrExpression()
+    {
+      finalNode = new LogicalOperation(operator,finalNode,auxiliarNode);
+    }
+  )*
+  {
+    return finalNode;
+  }
+}
+
+ExpressionNode InclusiveOrExpression():
+{
+  ExpressionNode finalNode, auxiliarNode;
+  MathematicOperation.Operator operator;
+}
+{
+  finalNode = ExclusiveOrExpression()
+  ( "|" { operator = MathematicOperation.Operator.BIT_OR; }
+    auxiliarNode = ExclusiveOrExpression()
+    {
+      finalNode = new MathematicOperation(operator,finalNode,auxiliarNode);
+    }
+  )*
+  {
+    return finalNode;
+  }
+}
+
+ExpressionNode ExclusiveOrExpression():
+{
+  ExpressionNode finalNode, auxiliarNode;
+  MathematicOperation.Operator operator;
+}
+{
+  finalNode = AndExpression()
+  ( "^" { operator = MathematicOperation.Operator.BIT_XOR; }
+    auxiliarNode = AndExpression()
+    {
+      finalNode = new MathematicOperation(operator,finalNode,auxiliarNode);
+    }
+  )*
+  {
+    return finalNode;
+  }
+}
+
+ExpressionNode AndExpression():
+{
+  ExpressionNode finalNode, auxiliarNode;
+  MathematicOperation.Operator operator;
+}
+{
+  finalNode = EqualityExpression()
+  ( "&" { operator = MathematicOperation.Operator.BIT_AND; }
+    auxiliarNode = EqualityExpression()
+    {
+      finalNode = new MathematicOperation(operator,finalNode,auxiliarNode);
+    }
+  )*
+  {
+    return finalNode;
+  }
+}
+
+ExpressionNode EqualityExpression():
+{
+  ExpressionNode finalNode, auxiliarNode;
+  BooleanOperation.Operator operator;
+}
+{
+  finalNode = InstanceOfExpression()
+  (
+    ( "==" { operator = BooleanOperation.Operator.EQ; }
+    | "!=" { operator = BooleanOperation.Operator.NEQ; }
+    )
+    auxiliarNode = InstanceOfExpression()
+    {
+      finalNode = new BooleanOperation(operator,finalNode,auxiliarNode);
+    }
+  )*
+  {    return finalNode;
+  }
+}
+
+ExpressionNode InstanceOfExpression():
+{
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
+  ExpressionNode finalNode, auxiliarNode;
+  BooleanOperation.Operator operator;
   Token t;
 }
 {
-  (t="=" | t="*=" | t="/=" | t="%=" | t="+=" | t="-=" | t="<<=" | t=">>=" | t=">>>=" | t="&=" | t="^=" | t="|=")
-  {
-    out.add(new PrintString(t.image));
-  }
-}
-
-void ConditionalExpression(List<PrintInfo> out):
-{
-  List<PrintInfo> other  = new LinkedList<PrintInfo>()
-                , other2 = new LinkedList<PrintInfo>();
-}
-{
-  ConditionalOrExpression(out)
-  [ "?" Expression(other) ":" Expression(other2)
-    {
-      out.add(new PrintString("?"));
-      out.add(PrintWhiteSpace.getInstance());
-      out.addAll(other);
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString(":"));
-      out.add(PrintWhiteSpace.getInstance());
-      out.addAll(other2);
-    }
-  ]
-}
-
-void ConditionalOrExpression(List<PrintInfo> out):
-{}
-{
-  ConditionalAndExpression(out)
-  ( "||"
-    {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString("||"));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    ConditionalAndExpression(out)
-  )*
-}
-
-void ConditionalAndExpression(List<PrintInfo> out):
-{}
-{
-  InclusiveOrExpression(out)
-  ( "&&"
-    {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString("&&"));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    InclusiveOrExpression(out)
-  )*
-}
-
-void InclusiveOrExpression(List<PrintInfo> out):
-{}
-{
-  ExclusiveOrExpression(out)
-  ( "|"
-    {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString("|"));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    ExclusiveOrExpression(out)
-  )*
-}
-
-void ExclusiveOrExpression(List<PrintInfo> out):
-{}
-{
-  AndExpression(out)
-  ( "^"
-    {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString("^"));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    AndExpression(out)
-  )*
-}
-
-void AndExpression(List<PrintInfo> out):
-{}
-{
-  EqualityExpression(out)
-  ( "&"
-    {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString("&"));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    EqualityExpression(out)
-  )*
-}
-
-void EqualityExpression(List<PrintInfo> out):
-{}
-{
-  InstanceOfExpression(out)
-  ( "=="
-    {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString("=="));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    InstanceOfExpression(out)
-  | "!="
-    {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString("!="));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    InstanceOfExpression(out)
-  )*
-}
-
-void InstanceOfExpression(List<PrintInfo> out):
-{}
-{
-  RelationalExpression(out)
-  [ "instanceof" 
-    {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString("instanceof"));
-      out.add(PrintWhiteSpace.getInstance());
-    }
+  finalNode = RelationalExpression()
+  [ t="instanceof" { operator = BooleanOperation.Operator.INSTANCEOF; }
     Type(out)
+    {
+      auxiliarNode = new ProxyExpression(out,t,t);
+      finalNode = new BooleanOperation(operator,finalNode,auxiliarNode);    }
   ]
+  {
+    return finalNode;
+  }
 }
 
-void RelationalExpression(List<PrintInfo> out):
-{}
+ExpressionNode RelationalExpression():
 {
-  ShiftExpression(out)
+  ExpressionNode finalNode, auxiliarNode;
+  BooleanOperation.Operator operator;
+}
+{
+  finalNode = ShiftExpression()
   (
-    ( "<"
-      {
-        out.add(PrintWhiteSpace.getInstance());
-        out.add(new PrintString("<"));
-        out.add(PrintWhiteSpace.getInstance());
-      }
-      ShiftExpression(out)
-    | ">"
-      {
-        out.add(PrintWhiteSpace.getInstance());
-        out.add(new PrintString(">"));
-        out.add(PrintWhiteSpace.getInstance());
-      }
-      ShiftExpression(out)
-    | "<="
-      {
-        out.add(PrintWhiteSpace.getInstance());
-        out.add(new PrintString("<="));
-        out.add(PrintWhiteSpace.getInstance());
-      }
-      ShiftExpression(out)
-    | ">="
-      {
-        out.add(PrintWhiteSpace.getInstance());
-        out.add(new PrintString(">="));
-        out.add(PrintWhiteSpace.getInstance());
-      }
-      ShiftExpression(out)
+    ( "<" { operator = BooleanOperation.Operator.LT; }
+    | ">" { operator = BooleanOperation.Operator.GT; }
+    | "<=" { operator = BooleanOperation.Operator.LE; }
+    | ">=" { operator = BooleanOperation.Operator.GE; }
     )
+    auxiliarNode = ShiftExpression()
+    {
+      finalNode = new BooleanOperation(operator,finalNode,auxiliarNode);
+    }
   )*
+  {
+    return finalNode;
+  }
 }
 
-void ShiftExpression(List<PrintInfo> out):
-{}
+ExpressionNode ShiftExpression():
 {
-  AdditiveExpression(out)
-  ( "<<"
-    {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString("<<"));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    AdditiveExpression(out)
-  | RSIGNEDSHIFT()
-    {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString(">>"));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    AdditiveExpression(out)
-  | RUNSIGNEDSHIFT()
-    {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString(">>>"));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    AdditiveExpression(out)
-  )*
+    ExpressionNode finalNode, auxiliarNode;
+    MathematicOperation.Operator operator;
 }
-
-void AdditiveExpression(List<PrintInfo> out):
-{}
 {
-  MultiplicativeExpression(out)
-  ( "+"
+  finalNode = AdditiveExpression()
+  (
+    ( "<<" { operator = MathematicOperation.Operator.LEFT_SHIFT; }
+    | RSIGNEDSHIFT()
+           { operator = MathematicOperation.Operator.RIGHT_SHIFT; }
+    | RUNSIGNEDSHIFT()
+           { operator = MathematicOperation.Operator.RIGHT_UNSIGNED_SHIFT; }
+    )
+    auxiliarNode = AdditiveExpression()
     {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString("+"));
-      out.add(PrintWhiteSpace.getInstance());
+      finalNode = new MathematicOperation(operator,finalNode,auxiliarNode);
     }
-    MultiplicativeExpression(out)
-  | "-"
-    {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString("-"));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    MultiplicativeExpression(out)
   )*
+  {
+    return finalNode;
+  }
 }
 
-void MultiplicativeExpression(List<PrintInfo> out):
-{}
+ExpressionNode AdditiveExpression():
 {
-  UnaryExpression(out)
-  ( "*"
+    ExpressionNode finalNode, auxiliarNode;
+    MathematicOperation.Operator operator;
+}
+{
+  finalNode = MultiplicativeExpression()
+  (
+    (   "+" { operator = MathematicOperation.Operator.ADD; }
+      | "-" { operator = MathematicOperation.Operator.SUB;  }
+    )
+    auxiliarNode = MultiplicativeExpression()
     {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString("*"));
-      out.add(PrintWhiteSpace.getInstance());
+      finalNode = new MathematicOperation(operator,finalNode,auxiliarNode);
     }
-    UnaryExpression(out)
-  | "/"
-    {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString("/"));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    UnaryExpression(out)
-  | "%"
-    {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString("%"));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    UnaryExpression(out)
   )*
+  {
+    return finalNode;
+  }
 }
 
-void UnaryExpression(List<PrintInfo> out):
-{}
+ExpressionNode MultiplicativeExpression():
+{
+    List<PrintInfo> out = new LinkedList<PrintInfo>();
+    ExpressionNode finalNode, auxiliarNode;
+    MathematicOperation.Operator operator;
+}
+{
+  finalNode = UnaryExpression()
+  (
+    (   "*" { operator = MathematicOperation.Operator.MUL; }
+	  | "/" { operator = MathematicOperation.Operator.DIV; }
+	  | "%" { operator = MathematicOperation.Operator.MOD; }
+	)
+    auxiliarNode = UnaryExpression()
+    {
+      finalNode = new MathematicOperation(operator,finalNode,auxiliarNode);    }
+  )*
+  {    return finalNode;
+  }
+}
+
+ExpressionNode UnaryExpression():
+{
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
+  ExpressionNode finalNode;
+  UnaryOperation.Operator operator;
+  Token t;
+}
 {
   (
-    ( "+"
-      {
-        out.add(new PrintString("+"));
-        out.add(PrintWhiteSpace.getInstance());
-      }
-      UnaryExpression(out)
-    | "-"
-      {
-        out.add(new PrintString("-"));
-        out.add(PrintWhiteSpace.getInstance());
-      }
-      UnaryExpression(out)
-    )
-  |
-    PreIncrementExpression(out)
-  |
-    PreDecrementExpression(out)
-  |
-    UnaryExpressionNotPlusMinus(out)
+    ( t="+" { operator = null; }
+    | t="-" { operator = UnaryOperation.Operator.NEGATE; } )
+    finalNode = UnaryExpression()
+    {
+      if(operator != null)
+        finalNode = new UnaryOperation( operator, finalNode, t );    }
+  | finalNode = PreIncrementExpression(out)
+  | finalNode = PreDecrementExpression(out)
+  | finalNode = UnaryExpressionNotPlusMinus()
   )
-}
-
-void PreIncrementExpression(List<PrintInfo> out):
-{}
-{
-  "++"
+  
   {
-    out.add(new PrintString("++"));
+    return finalNode;
   }
-  PrimaryExpression(out)
 }
 
-void PreDecrementExpression(List<PrintInfo> out):
-{}
+ExpressionNode PreIncrementExpression(List<PrintInfo > out):
 {
-  "--"
+  ExpressionNode node;
+  Token t;
+}
+{
+  t="++"
+  node = PrimaryExpression(out)
+  
   {
-    out.add(new PrintString("--"));
+    return new UnaryOperation( UnaryOperation.Operator.PRE_INC, node, t );
   }
-  PrimaryExpression(out)
 }
 
-void UnaryExpressionNotPlusMinus(List<PrintInfo> out):
-{}
+ExpressionNode PreDecrementExpression(List<PrintInfo > out):
+{
+  ExpressionNode node;
+  Token t;
+}
+{
+  t = "--"
+  node = PrimaryExpression(out)
+  
+  {
+    return new UnaryOperation( UnaryOperation.Operator.PRE_DEC, node, t );
+  }
+}
+
+ExpressionNode UnaryExpressionNotPlusMinus():
+{
+  List<PrintInfo > out = new LinkedList<PrintInfo >();
+  ExpressionNode finalNode;
+  UnaryOperation.Operator operator;
+  Token t;
+}
 {
   (
-    ( "~"
-      {
-        out.add(new PrintString("~"));
-      }
-      UnaryExpression(out)
-    | "!"
-      {
-        out.add(new PrintString("!"));
-      }
-      UnaryExpression(out)
+    ( t = "~" { operator = UnaryOperation.Operator.BIT_COMP; }
+    | t = "!" { operator = UnaryOperation.Operator.NOT; }
     )
+     finalNode = UnaryExpression()
+     {
+       finalNode = new UnaryOperation( operator, finalNode, t );     }
   |
     LOOKAHEAD( CastLookahead() )
-    CastExpression(out)
+    finalNode = CastExpression()
   |
-    PostfixExpression(out)
+    finalNode = PostfixExpression()
   )
+  
+  {
+    return finalNode;
+  }
 }
 
 // This production is to determine lookahead only.  The LOOKAHEAD specifications
@@ -2372,47 +2397,61 @@ void CastLookahead():
   "(" Type(out) ")" ( "~" | "!" | "(" | <IDENTIFIER> | "this" | "super" | "new" | Literal(out) )
 }
 
-void PostfixExpression(List<PrintInfo> out):
-{}
+ExpressionNode PostfixExpression():
 {
-  PrimaryExpression(out)
-  [ "++"
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
+  ExpressionNode finalNode;
+  Token t;
+}
+{
+  finalNode = PrimaryExpression(out)
+  [ ( t = "++"  | t = "--" )
     {
-      out.add(new PrintString("++"));
-    }
-  | "--"
-    {
-      out.add(new PrintString("--"));
-    }
+      finalNode = new UnaryProxy( finalNode, t, t);    }
   ]
+
+  {    return finalNode;
+  }
 }
 
-void CastExpression(List<PrintInfo> out):
+ExpressionNode CastExpression():
 {
-  List<PrintInfo> other  = new LinkedList<PrintInfo>()
-                , other2 = new LinkedList<PrintInfo>();
+  List<PrintInfo> other  = new LinkedList<PrintInfo>(),
+                  out    = new LinkedList<PrintInfo>();
+
+  ExpressionNode finalNode;
+  Token t;
 }
 {
   (
     LOOKAHEAD("(" PrimitiveType())
-    "(" Type(other) ")" UnaryExpression(other2)
+    t="(" Type(other) ")" finalNode = UnaryExpression()
   |
-    "(" Type(other) ")" UnaryExpressionNotPlusMinus(other2)
+    t="(" Type(other) ")" finalNode = UnaryExpressionNotPlusMinus()
   )
   {
     out.add(new PrintString("("));
     out.addAll(other);
     out.add(new PrintString(")"));
     out.add(PrintWhiteSpace.getInstance());
-    out.addAll(other2);
+
+    String treeString = finalNode.treeStringRepresentation();
+    out.addAll( MegaPrinter.getInstance().format(treeString) );
+
+    return new ProxyExpression(out, t.beginLine, t.beginColumn,
+                          finalNode.getEndLine(), finalNode.getEndColumn());
   }
 }
 
-void PrimaryExpression(List<PrintInfo> out):
+ExpressionNode PrimaryExpression(List<PrintInfo> out):
 {}
 {
   PrimaryPrefix(out)
   ( LOOKAHEAD(2) PrimarySuffix(out) )*
+
+  {
+    Token t = new Token();    return new UnaryProxy( new ProxyExpression(out, t, t), t, t );
+  }
 }
 
 void MemberSelector(List<PrintInfo> out):
@@ -2696,6 +2735,7 @@ void ArrayDimsAndInits(List<PrintInfo> out):
 
 void Statement(List<PrintInfo> out):
 {
+  StatementNode statement;
 }
 {
   (
@@ -2708,8 +2748,10 @@ void Statement(List<PrintInfo> out):
   |
     EmptyStatement(out)
   |
-    StatementExpression(out) ";"
+    statement = StatementExpression() ";"
     {
+      String treeString = statement.treeStringRepresentation();
+      out.addAll( MegaPrinter.getInstance().format(treeString) );
       out.add(new PrintString(";"));
     }
   |
@@ -2839,41 +2881,50 @@ void EmptyStatement(List<PrintInfo> out):
   ";"
 }
 
-void StatementExpression(List<PrintInfo> out):
+StatementNode StatementExpression():
 /*
  * The last expansion of this production accepts more than the legal
  * Java expansions for StatementExpression.  This expansion does not
  * use PostfixExpression for performance reasons.
  */
-{}
+{
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
+  ExpressionNode expression, expression2;
+  Token t;
+  AssigmentStatementNode.Operator assignOperator;
+  StatementNode statementNode;
+}
 {
   (
-    PreIncrementExpression(out)
+    ( expression = PreIncrementExpression(out)
+    | expression = PreDecrementExpression(out)
+    )
+    {
+      statementNode = new StatementFromExpresion(expression);    }
   |
-    PreDecrementExpression(out)
-  |
-    PrimaryExpression(out)
-    [
-      "++"
+    expression = PrimaryExpression(out)
+    (
+      ( t = "++"
+      | t = "--"
+      )
       {
-        out.add(new PrintString("++"));
+        expression = new UnaryOperation(UnaryOperation.Operator.PRE_INC,
+                                       expression, t);
+        statementNode = new StatementFromExpresion(expression);
       }
     |
-      "--"
+      assignOperator = AssignmentOperator()
+      expression2 = Expression(out)
       {
-        out.add(new PrintString("++"));
-      }
+        statementNode = new AssigmentStatementNode(assignOperator,
+                                                   expression,
+                                                   expression2);      }
     |
-      {
-        out.add(PrintWhiteSpace.getInstance());
-      }
-      AssignmentOperator(out)
-      {
-        out.add(PrintWhiteSpace.getInstance());
-      }
-      Expression(out)
-    ]
+    {
+      statementNode = new StatementFromExpresion(expression);    }    ) 
   )
+  {    return statementNode;
+  }
 }
 
 void SwitchStatement(List<PrintInfo> out):
@@ -3065,15 +3116,23 @@ void ForInit(List<PrintInfo> out):
 }
 
 void StatementExpressionList(List<PrintInfo> out):
-{}
 {
-  StatementExpression(out)
+  StatementNode statement;
+}
+{
+  statement = StatementExpression()
+  {    String treeString = statement.treeStringRepresentation();
+    out.addAll( MegaPrinter.getInstance().format(treeString) );
+  }
   ( ","
     {
       out.add(new PrintString(","));
       out.add(PrintWhiteSpace.getInstance());
     }
-    StatementExpression(out)
+    statement = StatementExpression()
+    {      treeString = statement.treeStringRepresentation();
+      out.addAll( MegaPrinter.getInstance().format(treeString) );
+    }
   )*
 }
 
@@ -3319,7 +3378,7 @@ void MemberValue(List<PrintInfo> out):
  |
    MemberValueArrayInitializer(out)
  |
-   ConditionalExpression(out)
+   ConditionalExpression()
 }
 
 void  MemberValueArrayInitializer(List<PrintInfo> out):

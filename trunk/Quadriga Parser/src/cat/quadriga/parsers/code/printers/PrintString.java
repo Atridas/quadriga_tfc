@@ -1,4 +1,4 @@
-package cat.quadriga.parsers.code;
+package cat.quadriga.parsers.code.printers;
 
 public final class PrintString implements PrintInfo {
 	String text;

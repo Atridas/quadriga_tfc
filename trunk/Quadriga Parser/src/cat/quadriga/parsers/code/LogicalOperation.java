@@ -1,9 +1,9 @@
 package cat.quadriga.parsers.code;
 
-public class MathematicOperation extends BinaryExpressionNode {
+public class LogicalOperation extends BinaryExpressionNode {
 
   private Operator operator;
-  public MathematicOperation( Operator operator,
+  public LogicalOperation( Operator operator,
                               ExpressionNode operant1, 
                               ExpressionNode operant2) {
     super(operant1,  operant2);
@@ -16,10 +16,8 @@ public class MathematicOperation extends BinaryExpressionNode {
   }
 
   public static enum Operator {
-    ADD("+"),SUB("-"),
-    MUL("*"),DIV("/"), MOD("%"),
-    BIT_OR("|"),BIT_AND("&"),BIT_XOR("^"),
-    LEFT_SHIFT("<<"), RIGHT_SHIFT(">>"), RIGHT_UNSIGNED_SHIFT(">>>");
+    AND("&&"),
+    OR ("||");
     
     private String representation;
     private Operator(String r) {

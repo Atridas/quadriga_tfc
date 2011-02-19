@@ -1,7 +1,11 @@
-#Sat Jan 15 14:32:11 CET 2011
+#Sat Feb 19 18:46:30 CET 2011
 CLEAR_CONSOLE=false
+JAVACC_OPTIONS=
+JJDOC_OPTIONS=
+JJTREE_OPTIONS=
 JJ_NATURE=true
-RUNTIME_JJJAR=C\:/eclipse/plugins/sf.eclipse.javacc_1.5.24/javacc.jar
-RUNTIME_JTBJAR=C\:/eclipse/plugins/sf.eclipse.javacc_1.5.24/jtb-1.4.4.jar
-SUPPRESS_WARNINGS=false
+JTB_OPTIONS=
+RUNTIME_JJJAR=${eclipse_home}/plugins/sf.eclipse.javacc_1.5.24/javacc.jar
+RUNTIME_JTBJAR=${eclipse_home}/plugins/sf.eclipse.javacc_1.5.24/jtb-1.4.4.jar
+SUPPRESS_WARNINGS=true
 eclipse.preferences.version=1

@@ -2,22 +2,28 @@ package cat.quadriga.parsers.code;
 
 public final class TernaryExpressionNode extends ExpressionNode {
   
-  private ExpressionNode boolValue, result1, result2;
+  private ExpressionNode boolValue, resultTrue, resultFalse;
 
   public TernaryExpressionNode(ExpressionNode boolValue, 
-                              ExpressionNode result1,
-                              ExpressionNode result2)
+                              ExpressionNode resultTrue,
+                              ExpressionNode resultFalse)
   {
+    super(
+        boolValue.getBeginLine(),
+        boolValue.getBeginColumn(),
+        resultTrue.getEndLine(),
+        resultFalse.getEndColumn()
+         );
     this.boolValue = boolValue;
-    this.result1 = result1;
-    this.result2 = result2;
+    this.resultTrue = resultTrue;
+    this.resultFalse = resultFalse;
   }
 
   @Override
-  protected String[] getOperants() {
+  protected String[] getOperands() {
     String out[] = {  boolValue.treeStringRepresentation(),
-                      result1.treeStringRepresentation(), 
-                      result2.treeStringRepresentation() 
+                      resultTrue.treeStringRepresentation(), 
+                      resultFalse.treeStringRepresentation() 
                    };
     return out;
   }
