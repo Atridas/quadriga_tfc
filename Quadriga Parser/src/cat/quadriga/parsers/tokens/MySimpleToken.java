@@ -1,5 +1,6 @@
 package cat.quadriga.parsers.tokens;
 
+
 import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.QuadrigaSimple;
 
@@ -9,7 +10,7 @@ public class MySimpleToken extends Token
    * 
    */
   private static final long serialVersionUID = 1L;
-
+  
   /**
    * Constructs a new token for the specified Image and Kind.
    */
