@@ -1,18 +1,18 @@
-package cat.quadriga.parsers.code;
+package cat.quadriga.parsers.code.expressions;
 
 public final class TernaryExpressionNode extends ExpressionNode {
   
-  private ExpressionNode boolValue, resultTrue, resultFalse;
+  public final ExpressionNode boolValue, resultTrue, resultFalse;
 
   public TernaryExpressionNode(ExpressionNode boolValue, 
                               ExpressionNode resultTrue,
                               ExpressionNode resultFalse)
   {
     super(
-        boolValue.getBeginLine(),
-        boolValue.getBeginColumn(),
-        resultTrue.getEndLine(),
-        resultFalse.getEndColumn()
+        boolValue.beginLine,
+        boolValue.beginColumn,
+        resultTrue.endLine,
+        resultFalse.endColumn
          );
     this.boolValue = boolValue;
     this.resultTrue = resultTrue;
@@ -20,7 +20,7 @@ public final class TernaryExpressionNode extends ExpressionNode {
   }
 
   @Override
-  protected String[] getOperands() {
+  public String[] getOperands() {
     String out[] = {  boolValue.treeStringRepresentation(),
                       resultTrue.treeStringRepresentation(), 
                       resultFalse.treeStringRepresentation() 
@@ -29,7 +29,7 @@ public final class TernaryExpressionNode extends ExpressionNode {
   }
 
   @Override
-  protected String getOperation() {
+  public String getOperation() {
     return "?";
   }
 }

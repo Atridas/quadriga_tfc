@@ -1,24 +1,24 @@
-package cat.quadriga.parsers.code;
+package cat.quadriga.parsers.code.expressions;
 
 import cat.quadriga.parsers.Token;
 
 public class UnaryOperation extends UnaryExpressionNode {
 
-  private Operator operator;
+  public final Operator operator;
   public UnaryOperation( Operator operator,
                          ExpressionNode operant,
                          Token t) {
     super(operant,
-            (operator.isPost())? operant.getBeginLine()   : t.beginLine,
-            (operator.isPost())? operant.getBeginColumn() : t.beginColumn,
-            (operator.isPost())? t.endLine   : operant.getEndLine(),
-            (operator.isPost())? t.endColumn : operant.getEndColumn()
+            (operator.isPost())? operant.beginLine   : t.beginLine,
+            (operator.isPost())? operant.beginColumn : t.beginColumn,
+            (operator.isPost())? t.endLine   : operant.endLine,
+            (operator.isPost())? t.endColumn : operant.endColumn
           );
     this.operator = operator;
   }
   
   @Override
-  protected String getOperation() {
+  public String getOperation() {
     return operator.toString();
   }
 

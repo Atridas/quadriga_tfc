@@ -1,6 +1,6 @@
 package cat.quadriga.parsers.code;
 
-abstract class Utils {
+abstract public class Utils {
   public static final String treeStringRepresentation( String operation, String operands[]) {
     String out = operation;
   

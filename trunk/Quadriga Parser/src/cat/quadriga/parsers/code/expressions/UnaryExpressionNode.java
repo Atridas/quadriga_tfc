@@ -1,8 +1,8 @@
-package cat.quadriga.parsers.code;
+package cat.quadriga.parsers.code.expressions;
 
 public abstract class UnaryExpressionNode extends ExpressionNode {
 
-  private ExpressionNode operand;
+  public final ExpressionNode operand;
 
   public UnaryExpressionNode(ExpressionNode operand, int beginLine, int beginColumn, int endLine, int endColumn) {
     super(beginLine, beginColumn, endLine, endColumn);
@@ -10,7 +10,7 @@ public abstract class UnaryExpressionNode extends ExpressionNode {
   }
 
   @Override
-  protected String[] getOperands() {
+  public String[] getOperands() {
     String out[] = { operand.treeStringRepresentation() };
     return out;
   }

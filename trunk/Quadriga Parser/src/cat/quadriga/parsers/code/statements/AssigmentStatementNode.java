@@ -1,17 +1,20 @@
-package cat.quadriga.parsers.code;
+package cat.quadriga.parsers.code.statements;
+
+import cat.quadriga.parsers.code.Utils;
+import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
 public class AssigmentStatementNode extends StatementNode {
   
-  private final ExpressionNode leftOperand, rightOperand;
-  private final Operator operator;
+  public final ExpressionNode leftOperand, rightOperand;
+  public final Operator operator;
 
   public AssigmentStatementNode(Operator operator, 
                                 ExpressionNode left, 
                                 ExpressionNode right) {
-    super(left.getBeginLine(), 
-          left.getBeginColumn(), 
-          right.getEndLine(), 
-          right.getEndColumn());
+    super(left.beginLine, 
+          left.beginColumn, 
+          right.endLine, 
+          right.endColumn);
     leftOperand  = left;
     rightOperand = right;
     this.operator = operator;

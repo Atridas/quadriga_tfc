@@ -1,4 +1,4 @@
-package cat.quadriga.parsers.code;
+package cat.quadriga.parsers.code.expressions;
 
 import java.util.List;
 
@@ -58,12 +58,12 @@ public class ProxyExpression extends ExpressionNode {
   }
 
   @Override
-  protected String[] getOperands() {
-    return operands;
+  public String[] getOperands() {
+    return operands.clone();
   }
 
   @Override
-  protected String getOperation() {
+  public String getOperation() {
     return operator;
   }
 }

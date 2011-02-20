@@ -41,7 +41,11 @@ package cat.quadriga.parsers;
 import java.io.*;
 import java.util.*;
 import cat.quadriga.parsers.code.*;
+import cat.quadriga.parsers.code.statements.*;
+import cat.quadriga.parsers.code.expressions.*;
 import cat.quadriga.parsers.code.printers.*;
+import cat.quadriga.parsers.code.symbols.*;
+import cat.quadriga.parsers.code.types.*;
 
 /**
  * Grammar to parse Java version 1.5
@@ -133,6 +137,19 @@ public class QuadrigaSimple
         return modifiers & ~mod;
      }
    }
+
+   private int id = 0;
+
+   private int getNewId()   {     return id++;
+   }
+
+   private ErrorLog errorLog = new ErrorLog();
+
+   private SymbolTable symbolTable = new SymbolTable();
+
+   private StatementNode recentSwitchOrFor = null;
+
+   private BlockCode.TmpBlockCode localBlock = null;
 
    public QuadrigaSimple(String fileName)
    {
@@ -1726,6 +1743,7 @@ void ConstructorDeclaration(List<PrintInfo> out):
 {
   Token t;
   out.add(PrintWhiteSpace.getInstance());
+  BlockStatementNode bsn;
 }
 {
   [ TypeParameters(out) ]
@@ -1753,9 +1771,10 @@ void ConstructorDeclaration(List<PrintInfo> out):
   [ LOOKAHEAD(ExplicitConstructorInvocation())
        ExplicitConstructorInvocation(out)
   ]
-  ( BlockStatement(out)
+  ( bsn = BlockStatement()
     {
-      out.add(PrintIntro.getInstance());
+      String treeString = bsn.treeStringRepresentation();
+      out.addAll( MegaPrinter.getInstance().format(treeString) );
     }
   )*
   "}"
@@ -1823,56 +1842,93 @@ void Initializer(List<PrintInfo> out):
  * Type, name and expression syntax follows.
  */
 
-void Type(List<PrintInfo> out):
-{}
+BaseType Type(List<PrintInfo> out):
+{
+  BaseType t;
+}
 {
   ( 
-    LOOKAHEAD(2) ReferenceType(out)
+    LOOKAHEAD(2) t = ReferenceType(out)
   |
-    PrimitiveType(out)
+    t = PrimitiveType(out)
   )
+  {    out.add(new PrintString(t.getBinaryName()));
+    return t;
+  }
 }
 
-void ReferenceType(List<PrintInfo> out):
-{}
+BaseType ReferenceType(List<PrintInfo> out):
+{
+  BaseType type;
+}
 {
   (
     
-    PrimitiveType(out)
+    type = PrimitiveType(out)
     ( LOOKAHEAD(2) "[" "]"
       {
-        out.add(new PrintString("["));
-        out.add(new PrintString("]"));
+        type = new ArrayType(type);
       }
     )+
   |
-    ( ClassOrInterfaceType(out) )
+    type = ClassOrInterfaceType(out) 
     ( LOOKAHEAD(2) "[" "]"
       {
-        out.add(new PrintString("["));
-        out.add(new PrintString("]"));
+        type = new ArrayType(type);
       }
-   )*
+    )*
   )
+  {    return type;
+  }
 }
 
-void ClassOrInterfaceType(List<PrintInfo> out):
+BaseType ClassOrInterfaceType(List<PrintInfo> out):
 {
-  Token t;
+  Token t, first, last;
+  List<String> aux = new LinkedList<String>();
+  //List<PrintInfo> out = new LinkedList<PrintInfo>();
+  BaseType type;
 }
 {
   t=<IDENTIFIER>
   {
-    out.add(new PrintString(t.image));
+    aux.add(t.image);
+    first = last = t;
   }
-  [ LOOKAHEAD(2)TypeArguments(out) ]
+  [ LOOKAHEAD(2)TypeArguments(out)
+    //TODO type arguments
+  ]
   ( LOOKAHEAD(2) "." t=<IDENTIFIER>
     {
-      out.add(new PrintString("."));
-      out.add(new PrintString(t.image));
+      aux.add(t.image);
+      last = t;
     }
-    [ LOOKAHEAD(2) TypeArguments(out) ]
+    [ LOOKAHEAD(2) TypeArguments(out)
+      {
+        //last = t;      }
+    ]
   )*
+  {
+    CodeZone cz = new CodeZone(first.beginLine, last.beginColumn, last.endLine, first.endColumn);
+    String name = aux.get(0);
+    for(int i = 1; i < aux.size(); i++) {
+	  name += "." + aux.get(i);    }
+    BaseSymbol symbol = symbolTable.findSymbol(name);
+    if(symbol != null) {
+      if(symbol instanceof TypeSymbol) {
+        return ((TypeSymbol)symbol).type;      } else {
+        errorLog.insertError("El simbol \"" + name + "\" no és un tipus.", cz);
+        return UnknownType.empty;       }    } else {
+      try {
+        Class<?> clazz = Class.forName(name);
+        return new ClassOrInterfaceTypeRef(clazz);      } catch(ClassNotFoundException e) {
+        try {
+          Class<?> clazz = Class.forName("java.lang." + name);
+          return new ClassOrInterfaceTypeRef(clazz);
+        } catch(ClassNotFoundException e2) {
+          errorLog.insertWarning("No s'ha trobat la classe \"" + name + "\".", cz);
+          return new UnknownType(name);
+        }      }    }  }
 }
 
 void TypeArguments(List<PrintInfo> out):
@@ -1932,7 +1988,7 @@ void WildcardBounds(List<PrintInfo> out):
 }
 
 
-void PrimitiveType(List<PrintInfo> out):
+PrimitiveTypeRef PrimitiveType(List<PrintInfo> out):
 {
   Token t;
 }
@@ -1955,21 +2011,26 @@ void PrimitiveType(List<PrintInfo> out):
       t="double"
   )
   {
-    out.add(new PrintString(t.image));
+    return PrimitiveTypeRef.getFromName(t.image);
   }
 }
 
-void ResultType(List<PrintInfo> out):
-{}
+BaseType ResultType(List<PrintInfo> out):
+{
+  BaseType type;
+  Token t;
+}
 {
   (   
-      "void"
+      t="void"
       {
-        out.add(new PrintString("void"));
+        type = PrimitiveTypeRef.getFromName(t.image);
       }
     |
-      Type(out)
+      type = Type(out)
     )
+    {      return type;
+    }
 }
 
 void Name(List<PrintInfo> out):
@@ -2416,30 +2477,21 @@ ExpressionNode PostfixExpression():
 
 ExpressionNode CastExpression():
 {
-  List<PrintInfo> other  = new LinkedList<PrintInfo>(),
-                  out    = new LinkedList<PrintInfo>();
-
   ExpressionNode finalNode;
+  BaseType type;
   Token t;
+
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
 }
 {
   (
     LOOKAHEAD("(" PrimitiveType())
-    t="(" Type(other) ")" finalNode = UnaryExpression()
+    t="(" type=Type(out) ")" finalNode = UnaryExpression()
   |
-    t="(" Type(other) ")" finalNode = UnaryExpressionNotPlusMinus()
+    t="(" type=Type(out) ")" finalNode = UnaryExpressionNotPlusMinus()
   )
   {
-    out.add(new PrintString("("));
-    out.addAll(other);
-    out.add(new PrintString(")"));
-    out.add(PrintWhiteSpace.getInstance());
-
-    String treeString = finalNode.treeStringRepresentation();
-    out.addAll( MegaPrinter.getInstance().format(treeString) );
-
-    return new ProxyExpression(out, t.beginLine, t.beginColumn,
-                          finalNode.getEndLine(), finalNode.getEndColumn());
+    return new CastExpressionNode(t, type, finalNode);
   }
 }
 
@@ -2733,31 +2785,26 @@ void ArrayDimsAndInits(List<PrintInfo> out):
  * Statement syntax follows.
  */
 
-void Statement(List<PrintInfo> out):
+StatementNode Statement(List<PrintInfo> out):
 {
-  StatementNode statement;
+  StatementNode statement = null;
 }
 {
   (
     LOOKAHEAD(2)
-    LabeledStatement(out)
+    statement = LabeledStatement()
   |
     AssertStatement(out)
   |
     Block(out)
   |
-    EmptyStatement(out)
+    statement = EmptyStatement()
   |
     statement = StatementExpression() ";"
-    {
-      String treeString = statement.treeStringRepresentation();
-      out.addAll( MegaPrinter.getInstance().format(treeString) );
-      out.add(new PrintString(";"));
-    }
   |
     SwitchStatement(out)
   |
-    IfStatement(out)
+    statement = IfStatement()
   |
     WhileStatement(out)
   |
@@ -2777,6 +2824,12 @@ void Statement(List<PrintInfo> out):
   |
     TryStatement(out)
   )
+  {
+    if(statement == null) {
+      statement = new ProxyStatement(out);    } else {      String treeString = statement.treeStringRepresentation();
+      out.addAll( MegaPrinter.getInstance().format(treeString) );
+    }
+    return statement;  }
 }
 
 void AssertStatement(List<PrintInfo> out):
@@ -2804,59 +2857,76 @@ void AssertStatement(List<PrintInfo> out):
   }
 }
 
-void LabeledStatement(List<PrintInfo> out):
+StatementNode LabeledStatement():
 {
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
   Token t;
+  StatementNode node;
 }
 {
   t=<IDENTIFIER> ":"
+  node = Statement(out)
   {
-    out.add(new PrintString(t.image));
-    out.add(PrintWhiteSpace.getInstance());
-    out.add(new PrintString(":"));
-    out.add(PrintWhiteSpace.getInstance());
-  }
-  Statement(out)
+    return new LabeledStatementNode(t, node, symbolTable, errorLog);  }
 }
 
-void Block(List<PrintInfo> out):
+BlockCode Block(List<PrintInfo> out):
 {
+  BlockCode.TmpBlockCode prevBlock = localBlock;
+  BlockStatementNode blockStatementNode;
+  Token t;
 }
 {
-  "{"
+  t = "{"
   {
-    out.add(new PrintString("{"));
-    out.add(PrintInitTab.getInstance());
-    out.add(PrintIntro.getInstance());
+    localBlock = new BlockCode.TmpBlockCode(t);
   }
   ( 
-    BlockStatement(out)
+    blockStatementNode = BlockStatement()
     {
-      out.add(PrintIntro.getInstance());
+      localBlock.addStatement(blockStatementNode);
     }
   )*
-  "}"
+  t="}"
   {
-    while(out.get(out.size()-1) == PrintIntro.getInstance())
-      out.remove(out.size()-1);
-    out.add(PrintEndTab.getInstance());
     out.add(PrintIntro.getInstance());
-    out.add(new PrintString("}"));
+    
+    BlockCode block = localBlock.transformToBlockCode();
+
+    String treeString = block.treeStringRepresentation();
+    out.addAll( MegaPrinter.getInstance().format(treeString) );
+
+
+    localBlock = prevBlock;
+
+    return block;
   }
 }
 
-void BlockStatement(List<PrintInfo> out):
-{}
+BlockStatementNode BlockStatement():
 {
-  LOOKAHEAD( Modifiers() Type() <IDENTIFIER> )
-  LocalVariableDeclaration(out) ";"
-  {
-    out.add(new PrintString(";"));
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
+  Token t;
+  BlockStatementNode result;
+}
+{
+  (    LOOKAHEAD( Modifiers() Type() <IDENTIFIER> )
+    LocalVariableDeclaration(out) t=";"
+    {
+      //TODO
+      result = new NoOpStatement(t.beginLine, t.beginColumn, t.endLine, t.endColumn);
+    }
+  |
+    result = Statement(out)
+  |
+    ClassOrInterfaceDeclaration(0, out)
+    {
+      //TODO
+      result = new NoOpStatement(0,0,0,0);
+    }
+  )
+  {    return result;
   }
-|
-  Statement(out)
-|
-  ClassOrInterfaceDeclaration(0, out)
 }
 
 void LocalVariableDeclaration(List<PrintInfo> out):
@@ -2873,12 +2943,14 @@ void LocalVariableDeclaration(List<PrintInfo> out):
   )*
 }
 
-void EmptyStatement(List<PrintInfo> out):
+StatementNode EmptyStatement():
 {
-  out.add(new PrintString(";"));
+  Token t;
 }
 {
-  ";"
+  t = ";"
+  {
+    return new NoOpStatement(t.beginLine, t.beginColumn, t.endLine, t.endColumn);  }
 }
 
 StatementNode StatementExpression():
@@ -2952,8 +3024,13 @@ void SwitchStatement(List<PrintInfo> out):
     (
       {
         out.add(PrintIntro.getInstance());
+        BlockStatementNode bsn;
       }
-      BlockStatement(out)
+      bsn = BlockStatement()
+      {
+        String treeString = bsn.treeStringRepresentation();
+        out.addAll( MegaPrinter.getInstance().format(treeString) );
+      }
     )*
     {
       out.add(PrintEndTab.getInstance());
@@ -2986,36 +3063,41 @@ void SwitchLabel(List<PrintInfo> out):
   }
 }
 
-void IfStatement(List<PrintInfo> out):
+StatementNode IfStatement():
 /*
  * The disambiguating algorithm of JavaCC automatically binds dangling
  * else's to the innermost if statement.  The LOOKAHEAD specification
  * is to tell JavaCC that we know what we are doing.
  */
-{}
 {
-  "if" "("
-  {
-    out.add(new PrintString("if"));
-    out.add(new PrintString("("));
-    out.add(PrintWhiteSpace.getInstance());
-  }
-  Expression(out)
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
+  StatementNode node1, node2 = null;
+  ExpressionNode expression;
+  Token t;
+}
+{
+  t="if" "("
+  expression = Expression(out)
   ")"
   {
-    out.add(PrintWhiteSpace.getInstance());
-    out.add(new PrintString(")"));
-    out.add(PrintWhiteSpace.getInstance());
+    symbolTable.newContext();
   }
-  Statement(out)
-  [ LOOKAHEAD(1) "else"
+  node1 = Statement(out)
+  {
+    symbolTable.deleteContext();
+  }
+  [    LOOKAHEAD(1) "else"
     {
-      out.add(PrintIntro.getInstance());
-      out.add(new PrintString("else"));
-      out.add(PrintWhiteSpace.getInstance());
+      symbolTable.newContext();
     }
-    Statement(out)
+    node2 = Statement(out)
+    {
+      symbolTable.deleteContext();
+    }
   ]
+  {
+    return new IfStatementNode( t, expression, 
+                          node1, node2, errorLog);  }
 }
 
 void WhileStatement(List<PrintInfo> out):
