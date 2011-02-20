@@ -1,22 +1,22 @@
-package cat.quadriga.parsers.code;
+package cat.quadriga.parsers.code.expressions;
 
 public abstract class BinaryExpressionNode extends ExpressionNode {
 
-  private ExpressionNode leftOperand, rightOperand;
+  public final ExpressionNode leftOperand, rightOperand;
 
   public BinaryExpressionNode(ExpressionNode left, ExpressionNode right) {
     super(
-        left.getBeginLine(),
-        left.getBeginColumn(),
-        right.getEndLine(),
-        right.getEndColumn()
+        left.beginLine,
+        left.beginColumn,
+        right.endLine,
+        right.endColumn
          );
     leftOperand = left;
     rightOperand = right;
   }
 
   @Override
-  protected String[] getOperands() {
+  public String[] getOperands() {
     String out[] = {  leftOperand.treeStringRepresentation(), 
                       rightOperand.treeStringRepresentation() 
                    };

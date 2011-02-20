@@ -1,8 +1,8 @@
-package cat.quadriga.parsers.code;
+package cat.quadriga.parsers.code.expressions;
 
 public class LogicalOperation extends BinaryExpressionNode {
 
-  private Operator operator;
+  public final Operator operator;
   public LogicalOperation( Operator operator,
                               ExpressionNode operant1, 
                               ExpressionNode operant2) {
@@ -11,7 +11,7 @@ public class LogicalOperation extends BinaryExpressionNode {
   }
   
   @Override
-  protected String getOperation() {
+  public String getOperation() {
     return operator.toString();
   }
 

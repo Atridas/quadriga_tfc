@@ -1,10 +1,11 @@
-package cat.quadriga.parsers.code;
+package cat.quadriga.parsers.code.expressions;
 
-import cat.quadriga.parsers.code.AssigmentStatementNode.Operator;
+import cat.quadriga.parsers.code.statements.AssigmentStatementNode;
+import cat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;
 
 public class AssigmentExpressionNode extends BinaryExpressionNode {
 
-  private final AssigmentStatementNode statementEquivalent;
+  public final AssigmentStatementNode statementEquivalent;
   
   public AssigmentExpressionNode(Operator operator, ExpressionNode left, ExpressionNode right) {
     super(left, right);
@@ -13,7 +14,7 @@ public class AssigmentExpressionNode extends BinaryExpressionNode {
   }
 
   @Override
-  protected String getOperation() {
+  public String getOperation() {
     return statementEquivalent.getOperator().toString();
   }
 

@@ -1,4 +1,4 @@
-package cat.quadriga.parsers.code;
+package cat.quadriga.parsers.code.expressions;
 
 import cat.quadriga.parsers.Token;
 
@@ -13,7 +13,7 @@ public class UnaryProxy extends UnaryExpressionNode {
   }
   
   @Override
-  protected String getOperation() {
+  public String getOperation() {
     return ">> unary proxy <<";
   }
 }
