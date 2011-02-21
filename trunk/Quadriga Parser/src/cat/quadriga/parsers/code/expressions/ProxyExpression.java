@@ -103,10 +103,10 @@ public class ProxyExpression extends ExpressionNode {
   public ProxyExpression(String in, CodeZone firstZone, CodeZone lastZone)
   {
     super(
-        firstZone.beginLine,
-        firstZone.beginColumn,
-        lastZone.endLine,
-        lastZone.endColumn
+        firstZone.beginLine(),
+        firstZone.beginColumn(),
+        lastZone.endLine(),
+        lastZone.endColumn()
         );
     
     

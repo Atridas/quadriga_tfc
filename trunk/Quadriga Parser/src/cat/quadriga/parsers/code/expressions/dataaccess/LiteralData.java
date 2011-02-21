@@ -1,4 +1,4 @@
-package cat.quadriga.parsers.code.expressions;
+package cat.quadriga.parsers.code.expressions.dataaccess;
 
 import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.Utils;

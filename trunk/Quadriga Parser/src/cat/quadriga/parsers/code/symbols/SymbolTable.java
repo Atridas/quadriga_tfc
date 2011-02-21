@@ -16,6 +16,9 @@ public class SymbolTable {
   }
 
   private final List<String> includedPackages = new LinkedList<String>();
+  {
+    addPackage("java.lang");
+  }
   
   public void newContext() {
     mapStack.add(new HashMap<String, BaseSymbol>());
