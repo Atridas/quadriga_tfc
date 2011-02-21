@@ -192,6 +192,12 @@ public class QuadrigaSimple
 
 }
 
+class VarAndInit{  String name;
+  BaseType type;
+  ExpressionNode init;
+  int modifiers;
+}
+
 PARSER_END(QuadrigaSimple)
 
 /* WHITE SPACE */
@@ -1544,96 +1550,105 @@ void ClassOrInterfaceBodyDeclaration(boolean isInterface, List<PrintInfo> out):
 }
 
 void FieldDeclaration(int modifiers, List<PrintInfo> out):
-{}
+{
+  VarAndInit v;
+  BaseType tipus;
+}
 {
   // Modifiers are already matched in the caller
-  Type(out)
+  tipus = Type(out)
   {
     out.add(PrintWhiteSpace.getInstance());
   }
-  VariableDeclarator(out)
+  v = VariableDeclarator(modifiers, tipus)
   ( ","
     {
-      out.add(PrintWhiteSpace.getInstance());
+      //TODO
     }
-    VariableDeclarator(out)
+    v = VariableDeclarator(modifiers, tipus)
   )* ";"
   {
     out.add(new PrintString(";"));
   }
 }
 
-void VariableDeclarator(List<PrintInfo> out):
-{}
+VarAndInit VariableDeclarator(int modifiers, BaseType type):
 {
-  VariableDeclaratorId(out)
+  VarAndInit vai;
+  ExpressionNode initialization;
+}
+{
+  vai = VariableDeclaratorId(type)
+  {
+    vai.modifiers = modifiers;  }
   [ "="
+    initialization = VariableInitializer()
     {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString("="));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    VariableInitializer(out)
+      vai.init = initialization;    }
   ]
+  {    return vai;
+  }
 }
 
-void VariableDeclaratorId(List<PrintInfo> out):
+VarAndInit VariableDeclaratorId(BaseType type):
 {
   Token t;
+  VarAndInit vai = new VarAndInit();
 }
 {
   t=<IDENTIFIER>
   {
-    out.add(new PrintString(t.image));
+    vai.name = t.image;
+    vai.type = type;
   }
   ( "[" "]" 
-  {
-    out.add(new PrintString("["));
-    out.add(new PrintString("]"));
-  }
+    {
+      vai.type = new ArrayType(type);
+    }
   )*
+  {
+    return vai;  }
 }
 
-void VariableInitializer(List<PrintInfo> out):
-{}
+ExpressionNode VariableInitializer():
+{
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
+  ExpressionNode result;
+}
 {
   (
-    ArrayInitializer(out)
+    result = ArrayInitializer()
   |
-    Expression(out)
+    result = Expression(out)
   )
+  {    return result;
+  }
 }
 
-void ArrayInitializer(List<PrintInfo> out):
+ExpressionNode ArrayInitializer():
 {
-  List<PrintInfo> other = new LinkedList<PrintInfo>();
+  ExpressionNode aux;
+  List<ExpressionNode> listOfInits = new LinkedList<ExpressionNode>();
 }
 {
   "{"
-  {
-    out.add(new PrintString("{"));
-    out.add(PrintInitTab.getInstance());
-    out.add(PrintIntro.getInstance());
-  }
-  [ VariableInitializer(other)
+  [ aux = VariableInitializer()
     {
-      out.addAll(other);
-      other = new LinkedList<PrintInfo>();
+      listOfInits.add(aux);
     }
-    ( LOOKAHEAD(2) "," VariableInitializer(other)
+    ( LOOKAHEAD(2) "," aux = VariableInitializer()
       {
-        out.add(new PrintString(","));
-        out.add(PrintWhiteSpace.getInstance());
-        out.addAll(other);
-        other = new LinkedList<PrintInfo>();
+        listOfInits.add(aux);
       }
     )*
   ]
   [ "," ]
   "}"
   {
-    out.add(new PrintString("}"));
-    out.add(PrintEndTab.getInstance());
+    if(listOfInits.size() == 0)    {
+      //TODO
+      return null;    } else    {
+      return new UnaryProxy(listOfInits.get(0));    }
   }
 }
 
@@ -1710,6 +1725,7 @@ void FormalParameters(List<PrintInfo> out):
 void FormalParameter(List<PrintInfo> out):
 {
   int modifiers;
+  BaseType type;
 }
 {
   // danson, added
@@ -1727,7 +1743,7 @@ void FormalParameter(List<PrintInfo> out):
     }
   | Annotation(out)
   ]
-  Type(out)
+  type = Type(out)
   [ "..."
   {
     out.add(new PrintString("..."));
@@ -1736,7 +1752,9 @@ void FormalParameter(List<PrintInfo> out):
   {
     out.add(PrintWhiteSpace.getInstance());
   }
-  VariableDeclaratorId(out)
+  VariableDeclaratorId(type)
+  {
+    //TODO  }
 }
 
 void ConstructorDeclaration(List<PrintInfo> out):
@@ -2776,7 +2794,7 @@ void ArrayDimsAndInits(List<PrintInfo> out):
         out.add(new PrintString("]"));
       }
     )+
-    ArrayInitializer(out)
+    ArrayInitializer() //TODO
   )
 }
 
@@ -2796,7 +2814,7 @@ StatementNode Statement(List<PrintInfo> out):
   |
     AssertStatement(out)
   |
-    Block(out)
+    statement = Block(out)
   |
     statement = EmptyStatement()
   |
@@ -2875,6 +2893,8 @@ BlockCode Block(List<PrintInfo> out):
   BlockCode.TmpBlockCode prevBlock = localBlock;
   BlockStatementNode blockStatementNode;
   Token t;
+
+  symbolTable.newContext();
 }
 {
   t = "{"
@@ -2899,6 +2919,7 @@ BlockCode Block(List<PrintInfo> out):
 
     localBlock = prevBlock;
 
+    symbolTable.deleteContext();
     return block;
   }
 }
@@ -2929,18 +2950,53 @@ BlockStatementNode BlockStatement():
   }
 }
 
-void LocalVariableDeclaration(List<PrintInfo> out):
+StatementList LocalVariableDeclaration(List<PrintInfo> out):
 {
+  int modifiers;
+  BaseType type;
+  VarAndInit var;
+
+  List<StatementNode > initializers = new LinkedList<StatementNode >();
 }
 {
-  Modifiers(out) Type(out) VariableDeclarator(out)
+  modifiers=Modifiers(out) type = Type(out) var=VariableDeclarator(modifiers,type)
+  {
+    if(var.init != null)    {
+      //TODO correct left-hand
+      ExpressionNode leftHand = new ProxyExpression(var.name);
+            initializers.add(new AssigmentStatementNode(
+                                    AssigmentStatementNode.Operator.ASSIGN,
+                                    leftHand,
+                                    var.init)
+                      );
+
+      //TODO modifiers
+      LocalVariableSymbol localVar = new LocalVariableSymbol(modifiers, var.type, var.name);
+      symbolTable.addSymbol(localVar);
+      localBlock.addLocalVariable(localVar);
+    }  }
   ( ","
-    {
-      out.add(new PrintString(","));
-      out.add(PrintWhiteSpace.getInstance());
+    var = VariableDeclarator(modifiers,type)
+    {      if(var.init != null)
+      {
+        //TODO correct left-hand
+        ExpressionNode leftHand = new ProxyExpression(var.name);
+      
+        initializers.add(new AssigmentStatementNode(
+                                    AssigmentStatementNode.Operator.ASSIGN,
+                                    leftHand,
+                                    var.init)
+                        );
+
+        //TODO modifiers
+        LocalVariableSymbol localVar = new LocalVariableSymbol(modifiers, var.type, var.name);
+        symbolTable.addSymbol(localVar);
+        localBlock.addLocalVariable(localVar);
+      }
     }
-    VariableDeclarator(out)
   )*
+  {
+    return new StatementList(initializers.toArray(new StatementNode[initializers.size()]));  }
 }
 
 StatementNode EmptyStatement():

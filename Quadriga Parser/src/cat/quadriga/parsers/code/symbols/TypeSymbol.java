@@ -24,4 +24,9 @@ public class TypeSymbol extends BaseSymbol {
   public String[] getAlias() {
     return alias;
   }
+  
+  @Override
+  protected String createTreeStringRepresentation() {
+    return "Symbol Type [" + type.toString() + "]";
+  }
 }

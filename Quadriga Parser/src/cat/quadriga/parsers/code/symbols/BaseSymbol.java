@@ -1,6 +1,8 @@
 package cat.quadriga.parsers.code.symbols;
 
-public abstract class BaseSymbol {
+import cat.quadriga.parsers.code.TreeRepresentable;
+
+public abstract class BaseSymbol implements TreeRepresentable {
 
   public final String name;
   
@@ -12,4 +14,16 @@ public abstract class BaseSymbol {
   public String[] getAlias() {
     return alias;
   }
+  
+  private String treeStringRepresentation;
+  @Override
+  public final String treeStringRepresentation() {
+    if(treeStringRepresentation != null)
+      return treeStringRepresentation;
+    return treeStringRepresentation = createTreeStringRepresentation();
+  }
+  
+  protected abstract String createTreeStringRepresentation();
+  
+  
 }

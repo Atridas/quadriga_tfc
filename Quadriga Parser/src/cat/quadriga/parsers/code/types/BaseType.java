@@ -15,4 +15,8 @@ public class BaseType {
   public boolean isValid() {
     return true;
   }
+  
+  public String toString() {
+    return binaryName;
+  }
 }
