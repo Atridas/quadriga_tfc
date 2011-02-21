@@ -1,9 +1,10 @@
 package cat.quadriga.parsers.code.expressions;
 
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.TreeRepresentable;
 import cat.quadriga.parsers.code.Utils;
 
-public abstract class ExpressionNode extends CodeZone {
+public abstract class ExpressionNode extends CodeZone implements TreeRepresentable {
   
   private String treeStringRepresentation = null;
   

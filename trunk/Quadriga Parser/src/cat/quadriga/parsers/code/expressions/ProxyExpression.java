@@ -56,6 +56,34 @@ public class ProxyExpression extends ExpressionNode {
       operands = aux2;
     }
   }
+  
+  public ProxyExpression(List<PrintInfo> in)
+  {
+    super(0,0,0,0);
+    MegaPrinter printer = MegaPrinter.getInstance();
+    
+    String aux = printer.print(in);
+    
+    String aux2[] = aux.split("\n");
+    
+    if(aux2.length == 1) {
+      operator = ">> proxy [ " + aux2[0] + " ]";
+      operands = new String[0];
+    } else {
+      operator = ">> proxy <<";
+      operands = aux2;
+    }
+  }
+  
+  public ProxyExpression(String in)
+  {
+    super(0,0,0,0);
+    
+    
+    operator = ">> proxy [ " + in + " ]";
+    operands = new String[0];
+    
+  }
 
   @Override
   public String[] getOperands() {

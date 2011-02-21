@@ -37,7 +37,7 @@ public class SymbolTable {
     }
   }
   
-  public void AddSymbol(BaseSymbol symbol) {
+  public void addSymbol(BaseSymbol symbol) {
     String name = symbol.name;
     String aliases[] = symbol.getAlias();
     

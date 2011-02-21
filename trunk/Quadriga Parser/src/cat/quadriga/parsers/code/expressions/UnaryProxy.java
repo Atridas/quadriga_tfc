@@ -11,6 +11,10 @@ public class UnaryProxy extends UnaryExpressionNode {
         lastToken.endLine,
         lastToken.endColumn);
   }
+
+  public UnaryProxy(ExpressionNode operator) {
+    super(operator, 0, 0, 0, 0);
+  }
   
   @Override
   public String getOperation() {

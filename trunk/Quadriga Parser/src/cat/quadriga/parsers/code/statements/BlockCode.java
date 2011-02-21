@@ -1,14 +1,14 @@
-package cat.quadriga.parsers.code;
+package cat.quadriga.parsers.code.statements;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import cat.quadriga.parsers.Token;
-import cat.quadriga.parsers.code.statements.BlockStatementNode;
+import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 
-public class BlockCode extends CodeZone {
+public class BlockCode extends StatementNode {
 
   public final List<LocalVariableSymbol> localVariables;
   public final List<BlockStatementNode> statements;
@@ -31,7 +31,7 @@ public class BlockCode extends CodeZone {
     String varr[] = new String[localVariables.size()];
     int i = 0;
     for(LocalVariableSymbol v : localVariables) {
-      varr[i++] = v.name;
+      varr[i++] = v.treeStringRepresentation();
     }
     
     String vars = Utils.treeStringRepresentation("Local Variables:", 
