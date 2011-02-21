@@ -1,5 +1,19 @@
 package cat.quadriga.parsers.code;
 
+import java.util.Iterator;
+import java.util.List;
+
+import cat.quadriga.parsers.Token;
+import cat.quadriga.parsers.code.expressions.ExpressionNode;
+import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
+import cat.quadriga.parsers.code.expressions.dataaccess.LocalVarAccess;
+import cat.quadriga.parsers.code.expressions.dataaccess.ProxyDataAccess;
+import cat.quadriga.parsers.code.expressions.dataaccess.TypeDataAccess;
+import cat.quadriga.parsers.code.symbols.BaseSymbol;
+import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
+import cat.quadriga.parsers.code.symbols.SymbolTable;
+import cat.quadriga.parsers.code.symbols.TypeSymbol;
+
 abstract public class Utils {
   public static final String treeStringRepresentation( String operation, String operands[]) {
     String out = operation;
@@ -61,6 +75,64 @@ abstract public class Utils {
     
     return aux + scape.substring(len);
     
+  }
+  
+  public static ExpressionNode symbolToExpression(BaseSymbol symbol, Token first, Token last)
+  {
+    if(symbol instanceof LocalVariableSymbol) {
+      return new LocalVarAccess((LocalVariableSymbol)symbol,
+                                first.beginLine, first.beginColumn,
+                                last.endLine, last.endColumn);
+    } else if(symbol instanceof TypeSymbol) {
+      return new TypeDataAccess(((TypeSymbol)symbol).type ,
+                                first.beginLine, first.beginColumn,
+                                last.endLine, last.endColumn);
+    }
+    
+    return null;
+  }
+  
+  public static ExpressionNode accessToMember(DataAccess expression, String member, Token t)
+  {
+    return new ProxyDataAccess("Access to member " + member, expression,
+                               expression.beginLine(), expression.beginColumn(),
+                               t.endLine, t.endColumn);
+  }
+
+  public static ExpressionNode resolveName(SymbolTable symbolTable, List<Token> identifiers) {
+    Token first = identifiers.get(0);
+    Token actual;
+    Iterator<Token> it = identifiers.iterator();
+    ExpressionNode result = null;
+
+    actual = it.next();
+    String aux = actual.image;
+    BaseSymbol symbol = symbolTable.findSymbol(aux);
+    if(symbol != null) {
+      result = symbolToExpression(symbol,first,actual);
+    }
+    
+    while(result == null && it.hasNext()) {
+      actual = it.next();
+      aux += '.' + actual.image;
+      symbol = symbolTable.findSymbol(aux);
+      if(symbol != null) {
+        result = symbolToExpression(symbol,first,actual);
+      }
+    }
+
+    if(result == null) {
+      result = new ProxyDataAccess(aux, identifiers.get(0).beginLine,identifiers.get(0).beginColumn,
+          identifiers.get(identifiers.size()-1).endLine, identifiers.get(identifiers.size()-1).endColumn);
+    } else {
+      while(it.hasNext()) {
+        actual = it.next();
+        aux = actual.image;
+        result = accessToMember((DataAccess)result, aux, actual);
+      }
+    }
+    
+    return result;
   }
   
   public static final int PUBLIC = 0x0001;

@@ -1,4 +1,7 @@
-package cat.quadriga.parsers.code.expressions;
+package cat.quadriga.parsers.code.expressions.dataaccess;
+
+import cat.quadriga.parsers.code.expressions.ExpressionNode;
+import cat.quadriga.parsers.code.expressions.UnaryExpressionNode;
 
 public abstract class UnaryDataAccess extends UnaryExpressionNode implements DataAccess {
 

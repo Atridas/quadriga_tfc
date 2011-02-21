@@ -30,7 +30,7 @@ public final class ErrorLog {
     return Collections.unmodifiableList(warnings);
   }
 
-  public class Error extends CodeZone {
+  public class Error extends CodeZoneClass {
     public final String stringError;
     
     Error(CodeZone cz, String str) {
@@ -38,7 +38,7 @@ public final class ErrorLog {
       stringError = str;
     }
   }
-  public class Warning extends CodeZone {
+  public class Warning extends CodeZoneClass {
     public final String stringWarning;
     
     Warning(CodeZone cz, String str) {

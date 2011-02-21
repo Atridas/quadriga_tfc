@@ -44,6 +44,7 @@ import java.util.*;
 import cat.quadriga.parsers.code.*;
 import cat.quadriga.parsers.code.statements.*;
 import cat.quadriga.parsers.code.expressions.*;
+import cat.quadriga.parsers.code.expressions.dataaccess.*;
 import cat.quadriga.parsers.code.printers.*;
 import cat.quadriga.parsers.code.symbols.*;
 import cat.quadriga.parsers.code.types.*;
@@ -191,53 +192,7 @@ public class QuadrigaSimple
     }
   }
 
-  public ExpressionNode symbolToExpression(BaseSymbol symbol, Token first, Token last)
-  {
-    if(symbol instanceof LocalVariableSymbol)    {
-      return new LocalVarAccess((LocalVariableSymbol)symbol,
-                                first.beginLine, first.beginColumn,
-                                last.endLine, last.endColumn);    }
-    return null;
-  }
   
-  public ExpressionNode accessToMember(ExpressionNode expression, String member, Token t)
-  {
-    return new UnaryProxy("Access to member " + member, expression,
-                               expression.beginLine, expression.beginColumn,
-                               t.endLine, t.endColumn);
-  }
-
-  public ExpressionNode resolveName(List<Token> identifiers) {
-    Token first = identifiers.get(0);
-    Token actual;
-    Iterator<Token> it = identifiers.iterator();
-    ExpressionNode result = null;
-
-    actual = it.next();
-    String aux = actual.image;
-    BaseSymbol symbol = symbolTable.findSymbol(aux);
-    if(symbol != null) {
-      result = symbolToExpression(symbol,first,actual);    }
-    
-    while(result == null && it.hasNext()) {
-      actual = it.next();
-      aux += '.' + actual.image;
-      symbol = symbolTable.findSymbol(aux);
-      if(symbol != null) {
-        result = symbolToExpression(symbol,first,actual);
-      }
-    }
-
-    if(result == null) {
-      result = new ProxyExpression(aux, identifiers.get(0),
-                                        identifiers.get(identifiers.size()-1));    } else {      while(it.hasNext()) {
-        actual = it.next();
-        aux = actual.image;
-        result = accessToMember(result, aux, actual);
-      }
-    }
-    
-    return result;  }
 
 }
 
@@ -1993,7 +1948,7 @@ BaseType ClassOrInterfaceType(List<PrintInfo> out):
     ]
   )*
   {
-    CodeZone cz = new CodeZone(first.beginLine, last.beginColumn, last.endLine, first.endColumn);
+    CodeZone cz = new CodeZoneClass(first.beginLine, last.beginColumn, last.endLine, first.endColumn);
     String name = aux.get(0);
     for(int i = 1; i < aux.size(); i++) {
 	  name += "." + aux.get(i);    }
@@ -2675,7 +2630,7 @@ ExpressionNode PrimaryPrefix():
       List<Token> aux;    }
     aux = Name()
     {
-      result = resolveName(aux);    }
+      result = Utils.resolveName(symbolTable,aux);    }
   )
   {
     return result;  }
@@ -3020,11 +2975,7 @@ BlockStatementNode BlockStatement():
 }
 {
   (    LOOKAHEAD( Modifiers() Type() <IDENTIFIER> )
-    LocalVariableDeclaration(out) t=";"
-    {
-      //TODO
-      result = new NoOpStatement(t.beginLine, t.beginColumn, t.endLine, t.endColumn);
-    }
+    result = LocalVariableDeclaration() t=";"
   |
     result = Statement(out)
   |
@@ -3038,11 +2989,12 @@ BlockStatementNode BlockStatement():
   }
 }
 
-StatementList LocalVariableDeclaration(List<PrintInfo> out):
+StatementList LocalVariableDeclaration():
 {
   int modifiers;
   BaseType type;
   VarAndInit var;
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
 
   List<StatementNode > initializers = new LinkedList<StatementNode >();
 }
@@ -3050,18 +3002,22 @@ StatementList LocalVariableDeclaration(List<PrintInfo> out):
   modifiers=Modifiers(out) type = Type(out) var=VariableDeclarator(modifiers,type)
   {
     if(var.init != null)    {
-      //TODO correct left-hand
-      ExpressionNode leftHand = new ProxyExpression(var.name);
-            initializers.add(new AssigmentStatementNode(
-                                    AssigmentStatementNode.Operator.ASSIGN,
-                                    leftHand,
-                                    var.init)
-                      );
 
       //TODO modifiers
       LocalVariableSymbol localVar = new LocalVariableSymbol(modifiers, var.type, var.name);
       symbolTable.addSymbol(localVar);
       localBlock.addLocalVariable(localVar);
+
+      
+      //TODO correct left-hand
+      ExpressionNode leftHand = new LocalVarAccess(localVar,
+					                                var.init);
+      
+      initializers.add(new AssigmentStatementNode(
+                                    AssigmentStatementNode.Operator.ASSIGN,
+                                    var.init,
+                                    var.init)
+                      );
     }  }
   ( ","
     var = VariableDeclarator(modifiers,type)
@@ -3332,34 +3288,45 @@ void ForStatement(List<PrintInfo> out):
   ")" Statement(out)
 }
 
-void ForInit(List<PrintInfo> out):
-{}
+StatementNode ForInit(List<PrintInfo> out):
 {
-  LOOKAHEAD( Modifiers() Type() <IDENTIFIER> )
-  LocalVariableDeclaration(out)
-|
-  StatementExpressionList(out)
+  StatementNode result;
+}
+{
+  (
+    LOOKAHEAD( Modifiers() Type() <IDENTIFIER> )
+    result = LocalVariableDeclaration()
+  |
+    result = StatementExpressionList(out)
+  )
+  {
+    String treeString = result.treeStringRepresentation();
+    out.addAll( MegaPrinter.getInstance().format(treeString) );    return result;
+  }
 }
 
-void StatementExpressionList(List<PrintInfo> out):
+StatementNode StatementExpressionList(List<PrintInfo> out):
 {
   StatementNode statement;
+  List<StatementNode> statements = new LinkedList<StatementNode>();
 }
 {
   statement = StatementExpression()
-  {    String treeString = statement.treeStringRepresentation();
-    out.addAll( MegaPrinter.getInstance().format(treeString) );
+  {    statements.add(statement);
   }
   ( ","
-    {
-      out.add(new PrintString(","));
-      out.add(PrintWhiteSpace.getInstance());
-    }
     statement = StatementExpression()
-    {      treeString = statement.treeStringRepresentation();
-      out.addAll( MegaPrinter.getInstance().format(treeString) );
+    {
+      statements.add(statement);      
     }
   )*
+  {
+    statement = new StatementList(statements.toArray(new StatementNode[statements.size()]));
+    
+    String treeString = statement.treeStringRepresentation();
+    out.addAll( MegaPrinter.getInstance().format(treeString) );
+
+    return statement;  }
 }
 
 void ForUpdate(List<PrintInfo> out):
