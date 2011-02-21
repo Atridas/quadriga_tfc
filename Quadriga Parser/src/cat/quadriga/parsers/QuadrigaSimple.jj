@@ -28,6 +28,7 @@
 
 options {
   JAVA_UNICODE_ESCAPE = true;
+  UNICODE_INPUT  = true;
   ERROR_REPORTING = false;
   STATIC = false;
   COMMON_TOKEN_ACTION = false;
@@ -166,7 +167,7 @@ public class QuadrigaSimple
     } else if (args.length == 1) {
       System.out.println("Java Parser Version 1.1:  Reading from file " + args[0] + " . . .");
       try {
-        parser = new QuadrigaSimple(new java.io.FileInputStream(args[0]));
+        parser = new QuadrigaSimple(new java.io.FileInputStream(args[0]), "UTF-8");
       } catch (java.io.FileNotFoundException e) {
         System.out.println("Java Parser Version 1.1:  File " + args[0] + " not found.");
         return;
@@ -189,6 +190,54 @@ public class QuadrigaSimple
       System.out.println("Java Parser Version 1.1:  Encountered errors during parse.");
     }
   }
+
+  public ExpressionNode symbolToExpression(BaseSymbol symbol, Token first, Token last)
+  {
+    if(symbol instanceof LocalVariableSymbol)    {
+      return new LocalVarAccess((LocalVariableSymbol)symbol,
+                                first.beginLine, first.beginColumn,
+                                last.endLine, last.endColumn);    }
+    return null;
+  }
+  
+  public ExpressionNode accessToMember(ExpressionNode expression, String member, Token t)
+  {
+    return new UnaryProxy("Access to member " + member, expression,
+                               expression.beginLine, expression.beginColumn,
+                               t.endLine, t.endColumn);
+  }
+
+  public ExpressionNode resolveName(List<Token> identifiers) {
+    Token first = identifiers.get(0);
+    Token actual;
+    Iterator<Token> it = identifiers.iterator();
+    ExpressionNode result = null;
+
+    actual = it.next();
+    String aux = actual.image;
+    BaseSymbol symbol = symbolTable.findSymbol(aux);
+    if(symbol != null) {
+      result = symbolToExpression(symbol,first,actual);    }
+    
+    while(result == null && it.hasNext()) {
+      actual = it.next();
+      aux += '.' + actual.image;
+      symbol = symbolTable.findSymbol(aux);
+      if(symbol != null) {
+        result = symbolToExpression(symbol,first,actual);
+      }
+    }
+
+    if(result == null) {
+      result = new ProxyExpression(aux, identifiers.get(0),
+                                        identifiers.get(identifiers.size()-1));    } else {      while(it.hasNext()) {
+        actual = it.next();
+        aux = actual.image;
+        result = accessToMember(result, aux, actual);
+      }
+    }
+    
+    return result;  }
 
 }
 
@@ -314,7 +363,7 @@ TOKEN :
 |
   < #DECIMAL_LITERAL: ["1"-"9"] (["0"-"9"])* >
 |
-  < #HEX_LITERAL: "0" ["x","X"] (["0"-"9","a"-"f","A"-"F"])+ >
+  < #HEX_LITERAL: "0" ["x","X"] (<HEXADECIMAL_DIGIT>)+ >
 |
   < #OCTAL_LITERAL: "0" (["0"-"7"])* >
 |
@@ -333,8 +382,8 @@ TOKEN :
   < #DECIMAL_EXPONENT: ["e","E"] (["+","-"])? (["0"-"9"])+ >
 |
   < #HEXADECIMAL_FLOATING_POINT_LITERAL:
-        "0" ["x", "X"] (["0"-"9","a"-"f","A"-"F"])+ (".")? <HEXADECIMAL_EXPONENT> (["f","F","d","D"])?
-      | "0" ["x", "X"] (["0"-"9","a"-"f","A"-"F"])* "." (["0"-"9","a"-"f","A"-"F"])+ <HEXADECIMAL_EXPONENT> (["f","F","d","D"])?
+        "0" ["x", "X"] (<HEXADECIMAL_DIGIT>)+ (".")? <HEXADECIMAL_EXPONENT> (["f","F","d","D"])?
+      | "0" ["x", "X"] (<HEXADECIMAL_DIGIT>)* "." (["0"-"9","a"-"f","A"-"F"])+ <HEXADECIMAL_EXPONENT> (["f","F","d","D"])?
   >
 |
   < #HEXADECIMAL_EXPONENT: ["p","P"] (["+","-"])? (["0"-"9"])+ >
@@ -364,6 +413,7 @@ TOKEN :
       )*
       "\""
   >
+| < #HEXADECIMAL_DIGIT : ["0"-"9","a"-"f","A"-"F"] >
 }
 
 /* IDENTIFIERS */
@@ -1129,44 +1179,60 @@ List<PrintInfo> CompilationUnit():
 
 void PackageDeclaration(List<PrintInfo> out):
 {
-  List<PrintInfo> other = new LinkedList<PrintInfo>();
+  List<Token > tokens;
 }
 {
-  Modifiers(out) "package" Name(other) ";"
+  Modifiers(out) "package" tokens = Name() ";"
   {
-    out.add(new PrintString("package"));
-    out.add(PrintWhiteSpace.getInstance());
-    out.addAll(other);
-    out.add(new PrintString(";"));
-    out.add(PrintIntro.getInstance());
+    String aux = tokens.get(0).image;
+    for(int i = 1; i < tokens.size(); i++) {
+      aux += "." + tokens.get(i).image;    }
+
+    symbolTable.addPackage(aux);
+
+    out.add(new PrintString("package " + aux + ";"));
   }
 }
 
 void ImportDeclaration(List<PrintInfo> out):
-{}
+{
+  boolean stat = false;
+  List<Token> tokens;
+  String aux;
+}
 {
   "import"
-  {
-    out.add(new PrintString("import"));
-    out.add(PrintWhiteSpace.getInstance());
-  }
   [ "static"
     {
-      out.add(new PrintString("static"));
-      out.add(PrintWhiteSpace.getInstance());
+      stat = true;
     }
   ]
-  Name(out)
-  [ "." "*"
+  tokens = Name()
+  {
+    aux = tokens.get(0).image;
+    for(int i = 1; i < tokens.size(); i++) {
+      aux += "." + tokens.get(i).image;
+    }  }
+  (     "." "*"
     {
-      out.add(new PrintString("."));
-      out.add(new PrintString("*"));
+      symbolTable.addPackage(aux);
+
+      aux += ".*";
     }
-  ]
+  |    {
+      try {
+        Class<?> clazz = Class.forName(aux);
+        BaseSymbol symbol = new TypeSymbol(ClassOrInterfaceTypeRef.getFromClass(clazz));
+        symbolTable.addGlobalSymbol(symbol);
+      } catch (ClassNotFoundException e) {
+        //TODO revisar això
+        BaseSymbol symbol = new TypeSymbol(NullType.instance);
+        symbolTable.addGlobalSymbol(symbol);
+      }    }
+  )
   ";"
   {
-    out.add(new PrintString(";"));
-    out.add(PrintIntro.getInstance());
+    out.add(new PrintString("import " + aux + ";"));
   }
 }
 
@@ -1672,7 +1738,7 @@ void MethodDeclaration(int modifiers, List<PrintInfo> out):
       out.add(new PrintString("throws"));
       out.add(PrintWhiteSpace.getInstance());
     }
-    NameList(out)
+    NameList()
   ]
   ( Block(out)
   | ";"
@@ -1777,7 +1843,7 @@ void ConstructorDeclaration(List<PrintInfo> out):
       out.add(new PrintString("throws"));
       out.add(PrintWhiteSpace.getInstance());
     }
-  NameList(out)
+  NameList()
   ]
   "{"
   {
@@ -1939,10 +2005,10 @@ BaseType ClassOrInterfaceType(List<PrintInfo> out):
         return UnknownType.empty;       }    } else {
       try {
         Class<?> clazz = Class.forName(name);
-        return new ClassOrInterfaceTypeRef(clazz);      } catch(ClassNotFoundException e) {
+        return ClassOrInterfaceTypeRef.getFromClass(clazz);      } catch(ClassNotFoundException e) {
         try {
           Class<?> clazz = Class.forName("java.lang." + name);
-          return new ClassOrInterfaceTypeRef(clazz);
+          return ClassOrInterfaceTypeRef.getFromClass(clazz);
         } catch(ClassNotFoundException e2) {
           errorLog.insertWarning("No s'ha trobat la classe \"" + name + "\".", cz);
           return new UnknownType(name);
@@ -2051,38 +2117,45 @@ BaseType ResultType(List<PrintInfo> out):
     }
 }
 
-void Name(List<PrintInfo> out):
+List<Token> Name():
 /*
  * A lookahead of 2 is required below since "Name" can be followed
  * by a ".*" when used in the context of an "ImportDeclaration".
  */
 {
+  List<Token> tokens = new LinkedList<Token>();
   Token t;
 }
 {
   t=<IDENTIFIER>
   {
-    out.add(new PrintString(t.image));
+    tokens.add(t);
   }
   ( LOOKAHEAD(2) "." t=<IDENTIFIER>
     {
-      out.add(new PrintString("."));
-      out.add(new PrintString(t.image));
+      tokens.add(t);
     }
   )*
+  {    return tokens;
+  }
 }
 
-void NameList(List<PrintInfo> out):
-{}
+List<List<Token>> NameList():
 {
-  Name(out)
+  List<Token> aux;
+  List<List<Token>> names = new LinkedList<List<Token>>();
+}
+{
+  aux = Name()
+  {
+    names.add(aux);  }
   ( ","
-    {
-      out.add(new PrintString(","));
-      out.add(PrintWhiteSpace.getInstance());
+    Name()
+    {      names.add(aux);
     }
-    Name(out)
   )*
+  {    return names;
+  }
 }
 
 
@@ -2473,7 +2546,7 @@ void CastLookahead():
   LOOKAHEAD("(" Type() "[")
   "(" Type(out) "[" "]"
 |
-  "(" Type(out) ")" ( "~" | "!" | "(" | <IDENTIFIER> | "this" | "super" | "new" | Literal(out) )
+  "(" Type(out) ")" ( "~" | "!" | "(" | <IDENTIFIER> | "this" | "super" | "new" | Literal() )
 }
 
 ExpressionNode PostfixExpression():
@@ -2485,8 +2558,6 @@ ExpressionNode PostfixExpression():
 {
   finalNode = PrimaryExpression(out)
   [ ( t = "++"  | t = "--" )
-    {
-      finalNode = new UnaryProxy( finalNode, t, t);    }
   ]
 
   {    return finalNode;
@@ -2514,13 +2585,19 @@ ExpressionNode CastExpression():
 }
 
 ExpressionNode PrimaryExpression(List<PrintInfo> out):
-{}
 {
-  PrimaryPrefix(out)
-  ( LOOKAHEAD(2) PrimarySuffix(out) )*
+  ExpressionNode result;
+}
+{
+  result = PrimaryPrefix()
+  ( LOOKAHEAD(2) PrimarySuffix(out)
+    {
+      Token t = new Token();
+      result = new UnaryProxy( result, t, t );
+    }
+  )*
 
-  {
-    Token t = new Token();    return new UnaryProxy( new ProxyExpression(out, t, t), t, t );
+  {    return result;
   }
 }
 
@@ -2538,67 +2615,70 @@ void MemberSelector(List<PrintInfo> out):
   }
 }
 
-void PrimaryPrefix(List<PrintInfo> out):
+ExpressionNode PrimaryPrefix():
 {
-  Token t;
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
+  Token t, t2;
+  ExpressionNode result;
+  List<Token> tokenList = new LinkedList<Token>();
+  BaseType type;
 }
 {
   (
-    Literal(out)
+    result = Literal()
   |
     LOOKAHEAD( ( <IDENTIFIER> "." )* "this" )
     ( t=<IDENTIFIER> "."
       {
-        out.add(new PrintString(t.image));
-        out.add(new PrintString("."));
+        tokenList.add(t);
       }
     )*
-    "this"
+    t="this"
     {
-      out.add(new PrintString("this"));
+      if(tokenList.size() > 0) {
+        //TODO algo
+        result = new ProxyExpression(tokenList.get(0).image + " ... this",
+                                     tokenList.get(0),
+                                     t);      } else      {
+        result = new ProxyExpression("this", t, t);      }
     }
   |
-    "super" "." t=<IDENTIFIER>
+    t="super" "." t2=<IDENTIFIER>
     {
-      out.add(new PrintString("super"));
-      out.add(new PrintString("."));
-      out.add(new PrintString(t.image));
+      //TODO
+      result = new ProxyExpression("super." + t2.image, t, t2);
     }
   |
      // danson, added this part to support a construct like:
      //   Buffer.super.setDirty(true);
      // See Java Language Specification, 3rd edition, section 15.11.2.
      LOOKAHEAD( ClassOrInterfaceType() "." "super" "." <IDENTIFIER> )
-     ClassOrInterfaceType(out) "." "super" "." t=<IDENTIFIER>
+     type = ClassOrInterfaceType(out) t="." "super" "." t2=<IDENTIFIER>
      {
-       out.add(new PrintString("."));
-       out.add(new PrintString("super"));
-       out.add(new PrintString("."));
-       out.add(new PrintString(t.image));
+       //TODO
+      result = new ProxyExpression(type + ".super." + t.image, t, t2);
      }
   |
-    "("
-    {
-       out.add(new PrintString("("));
-       out.add(PrintWhiteSpace.getInstance());
-    }
-    Expression(out) ")"
-    {
-       out.add(PrintWhiteSpace.getInstance());
-       out.add(new PrintString(")"));
-    }
+    "(" result = Expression(out) ")"
   |
     AllocationExpression(out)
+    {
+      result = new ProxyExpression("new something");    }
   |
     LOOKAHEAD( ResultType() "." "class" )
-    ResultType(out) "." "class"
+    type = ResultType(out) "." "class"
     {
-      out.add(new PrintString("."));
-      out.add(new PrintString("class"));
+      result = new ProxyExpression("classe " + type.toString());
     }
   |
-    Name(out)
+    {
+      List<Token> aux;    }
+    aux = Name()
+    {
+      result = resolveName(aux);    }
   )
+  {
+    return result;  }
 }
 
 void PrimarySuffix(List<PrintInfo> out):
@@ -2650,58 +2730,66 @@ void PrimarySuffix(List<PrintInfo> out):
   )
 }
 
-void Literal(List<PrintInfo> out):
+LiteralData Literal():
 {
   Token t;
+  LiteralData data;
 }
 {
   (    
     t=<INTEGER_LITERAL>
     {
-      out.add(new PrintString(t.image));
+      data = new LiteralData.IntegerLiteral(t);
     }
   |
     t=<FLOATING_POINT_LITERAL>
     {
-      out.add(new PrintString(t.image));
+      data = new LiteralData.FloatLiteral(t);
     }
   |
     t=<CHARACTER_LITERAL>
     {
-      out.add(new PrintString(t.image));
+      data = new LiteralData.CharacterLiteral(t);
     }
   |
     t=<STRING_LITERAL>
     {
-      out.add(new PrintString(t.image));
+      data = new LiteralData.StringLiteral(t);
     }
   |
-    BooleanLiteral(out)
+    data = BooleanLiteral()
   |
-    NullLiteral(out)
+    data = NullLiteral()
   )
+  {    return data;
+  }
 }
 
-void BooleanLiteral(List<PrintInfo> out):
-{}
+LiteralData BooleanLiteral():
 {
-  "true"
+  Token t;
+}
+{
+  t="true"
   {
-    out.add(new PrintString("true"));
+    return new LiteralData.TrueLiteral(t);
   }
 |
-  "false"
+  t="false"
   {
-    out.add(new PrintString("false"));
+    return new LiteralData.FalseLiteral(t);
   }
 }
 
-void NullLiteral(List<PrintInfo> out):
+LiteralData NullLiteral():
 {
-  out.add(new PrintString("null"));
+  Token t;
 }
 {
-  "null"
+  t = "null"
+  {
+    return new LiteralData.NullLiteral(t);
+  }
 }
 
 void Arguments(List<PrintInfo> out):
@@ -3440,7 +3528,7 @@ void NormalAnnotation(List<PrintInfo> out):
    {
      out.add(new PrintString("@"));
    }
-   Name(out)
+   Name()
    "("
    {
      out.add(PrintWhiteSpace.getInstance());
@@ -3459,7 +3547,7 @@ void MarkerAnnotation(List<PrintInfo> out):
    {
      out.add(new PrintString("@"));
    }
-   Name(out)
+   Name()
 }
 
 void SingleMemberAnnotation(List<PrintInfo> out):
@@ -3469,7 +3557,7 @@ void SingleMemberAnnotation(List<PrintInfo> out):
    {
      out.add(new PrintString("@"));
    }
-   Name(out) "("
+   Name() "("
    {
      out.add(PrintWhiteSpace.getInstance());
      out.add(new PrintString("("));

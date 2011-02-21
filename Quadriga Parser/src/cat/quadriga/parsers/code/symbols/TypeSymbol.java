@@ -12,9 +12,13 @@ public class TypeSymbol extends BaseSymbol {
     super(type.getClass().getCanonicalName());
     
     this.type = type;
-    this.alias = new String[1];
     String aux[] = name.split(".");
-    this.alias[0] = aux[aux.length - 1];
+    if(aux.length > 1) {
+      this.alias = new String[1];
+      this.alias[0] = aux[aux.length - 1];
+    } else {
+      this.alias = new String[0];
+    }
   }
   
   public BaseType getType() {
