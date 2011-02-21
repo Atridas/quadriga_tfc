@@ -3,6 +3,7 @@ package cat.quadriga.parsers.code.expressions;
 import java.util.List;
 
 import cat.quadriga.parsers.Token;
+import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.printers.MegaPrinter;
 import cat.quadriga.parsers.code.printers.PrintInfo;
 
@@ -83,6 +84,48 @@ public class ProxyExpression extends ExpressionNode {
     operator = ">> proxy [ " + in + " ]";
     operands = new String[0];
     
+  }
+  
+  public ProxyExpression(String in, Token firstToken, Token lastToken)
+  {
+    super(
+        firstToken.beginLine,
+        firstToken.beginColumn,
+        lastToken.endLine,
+        lastToken.endColumn
+        );
+    
+    
+    operator = ">> proxy [ " + in + " ]";
+    operands = new String[0];
+  }
+  
+  public ProxyExpression(String in, CodeZone firstZone, CodeZone lastZone)
+  {
+    super(
+        firstZone.beginLine,
+        firstZone.beginColumn,
+        lastZone.endLine,
+        lastZone.endColumn
+        );
+    
+    
+    operator = ">> proxy [ " + in + " ]";
+    operands = new String[0];
+  }
+  
+  public ProxyExpression(String in, int beginLine, int beginColumn, int endLine, int endColumn)
+  {
+    super(
+        beginLine,
+        beginColumn,
+        endLine,
+        endColumn
+        );
+    
+    
+    operator = ">> proxy [ " + in + " ]";
+    operands = new String[0];
   }
 
   @Override

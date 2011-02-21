@@ -5,11 +5,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
+
 public class SymbolTable {
 
-  Map<String, BaseSymbol> globalNamesPace = new HashMap<String, BaseSymbol>();
-  List<Map<String, BaseSymbol>> mapStack = new LinkedList<Map<String,BaseSymbol>>();
+  private final Map<String, BaseSymbol> globalNamesPace = new HashMap<String, BaseSymbol>();
+  private final List<Map<String, BaseSymbol>> mapStack = new LinkedList<Map<String,BaseSymbol>>();
+  {
+    mapStack.add(globalNamesPace);
+  }
 
+  private final List<String> includedPackages = new LinkedList<String>();
   
   public void newContext() {
     mapStack.add(new HashMap<String, BaseSymbol>());
@@ -26,7 +32,22 @@ public class SymbolTable {
         return symbol;
       }
     }
-    return globalNamesPace.get(name);
+    
+    //Search for classes
+    for(String packa: includedPackages) {
+      try {
+        Class<?> clazz = Class.forName(packa + "." + name);
+        BaseSymbol symbol = new TypeSymbol(ClassOrInterfaceTypeRef.getFromClass(clazz));
+        addGlobalSymbol(symbol);
+        return symbol;
+      } catch (ClassNotFoundException e) {
+        continue;
+      } catch (Throwable e) {
+        continue;
+      }
+    }
+    
+    return null;
   }
   
   public BaseSymbol findSymbolOnTop(String name) {
@@ -48,5 +69,22 @@ public class SymbolTable {
         map.put(alias, symbol);
       }
     }
+  }
+  
+  public void addGlobalSymbol(BaseSymbol symbol) {
+    String name = symbol.name;
+    String aliases[] = symbol.getAlias();
+    
+    Map<String, BaseSymbol> map = globalNamesPace;
+    map.put(name, symbol);
+    for(String alias : aliases) {
+      if(!map.containsKey(alias)) {
+        map.put(alias, symbol);
+      }
+    }
+  }
+  
+  public void addPackage(String packa) {
+    includedPackages.add(packa);
   }
 }
