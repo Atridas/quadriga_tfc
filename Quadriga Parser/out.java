@@ -119,13 +119,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
     +- Block:
     +- +- Local Variables:
     +- +- Code:
-    +-    +- St: >> unary proxy <<
-    +-       +- Op: >> Proxy Data Access [ReInit] << catch(Ljava.lang.Exception; ) 
+    +-    +- St: >> proxy [ () ] catch(Ljava.lang.Exception; ) 
     +- Block:
     +- +- Local Variables:
     +- +- Code:
-    +-    +- St: >> unary proxy <<
-    +-       +- Op: >> Proxy Data Access [e.printStackTrace] <<
+    +-    +- St: >> proxy [ () ]
     <<
   }
   public static main(Ljava.lang.String; )
@@ -143,10 +141,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  +- Block:
      |  |     +- Local Variables:
      |  |     +- Code:
-     |  |        +- St: >> unary proxy <<
-     |  |        |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
-     |  |        |     +- Op: Static Field:
-     |  |        |        +- Ljava.lang.System; -> out
+     |  |        +- St: >> proxy [ () ]
      |  |        +- St: =
      |  |           +- Op: >> Proxy Data Access [parser] <<
      |  |           +- Op: >> proxy [ new something ]
@@ -161,10 +156,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        |  +- Block:
      |        |     +- Local Variables:
      |        |     +- Code:
-     |        |        +- St: >> unary proxy <<
-     |        |        |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
-     |        |        |     +- Op: Static Field:
-     |        |        |        +- Ljava.lang.System; -> out
+     |        |        +- St: >> proxy [ () ]
      |        |        +- >> Proxy Statement: 
      |        |           +- try 
      |        |           +- Block:
@@ -176,10 +168,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        |           +- Block:
      |        |           +- +- Local Variables:
      |        |           +- +- Code:
-     |        |           +-    +- St: >> unary proxy <<
-     |        |           +-    |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
-     |        |           +-    |     +- Op: Static Field:
-     |        |           +-    |        +- Ljava.lang.System; -> out
+     |        |           +-    +- St: >> proxy [ () ]
      |        |           +-    +- >> Proxy Statement: 
      |        |           +-       +- return ;
      |        |           +-       <<
@@ -188,22 +177,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           +- Block:
      |              +- Local Variables:
      |              +- Code:
-     |                 +- St: >> unary proxy <<
-     |                 |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
-     |                 |     +- Op: Static Field:
-     |                 |        +- Ljava.lang.System; -> out
-     |                 +- St: >> unary proxy <<
-     |                 |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
-     |                 |     +- Op: Static Field:
-     |                 |        +- Ljava.lang.System; -> out
-     |                 +- St: >> unary proxy <<
-     |                 |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
-     |                 |     +- Op: Static Field:
-     |                 |        +- Ljava.lang.System; -> out
-     |                 +- St: >> unary proxy <<
-     |                 |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
-     |                 |     +- Op: Static Field:
-     |                 |        +- Ljava.lang.System; -> out
+     |                 +- St: >> proxy [ () ]
+     |                 +- St: >> proxy [ () ]
+     |                 +- St: >> proxy [ () ]
+     |                 +- St: >> proxy [ () ]
      |                 +- >> Proxy Statement: 
      |                    +- return ;
      |                    <<
@@ -216,40 +193,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         +- +- Code:
         +-    +- Statements:
         +-    |  +- St: =
-        +-    |     +- Op: >> unary proxy <<
-        +-    |     |  +- Op: >> Proxy Data Access [parser.CompilationUnit] <<
-        +-    |     +- Op: >> unary proxy <<
-        +-    |        +- Op: >> Proxy Data Access [parser.CompilationUnit] <<
-        +-    +- St: >> unary proxy <<
-        +-    |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
-        +-    |     +- Op: Static Field:
-        +-    |        +- Ljava.lang.System; -> out
+        +-    |     +- Op: >> proxy [ () ]
+        +-    |     +- Op: >> proxy [ () ]
+        +-    +- St: >> proxy [ () ]
         +-    +- Statements:
         +-    |  +- St: =
-        +-    |     +- Op: >> unary proxy <<
-        +-    |     |  +- Op: Static Access:
-        +-    |     |     +- Lcat.quadriga.parsers.code.printers.MegaPrinter; -> Proxy access to getInstance
-        +-    |     +- Op: >> unary proxy <<
-        +-    |        +- Op: Static Access:
-        +-    |           +- Lcat.quadriga.parsers.code.printers.MegaPrinter; -> Proxy access to getInstance
-        +-    +- St: >> unary proxy <<
-        +-    |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
-        +-    |     +- Op: Static Field:
-        +-    |        +- Ljava.lang.System; -> out
-        +-    +- St: >> unary proxy <<
-        +-       +- Op: >> Proxy Data Access [Proxy access to member printToFile] <<
-        +-          +- Op: Local variable access: mp catch(Lcat.quadriga.parsers.ParseException; ) 
+        +-    |     +- Op: >> proxy [ () ]
+        +-    |     +- Op: >> proxy [ () ]
+        +-    +- St: >> proxy [ () ]
+        +-    +- St: >> proxy [ (, ) ] catch(Lcat.quadriga.parsers.ParseException; ) 
         +- Block:
         +- +- Local Variables:
         +- +- Code:
-        +-    +- St: >> unary proxy <<
-        +-    |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
-        +-    |     +- Op: Static Field:
-        +-    |        +- Ljava.lang.System; -> out
-        +-    +- St: >> unary proxy <<
-        +-       +- Op: >> Proxy Data Access [Proxy access to member println] <<
-        +-          +- Op: Static Field:
-        +-             +- Ljava.lang.System; -> out
+        +-    +- St: >> proxy [ () ]
+        +-    +- St: >> proxy [ () ]
         <<
   final public <>Ljava.util.List; CompilationUnit() throws 
   Block:
@@ -262,17 +219,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Op: >> proxy [ new something ]
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_2_1] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |  |  +- Block:
      |  |     +- Local Variables:
      |  |     +- Code:
-     |  |        +- St: >> unary proxy <<
-     |  |        |  +- Op: >> Proxy Data Access [PackageDeclaration] <<
-     |  |        +- St: >> unary proxy <<
-     |  |           +- Op: >> Proxy Data Access [Proxy access to member add] <<
-     |  |              +- Op: Local variable access: out
+     |  |        +- St: >> proxy [ () ]
+     |  |        +- St: >> proxy [ () ]
      |  +- Else Code:
      |     +- Block:
      |        +- Local Variables:
@@ -297,8 +250,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [ImportDeclaration] <<Block:
+     |     +-    +- St: >> proxy [ () ]Block:
      |     +- +- Local Variables:
      |     +- +- Code:
      |     +-    +- >> Proxy Statement: 
@@ -314,8 +266,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [ImportDeclaration] <<
+     |     +-    +- St: >> proxy [ () ]
      |     <<
      +- LABEL: label_2
      |  +- >> Proxy Statement: 
@@ -323,10 +274,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Block:
      |     +- +- Local Variables:
      |     +- +- Code:
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [TypeDeclaration] <<
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- >> Proxy Statement: 
      |     +-       +- switch() {
      |     +-       +- case :
@@ -357,10 +306,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-       <<Block:
      |     +- +- Local Variables:
      |     +- +- Code:
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [TypeDeclaration] <<
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- >> Proxy Statement: 
      |     +-       +- switch() {
      |     +-       +- case :
@@ -393,8 +340,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -405,8 +351,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -414,8 +359,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     +- St: >> proxy [ () ]
      +- Block:
      |  +- Local Variables:
      |  +- Code:
@@ -437,24 +381,18 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   |  +- Symbol Var [i] Type [I]
   +- Code:
      +- Statements:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Modifiers] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [tokens] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [Name] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- Statements:
      |  +- St: =
-     |     +- Op: >> unary proxy <<
-     |     |  +- Op: >> unary proxy <<
-     |     |     +- Op: >> Proxy Data Access [tokens.get] <<
-     |     +- Op: >> unary proxy <<
-     |        +- Op: >> unary proxy <<
-     |           +- Op: >> Proxy Data Access [tokens.get] <<
+     |     +- Op: >> Proxy Data Access [image] <<
+     |     |  +- Op: >> proxy [ () ]
+     |     +- Op: >> Proxy Data Access [image] <<
+     |        +- Op: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- for( Statements:
      |  +- +- St: =
@@ -472,9 +410,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-       +- Op: +
      |  +-          +- Op: Literal
      |  +-          |  +- String: "."
-     |  +-          +- Op: >> unary proxy <<
-     |  +-             +- Op: >> unary proxy <<
-     |  +-                +- Op: >> Proxy Data Access [tokens.get] <<Block:
+     |  +-          +- Op: >> Proxy Data Access [image] <<
+     |  +-             +- Op: >> proxy [ () ]Block:
      |  +- +- Local Variables:
      |  +- +- Code:
      |  +-    +- St: +=
@@ -482,14 +419,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-       +- Op: +
      |  +-          +- Op: Literal
      |  +-          |  +- String: "."
-     |  +-          +- Op: >> unary proxy <<
-     |  +-             +- Op: >> unary proxy <<
-     |  +-                +- Op: >> Proxy Data Access [tokens.get] <<
+     |  +-          +- Op: >> Proxy Data Access [image] <<
+     |  +-             +- Op: >> proxy [ () ]
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [symbolTable.addPackage] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public ImportDeclaration(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -504,13 +438,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        +- Boolean: false
      +- Statements:
      +- Statements:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   St: =
      |  +-   +- Op: Local variable access: stat
      |  +-   +- Op: Literal
@@ -524,13 +456,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  <<
      +- St: =
      |  +- Op: >> Proxy Data Access [tokens] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [Name] <<
+     |  +- Op: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [aux] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> unary proxy <<
-     |        +- Op: >> Proxy Data Access [tokens.get] <<
+     |  +- Op: >> Proxy Data Access [image] <<
+     |     +- Op: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- for( Statements:
      |  +- +- St: =
@@ -548,9 +478,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-       +- Op: +
      |  +-          +- Op: Literal
      |  +-          |  +- String: "."
-     |  +-          +- Op: >> unary proxy <<
-     |  +-             +- Op: >> unary proxy <<
-     |  +-                +- Op: >> Proxy Data Access [tokens.get] <<Block:
+     |  +-          +- Op: >> Proxy Data Access [image] <<
+     |  +-             +- Op: >> proxy [ () ]Block:
      |  +- +- Local Variables:
      |  +- +- Code:
      |  +-    +- St: +=
@@ -558,19 +487,15 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-       +- Op: +
      |  +-          +- Op: Literal
      |  +-          |  +- String: "."
-     |  +-          +- Op: >> unary proxy <<
-     |  +-             +- Op: >> unary proxy <<
-     |  +-                +- Op: >> Proxy Data Access [tokens.get] <<
+     |  +-          +- Op: >> Proxy Data Access [image] <<
+     |  +-             +- Op: >> proxy [ () ]
      |  <<
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [symbolTable.addPackage] <<
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
      |  +-   St: +=
      |  +-   +- Op: >> Proxy Data Access [aux] <<
      |  +-   +- Op: Literal
@@ -588,18 +513,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- +- Code:
      |  +-   +-    +- Statements:
      |  +-   +-    |  +- St: =
-     |  +-   +-    |     +- Op: >> unary proxy <<
-     |  +-   +-    |     |  +- Op: Static Access:
-     |  +-   +-    |     |     +- Ljava.lang.Class; -> forName
-     |  +-   +-    |     +- Op: >> unary proxy <<
-     |  +-   +-    |        +- Op: Static Access:
-     |  +-   +-    |           +- Ljava.lang.Class; -> forName
+     |  +-   +-    |     +- Op: >> proxy [ () ]
+     |  +-   +-    |     +- Op: >> proxy [ () ]
      |  +-   +-    +- Statements:
      |  +-   +-    |  +- St: =
      |  +-   +-    |     +- Op: >> proxy [ new something ]
      |  +-   +-    |     +- Op: >> proxy [ new something ]
-     |  +-   +-    +- St: >> unary proxy <<
-     |  +-   +-       +- Op: >> Proxy Data Access [symbolTable.addGlobalSymbol] << catch(Ljava.lang.ClassNotFoundException; ) 
+     |  +-   +-    +- St: >> proxy [ () ] catch(Ljava.lang.ClassNotFoundException; ) 
      |  +-   +- Block:
      |  +-   +- +- Local Variables:
      |  +-   +- |  +- Symbol Var [symbol] Type [Lcat.quadriga.parsers.code.symbols.BaseSymbol;]
@@ -608,15 +528,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +-    |  +- St: =
      |  +-   +-    |     +- Op: >> proxy [ new something ]
      |  +-   +-    |     +- Op: >> proxy [ new something ]
-     |  +-   +-    +- St: >> unary proxy <<
-     |  +-   +-       +- Op: >> Proxy Data Access [symbolTable.addGlobalSymbol] <<
+     |  +-   +-    +- St: >> proxy [ () ]
      |  +-   <<
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public I Modifiers(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -636,8 +553,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- +- Code:
      |     +-    +- If Statement:
      |     +-    |  +- Condition:
-     |     +-    |  |  +- Op: >> unary proxy <<
-     |     +-    |  |     +- Op: >> Proxy Data Access [jj_2_2] <<
+     |     +-    |  |  +- Op: >> proxy [ () ]
      |     +-    |  +- If Code:
      |     +-    |  |  +- Block:
      |     +-    |  |     +- Local Variables:
@@ -653,157 +569,122 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    +- >> Proxy Statement: 
      |     +-       +- switch() {
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.PUBLIC] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.STATIC] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.PROTECTED] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.PRIVATE] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.FINAL] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.ABSTRACT] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.SYNCHRONIZED] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.NATIVE] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.TRANSIENT] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.VOLATILE] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.STRICTFP] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [Annotation] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- default:
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- throw ;
      |     +-       +-   <<
@@ -813,8 +694,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- +- Code:
      |     +-    +- If Statement:
      |     +-    |  +- Condition:
-     |     +-    |  |  +- Op: >> unary proxy <<
-     |     +-    |  |     +- Op: >> Proxy Data Access [jj_2_2] <<
+     |     +-    |  |  +- Op: >> proxy [ () ]
      |     +-    |  +- If Code:
      |     +-    |  |  +- Block:
      |     +-    |  |     +- Local Variables:
@@ -830,157 +710,122 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    +- >> Proxy Statement: 
      |     +-       +- switch() {
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.PUBLIC] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.STATIC] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.PROTECTED] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.PRIVATE] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.FINAL] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.ABSTRACT] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.SYNCHRONIZED] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.NATIVE] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.TRANSIENT] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.VOLATILE] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   St: |=
      |     +-       +-   +- Op: >> Proxy Data Access [modifiers] <<
      |     +-       +-   +- Op: >> Proxy Data Access [ModifierSet.STRICTFP] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [out.add] <<
+     |     +-       +-   St: >> proxy [ () ]
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- case :
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [Annotation] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- break;
      |     +-       +-   <<
      |     +-       +- default:
-     |     +-       +-   St: >> unary proxy <<
-     |     +-       +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-       +-   St: >> proxy [ () ]
      |     +-       +-   >> Proxy Statement: 
      |     +-       +-   +- throw ;
      |     +-       +-   <<
@@ -1009,12 +854,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- switch() {
         +- case :
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [out.add] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [out.add] <<
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- break;
         +-   <<
@@ -1035,32 +877,27 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         +- case :
         +-   St: =
         +-   +- Op: >> Proxy Data Access [modifiers] <<
-        +-   +- Op: >> unary proxy <<
-        +-      +- Op: >> Proxy Data Access [Modifiers] <<
+        +-   +- Op: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- switch() {
         +-   +- case :
         +-   +- case :
-        +-   +-   St: >> unary proxy <<
-        +-   +-   +- Op: >> Proxy Data Access [ClassOrInterfaceDeclaration] <<
+        +-   +-   St: >> proxy [ (, ) ]
         +-   +-   >> Proxy Statement: 
         +-   +-   +- break;
         +-   +-   <<
         +-   +- case :
-        +-   +-   St: >> unary proxy <<
-        +-   +-   +- Op: >> Proxy Data Access [EnumDeclaration] <<
+        +-   +-   St: >> proxy [ (, ) ]
         +-   +-   >> Proxy Statement: 
         +-   +-   +- break;
         +-   +-   <<
         +-   +- case :
-        +-   +-   St: >> unary proxy <<
-        +-   +-   +- Op: >> Proxy Data Access [AnnotationTypeDeclaration] <<
+        +-   +-   St: >> proxy [ (, ) ]
         +-   +-   >> Proxy Statement: 
         +-   +-   +- break;
         +-   +-   <<
         +-   +- default:
-        +-   +-   St: >> unary proxy <<
-        +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+        +-   +-   St: >> proxy [ () ]
         +-   +-   >> Proxy Statement: 
         +-   +-   +- throw ;
         +-   +-   <<
@@ -1070,8 +907,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         +-   +- break;
         +-   <<
         +- default:
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- throw ;
         +-   <<
@@ -1092,14 +928,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   St: =
      |  +-   +- Op: Local variable access: isInterface
      |  +-   +- Op: Literal
@@ -1108,8 +942,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- break;
      |  +-   <<
      |  +- default:
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- throw ;
      |  +-   <<
@@ -1117,19 +950,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  <<
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [TypeParameters] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -1137,13 +965,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [ExtendsList] <<
+     |  +-   St: >> proxy [ (, ) ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -1154,8 +980,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [ImplementsList] <<
+     |  +-   St: >> proxy [ (, ) ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -1163,8 +988,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [ClassOrInterfaceBody] <<
+     +- St: >> proxy [ (, ) ]
   final public ExtendsList(Z , <>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -1176,14 +1000,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     |  +- Boolean: false
      |     +- Op: Literal
      |        +- Boolean: false
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [ClassOrInterfaceType] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- LABEL: label_4
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -1203,14 +1023,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [ClassOrInterfaceType] <<
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: Local variable access: extendsMoreThanOne
      |     +-       +- Op: Literal
@@ -1230,14 +1046,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [ClassOrInterfaceType] <<
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: Local variable access: extendsMoreThanOne
      |     +-       +- Op: Literal
@@ -1265,14 +1077,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [ClassOrInterfaceType] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- LABEL: label_5
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -1292,14 +1100,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [ClassOrInterfaceType] <<Block:
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]Block:
      |     +- +- Local Variables:
      |     +- +- Code:
      |     +-    +- >> Proxy Statement: 
@@ -1315,14 +1119,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [ClassOrInterfaceType] <<
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     <<
      +- If Statement:
         +- Condition:
@@ -1344,25 +1144,18 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Local Variables:
   +- Code:
      +- Statements:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     +- St: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [ImplementsList] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [out.add] <<
+     |  +-   St: >> proxy [ (, ) ]
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -1370,20 +1163,15 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [EnumBody] <<
+     +- St: >> proxy [ () ]
   final public EnumBody(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
@@ -1399,8 +1187,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +- case :
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [EnumConstant] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   LABEL: label_6
      |  +-   +- >> Proxy Statement: 
      |  +-      +- while( )
@@ -1409,8 +1196,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +- +- Code:
      |  +-      +-    +- If Statement:
      |  +-      +-    |  +- Condition:
-     |  +-      +-    |  |  +- Op: >> unary proxy <<
-     |  +-      +-    |  |     +- Op: >> Proxy Data Access [jj_2_3] <<
+     |  +-      +-    |  |  +- Op: >> proxy [ () ]
      |  +-      +-    |  +- If Code:
      |  +-      +-    |  |  +- Block:
      |  +-      +-    |  |     +- Local Variables:
@@ -1423,20 +1209,15 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +-    |           +- >> Proxy Statement: 
      |  +-      +-    |              +- break label_6;
      |  +-      +-    |              <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-       +- Op: >> Proxy Data Access [EnumConstant] <<Block:
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]Block:
      |  +-      +- +- Local Variables:
      |  +-      +- +- Code:
      |  +-      +-    +- If Statement:
      |  +-      +-    |  +- Condition:
-     |  +-      +-    |  |  +- Op: >> unary proxy <<
-     |  +-      +-    |  |     +- Op: >> Proxy Data Access [jj_2_3] <<
+     |  +-      +-    |  |  +- Op: >> proxy [ () ]
      |  +-      +-    |  +- If Code:
      |  +-      +-    |  |  +- Block:
      |  +-      +-    |  |     +- Local Variables:
@@ -1449,14 +1230,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +-    |           +- >> Proxy Statement: 
      |  +-      +-    |              +- break label_6;
      |  +-      +-    |              <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-       +- Op: >> Proxy Data Access [EnumConstant] <<
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
      |  +-      <<
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
@@ -1468,8 +1245,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -1480,8 +1256,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   LABEL: label_7
      |  +-   +- >> Proxy Statement: 
      |  +-      +- while( )
@@ -1528,10 +1303,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +-    |  +-   <<
      |  +-      +-    |  +- }
      |  +-      +-    |  <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-       +- Op: >> Proxy Data Access [ClassOrInterfaceBodyDeclaration] <<Block:
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ (, ) ]Block:
      |  +-      +- +- Local Variables:
      |  +-      +- +- Code:
      |  +-      +-    +- >> Proxy Statement: 
@@ -1574,10 +1347,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +-    |  +-   <<
      |  +-      +-    |  +- }
      |  +-      +-    |  <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-       +- Op: >> Proxy Data Access [ClassOrInterfaceBodyDeclaration] <<
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ (, ) ]
      |  +-      <<
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
@@ -1586,32 +1357,24 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public EnumConstant(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
   +- Code:
      +- Statements:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Modifiers] <<
+     +- St: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [Arguments] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -1622,8 +1385,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- switch() {
         +- case :
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [ClassOrInterfaceBody] <<
+        +-   St: >> proxy [ (, ) ]
         +-   >> Proxy Statement: 
         +-   +- break;
         +-   <<
@@ -1635,12 +1397,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [TypeParameter] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- LABEL: label_8
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -1660,14 +1419,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [TypeParameter] <<Block:
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]Block:
      |     +- +- Local Variables:
      |     +- +- Code:
      |     +-    +- >> Proxy Statement: 
@@ -1683,19 +1438,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [TypeParameter] <<
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public TypeParameter(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -1703,17 +1452,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
         +- switch() {
         +- case :
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [out.add] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [TypeBound] <<
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- break;
         +-   <<
@@ -1725,14 +1470,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [ClassOrInterfaceType] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- LABEL: label_9
         +- >> Proxy Statement: 
            +- while( )
@@ -1752,16 +1493,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
            +-    |  +-   <<
            +-    |  +- }
            +-    |  <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [out.add] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [out.add] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [out.add] <<
-           +-    +- St: >> unary proxy <<
-           +-       +- Op: >> Proxy Data Access [ClassOrInterfaceType] <<Block:
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]Block:
            +- +- Local Variables:
            +- +- Code:
            +-    +- >> Proxy Statement: 
@@ -1777,29 +1513,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
            +-    |  +-   <<
            +-    |  +- }
            +-    |  <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [out.add] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [out.add] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [out.add] <<
-           +-    +- St: >> unary proxy <<
-           +-       +- Op: >> Proxy Data Access [ClassOrInterfaceType] <<
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
            <<
   final public ClassOrInterfaceBody(Z , <>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- LABEL: label_10
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -1846,10 +1573,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [ClassOrInterfaceBodyDeclaration] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [out.add] <<Block:
+     |     +-    +- St: >> proxy [ (, ) ]
+     |     +-    +- St: >> proxy [ () ]Block:
      |     +- +- Local Variables:
      |     +- +- Code:
      |     +-    +- >> Proxy Statement: 
@@ -1892,21 +1617,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [ClassOrInterfaceBodyDeclaration] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [out.add] <<
+     |     +-    +- St: >> proxy [ (, ) ]
+     |     +-    +- St: >> proxy [ () ]
      |     <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public ClassOrInterfaceBodyDeclaration(Z , <>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -1921,14 +1639,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- If Statement:
         +- Condition:
-        |  +- Op: >> unary proxy <<
-        |     +- Op: >> Proxy Data Access [jj_2_6] <<
+        |  +- Op: >> proxy [ () ]
         +- If Code:
         |  +- Block:
         |     +- Local Variables:
         |     +- Code:
-        |        +- St: >> unary proxy <<
-        |        |  +- Op: >> Proxy Data Access [Initializer] <<
+        |        +- St: >> proxy [ () ]
         |        +- If Statement:
         |           +- Condition:
         |           |  +- Op: >> Proxy Data Access [isInterface] <<
@@ -1978,45 +1694,38 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
                     +- case :
                     +-   St: =
                     +-   +- Op: >> Proxy Data Access [modifiers] <<
-                    +-   +- Op: >> unary proxy <<
-                    +-      +- Op: >> Proxy Data Access [Modifiers] <<
+                    +-   +- Op: >> proxy [ () ]
                     +-   >> Proxy Statement: 
                     +-   +- switch() {
                     +-   +- case :
                     +-   +- case :
-                    +-   +-   St: >> unary proxy <<
-                    +-   +-   +- Op: >> Proxy Data Access [ClassOrInterfaceDeclaration] <<
+                    +-   +-   St: >> proxy [ (, ) ]
                     +-   +-   >> Proxy Statement: 
                     +-   +-   +- break;
                     +-   +-   <<
                     +-   +- case :
-                    +-   +-   St: >> unary proxy <<
-                    +-   +-   +- Op: >> Proxy Data Access [EnumDeclaration] <<
+                    +-   +-   St: >> proxy [ (, ) ]
                     +-   +-   >> Proxy Statement: 
                     +-   +-   +- break;
                     +-   +-   <<
                     +-   +- default:
                     +-   +-   If Statement:
                     +-   +-   +- Condition:
-                    +-   +-   |  +- Op: >> unary proxy <<
-                    +-   +-   |     +- Op: >> Proxy Data Access [jj_2_4] <<
+                    +-   +-   |  +- Op: >> proxy [ () ]
                     +-   +-   +- If Code:
                     +-   +-   |  +- Block:
                     +-   +-   |     +- Local Variables:
                     +-   +-   |     +- Code:
-                    +-   +-   |        +- St: >> unary proxy <<
-                    +-   +-   |           +- Op: >> Proxy Data Access [ConstructorDeclaration] <<
+                    +-   +-   |        +- St: >> proxy [ () ]
                     +-   +-   +- Else Code:
                     +-   +-      +- If Statement:
                     +-   +-         +- Condition:
-                    +-   +-         |  +- Op: >> unary proxy <<
-                    +-   +-         |     +- Op: >> Proxy Data Access [jj_2_5] <<
+                    +-   +-         |  +- Op: >> proxy [ () ]
                     +-   +-         +- If Code:
                     +-   +-         |  +- Block:
                     +-   +-         |     +- Local Variables:
                     +-   +-         |     +- Code:
-                    +-   +-         |        +- St: >> unary proxy <<
-                    +-   +-         |           +- Op: >> Proxy Data Access [FieldDeclaration] <<
+                    +-   +-         |        +- St: >> proxy [ (, ) ]
                     +-   +-         +- Else Code:
                     +-   +-            +- Block:
                     +-   +-               +- Local Variables:
@@ -2034,20 +1743,17 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
                     +-   +-                     +- case :
                     +-   +-                     +- case :
                     +-   +-                     +- case :
-                    +-   +-                     +-   St: >> unary proxy <<
-                    +-   +-                     +-   +- Op: >> Proxy Data Access [MethodDeclaration] <<
+                    +-   +-                     +-   St: >> proxy [ (, ) ]
                     +-   +-                     +-   >> Proxy Statement: 
                     +-   +-                     +-   +- break;
                     +-   +-                     +-   <<
                     +-   +-                     +- case :
-                    +-   +-                     +-   St: >> unary proxy <<
-                    +-   +-                     +-   +- Op: >> Proxy Data Access [AnnotationTypeDeclaration] <<
+                    +-   +-                     +-   St: >> proxy [ (, ) ]
                     +-   +-                     +-   >> Proxy Statement: 
                     +-   +-                     +-   +- break;
                     +-   +-                     +-   <<
                     +-   +-                     +- default:
-                    +-   +-                     +-   St: >> unary proxy <<
-                    +-   +-                     +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+                    +-   +-                     +-   St: >> proxy [ () ]
                     +-   +-                     +-   >> Proxy Statement: 
                     +-   +-                     +-   +- throw ;
                     +-   +-                     +-   <<
@@ -2059,14 +1765,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
                     +-   +- break;
                     +-   <<
                     +- case :
-                    +-   St: >> unary proxy <<
-                    +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+                    +-   St: >> proxy [ () ]
                     +-   >> Proxy Statement: 
                     +-   +- break;
                     +-   <<
                     +- default:
-                    +-   St: >> unary proxy <<
-                    +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+                    +-   St: >> proxy [ () ]
                     +-   >> Proxy Statement: 
                     +-   +- throw ;
                     +-   <<
@@ -2080,14 +1784,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [tipus] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [Type] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [v] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [VariableDeclarator] <<
+     |  +- Op: >> proxy [ (, ) ]
      +- LABEL: label_11
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -2107,12 +1808,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [v] <<
-     |     +-       +- Op: >> unary proxy <<
-     |     +-          +- Op: >> Proxy Data Access [VariableDeclarator] <<Block:
+     |     +-       +- Op: >> proxy [ (, ) ]Block:
      |     +- +- Local Variables:
      |     +- +- Code:
      |     +-    +- >> Proxy Statement: 
@@ -2128,17 +1827,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [v] <<
-     |     +-       +- Op: >> unary proxy <<
-     |     +-          +- Op: >> Proxy Data Access [VariableDeclarator] <<
+     |     +-       +- Op: >> proxy [ (, ) ]
      |     <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public Lcat.quadriga.parsers.VarAndInit; VariableDeclarator(I , Lcat.quadriga.parsers.code.types.BaseType; ) throws 
   Block:
   +- Local Variables:
@@ -2147,20 +1842,17 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [vai] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [VariableDeclaratorId] <<
+     |  +- Op: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [vai.modifiers] <<
      |  +- Op: >> Proxy Data Access [modifiers] <<
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [initialization] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [VariableInitializer] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [vai.init] <<
      |  +-   +- Op: >> Proxy Data Access [initialization] <<
@@ -2197,8 +1889,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Op: >> proxy [ new something ]
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +- Op: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [Proxy access to member name] <<
      |  |  +- Op: Local variable access: vai
@@ -2226,10 +1917,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [Proxy access to member type] <<
      |     +-       |  +- Op: Local variable access: vai
@@ -2249,10 +1938,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [Proxy access to member type] <<
      |     +-       |  +- Op: Local variable access: vai
@@ -2287,8 +1974,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [result] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [ArrayInitializer] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -2321,14 +2007,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [result] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [Expression] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- default:
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- throw ;
      |  +-   <<
@@ -2358,8 +2042,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- St: =
      |     +- Op: >> proxy [ new something ]
      |     +- Op: >> proxy [ new something ]
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
@@ -2392,11 +2075,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [aux] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [VariableInitializer] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [Proxy access to member add] <<
-     |  +-      +- Op: Local variable access: listOfInits
+     |  +-   +- Op: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
      |  +-   LABEL: label_13
      |  +-   +- >> Proxy Statement: 
      |  +-      +- while( )
@@ -2405,8 +2085,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +- +- Code:
      |  +-      +-    +- If Statement:
      |  +-      +-    |  +- Condition:
-     |  +-      +-    |  |  +- Op: >> unary proxy <<
-     |  +-      +-    |  |     +- Op: >> Proxy Data Access [jj_2_7] <<
+     |  +-      +-    |  |  +- Op: >> proxy [ () ]
      |  +-      +-    |  +- If Code:
      |  +-      +-    |  |  +- Block:
      |  +-      +-    |  |     +- Local Variables:
@@ -2419,20 +2098,16 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +-    |           +- >> Proxy Statement: 
      |  +-      +-    |              +- break label_13;
      |  +-      +-    |              <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-      +-    +- St: >> proxy [ () ]
      |  +-      +-    +- St: =
      |  +-      +-    |  +- Op: >> Proxy Data Access [aux] <<
-     |  +-      +-    |  +- Op: >> unary proxy <<
-     |  +-      +-    |     +- Op: >> Proxy Data Access [VariableInitializer] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-       +- Op: >> Proxy Data Access [listOfInits.add] <<Block:
+     |  +-      +-    |  +- Op: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]Block:
      |  +-      +- +- Local Variables:
      |  +-      +- +- Code:
      |  +-      +-    +- If Statement:
      |  +-      +-    |  +- Condition:
-     |  +-      +-    |  |  +- Op: >> unary proxy <<
-     |  +-      +-    |  |     +- Op: >> Proxy Data Access [jj_2_7] <<
+     |  +-      +-    |  |  +- Op: >> proxy [ () ]
      |  +-      +-    |  +- If Code:
      |  +-      +-    |  |  +- Block:
      |  +-      +-    |  |     +- Local Variables:
@@ -2445,14 +2120,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +-    |           +- >> Proxy Statement: 
      |  +-      +-    |              +- break label_13;
      |  +-      +-    |              <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-      +-    +- St: >> proxy [ () ]
      |  +-      +-    +- St: =
      |  +-      +-    |  +- Op: >> Proxy Data Access [aux] <<
-     |  +-      +-    |  +- Op: >> unary proxy <<
-     |  +-      +-    |     +- Op: >> Proxy Data Access [VariableInitializer] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-       +- Op: >> Proxy Data Access [listOfInits.add] <<
+     |  +-      +-    |  +- Op: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
      |  +-      <<
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
@@ -2464,8 +2136,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -2473,13 +2144,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     +- St: >> proxy [ () ]
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: ==
-     |  |     +- Op: >> unary proxy <<
-     |  |     |  +- Op: >> Proxy Data Access [listOfInits.size] <<
+     |  |     +- Op: >> proxy [ () ]
      |  |     +- Op: Literal
      |  |        +- Integer: 0
      |  +- If Code:
@@ -2522,8 +2191,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [TypeParameters] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -2531,27 +2199,18 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [ResultType] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [MethodDeclarator] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [out.add] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [out.add] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [out.add] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [NameList] <<
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -2562,22 +2221,18 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- switch() {
         +- case :
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [Block] <<
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- break;
         +-   <<
         +- case :
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [out.add] <<
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- break;
         +-   <<
         +- default:
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- throw ;
         +-   <<
@@ -2590,12 +2245,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [FormalParameters] <<
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- LABEL: label_14
         +- >> Proxy Statement: 
            +- while( )
@@ -2615,14 +2267,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
            +-    |  +-   <<
            +-    |  +- }
            +-    |  <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [out.add] <<
-           +-    +- St: >> unary proxy <<
-           +-       +- Op: >> Proxy Data Access [out.add] <<Block:
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]Block:
            +- +- Local Variables:
            +- +- Code:
            +-    +- >> Proxy Statement: 
@@ -2638,23 +2286,17 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
            +-    |  +-   <<
            +-    |  +- }
            +-    |  <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [out.add] <<
-           +-    +- St: >> unary proxy <<
-           +-       +- Op: >> Proxy Data Access [out.add] <<
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
            <<
   final public FormalParameters(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
@@ -2678,8 +2320,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +- case :
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [FormalParameter] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   LABEL: label_15
      |  +-   +- >> Proxy Statement: 
      |  +-      +- while( )
@@ -2699,14 +2340,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +-    |  +-   <<
      |  +-      +-    |  +- }
      |  +-      +-    |  <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-       +- Op: >> Proxy Data Access [FormalParameter] <<Block:
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]Block:
      |  +-      +- +- Local Variables:
      |  +-      +- +- Code:
      |  +-      +-    +- >> Proxy Statement: 
@@ -2722,14 +2359,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +-    |  +-   <<
      |  +-      +-    |  +- }
      |  +-      +-    |  <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-       +- Op: >> Proxy Data Access [FormalParameter] <<
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
      |  +-      <<
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
@@ -2738,10 +2371,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public FormalParameter(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -2750,8 +2381,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [modifiers] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [Modifiers] <<
+     |  +- Op: >> proxy [ () ]
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: >
@@ -2759,8 +2389,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |     +- Op: Literal
      |  |        +- Integer: 0
      |  +- If Code:
-     |     +- St: >> unary proxy <<
-     |        +- Op: >> Proxy Data Access [out.add] <<
+     |     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
@@ -2768,24 +2397,19 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   >> Proxy Statement: 
      |  +-   +- switch() {
      |  +-   +- case :
-     |  +-   +-   St: >> unary proxy <<
-     |  +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-   +-   St: >> unary proxy <<
-     |  +-   +-   +- Op: >> Proxy Data Access [out.add] <<
-     |  +-   +-   St: >> unary proxy <<
-     |  +-   +-   +- Op: >> Proxy Data Access [out.add] <<
+     |  +-   +-   St: >> proxy [ () ]
+     |  +-   +-   St: >> proxy [ () ]
+     |  +-   +-   St: >> proxy [ () ]
      |  +-   +-   >> Proxy Statement: 
      |  +-   +-   +- break;
      |  +-   +-   <<
      |  +-   +- case :
-     |  +-   +-   St: >> unary proxy <<
-     |  +-   +-   +- Op: >> Proxy Data Access [Annotation] <<
+     |  +-   +-   St: >> proxy [ () ]
      |  +-   +-   >> Proxy Statement: 
      |  +-   +-   +- break;
      |  +-   +-   <<
      |  +-   +- default:
-     |  +-   +-   St: >> unary proxy <<
-     |  +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +-   St: >> proxy [ () ]
      |  +-   +-   >> Proxy Statement: 
      |  +-   +-   +- throw ;
      |  +-   +-   <<
@@ -2800,15 +2424,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  <<
      +- St: =
      |  +- Op: >> Proxy Data Access [type] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [Type] <<
+     |  +- Op: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [out.add] <<
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -2816,23 +2437,19 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [VariableDeclaratorId] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public ConstructorDeclaration(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
   +- Code:
      +- Statements:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
      +- Statements:
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [TypeParameters] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -2842,25 +2459,17 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  <<
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [FormalParameters] <<
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [out.add] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [out.add] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [out.add] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [NameList] <<
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -2868,26 +2477,19 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_2_8] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |  |  +- Block:
      |  |     +- Local Variables:
      |  |     +- Code:
-     |  |        +- St: >> unary proxy <<
-     |  |           +- Op: >> Proxy Data Access [ExplicitConstructorInvocation] <<
+     |  |        +- St: >> proxy [ () ]
      |  +- Else Code:
      |     +- Block:
      |        +- Local Variables:
@@ -2964,16 +2566,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [bsn] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [BlockStatement] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- Statements:
      |     +-    |  +- St: =
-     |     +-    |     +- Op: >> unary proxy <<
-     |     +-    |     |  +- Op: >> Proxy Data Access [bsn.treeStringRepresentation] <<
-     |     +-    |     +- Op: >> unary proxy <<
-     |     +-    |        +- Op: >> Proxy Data Access [bsn.treeStringRepresentation] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [out.addAll] <<Block:
+     |     +-    |     +- Op: >> proxy [ () ]
+     |     +-    |     +- Op: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]Block:
      |     +- +- Local Variables:
      |     +- |  +- Symbol Var [treeString] Type [Ljava.lang.String;]
      |     +- +- Code:
@@ -3041,47 +2639,34 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [bsn] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [BlockStatement] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- Statements:
      |     +-    |  +- St: =
-     |     +-    |     +- Op: >> unary proxy <<
-     |     +-    |     |  +- Op: >> Proxy Data Access [bsn.treeStringRepresentation] <<
-     |     +-    |     +- Op: >> unary proxy <<
-     |     +-    |        +- Op: >> Proxy Data Access [bsn.treeStringRepresentation] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [out.addAll] <<
+     |     +-    |     +- Op: >> proxy [ () ]
+     |     +-    |     +- Op: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
-     |  +- while( )St: >> unary proxy <<
-     |  +- +- Op: >> Proxy Data Access [out.remove] <<
+     |  +- while( )St: >> proxy [ () ]
      |  <<
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: !=
-     |  |     +- Op: >> unary proxy <<
-     |  |     |  +- Op: >> Proxy Data Access [out.get] <<
-     |  |     +- Op: >> unary proxy <<
-     |  |        +- Op: Static Access:
-     |  |           +- Lcat.quadriga.parsers.code.printers.PrintInitTab; -> Proxy access to getInstance
+     |  |     +- Op: >> proxy [ () ]
+     |  |     +- Op: >> proxy [ () ]
      |  +- If Code:
      |  |  +- Block:
      |  |     +- Local Variables:
      |  |     +- Code:
-     |  |        +- St: >> unary proxy <<
-     |  |        |  +- Op: >> Proxy Data Access [out.add] <<
-     |  |        +- St: >> unary proxy <<
-     |  |           +- Op: >> Proxy Data Access [out.add] <<
+     |  |        +- St: >> proxy [ () ]
+     |  |        +- St: >> proxy [ () ]
      |  +- Else Code:
      |     +- Block:
      |        +- Local Variables:
      |        +- Code:
-     |           +- St: >> unary proxy <<
-     |              +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     |           +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public ExplicitConstructorInvocation(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -3108,14 +2693,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [t] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [out.add] <<Block:
+     |     +-    |  +- Op: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]Block:
      |     +- +- Local Variables:
      |     +- +- Code:
      |     +-    +- >> Proxy Statement: 
@@ -3133,31 +2714,22 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [t] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [out.add] <<
+     |     +-    |  +- Op: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_2_9] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |  |  +- Block:
      |  |     +- Local Variables:
      |  |     +- Code:
-     |  |        +- St: >> unary proxy <<
-     |  |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  |        +- St: >> unary proxy <<
-     |  |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  |        +- St: >> unary proxy <<
-     |  |        |  +- Op: >> Proxy Data Access [out.add] <<
-     |  |        +- St: >> unary proxy <<
-     |  |           +- Op: >> Proxy Data Access [out.add] <<
+     |  |        +- St: >> proxy [ () ]
+     |  |        +- St: >> proxy [ () ]
+     |  |        +- St: >> proxy [ () ]
+     |  |        +- St: >> proxy [ () ]
      |  +- Else Code:
      |     +- Block:
      |        +- Local Variables:
@@ -3166,8 +2738,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [TypeArguments] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -3178,37 +2749,28 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [out.add] <<
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [out.add] <<
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- default:
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- throw ;
      |  +-   <<
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Arguments] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public Initializer(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -3216,15 +2778,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   Block:
      |  +-   +- Local Variables:
      |  +-   +- Code:
-     |  +-      +- St: >> unary proxy <<
-     |  +-      |  +- Op: >> Proxy Data Access [out.add] <<
-     |  +-      +- St: >> unary proxy <<
-     |  +-         +- Op: >> Proxy Data Access [out.add] <<
+     |  +-      +- St: >> proxy [ () ]
+     |  +-      +- St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -3232,8 +2791,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [Block] <<
+     +- St: >> proxy [ () ]
   final public Lcat.quadriga.parsers.code.types.BaseType; Type(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -3241,16 +2799,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_2_10] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |  |  +- Block:
      |  |     +- Local Variables:
      |  |     +- Code:
      |  |        +- St: =
      |  |           +- Op: >> Proxy Data Access [t] <<
-     |  |           +- Op: >> unary proxy <<
-     |  |              +- Op: >> Proxy Data Access [ReferenceType] <<
+     |  |           +- Op: >> proxy [ () ]
      |  +- Else Code:
      |     +- Block:
      |        +- Local Variables:
@@ -3267,21 +2823,18 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- case :
      |              +-   St: =
      |              +-   +- Op: >> Proxy Data Access [t] <<
-     |              +-   +- Op: >> unary proxy <<
-     |              +-      +- Op: >> Proxy Data Access [PrimitiveType] <<
+     |              +-   +- Op: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- default:
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- throw ;
      |              +-   <<
      |              +- }
      |              <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
      +- Block:
      |  +- Local Variables:
      |  +- Code:
@@ -3313,25 +2866,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [type] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [PrimitiveType] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   LABEL: label_18
      |  +-   +- >> Proxy Statement: 
      |  +-      +- while( )
      |  +-      +- Block:
      |  +-      +- +- Local Variables:
      |  +-      +- +- Code:
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
      |  +-      +-    +- St: =
      |  +-      +-    |  +- Op: >> Proxy Data Access [type] <<
      |  +-      +-    |  +- Op: >> proxy [ new something ]
      |  +-      +-    +- If Statement:
      |  +-      +-       +- Condition:
-     |  +-      +-       |  +- Op: >> unary proxy <<
-     |  +-      +-       |     +- Op: >> Proxy Data Access [jj_2_11] <<
+     |  +-      +-       |  +- Op: >> proxy [ () ]
      |  +-      +-       +- If Code:
      |  +-      +-       |  +- Block:
      |  +-      +-       |     +- Local Variables:
@@ -3346,17 +2895,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +-                   <<Block:
      |  +-      +- +- Local Variables:
      |  +-      +- +- Code:
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
      |  +-      +-    +- St: =
      |  +-      +-    |  +- Op: >> Proxy Data Access [type] <<
      |  +-      +-    |  +- Op: >> proxy [ new something ]
      |  +-      +-    +- If Statement:
      |  +-      +-       +- Condition:
-     |  +-      +-       |  +- Op: >> unary proxy <<
-     |  +-      +-       |     +- Op: >> Proxy Data Access [jj_2_11] <<
+     |  +-      +-       |  +- Op: >> proxy [ () ]
      |  +-      +-       +- If Code:
      |  +-      +-       |  +- Block:
      |  +-      +-       |     +- Local Variables:
@@ -3376,8 +2922,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [type] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [ClassOrInterfaceType] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   LABEL: label_19
      |  +-   +- >> Proxy Statement: 
      |  +-      +- while( )
@@ -3386,8 +2931,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +- +- Code:
      |  +-      +-    +- If Statement:
      |  +-      +-    |  +- Condition:
-     |  +-      +-    |  |  +- Op: >> unary proxy <<
-     |  +-      +-    |  |     +- Op: >> Proxy Data Access [jj_2_12] <<
+     |  +-      +-    |  |  +- Op: >> proxy [ () ]
      |  +-      +-    |  +- If Code:
      |  +-      +-    |  |  +- Block:
      |  +-      +-    |  |     +- Local Variables:
@@ -3400,10 +2944,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +-    |           +- >> Proxy Statement: 
      |  +-      +-    |              +- break label_19;
      |  +-      +-    |              <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
      |  +-      +-    +- St: =
      |  +-      +-       +- Op: >> Proxy Data Access [type] <<
      |  +-      +-       +- Op: >> proxy [ new something ]Block:
@@ -3411,8 +2953,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +- +- Code:
      |  +-      +-    +- If Statement:
      |  +-      +-    |  +- Condition:
-     |  +-      +-    |  |  +- Op: >> unary proxy <<
-     |  +-      +-    |  |     +- Op: >> Proxy Data Access [jj_2_12] <<
+     |  +-      +-    |  |  +- Op: >> proxy [ () ]
      |  +-      +-    |  +- If Code:
      |  +-      +-    |  |  +- Block:
      |  +-      +-    |  |     +- Local Variables:
@@ -3425,10 +2966,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +-    |           +- >> Proxy Statement: 
      |  +-      +-    |              +- break label_19;
      |  +-      +-    |              <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
      |  +-      +-    +- St: =
      |  +-      +-       +- Op: >> Proxy Data Access [type] <<
      |  +-      +-       +- Op: >> proxy [ new something ]
@@ -3437,8 +2976,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- break;
      |  +-   <<
      |  +- default:
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- throw ;
      |  +-   <<
@@ -3475,11 +3013,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Proxy access to member add] <<
-     |     +- Op: Local variable access: aux
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [first] <<
      |  +- Op: =
@@ -3487,14 +3022,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Op: >> Proxy Data Access [t] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_2_13] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |  |  +- Block:
      |  |     +- Local Variables:
      |  |     +- Code:
-     |  |        +- St: >> unary proxy <<
-     |  |           +- Op: >> Proxy Data Access [TypeArguments] <<
+     |  |        +- St: >> proxy [ () ]
      |  +- Else Code:
      |     +- Block:
      |        +- Local Variables:
@@ -3508,8 +3041,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- +- Code:
      |     +-    +- If Statement:
      |     +-    |  +- Condition:
-     |     +-    |  |  +- Op: >> unary proxy <<
-     |     +-    |  |     +- Op: >> Proxy Data Access [jj_2_14] <<
+     |     +-    |  |  +- Op: >> proxy [ () ]
      |     +-    |  +- If Code:
      |     +-    |  |  +- Block:
      |     +-    |  |     +- Local Variables:
@@ -3522,27 +3054,22 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |           +- >> Proxy Statement: 
      |     +-    |              +- break label_20;
      |     +-    |              <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [t] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [aux.add] <<
+     |     +-    |  +- Op: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [last] <<
      |     +-    |  +- Op: >> Proxy Data Access [t] <<
      |     +-    +- If Statement:
      |     +-       +- Condition:
-     |     +-       |  +- Op: >> unary proxy <<
-     |     +-       |     +- Op: >> Proxy Data Access [jj_2_15] <<
+     |     +-       |  +- Op: >> proxy [ () ]
      |     +-       +- If Code:
      |     +-       |  +- Block:
      |     +-       |     +- Local Variables:
      |     +-       |     +- Code:
-     |     +-       |        +- St: >> unary proxy <<
-     |     +-       |           +- Op: >> Proxy Data Access [TypeArguments] <<
+     |     +-       |        +- St: >> proxy [ () ]
      |     +-       +- Else Code:
      |     +-          +- Block:
      |     +-             +- Local Variables:
@@ -3552,8 +3079,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- +- Code:
      |     +-    +- If Statement:
      |     +-    |  +- Condition:
-     |     +-    |  |  +- Op: >> unary proxy <<
-     |     +-    |  |     +- Op: >> Proxy Data Access [jj_2_14] <<
+     |     +-    |  |  +- Op: >> proxy [ () ]
      |     +-    |  +- If Code:
      |     +-    |  |  +- Block:
      |     +-    |  |     +- Local Variables:
@@ -3566,27 +3092,22 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |           +- >> Proxy Statement: 
      |     +-    |              +- break label_20;
      |     +-    |              <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [t] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [aux.add] <<
+     |     +-    |  +- Op: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [last] <<
      |     +-    |  +- Op: >> Proxy Data Access [t] <<
      |     +-    +- If Statement:
      |     +-       +- Condition:
-     |     +-       |  +- Op: >> unary proxy <<
-     |     +-       |     +- Op: >> Proxy Data Access [jj_2_15] <<
+     |     +-       |  +- Op: >> proxy [ () ]
      |     +-       +- If Code:
      |     +-       |  +- Block:
      |     +-       |     +- Local Variables:
      |     +-       |     +- Code:
-     |     +-       |        +- St: >> unary proxy <<
-     |     +-       |           +- Op: >> Proxy Data Access [TypeArguments] <<
+     |     +-       |        +- St: >> proxy [ () ]
      |     +-       +- Else Code:
      |     +-          +- Block:
      |     +-             +- Local Variables:
@@ -3599,10 +3120,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Op: >> proxy [ new something ]
      +- Statements:
      |  +- St: =
-     |     +- Op: >> unary proxy <<
-     |     |  +- Op: >> Proxy Data Access [aux.get] <<
-     |     +- Op: >> unary proxy <<
-     |        +- Op: >> Proxy Data Access [aux.get] <<
+     |     +- Op: >> proxy [ () ]
+     |     +- Op: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- for( Statements:
      |  +- +- St: =
@@ -3620,8 +3139,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-       +- Op: +
      |  +-          +- Op: Literal
      |  +-          |  +- String: "."
-     |  +-          +- Op: >> unary proxy <<
-     |  +-             +- Op: >> Proxy Data Access [aux.get] <<Block:
+     |  +-          +- Op: >> proxy [ () ]Block:
      |  +- +- Local Variables:
      |  +- +- Code:
      |  +-    +- St: +=
@@ -3629,15 +3147,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-       +- Op: +
      |  +-          +- Op: Literal
      |  +-          |  +- String: "."
-     |  +-          +- Op: >> unary proxy <<
-     |  +-             +- Op: >> Proxy Data Access [aux.get] <<
+     |  +-          +- Op: >> proxy [ () ]
      |  <<
      +- Statements:
      |  +- St: =
-     |     +- Op: >> unary proxy <<
-     |     |  +- Op: >> Proxy Data Access [symbolTable.findSymbol] <<
-     |     +- Op: >> unary proxy <<
-     |        +- Op: >> Proxy Data Access [symbolTable.findSymbol] <<
+     |     +- Op: >> proxy [ () ]
+     |     +- Op: >> proxy [ () ]
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: !=
@@ -3672,8 +3187,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |              +- Block:
      |  |                 +- Local Variables:
      |  |                 +- Code:
-     |  |                    +- St: >> unary proxy <<
-     |  |                    |  +- Op: >> Proxy Data Access [errorLog.insertError] <<
+     |  |                    +- St: >> proxy [ (, ) ]
      |  |                    +- Block:
      |  |                       +- Local Variables:
      |  |                       +- Code:
@@ -3697,12 +3211,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- +- Code:
      |              +-    +- Statements:
      |              +-    |  +- St: =
-     |              +-    |     +- Op: >> unary proxy <<
-     |              +-    |     |  +- Op: Static Access:
-     |              +-    |     |     +- Ljava.lang.Class; -> forName
-     |              +-    |     +- Op: >> unary proxy <<
-     |              +-    |        +- Op: Static Access:
-     |              +-    |           +- Ljava.lang.Class; -> forName
+     |              +-    |     +- Op: >> proxy [ () ]
+     |              +-    |     +- Op: >> proxy [ () ]
      |              +-    +- Block:
      |              +-       +- Local Variables:
      |              +-       +- Code:
@@ -3725,12 +3235,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +-       +- +- Code:
      |              +-       +-    +- Statements:
      |              +-       +-    |  +- St: =
-     |              +-       +-    |     +- Op: >> unary proxy <<
-     |              +-       +-    |     |  +- Op: Static Access:
-     |              +-       +-    |     |     +- Ljava.lang.Class; -> forName
-     |              +-       +-    |     +- Op: >> unary proxy <<
-     |              +-       +-    |        +- Op: Static Access:
-     |              +-       +-    |           +- Ljava.lang.Class; -> forName
+     |              +-       +-    |     +- Op: >> proxy [ () ]
+     |              +-       +-    |     +- Op: >> proxy [ () ]
      |              +-       +-    +- Block:
      |              +-       +-       +- Local Variables:
      |              +-       +-       +- Code:
@@ -3745,8 +3251,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +-       +- Block:
      |              +-       +- +- Local Variables:
      |              +-       +- +- Code:
-     |              +-       +-    +- St: >> unary proxy <<
-     |              +-       +-    |  +- Op: >> Proxy Data Access [errorLog.insertWarning] <<
+     |              +-       +-    +- St: >> proxy [ (, ) ]
      |              +-       +-    +- Block:
      |              +-       +-       +- Local Variables:
      |              +-       +-       +- Code:
@@ -3767,12 +3272,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [TypeArgument] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- LABEL: label_21
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -3792,14 +3294,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [TypeArgument] <<Block:
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]Block:
      |     +- +- Local Variables:
      |     +- +- Code:
      |     +-    +- >> Proxy Statement: 
@@ -3815,19 +3313,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [TypeArgument] <<
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public TypeArgument(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -3843,24 +3335,19 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         +- case :
         +- case :
         +- case :
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [ReferenceType] <<
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- break;
         +-   <<
         +- case :
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [out.add] <<
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- switch() {
         +-   +- case :
         +-   +- case :
-        +-   +-   St: >> unary proxy <<
-        +-   +-   +- Op: >> Proxy Data Access [out.add] <<
-        +-   +-   St: >> unary proxy <<
-        +-   +-   +- Op: >> Proxy Data Access [WildcardBounds] <<
+        +-   +-   St: >> proxy [ () ]
+        +-   +-   St: >> proxy [ () ]
         +-   +-   >> Proxy Statement: 
         +-   +-   +- break;
         +-   +-   <<
@@ -3872,8 +3359,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         +-   +- break;
         +-   <<
         +- default:
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- throw ;
         +-   <<
@@ -3894,37 +3380,29 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [ReferenceType] <<
+     |  +-   +- Op: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [ReferenceType] <<
+     |  +-   +- Op: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- default:
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- throw ;
      |  +-   <<
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.addAll] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public Lcat.quadriga.parsers.code.types.PrimitiveTypeRef; PrimitiveType(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -3935,70 +3413,61 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- default:
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- throw ;
      |  +-   <<
@@ -4029,13 +3498,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [type] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: Static Access:
-     |  +-         +- Lcat.quadriga.parsers.code.types.PrimitiveTypeRef; -> Proxy access to getFromName
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -4050,14 +3516,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [type] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [Type] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- default:
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- throw ;
      |  +-   <<
@@ -4089,11 +3553,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Proxy access to member add] <<
-     |     +- Op: Local variable access: tokens
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- LABEL: label_22
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -4102,8 +3563,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- +- Code:
      |     +-    +- If Statement:
      |     +-    |  +- Condition:
-     |     +-    |  |  +- Op: >> unary proxy <<
-     |     +-    |  |     +- Op: >> Proxy Data Access [jj_2_16] <<
+     |     +-    |  |  +- Op: >> proxy [ () ]
      |     +-    |  +- If Code:
      |     +-    |  |  +- Block:
      |     +-    |  |     +- Local Variables:
@@ -4116,20 +3576,16 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |           +- >> Proxy Statement: 
      |     +-    |              +- break label_22;
      |     +-    |              <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [t] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [tokens.add] <<Block:
+     |     +-    |  +- Op: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]Block:
      |     +- +- Local Variables:
      |     +- +- Code:
      |     +-    +- If Statement:
      |     +-    |  +- Condition:
-     |     +-    |  |  +- Op: >> unary proxy <<
-     |     +-    |  |     +- Op: >> Proxy Data Access [jj_2_16] <<
+     |     +-    |  |  +- Op: >> proxy [ () ]
      |     +-    |  +- If Code:
      |     +-    |  |  +- Block:
      |     +-    |  |     +- Local Variables:
@@ -4142,14 +3598,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |           +- >> Proxy Statement: 
      |     +-    |              +- break label_22;
      |     +-    |              <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [t] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [tokens.add] <<
+     |     +-    |  +- Op: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     <<
      +- Block:
      |  +- Local Variables:
@@ -4177,11 +3630,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Op: >> proxy [ new something ]
      +- St: =
      |  +- Op: >> Proxy Data Access [aux] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [Name] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Proxy access to member add] <<
-     |     +- Op: Local variable access: names
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- LABEL: label_23
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -4201,13 +3651,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [Name] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [Proxy access to member add] <<
-     |     +-          +- Op: Local variable access: namesBlock:
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]Block:
      |     +- +- Local Variables:
      |     +- +- Code:
      |     +-    +- >> Proxy Statement: 
@@ -4223,13 +3669,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [Name] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [Proxy access to member add] <<
-     |     +-          +- Op: Local variable access: names
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     <<
      +- Block:
      |  +- Local Variables:
@@ -4253,28 +3695,22 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [finalNode] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [ConditionalExpression] <<
+     |  +- Op: >> proxy [ () ]
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_2_17] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |  |  +- Block:
      |  |     +- Local Variables:
      |  |     +- Code:
-     |  |        +- St: >> unary proxy <<
-     |  |        |  +- Op: >> Proxy Data Access [out.add] <<
+     |  |        +- St: >> proxy [ () ]
      |  |        +- St: =
      |  |        |  +- Op: >> Proxy Data Access [operator] <<
-     |  |        |  +- Op: >> unary proxy <<
-     |  |        |     +- Op: >> Proxy Data Access [AssignmentOperator] <<
-     |  |        +- St: >> unary proxy <<
-     |  |        |  +- Op: >> Proxy Data Access [out.add] <<
+     |  |        |  +- Op: >> proxy [ () ]
+     |  |        +- St: >> proxy [ () ]
      |  |        +- St: =
      |  |        |  +- Op: >> Proxy Data Access [auxNode] <<
-     |  |        |  +- Op: >> unary proxy <<
-     |  |        |     +- Op: >> Proxy Data Access [Expression] <<
+     |  |        |  +- Op: >> proxy [ () ]
      |  |        +- St: =
      |  |           +- Op: >> Proxy Data Access [finalNode] <<
      |  |           +- Op: >> proxy [ new something ]
@@ -4304,8 +3740,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   Block:
      |  +-   +- Local Variables:
      |  +-   +- Code:
@@ -4321,8 +3756,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- break;
      |  +-   <<
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   Block:
      |  +-   +- Local Variables:
      |  +-   +- Code:
@@ -4338,8 +3772,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- break;
      |  +-   <<
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   Block:
      |  +-   +- Local Variables:
      |  +-   +- Code:
@@ -4355,8 +3788,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- break;
      |  +-   <<
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   Block:
      |  +-   +- Local Variables:
      |  +-   +- Code:
@@ -4372,8 +3804,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- break;
      |  +-   <<
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   Block:
      |  +-   +- Local Variables:
      |  +-   +- Code:
@@ -4389,8 +3820,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- break;
      |  +-   <<
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   Block:
      |  +-   +- Local Variables:
      |  +-   +- Code:
@@ -4406,8 +3836,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- break;
      |  +-   <<
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   Block:
      |  +-   +- Local Variables:
      |  +-   +- Code:
@@ -4423,8 +3852,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- break;
      |  +-   <<
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   Block:
      |  +-   +- Local Variables:
      |  +-   +- Code:
@@ -4440,8 +3868,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- break;
      |  +-   <<
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   Block:
      |  +-   +- Local Variables:
      |  +-   +- Code:
@@ -4457,8 +3884,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- break;
      |  +-   <<
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   Block:
      |  +-   +- Local Variables:
      |  +-   +- Code:
@@ -4474,8 +3900,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- break;
      |  +-   <<
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   Block:
      |  +-   +- Local Variables:
      |  +-   +- Code:
@@ -4491,8 +3916,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- break;
      |  +-   <<
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   Block:
      |  +-   +- Local Variables:
      |  +-   +- Code:
@@ -4508,8 +3932,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- break;
      |  +-   <<
      |  +- default:
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- throw ;
      |  +-   <<
@@ -4530,23 +3953,18 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [finalNode] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [ConditionalOrExpression] <<
+     |  +- Op: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [auxNode1] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [Expression] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [auxNode2] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [Expression] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [finalNode] <<
      |  +-   +- Op: >> proxy [ new something ]
@@ -4579,8 +3997,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [finalNode] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [ConditionalAndExpression] <<
+     |  +- Op: >> proxy [ () ]
      +- LABEL: label_24
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -4600,8 +4017,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member OR] <<
@@ -4609,8 +4025,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |        +- Lcat.quadriga.parsers.code.expressions.LogicalOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [ConditionalAndExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]Block:
@@ -4629,8 +4044,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member OR] <<
@@ -4638,8 +4052,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |        +- Lcat.quadriga.parsers.code.expressions.LogicalOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [ConditionalAndExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]
@@ -4666,8 +4079,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [finalNode] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [InclusiveOrExpression] <<
+     |  +- Op: >> proxy [ () ]
      +- LABEL: label_25
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -4687,8 +4099,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member AND] <<
@@ -4696,8 +4107,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |        +- Lcat.quadriga.parsers.code.expressions.LogicalOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [InclusiveOrExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]Block:
@@ -4716,8 +4126,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member AND] <<
@@ -4725,8 +4134,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |        +- Lcat.quadriga.parsers.code.expressions.LogicalOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [InclusiveOrExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]
@@ -4753,8 +4161,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [finalNode] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [ExclusiveOrExpression] <<
+     |  +- Op: >> proxy [ () ]
      +- LABEL: label_26
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -4774,8 +4181,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member BIT_OR] <<
@@ -4783,8 +4189,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |        +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [ExclusiveOrExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]Block:
@@ -4803,8 +4208,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member BIT_OR] <<
@@ -4812,8 +4216,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |        +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [ExclusiveOrExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]
@@ -4840,8 +4243,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [finalNode] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [AndExpression] <<
+     |  +- Op: >> proxy [ () ]
      +- LABEL: label_27
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -4861,8 +4263,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member BIT_XOR] <<
@@ -4870,8 +4271,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |        +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [AndExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]Block:
@@ -4890,8 +4290,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member BIT_XOR] <<
@@ -4899,8 +4298,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |        +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [AndExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]
@@ -4927,8 +4325,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [finalNode] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [EqualityExpression] <<
+     |  +- Op: >> proxy [ () ]
      +- LABEL: label_28
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -4948,8 +4345,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member BIT_AND] <<
@@ -4957,8 +4353,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |        +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [EqualityExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]Block:
@@ -4977,8 +4372,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member BIT_AND] <<
@@ -4986,8 +4380,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |        +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [EqualityExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]
@@ -5014,8 +4407,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [finalNode] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [InstanceOfExpression] <<
+     |  +- Op: >> proxy [ () ]
      +- LABEL: label_29
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -5039,8 +4431,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    +- >> Proxy Statement: 
      |     +-    |  +- switch() {
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member EQ] <<
@@ -5050,8 +4441,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member NEQ] <<
@@ -5061,8 +4451,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- default:
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- throw ;
      |     +-    |  +-   <<
@@ -5070,8 +4459,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [InstanceOfExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]Block:
@@ -5094,8 +4482,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    +- >> Proxy Statement: 
      |     +-    |  +- switch() {
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member EQ] <<
@@ -5105,8 +4492,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member NEQ] <<
@@ -5116,8 +4502,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- default:
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- throw ;
      |     +-    |  +-   <<
@@ -5125,8 +4510,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [InstanceOfExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]
@@ -5159,22 +4543,19 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [finalNode] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [RelationalExpression] <<
+     |  +- Op: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [operator] <<
      |  +-   +- Op: >> Proxy Data Access [Proxy access to member INSTANCEOF] <<
      |  +-      +- Op: Static Access:
      |  +-         +- Lcat.quadriga.parsers.code.expressions.BooleanOperation; -> Proxy access to Operator
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [Type] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [auxiliarNode] <<
      |  +-   +- Op: >> proxy [ new something ]
@@ -5210,8 +4591,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [finalNode] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [ShiftExpression] <<
+     |  +- Op: >> proxy [ () ]
      +- LABEL: label_30
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -5237,8 +4617,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    +- >> Proxy Statement: 
      |     +-    |  +- switch() {
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member LT] <<
@@ -5248,8 +4627,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member GT] <<
@@ -5259,8 +4637,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member LE] <<
@@ -5270,8 +4647,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member GE] <<
@@ -5281,8 +4657,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- default:
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- throw ;
      |     +-    |  +-   <<
@@ -5290,8 +4665,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [ShiftExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]Block:
@@ -5316,8 +4690,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    +- >> Proxy Statement: 
      |     +-    |  +- switch() {
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member LT] <<
@@ -5327,8 +4700,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member GT] <<
@@ -5338,8 +4710,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member LE] <<
@@ -5349,8 +4720,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member GE] <<
@@ -5360,8 +4730,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- default:
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- throw ;
      |     +-    |  +-   <<
@@ -5369,8 +4738,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [ShiftExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]
@@ -5397,8 +4765,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [finalNode] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [AdditiveExpression] <<
+     |  +- Op: >> proxy [ () ]
      +- LABEL: label_31
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -5407,8 +4774,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- +- Code:
      |     +-    +- If Statement:
      |     +-    |  +- Condition:
-     |     +-    |  |  +- Op: >> unary proxy <<
-     |     +-    |  |     +- Op: >> Proxy Data Access [jj_2_18] <<
+     |     +-    |  |  +- Op: >> proxy [ () ]
      |     +-    |  +- If Code:
      |     +-    |  |  +- Block:
      |     +-    |  |     +- Local Variables:
@@ -5424,8 +4790,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    +- >> Proxy Statement: 
      |     +-    |  +- switch() {
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member LEFT_SHIFT] <<
@@ -5437,14 +4802,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +- default:
      |     +-    |  +-   If Statement:
      |     +-    |  +-   +- Condition:
-     |     +-    |  +-   |  +- Op: >> unary proxy <<
-     |     +-    |  +-   |     +- Op: >> Proxy Data Access [jj_2_19] <<
+     |     +-    |  +-   |  +- Op: >> proxy [ () ]
      |     +-    |  +-   +- If Code:
      |     +-    |  +-   |  +- Block:
      |     +-    |  +-   |     +- Local Variables:
      |     +-    |  +-   |     +- Code:
-     |     +-    |  +-   |        +- St: >> unary proxy <<
-     |     +-    |  +-   |        |  +- Op: >> Proxy Data Access [RSIGNEDSHIFT] <<
+     |     +-    |  +-   |        +- St: >> proxy [ () ]
      |     +-    |  +-   |        +- St: =
      |     +-    |  +-   |           +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   |           +- Op: >> Proxy Data Access [Proxy access to member RIGHT_SHIFT] <<
@@ -5453,14 +4816,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Else Code:
      |     +-    |  +-      +- If Statement:
      |     +-    |  +-         +- Condition:
-     |     +-    |  +-         |  +- Op: >> unary proxy <<
-     |     +-    |  +-         |     +- Op: >> Proxy Data Access [jj_2_20] <<
+     |     +-    |  +-         |  +- Op: >> proxy [ () ]
      |     +-    |  +-         +- If Code:
      |     +-    |  +-         |  +- Block:
      |     +-    |  +-         |     +- Local Variables:
      |     +-    |  +-         |     +- Code:
-     |     +-    |  +-         |        +- St: >> unary proxy <<
-     |     +-    |  +-         |        |  +- Op: >> Proxy Data Access [RUNSIGNEDSHIFT] <<
+     |     +-    |  +-         |        +- St: >> proxy [ () ]
      |     +-    |  +-         |        +- St: =
      |     +-    |  +-         |           +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-         |           +- Op: >> Proxy Data Access [Proxy access to member RIGHT_UNSIGNED_SHIFT] <<
@@ -5470,8 +4831,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-            +- Block:
      |     +-    |  +-               +- Local Variables:
      |     +-    |  +-               +- Code:
-     |     +-    |  +-                  +- St: >> unary proxy <<
-     |     +-    |  +-                  |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-                  +- St: >> proxy [ () ]
      |     +-    |  +-                  +- >> Proxy Statement: 
      |     +-    |  +-                     +- throw ;
      |     +-    |  +-                     <<
@@ -5479,8 +4839,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [AdditiveExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]Block:
@@ -5488,8 +4847,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- +- Code:
      |     +-    +- If Statement:
      |     +-    |  +- Condition:
-     |     +-    |  |  +- Op: >> unary proxy <<
-     |     +-    |  |     +- Op: >> Proxy Data Access [jj_2_18] <<
+     |     +-    |  |  +- Op: >> proxy [ () ]
      |     +-    |  +- If Code:
      |     +-    |  |  +- Block:
      |     +-    |  |     +- Local Variables:
@@ -5505,8 +4863,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    +- >> Proxy Statement: 
      |     +-    |  +- switch() {
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member LEFT_SHIFT] <<
@@ -5518,14 +4875,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +- default:
      |     +-    |  +-   If Statement:
      |     +-    |  +-   +- Condition:
-     |     +-    |  +-   |  +- Op: >> unary proxy <<
-     |     +-    |  +-   |     +- Op: >> Proxy Data Access [jj_2_19] <<
+     |     +-    |  +-   |  +- Op: >> proxy [ () ]
      |     +-    |  +-   +- If Code:
      |     +-    |  +-   |  +- Block:
      |     +-    |  +-   |     +- Local Variables:
      |     +-    |  +-   |     +- Code:
-     |     +-    |  +-   |        +- St: >> unary proxy <<
-     |     +-    |  +-   |        |  +- Op: >> Proxy Data Access [RSIGNEDSHIFT] <<
+     |     +-    |  +-   |        +- St: >> proxy [ () ]
      |     +-    |  +-   |        +- St: =
      |     +-    |  +-   |           +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   |           +- Op: >> Proxy Data Access [Proxy access to member RIGHT_SHIFT] <<
@@ -5534,14 +4889,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Else Code:
      |     +-    |  +-      +- If Statement:
      |     +-    |  +-         +- Condition:
-     |     +-    |  +-         |  +- Op: >> unary proxy <<
-     |     +-    |  +-         |     +- Op: >> Proxy Data Access [jj_2_20] <<
+     |     +-    |  +-         |  +- Op: >> proxy [ () ]
      |     +-    |  +-         +- If Code:
      |     +-    |  +-         |  +- Block:
      |     +-    |  +-         |     +- Local Variables:
      |     +-    |  +-         |     +- Code:
-     |     +-    |  +-         |        +- St: >> unary proxy <<
-     |     +-    |  +-         |        |  +- Op: >> Proxy Data Access [RUNSIGNEDSHIFT] <<
+     |     +-    |  +-         |        +- St: >> proxy [ () ]
      |     +-    |  +-         |        +- St: =
      |     +-    |  +-         |           +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-         |           +- Op: >> Proxy Data Access [Proxy access to member RIGHT_UNSIGNED_SHIFT] <<
@@ -5551,8 +4904,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-            +- Block:
      |     +-    |  +-               +- Local Variables:
      |     +-    |  +-               +- Code:
-     |     +-    |  +-                  +- St: >> unary proxy <<
-     |     +-    |  +-                  |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-                  +- St: >> proxy [ () ]
      |     +-    |  +-                  +- >> Proxy Statement: 
      |     +-    |  +-                     +- throw ;
      |     +-    |  +-                     <<
@@ -5560,8 +4912,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [AdditiveExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]
@@ -5588,8 +4939,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [finalNode] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [MultiplicativeExpression] <<
+     |  +- Op: >> proxy [ () ]
      +- LABEL: label_32
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -5613,8 +4963,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    +- >> Proxy Statement: 
      |     +-    |  +- switch() {
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member ADD] <<
@@ -5624,8 +4973,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member SUB] <<
@@ -5635,8 +4983,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- default:
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- throw ;
      |     +-    |  +-   <<
@@ -5644,8 +4991,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [MultiplicativeExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]Block:
@@ -5668,8 +5014,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    +- >> Proxy Statement: 
      |     +-    |  +- switch() {
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member ADD] <<
@@ -5679,8 +5024,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member SUB] <<
@@ -5690,8 +5034,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- default:
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- throw ;
      |     +-    |  +-   <<
@@ -5699,8 +5042,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [MultiplicativeExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]
@@ -5732,8 +5074,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [finalNode] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [UnaryExpression] <<
+     |  +- Op: >> proxy [ () ]
      +- LABEL: label_33
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -5758,8 +5099,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    +- >> Proxy Statement: 
      |     +-    |  +- switch() {
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member MUL] <<
@@ -5769,8 +5109,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member DIV] <<
@@ -5780,8 +5119,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member MOD] <<
@@ -5791,8 +5129,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- default:
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- throw ;
      |     +-    |  +-   <<
@@ -5800,8 +5137,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [UnaryExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]Block:
@@ -5825,8 +5161,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    +- >> Proxy Statement: 
      |     +-    |  +- switch() {
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member MUL] <<
@@ -5836,8 +5171,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member DIV] <<
@@ -5847,8 +5181,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- case :
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
      |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member MOD] <<
@@ -5858,8 +5191,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
      |     +-    |  +- default:
-     |     +-    |  +-   St: >> unary proxy <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    |  +-   St: >> proxy [ () ]
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- throw ;
      |     +-    |  +-   <<
@@ -5867,8 +5199,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [UnaryExpression] <<
+     |     +-    |  +- Op: >> proxy [ () ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [finalNode] <<
      |     +-       +- Op: >> proxy [ new something ]
@@ -5908,8 +5239,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- case :
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +-   +- Op: >> unary proxy <<
-     |  +-   +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +-   +- Op: >> proxy [ () ]
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [operator] <<
      |  +-   +-   +- Op: Literal
@@ -5920,8 +5250,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- case :
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +-   +- Op: >> unary proxy <<
-     |  +-   +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +-   +- Op: >> proxy [ () ]
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [operator] <<
      |  +-   +-   +- Op: >> Proxy Data Access [Proxy access to member NEGATE] <<
@@ -5931,8 +5260,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +-   +- break;
      |  +-   +-   <<
      |  +-   +- default:
-     |  +-   +-   St: >> unary proxy <<
-     |  +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +-   St: >> proxy [ () ]
      |  +-   +-   >> Proxy Statement: 
      |  +-   +-   +- throw ;
      |  +-   +-   <<
@@ -5940,8 +5268,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   <<
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [finalNode] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [UnaryExpression] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   If Statement:
      |  +-   +- Condition:
      |  +-   |  +- Op: !=
@@ -5958,16 +5285,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [finalNode] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [PreIncrementExpression] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [finalNode] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [PreDecrementExpression] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -5996,14 +5321,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [finalNode] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [UnaryExpressionNotPlusMinus] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- default:
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- throw ;
      |  +-   <<
@@ -6031,12 +5354,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +- Op: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [node] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [PrimaryExpression] <<
+     |  +- Op: >> proxy [ () ]
      +- Block:
      |  +- Local Variables:
      |  +- Code:
@@ -6059,12 +5380,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +- Op: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [node] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [PrimaryExpression] <<
+     |  +- Op: >> proxy [ () ]
      +- Block:
      |  +- Local Variables:
      |  +- Code:
@@ -6100,8 +5419,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- case :
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +-   +- Op: >> unary proxy <<
-     |  +-   +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +-   +- Op: >> proxy [ () ]
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [operator] <<
      |  +-   +-   +- Op: >> Proxy Data Access [Proxy access to member BIT_COMP] <<
@@ -6113,8 +5431,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- case :
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +-   +- Op: >> unary proxy <<
-     |  +-   +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +-   +- Op: >> proxy [ () ]
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [operator] <<
      |  +-   +-   +- Op: >> Proxy Data Access [Proxy access to member NOT] <<
@@ -6124,8 +5441,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +-   +- break;
      |  +-   +-   <<
      |  +-   +- default:
-     |  +-   +-   St: >> unary proxy <<
-     |  +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +-   St: >> proxy [ () ]
      |  +-   +-   >> Proxy Statement: 
      |  +-   +-   +- throw ;
      |  +-   +-   <<
@@ -6133,8 +5449,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   <<
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [finalNode] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [UnaryExpression] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [finalNode] <<
      |  +-   +- Op: >> proxy [ new something ]
@@ -6144,16 +5459,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- default:
      |  +-   If Statement:
      |  +-   +- Condition:
-     |  +-   |  +- Op: >> unary proxy <<
-     |  +-   |     +- Op: >> Proxy Data Access [jj_2_21] <<
+     |  +-   |  +- Op: >> proxy [ () ]
      |  +-   +- If Code:
      |  +-   |  +- Block:
      |  +-   |     +- Local Variables:
      |  +-   |     +- Code:
      |  +-   |        +- St: =
      |  +-   |           +- Op: >> Proxy Data Access [finalNode] <<
-     |  +-   |           +- Op: >> unary proxy <<
-     |  +-   |              +- Op: >> Proxy Data Access [CastExpression] <<
+     |  +-   |           +- Op: >> proxy [ () ]
      |  +-   +- Else Code:
      |  +-      +- Block:
      |  +-         +- Local Variables:
@@ -6183,14 +5496,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-               +- case :
      |  +-               +-   St: =
      |  +-               +-   +- Op: >> Proxy Data Access [finalNode] <<
-     |  +-               +-   +- Op: >> unary proxy <<
-     |  +-               +-      +- Op: >> Proxy Data Access [PostfixExpression] <<
+     |  +-               +-   +- Op: >> proxy [ () ]
      |  +-               +-   >> Proxy Statement: 
      |  +-               +-   +- break;
      |  +-               +-   <<
      |  +-               +- default:
-     |  +-               +-   St: >> unary proxy <<
-     |  +-               +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-               +-   St: >> proxy [ () ]
      |  +-               +-   >> Proxy Statement: 
      |  +-               +-   +- throw ;
      |  +-               +-   <<
@@ -6223,33 +5534,25 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Op: >> proxy [ new something ]
      +- If Statement:
         +- Condition:
-        |  +- Op: >> unary proxy <<
-        |     +- Op: >> Proxy Data Access [jj_2_22] <<
+        |  +- Op: >> proxy [ () ]
         +- If Code:
         |  +- Block:
         |     +- Local Variables:
         |     +- Code:
-        |        +- St: >> unary proxy <<
-        |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-        |        +- St: >> unary proxy <<
-        |           +- Op: >> Proxy Data Access [PrimitiveType] <<
+        |        +- St: >> proxy [ () ]
+        |        +- St: >> proxy [ () ]
         +- Else Code:
            +- If Statement:
               +- Condition:
-              |  +- Op: >> unary proxy <<
-              |     +- Op: >> Proxy Data Access [jj_2_23] <<
+              |  +- Op: >> proxy [ () ]
               +- If Code:
               |  +- Block:
               |     +- Local Variables:
               |     +- Code:
-              |        +- St: >> unary proxy <<
-              |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-              |        +- St: >> unary proxy <<
-              |        |  +- Op: >> Proxy Data Access [Type] <<
-              |        +- St: >> unary proxy <<
-              |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-              |        +- St: >> unary proxy <<
-              |           +- Op: >> Proxy Data Access [jj_consume_token] <<
+              |        +- St: >> proxy [ () ]
+              |        +- St: >> proxy [ () ]
+              |        +- St: >> proxy [ () ]
+              |        +- St: >> proxy [ () ]
               +- Else Code:
                  +- Block:
                     +- Local Variables:
@@ -6257,53 +5560,43 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
                        +- >> Proxy Statement: 
                           +- switch() {
                           +- case :
-                          +-   St: >> unary proxy <<
-                          +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-                          +-   St: >> unary proxy <<
-                          +-   +- Op: >> Proxy Data Access [Type] <<
-                          +-   St: >> unary proxy <<
-                          +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+                          +-   St: >> proxy [ () ]
+                          +-   St: >> proxy [ () ]
+                          +-   St: >> proxy [ () ]
                           +-   >> Proxy Statement: 
                           +-   +- switch() {
                           +-   +- case :
-                          +-   +-   St: >> unary proxy <<
-                          +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+                          +-   +-   St: >> proxy [ () ]
                           +-   +-   >> Proxy Statement: 
                           +-   +-   +- break;
                           +-   +-   <<
                           +-   +- case :
-                          +-   +-   St: >> unary proxy <<
-                          +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+                          +-   +-   St: >> proxy [ () ]
                           +-   +-   >> Proxy Statement: 
                           +-   +-   +- break;
                           +-   +-   <<
                           +-   +- case :
-                          +-   +-   St: >> unary proxy <<
-                          +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+                          +-   +-   St: >> proxy [ () ]
                           +-   +-   >> Proxy Statement: 
                           +-   +-   +- break;
                           +-   +-   <<
                           +-   +- case :
-                          +-   +-   St: >> unary proxy <<
-                          +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+                          +-   +-   St: >> proxy [ () ]
                           +-   +-   >> Proxy Statement: 
                           +-   +-   +- break;
                           +-   +-   <<
                           +-   +- case :
-                          +-   +-   St: >> unary proxy <<
-                          +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+                          +-   +-   St: >> proxy [ () ]
                           +-   +-   >> Proxy Statement: 
                           +-   +-   +- break;
                           +-   +-   <<
                           +-   +- case :
-                          +-   +-   St: >> unary proxy <<
-                          +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+                          +-   +-   St: >> proxy [ () ]
                           +-   +-   >> Proxy Statement: 
                           +-   +-   +- break;
                           +-   +-   <<
                           +-   +- case :
-                          +-   +-   St: >> unary proxy <<
-                          +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+                          +-   +-   St: >> proxy [ () ]
                           +-   +-   >> Proxy Statement: 
                           +-   +-   +- break;
                           +-   +-   <<
@@ -6314,14 +5607,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
                           +-   +- case :
                           +-   +- case :
                           +-   +- case :
-                          +-   +-   St: >> unary proxy <<
-                          +-   +-   +- Op: >> Proxy Data Access [Literal] <<
+                          +-   +-   St: >> proxy [ () ]
                           +-   +-   >> Proxy Statement: 
                           +-   +-   +- break;
                           +-   +-   <<
                           +-   +- default:
-                          +-   +-   St: >> unary proxy <<
-                          +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+                          +-   +-   St: >> proxy [ () ]
                           +-   +-   >> Proxy Statement: 
                           +-   +-   +- throw ;
                           +-   +-   <<
@@ -6331,8 +5622,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
                           +-   +- break;
                           +-   <<
                           +- default:
-                          +-   St: >> unary proxy <<
-                          +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+                          +-   St: >> proxy [ () ]
                           +-   >> Proxy Statement: 
                           +-   +- throw ;
                           +-   <<
@@ -6349,10 +5639,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Op: >> proxy [ new something ]
      +- Statements:
      +- Statements:
+     +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [finalNode] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [PrimaryExpression] <<
+     |  +- Op: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
@@ -6362,27 +5652,37 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- case :
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +-   +- Op: >> unary proxy <<
-     |  +-   +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +-   +- Op: >> proxy [ () ]
+     |  +-   +-   St: =
+     |  +-   +-   +- Op: >> Proxy Data Access [operator] <<
+     |  +-   +-   +- Op: >> Proxy Data Access [Proxy access to member POST_INC] <<
+     |  +-   +-      +- Op: Static Access:
+     |  +-   +-         +- Lcat.quadriga.parsers.code.expressions.UnaryOperation; -> Proxy access to Operator
      |  +-   +-   >> Proxy Statement: 
      |  +-   +-   +- break;
      |  +-   +-   <<
      |  +-   +- case :
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +-   +- Op: >> unary proxy <<
-     |  +-   +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +-   +- Op: >> proxy [ () ]
+     |  +-   +-   St: =
+     |  +-   +-   +- Op: >> Proxy Data Access [operator] <<
+     |  +-   +-   +- Op: >> Proxy Data Access [Proxy access to member POST_DEC] <<
+     |  +-   +-      +- Op: Static Access:
+     |  +-   +-         +- Lcat.quadriga.parsers.code.expressions.UnaryOperation; -> Proxy access to Operator
      |  +-   +-   >> Proxy Statement: 
      |  +-   +-   +- break;
      |  +-   +-   <<
      |  +-   +- default:
-     |  +-   +-   St: >> unary proxy <<
-     |  +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +-   St: >> proxy [ () ]
      |  +-   +-   >> Proxy Statement: 
      |  +-   +-   +- throw ;
      |  +-   +-   <<
      |  +-   +- }
      |  +-   <<
+     |  +-   St: =
+     |  +-   +- Op: >> Proxy Data Access [finalNode] <<
+     |  +-   +- Op: >> proxy [ new something ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -6418,26 +5718,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Op: >> proxy [ new something ]
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_2_24] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |  |  +- Block:
      |  |     +- Local Variables:
      |  |     +- Code:
      |  |        +- St: =
      |  |        |  +- Op: >> Proxy Data Access [t] <<
-     |  |        |  +- Op: >> unary proxy <<
-     |  |        |     +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  |        |  +- Op: >> proxy [ () ]
      |  |        +- St: =
      |  |        |  +- Op: >> Proxy Data Access [type] <<
-     |  |        |  +- Op: >> unary proxy <<
-     |  |        |     +- Op: >> Proxy Data Access [Type] <<
-     |  |        +- St: >> unary proxy <<
-     |  |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  |        |  +- Op: >> proxy [ () ]
+     |  |        +- St: >> proxy [ () ]
      |  |        +- St: =
      |  |           +- Op: >> Proxy Data Access [finalNode] <<
-     |  |           +- Op: >> unary proxy <<
-     |  |              +- Op: >> Proxy Data Access [UnaryExpression] <<
+     |  |           +- Op: >> proxy [ () ]
      |  +- Else Code:
      |     +- Block:
      |        +- Local Variables:
@@ -6447,24 +5742,19 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- case :
      |              +-   St: =
      |              +-   +- Op: >> Proxy Data Access [t] <<
-     |              +-   +- Op: >> unary proxy <<
-     |              +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |              +-   +- Op: >> proxy [ () ]
      |              +-   St: =
      |              +-   +- Op: >> Proxy Data Access [type] <<
-     |              +-   +- Op: >> unary proxy <<
-     |              +-      +- Op: >> Proxy Data Access [Type] <<
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |              +-   +- Op: >> proxy [ () ]
+     |              +-   St: >> proxy [ () ]
      |              +-   St: =
      |              +-   +- Op: >> Proxy Data Access [finalNode] <<
-     |              +-   +- Op: >> unary proxy <<
-     |              +-      +- Op: >> Proxy Data Access [UnaryExpressionNotPlusMinus] <<
+     |              +-   +- Op: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- default:
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- throw ;
      |              +-   <<
@@ -6491,19 +5781,16 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [result] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [PrimaryPrefix] <<
+     |  +- Op: >> proxy [ () ]
      +- LABEL: label_34
      |  +- >> Proxy Statement: 
      |     +- while( )
      |     +- Block:
      |     +- +- Local Variables:
-     |     +- |  +- Symbol Var [t] Type [Lcat.quadriga.parsers.Token;]
      |     +- +- Code:
      |     +-    +- If Statement:
      |     +-    |  +- Condition:
-     |     +-    |  |  +- Op: >> unary proxy <<
-     |     +-    |  |     +- Op: >> Proxy Data Access [jj_2_25] <<
+     |     +-    |  |  +- Op: >> proxy [ () ]
      |     +-    |  +- If Code:
      |     +-    |  |  +- Block:
      |     +-    |  |     +- Local Variables:
@@ -6516,22 +5803,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |           +- >> Proxy Statement: 
      |     +-    |              +- break label_34;
      |     +-    |              <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [PrimarySuffix] <<
-     |     +-    +- Statements:
-     |     +-    |  +- St: =
-     |     +-    |     +- Op: >> proxy [ new something ]
-     |     +-    |     +- Op: >> proxy [ new something ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [result] <<
-     |     +-       +- Op: >> proxy [ new something ]Block:
+     |     +-       +- Op: >> proxy [ () ]Block:
      |     +- +- Local Variables:
-     |     +- |  +- Symbol Var [t] Type [Lcat.quadriga.parsers.Token;]
      |     +- +- Code:
      |     +-    +- If Statement:
      |     +-    |  +- Condition:
-     |     +-    |  |  +- Op: >> unary proxy <<
-     |     +-    |  |     +- Op: >> Proxy Data Access [jj_2_25] <<
+     |     +-    |  |  +- Op: >> proxy [ () ]
      |     +-    |  +- If Code:
      |     +-    |  |  +- Block:
      |     +-    |  |     +- Local Variables:
@@ -6544,15 +5823,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |           +- >> Proxy Statement: 
      |     +-    |              +- break label_34;
      |     +-    |              <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [PrimarySuffix] <<
-     |     +-    +- Statements:
-     |     +-    |  +- St: =
-     |     +-    |     +- Op: >> proxy [ new something ]
-     |     +-    |     +- Op: >> proxy [ new something ]
      |     +-    +- St: =
      |     +-       +- Op: >> Proxy Data Access [result] <<
-     |     +-       +- Op: >> proxy [ new something ]
+     |     +-       +- Op: >> proxy [ () ]
      |     <<
      +- Block:
      |  +- Local Variables:
@@ -6578,20 +5851,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Op: >> proxy [ new something ]
      |     +- Op: >> proxy [ new something ]
      +- Statements:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [TypeArguments] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.addAll] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public Lcat.quadriga.parsers.code.expressions.ExpressionNode; PrimaryPrefix() throws 
   Block:
   +- Local Variables:
@@ -6620,16 +5887,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [result] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [Literal] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- default:
      |  +-   If Statement:
      |  +-   +- Condition:
-     |  +-   |  +- Op: >> unary proxy <<
-     |  +-   |     +- Op: >> Proxy Data Access [jj_2_26] <<
+     |  +-   |  +- Op: >> proxy [ () ]
      |  +-   +- If Code:
      |  +-   |  +- Block:
      |  +-   |     +- Local Variables:
@@ -6655,13 +5920,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   |        |     +-    |  <<
      |  +-   |        |     +-    +- St: =
      |  +-   |        |     +-    |  +- Op: >> Proxy Data Access [t] <<
-     |  +-   |        |     +-    |  +- Op: >> unary proxy <<
-     |  +-   |        |     +-    |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-   |        |     +-    +- St: >> unary proxy <<
-     |  +-   |        |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-   |        |     +-    +- St: >> unary proxy <<
-     |  +-   |        |     +-       +- Op: >> Proxy Data Access [Proxy access to member add] <<
-     |  +-   |        |     +-          +- Op: Local variable access: tokenListBlock:
+     |  +-   |        |     +-    |  +- Op: >> proxy [ () ]
+     |  +-   |        |     +-    +- St: >> proxy [ () ]
+     |  +-   |        |     +-    +- St: >> proxy [ () ]Block:
      |  +-   |        |     +- +- Local Variables:
      |  +-   |        |     +- +- Code:
      |  +-   |        |     +-    +- >> Proxy Statement: 
@@ -6679,23 +5940,17 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   |        |     +-    |  <<
      |  +-   |        |     +-    +- St: =
      |  +-   |        |     +-    |  +- Op: >> Proxy Data Access [t] <<
-     |  +-   |        |     +-    |  +- Op: >> unary proxy <<
-     |  +-   |        |     +-    |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-   |        |     +-    +- St: >> unary proxy <<
-     |  +-   |        |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-   |        |     +-    +- St: >> unary proxy <<
-     |  +-   |        |     +-       +- Op: >> Proxy Data Access [Proxy access to member add] <<
-     |  +-   |        |     +-          +- Op: Local variable access: tokenList
+     |  +-   |        |     +-    |  +- Op: >> proxy [ () ]
+     |  +-   |        |     +-    +- St: >> proxy [ () ]
+     |  +-   |        |     +-    +- St: >> proxy [ () ]
      |  +-   |        |     <<
      |  +-   |        +- St: =
      |  +-   |        |  +- Op: >> Proxy Data Access [t] <<
-     |  +-   |        |  +- Op: >> unary proxy <<
-     |  +-   |        |     +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   |        |  +- Op: >> proxy [ () ]
      |  +-   |        +- If Statement:
      |  +-   |           +- Condition:
      |  +-   |           |  +- Op: >
-     |  +-   |           |     +- Op: >> unary proxy <<
-     |  +-   |           |     |  +- Op: >> Proxy Data Access [tokenList.size] <<
+     |  +-   |           |     +- Op: >> proxy [ () ]
      |  +-   |           |     +- Op: Literal
      |  +-   |           |        +- Integer: 0
      |  +-   |           +- If Code:
@@ -6721,14 +5976,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-               +- case :
      |  +-               +-   St: =
      |  +-               +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-               +-   +- Op: >> unary proxy <<
-     |  +-               +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-               +-   St: >> unary proxy <<
-     |  +-               +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-               +-   +- Op: >> proxy [ () ]
+     |  +-               +-   St: >> proxy [ () ]
      |  +-               +-   St: =
      |  +-               +-   +- Op: >> Proxy Data Access [t2] <<
-     |  +-               +-   +- Op: >> unary proxy <<
-     |  +-               +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-               +-   +- Op: >> proxy [ () ]
      |  +-               +-   St: =
      |  +-               +-   +- Op: >> Proxy Data Access [result] <<
      |  +-               +-   +- Op: >> proxy [ new something ]
@@ -6738,28 +5990,22 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-               +- default:
      |  +-               +-   If Statement:
      |  +-               +-   +- Condition:
-     |  +-               +-   |  +- Op: >> unary proxy <<
-     |  +-               +-   |     +- Op: >> Proxy Data Access [jj_2_27] <<
+     |  +-               +-   |  +- Op: >> proxy [ () ]
      |  +-               +-   +- If Code:
      |  +-               +-   |  +- Block:
      |  +-               +-   |     +- Local Variables:
      |  +-               +-   |     +- Code:
      |  +-               +-   |        +- St: =
      |  +-               +-   |        |  +- Op: >> Proxy Data Access [type] <<
-     |  +-               +-   |        |  +- Op: >> unary proxy <<
-     |  +-               +-   |        |     +- Op: >> Proxy Data Access [ClassOrInterfaceType] <<
+     |  +-               +-   |        |  +- Op: >> proxy [ () ]
      |  +-               +-   |        +- St: =
      |  +-               +-   |        |  +- Op: >> Proxy Data Access [t] <<
-     |  +-               +-   |        |  +- Op: >> unary proxy <<
-     |  +-               +-   |        |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-               +-   |        +- St: >> unary proxy <<
-     |  +-               +-   |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-               +-   |        +- St: >> unary proxy <<
-     |  +-               +-   |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-               +-   |        |  +- Op: >> proxy [ () ]
+     |  +-               +-   |        +- St: >> proxy [ () ]
+     |  +-               +-   |        +- St: >> proxy [ () ]
      |  +-               +-   |        +- St: =
      |  +-               +-   |        |  +- Op: >> Proxy Data Access [t2] <<
-     |  +-               +-   |        |  +- Op: >> unary proxy <<
-     |  +-               +-   |        |     +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-               +-   |        |  +- Op: >> proxy [ () ]
      |  +-               +-   |        +- St: =
      |  +-               +-   |           +- Op: >> Proxy Data Access [result] <<
      |  +-               +-   |           +- Op: >> proxy [ new something ]
@@ -6770,20 +6016,16 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-               +-            +- >> Proxy Statement: 
      |  +-               +-               +- switch() {
      |  +-               +-               +- case :
-     |  +-               +-               +-   St: >> unary proxy <<
-     |  +-               +-               +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-               +-               +-   St: >> proxy [ () ]
      |  +-               +-               +-   St: =
      |  +-               +-               +-   +- Op: >> Proxy Data Access [result] <<
-     |  +-               +-               +-   +- Op: >> unary proxy <<
-     |  +-               +-               +-      +- Op: >> Proxy Data Access [Expression] <<
-     |  +-               +-               +-   St: >> unary proxy <<
-     |  +-               +-               +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-               +-               +-   +- Op: >> proxy [ () ]
+     |  +-               +-               +-   St: >> proxy [ () ]
      |  +-               +-               +-   >> Proxy Statement: 
      |  +-               +-               +-   +- break;
      |  +-               +-               +-   <<
      |  +-               +-               +- case :
-     |  +-               +-               +-   St: >> unary proxy <<
-     |  +-               +-               +-   +- Op: >> Proxy Data Access [AllocationExpression] <<
+     |  +-               +-               +-   St: >> proxy [ () ]
      |  +-               +-               +-   St: =
      |  +-               +-               +-   +- Op: >> Proxy Data Access [result] <<
      |  +-               +-               +-   +- Op: >> proxy [ new something ]
@@ -6793,20 +6035,16 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-               +-               +- default:
      |  +-               +-               +-   If Statement:
      |  +-               +-               +-   +- Condition:
-     |  +-               +-               +-   |  +- Op: >> unary proxy <<
-     |  +-               +-               +-   |     +- Op: >> Proxy Data Access [jj_2_28] <<
+     |  +-               +-               +-   |  +- Op: >> proxy [ () ]
      |  +-               +-               +-   +- If Code:
      |  +-               +-               +-   |  +- Block:
      |  +-               +-               +-   |     +- Local Variables:
      |  +-               +-               +-   |     +- Code:
      |  +-               +-               +-   |        +- St: =
      |  +-               +-               +-   |        |  +- Op: >> Proxy Data Access [type] <<
-     |  +-               +-               +-   |        |  +- Op: >> unary proxy <<
-     |  +-               +-               +-   |        |     +- Op: >> Proxy Data Access [ResultType] <<
-     |  +-               +-               +-   |        +- St: >> unary proxy <<
-     |  +-               +-               +-   |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-               +-               +-   |        +- St: >> unary proxy <<
-     |  +-               +-               +-   |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-               +-               +-   |        |  +- Op: >> proxy [ () ]
+     |  +-               +-               +-   |        +- St: >> proxy [ () ]
+     |  +-               +-               +-   |        +- St: >> proxy [ () ]
      |  +-               +-               +-   |        +- St: =
      |  +-               +-               +-   |           +- Op: >> Proxy Data Access [result] <<
      |  +-               +-               +-   |           +- Op: >> proxy [ new something ]
@@ -6820,19 +6058,15 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-               +-               +-               +-   Statements:
      |  +-               +-               +-               +-   St: =
      |  +-               +-               +-               +-   +- Op: >> Proxy Data Access [aux] <<
-     |  +-               +-               +-               +-   +- Op: >> unary proxy <<
-     |  +-               +-               +-               +-      +- Op: >> Proxy Data Access [Name] <<
+     |  +-               +-               +-               +-   +- Op: >> proxy [ () ]
      |  +-               +-               +-               +-   St: =
      |  +-               +-               +-               +-   +- Op: >> Proxy Data Access [result] <<
-     |  +-               +-               +-               +-   +- Op: >> unary proxy <<
-     |  +-               +-               +-               +-      +- Op: Static Access:
-     |  +-               +-               +-               +-         +- Lcat.quadriga.parsers.code.Utils; -> Proxy access to resolveName
+     |  +-               +-               +-               +-   +- Op: >> proxy [ (, ) ]
      |  +-               +-               +-               +-   >> Proxy Statement: 
      |  +-               +-               +-               +-   +- break;
      |  +-               +-               +-               +-   <<
      |  +-               +-               +-               +- default:
-     |  +-               +-               +-               +-   St: >> unary proxy <<
-     |  +-               +-               +-               +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-               +-               +-               +-   St: >> proxy [ () ]
      |  +-               +-               +-               +-   >> Proxy Statement: 
      |  +-               +-               +-               +-   +- throw ;
      |  +-               +-               +-               +-   <<
@@ -6858,118 +6092,150 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- throw ;
         <<
-  final public PrimarySuffix(<>Ljava.util.List; ) throws 
+  final public Lcat.quadriga.parsers.code.expressions.ExpressionNode; PrimarySuffix(Lcat.quadriga.parsers.code.expressions.ExpressionNode; ) throws 
   Block:
   +- Local Variables:
+  |  +- Symbol Var [printAux] Type [Ljava.util.List;]
   +- Code:
      +- Statements:
+     +- Statements:
+     +- Statements:
+     |  +- St: =
+     |     +- Op: >> proxy [ new something ]
+     |     +- Op: >> proxy [ new something ]
      +- If Statement:
-        +- Condition:
-        |  +- Op: >> unary proxy <<
-        |     +- Op: >> Proxy Data Access [jj_2_29] <<
-        +- If Code:
-        |  +- Block:
-        |     +- Local Variables:
-        |     +- Code:
-        |        +- St: >> unary proxy <<
-        |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-        |        +- St: >> unary proxy <<
-        |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-        |        +- St: >> unary proxy <<
-        |        |  +- Op: >> Proxy Data Access [out.add] <<
-        |        +- St: >> unary proxy <<
-        |           +- Op: >> Proxy Data Access [out.add] <<
-        +- Else Code:
-           +- If Statement:
-              +- Condition:
-              |  +- Op: >> unary proxy <<
-              |     +- Op: >> Proxy Data Access [jj_2_30] <<
-              +- If Code:
-              |  +- Block:
-              |     +- Local Variables:
-              |     +- Code:
-              |        +- St: >> unary proxy <<
-              |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-              |        +- St: >> unary proxy <<
-              |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-              |        +- St: >> unary proxy <<
-              |        |  +- Op: >> Proxy Data Access [out.add] <<
-              |        +- St: >> unary proxy <<
-              |           +- Op: >> Proxy Data Access [out.add] <<
-              +- Else Code:
-                 +- If Statement:
-                    +- Condition:
-                    |  +- Op: >> unary proxy <<
-                    |     +- Op: >> Proxy Data Access [jj_2_31] <<
-                    +- If Code:
-                    |  +- Block:
-                    |     +- Local Variables:
-                    |     +- Code:
-                    |        +- St: >> unary proxy <<
-                    |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-                    |        +- St: >> unary proxy <<
-                    |        |  +- Op: >> Proxy Data Access [out.add] <<
-                    |        +- St: >> unary proxy <<
-                    |           +- Op: >> Proxy Data Access [AllocationExpression] <<
-                    +- Else Code:
-                       +- If Statement:
-                          +- Condition:
-                          |  +- Op: >> unary proxy <<
-                          |     +- Op: >> Proxy Data Access [jj_2_32] <<
-                          +- If Code:
-                          |  +- Block:
-                          |     +- Local Variables:
-                          |     +- Code:
-                          |        +- St: >> unary proxy <<
-                          |           +- Op: >> Proxy Data Access [MemberSelector] <<
-                          +- Else Code:
-                             +- Block:
-                                +- Local Variables:
-                                +- Code:
-                                   +- >> Proxy Statement: 
-                                      +- switch() {
-                                      +- case :
-                                      +-   St: >> unary proxy <<
-                                      +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-                                      +-   St: >> unary proxy <<
-                                      +-   +- Op: >> Proxy Data Access [out.add] <<
-                                      +-   St: >> unary proxy <<
-                                      +-   +- Op: >> Proxy Data Access [Expression] <<
-                                      +-   St: >> unary proxy <<
-                                      +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-                                      +-   St: >> unary proxy <<
-                                      +-   +- Op: >> Proxy Data Access [out.add] <<
-                                      +-   >> Proxy Statement: 
-                                      +-   +- break;
-                                      +-   <<
-                                      +- case :
-                                      +-   St: >> unary proxy <<
-                                      +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-                                      +-   St: =
-                                      +-   +- Op: >> Proxy Data Access [t] <<
-                                      +-   +- Op: >> unary proxy <<
-                                      +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
-                                      +-   St: >> unary proxy <<
-                                      +-   +- Op: >> Proxy Data Access [out.add] <<
-                                      +-   St: >> unary proxy <<
-                                      +-   +- Op: >> Proxy Data Access [out.add] <<
-                                      +-   >> Proxy Statement: 
-                                      +-   +- break;
-                                      +-   <<
-                                      +- case :
-                                      +-   St: >> unary proxy <<
-                                      +-   +- Op: >> Proxy Data Access [Arguments] <<
-                                      +-   >> Proxy Statement: 
-                                      +-   +- break;
-                                      +-   <<
-                                      +- default:
-                                      +-   St: >> unary proxy <<
-                                      +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-                                      +-   >> Proxy Statement: 
-                                      +-   +- throw ;
-                                      +-   <<
-                                      +- }
-                                      <<
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |  |  +- Block:
+     |  |     +- Local Variables:
+     |  |     +- Code:
+     |  |        +- St: =
+     |  |        |  +- Op: >> Proxy Data Access [t] <<
+     |  |        |  +- Op: >> proxy [ () ]
+     |  |        +- St: =
+     |  |        |  +- Op: >> Proxy Data Access [t2] <<
+     |  |        |  +- Op: >> proxy [ () ]
+     |  |        +- St: =
+     |  |           +- Op: >> Proxy Data Access [out] <<
+     |  |           +- Op: >> proxy [ new something ]
+     |  +- Else Code:
+     |     +- If Statement:
+     |        +- Condition:
+     |        |  +- Op: >> proxy [ () ]
+     |        +- If Code:
+     |        |  +- Block:
+     |        |     +- Local Variables:
+     |        |     +- Code:
+     |        |        +- St: =
+     |        |        |  +- Op: >> Proxy Data Access [t] <<
+     |        |        |  +- Op: >> proxy [ () ]
+     |        |        +- St: =
+     |        |        |  +- Op: >> Proxy Data Access [t2] <<
+     |        |        |  +- Op: >> proxy [ () ]
+     |        |        +- St: =
+     |        |           +- Op: >> Proxy Data Access [out] <<
+     |        |           +- Op: >> proxy [ new something ]
+     |        +- Else Code:
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |              |  +- Block:
+     |              |     +- Local Variables:
+     |              |     +- Code:
+     |              |        +- St: >> proxy [ () ]
+     |              |        +- St: >> proxy [ () ]
+     |              |        +- St: >> proxy [ () ]
+     |              |        +- St: =
+     |              |           +- Op: >> Proxy Data Access [out] <<
+     |              |           +- Op: >> proxy [ new something ]
+     |              +- Else Code:
+     |                 +- If Statement:
+     |                    +- Condition:
+     |                    |  +- Op: >> proxy [ () ]
+     |                    +- If Code:
+     |                    |  +- Block:
+     |                    |     +- Local Variables:
+     |                    |     +- Code:
+     |                    |        +- St: >> proxy [ () ]
+     |                    |        +- St: =
+     |                    |           +- Op: >> Proxy Data Access [out] <<
+     |                    |           +- Op: >> proxy [ new something ]
+     |                    +- Else Code:
+     |                       +- Block:
+     |                          +- Local Variables:
+     |                          +- Code:
+     |                             +- >> Proxy Statement: 
+     |                                +- switch() {
+     |                                +- case :
+     |                                +-   St: >> proxy [ () ]
+     |                                +-   St: >> proxy [ () ]
+     |                                +-   St: >> proxy [ () ]
+     |                                +-   St: >> proxy [ () ]
+     |                                +-   St: >> proxy [ () ]
+     |                                +-   St: =
+     |                                +-   +- Op: >> Proxy Data Access [out] <<
+     |                                +-   +- Op: >> proxy [ new something ]
+     |                                +-   >> Proxy Statement: 
+     |                                +-   +- break;
+     |                                +-   <<
+     |                                +- case :
+     |                                +-   St: >> proxy [ () ]
+     |                                +-   St: =
+     |                                +-   +- Op: >> Proxy Data Access [t] <<
+     |                                +-   +- Op: >> proxy [ () ]
+     |                                +-   If Statement:
+     |                                +-   +- Condition:
+     |                                +-   |  +- Op: instanceof
+     |                                +-   |     +- Op: >> Proxy Data Access [in] <<
+     |                                +-   |     +- Op: >> proxy [ Lcat.quadriga.parsers.code.expressions.dataaccess.DataAccess; ]
+     |                                +-   +- If Code:
+     |                                +-   |  +- Block:
+     |                                +-   |     +- Local Variables:
+     |                                +-   |     +- Code:
+     |                                +-   |        +- St: =
+     |                                +-   |           +- Op: >> Proxy Data Access [out] <<
+     |                                +-   |           +- Op: >> proxy [ (, , ) ]
+     |                                +-   +- Else Code:
+     |                                +-      +- Block:
+     |                                +-         +- Local Variables:
+     |                                +-         +- Code:
+     |                                +-            +- St: =
+     |                                +-               +- Op: >> Proxy Data Access [out] <<
+     |                                +-               +- Op: >> proxy [ new something ]
+     |                                +-   >> Proxy Statement: 
+     |                                +-   +- break;
+     |                                +-   <<
+     |                                +- case :
+     |                                +-   St: >> proxy [ () ]
+     |                                +-   St: =
+     |                                +-   +- Op: >> Proxy Data Access [out] <<
+     |                                +-   +- Op: >> proxy [ new something ]
+     |                                +-   >> Proxy Statement: 
+     |                                +-   +- break;
+     |                                +-   <<
+     |                                +- default:
+     |                                +-   St: >> proxy [ () ]
+     |                                +-   >> Proxy Statement: 
+     |                                +-   +- throw ;
+     |                                +-   <<
+     |                                +- }
+     |                                <<
+     +- Block:
+     |  +- Local Variables:
+     |  +- Code:
+     |     +- If Statement:
+     |        +- Condition:
+     |        |  +- Op: Literal
+     |        |     +- Boolean: true
+     |        +- If Code:
+     |           +- >> Proxy Statement: 
+     |              +- return ;
+     |              <<
+     +- >> Proxy Statement: 
+        +- throw ;
+        <<
   final public Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData; Literal() throws 
   Block:
   +- Local Variables:
@@ -6981,8 +6247,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [data] <<
      |  +-   +- Op: >> proxy [ new something ]
@@ -6992,8 +6257,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [data] <<
      |  +-   +- Op: >> proxy [ new something ]
@@ -7003,8 +6267,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [data] <<
      |  +-   +- Op: >> proxy [ new something ]
@@ -7014,8 +6277,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [data] <<
      |  +-   +- Op: >> proxy [ new something ]
@@ -7026,22 +6288,19 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [data] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [BooleanLiteral] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [data] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [NullLiteral] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
      |  +- default:
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- throw ;
      |  +-   <<
@@ -7071,8 +6330,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   Block:
      |  +-   +- Local Variables:
      |  +-   +- Code:
@@ -7090,8 +6348,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   Block:
      |  +-   +- Local Variables:
      |  +-   +- Code:
@@ -7107,8 +6364,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- break;
      |  +-   <<
      |  +- default:
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- throw ;
      |  +-   <<
@@ -7124,8 +6380,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +- Op: >> proxy [ () ]
      +- Block:
      |  +- Local Variables:
      |  +- Code:
@@ -7149,8 +6404,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- St: =
      |     +- Op: >> proxy [ new something ]
      |     +- Op: >> proxy [ new something ]
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
@@ -7180,8 +6434,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +- case :
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [ArgumentList] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -7189,20 +6442,15 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.addAll] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public ArgumentList(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Expression] <<
+     +- St: >> proxy [ () ]
      +- LABEL: label_36
         +- >> Proxy Statement: 
            +- while( )
@@ -7222,14 +6470,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
            +-    |  +-   <<
            +-    |  +- }
            +-    |  <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [out.add] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [out.add] <<
-           +-    +- St: >> unary proxy <<
-           +-       +- Op: >> Proxy Data Access [Expression] <<Block:
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]Block:
            +- +- Local Variables:
            +- +- Code:
            +-    +- >> Proxy Statement: 
@@ -7245,14 +6489,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
            +-    |  +-   <<
            +-    |  +- }
            +-    |  <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [out.add] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [out.add] <<
-           +-    +- St: >> unary proxy <<
-           +-       +- Op: >> Proxy Data Access [Expression] <<
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
            <<
   final public AllocationExpression(<>Ljava.util.List; ) throws 
   Block:
@@ -7269,26 +6509,18 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Op: >> proxy [ new something ]
      +- If Statement:
         +- Condition:
-        |  +- Op: >> unary proxy <<
-        |     +- Op: >> Proxy Data Access [jj_2_33] <<
+        |  +- Op: >> proxy [ () ]
         +- If Code:
         |  +- Block:
         |     +- Local Variables:
         |     +- Code:
-        |        +- St: >> unary proxy <<
-        |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-        |        +- St: >> unary proxy <<
-        |        |  +- Op: >> Proxy Data Access [PrimitiveType] <<
-        |        +- St: >> unary proxy <<
-        |        |  +- Op: >> Proxy Data Access [ArrayDimsAndInits] <<
-        |        +- St: >> unary proxy <<
-        |        |  +- Op: >> Proxy Data Access [out.add] <<
-        |        +- St: >> unary proxy <<
-        |        |  +- Op: >> Proxy Data Access [out.add] <<
-        |        +- St: >> unary proxy <<
-        |        |  +- Op: >> Proxy Data Access [out.addAll] <<
-        |        +- St: >> unary proxy <<
-        |           +- Op: >> Proxy Data Access [out.addAll] <<
+        |        +- St: >> proxy [ () ]
+        |        +- St: >> proxy [ () ]
+        |        +- St: >> proxy [ () ]
+        |        +- St: >> proxy [ () ]
+        |        +- St: >> proxy [ () ]
+        |        +- St: >> proxy [ () ]
+        |        +- St: >> proxy [ () ]
         +- Else Code:
            +- Block:
               +- Local Variables:
@@ -7296,19 +6528,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
                  +- >> Proxy Statement: 
                     +- switch() {
                     +- case :
-                    +-   St: >> unary proxy <<
-                    +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-                    +-   St: >> unary proxy <<
-                    +-   +- Op: >> Proxy Data Access [out.add] <<
-                    +-   St: >> unary proxy <<
-                    +-   +- Op: >> Proxy Data Access [out.add] <<
-                    +-   St: >> unary proxy <<
-                    +-   +- Op: >> Proxy Data Access [ClassOrInterfaceType] <<
+                    +-   St: >> proxy [ () ]
+                    +-   St: >> proxy [ () ]
+                    +-   St: >> proxy [ () ]
+                    +-   St: >> proxy [ () ]
                     +-   >> Proxy Statement: 
                     +-   +- switch() {
                     +-   +- case :
-                    +-   +-   St: >> unary proxy <<
-                    +-   +-   +- Op: >> Proxy Data Access [TypeArguments] <<
+                    +-   +-   St: >> proxy [ () ]
                     +-   +-   >> Proxy Statement: 
                     +-   +-   +- break;
                     +-   +-   <<
@@ -7319,19 +6546,16 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
                     +-   >> Proxy Statement: 
                     +-   +- switch() {
                     +-   +- case :
-                    +-   +-   St: >> unary proxy <<
-                    +-   +-   +- Op: >> Proxy Data Access [ArrayDimsAndInits] <<
+                    +-   +-   St: >> proxy [ () ]
                     +-   +-   >> Proxy Statement: 
                     +-   +-   +- break;
                     +-   +-   <<
                     +-   +- case :
-                    +-   +-   St: >> unary proxy <<
-                    +-   +-   +- Op: >> Proxy Data Access [Arguments] <<
+                    +-   +-   St: >> proxy [ () ]
                     +-   +-   >> Proxy Statement: 
                     +-   +-   +- switch() {
                     +-   +-   +- case :
-                    +-   +-   +-   St: >> unary proxy <<
-                    +-   +-   +-   +- Op: >> Proxy Data Access [ClassOrInterfaceBody] <<
+                    +-   +-   +-   St: >> proxy [ (, ) ]
                     +-   +-   +-   >> Proxy Statement: 
                     +-   +-   +-   +- break;
                     +-   +-   +-   <<
@@ -7343,8 +6567,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
                     +-   +-   +- break;
                     +-   +-   <<
                     +-   +- default:
-                    +-   +-   St: >> unary proxy <<
-                    +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+                    +-   +-   St: >> proxy [ () ]
                     +-   +-   >> Proxy Statement: 
                     +-   +-   +- throw ;
                     +-   +-   <<
@@ -7354,8 +6577,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
                     +-   +- break;
                     +-   <<
                     +- default:
-                    +-   St: >> unary proxy <<
-                    +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+                    +-   St: >> proxy [ () ]
                     +-   >> Proxy Statement: 
                     +-   +- throw ;
                     +-   <<
@@ -7367,8 +6589,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
         +- Condition:
-        |  +- Op: >> unary proxy <<
-        |     +- Op: >> Proxy Data Access [jj_2_36] <<
+        |  +- Op: >> proxy [ () ]
         +- If Code:
         |  +- Block:
         |     +- Local Variables:
@@ -7379,20 +6600,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         |        |     +- Block:
         |        |     +- +- Local Variables:
         |        |     +- +- Code:
-        |        |     +-    +- St: >> unary proxy <<
-        |        |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-        |        |     +-    +- St: >> unary proxy <<
-        |        |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-        |        |     +-    +- St: >> unary proxy <<
-        |        |     +-    |  +- Op: >> Proxy Data Access [Expression] <<
-        |        |     +-    +- St: >> unary proxy <<
-        |        |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-        |        |     +-    +- St: >> unary proxy <<
-        |        |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
+        |        |     +-    +- St: >> proxy [ () ]
+        |        |     +-    +- St: >> proxy [ () ]
+        |        |     +-    +- St: >> proxy [ () ]
+        |        |     +-    +- St: >> proxy [ () ]
+        |        |     +-    +- St: >> proxy [ () ]
         |        |     +-    +- If Statement:
         |        |     +-       +- Condition:
-        |        |     +-       |  +- Op: >> unary proxy <<
-        |        |     +-       |     +- Op: >> Proxy Data Access [jj_2_34] <<
+        |        |     +-       |  +- Op: >> proxy [ () ]
         |        |     +-       +- If Code:
         |        |     +-       |  +- Block:
         |        |     +-       |     +- Local Variables:
@@ -7407,20 +6622,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         |        |     +-                   <<Block:
         |        |     +- +- Local Variables:
         |        |     +- +- Code:
-        |        |     +-    +- St: >> unary proxy <<
-        |        |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-        |        |     +-    +- St: >> unary proxy <<
-        |        |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-        |        |     +-    +- St: >> unary proxy <<
-        |        |     +-    |  +- Op: >> Proxy Data Access [Expression] <<
-        |        |     +-    +- St: >> unary proxy <<
-        |        |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-        |        |     +-    +- St: >> unary proxy <<
-        |        |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
+        |        |     +-    +- St: >> proxy [ () ]
+        |        |     +-    +- St: >> proxy [ () ]
+        |        |     +-    +- St: >> proxy [ () ]
+        |        |     +-    +- St: >> proxy [ () ]
+        |        |     +-    +- St: >> proxy [ () ]
         |        |     +-    +- If Statement:
         |        |     +-       +- Condition:
-        |        |     +-       |  +- Op: >> unary proxy <<
-        |        |     +-       |     +- Op: >> Proxy Data Access [jj_2_34] <<
+        |        |     +-       |  +- Op: >> proxy [ () ]
         |        |     +-       +- If Code:
         |        |     +-       |  +- Block:
         |        |     +-       |     +- Local Variables:
@@ -7442,8 +6651,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         |              +- +- Code:
         |              +-    +- If Statement:
         |              +-    |  +- Condition:
-        |              +-    |  |  +- Op: >> unary proxy <<
-        |              +-    |  |     +- Op: >> Proxy Data Access [jj_2_35] <<
+        |              +-    |  |  +- Op: >> proxy [ () ]
         |              +-    |  +- If Code:
         |              +-    |  |  +- Block:
         |              +-    |  |     +- Local Variables:
@@ -7456,20 +6664,15 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         |              +-    |           +- >> Proxy Statement: 
         |              +-    |              +- break label_38;
         |              +-    |              <<
-        |              +-    +- St: >> unary proxy <<
-        |              +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-        |              +-    +- St: >> unary proxy <<
-        |              +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-        |              +-    +- St: >> unary proxy <<
-        |              +-    |  +- Op: >> Proxy Data Access [out.add] <<
-        |              +-    +- St: >> unary proxy <<
-        |              +-       +- Op: >> Proxy Data Access [out.add] <<Block:
+        |              +-    +- St: >> proxy [ () ]
+        |              +-    +- St: >> proxy [ () ]
+        |              +-    +- St: >> proxy [ () ]
+        |              +-    +- St: >> proxy [ () ]Block:
         |              +- +- Local Variables:
         |              +- +- Code:
         |              +-    +- If Statement:
         |              +-    |  +- Condition:
-        |              +-    |  |  +- Op: >> unary proxy <<
-        |              +-    |  |     +- Op: >> Proxy Data Access [jj_2_35] <<
+        |              +-    |  |  +- Op: >> proxy [ () ]
         |              +-    |  +- If Code:
         |              +-    |  |  +- Block:
         |              +-    |  |     +- Local Variables:
@@ -7482,14 +6685,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         |              +-    |           +- >> Proxy Statement: 
         |              +-    |              +- break label_38;
         |              +-    |              <<
-        |              +-    +- St: >> unary proxy <<
-        |              +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-        |              +-    +- St: >> unary proxy <<
-        |              +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-        |              +-    +- St: >> unary proxy <<
-        |              +-    |  +- Op: >> Proxy Data Access [out.add] <<
-        |              +-    +- St: >> unary proxy <<
-        |              +-       +- Op: >> Proxy Data Access [out.add] <<
+        |              +-    +- St: >> proxy [ () ]
+        |              +-    +- St: >> proxy [ () ]
+        |              +-    +- St: >> proxy [ () ]
+        |              +-    +- St: >> proxy [ () ]
         |              <<
         +- Else Code:
            +- Block:
@@ -7504,14 +6703,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
                     +-      +- Block:
                     +-      +- +- Local Variables:
                     +-      +- +- Code:
-                    +-      +-    +- St: >> unary proxy <<
-                    +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-                    +-      +-    +- St: >> unary proxy <<
-                    +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-                    +-      +-    +- St: >> unary proxy <<
-                    +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
-                    +-      +-    +- St: >> unary proxy <<
-                    +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
+                    +-      +-    +- St: >> proxy [ () ]
+                    +-      +-    +- St: >> proxy [ () ]
+                    +-      +-    +- St: >> proxy [ () ]
+                    +-      +-    +- St: >> proxy [ () ]
                     +-      +-    +- >> Proxy Statement: 
                     +-      +-       +- switch() {
                     +-      +-       +- case :
@@ -7527,14 +6722,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
                     +-      +-       <<Block:
                     +-      +- +- Local Variables:
                     +-      +- +- Code:
-                    +-      +-    +- St: >> unary proxy <<
-                    +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-                    +-      +-    +- St: >> unary proxy <<
-                    +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-                    +-      +-    +- St: >> unary proxy <<
-                    +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
-                    +-      +-    +- St: >> unary proxy <<
-                    +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
+                    +-      +-    +- St: >> proxy [ () ]
+                    +-      +-    +- St: >> proxy [ () ]
+                    +-      +-    +- St: >> proxy [ () ]
+                    +-      +-    +- St: >> proxy [ () ]
                     +-      +-    +- >> Proxy Statement: 
                     +-      +-       +- switch() {
                     +-      +-       +- case :
@@ -7549,14 +6740,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
                     +-      +-       +- }
                     +-      +-       <<
                     +-      <<
-                    +-   St: >> unary proxy <<
-                    +-   +- Op: >> Proxy Data Access [ArrayInitializer] <<
+                    +-   St: >> proxy [ () ]
                     +-   >> Proxy Statement: 
                     +-   +- break;
                     +-   <<
                     +- default:
-                    +-   St: >> unary proxy <<
-                    +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+                    +-   St: >> proxy [ () ]
                     +-   >> Proxy Statement: 
                     +-   +- throw ;
                     +-   <<
@@ -7575,16 +6764,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        +- Null
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_2_37] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |  |  +- Block:
      |  |     +- Local Variables:
      |  |     +- Code:
      |  |        +- St: =
      |  |           +- Op: Local variable access: statement
-     |  |           +- Op: >> unary proxy <<
-     |  |              +- Op: >> Proxy Data Access [LabeledStatement] <<
+     |  |           +- Op: >> proxy [ () ]
      |  +- Else Code:
      |     +- Block:
      |        +- Local Variables:
@@ -7592,24 +6779,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           +- >> Proxy Statement: 
      |              +- switch() {
      |              +- case :
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [AssertStatement] <<
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- case :
      |              +-   St: =
      |              +-   +- Op: >> Proxy Data Access [statement] <<
-     |              +-   +- Op: >> unary proxy <<
-     |              +-      +- Op: >> Proxy Data Access [Block] <<
+     |              +-   +- Op: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- case :
      |              +-   St: =
      |              +-   +- Op: >> Proxy Data Access [statement] <<
-     |              +-   +- Op: >> unary proxy <<
-     |              +-      +- Op: >> Proxy Data Access [EmptyStatement] <<
+     |              +-   +- Op: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
@@ -7638,84 +6822,70 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- case :
      |              +-   St: =
      |              +-   +- Op: >> Proxy Data Access [statement] <<
-     |              +-   +- Op: >> unary proxy <<
-     |              +-      +- Op: >> Proxy Data Access [StatementExpression] <<
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |              +-   +- Op: >> proxy [ () ]
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- case :
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [SwitchStatement] <<
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- case :
      |              +-   St: =
      |              +-   +- Op: >> Proxy Data Access [statement] <<
-     |              +-   +- Op: >> unary proxy <<
-     |              +-      +- Op: >> Proxy Data Access [IfStatement] <<
+     |              +-   +- Op: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- case :
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [WhileStatement] <<
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- case :
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [DoStatement] <<
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- case :
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [ForStatement] <<
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- case :
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [BreakStatement] <<
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- case :
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [ContinueStatement] <<
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- case :
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [ReturnStatement] <<
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- case :
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [ThrowStatement] <<
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- case :
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [SynchronizedStatement] <<
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- case :
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [TryStatement] <<
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- default:
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- throw ;
      |              +-   <<
@@ -7741,12 +6911,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        +- Code:
      |           +- Statements:
      |           |  +- St: =
-     |           |     +- Op: >> unary proxy <<
-     |           |     |  +- Op: >> Proxy Data Access [statement.treeStringRepresentation] <<
-     |           |     +- Op: >> unary proxy <<
-     |           |        +- Op: >> Proxy Data Access [statement.treeStringRepresentation] <<
-     |           +- St: >> unary proxy <<
-     |              +- Op: >> Proxy Data Access [out.addAll] <<
+     |           |     +- Op: >> proxy [ () ]
+     |           |     +- Op: >> proxy [ () ]
+     |           +- St: >> proxy [ () ]
      +- Block:
      |  +- Local Variables:
      |  +- Code:
@@ -7765,27 +6932,18 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Expression] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [out.add] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [out.add] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [Expression] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [out.add] <<
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -7793,10 +6951,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public Lcat.quadriga.parsers.code.statements.StatementNode; LabeledStatement() throws 
   Block:
   +- Local Variables:
@@ -7810,14 +6966,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [node] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [Statement] <<
+     |  +- Op: >> proxy [ () ]
      +- Block:
      |  +- Local Variables:
      |  +- Code:
@@ -7845,12 +6998,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Op: >> Proxy Data Access [localBlock] <<
      +- Statements:
      +- Statements:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [symbolTable.newContext] <<
+     +- St: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +- Op: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [localBlock] <<
      |  +- Op: >> proxy [ new something ]
@@ -7924,10 +7075,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [blockStatementNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [BlockStatement] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [localBlock.addStatement] <<Block:
+     |     +-    |  +- Op: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]Block:
      |     +- +- Local Variables:
      |     +- +- Code:
      |     +-    +- >> Proxy Statement: 
@@ -7994,38 +7143,26 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [blockStatementNode] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [BlockStatement] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [localBlock.addStatement] <<
+     |     +-    |  +- Op: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     <<
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- Statements:
      |  +- St: =
-     |     +- Op: >> unary proxy <<
-     |     |  +- Op: >> Proxy Data Access [localBlock.transformToBlockCode] <<
-     |     +- Op: >> unary proxy <<
-     |        +- Op: >> Proxy Data Access [localBlock.transformToBlockCode] <<
+     |     +- Op: >> proxy [ () ]
+     |     +- Op: >> proxy [ () ]
      +- Statements:
      |  +- St: =
-     |     +- Op: >> unary proxy <<
-     |     |  +- Op: >> Proxy Data Access [Proxy access to member treeStringRepresentation] <<
-     |     |     +- Op: Local variable access: block
-     |     +- Op: >> unary proxy <<
-     |        +- Op: >> Proxy Data Access [Proxy access to member treeStringRepresentation] <<
-     |           +- Op: Local variable access: block
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.addAll] <<
+     |     +- Op: >> proxy [ () ]
+     |     +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [localBlock] <<
      |  +- Op: >> Proxy Data Access [prevBlock] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [symbolTable.deleteContext] <<
+     +- St: >> proxy [ () ]
      +- Block:
      |  +- Local Variables:
      |  +- Code:
@@ -8053,20 +7190,17 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_2_38] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |  |  +- Block:
      |  |     +- Local Variables:
      |  |     +- Code:
      |  |        +- St: =
      |  |        |  +- Op: >> Proxy Data Access [result] <<
-     |  |        |  +- Op: >> unary proxy <<
-     |  |        |     +- Op: >> Proxy Data Access [LocalVariableDeclaration] <<
+     |  |        |  +- Op: >> proxy [ () ]
      |  |        +- St: =
      |  |           +- Op: >> Proxy Data Access [t] <<
-     |  |           +- Op: >> unary proxy <<
-     |  |              +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  |           +- Op: >> proxy [ () ]
      |  +- Else Code:
      |     +- Block:
      |        +- Local Variables:
@@ -8112,15 +7246,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- case :
      |              +-   St: =
      |              +-   +- Op: >> Proxy Data Access [result] <<
-     |              +-   +- Op: >> unary proxy <<
-     |              +-      +- Op: >> Proxy Data Access [Statement] <<
+     |              +-   +- Op: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- case :
      |              +- case :
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [ClassOrInterfaceDeclaration] <<
+     |              +-   St: >> proxy [ (, ) ]
      |              +-   St: =
      |              +-   +- Op: >> Proxy Data Access [result] <<
      |              +-   +- Op: >> proxy [ new something ]
@@ -8128,8 +7260,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +-   +- break;
      |              +-   <<
      |              +- default:
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- throw ;
      |              +-   <<
@@ -8168,16 +7299,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Op: >> proxy [ new something ]
      +- St: =
      |  +- Op: >> Proxy Data Access [modifiers] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [Modifiers] <<
+     |  +- Op: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [type] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [Type] <<
+     |  +- Op: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [var] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [VariableDeclarator] <<
+     |  +- Op: >> proxy [ (, ) ]
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: !=
@@ -8194,17 +7322,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- St: =
      |           |     +- Op: >> proxy [ new something ]
      |           |     +- Op: >> proxy [ new something ]
-     |           +- St: >> unary proxy <<
-     |           |  +- Op: >> Proxy Data Access [symbolTable.addSymbol] <<
-     |           +- St: >> unary proxy <<
-     |           |  +- Op: >> Proxy Data Access [localBlock.addLocalVariable] <<
+     |           +- St: >> proxy [ () ]
+     |           +- St: >> proxy [ () ]
      |           +- Statements:
      |           |  +- St: =
      |           |     +- Op: >> proxy [ new something ]
      |           |     +- Op: >> proxy [ new something ]
-     |           +- St: >> unary proxy <<
-     |              +- Op: >> Proxy Data Access [Proxy access to member add] <<
-     |                 +- Op: Local variable access: initializers
+     |           +- St: >> proxy [ () ]
      +- LABEL: label_41
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -8224,12 +7348,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [var] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [VariableDeclarator] <<
+     |     +-    |  +- Op: >> proxy [ (, ) ]
      |     +-    +- If Statement:
      |     +-       +- Condition:
      |     +-       |  +- Op: !=
@@ -8246,16 +7368,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-                |  +- St: =
      |     +-                |     +- Op: >> proxy [ new something ]
      |     +-                |     +- Op: >> proxy [ new something ]
-     |     +-                +- St: >> unary proxy <<
-     |     +-                |  +- Op: >> Proxy Data Access [initializers.add] <<
+     |     +-                +- St: >> proxy [ () ]
      |     +-                +- Statements:
      |     +-                |  +- St: =
      |     +-                |     +- Op: >> proxy [ new something ]
      |     +-                |     +- Op: >> proxy [ new something ]
-     |     +-                +- St: >> unary proxy <<
-     |     +-                |  +- Op: >> Proxy Data Access [symbolTable.addSymbol] <<
-     |     +-                +- St: >> unary proxy <<
-     |     +-                   +- Op: >> Proxy Data Access [localBlock.addLocalVariable] <<Block:
+     |     +-                +- St: >> proxy [ () ]
+     |     +-                +- St: >> proxy [ () ]Block:
      |     +- +- Local Variables:
      |     +- +- Code:
      |     +-    +- >> Proxy Statement: 
@@ -8271,12 +7390,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [var] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [VariableDeclarator] <<
+     |     +-    |  +- Op: >> proxy [ (, ) ]
      |     +-    +- If Statement:
      |     +-       +- Condition:
      |     +-       |  +- Op: !=
@@ -8293,16 +7410,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-                |  +- St: =
      |     +-                |     +- Op: >> proxy [ new something ]
      |     +-                |     +- Op: >> proxy [ new something ]
-     |     +-                +- St: >> unary proxy <<
-     |     +-                |  +- Op: >> Proxy Data Access [initializers.add] <<
+     |     +-                +- St: >> proxy [ () ]
      |     +-                +- Statements:
      |     +-                |  +- St: =
      |     +-                |     +- Op: >> proxy [ new something ]
      |     +-                |     +- Op: >> proxy [ new something ]
-     |     +-                +- St: >> unary proxy <<
-     |     +-                |  +- Op: >> Proxy Data Access [symbolTable.addSymbol] <<
-     |     +-                +- St: >> unary proxy <<
-     |     +-                   +- Op: >> Proxy Data Access [localBlock.addLocalVariable] <<
+     |     +-                +- St: >> proxy [ () ]
+     |     +-                +- St: >> proxy [ () ]
      |     <<
      +- Block:
      |  +- Local Variables:
@@ -8325,8 +7439,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +- Op: >> proxy [ () ]
      +- Block:
      |  +- Local Variables:
      |  +- Code:
@@ -8363,22 +7476,19 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- case :
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [expression] <<
-     |  +-   +-   +- Op: >> unary proxy <<
-     |  +-   +-      +- Op: >> Proxy Data Access [PreIncrementExpression] <<
+     |  +-   +-   +- Op: >> proxy [ () ]
      |  +-   +-   >> Proxy Statement: 
      |  +-   +-   +- break;
      |  +-   +-   <<
      |  +-   +- case :
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [expression] <<
-     |  +-   +-   +- Op: >> unary proxy <<
-     |  +-   +-      +- Op: >> Proxy Data Access [PreDecrementExpression] <<
+     |  +-   +-   +- Op: >> proxy [ () ]
      |  +-   +-   >> Proxy Statement: 
      |  +-   +-   +- break;
      |  +-   +-   <<
      |  +-   +- default:
-     |  +-   +-   St: >> unary proxy <<
-     |  +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +-   St: >> proxy [ () ]
      |  +-   +-   >> Proxy Statement: 
      |  +-   +-   +- throw ;
      |  +-   +-   <<
@@ -8413,8 +7523,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [expression] <<
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [PrimaryExpression] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- switch() {
      |  +-   +- case :
@@ -8424,22 +7533,19 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +-   +- case :
      |  +-   +-   +-   St: =
      |  +-   +-   +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +-   +-   +- Op: >> unary proxy <<
-     |  +-   +-   +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +-   +-   +- Op: >> proxy [ () ]
      |  +-   +-   +-   >> Proxy Statement: 
      |  +-   +-   +-   +- break;
      |  +-   +-   +-   <<
      |  +-   +-   +- case :
      |  +-   +-   +-   St: =
      |  +-   +-   +-   +- Op: >> Proxy Data Access [t] <<
-     |  +-   +-   +-   +- Op: >> unary proxy <<
-     |  +-   +-   +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +-   +-   +- Op: >> proxy [ () ]
      |  +-   +-   +-   >> Proxy Statement: 
      |  +-   +-   +-   +- break;
      |  +-   +-   +-   <<
      |  +-   +-   +- default:
-     |  +-   +-   +-   St: >> unary proxy <<
-     |  +-   +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +-   +-   St: >> proxy [ () ]
      |  +-   +-   +-   >> Proxy Statement: 
      |  +-   +-   +-   +- throw ;
      |  +-   +-   +-   <<
@@ -8468,12 +7574,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- case :
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [assignOperator] <<
-     |  +-   +-   +- Op: >> unary proxy <<
-     |  +-   +-      +- Op: >> Proxy Data Access [AssignmentOperator] <<
+     |  +-   +-   +- Op: >> proxy [ () ]
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [expression2] <<
-     |  +-   +-   +- Op: >> unary proxy <<
-     |  +-   +-      +- Op: >> Proxy Data Access [Expression] <<
+     |  +-   +-   +- Op: >> proxy [ () ]
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [statementNode] <<
      |  +-   +-   +- Op: >> proxy [ new something ]
@@ -8490,8 +7594,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- break;
      |  +-   <<
      |  +- default:
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- throw ;
      |  +-   <<
@@ -8515,26 +7618,16 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Expression] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- LABEL: label_42
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -8555,12 +7648,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [SwitchLabel] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- LABEL: label_43
      |     +-    |  +- >> Proxy Statement: 
      |     +-    |     +- while( )
@@ -8630,21 +7720,16 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |     +-    |  +-   <<
      |     +-    |     +-    |  +- }
      |     +-    |     +-    |  <<
-     |     +-    |     +-    +- St: >> unary proxy <<
-     |     +-    |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
+     |     +-    |     +-    +- St: >> proxy [ () ]
      |     +-    |     +-    +- Statements:
      |     +-    |     +-    +- St: =
      |     +-    |     +-    |  +- Op: >> Proxy Data Access [bsn] <<
-     |     +-    |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +-    |     +- Op: >> Proxy Data Access [BlockStatement] <<
+     |     +-    |     +-    |  +- Op: >> proxy [ () ]
      |     +-    |     +-    +- Statements:
      |     +-    |     +-    |  +- St: =
-     |     +-    |     +-    |     +- Op: >> unary proxy <<
-     |     +-    |     +-    |     |  +- Op: >> Proxy Data Access [bsn.treeStringRepresentation] <<
-     |     +-    |     +-    |     +- Op: >> unary proxy <<
-     |     +-    |     +-    |        +- Op: >> Proxy Data Access [bsn.treeStringRepresentation] <<
-     |     +-    |     +-    +- St: >> unary proxy <<
-     |     +-    |     +-       +- Op: >> Proxy Data Access [out.addAll] <<Block:
+     |     +-    |     +-    |     +- Op: >> proxy [ () ]
+     |     +-    |     +-    |     +- Op: >> proxy [ () ]
+     |     +-    |     +-    +- St: >> proxy [ () ]Block:
      |     +-    |     +- +- Local Variables:
      |     +-    |     +- |  +- Symbol Var [treeString] Type [Ljava.lang.String;]
      |     +-    |     +- +- Code:
@@ -8710,24 +7795,18 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |     +-    |  +-   <<
      |     +-    |     +-    |  +- }
      |     +-    |     +-    |  <<
-     |     +-    |     +-    +- St: >> unary proxy <<
-     |     +-    |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
+     |     +-    |     +-    +- St: >> proxy [ () ]
      |     +-    |     +-    +- Statements:
      |     +-    |     +-    +- St: =
      |     +-    |     +-    |  +- Op: >> Proxy Data Access [bsn] <<
-     |     +-    |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +-    |     +- Op: >> Proxy Data Access [BlockStatement] <<
+     |     +-    |     +-    |  +- Op: >> proxy [ () ]
      |     +-    |     +-    +- Statements:
      |     +-    |     +-    |  +- St: =
-     |     +-    |     +-    |     +- Op: >> unary proxy <<
-     |     +-    |     +-    |     |  +- Op: >> Proxy Data Access [bsn.treeStringRepresentation] <<
-     |     +-    |     +-    |     +- Op: >> unary proxy <<
-     |     +-    |     +-    |        +- Op: >> Proxy Data Access [bsn.treeStringRepresentation] <<
-     |     +-    |     +-    +- St: >> unary proxy <<
-     |     +-    |     +-       +- Op: >> Proxy Data Access [out.addAll] <<
+     |     +-    |     +-    |     +- Op: >> proxy [ () ]
+     |     +-    |     +-    |     +- Op: >> proxy [ () ]
+     |     +-    |     +-    +- St: >> proxy [ () ]
      |     +-    |     <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [out.add] <<Block:
+     |     +-    +- St: >> proxy [ () ]Block:
      |     +- +- Local Variables:
      |     +- +- Code:
      |     +-    +- >> Proxy Statement: 
@@ -8744,12 +7823,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [SwitchLabel] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- LABEL: label_43
      |     +-    |  +- >> Proxy Statement: 
      |     +-    |     +- while( )
@@ -8819,21 +7895,16 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |     +-    |  +-   <<
      |     +-    |     +-    |  +- }
      |     +-    |     +-    |  <<
-     |     +-    |     +-    +- St: >> unary proxy <<
-     |     +-    |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
+     |     +-    |     +-    +- St: >> proxy [ () ]
      |     +-    |     +-    +- Statements:
      |     +-    |     +-    +- St: =
      |     +-    |     +-    |  +- Op: >> Proxy Data Access [bsn] <<
-     |     +-    |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +-    |     +- Op: >> Proxy Data Access [BlockStatement] <<
+     |     +-    |     +-    |  +- Op: >> proxy [ () ]
      |     +-    |     +-    +- Statements:
      |     +-    |     +-    |  +- St: =
-     |     +-    |     +-    |     +- Op: >> unary proxy <<
-     |     +-    |     +-    |     |  +- Op: >> Proxy Data Access [bsn.treeStringRepresentation] <<
-     |     +-    |     +-    |     +- Op: >> unary proxy <<
-     |     +-    |     +-    |        +- Op: >> Proxy Data Access [bsn.treeStringRepresentation] <<
-     |     +-    |     +-    +- St: >> unary proxy <<
-     |     +-    |     +-       +- Op: >> Proxy Data Access [out.addAll] <<Block:
+     |     +-    |     +-    |     +- Op: >> proxy [ () ]
+     |     +-    |     +-    |     +- Op: >> proxy [ () ]
+     |     +-    |     +-    +- St: >> proxy [ () ]Block:
      |     +-    |     +- +- Local Variables:
      |     +-    |     +- |  +- Symbol Var [treeString] Type [Ljava.lang.String;]
      |     +-    |     +- +- Code:
@@ -8899,31 +7970,22 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |     +-    |  +-   <<
      |     +-    |     +-    |  +- }
      |     +-    |     +-    |  <<
-     |     +-    |     +-    +- St: >> unary proxy <<
-     |     +-    |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
+     |     +-    |     +-    +- St: >> proxy [ () ]
      |     +-    |     +-    +- Statements:
      |     +-    |     +-    +- St: =
      |     +-    |     +-    |  +- Op: >> Proxy Data Access [bsn] <<
-     |     +-    |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +-    |     +- Op: >> Proxy Data Access [BlockStatement] <<
+     |     +-    |     +-    |  +- Op: >> proxy [ () ]
      |     +-    |     +-    +- Statements:
      |     +-    |     +-    |  +- St: =
-     |     +-    |     +-    |     +- Op: >> unary proxy <<
-     |     +-    |     +-    |     |  +- Op: >> Proxy Data Access [bsn.treeStringRepresentation] <<
-     |     +-    |     +-    |     +- Op: >> unary proxy <<
-     |     +-    |     +-    |        +- Op: >> Proxy Data Access [bsn.treeStringRepresentation] <<
-     |     +-    |     +-    +- St: >> unary proxy <<
-     |     +-    |     +-       +- Op: >> Proxy Data Access [out.addAll] <<
+     |     +-    |     +-    |     +- Op: >> proxy [ () ]
+     |     +-    |     +-    |     +- Op: >> proxy [ () ]
+     |     +-    |     +-    +- St: >> proxy [ () ]
      |     +-    |     <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [out.add] <<
+     |     +-    +- St: >> proxy [ () ]
      |     <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public SwitchLabel(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -8936,38 +7998,26 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- switch() {
         +- case :
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [Expression] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [out.add] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [out.add] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [out.addAll] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [out.add] <<
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- break;
         +-   <<
         +- case :
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [out.add] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [out.add] <<
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- break;
         +-   <<
         +- default:
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- throw ;
         +-   <<
@@ -8992,37 +8042,26 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [expression] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [Expression] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [symbolTable.newContext] <<
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [node1] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [Statement] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [symbolTable.deleteContext] <<
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [symbolTable.newContext] <<
+     |  +-   St: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
      |  +-   St: =
      |  +-   +- Op: Local variable access: node2
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [Statement] <<
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [symbolTable.deleteContext] <<
+     |  +-   +- Op: >> proxy [ () ]
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -9048,103 +8087,63 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Expression] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [Statement] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public DoStatement(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Statement] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Expression] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public ForStatement(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
   +- Code:
      +- Statements:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_2_39] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |  |  +- Block:
      |  |     +- Local Variables:
      |  |     +- Code:
-     |  |        +- St: >> unary proxy <<
-     |  |        |  +- Op: >> Proxy Data Access [Modifiers] <<
-     |  |        +- St: >> unary proxy <<
-     |  |        |  +- Op: >> Proxy Data Access [Type] <<
+     |  |        +- St: >> proxy [ () ]
+     |  |        +- St: >> proxy [ () ]
      |  |        +- St: =
      |  |        |  +- Op: >> Proxy Data Access [t] <<
-     |  |        |  +- Op: >> unary proxy <<
-     |  |        |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  |        +- St: >> unary proxy <<
-     |  |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  |        +- St: >> unary proxy <<
-     |  |        |  +- Op: >> Proxy Data Access [out.add] <<
-     |  |        +- St: >> unary proxy <<
-     |  |        |  +- Op: >> Proxy Data Access [out.add] <<
-     |  |        +- St: >> unary proxy <<
-     |  |        |  +- Op: >> Proxy Data Access [out.add] <<
-     |  |        +- St: >> unary proxy <<
-     |  |        |  +- Op: >> Proxy Data Access [out.add] <<
-     |  |        +- St: >> unary proxy <<
-     |  |           +- Op: >> Proxy Data Access [Expression] <<
+     |  |        |  +- Op: >> proxy [ () ]
+     |  |        +- St: >> proxy [ () ]
+     |  |        +- St: >> proxy [ () ]
+     |  |        +- St: >> proxy [ () ]
+     |  |        +- St: >> proxy [ () ]
+     |  |        +- St: >> proxy [ () ]
+     |  |        +- St: >> proxy [ () ]
      |  +- Else Code:
      |     +- Block:
      |        +- Local Variables:
@@ -9224,8 +8223,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +-   +- case :
      |              +-   +- case :
      |              +-   +- case :
-     |              +-   +-   St: >> unary proxy <<
-     |              +-   +-   +- Op: >> Proxy Data Access [ForInit] <<
+     |              +-   +-   St: >> proxy [ () ]
      |              +-   +-   >> Proxy Statement: 
      |              +-   +-   +- break;
      |              +-   +-   <<
@@ -9233,12 +8231,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +-   +-   St: No operation
      |              +-   +- }
      |              +-   <<
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [out.add] <<
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [out.add] <<
+     |              +-   St: >> proxy [ () ]
+     |              +-   St: >> proxy [ () ]
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- switch() {
      |              +-   +- case :
@@ -9268,8 +8263,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +-   +- case :
      |              +-   +- case :
      |              +-   +- case :
-     |              +-   +-   St: >> unary proxy <<
-     |              +-   +-   +- Op: >> Proxy Data Access [Expression] <<
+     |              +-   +-   St: >> proxy [ () ]
      |              +-   +-   >> Proxy Statement: 
      |              +-   +-   +- break;
      |              +-   +-   <<
@@ -9277,12 +8271,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +-   +-   St: No operation
      |              +-   +- }
      |              +-   <<
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [out.add] <<
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [out.add] <<
+     |              +-   St: >> proxy [ () ]
+     |              +-   St: >> proxy [ () ]
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- switch() {
      |              +-   +- case :
@@ -9308,8 +8299,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +-   +- case :
      |              +-   +- case :
      |              +-   +- case :
-     |              +-   +-   St: >> unary proxy <<
-     |              +-   +-   +- Op: >> Proxy Data Access [ForUpdate] <<
+     |              +-   +-   St: >> proxy [ () ]
      |              +-   +-   >> Proxy Statement: 
      |              +-   +-   +- break;
      |              +-   +-   <<
@@ -9321,21 +8311,16 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +-   +- break;
      |              +-   <<
      |              +- default:
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- throw ;
      |              +-   <<
      |              +- }
      |              <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [Statement] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public Lcat.quadriga.parsers.code.statements.StatementNode; ForInit(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -9344,16 +8329,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_2_40] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |  |  +- Block:
      |  |     +- Local Variables:
      |  |     +- Code:
      |  |        +- St: =
      |  |           +- Op: >> Proxy Data Access [result] <<
-     |  |           +- Op: >> unary proxy <<
-     |  |              +- Op: >> Proxy Data Access [LocalVariableDeclaration] <<
+     |  |           +- Op: >> proxy [ () ]
      |  +- Else Code:
      |     +- Block:
      |        +- Local Variables:
@@ -9385,14 +8368,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- case :
      |              +-   St: =
      |              +-   +- Op: >> Proxy Data Access [result] <<
-     |              +-   +- Op: >> unary proxy <<
-     |              +-      +- Op: >> Proxy Data Access [StatementExpressionList] <<
+     |              +-   +- Op: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- break;
      |              +-   <<
      |              +- default:
-     |              +-   St: >> unary proxy <<
-     |              +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |              +-   St: >> proxy [ () ]
      |              +-   >> Proxy Statement: 
      |              +-   +- throw ;
      |              +-   <<
@@ -9400,12 +8381,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              <<
      +- Statements:
      |  +- St: =
-     |     +- Op: >> unary proxy <<
-     |     |  +- Op: >> Proxy Data Access [result.treeStringRepresentation] <<
-     |     +- Op: >> unary proxy <<
-     |        +- Op: >> Proxy Data Access [result.treeStringRepresentation] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.addAll] <<
+     |     +- Op: >> proxy [ () ]
+     |     +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- Block:
      |  +- Local Variables:
      |  +- Code:
@@ -9433,11 +8411,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Op: >> proxy [ new something ]
      +- St: =
      |  +- Op: >> Proxy Data Access [statement] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [StatementExpression] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Proxy access to member add] <<
-     |     +- Op: Local variable access: statements
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- LABEL: label_44
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -9457,15 +8432,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [statement] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [StatementExpression] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [Proxy access to member add] <<
-     |     +-          +- Op: Local variable access: statementsBlock:
+     |     +-    |  +- Op: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]Block:
      |     +- +- Local Variables:
      |     +- +- Code:
      |     +-    +- >> Proxy Statement: 
@@ -9481,27 +8452,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |     +-    +- St: >> proxy [ () ]
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [statement] <<
-     |     +-    |  +- Op: >> unary proxy <<
-     |     +-    |     +- Op: >> Proxy Data Access [StatementExpression] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [Proxy access to member add] <<
-     |     +-          +- Op: Local variable access: statements
+     |     +-    |  +- Op: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     <<
      +- St: =
      |  +- Op: >> Proxy Data Access [statement] <<
      |  +- Op: >> proxy [ new something ]
      +- Statements:
      |  +- St: =
-     |     +- Op: >> unary proxy <<
-     |     |  +- Op: >> Proxy Data Access [statement.treeStringRepresentation] <<
-     |     +- Op: >> unary proxy <<
-     |        +- Op: >> Proxy Data Access [statement.treeStringRepresentation] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.addAll] <<
+     |     +- Op: >> proxy [ () ]
+     |     +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- Block:
      |  +- Local Variables:
      |  +- Code:
@@ -9520,8 +8484,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [StatementExpressionList] <<
+     +- St: >> proxy [ () ]
   final public BreakStatement(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -9533,15 +8496,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     |  +- Null
      |     +- Op: Literal
      |        +- Null
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: Local variable access: t
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -9549,10 +8510,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: !=
@@ -9563,12 +8522,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Block:
      |        +- Local Variables:
      |        +- Code:
-     |           +- St: >> unary proxy <<
-     |           |  +- Op: >> Proxy Data Access [out.add] <<
-     |           +- St: >> unary proxy <<
-     |              +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     |           +- St: >> proxy [ () ]
+     |           +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public ContinueStatement(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -9580,15 +8536,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     |  +- Null
      |     +- Op: Literal
      |        +- Null
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
      |  +-   St: =
      |  +-   +- Op: Local variable access: t
-     |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +- Op: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -9596,10 +8550,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: !=
@@ -9610,22 +8562,16 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Block:
      |        +- Local Variables:
      |        +- Code:
-     |           +- St: >> unary proxy <<
-     |           |  +- Op: >> Proxy Data Access [out.add] <<
-     |           +- St: >> unary proxy <<
-     |              +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     |           +- St: >> proxy [ () ]
+     |           +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public ReturnStatement(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
@@ -9655,8 +8601,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +- case :
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [Expression] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -9664,10 +8609,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public ThrowStatement(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -9677,54 +8620,34 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- St: =
      |     +- Op: >> proxy [ new something ]
      |     +- Op: >> proxy [ new something ]
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Expression] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.addAll] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public SynchronizedStatement(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Expression] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [Block] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public TryStatement(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Block] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- LABEL: label_45
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -9744,26 +8667,16 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [FormalParameter] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [Block] <<Block:
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]Block:
      |     +- +- Local Variables:
      |     +- +- Code:
      |     +-    +- >> Proxy Statement: 
@@ -9779,40 +8692,25 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [FormalParameter] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [Block] <<
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
+     |     +-    +- St: >> proxy [ () ]
      |     <<
      +- >> Proxy Statement: 
         +- switch() {
         +- case :
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [out.add] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [out.add] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [out.add] <<
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [Block] <<
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- break;
         +-   <<
@@ -9828,15 +8726,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Condition:
      |  |  +- Op: &&
      |  |     +- Op: ==
-     |  |     |  +- Op: >> unary proxy <<
-     |  |     |  |  +- Op: >> unary proxy <<
-     |  |     |  |     +- Op: >> Proxy Data Access [getToken] <<
+     |  |     |  +- Op: >> Proxy Data Access [kind] <<
+     |  |     |  |  +- Op: >> proxy [ () ]
      |  |     |  +- Op: >> Proxy Data Access [GT] <<
      |  |     +- Op: ==
-     |  |        +- Op: >> unary proxy <<
+     |  |        +- Op: >> Proxy Data Access [realKind] <<
      |  |        |  +- Op: cast Lcat.quadriga.parsers.tokens.MySimpleToken;
-     |  |        |     +- Op: >> unary proxy <<
-     |  |        |        +- Op: >> Proxy Data Access [getToken] <<
+     |  |        |     +- Op: >> proxy [ () ]
      |  |        +- Op: >> Proxy Data Access [RUNSIGNEDSHIFT] <<
      |  +- If Code:
      |  |  +- Block:
@@ -9846,17 +8742,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Block:
      |        +- Local Variables:
      |        +- Code:
-     |           +- St: >> unary proxy <<
-     |           |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |           +- St: >> proxy [ () ]
      |           +- >> Proxy Statement: 
      |              +- throw ;
      |              <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [jj_consume_token] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public RSIGNEDSHIFT() throws 
   Block:
   +- Local Variables:
@@ -9865,15 +8757,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Condition:
      |  |  +- Op: &&
      |  |     +- Op: ==
-     |  |     |  +- Op: >> unary proxy <<
-     |  |     |  |  +- Op: >> unary proxy <<
-     |  |     |  |     +- Op: >> Proxy Data Access [getToken] <<
+     |  |     |  +- Op: >> Proxy Data Access [kind] <<
+     |  |     |  |  +- Op: >> proxy [ () ]
      |  |     |  +- Op: >> Proxy Data Access [GT] <<
      |  |     +- Op: ==
-     |  |        +- Op: >> unary proxy <<
+     |  |        +- Op: >> Proxy Data Access [realKind] <<
      |  |        |  +- Op: cast Lcat.quadriga.parsers.tokens.MySimpleToken;
-     |  |        |     +- Op: >> unary proxy <<
-     |  |        |        +- Op: >> Proxy Data Access [getToken] <<
+     |  |        |     +- Op: >> proxy [ () ]
      |  |        +- Op: >> Proxy Data Access [RSIGNEDSHIFT] <<
      |  +- If Code:
      |  |  +- Block:
@@ -9883,40 +8773,33 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Block:
      |        +- Local Variables:
      |        +- Code:
-     |           +- St: >> unary proxy <<
-     |           |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |           +- St: >> proxy [ () ]
      |           +- >> Proxy Statement: 
      |              +- throw ;
      |              <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [jj_consume_token] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public Annotation(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
         +- Condition:
-        |  +- Op: >> unary proxy <<
-        |     +- Op: >> Proxy Data Access [jj_2_41] <<
+        |  +- Op: >> proxy [ () ]
         +- If Code:
         |  +- Block:
         |     +- Local Variables:
         |     +- Code:
-        |        +- St: >> unary proxy <<
-        |           +- Op: >> Proxy Data Access [NormalAnnotation] <<
+        |        +- St: >> proxy [ () ]
         +- Else Code:
            +- If Statement:
               +- Condition:
-              |  +- Op: >> unary proxy <<
-              |     +- Op: >> Proxy Data Access [jj_2_42] <<
+              |  +- Op: >> proxy [ () ]
               +- If Code:
               |  +- Block:
               |     +- Local Variables:
               |     +- Code:
-              |        +- St: >> unary proxy <<
-              |           +- Op: >> Proxy Data Access [SingleMemberAnnotation] <<
+              |        +- St: >> proxy [ () ]
               +- Else Code:
                  +- Block:
                     +- Local Variables:
@@ -9924,14 +8807,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
                        +- >> Proxy Statement: 
                           +- switch() {
                           +- case :
-                          +-   St: >> unary proxy <<
-                          +-   +- Op: >> Proxy Data Access [MarkerAnnotation] <<
+                          +-   St: >> proxy [ () ]
                           +-   >> Proxy Statement: 
                           +-   +- break;
                           +-   <<
                           +- default:
-                          +-   St: >> unary proxy <<
-                          +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+                          +-   St: >> proxy [ () ]
                           +-   >> Proxy Statement: 
                           +-   +- throw ;
                           +-   <<
@@ -9941,23 +8822,16 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Name] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [MemberValuePairs] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -9965,48 +8839,33 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public MarkerAnnotation(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [Name] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public SingleMemberAnnotation(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Name] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [MemberValue] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public MemberValuePairs(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [MemberValuePair] <<
+     +- St: >> proxy [ () ]
      +- LABEL: label_46
         +- >> Proxy Statement: 
            +- while( )
@@ -10026,14 +8885,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
            +-    |  +-   <<
            +-    |  +- }
            +-    |  <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [out.add] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [out.add] <<
-           +-    +- St: >> unary proxy <<
-           +-       +- Op: >> Proxy Data Access [MemberValuePair] <<Block:
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]Block:
            +- +- Local Variables:
            +- +- Code:
            +-    +- >> Proxy Statement: 
@@ -10049,14 +8904,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
            +-    |  +-   <<
            +-    |  +- }
            +-    |  <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [out.add] <<
-           +-    +- St: >> unary proxy <<
-           +-    |  +- Op: >> Proxy Data Access [out.add] <<
-           +-    +- St: >> unary proxy <<
-           +-       +- Op: >> Proxy Data Access [MemberValuePair] <<
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
+           +-    +- St: >> proxy [ () ]
            <<
   final public MemberValuePair(<>Ljava.util.List; ) throws 
   Block:
@@ -10065,20 +8916,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [MemberValue] <<
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public MemberValue(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -10086,14 +8930,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- switch() {
         +- case :
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [Annotation] <<
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- break;
         +-   <<
         +- case :
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [MemberValueArrayInitializer] <<
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- break;
         +-   <<
@@ -10124,14 +8966,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         +- case :
         +- case :
         +- case :
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [ConditionalExpression] <<
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- break;
         +-   <<
         +- default:
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- throw ;
         +-   <<
@@ -10141,14 +8981,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- >> Proxy Statement: 
      |  +- switch() {
      |  +- case :
@@ -10180,8 +9016,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- case :
      |  +- case :
      |  +- case :
-     |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [MemberValue] <<
+     |  +-   St: >> proxy [ () ]
      |  +-   LABEL: label_47
      |  +-   +- >> Proxy Statement: 
      |  +-      +- while( )
@@ -10190,8 +9025,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +- +- Code:
      |  +-      +-    +- If Statement:
      |  +-      +-    |  +- Condition:
-     |  +-      +-    |  |  +- Op: >> unary proxy <<
-     |  +-      +-    |  |     +- Op: >> Proxy Data Access [jj_2_43] <<
+     |  +-      +-    |  |  +- Op: >> proxy [ () ]
      |  +-      +-    |  +- If Code:
      |  +-      +-    |  |  +- Block:
      |  +-      +-    |  |     +- Local Variables:
@@ -10204,20 +9038,15 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +-    |           +- >> Proxy Statement: 
      |  +-      +-    |              +- break label_47;
      |  +-      +-    |              <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-       +- Op: >> Proxy Data Access [MemberValue] <<Block:
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]Block:
      |  +-      +- +- Local Variables:
      |  +-      +- +- Code:
      |  +-      +-    +- If Statement:
      |  +-      +-    |  +- Condition:
-     |  +-      +-    |  |  +- Op: >> unary proxy <<
-     |  +-      +-    |  |     +- Op: >> Proxy Data Access [jj_2_43] <<
+     |  +-      +-    |  |  +- Op: >> proxy [ () ]
      |  +-      +-    |  +- If Code:
      |  +-      +-    |  |  +- Block:
      |  +-      +-    |  |     +- Local Variables:
@@ -10230,20 +9059,15 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +-    |           +- >> Proxy Statement: 
      |  +-      +-    |              +- break label_47;
      |  +-      +-    |              <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-    |  +- Op: >> Proxy Data Access [out.add] <<
-     |  +-      +-    +- St: >> unary proxy <<
-     |  +-      +-       +- Op: >> Proxy Data Access [MemberValue] <<
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
+     |  +-      +-    +- St: >> proxy [ () ]
      |  +-      <<
      |  +-   >> Proxy Statement: 
      |  +-   +- switch() {
      |  +-   +- case :
-     |  +-   +-   St: >> unary proxy <<
-     |  +-   +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+     |  +-   +-   St: >> proxy [ () ]
      |  +-   +-   >> Proxy Statement: 
      |  +-   +-   +- break;
      |  +-   +-   <<
@@ -10258,53 +9082,35 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: No operation
      |  +- }
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public AnnotationTypeDeclaration(I , <>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
   +- Code:
      +- Statements:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [t] <<
-     |  +- Op: >> unary proxy <<
-     |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [AnnotationTypeBody] <<
+     |  +- Op: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public AnnotationTypeBody(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
      +- LABEL: label_48
      |  +- >> Proxy Statement: 
      |     +- while( )
@@ -10348,8 +9154,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [AnnotationTypeMemberDeclaration] <<Block:
+     |     +-    +- St: >> proxy [ () ]Block:
      |     +- +- Local Variables:
      |     +- +- Code:
      |     +-    +- >> Proxy Statement: 
@@ -10389,17 +9194,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   <<
      |     +-    |  +- }
      |     +-    |  <<
-     |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [AnnotationTypeMemberDeclaration] <<
+     |     +-    +- St: >> proxy [ () ]
      |     <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [out.add] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   final public AnnotationTypeMemberDeclaration(<>Ljava.util.List; ) throws 
   Block:
   +- Local Variables:
@@ -10434,37 +9234,27 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         +- case :
         +-   St: =
         +-   +- Op: >> Proxy Data Access [modifiers] <<
-        +-   +- Op: >> unary proxy <<
-        +-      +- Op: >> Proxy Data Access [Modifiers] <<
+        +-   +- Op: >> proxy [ () ]
         +-   If Statement:
         +-   +- Condition:
-        +-   |  +- Op: >> unary proxy <<
-        +-   |     +- Op: >> Proxy Data Access [jj_2_44] <<
+        +-   |  +- Op: >> proxy [ () ]
         +-   +- If Code:
         +-   |  +- Block:
         +-   |     +- Local Variables:
         +-   |     +- Code:
-        +-   |        +- St: >> unary proxy <<
-        +-   |        |  +- Op: >> Proxy Data Access [Type] <<
+        +-   |        +- St: >> proxy [ () ]
         +-   |        +- St: =
         +-   |        |  +- Op: >> Proxy Data Access [t] <<
-        +-   |        |  +- Op: >> unary proxy <<
-        +-   |        |     +- Op: >> Proxy Data Access [jj_consume_token] <<
-        +-   |        +- St: >> unary proxy <<
-        +-   |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-        +-   |        +- St: >> unary proxy <<
-        +-   |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-        +-   |        +- St: >> unary proxy <<
-        +-   |        |  +- Op: >> Proxy Data Access [out.add] <<
-        +-   |        +- St: >> unary proxy <<
-        +-   |        |  +- Op: >> Proxy Data Access [out.add] <<
-        +-   |        +- St: >> unary proxy <<
-        +-   |        |  +- Op: >> Proxy Data Access [out.add] <<
+        +-   |        |  +- Op: >> proxy [ () ]
+        +-   |        +- St: >> proxy [ () ]
+        +-   |        +- St: >> proxy [ () ]
+        +-   |        +- St: >> proxy [ () ]
+        +-   |        +- St: >> proxy [ () ]
+        +-   |        +- St: >> proxy [ () ]
         +-   |        +- >> Proxy Statement: 
         +-   |        |  +- switch() {
         +-   |        |  +- case :
-        +-   |        |  +-   St: >> unary proxy <<
-        +-   |        |  +-   +- Op: >> Proxy Data Access [DefaultValue] <<
+        +-   |        |  +-   St: >> proxy [ () ]
         +-   |        |  +-   >> Proxy Statement: 
         +-   |        |  +-   +- break;
         +-   |        |  +-   <<
@@ -10472,10 +9262,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         +-   |        |  +-   St: No operation
         +-   |        |  +- }
         +-   |        |  <<
-        +-   |        +- St: >> unary proxy <<
-        +-   |        |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-        +-   |        +- St: >> unary proxy <<
-        +-   |           +- Op: >> Proxy Data Access [out.add] <<
+        +-   |        +- St: >> proxy [ () ]
+        +-   |        +- St: >> proxy [ () ]
         +-   +- Else Code:
         +-      +- Block:
         +-         +- Local Variables:
@@ -10484,20 +9272,17 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         +-               +- switch() {
         +-               +- case :
         +-               +- case :
-        +-               +-   St: >> unary proxy <<
-        +-               +-   +- Op: >> Proxy Data Access [ClassOrInterfaceDeclaration] <<
+        +-               +-   St: >> proxy [ (, ) ]
         +-               +-   >> Proxy Statement: 
         +-               +-   +- break;
         +-               +-   <<
         +-               +- case :
-        +-               +-   St: >> unary proxy <<
-        +-               +-   +- Op: >> Proxy Data Access [EnumDeclaration] <<
+        +-               +-   St: >> proxy [ (, ) ]
         +-               +-   >> Proxy Statement: 
         +-               +-   +- break;
         +-               +-   <<
         +-               +- case :
-        +-               +-   St: >> unary proxy <<
-        +-               +-   +- Op: >> Proxy Data Access [AnnotationTypeDeclaration] <<
+        +-               +-   St: >> proxy [ (, ) ]
         +-               +-   >> Proxy Statement: 
         +-               +-   +- break;
         +-               +-   <<
@@ -10510,14 +9295,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         +-               +- case :
         +-               +- case :
         +-               +- case :
-        +-               +-   St: >> unary proxy <<
-        +-               +-   +- Op: >> Proxy Data Access [FieldDeclaration] <<
+        +-               +-   St: >> proxy [ (, ) ]
         +-               +-   >> Proxy Statement: 
         +-               +-   +- break;
         +-               +-   <<
         +-               +- default:
-        +-               +-   St: >> unary proxy <<
-        +-               +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+        +-               +-   St: >> proxy [ () ]
         +-               +-   >> Proxy Statement: 
         +-               +-   +- throw ;
         +-               +-   <<
@@ -10527,14 +9310,12 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         +-   +- break;
         +-   <<
         +- case :
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- break;
         +-   <<
         +- default:
-        +-   St: >> unary proxy <<
-        +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
+        +-   St: >> proxy [ () ]
         +-   >> Proxy Statement: 
         +-   +- throw ;
         +-   <<
@@ -10544,14 +9325,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_consume_token] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [out.add] <<
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [MemberValue] <<
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
+     +- St: >> proxy [ () ]
   private Z jj_2_1(I )
   Block:
   +- Local Variables:
@@ -11740,88 +10517,27 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         +-       +- return ;
         +-       <<
         <<
-  private Z jj_3R_169()
+  private Z jj_3R_158()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_85] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_64] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_311] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- >> Proxy Statement: 
-     |  +- while( )
-     |  +- Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_342] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_342] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<
-     |  <<
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_285()
+  private Z jj_3R_287()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -11837,8 +10553,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_287] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -11856,8 +10571,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_287] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -11871,8 +10585,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -11886,166 +10599,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_196] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_173()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_196] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- >> Proxy Statement: 
-     |  +- while( )
-     |  +- Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_230] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_230] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<
-     |  <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3_38()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_85] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_64] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_168()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_80] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_158()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_171] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_225()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_173] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12059,8 +10620,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_170] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12068,22 +10628,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_155()
+  private Z jj_3R_173()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_80] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12099,8 +10650,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_168] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -12118,66 +10668,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_168] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<
-     |  <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_160()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_173] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- >> Proxy Statement: 
-     |  +- while( )
-     |  +- Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_225] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_225] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -12198,16 +10689,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_169] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12225,8 +10714,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_156] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -12236,8 +10724,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_157] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- Block:
      |                    +- Local Variables:
@@ -12247,8 +10734,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                       +- If Statement:
      |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3R_158] <<
+     |                          |  +- Op: >> proxy [ () ]
      |                          +- If Code:
      |                             +- >> Proxy Statement: 
      |                                +- return ;
@@ -12256,14 +10742,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_148()
+  private Z jj_3R_168()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_155] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12271,49 +10763,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_135()
+  private Z jj_3R_225()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_148] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_220()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_160] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12321,14 +10784,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_152()
+  private Z jj_3R_155()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_160] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12344,8 +10813,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_220] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -12363,8 +10831,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_220] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -12379,22 +10846,68 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_136()
+  private Z jj_3R_160()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
+     +- Statements:
+     +- >> Proxy Statement: 
+     |  +- while( )
+     |  +- Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<
+     |  <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_148()
+  Block:
+  +- Local Variables:
+  +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_135] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12408,8 +10921,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_149] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12417,22 +10929,45 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_216()
+  private Z jj_3R_135()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_220()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_152] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12440,22 +10975,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_90()
+  private Z jj_3R_152()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_135] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12471,8 +10997,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_136] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -12490,74 +11015,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_136] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<
-     |  <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_142()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_152] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- >> Proxy Statement: 
-     |  +- while( )
-     |  +- Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_216] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_216] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -12578,8 +11036,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12595,8 +11052,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_137] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -12614,8 +11070,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_137] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -12629,8 +11084,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12638,14 +11092,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_338()
+  private Z jj_3R_136()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_285] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12653,14 +11113,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_337()
+  private Z jj_3R_216()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_100] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12668,107 +11134,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_62()
+  private Z jj_3R_361()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_85] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_337] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_338] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_195()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_359()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_88] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12782,66 +11161,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_170] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_116()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_142] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_195] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_349()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_298] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12849,89 +11183,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_348()
+  private Z jj_3R_90()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_300] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_331()
-  Block:
-  +- Local Variables:
-  +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_288] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_115()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_114()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_347()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_296] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_322()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -12947,8 +11212,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_331] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -12966,8 +11230,600 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_331] <<
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<
+     |  <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_142()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- >> Proxy Statement: 
+     |  +- while( )
+     |  +- Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<
+     |  <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_340()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_339()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_351()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_350()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_349()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_62()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_348()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_195()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3_44()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_352()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_116()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_353()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_347()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_333()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_115()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_114()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_200()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_343()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- Block:
+     |                    +- Local Variables:
+     |                    +- Code:
+     |                       +- St: =
+     |                       |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                       |  +- Op: >> Proxy Data Access [xsp] <<
+     |                       +- If Statement:
+     |                          +- Condition:
+     |                          |  +- Op: >> proxy [ () ]
+     |                          +- If Code:
+     |                             +- Block:
+     |                                +- Local Variables:
+     |                                +- Code:
+     |                                   +- St: =
+     |                                   |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                                   |  +- Op: >> Proxy Data Access [xsp] <<
+     |                                   +- If Statement:
+     |                                      +- Condition:
+     |                                      |  +- Op: >> proxy [ () ]
+     |                                      +- If Code:
+     |                                         +- Block:
+     |                                            +- Local Variables:
+     |                                            +- Code:
+     |                                               +- St: =
+     |                                               |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                                               |  +- Op: >> Proxy Data Access [xsp] <<
+     |                                               +- If Statement:
+     |                                                  +- Condition:
+     |                                                  |  +- Op: >> proxy [ () ]
+     |                                                  +- If Code:
+     |                                                     +- >> Proxy Statement: 
+     |                                                        +- return ;
+     |                                                        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_338()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- >> Proxy Statement: 
+     |                    +- return ;
+     |                    <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_324()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- >> Proxy Statement: 
+     |  +- while( )
+     |  +- Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -12988,8 +11844,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -13003,23 +11858,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_346()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_171] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -13033,8 +11872,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -13048,8 +11886,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -13063,54 +11900,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3_44()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_64] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_350()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_359] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -13124,8 +11914,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -13139,8 +11928,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -13154,16 +11942,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_62] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -13177,8 +11963,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -13192,31 +11977,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_351()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -13230,8 +11991,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -13239,14 +11999,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_321()
+  private Z jj_3R_323()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_62] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -13262,8 +12021,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_3] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -13281,8 +12039,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_3] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -13307,8 +12064,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_104] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -13318,8 +12074,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_105] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- Block:
      |                    +- Local Variables:
@@ -13329,8 +12084,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                       +- If Statement:
      |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3R_106] <<
+     |                          |  +- Op: >> proxy [ () ]
      |                          +- If Code:
      |                             +- Block:
      |                                +- Local Variables:
@@ -13340,8 +12094,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                   |  +- Op: >> Proxy Data Access [xsp] <<
      |                                   +- If Statement:
      |                                      +- Condition:
-     |                                      |  +- Op: >> unary proxy <<
-     |                                      |     +- Op: >> Proxy Data Access [jj_3R_107] <<
+     |                                      |  +- Op: >> proxy [ () ]
      |                                      +- If Code:
      |                                         +- Block:
      |                                            +- Local Variables:
@@ -13351,8 +12104,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                               |  +- Op: >> Proxy Data Access [xsp] <<
      |                                               +- If Statement:
      |                                                  +- Condition:
-     |                                                  |  +- Op: >> unary proxy <<
-     |                                                  |     +- Op: >> Proxy Data Access [jj_3R_108] <<
+     |                                                  |  +- Op: >> proxy [ () ]
      |                                                  +- If Code:
      |                                                     +- Block:
      |                                                        +- Local Variables:
@@ -13362,8 +12114,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                           |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                           +- If Statement:
      |                                                              +- Condition:
-     |                                                              |  +- Op: >> unary proxy <<
-     |                                                              |     +- Op: >> Proxy Data Access [jj_3R_109] <<
+     |                                                              |  +- Op: >> proxy [ () ]
      |                                                              +- If Code:
      |                                                                 +- Block:
      |                                                                    +- Local Variables:
@@ -13373,8 +12124,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                       +- If Statement:
      |                                                                          +- Condition:
-     |                                                                          |  +- Op: >> unary proxy <<
-     |                                                                          |     +- Op: >> Proxy Data Access [jj_3R_110] <<
+     |                                                                          |  +- Op: >> proxy [ () ]
      |                                                                          +- If Code:
      |                                                                             +- Block:
      |                                                                                +- Local Variables:
@@ -13384,8 +12134,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                   |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                   +- If Statement:
      |                                                                                      +- Condition:
-     |                                                                                      |  +- Op: >> unary proxy <<
-     |                                                                                      |     +- Op: >> Proxy Data Access [jj_3R_111] <<
+     |                                                                                      |  +- Op: >> proxy [ () ]
      |                                                                                      +- If Code:
      |                                                                                         +- Block:
      |                                                                                            +- Local Variables:
@@ -13395,8 +12144,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                               |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                               +- If Statement:
      |                                                                                                  +- Condition:
-     |                                                                                                  |  +- Op: >> unary proxy <<
-     |                                                                                                  |     +- Op: >> Proxy Data Access [jj_3R_112] <<
+     |                                                                                                  |  +- Op: >> proxy [ () ]
      |                                                                                                  +- If Code:
      |                                                                                                     +- Block:
      |                                                                                                        +- Local Variables:
@@ -13406,8 +12154,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                                           |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                                           +- If Statement:
      |                                                                                                              +- Condition:
-     |                                                                                                              |  +- Op: >> unary proxy <<
-     |                                                                                                              |     +- Op: >> Proxy Data Access [jj_3R_113] <<
+     |                                                                                                              |  +- Op: >> proxy [ () ]
      |                                                                                                              +- If Code:
      |                                                                                                                 +- Block:
      |                                                                                                                    +- Local Variables:
@@ -13417,8 +12164,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                                                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                                                       +- If Statement:
      |                                                                                                                          +- Condition:
-     |                                                                                                                          |  +- Op: >> unary proxy <<
-     |                                                                                                                          |     +- Op: >> Proxy Data Access [jj_3R_114] <<
+     |                                                                                                                          |  +- Op: >> proxy [ () ]
      |                                                                                                                          +- If Code:
      |                                                                                                                             +- Block:
      |                                                                                                                                +- Local Variables:
@@ -13428,8 +12174,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                                                                   |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                                                                   +- If Statement:
      |                                                                                                                                      +- Condition:
-     |                                                                                                                                      |  +- Op: >> unary proxy <<
-     |                                                                                                                                      |     +- Op: >> Proxy Data Access [jj_3R_115] <<
+     |                                                                                                                                      |  +- Op: >> proxy [ () ]
      |                                                                                                                                      +- If Code:
      |                                                                                                                                         +- >> Proxy Statement: 
      |                                                                                                                                            +- return ;
@@ -13437,312 +12182,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_345()
+  private Z jj_3R_330()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_64] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_350] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_200()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_351] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_341()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_85] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_345] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_346] <<
-     |              +- If Code:
-     |                 +- Block:
-     |                    +- Local Variables:
-     |                    +- Code:
-     |                       +- St: =
-     |                       |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                       |  +- Op: >> Proxy Data Access [xsp] <<
-     |                       +- If Statement:
-     |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3R_347] <<
-     |                          +- If Code:
-     |                             +- Block:
-     |                                +- Local Variables:
-     |                                +- Code:
-     |                                   +- St: =
-     |                                   |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                                   |  +- Op: >> Proxy Data Access [xsp] <<
-     |                                   +- If Statement:
-     |                                      +- Condition:
-     |                                      |  +- Op: >> unary proxy <<
-     |                                      |     +- Op: >> Proxy Data Access [jj_3R_348] <<
-     |                                      +- If Code:
-     |                                         +- Block:
-     |                                            +- Local Variables:
-     |                                            +- Code:
-     |                                               +- St: =
-     |                                               |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                                               |  +- Op: >> Proxy Data Access [xsp] <<
-     |                                               +- If Statement:
-     |                                                  +- Condition:
-     |                                                  |  +- Op: >> unary proxy <<
-     |                                                  |     +- Op: >> Proxy Data Access [jj_3R_349] <<
-     |                                                  +- If Code:
-     |                                                     +- >> Proxy Statement: 
-     |                                                        +- return ;
-     |                                                        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_336()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_341] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |              +- If Code:
-     |                 +- >> Proxy Statement: 
-     |                    +- return ;
-     |                    <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_305()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_321] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_322] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_304()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_320] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_328()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_336] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3_17()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_71] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -13756,8 +12202,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_213] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -13771,39 +12216,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_212] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_72()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_116] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3_17] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -13813,8 +12230,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_211] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -13822,22 +12238,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_296()
+  private Z jj_3R_307()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -13848,16 +12255,34 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_304] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
      |        +- Op: >> Proxy Data Access [xsp] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_305] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -13871,294 +12296,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_210] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_318()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- >> Proxy Statement: 
-     |  +- while( )
-     |  +- Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_328] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_328] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<
-     |  <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_188()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_209] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_187()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_208] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_186()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_207] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_185()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_206] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_184()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_205] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_183()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_204] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_330()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_80] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_182()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_203] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_300()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_318] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_181()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_202] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_180()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_201] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_179()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_93] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -14172,16 +12310,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_80] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -14197,8 +12326,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_330] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -14216,8 +12344,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_330] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -14229,6 +12356,294 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-                   +- break;
      |  +-                   <<
      |  <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_188()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_187()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_186()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_185()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_306()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_184()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3_17()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_183()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_182()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_302()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_72()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_181()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_298()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_180()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_179()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -14238,8 +12653,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_200] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -14253,31 +12667,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_84] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_334()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_86] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -14295,8 +12685,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3_37] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -14306,8 +12695,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_178] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- Block:
      |                    +- Local Variables:
@@ -14317,8 +12705,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                       +- If Statement:
      |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3R_179] <<
+     |                          |  +- Op: >> proxy [ () ]
      |                          +- If Code:
      |                             +- Block:
      |                                +- Local Variables:
@@ -14328,8 +12715,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                   |  +- Op: >> Proxy Data Access [xsp] <<
      |                                   +- If Statement:
      |                                      +- Condition:
-     |                                      |  +- Op: >> unary proxy <<
-     |                                      |     +- Op: >> Proxy Data Access [jj_3R_180] <<
+     |                                      |  +- Op: >> proxy [ () ]
      |                                      +- If Code:
      |                                         +- Block:
      |                                            +- Local Variables:
@@ -14339,8 +12725,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                               |  +- Op: >> Proxy Data Access [xsp] <<
      |                                               +- If Statement:
      |                                                  +- Condition:
-     |                                                  |  +- Op: >> unary proxy <<
-     |                                                  |     +- Op: >> Proxy Data Access [jj_3R_181] <<
+     |                                                  |  +- Op: >> proxy [ () ]
      |                                                  +- If Code:
      |                                                     +- Block:
      |                                                        +- Local Variables:
@@ -14350,8 +12735,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                           |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                           +- If Statement:
      |                                                              +- Condition:
-     |                                                              |  +- Op: >> unary proxy <<
-     |                                                              |     +- Op: >> Proxy Data Access [jj_3R_182] <<
+     |                                                              |  +- Op: >> proxy [ () ]
      |                                                              +- If Code:
      |                                                                 +- Block:
      |                                                                    +- Local Variables:
@@ -14361,8 +12745,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                       +- If Statement:
      |                                                                          +- Condition:
-     |                                                                          |  +- Op: >> unary proxy <<
-     |                                                                          |     +- Op: >> Proxy Data Access [jj_3R_183] <<
+     |                                                                          |  +- Op: >> proxy [ () ]
      |                                                                          +- If Code:
      |                                                                             +- Block:
      |                                                                                +- Local Variables:
@@ -14372,8 +12755,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                   |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                   +- If Statement:
      |                                                                                      +- Condition:
-     |                                                                                      |  +- Op: >> unary proxy <<
-     |                                                                                      |     +- Op: >> Proxy Data Access [jj_3R_184] <<
+     |                                                                                      |  +- Op: >> proxy [ () ]
      |                                                                                      +- If Code:
      |                                                                                         +- Block:
      |                                                                                            +- Local Variables:
@@ -14383,8 +12765,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                               |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                               +- If Statement:
      |                                                                                                  +- Condition:
-     |                                                                                                  |  +- Op: >> unary proxy <<
-     |                                                                                                  |     +- Op: >> Proxy Data Access [jj_3R_185] <<
+     |                                                                                                  |  +- Op: >> proxy [ () ]
      |                                                                                                  +- If Code:
      |                                                                                                     +- Block:
      |                                                                                                        +- Local Variables:
@@ -14394,8 +12775,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                                           |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                                           +- If Statement:
      |                                                                                                              +- Condition:
-     |                                                                                                              |  +- Op: >> unary proxy <<
-     |                                                                                                              |     +- Op: >> Proxy Data Access [jj_3R_186] <<
+     |                                                                                                              |  +- Op: >> proxy [ () ]
      |                                                                                                              +- If Code:
      |                                                                                                                 +- Block:
      |                                                                                                                    +- Local Variables:
@@ -14405,8 +12785,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                                                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                                                       +- If Statement:
      |                                                                                                                          +- Condition:
-     |                                                                                                                          |  +- Op: >> unary proxy <<
-     |                                                                                                                          |     +- Op: >> Proxy Data Access [jj_3R_187] <<
+     |                                                                                                                          |  +- Op: >> proxy [ () ]
      |                                                                                                                          +- If Code:
      |                                                                                                                             +- Block:
      |                                                                                                                                +- Local Variables:
@@ -14416,8 +12795,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                                                                   |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                                                                   +- If Statement:
      |                                                                                                                                      +- Condition:
-     |                                                                                                                                      |  +- Op: >> unary proxy <<
-     |                                                                                                                                      |     +- Op: >> Proxy Data Access [jj_3R_188] <<
+     |                                                                                                                                      |  +- Op: >> proxy [ () ]
      |                                                                                                                                      +- If Code:
      |                                                                                                                                         +- Block:
      |                                                                                                                                            +- Local Variables:
@@ -14427,8 +12805,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                                                                               |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                                                                               +- If Statement:
      |                                                                                                                                                  +- Condition:
-     |                                                                                                                                                  |  +- Op: >> unary proxy <<
-     |                                                                                                                                                  |     +- Op: >> Proxy Data Access [jj_3R_189] <<
+     |                                                                                                                                                  |  +- Op: >> proxy [ () ]
      |                                                                                                                                                  +- If Code:
      |                                                                                                                                                     +- Block:
      |                                                                                                                                                        +- Local Variables:
@@ -14438,8 +12815,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                                                                                           |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                                                                                           +- If Statement:
      |                                                                                                                                                              +- Condition:
-     |                                                                                                                                                              |  +- Op: >> unary proxy <<
-     |                                                                                                                                                              |     +- Op: >> Proxy Data Access [jj_3R_190] <<
+     |                                                                                                                                                              |  +- Op: >> proxy [ () ]
      |                                                                                                                                                              +- If Code:
      |                                                                                                                                                                 +- Block:
      |                                                                                                                                                                    +- Local Variables:
@@ -14449,8 +12825,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                                                                                                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                                                                                                       +- If Statement:
      |                                                                                                                                                                          +- Condition:
-     |                                                                                                                                                                          |  +- Op: >> unary proxy <<
-     |                                                                                                                                                                          |     +- Op: >> Proxy Data Access [jj_3R_191] <<
+     |                                                                                                                                                                          |  +- Op: >> proxy [ () ]
      |                                                                                                                                                                          +- If Code:
      |                                                                                                                                                                             +- Block:
      |                                                                                                                                                                                +- Local Variables:
@@ -14460,8 +12835,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                                                                                                                   |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                                                                                                                   +- If Statement:
      |                                                                                                                                                                                      +- Condition:
-     |                                                                                                                                                                                      |  +- Op: >> unary proxy <<
-     |                                                                                                                                                                                      |     +- Op: >> Proxy Data Access [jj_3R_192] <<
+     |                                                                                                                                                                                      |  +- Op: >> proxy [ () ]
      |                                                                                                                                                                                      +- If Code:
      |                                                                                                                                                                                         +- >> Proxy Statement: 
      |                                                                                                                                                                                            +- return ;
@@ -14469,80 +12843,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_324()
+  private Z jj_3R_332()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_86] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- >> Proxy Statement: 
-     |  +- while( )
-     |  +- Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_334] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_334] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<
-     |  <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_329()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_80] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -14556,16 +12870,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_88] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -14579,8 +12891,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_88] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -14596,8 +12907,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_43] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -14615,8 +12925,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_43] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -14633,8 +12942,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
@@ -14642,22 +12950,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_319()
+  private Z jj_3R_322()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_80] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -14673,8 +12979,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_329] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -14692,8 +12997,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_329] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -14705,6 +13009,48 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-                   +- break;
      |  +-                   <<
      |  <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_286()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_336()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -14712,34 +13058,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   Block:
   +- Local Variables:
   +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_282()
-  Block:
-  +- Local Variables:
-  +- Code:
      +- Statements:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_284] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -14754,8 +13076,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_284] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -14773,8 +13094,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_284] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -14788,31 +13108,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_138] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3_16()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -14826,8 +13122,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -14838,16 +13133,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_199] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
      |        +- Op: >> Proxy Data Access [xsp] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -14855,82 +13148,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3_35()
+  private Z jj_3R_326()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_303()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_320] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_131()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_116] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_302()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_319] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_86()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -14946,8 +13170,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_16] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -14965,8 +13188,488 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_16] <<
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<
+     |  <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3_35()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_131()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_331()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_130()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_129()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_88()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- Block:
+     |                    +- Local Variables:
+     |                    +- Code:
+     |                       +- St: =
+     |                       |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                       |  +- Op: >> Proxy Data Access [xsp] <<
+     |                       +- If Statement:
+     |                          +- Condition:
+     |                          |  +- Op: >> proxy [ () ]
+     |                          +- If Code:
+     |                             +- >> Proxy Statement: 
+     |                                +- return ;
+     |                                <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3_34()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_321()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- >> Proxy Statement: 
+     |  +- while( )
+     |  +- Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<
+     |  <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3_36()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- Statements:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+     |  +- while( )
+     |  +- Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<
+     |  <<
+     +- >> Proxy Statement: 
+     |  +- while( )
+     |  +- Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<
+     |  <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3_16()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_280()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- >> Proxy Statement: 
+     |                    +- return ;
+     |                    <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_176()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_305()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_285()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_304()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_86()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- >> Proxy Statement: 
+     |  +- while( )
+     |  +- Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -14987,380 +13690,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_130()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_144] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_129()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_89] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_88()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_129] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_130] <<
-     |              +- If Code:
-     |                 +- Block:
-     |                    +- Local Variables:
-     |                    +- Code:
-     |                       +- St: =
-     |                       |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                       |  +- Op: >> Proxy Data Access [xsp] <<
-     |                       +- If Statement:
-     |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3R_131] <<
-     |                          +- If Code:
-     |                             +- >> Proxy Statement: 
-     |                                +- return ;
-     |                                <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_301()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_90] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3_34()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3_36()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- Statements:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3_34] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-     |  +- while( )
-     |  +- Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_34] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_34] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<
-     |  <<
-     +- >> Proxy Statement: 
-     |  +- while( )
-     |  +- Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_35] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_35] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<
-     |  <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_171()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_193] <<
-     |              +- If Code:
-     |                 +- >> Proxy Statement: 
-     |                    +- return ;
-     |                    <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_301] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_302] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_303] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_285] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_127()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_64] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_278()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3_36] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_282] <<
-     |              +- If Code:
-     |                 +- >> Proxy Statement: 
-     |                    +- return ;
-     |                    <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_176()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_88] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -15374,8 +13704,32 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_285] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_303()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -15383,14 +13737,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_126()
+  private Z jj_3R_282()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -15404,80 +13757,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_100] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_283] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_280()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_278] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_81()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_126] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_127] <<
-     |              +- If Code:
-     |                 +- >> Proxy Statement: 
-     |                    +- return ;
-     |                    <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_279()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_70] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -15491,16 +13771,100 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_176] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_171()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- >> Proxy Statement: 
+     |                    +- return ;
+     |                    <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_127()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -15514,8 +13878,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_176] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -15531,8 +13894,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_177] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -15550,8 +13912,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_177] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -15572,16 +13933,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_80] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -15592,8 +13951,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_279] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
@@ -15603,8 +13961,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_280] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -15614,8 +13971,49 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_281] <<
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- >> Proxy Statement: 
+     |                    +- return ;
+     |                    <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_126()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_81()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- >> Proxy Statement: 
      |                    +- return ;
@@ -15629,24 +14027,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_77] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_278] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -15664,8 +14059,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3_33] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -15675,108 +14069,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_128] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- >> Proxy Statement: 
      |                    +- return ;
      |                    <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_77()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |              +- If Code:
-     |                 +- Block:
-     |                    +- Local Variables:
-     |                    +- Code:
-     |                       +- St: =
-     |                       |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                       |  +- Op: >> Proxy Data Access [xsp] <<
-     |                       +- If Statement:
-     |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |                          +- If Code:
-     |                             +- Block:
-     |                                +- Local Variables:
-     |                                +- Code:
-     |                                   +- St: =
-     |                                   |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                                   |  +- Op: >> Proxy Data Access [xsp] <<
-     |                                   +- If Statement:
-     |                                      +- Condition:
-     |                                      |  +- Op: >> unary proxy <<
-     |                                      |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |                                      +- If Code:
-     |                                         +- Block:
-     |                                            +- Local Variables:
-     |                                            +- Code:
-     |                                               +- St: =
-     |                                               |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                                               |  +- Op: >> Proxy Data Access [xsp] <<
-     |                                               +- If Statement:
-     |                                                  +- Condition:
-     |                                                  |  +- Op: >> unary proxy <<
-     |                                                  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |                                                  +- If Code:
-     |                                                     +- Block:
-     |                                                        +- Local Variables:
-     |                                                        +- Code:
-     |                                                           +- St: =
-     |                                                           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                                                           |  +- Op: >> Proxy Data Access [xsp] <<
-     |                                                           +- If Statement:
-     |                                                              +- Condition:
-     |                                                              |  +- Op: >> unary proxy <<
-     |                                                              |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |                                                              +- If Code:
-     |                                                                 +- Block:
-     |                                                                    +- Local Variables:
-     |                                                                    +- Code:
-     |                                                                       +- St: =
-     |                                                                       |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                                                                       |  +- Op: >> Proxy Data Access [xsp] <<
-     |                                                                       +- If Statement:
-     |                                                                          +- Condition:
-     |                                                                          |  +- Op: >> unary proxy <<
-     |                                                                          |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |                                                                          +- If Code:
-     |                                                                             +- Block:
-     |                                                                                +- Local Variables:
-     |                                                                                +- Code:
-     |                                                                                   +- St: =
-     |                                                                                   |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                                                                                   |  +- Op: >> Proxy Data Access [xsp] <<
-     |                                                                                   +- If Statement:
-     |                                                                                      +- Condition:
-     |                                                                                      |  +- Op: >> unary proxy <<
-     |                                                                                      |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |                                                                                      +- If Code:
-     |                                                                                         +- >> Proxy Statement: 
-     |                                                                                            +- return ;
-     |                                                                                            <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -15786,55 +14083,35 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_86] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_88] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_61()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_89] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -15848,31 +14125,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_60()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -15886,16 +14146,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_86] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -15909,8 +14167,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -15926,8 +14183,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_159] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -15945,8 +14201,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_159] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -15967,62 +14222,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_215()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_69] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_214()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_69] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -16036,23 +14243,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_167] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_59()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -16066,8 +14257,362 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_151] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_77()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- Block:
+     |                    +- Local Variables:
+     |                    +- Code:
+     |                       +- St: =
+     |                       |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                       |  +- Op: >> Proxy Data Access [xsp] <<
+     |                       +- If Statement:
+     |                          +- Condition:
+     |                          |  +- Op: >> proxy [ () ]
+     |                          +- If Code:
+     |                             +- Block:
+     |                                +- Local Variables:
+     |                                +- Code:
+     |                                   +- St: =
+     |                                   |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                                   |  +- Op: >> Proxy Data Access [xsp] <<
+     |                                   +- If Statement:
+     |                                      +- Condition:
+     |                                      |  +- Op: >> proxy [ () ]
+     |                                      +- If Code:
+     |                                         +- Block:
+     |                                            +- Local Variables:
+     |                                            +- Code:
+     |                                               +- St: =
+     |                                               |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                                               |  +- Op: >> Proxy Data Access [xsp] <<
+     |                                               +- If Statement:
+     |                                                  +- Condition:
+     |                                                  |  +- Op: >> proxy [ () ]
+     |                                                  +- If Code:
+     |                                                     +- Block:
+     |                                                        +- Local Variables:
+     |                                                        +- Code:
+     |                                                           +- St: =
+     |                                                           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                                                           |  +- Op: >> Proxy Data Access [xsp] <<
+     |                                                           +- If Statement:
+     |                                                              +- Condition:
+     |                                                              |  +- Op: >> proxy [ () ]
+     |                                                              +- If Code:
+     |                                                                 +- Block:
+     |                                                                    +- Local Variables:
+     |                                                                    +- Code:
+     |                                                                       +- St: =
+     |                                                                       |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                                                                       |  +- Op: >> Proxy Data Access [xsp] <<
+     |                                                                       +- If Statement:
+     |                                                                          +- Condition:
+     |                                                                          |  +- Op: >> proxy [ () ]
+     |                                                                          +- If Code:
+     |                                                                             +- Block:
+     |                                                                                +- Local Variables:
+     |                                                                                +- Code:
+     |                                                                                   +- St: =
+     |                                                                                   |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                                                                                   |  +- Op: >> Proxy Data Access [xsp] <<
+     |                                                                                   +- If Statement:
+     |                                                                                      +- Condition:
+     |                                                                                      |  +- Op: >> proxy [ () ]
+     |                                                                                      +- If Code:
+     |                                                                                         +- >> Proxy Statement: 
+     |                                                                                            +- return ;
+     |                                                                                            <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_61()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_100()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3_42()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_60()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_145()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3_41()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- >> Proxy Statement: 
+     |                    +- return ;
+     |                    <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_215()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_214()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_175()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_59()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_134()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -16085,8 +14630,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_214] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -16096,315 +14640,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_215] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- >> Proxy Statement: 
      |                    +- return ;
      |                    <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_100()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_139] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_58()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3_42()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_86] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_145()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_86] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_154] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_172()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_194] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3_41()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_86] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_87] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |              +- If Code:
-     |                 +- >> Proxy Statement: 
-     |                    +- return ;
-     |                    <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_57()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_175()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_141()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_172] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_134()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_147] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_140()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_69] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_56()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -16414,42 +14654,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_146] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_103()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_140] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_141] <<
-     |              +- If Code:
-     |                 +- >> Proxy Statement: 
-     |                    +- return ;
-     |                    <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -16459,8 +14668,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_145] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -16485,8 +14693,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_132] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -16496,8 +14703,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_133] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- Block:
      |                    +- Local Variables:
@@ -16507,8 +14713,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                       +- If Statement:
      |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3R_134] <<
+     |                          |  +- Op: >> proxy [ () ]
      |                          +- If Code:
      |                             +- >> Proxy Statement: 
      |                                +- return ;
@@ -16516,14 +14721,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_55()
+  private Z jj_3R_58()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -16537,8 +14741,35 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_172()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_57()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -16556,8 +14787,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_197] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -16567,8 +14797,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_198] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- >> Proxy Statement: 
      |                    +- return ;
@@ -16582,8 +14811,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -16598,41 +14826,28 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_150()
+  private Z jj_3R_141()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_103] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_54()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -16648,15 +14863,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_semLA] <<
      |  +- Op: &&
      |     +- Op: ==
-     |     |  +- Op: >> unary proxy <<
-     |     |  |  +- Op: >> unary proxy <<
-     |     |  |     +- Op: >> Proxy Data Access [getToken] <<
+     |     |  +- Op: >> Proxy Data Access [kind] <<
+     |     |  |  +- Op: >> proxy [ () ]
      |     |  +- Op: >> Proxy Data Access [GT] <<
      |     +- Op: ==
-     |        +- Op: >> unary proxy <<
+     |        +- Op: >> Proxy Data Access [realKind] <<
      |        |  +- Op: cast Lcat.quadriga.parsers.tokens.MySimpleToken;
-     |        |     +- Op: >> unary proxy <<
-     |        |        +- Op: >> Proxy Data Access [getToken] <<
+     |        |     +- Op: >> proxy [ () ]
      |        +- Op: >> Proxy Data Access [RSIGNEDSHIFT] <<
      +- St: =
      |  +- Op: >> Proxy Data Access [jj_lookingAhead] <<
@@ -16667,24 +14880,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  +- Op: ||
      |  |     +- Op: !
      |  |     |  +- Op: >> Proxy Data Access [jj_semLA] <<
-     |  |     +- Op: >> unary proxy <<
-     |  |        +- Op: >> Proxy Data Access [jj_3R_117] <<
+     |  |     +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -16692,92 +14902,59 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_70()
+  private Z jj_3R_140()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_56()
+  Block:
+  +- Local Variables:
+  +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_103] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_103()
+  Block:
+  +- Local Variables:
+  +- Code:
      +- Statements:
-     +- >> Proxy Statement: 
-     |  +- while( )
-     |  +- Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_150] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_150] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<
-     |  <<
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_53()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- >> Proxy Statement: 
+     |                    +- return ;
+     |                    <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -16787,8 +14964,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_175] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -16802,8 +14978,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_174] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -16823,15 +14998,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_semLA] <<
      |  +- Op: &&
      |     +- Op: ==
-     |     |  +- Op: >> unary proxy <<
-     |     |  |  +- Op: >> unary proxy <<
-     |     |  |     +- Op: >> Proxy Data Access [getToken] <<
+     |     |  +- Op: >> Proxy Data Access [kind] <<
+     |     |  |  +- Op: >> proxy [ () ]
      |     |  +- Op: >> Proxy Data Access [GT] <<
      |     +- Op: ==
-     |        +- Op: >> unary proxy <<
+     |        +- Op: >> Proxy Data Access [realKind] <<
      |        |  +- Op: cast Lcat.quadriga.parsers.tokens.MySimpleToken;
-     |        |     +- Op: >> unary proxy <<
-     |        |        +- Op: >> Proxy Data Access [getToken] <<
+     |        |     +- Op: >> proxy [ () ]
      |        +- Op: >> Proxy Data Access [RUNSIGNEDSHIFT] <<
      +- St: =
      |  +- Op: >> Proxy Data Access [jj_lookingAhead] <<
@@ -16842,32 +15015,28 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  +- Op: ||
      |  |     +- Op: !
      |  |     |  +- Op: >> Proxy Data Access [jj_semLA] <<
-     |  |     +- Op: >> unary proxy <<
-     |  |        +- Op: >> Proxy Data Access [jj_3R_118] <<
+     |  |     +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -16875,14 +15044,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_52()
+  private Z jj_3R_55()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -16896,8 +15064,42 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_150()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_54()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -16911,8 +15113,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -16920,14 +15121,68 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_51()
+  private Z jj_3R_70()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- >> Proxy Statement: 
+     |  +- while( )
+     |  +- Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<
+     |  <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -16935,22 +15190,34 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_358()
+  private Z jj_3R_360()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_93] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_53()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -16964,23 +15231,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_50()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -16994,12 +15245,249 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_52()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_153()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- Block:
+     |                    +- Local Variables:
+     |                    +- Code:
+     |                       +- St: =
+     |                       |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                       |  +- Op: >> Proxy Data Access [xsp] <<
+     |                       +- If Statement:
+     |                          +- Condition:
+     |                          |  +- Op: >> proxy [ () ]
+     |                          +- If Code:
+     |                             +- Block:
+     |                                +- Local Variables:
+     |                                +- Code:
+     |                                   +- St: =
+     |                                   |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                                   |  +- Op: >> Proxy Data Access [xsp] <<
+     |                                   +- If Statement:
+     |                                      +- Condition:
+     |                                      |  +- Op: >> proxy [ () ]
+     |                                      +- If Code:
+     |                                         +- Block:
+     |                                            +- Local Variables:
+     |                                            +- Code:
+     |                                               +- St: =
+     |                                               |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                                               |  +- Op: >> Proxy Data Access [xsp] <<
+     |                                               +- If Statement:
+     |                                                  +- Condition:
+     |                                                  |  +- Op: >> proxy [ () ]
+     |                                                  +- If Code:
+     |                                                     +- Block:
+     |                                                        +- Local Variables:
+     |                                                        +- Code:
+     |                                                           +- St: =
+     |                                                           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                                                           |  +- Op: >> Proxy Data Access [xsp] <<
+     |                                                           +- If Statement:
+     |                                                              +- Condition:
+     |                                                              |  +- Op: >> proxy [ () ]
+     |                                                              +- If Code:
+     |                                                                 +- >> Proxy Statement: 
+     |                                                                    +- return ;
+     |                                                                    <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_359()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_51()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_125()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_50()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_213()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- >> Proxy Statement: 
+     |  +- while( )
+     |  +- Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<
+     |  <<
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -17013,8 +15501,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_50] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -17024,8 +15511,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_51] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- Block:
      |                    +- Local Variables:
@@ -17035,8 +15521,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                       +- If Statement:
      |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3R_52] <<
+     |                          |  +- Op: >> proxy [ () ]
      |                          +- If Code:
      |                             +- Block:
      |                                +- Local Variables:
@@ -17046,8 +15531,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                   |  +- Op: >> Proxy Data Access [xsp] <<
      |                                   +- If Statement:
      |                                      +- Condition:
-     |                                      |  +- Op: >> unary proxy <<
-     |                                      |     +- Op: >> Proxy Data Access [jj_3R_53] <<
+     |                                      |  +- Op: >> proxy [ () ]
      |                                      +- If Code:
      |                                         +- Block:
      |                                            +- Local Variables:
@@ -17057,8 +15541,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                               |  +- Op: >> Proxy Data Access [xsp] <<
      |                                               +- If Statement:
      |                                                  +- Condition:
-     |                                                  |  +- Op: >> unary proxy <<
-     |                                                  |     +- Op: >> Proxy Data Access [jj_3R_54] <<
+     |                                                  |  +- Op: >> proxy [ () ]
      |                                                  +- If Code:
      |                                                     +- Block:
      |                                                        +- Local Variables:
@@ -17068,8 +15551,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                           |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                           +- If Statement:
      |                                                              +- Condition:
-     |                                                              |  +- Op: >> unary proxy <<
-     |                                                              |     +- Op: >> Proxy Data Access [jj_3R_55] <<
+     |                                                              |  +- Op: >> proxy [ () ]
      |                                                              +- If Code:
      |                                                                 +- Block:
      |                                                                    +- Local Variables:
@@ -17079,8 +15561,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                       +- If Statement:
      |                                                                          +- Condition:
-     |                                                                          |  +- Op: >> unary proxy <<
-     |                                                                          |     +- Op: >> Proxy Data Access [jj_3R_56] <<
+     |                                                                          |  +- Op: >> proxy [ () ]
      |                                                                          +- If Code:
      |                                                                             +- Block:
      |                                                                                +- Local Variables:
@@ -17090,8 +15571,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                   |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                   +- If Statement:
      |                                                                                      +- Condition:
-     |                                                                                      |  +- Op: >> unary proxy <<
-     |                                                                                      |     +- Op: >> Proxy Data Access [jj_3R_57] <<
+     |                                                                                      |  +- Op: >> proxy [ () ]
      |                                                                                      +- If Code:
      |                                                                                         +- Block:
      |                                                                                            +- Local Variables:
@@ -17101,8 +15581,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                               |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                               +- If Statement:
      |                                                                                                  +- Condition:
-     |                                                                                                  |  +- Op: >> unary proxy <<
-     |                                                                                                  |     +- Op: >> Proxy Data Access [jj_3R_58] <<
+     |                                                                                                  |  +- Op: >> proxy [ () ]
      |                                                                                                  +- If Code:
      |                                                                                                     +- Block:
      |                                                                                                        +- Local Variables:
@@ -17112,8 +15591,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                                           |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                                           +- If Statement:
      |                                                                                                              +- Condition:
-     |                                                                                                              |  +- Op: >> unary proxy <<
-     |                                                                                                              |     +- Op: >> Proxy Data Access [jj_3R_59] <<
+     |                                                                                                              |  +- Op: >> proxy [ () ]
      |                                                                                                              +- If Code:
      |                                                                                                                 +- Block:
      |                                                                                                                    +- Local Variables:
@@ -17123,8 +15601,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                                                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                                                       +- If Statement:
      |                                                                                                                          +- Condition:
-     |                                                                                                                          |  +- Op: >> unary proxy <<
-     |                                                                                                                          |     +- Op: >> Proxy Data Access [jj_3R_60] <<
+     |                                                                                                                          |  +- Op: >> proxy [ () ]
      |                                                                                                                          +- If Code:
      |                                                                                                                             +- Block:
      |                                                                                                                                +- Local Variables:
@@ -17134,8 +15611,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                                                                   |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                                                                   +- If Statement:
      |                                                                                                                                      +- Condition:
-     |                                                                                                                                      |  +- Op: >> unary proxy <<
-     |                                                                                                                                      |     +- Op: >> Proxy Data Access [jj_3R_61] <<
+     |                                                                                                                                      |  +- Op: >> proxy [ () ]
      |                                                                                                                                      +- If Code:
      |                                                                                                                                         +- >> Proxy Statement: 
      |                                                                                                                                            +- return ;
@@ -17158,8 +15634,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_2] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -17177,8 +15652,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_2] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -17193,135 +15667,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_153()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_161] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_162] <<
-     |              +- If Code:
-     |                 +- Block:
-     |                    +- Local Variables:
-     |                    +- Code:
-     |                       +- St: =
-     |                       |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                       |  +- Op: >> Proxy Data Access [xsp] <<
-     |                       +- If Statement:
-     |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3R_163] <<
-     |                          +- If Code:
-     |                             +- Block:
-     |                                +- Local Variables:
-     |                                +- Code:
-     |                                   +- St: =
-     |                                   |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                                   |  +- Op: >> Proxy Data Access [xsp] <<
-     |                                   +- If Statement:
-     |                                      +- Condition:
-     |                                      |  +- Op: >> unary proxy <<
-     |                                      |     +- Op: >> Proxy Data Access [jj_3R_164] <<
-     |                                      +- If Code:
-     |                                         +- Block:
-     |                                            +- Local Variables:
-     |                                            +- Code:
-     |                                               +- St: =
-     |                                               |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                                               |  +- Op: >> Proxy Data Access [xsp] <<
-     |                                               +- If Statement:
-     |                                                  +- Condition:
-     |                                                  |  +- Op: >> unary proxy <<
-     |                                                  |     +- Op: >> Proxy Data Access [jj_3R_165] <<
-     |                                                  +- If Code:
-     |                                                     +- Block:
-     |                                                        +- Local Variables:
-     |                                                        +- Code:
-     |                                                           +- St: =
-     |                                                           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                                                           |  +- Op: >> Proxy Data Access [xsp] <<
-     |                                                           +- If Statement:
-     |                                                              +- Condition:
-     |                                                              |  +- Op: >> unary proxy <<
-     |                                                              |     +- Op: >> Proxy Data Access [jj_3R_166] <<
-     |                                                              +- If Code:
-     |                                                                 +- >> Proxy Statement: 
-     |                                                                    +- return ;
-     |                                                                    <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_357()
+  private Z jj_3R_124()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_332] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_93] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_125()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_100] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -17335,158 +15694,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_70] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_124()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_213()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_93] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- >> Proxy Statement: 
-     |  +- while( )
-     |  +- Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_357] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_357] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<
-     |  <<
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_358] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3_14()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3_15] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3_13()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_70] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -17500,24 +15708,109 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3_14()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_212()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3_13()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -17531,8 +15824,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_83] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -17546,8 +15838,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -17558,8 +15849,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3_13] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
@@ -17574,8 +15864,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_14] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -17593,8 +15882,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_14] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -17615,16 +15903,42 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_211()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -17638,16 +15952,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_82] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -17661,71 +15973,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_212()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_93] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -17739,16 +16001,28 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_358()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -17762,16 +16036,35 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_121()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -17785,8 +16078,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_80] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -17802,8 +16094,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_12] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -17821,8 +16112,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_12] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -17837,76 +16127,31 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_121()
+  private Z jj_3R_210()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_211()
-  Block:
-  +- Local Variables:
-  +- Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3_11()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -17924,8 +16169,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_121] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -17935,8 +16179,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_122] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- Block:
      |                    +- Local Variables:
@@ -17946,8 +16189,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                       +- If Statement:
      |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3_31] <<
+     |                          |  +- Op: >> proxy [ () ]
      |                          +- If Code:
      |                             +- Block:
      |                                +- Local Variables:
@@ -17957,8 +16199,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                   |  +- Op: >> Proxy Data Access [xsp] <<
      |                                   +- If Statement:
      |                                      +- Condition:
-     |                                      |  +- Op: >> unary proxy <<
-     |                                      |     +- Op: >> Proxy Data Access [jj_3_32] <<
+     |                                      |  +- Op: >> proxy [ () ]
      |                                      +- If Code:
      |                                         +- Block:
      |                                            +- Local Variables:
@@ -17968,8 +16209,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                               |  +- Op: >> Proxy Data Access [xsp] <<
      |                                               +- If Statement:
      |                                                  +- Condition:
-     |                                                  |  +- Op: >> unary proxy <<
-     |                                                  |     +- Op: >> Proxy Data Access [jj_3R_123] <<
+     |                                                  |  +- Op: >> proxy [ () ]
      |                                                  +- If Code:
      |                                                     +- Block:
      |                                                        +- Local Variables:
@@ -17979,8 +16219,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                           |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                           +- If Statement:
      |                                                              +- Condition:
-     |                                                              |  +- Op: >> unary proxy <<
-     |                                                              |     +- Op: >> Proxy Data Access [jj_3R_124] <<
+     |                                                              |  +- Op: >> proxy [ () ]
      |                                                              +- If Code:
      |                                                                 +- Block:
      |                                                                    +- Local Variables:
@@ -17990,12 +16229,32 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                       +- If Statement:
      |                                                                          +- Condition:
-     |                                                                          |  +- Op: >> unary proxy <<
-     |                                                                          |     +- Op: >> Proxy Data Access [jj_3R_125] <<
+     |                                                                          |  +- Op: >> proxy [ () ]
      |                                                                          +- If Code:
      |                                                                             +- >> Proxy Statement: 
      |                                                                                +- return ;
      |                                                                                <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3_11()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -18005,8 +16264,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_77] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18014,8 +16272,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3_11] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18030,8 +16287,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_11] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -18049,8 +16305,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_11] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -18065,21 +16320,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_356()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
   private Z jj_3R_69()
   Block:
   +- Local Variables:
@@ -18090,8 +16330,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_101] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -18101,8 +16340,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_102] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- >> Proxy Statement: 
      |                    +- return ;
@@ -18110,45 +16348,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3_28()
+  private Z jj_3R_209()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_81] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_210()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18159,16 +16365,42 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_356] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
      |        +- Op: >> Proxy Data Access [xsp] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3_28()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18182,8 +16414,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_86] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18197,8 +16428,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_77] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18212,8 +16442,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_69] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18231,8 +16460,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3_10] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -18242,8 +16470,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_91] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- >> Proxy Statement: 
      |                    +- return ;
@@ -18257,24 +16484,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_81] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18288,40 +16512,35 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_80] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18335,8 +16554,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_82] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18344,14 +16562,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_209()
+  private Z jj_3R_208()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18362,16 +16579,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
      |        +- Op: >> Proxy Data Access [xsp] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18385,24 +16600,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18416,8 +16628,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_89] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18440,8 +16651,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_49] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -18459,8 +16669,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_49] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -18474,8 +16683,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_373()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18489,40 +16711,35 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_80] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18536,8 +16753,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18555,16 +16771,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_92] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
      |        +- Op: >> Proxy Data Access [xsp] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_93] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18578,59 +16792,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_208()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18644,31 +16820,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_371()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_374] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18691,8 +16850,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_79] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -18710,8 +16868,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_79] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -18725,8 +16882,28 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_377()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18740,8 +16917,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18755,12 +16931,66 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_376()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- >> Proxy Statement: 
+     |  +- while( )
+     |  +- Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<
+     |  <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -18770,8 +17000,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_70] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18785,16 +17014,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18817,8 +17044,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_242] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -18836,8 +17062,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_242] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -18851,8 +17076,35 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3_40()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18866,16 +17118,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18889,23 +17139,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_153] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_143()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_153] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -18923,8 +17157,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_232] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -18934,8 +17167,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_233] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- Block:
      |                    +- Local Variables:
@@ -18945,8 +17177,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                       +- If Statement:
      |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3R_234] <<
+     |                          |  +- Op: >> proxy [ () ]
      |                          +- If Code:
      |                             +- Block:
      |                                +- Local Variables:
@@ -18956,8 +17187,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                   |  +- Op: >> Proxy Data Access [xsp] <<
      |                                   +- If Statement:
      |                                      +- Condition:
-     |                                      |  +- Op: >> unary proxy <<
-     |                                      |     +- Op: >> Proxy Data Access [jj_3R_235] <<
+     |                                      |  +- Op: >> proxy [ () ]
      |                                      +- If Code:
      |                                         +- Block:
      |                                            +- Local Variables:
@@ -18967,8 +17197,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                               |  +- Op: >> Proxy Data Access [xsp] <<
      |                                               +- If Statement:
      |                                                  +- Condition:
-     |                                                  |  +- Op: >> unary proxy <<
-     |                                                  |     +- Op: >> Proxy Data Access [jj_3R_236] <<
+     |                                                  |  +- Op: >> proxy [ () ]
      |                                                  +- If Code:
      |                                                     +- Block:
      |                                                        +- Local Variables:
@@ -18978,8 +17207,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                           |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                           +- If Statement:
      |                                                              +- Condition:
-     |                                                              |  +- Op: >> unary proxy <<
-     |                                                              |     +- Op: >> Proxy Data Access [jj_3R_237] <<
+     |                                                              |  +- Op: >> proxy [ () ]
      |                                                              +- If Code:
      |                                                                 +- Block:
      |                                                                    +- Local Variables:
@@ -18989,8 +17217,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                       +- If Statement:
      |                                                                          +- Condition:
-     |                                                                          |  +- Op: >> unary proxy <<
-     |                                                                          |     +- Op: >> Proxy Data Access [jj_3R_238] <<
+     |                                                                          |  +- Op: >> proxy [ () ]
      |                                                                          +- If Code:
      |                                                                             +- Block:
      |                                                                                +- Local Variables:
@@ -19000,8 +17227,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                   |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                   +- If Statement:
      |                                                                                      +- Condition:
-     |                                                                                      |  +- Op: >> unary proxy <<
-     |                                                                                      |     +- Op: >> Proxy Data Access [jj_3R_239] <<
+     |                                                                                      |  +- Op: >> proxy [ () ]
      |                                                                                      +- If Code:
      |                                                                                         +- >> Proxy Statement: 
      |                                                                                            +- return ;
@@ -19009,22 +17235,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_375()
+  private Z jj_3R_143()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_202] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19038,16 +17255,28 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_375()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19070,8 +17299,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_96] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -19089,8 +17317,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_96] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -19107,8 +17334,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3_9] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
@@ -19118,8 +17344,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_97] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
@@ -19129,8 +17354,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_98] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -19140,24 +17364,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_99] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- >> Proxy Statement: 
      |                    +- return ;
      |                    <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_100] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19171,86 +17392,53 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_202] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
-     +- Statements:
-     +- >> Proxy Statement: 
-     |  +- while( )
-     |  +- Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_375] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_375] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<
-     |  <<
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3_40()
+  private Z jj_3R_279()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_85] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_372()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_64] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- >> Proxy Statement: 
+     |                    +- return ;
+     |                    <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -19260,24 +17448,35 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_70] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_369()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19291,8 +17490,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_68] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19300,14 +17498,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_373()
+  private Z jj_3R_368()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_374] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19315,74 +17512,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_372()
+  private Z jj_3R_312()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_169] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_370()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_372] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_373] <<
-     |              +- If Code:
-     |                 +- >> Proxy Statement: 
-     |                    +- return ;
-     |                    <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_310()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_149] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_309()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_68] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19396,8 +17532,35 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_78] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_311()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_367()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19411,8 +17574,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_229] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19428,8 +17590,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_25] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -19447,8 +17608,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_25] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -19463,176 +17623,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_367()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_371] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3_24()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_77] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_366()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_308()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_324] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_276()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_64] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_260] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_365()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_370] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_275()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_64] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_248] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_355()
+  private Z jj_3R_357()
   Block:
   +- Local Variables:
   +- Code:
@@ -19642,16 +17633,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_365] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
      |        +- Op: >> Proxy Data Access [xsp] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19661,16 +17650,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_366] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
      |        +- Op: >> Proxy Data Access [xsp] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19680,8 +17667,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_367] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
@@ -19695,32 +17681,28 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_85] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_64] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19728,14 +17710,153 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_306()
+  private Z jj_3_24()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_90] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_276()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_356()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_310()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_275()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19753,8 +17874,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_275] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -19764,8 +17884,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_276] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- >> Proxy Statement: 
      |                    +- return ;
@@ -19773,7 +17892,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_297()
+  private Z jj_3R_308()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_299()
   Block:
   +- Local Variables:
   +- Code:
@@ -19783,24 +17916,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_306] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
      |        +- Op: >> Proxy Data Access [xsp] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_307] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19810,16 +17940,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_308] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
      |        +- Op: >> Proxy Data Access [xsp] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19829,8 +17957,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_309] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
@@ -19845,8 +17972,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_310] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -19864,8 +17990,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_310] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -19879,8 +18004,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19888,46 +18012,69 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_354()
+  private Z jj_3R_207()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_85] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_64] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- >> Proxy Statement: 
+     |                    +- return ;
+     |                    <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_278()
+  Block:
+  +- Local Variables:
+  +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19945,8 +18092,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -19956,8 +18102,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- >> Proxy Statement: 
      |                    +- return ;
@@ -19971,8 +18116,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_224] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -19983,8 +18127,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_277] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
@@ -19992,14 +18135,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_340()
+  private Z jj_3R_342()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20013,86 +18155,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_64] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_207()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_354] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_355] <<
-     |              +- If Code:
-     |                 +- >> Proxy Statement: 
-     |                    +- return ;
-     |                    <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_170] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20100,14 +18177,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_344()
+  private Z jj_3R_346()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_89] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20121,24 +18197,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_64] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20149,8 +18222,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -20160,8 +18232,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- Block:
      |                    +- Local Variables:
@@ -20171,8 +18242,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                       +- If Statement:
      |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |                          |  +- Op: >> proxy [ () ]
      |                          +- If Code:
      |                             +- Block:
      |                                +- Local Variables:
@@ -20182,8 +18252,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                   |  +- Op: >> Proxy Data Access [xsp] <<
      |                                   +- If Statement:
      |                                      +- Condition:
-     |                                      |  +- Op: >> unary proxy <<
-     |                                      |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |                                      |  +- Op: >> proxy [ () ]
      |                                      +- If Code:
      |                                         +- Block:
      |                                            +- Local Variables:
@@ -20193,8 +18262,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                               |  +- Op: >> Proxy Data Access [xsp] <<
      |                                               +- If Statement:
      |                                                  +- Condition:
-     |                                                  |  +- Op: >> unary proxy <<
-     |                                                  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |                                                  |  +- Op: >> proxy [ () ]
      |                                                  +- If Code:
      |                                                     +- Block:
      |                                                        +- Local Variables:
@@ -20204,8 +18272,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                           |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                           +- If Statement:
      |                                                              +- Condition:
-     |                                                              |  +- Op: >> unary proxy <<
-     |                                                              |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |                                                              |  +- Op: >> proxy [ () ]
      |                                                              +- If Code:
      |                                                                 +- Block:
      |                                                                    +- Local Variables:
@@ -20215,8 +18282,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                       +- If Statement:
      |                                                                          +- Condition:
-     |                                                                          |  +- Op: >> unary proxy <<
-     |                                                                          |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |                                                                          |  +- Op: >> proxy [ () ]
      |                                                                          +- If Code:
      |                                                                             +- Block:
      |                                                                                +- Local Variables:
@@ -20226,8 +18292,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                                   |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                                                   +- If Statement:
      |                                                                                      +- Condition:
-     |                                                                                      |  +- Op: >> unary proxy <<
-     |                                                                                      |     +- Op: >> Proxy Data Access [jj_3R_143] <<
+     |                                                                                      |  +- Op: >> proxy [ () ]
      |                                                                                      +- If Code:
      |                                                                                         +- >> Proxy Statement: 
      |                                                                                            +- return ;
@@ -20235,14 +18300,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_343()
+  private Z jj_3R_345()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20250,7 +18314,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_339()
+  private Z jj_3R_341()
   Block:
   +- Local Variables:
   +- Code:
@@ -20260,8 +18324,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_343] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -20271,12 +18334,67 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_344] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- >> Proxy Statement: 
      |                    +- return ;
      |                    <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_206()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -20286,32 +18404,28 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_64] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20329,8 +18443,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3_22] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -20340,8 +18453,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_119] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- Block:
      |                    +- Local Variables:
@@ -20351,8 +18463,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                       +- If Statement:
      |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3R_120] <<
+     |                          |  +- Op: >> proxy [ () ]
      |                          +- If Code:
      |                             +- >> Proxy Statement: 
      |                                +- return ;
@@ -20366,16 +18477,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_77] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20383,14 +18492,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_332()
+  private Z jj_3R_334()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_85] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20401,16 +18509,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_339] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
      |        +- Op: >> Proxy Data Access [xsp] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_64] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20420,16 +18526,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_340] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
      |        +- Op: >> Proxy Data Access [xsp] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_325] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20443,8 +18547,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_76] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20452,62 +18555,41 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_206()
+  private Z jj_3R_205()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_170] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20521,8 +18603,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_271] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20536,8 +18617,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_270] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20545,22 +18625,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_333()
+  private Z jj_3R_335()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_332] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20574,8 +18652,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20589,8 +18666,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20598,14 +18674,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_323()
+  private Z jj_3R_325()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_332] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20621,8 +18696,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_333] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -20640,8 +18714,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_333] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -20666,8 +18739,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_268] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -20677,16 +18749,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_269] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- >> Proxy Statement: 
      |                    +- return ;
      |                    <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_248] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20704,8 +18774,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_262] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -20715,8 +18784,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_263] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- Block:
      |                    +- Local Variables:
@@ -20726,8 +18794,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                       +- If Statement:
      |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3R_264] <<
+     |                          |  +- Op: >> proxy [ () ]
      |                          +- If Code:
      |                             +- >> Proxy Statement: 
      |                                +- return ;
@@ -20735,14 +18802,34 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_307()
+  private Z jj_3R_355()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_309()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20753,16 +18840,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_323] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
      |        +- Op: >> Proxy Data Access [xsp] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20770,46 +18855,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_205()
+  private Z jj_3R_329()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_170] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20817,26 +18876,56 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_327()
+  private Z jj_3R_204()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -20846,16 +18935,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_224] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20863,22 +18950,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_314()
+  private Z jj_3R_316()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_307] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20894,8 +18979,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_327] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -20913,8 +18997,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_327] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -20929,22 +19012,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_353()
+  private Z jj_3R_319()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_170] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20952,29 +19026,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_317()
+  private Z jj_3R_318()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_316()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_93] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -20988,16 +19046,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_224] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -21005,85 +19061,101 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_204()
+  private Z jj_3R_371()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_317()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_370()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_170] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_365()
+  Block:
+  +- Local Variables:
+  +- Code:
      +- Statements:
      +- St: =
      |  +- Op: >> Proxy Data Access [xsp] <<
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_353] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_315()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_324] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- >> Proxy Statement: 
+     |                    +- return ;
+     |                    <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -21093,8 +19165,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_260] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -21108,8 +19179,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_228] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -21123,8 +19193,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_227] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -21132,14 +19201,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_313()
+  private Z jj_3R_315()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_90] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -21147,7 +19215,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_299()
+  private Z jj_3R_301()
   Block:
   +- Local Variables:
   +- Code:
@@ -21157,24 +19225,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_313] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
      |        +- Op: >> Proxy Data Access [xsp] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_81] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_314] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -21184,8 +19249,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_315] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
@@ -21195,8 +19259,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_316] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -21206,8 +19269,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_317] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- >> Proxy Statement: 
      |                    +- return ;
@@ -21221,8 +19283,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -21236,8 +19297,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -21255,8 +19315,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_258] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -21266,39 +19325,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_259] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- >> Proxy Statement: 
      |                    +- return ;
      |                    <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_248] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_369()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -21316,8 +19350,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_250] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -21327,8 +19360,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_251] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- Block:
      |                    +- Local Variables:
@@ -21338,8 +19370,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                       +- If Statement:
      |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3R_252] <<
+     |                          |  +- Op: >> proxy [ () ]
      |                          +- If Code:
      |                             +- Block:
      |                                +- Local Variables:
@@ -21349,8 +19380,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                   |  +- Op: >> Proxy Data Access [xsp] <<
      |                                   +- If Statement:
      |                                      +- Condition:
-     |                                      |  +- Op: >> unary proxy <<
-     |                                      |     +- Op: >> Proxy Data Access [jj_3R_253] <<
+     |                                      |  +- Op: >> proxy [ () ]
      |                                      +- If Code:
      |                                         +- >> Proxy Statement: 
      |                                            +- return ;
@@ -21358,64 +19388,17 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_368()
+  private Z jj_3R_366()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_363()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_368] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_369] <<
-     |              +- If Code:
-     |                 +- >> Proxy Statement: 
-     |                    +- return ;
-     |                    <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -21425,8 +19408,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -21440,8 +19422,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -21455,16 +19436,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_67] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -21478,8 +19457,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -21487,63 +19465,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_265()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_272] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_273] <<
-     |              +- If Code:
-     |                 +- Block:
-     |                    +- Local Variables:
-     |                    +- Code:
-     |                       +- St: =
-     |                       |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                       |  +- Op: >> Proxy Data Access [xsp] <<
-     |                       +- If Statement:
-     |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3R_274] <<
-     |                          +- If Code:
-     |                             +- >> Proxy Statement: 
-     |                                +- return ;
-     |                                <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_248] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_286()
+  private Z jj_3R_354()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_67] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -21559,8 +19487,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_7] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -21578,8 +19505,107 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_7] <<
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<
+     |  <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_265()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- Block:
+     |                    +- Local Variables:
+     |                    +- Code:
+     |                       +- St: =
+     |                       |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                       |  +- Op: >> Proxy Data Access [xsp] <<
+     |                       +- If Statement:
+     |                          +- Condition:
+     |                          |  +- Op: >> proxy [ () ]
+     |                          +- If Code:
+     |                             +- >> Proxy Statement: 
+     |                                +- return ;
+     |                                <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_288()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- >> Proxy Statement: 
+     |  +- while( )
+     |  +- Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -21600,8 +19626,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -21612,8 +19637,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_286] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
@@ -21623,16 +19647,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
      |        +- Op: >> Proxy Data Access [xsp] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -21646,8 +19668,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_248] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -21663,8 +19684,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_265] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -21682,267 +19702,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_265] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<
-     |  <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_364()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_149] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_95()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_94()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_138] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_267()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_352()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_363] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- >> Proxy Statement: 
-     |  +- while( )
-     |  +- Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_364] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_364] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<
-     |  <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_266()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_67()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_94] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_95] <<
-     |              +- If Code:
-     |                 +- >> Proxy Statement: 
-     |                    +- return ;
-     |                    <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_261()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_266] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_267] <<
-     |              +- If Code:
-     |                 +- >> Proxy Statement: 
-     |                    +- return ;
-     |                    <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_244] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_241()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_244] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- >> Proxy Statement: 
-     |  +- while( )
-     |  +- Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_261] <<
-     |  +-       +- If Code:
-     |  +-          +- Block:
-     |  +-             +- Local Variables:
-     |  +-             +- Code:
-     |  +-                +- St: =
-     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-                +- >> Proxy Statement: 
-     |  +-                   +- break;
-     |  +-                   <<Block:
-     |  +- +- Local Variables:
-     |  +- +- Code:
-     |  +-    +- St: =
-     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |  +-    +- If Statement:
-     |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_261] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -21963,40 +19723,35 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -22012,8 +19767,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_352] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -22031,8 +19785,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_352] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -22046,8 +19799,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -22055,22 +19807,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_335()
+  private Z jj_3R_95()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -22078,14 +19821,125 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_325()
+  private Z jj_3R_94()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_267()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_266()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_67()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- >> Proxy Statement: 
+     |                    +- return ;
+     |                    <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_261()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- >> Proxy Statement: 
+     |                    +- return ;
+     |                    <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_364()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_241()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -22101,8 +19955,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_335] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -22120,8 +19973,132 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_335] <<
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<
+     |  <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_363()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_337()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_362()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- >> Proxy Statement: 
+     |                    +- return ;
+     |                    <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_327()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- >> Proxy Statement: 
+     |  +- while( )
+     |  +- Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -22142,19 +20119,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_75] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_362()
-  Block:
-  +- Local Variables:
-  +- Code:
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -22164,8 +20133,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_74] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -22179,12 +20147,56 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_219()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- Block:
+     |                    +- Local Variables:
+     |                    +- Code:
+     |                       +- St: =
+     |                       |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                       |  +- Op: >> Proxy Data Access [xsp] <<
+     |                       +- If Statement:
+     |                          +- Condition:
+     |                          |  +- Op: >> proxy [ () ]
+     |                          +- If Code:
+     |                             +- >> Proxy Statement: 
+     |                                +- return ;
+     |                                <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -22198,8 +20210,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_73] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -22209,8 +20220,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3_19] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- Block:
      |                    +- Local Variables:
@@ -22220,16 +20230,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                       +- If Statement:
      |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3_20] <<
+     |                          |  +- Op: >> proxy [ () ]
      |                          +- If Code:
      |                             +- >> Proxy Statement: 
      |                                +- return ;
      |                                <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_241] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -22237,22 +20245,27 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_361()
+  private Z jj_3R_223()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_71] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_222()
+  Block:
+  +- Local Variables:
+  +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_72] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -22266,8 +20279,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_241] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -22283,8 +20295,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_18] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -22302,8 +20313,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3_18] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -22318,308 +20328,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_326()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_67] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_360()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |              +- If Code:
-     |                 +- >> Proxy Statement: 
-     |                    +- return ;
-     |                    <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_311()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_325] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_326] <<
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |        +- Op: >> Proxy Data Access [xsp] <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_219()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_224] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_360] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_361] <<
-     |              +- If Code:
-     |                 +- Block:
-     |                    +- Local Variables:
-     |                    +- Code:
-     |                       +- St: =
-     |                       |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                       |  +- Op: >> Proxy Data Access [xsp] <<
-     |                       +- If Statement:
-     |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3R_362] <<
-     |                          +- If Code:
-     |                             +- >> Proxy Statement: 
-     |                                +- return ;
-     |                                <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_65()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_257()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_256()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_255()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_223()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_228] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_254()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_222()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_227] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_249()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [xsp] <<
-     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_254] <<
-     |  +- If Code:
-     |     +- Block:
-     |        +- Local Variables:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |           |  +- Op: >> Proxy Data Access [xsp] <<
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_255] <<
-     |              +- If Code:
-     |                 +- Block:
-     |                    +- Local Variables:
-     |                    +- Code:
-     |                       +- St: =
-     |                       |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                       |  +- Op: >> Proxy Data Access [xsp] <<
-     |                       +- If Statement:
-     |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3R_256] <<
-     |                          +- If Code:
-     |                             +- Block:
-     |                                +- Local Variables:
-     |                                +- Code:
-     |                                   +- St: =
-     |                                   |  +- Op: >> Proxy Data Access [jj_scanpos] <<
-     |                                   |  +- Op: >> Proxy Data Access [xsp] <<
-     |                                   +- If Statement:
-     |                                      +- Condition:
-     |                                      |  +- Op: >> unary proxy <<
-     |                                      |     +- Op: >> Proxy Data Access [jj_3R_257] <<
-     |                                      +- If Code:
-     |                                         +- >> Proxy Statement: 
-     |                                            +- return ;
-     |                                            <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_231] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
   private Z jj_3R_218()
   Block:
   +- Local Variables:
@@ -22630,8 +20338,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_222] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -22641,8 +20348,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_223] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- >> Proxy Statement: 
      |                    +- return ;
@@ -22660,8 +20366,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_218] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -22671,12 +20376,189 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_219] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- >> Proxy Statement: 
      |                    +- return ;
      |                    <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_328()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_313()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |        +- Op: >> Proxy Data Access [xsp] <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_65()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_257()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_256()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_255()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_254()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_249()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- Block:
+     |        +- Local Variables:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |           |  +- Op: >> Proxy Data Access [xsp] <<
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: >> proxy [ () ]
+     |              +- If Code:
+     |                 +- Block:
+     |                    +- Local Variables:
+     |                    +- Code:
+     |                       +- St: =
+     |                       |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                       |  +- Op: >> Proxy Data Access [xsp] <<
+     |                       +- If Statement:
+     |                          +- Condition:
+     |                          |  +- Op: >> proxy [ () ]
+     |                          +- If Code:
+     |                             +- Block:
+     |                                +- Local Variables:
+     |                                +- Code:
+     |                                   +- St: =
+     |                                   |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |                                   |  +- Op: >> Proxy Data Access [xsp] <<
+     |                                   +- If Statement:
+     |                                      +- Condition:
+     |                                      |  +- Op: >> proxy [ () ]
+     |                                      +- If Code:
+     |                                         +- >> Proxy Statement: 
+     |                                            +- return ;
+     |                                            <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
      +- >> Proxy Statement: 
         +- return ;
         <<
@@ -22686,8 +20568,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_231] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -22703,8 +20584,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_249] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -22722,8 +20602,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_249] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -22738,22 +20617,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_312()
+  private Z jj_3R_201()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_311] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -22761,22 +20631,41 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_298()
+  private Z jj_3R_314()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_64] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_311] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_300()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -22792,8 +20681,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_312] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -22811,8 +20699,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_312] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -22826,8 +20713,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -22841,16 +20727,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_64] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -22866,8 +20750,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_65] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -22885,8 +20768,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_65] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -22903,8 +20785,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -22914,8 +20795,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- Block:
      |                    +- Local Variables:
@@ -22925,8 +20805,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                       +- If Statement:
      |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |                          |  +- Op: >> proxy [ () ]
      |                          +- If Code:
      |                             +- >> Proxy Statement: 
      |                                +- return ;
@@ -22940,8 +20819,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_90] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -22959,24 +20837,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_63] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
      |        +- Op: >> Proxy Data Access [xsp] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -22990,16 +20865,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_64] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -23007,14 +20880,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_295()
+  private Z jj_3R_297()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_300] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -23028,8 +20900,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_226] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -23040,8 +20911,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_245] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- St: =
      |        +- Op: >> Proxy Data Access [jj_scanpos] <<
@@ -23049,14 +20919,27 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_201()
+  private Z jj_3R_296()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_295()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -23070,8 +20953,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_299] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -23085,8 +20967,28 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_298] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_344()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -23100,38 +21002,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_297] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_291()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_296] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_290()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_171] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -23145,8 +21016,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -23160,8 +21030,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -23169,14 +21038,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_289()
+  private Z jj_3R_291()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_85] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -23187,8 +21055,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_290] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -23198,8 +21065,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_291] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- Block:
      |                    +- Local Variables:
@@ -23209,8 +21075,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                       +- If Statement:
      |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_3R_292] <<
+     |                          |  +- Op: >> proxy [ () ]
      |                          +- If Code:
      |                             +- Block:
      |                                +- Local Variables:
@@ -23220,8 +21085,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                   |  +- Op: >> Proxy Data Access [xsp] <<
      |                                   +- If Statement:
      |                                      +- Condition:
-     |                                      |  +- Op: >> unary proxy <<
-     |                                      |     +- Op: >> Proxy Data Access [jj_3R_293] <<
+     |                                      |  +- Op: >> proxy [ () ]
      |                                      +- If Code:
      |                                         +- Block:
      |                                            +- Local Variables:
@@ -23231,8 +21095,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                               |  +- Op: >> Proxy Data Access [xsp] <<
      |                                               +- If Statement:
      |                                                  +- Condition:
-     |                                                  |  +- Op: >> unary proxy <<
-     |                                                  |     +- Op: >> Proxy Data Access [jj_3R_294] <<
+     |                                                  |  +- Op: >> proxy [ () ]
      |                                                  +- If Code:
      |                                                     +- Block:
      |                                                        +- Local Variables:
@@ -23242,8 +21105,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                           |  +- Op: >> Proxy Data Access [xsp] <<
      |                                                           +- If Statement:
      |                                                              +- Condition:
-     |                                                              |  +- Op: >> unary proxy <<
-     |                                                              |     +- Op: >> Proxy Data Access [jj_3R_295] <<
+     |                                                              |  +- Op: >> proxy [ () ]
      |                                                              +- If Code:
      |                                                                 +- >> Proxy Statement: 
      |                                                                    +- return ;
@@ -23261,8 +21123,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_246] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -23272,16 +21133,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_247] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- >> Proxy Statement: 
      |                    +- return ;
      |                    <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_221] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -23295,8 +21154,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_221] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -23312,8 +21170,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_243] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -23331,8 +21188,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_243] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -23353,8 +21209,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_66] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -23362,30 +21217,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_342()
-  Block:
-  +- Local Variables:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_311] <<
-     |  +- If Code:
-     |     +- >> Proxy Statement: 
-     |        +- return ;
-     |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_288()
+  private Z jj_3R_290()
   Block:
   +- Local Variables:
   +- Code:
@@ -23395,8 +21227,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3_6] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- Block:
      |        +- Local Variables:
@@ -23406,8 +21237,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Op: >> Proxy Data Access [xsp] <<
      |           +- If Statement:
      |              +- Condition:
-     |              |  +- Op: >> unary proxy <<
-     |              |     +- Op: >> Proxy Data Access [jj_3R_289] <<
+     |              |  +- Op: >> proxy [ () ]
      |              +- If Code:
      |                 +- Block:
      |                    +- Local Variables:
@@ -23417,8 +21247,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                       |  +- Op: >> Proxy Data Access [xsp] <<
      |                       +- If Statement:
      |                          +- Condition:
-     |                          |  +- Op: >> unary proxy <<
-     |                          |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |                          |  +- Op: >> proxy [ () ]
      |                          +- If Code:
      |                             +- >> Proxy Statement: 
      |                                +- return ;
@@ -23426,37 +21255,27 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_240()
+  private Z jj_3R_169()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_scan_token] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_217] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
      |        <<
-     +- >> Proxy Statement: 
-        +- return ;
-        <<
-  private Z jj_3R_196()
-  Block:
-  +- Local Variables:
-  +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_217] <<
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -23472,8 +21291,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_240] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -23491,8 +21309,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  +-    +- If Statement:
      |  +-       +- Condition:
-     |  +-       |  +- Op: >> unary proxy <<
-     |  +-       |     +- Op: >> Proxy Data Access [jj_3R_240] <<
+     |  +-       |  +- Op: >> proxy [ () ]
      |  +-       +- If Code:
      |  +-          +- Block:
      |  +-             +- Local Variables:
@@ -23507,14 +21324,117 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- >> Proxy Statement: 
         +- return ;
         <<
-  private Z jj_3R_287()
+  private Z jj_3R_240()
   Block:
   +- Local Variables:
   +- Code:
      +- If Statement:
      |  +- Condition:
-     |  |  +- Op: >> unary proxy <<
-     |  |     +- Op: >> Proxy Data Access [jj_3R_288] <<
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_196()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- Statements:
+     +- >> Proxy Statement: 
+     |  +- while( )
+     |  +- Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<Block:
+     |  +- +- Local Variables:
+     |  +- +- Code:
+     |  +-    +- St: =
+     |  +-    |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-    |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-    +- If Statement:
+     |  +-       +- Condition:
+     |  +-       |  +- Op: >> proxy [ () ]
+     |  +-       +- If Code:
+     |  +-          +- Block:
+     |  +-             +- Local Variables:
+     |  +-             +- Code:
+     |  +-                +- St: =
+     |  +-                |  +- Op: >> Proxy Data Access [jj_scanpos] <<
+     |  +-                |  +- Op: >> Proxy Data Access [xsp] <<
+     |  +-                +- >> Proxy Statement: 
+     |  +-                   +- break;
+     |  +-                   <<
+     |  <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3R_289()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- >> Proxy Statement: 
+        +- return ;
+        <<
+  private Z jj_3_38()
+  Block:
+  +- Local Variables:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
+     |  +- If Code:
+     |     +- >> Proxy Statement: 
+     |        +- return ;
+     |        <<
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: >> proxy [ () ]
      |  +- If Code:
      |     +- >> Proxy Statement: 
      |        +- return ;
@@ -23563,8 +21483,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-        +- Op: >> Proxy Data Access [ReInit] <<
+     +- St: >> proxy [ (, ) ]
   public ReInit(Ljava.io.InputStream; , Ljava.lang.String; )
   Block:
   +- Local Variables:
@@ -23574,8 +21493,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Block:
      |  +- +- Local Variables:
      |  +- +- Code:
-     |  +-    +- St: >> unary proxy <<
-     |  +-       +- Op: >> Proxy Data Access [jj_input_stream.ReInit] << catch(Ljava.io.UnsupportedEncodingException; ) 
+     |  +-    +- St: >> proxy [ (, , , ) ] catch(Ljava.io.UnsupportedEncodingException; ) 
      |  +- Block:
      |  +- +- Local Variables:
      |  +- +- Code:
@@ -23583,8 +21501,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-       +- throw ;
      |  +-       <<
      |  <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [token_source.ReInit] <<
+     +- St: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [token] <<
      |  +- Op: >> proxy [ new something ]
@@ -23610,10 +21527,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   Block:
   +- Local Variables:
   +- Code:
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [jj_input_stream.ReInit] <<
-     +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [token_source.ReInit] <<
+     +- St: >> proxy [ (, , ) ]
+     +- St: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [token] <<
      |  +- Op: >> proxy [ new something ]
@@ -23656,7 +21571,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: !=
-     |  |     +- Op: >> unary proxy <<
+     |  |     +- Op: >> Proxy Data Access [next] <<
      |  |     |  +- Op: =
      |  |     |     +- Op: >> Proxy Data Access [oldToken] <<
      |  |     |     +- Op: >> Proxy Data Access [token] <<
@@ -23671,8 +21586,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        +- Op: >> Proxy Data Access [token] <<
      |        +- Op: =
      |           +- Op: >> Proxy Data Access [token.next] <<
-     |           +- Op: >> unary proxy <<
-     |              +- Op: >> Proxy Data Access [token_source.getNextToken] <<
+     |           +- Op: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [jj_ntk] <<
      |  +- Op: -
@@ -23732,8 +21646,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |           |              +- Op: >> Proxy Data Access [jj_scanpos] <<
      |  |           |              +- Op: =
      |  |           |                 +- Op: >> Proxy Data Access [jj_scanpos.next] <<
-     |  |           |                 +- Op: >> unary proxy <<
-     |  |           |                    +- Op: >> Proxy Data Access [token_source.getNextToken] <<
+     |  |           |                 +- Op: >> proxy [ () ]
      |  |           +- Else Code:
      |  |              +- Block:
      |  |                 +- Local Variables:
@@ -23795,8 +21708,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        +- Op: >> Proxy Data Access [token] <<
      |        +- Op: =
      |           +- Op: >> Proxy Data Access [token.next] <<
-     |           +- Op: >> unary proxy <<
-     |              +- Op: >> Proxy Data Access [token_source.getNextToken] <<
+     |           +- Op: >> proxy [ () ]
      +- St: =
      |  +- Op: >> Proxy Data Access [jj_ntk] <<
      |  +- Op: -
@@ -23850,8 +21762,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-             +- Op: >> Proxy Data Access [t] <<
      |  +-             +- Op: =
      |  +-                +- Op: >> Proxy Data Access [t.next] <<
-     |  +-                +- Op: >> unary proxy <<
-     |  +-                   +- Op: >> Proxy Data Access [token_source.getNextToken] <<Block:
+     |  +-                +- Op: >> proxy [ () ]Block:
      |  +- +- Local Variables:
      |  +- +- Code:
      |  +-    +- If Statement:
@@ -23871,8 +21782,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-             +- Op: >> Proxy Data Access [t] <<
      |  +-             +- Op: =
      |  +-                +- Op: >> Proxy Data Access [t.next] <<
-     |  +-                +- Op: >> unary proxy <<
-     |  +-                   +- Op: >> Proxy Data Access [token_source.getNextToken] <<
+     |  +-                +- Op: >> proxy [ () ]
      |  <<
      +- >> Proxy Statement: 
         +- return ;
@@ -23927,8 +21837,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     |  |  |  +- Op: Local variable access: errortok
      |     |  |  +- Op: Literal
      |     |  |     +- Integer: 0
-     |     |  +- Op: >> unary proxy <<
-     |     |  |  +- Op: >> Proxy Data Access [tokenImage] <<
+     |     |  +- Op: >> proxy [ [] ]
      |     |  +- Op: >> Proxy Data Access [Proxy access to member image] <<
      |     |     +- Op: Local variable access: errortok
      |     +- Op: ?
@@ -23937,8 +21846,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        |  |  +- Op: Local variable access: errortok
      |        |  +- Op: Literal
      |        |     +- Integer: 0
-     |        +- Op: >> unary proxy <<
-     |        |  +- Op: >> Proxy Data Access [tokenImage] <<
+     |        +- Op: >> proxy [ [] ]
      |        +- Op: >> Proxy Data Access [Proxy access to member image] <<
      |           +- Op: Local variable access: errortok
      +- >> Proxy Statement: 

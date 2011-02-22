@@ -1,6 +1,7 @@
 package cat.quadriga.parsers.code.statements;
 
 import cat.quadriga.parsers.Token;
+import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.symbols.LabelSymbol;
@@ -12,7 +13,7 @@ public class LabeledStatementNode extends StatementNode {
   public final StatementNode statement;
 
   public LabeledStatementNode(Token label, StatementNode statement, SymbolTable st, ErrorLog errorLog) {
-    super(label.beginLine, label.beginColumn, statement.endLine, statement.endColumn);
+    super(new CodeZoneClass(label, statement));
 
     if(st.findSymbolOnTop(label.image) != null) {
       errorLog.insertError("Identificador \"" + label.image + "\" repetit.", this);

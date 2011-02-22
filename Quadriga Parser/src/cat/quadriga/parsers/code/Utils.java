@@ -85,19 +85,13 @@ abstract public class Utils {
   public static ExpressionNode symbolToExpression(BaseSymbol symbol, Token first, Token last)
   {
     if(symbol instanceof LocalVariableSymbol) {
-      return new LocalVarAccess((LocalVariableSymbol)symbol,
-                                first.beginLine, first.beginColumn,
-                                last.endLine, last.endColumn);
+      return new LocalVarAccess((LocalVariableSymbol)symbol, new CodeZoneClass(first,last));
     } else if(symbol instanceof TypeSymbol) {
-      return new TypeDataAccess(((TypeSymbol)symbol).type ,
-                                first.beginLine, first.beginColumn,
-                                last.endLine, last.endColumn);
+      return new TypeDataAccess(((TypeSymbol)symbol).type, new CodeZoneClass(first,last));
     }
     
     //TODO error?
-    return new ProxyDataAccess("Proxy direct access [" + symbol.name + "]",
-                                first.beginLine, first.beginColumn,
-                                last.endLine, last.endColumn);
+    return new ProxyDataAccess("Proxy direct access [" + symbol.name + "]", new CodeZoneClass(first,last));
   }
   
   public static ExpressionNode accessToMember(DataAccess expression, String member, Token t)
@@ -146,8 +140,7 @@ abstract public class Utils {
     }
 
     if(result == null) {
-      result = new ProxyDataAccess(aux, identifiers.get(0).beginLine,identifiers.get(0).beginColumn,
-          identifiers.get(identifiers.size()-1).endLine, identifiers.get(identifiers.size()-1).endColumn);
+      result = new ProxyDataAccess(aux,  new CodeZoneClass(identifiers.get(0),identifiers.get(identifiers.size()-1)));
     } else {
       while(it.hasNext()) {
         actual = it.next();

@@ -6,12 +6,6 @@ import cat.quadriga.parsers.code.types.BaseType;
 public class TypeDataAccess extends DirectDataAccess {
 
   public final BaseType type;
-  
-  public TypeDataAccess(BaseType type, int beginLine, int beginColumn, int endLine,
-      int endColumn) {
-    super(beginLine, beginColumn, endLine, endColumn);
-    this.type = type;
-  }
 
   public TypeDataAccess(BaseType type, CodeZone cz) {
     super(cz);

@@ -1,5 +1,6 @@
 package cat.quadriga.parsers.code.statements;
 
+import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
@@ -11,10 +12,7 @@ public class AssigmentStatementNode extends StatementNode {
   public AssigmentStatementNode(Operator operator, 
                                 ExpressionNode left, 
                                 ExpressionNode right) {
-    super(left.beginLine(), 
-          left.beginColumn(), 
-          right.endLine(), 
-          right.endColumn());
+    super(new CodeZoneClass(left, right));
     leftOperand  = left;
     rightOperand = right;
     this.operator = operator;

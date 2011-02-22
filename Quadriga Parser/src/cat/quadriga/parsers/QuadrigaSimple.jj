@@ -2310,7 +2310,7 @@ ExpressionNode InstanceOfExpression():
   [ t="instanceof" { operator = BooleanOperation.Operator.INSTANCEOF; }
     Type(out)
     {
-      auxiliarNode = new ProxyExpression(out,t,t);
+      auxiliarNode = new ProxyExpression(out,new CodeZoneClass(t));
       finalNode = new BooleanOperation(operator,finalNode,auxiliarNode);    }
   ]
   {
@@ -2509,10 +2509,13 @@ ExpressionNode PostfixExpression():
   List<PrintInfo> out = new LinkedList<PrintInfo>();
   ExpressionNode finalNode;
   Token t;
+  UnaryOperation.Operator operator;
 }
 {
   finalNode = PrimaryExpression(out)
-  [ ( t = "++"  | t = "--" )
+  [ ( t="++" {operator = UnaryOperation.Operator.POST_INC;} | t="--" {operator = UnaryOperation.Operator.POST_DEC;})
+    {
+      finalNode = new UnaryOperation(operator, finalNode, t);    }
   ]
 
   {    return finalNode;
@@ -2545,11 +2548,8 @@ ExpressionNode PrimaryExpression(List<PrintInfo> out):
 }
 {
   result = PrimaryPrefix()
-  ( LOOKAHEAD(2) PrimarySuffix(out)
-    {
-      Token t = new Token();
-      result = new UnaryProxy( result, t, t );
-    }
+  ( LOOKAHEAD(2)
+    result = PrimarySuffix(result)
   )*
 
   {    return result;
@@ -2593,15 +2593,14 @@ ExpressionNode PrimaryPrefix():
       if(tokenList.size() > 0) {
         //TODO algo
         result = new ProxyExpression(tokenList.get(0).image + " ... this",
-                                     tokenList.get(0),
-                                     t);      } else      {
-        result = new ProxyExpression("this", t, t);      }
+                                     new CodeZoneClass(tokenList.get(0),t));      } else      {
+        result = new ProxyExpression("this", new CodeZoneClass(t));      }
     }
   |
     t="super" "." t2=<IDENTIFIER>
     {
       //TODO
-      result = new ProxyExpression("super." + t2.image, t, t2);
+      result = new ProxyExpression("super." + t2.image, new CodeZoneClass(t, t2));
     }
   |
      // danson, added this part to support a construct like:
@@ -2611,7 +2610,7 @@ ExpressionNode PrimaryPrefix():
      type = ClassOrInterfaceType(out) t="." "super" "." t2=<IDENTIFIER>
      {
        //TODO
-      result = new ProxyExpression(type + ".super." + t.image, t, t2);
+      result = new ProxyExpression(type + ".super." + t.image, new CodeZoneClass(t, t2));
      }
   |
     "(" result = Expression(out) ")"
@@ -2636,53 +2635,66 @@ ExpressionNode PrimaryPrefix():
     return result;  }
 }
 
-void PrimarySuffix(List<PrintInfo> out):
+ExpressionNode PrimarySuffix(ExpressionNode in):
 {
-  Token t;
+  Token t, t2;
+  ExpressionNode out;
+  List<PrintInfo > printAux = new LinkedList<PrintInfo >();
 }
 {
   ( 
       LOOKAHEAD("." "super" ".")
-      "." "super"
+      t="." t2="super"
       {
-        out.add(new PrintString("."));
-        out.add(new PrintString("super"));
+        out = new ProxyExpression(".super",new CodeZoneClass(t,t2));
       }
     |
       LOOKAHEAD("." "this")
-      "." "this"
+      t="." t2="this"
       {
-        out.add(new PrintString("."));
-        out.add(new PrintString("this"));
+        out = new ProxyExpression(".this",new CodeZoneClass(t,t2));
       }
     |
       LOOKAHEAD(2)
       "."
       {
-        out.add(new PrintString("."));
+        printAux.add(new PrintString("."));
       }
-      AllocationExpression(out)
+      AllocationExpression(printAux)
+      {
+        out = new ProxyExpression(printAux);      }
     |
       LOOKAHEAD(3)
-      MemberSelector(out)
+      MemberSelector(printAux)
+      {
+        out = new ProxyExpression(printAux);
+      }
     |
       "["
       {
-         out.add(new PrintString("["));
+        printAux.add(new PrintString("["));
       }
-      Expression(out) "]"
+      Expression(printAux) "]"
       {
-         out.add(new PrintString("]"));
+        printAux.add(new PrintString("]"));
+        out = new ProxyExpression(printAux);
       }
     |
       "." t = <IDENTIFIER>
       {
-        out.add(new PrintString("."));
-        out.add(new PrintString(t.image));
+        if(in instanceof DataAccess)
+        {
+          out = Utils.accessToMember( (DataAccess)in, t.image, t) ;        } else        {
+          out = new ProxyDataAccess( t.image, in, new CodeZoneClass(t));        }
       }
     |
-      Arguments(out)
+      Arguments(printAux)
+      {
+        out = new ProxyExpression(printAux);
+      }
   )
+  {    return out;
+  }
 }
 
 LiteralData Literal():
@@ -2982,7 +2994,7 @@ BlockStatementNode BlockStatement():
     ClassOrInterfaceDeclaration(0, out)
     {
       //TODO
-      result = new NoOpStatement(0,0,0,0);
+      result = new NoOpStatement();
     }
   )
   {    return result;
@@ -3050,7 +3062,7 @@ StatementNode EmptyStatement():
 {
   t = ";"
   {
-    return new NoOpStatement(t.beginLine, t.beginColumn, t.endLine, t.endColumn);  }
+    return new NoOpStatement(new CodeZoneClass(t));  }
 }
 
 StatementNode StatementExpression():

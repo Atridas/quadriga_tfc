@@ -1,6 +1,7 @@
 package cat.quadriga.parsers.code.statements;
 
 import cat.quadriga.parsers.Token;
+import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
@@ -16,10 +17,7 @@ public class IfStatementNode extends StatementNode {
   public IfStatementNode( Token ifToken, ExpressionNode conditionExpression, 
                           StatementNode ifCode, StatementNode elseCode,
                           ErrorLog errorLog) {
-    super(ifToken.beginLine, 
-          ifToken.beginColumn, 
-          (elseCode == null) ? ifCode.endLine   : elseCode.endLine, 
-          (elseCode == null) ? ifCode.endColumn : elseCode.endColumn);
+    super( new CodeZoneClass(ifToken, (elseCode == null) ? ifCode : elseCode) );
     
     //TODO comprovar tipus!
     this.conditionExpression = conditionExpression;

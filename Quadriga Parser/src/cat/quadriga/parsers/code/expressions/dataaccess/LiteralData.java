@@ -1,6 +1,7 @@
 package cat.quadriga.parsers.code.expressions.dataaccess;
 
 import cat.quadriga.parsers.Token;
+import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
@@ -10,7 +11,7 @@ import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 public abstract class LiteralData extends DirectDataAccess {
 
   public LiteralData(Token t) {
-    super(t.beginLine, t.beginColumn, t.endLine, t.endColumn);
+    super(new CodeZoneClass(t));
   }
 
   @Override

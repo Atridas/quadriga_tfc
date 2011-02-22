@@ -8,9 +8,6 @@ public abstract class ExpressionNodeClass extends CodeZoneClass implements Expre
   
   private String treeStringRepresentation = null;
   
-  public ExpressionNodeClass(int beginLine, int beginColumn, int endLine, int endColumn) {
-    super(beginLine,  beginColumn,  endLine,  endColumn);
-  }
   public ExpressionNodeClass(CodeZone cz) {
     super(cz);
   }

@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import cat.quadriga.parsers.Token;
+import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 
@@ -13,11 +15,10 @@ public class BlockCode extends StatementNode {
   public final List<LocalVariableSymbol> localVariables;
   public final List<BlockStatementNode> statements;
   
-  private BlockCode(int beginLine, int beginColumn, 
-                    int endLine, int endColumn,
-                    List<LocalVariableSymbol> localVariables,
-                    List<BlockStatementNode> statements) {
-    super(beginLine, beginColumn, endLine, endColumn);
+  private BlockCode(List<LocalVariableSymbol> localVariables,
+                    List<BlockStatementNode> statements,
+                    CodeZone cz) {
+    super(cz);
     this.localVariables = Collections.unmodifiableList(localVariables);
     this.statements     = Collections.unmodifiableList(statements);
   }
@@ -78,9 +79,10 @@ public class BlockCode extends StatementNode {
     }
     
     public BlockCode transformToBlockCode() {
-      return new BlockCode( beginLine, beginColumn, 
-                            endLine, endColumn,
-                            localVariables, statements);
+      return new BlockCode( localVariables, statements, 
+          new CodeZoneClass(beginLine, beginColumn, 
+                            endLine, endColumn)
+      );
     }
   }
 }

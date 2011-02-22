@@ -6,22 +6,15 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.types.BaseType;
 
-public class StaticFieldAccess extends StaticAccess {
+public class StaticFieldAccess extends StaticAccess implements FieldAccess {
   
   public final Field field;
   private final BaseType type;
 
-  public StaticFieldAccess(Field field, Class<?> type, int beginLine,
-      int beginColumn, int endLine, int endColumn) {
-    super(field.getName(), type, beginLine, beginColumn, endLine, endColumn);
+  public StaticFieldAccess(Field field, CodeZone cz) {
+    super(field.getName(), field.getDeclaringClass(), cz);
     this.field = field;
-    this.type = Utils.createType(type);
-  }
-
-  public StaticFieldAccess(Field field, Class<?> type, CodeZone cz) {
-    super(field.getName(), type, cz);
-    this.field = field;
-    this.type = Utils.createType(type);
+    this.type = Utils.createType(field.getDeclaringClass());
   }
   
   
