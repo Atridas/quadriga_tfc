@@ -1,6 +1,7 @@
 package cat.quadriga.parsers.code.expressions;
 
 import cat.quadriga.parsers.Token;
+import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.types.BaseType;
 
 public class CastExpressionNode extends UnaryExpressionNode {
@@ -9,10 +10,8 @@ public class CastExpressionNode extends UnaryExpressionNode {
   
   private final String operation;
   
-  public CastExpressionNode(Token t, BaseType type, ExpressionNode castableExpresion) {
-    super(castableExpresion, 
-          t.beginLine, t.beginColumn, 
-          castableExpresion.endLine(), castableExpresion.endColumn());
+  public CastExpressionNode(Token t, BaseType type, ExpressionNode castableExpression) {
+    super(castableExpression, new CodeZoneClass(t, castableExpression));
     newType = type;
     
     operation = "cast " + newType.getBinaryName();

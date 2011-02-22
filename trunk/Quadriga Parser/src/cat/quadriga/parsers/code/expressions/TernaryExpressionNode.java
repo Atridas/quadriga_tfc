@@ -1,5 +1,7 @@
 package cat.quadriga.parsers.code.expressions;
 
+import cat.quadriga.parsers.code.CodeZoneClass;
+
 public final class TernaryExpressionNode extends ExpressionNodeClass {
   
   public final ExpressionNode boolValue, resultTrue, resultFalse;
@@ -8,12 +10,7 @@ public final class TernaryExpressionNode extends ExpressionNodeClass {
                               ExpressionNode resultTrue,
                               ExpressionNode resultFalse)
   {
-    super(
-        boolValue.beginLine(),
-        boolValue.beginColumn(),
-        resultTrue.endLine(),
-        resultFalse.endColumn()
-         );
+    super( new CodeZoneClass(boolValue,resultFalse) );
     this.boolValue = boolValue;
     this.resultTrue = resultTrue;
     this.resultFalse = resultFalse;

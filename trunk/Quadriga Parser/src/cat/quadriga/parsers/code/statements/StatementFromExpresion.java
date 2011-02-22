@@ -8,8 +8,7 @@ public class StatementFromExpresion extends StatementNode {
   public final ExpressionNode expression;
   
   public StatementFromExpresion(ExpressionNode expression) {
-    super(expression.beginLine(), expression.beginColumn(), 
-          expression.endLine(), expression.endColumn());
+    super(expression);
 
     this.expression = expression;
   }

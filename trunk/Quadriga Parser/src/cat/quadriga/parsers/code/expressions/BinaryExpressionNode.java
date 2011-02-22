@@ -1,16 +1,13 @@
 package cat.quadriga.parsers.code.expressions;
 
+import cat.quadriga.parsers.code.CodeZoneClass;
+
 public abstract class BinaryExpressionNode extends ExpressionNodeClass {
 
   public final ExpressionNode leftOperand, rightOperand;
 
   public BinaryExpressionNode(ExpressionNode left, ExpressionNode right) {
-    super(
-        left.beginLine(),
-        left.beginColumn(),
-        right.endLine(),
-        right.endColumn()
-         );
+    super(new CodeZoneClass(left,right));
     leftOperand = left;
     rightOperand = right;
   }

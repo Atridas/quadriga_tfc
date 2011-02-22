@@ -8,13 +8,6 @@ import cat.quadriga.parsers.code.types.BaseType;
 public class LocalVarAccess extends DirectDataAccess {
   
   public final LocalVariableSymbol var;
-  
-  public LocalVarAccess(LocalVariableSymbol variable, 
-      int beginLine, int beginColumn, int endLine,
-      int endColumn) {
-    super(beginLine, beginColumn, endLine, endColumn);
-    var = variable;
-  }
 
 
   public LocalVarAccess(LocalVariableSymbol variable, CodeZone cz) {

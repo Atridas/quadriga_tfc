@@ -12,25 +12,11 @@ public class StaticAccess extends DirectDataAccess {
   
   protected final String binaryClassName;
 
-  public StaticAccess(String staticMember, JavaType type, int beginLine, int beginColumn, int endLine, int endColumn) {
-    super(beginLine, beginColumn, endLine, endColumn);
-    this.staticMember = staticMember;
-    this.clazz = type.classObject;
-    binaryClassName = type.getBinaryName();
-  }
-
   public StaticAccess(String staticMember, JavaType type, CodeZone cz) {
     super(cz);
     this.staticMember = staticMember;
     this.clazz = type.classObject;
     binaryClassName = type.getBinaryName();
-  }
-
-  public StaticAccess(String staticMember, Class<?> type, int beginLine, int beginColumn, int endLine, int endColumn) {
-    super(beginLine, beginColumn, endLine, endColumn);
-    this.staticMember = staticMember;
-    this.clazz = type;
-    binaryClassName = "L" + type.getCanonicalName() + ";";
   }
 
   public StaticAccess(String staticMember, Class<?> type, CodeZone cz) {

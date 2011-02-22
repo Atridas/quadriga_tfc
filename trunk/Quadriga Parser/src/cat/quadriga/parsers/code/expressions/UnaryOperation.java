@@ -1,6 +1,7 @@
 package cat.quadriga.parsers.code.expressions;
 
 import cat.quadriga.parsers.Token;
+import cat.quadriga.parsers.code.CodeZoneClass;
 
 public class UnaryOperation extends UnaryExpressionNode {
 
@@ -8,12 +9,8 @@ public class UnaryOperation extends UnaryExpressionNode {
   public UnaryOperation( Operator operator,
                          ExpressionNode operant,
                          Token t) {
-    super(operant,
-            (operator.isPost())? operant.beginLine()   : t.beginLine,
-            (operator.isPost())? operant.beginColumn() : t.beginColumn,
-            (operator.isPost())? t.endLine   : operant.endLine(),
-            (operator.isPost())? t.endColumn : operant.endColumn()
-          );
+    super(operant, (operator.isPost())? new CodeZoneClass(operant, t) :
+                                        new CodeZoneClass(t, operant));
     this.operator = operator;
   }
   

@@ -15,15 +15,18 @@ import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.StaticAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.StaticFieldAccess;
+import cat.quadriga.parsers.code.expressions.dataaccess.StaticMethodAccess;
 
 public class ReferenceTypeRef extends JavaType {
   
   private final Map<String, List<AccessibleObject>> ambiguousNames = new HashMap<String, List<AccessibleObject>>();
   private final Map<String, Field> fields = new HashMap<String, Field>(),
                              staticFields = new HashMap<String, Field>();
-  private final Map<String, Method> methods = new HashMap<String, Method>(),
-                              staticMethods = new HashMap<String, Method>();
+  private final Map<String, List<Method>> methods = new HashMap<String, List<Method>>(),
+                              staticMethods = new HashMap<String, List<Method>>();
   private final List<Constructor<?>> constructors = new LinkedList<Constructor<?>>();
+  
+  //TODO inner classes...
   
   public ReferenceTypeRef(Class<?> c, String binaryName) {
     super(c, "L" + c.getCanonicalName() + ";");
@@ -54,37 +57,45 @@ public class ReferenceTypeRef extends JavaType {
     
     Field field = staticFields.get(name);
     if(field != null) {
-      return new StaticFieldAccess(field,this.classObject,cz);
+      return new StaticFieldAccess(field,cz);
     }
     
-    Method method = staticMethods.get(name);
-    if(method != null) {
-      //TODO
-      return new StaticAccess(name,this.classObject,cz);
+    List<Method> methodList = staticMethods.get(name);
+    if(methodList != null) {
+      return new StaticMethodAccess(methodList.toArray(new Method[methodList.size()]),cz);
     }
     
     return new StaticAccess("Proxy access to " + name, this.classObject,cz);
   }
 
-  private boolean searchAndDeleteRedundant(String objectName) {
+  private boolean searchAndDeleteRedundant(String objectName, boolean fields, boolean isStatic) {
     if(ambiguousNames.containsKey(objectName)) {
       return true;
     }
-    if(fields.remove(objectName) != null) {
-      ambiguousNames.put(objectName, new LinkedList<AccessibleObject>());
-      return true;
-    }
-    if(staticFields.remove(objectName) != null) {
-      ambiguousNames.put(objectName, new LinkedList<AccessibleObject>());
-      return true;
-    }
-    if(methods.remove(objectName) != null) {
-      ambiguousNames.put(objectName, new LinkedList<AccessibleObject>());
-      return true;
-    }
-    if(staticMethods.remove(objectName) != null) {
-      ambiguousNames.put(objectName, new LinkedList<AccessibleObject>());
-      return true;
+    if(fields) {
+      if(isStatic) {
+        if(staticMethods.remove(objectName) != null) {
+          ambiguousNames.put(objectName, new LinkedList<AccessibleObject>());
+          return true;
+        }
+      } else {
+        if(methods.remove(objectName) != null) {
+          ambiguousNames.put(objectName, new LinkedList<AccessibleObject>());
+          return true;
+        }
+      }
+    } else {
+      if(isStatic) {
+        if(staticFields.remove(objectName) != null) {
+          ambiguousNames.put(objectName, new LinkedList<AccessibleObject>());
+          return true;
+        }
+      } else {
+        if(this.fields.remove(objectName) != null) {
+          ambiguousNames.put(objectName, new LinkedList<AccessibleObject>());
+          return true;
+        }
+      }
     }
     return false;
   }
@@ -92,14 +103,14 @@ public class ReferenceTypeRef extends JavaType {
   private void addField(Field field) {
     if((field.getModifiers() & Utils.STATIC) > 0) {
       if(field.getDeclaringClass().equals(this.classObject) ) {
-        if(searchAndDeleteRedundant(field.getName())) {
+        if(searchAndDeleteRedundant(field.getName(),true,true)) {
           ambiguousNames.get(field.getName()).add(field);
         } else {
           staticFields.put(field.getName(), field);
         }
       }
     } else {
-      if(searchAndDeleteRedundant(field.getName())) {
+      if(searchAndDeleteRedundant(field.getName(), true, false)) {
         ambiguousNames.get(field.getName()).add(field);
       } else {
         fields.put(field.getName(), field);
@@ -110,17 +121,27 @@ public class ReferenceTypeRef extends JavaType {
   private void addMethod(Method method) {
     if((method.getModifiers() & Utils.STATIC) > 0) {
       if(method.getDeclaringClass().equals(this.classObject) ) {
-        if(searchAndDeleteRedundant(method.getName())) {
+        if(searchAndDeleteRedundant(method.getName(),false,true)) {
           ambiguousNames.get(method.getName()).add(method);
         } else {
-          staticMethods.put(method.getName(), method);
+          List<Method> methods = staticMethods.get(method.getName());
+          if(methods == null) {
+            methods = new LinkedList<Method>();
+            staticMethods.put(method.getName(), methods);
+          }
+          methods.add(method);
         }
       }
     } else {
-      if(searchAndDeleteRedundant(method.getName())) {
+      if(searchAndDeleteRedundant(method.getName(),false, false)) {
         ambiguousNames.get(method.getName()).add(method);
       } else {
-        methods.put(method.getName(), method);
+        List<Method> methods = this.methods.get(method.getName());
+        if(methods == null) {
+          methods = new LinkedList<Method>();
+          this.methods.put(method.getName(), methods);
+        }
+        methods.add(method);
       }
     }
   }
