@@ -5,6 +5,7 @@ import java.util.List;
 
 import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
+import cat.quadriga.parsers.code.expressions.dataaccess.ArrayLengthAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.LocalVarAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.ProxyDataAccess;
@@ -106,13 +107,21 @@ abstract public class Utils {
         //TODO
       } else if(type instanceof ReferenceTypeRef) {
         
-        return ((ReferenceTypeRef)type).getStaticAccess(member, cz);
+        return ((ReferenceTypeRef)type).getAccess(member, cz);
         /*
         return new StaticAccess(member, (ReferenceTypeRef)type, 
                                 expression.beginLine(), expression.beginColumn(),
                                 t.endLine, t.endColumn);
                                 */
       }
+    } 
+    BaseType type = expression.getType();
+    if(type instanceof ArrayType && member.compareTo("length") == 0) {
+      return new ArrayLengthAccess(expression, cz);
+    }
+    
+    if(type instanceof ReferenceTypeRef) {
+      return ((ReferenceTypeRef)type).getAccess(expression, member, cz);
     }
     return new ProxyDataAccess("Proxy access to member " + member, expression, cz);
   }

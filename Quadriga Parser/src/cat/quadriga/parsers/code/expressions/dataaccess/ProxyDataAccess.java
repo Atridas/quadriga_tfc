@@ -1,6 +1,7 @@
 package cat.quadriga.parsers.code.expressions.dataaccess;
 
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.types.BaseType;
@@ -13,6 +14,12 @@ public class ProxyDataAccess extends ExpressionNodeClass implements DataAccess {
 
   public ProxyDataAccess(String name, CodeZone cz) {
     super(cz);
+    this.name = name;
+    indirect = null;
+  }
+  
+  public ProxyDataAccess(String name) {
+    super(new CodeZoneClass(0,0,0,0));
     this.name = name;
     indirect = null;
   }

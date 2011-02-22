@@ -2,7 +2,6 @@ package cat.quadriga.parsers.code.expressions;
 
 import java.util.List;
 
-import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.printers.MegaPrinter;

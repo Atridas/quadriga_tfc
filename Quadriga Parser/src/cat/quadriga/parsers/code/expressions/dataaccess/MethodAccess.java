@@ -1,5 +1,46 @@
 package cat.quadriga.parsers.code.expressions.dataaccess;
 
-public interface MethodAccess extends DataAccess {
+import java.lang.reflect.Method;
 
+import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.expressions.ExpressionNode;
+
+public class MethodAccess extends MemberAccess {
+  
+  private final Method[] methods;//TODO
+  
+  public final ExpressionNode reference;
+
+  public MethodAccess(Method[] methods, CodeZone cz) {
+    super(methods[0].getName(), methods[0].getDeclaringClass(), cz);
+    this.methods = methods.clone();
+    reference = null;
+  }
+
+  public MethodAccess(ExpressionNode reference, Method[] methods, CodeZone cz) {
+    super(methods[0].getName(), methods[0].getDeclaringClass(), cz);
+    this.methods = methods.clone();
+    this.reference = reference;
+  }
+  
+  public Method getMethod(int i) {
+    return methods[i];
+  }
+  
+  @Override
+  public String getOperation() {
+    return "Method:";
+  }
+  
+  @Override
+  public String[] getOperands() {
+    if(reference == null) {
+      String[] aux = { clazz.getCanonicalName() + " -> " + staticMember}; 
+      return aux;
+    } else {
+      String[] aux = { clazz.getCanonicalName() + " -> " + staticMember,
+                       reference.treeStringRepresentation()}; 
+      return aux;
+    }
+  }
 }
