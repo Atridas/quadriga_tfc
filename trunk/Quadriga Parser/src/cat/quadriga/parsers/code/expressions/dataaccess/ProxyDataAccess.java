@@ -1,11 +1,11 @@
 package cat.quadriga.parsers.code.expressions.dataaccess;
 
 import cat.quadriga.parsers.code.CodeZone;
-import cat.quadriga.parsers.code.expressions.ExpressionNode;
+import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.NullType;
 
-public class ProxyDataAccess extends ExpressionNode implements DataAccess {
+public class ProxyDataAccess extends ExpressionNodeClass implements DataAccess {
 
   private final String name;
   private final DataAccess indirect;

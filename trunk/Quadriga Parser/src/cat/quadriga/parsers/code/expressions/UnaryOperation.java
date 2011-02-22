@@ -9,10 +9,10 @@ public class UnaryOperation extends UnaryExpressionNode {
                          ExpressionNode operant,
                          Token t) {
     super(operant,
-            (operator.isPost())? operant.beginLine   : t.beginLine,
-            (operator.isPost())? operant.beginColumn : t.beginColumn,
-            (operator.isPost())? t.endLine   : operant.endLine,
-            (operator.isPost())? t.endColumn : operant.endColumn
+            (operator.isPost())? operant.beginLine()   : t.beginLine,
+            (operator.isPost())? operant.beginColumn() : t.beginColumn,
+            (operator.isPost())? t.endLine   : operant.endLine(),
+            (operator.isPost())? t.endColumn : operant.endColumn()
           );
     this.operator = operator;
   }
