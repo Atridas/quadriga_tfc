@@ -1,6 +1,6 @@
 package cat.quadriga.parsers.code.expressions;
 
-public final class TernaryExpressionNode extends ExpressionNode {
+public final class TernaryExpressionNode extends ExpressionNodeClass {
   
   public final ExpressionNode boolValue, resultTrue, resultFalse;
 
@@ -9,10 +9,10 @@ public final class TernaryExpressionNode extends ExpressionNode {
                               ExpressionNode resultFalse)
   {
     super(
-        boolValue.beginLine,
-        boolValue.beginColumn,
-        resultTrue.endLine,
-        resultFalse.endColumn
+        boolValue.beginLine(),
+        boolValue.beginColumn(),
+        resultTrue.endLine(),
+        resultFalse.endColumn()
          );
     this.boolValue = boolValue;
     this.resultTrue = resultTrue;

@@ -144,9 +144,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |     +- Local Variables:
      |  |     +- Code:
      |  |        +- St: >> unary proxy <<
-     |  |        |  +- Op: >> Proxy Data Access [Access to member println] <<
-     |  |        |     +- Op: >> Proxy Data Access [Access to member out] <<
-     |  |        |        +- Op: Type Access: Ljava.lang.System;
+     |  |        |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
+     |  |        |     +- Op: Static Field:
+     |  |        |        +- Ljava.lang.System; -> out
      |  |        +- St: =
      |  |           +- Op: >> Proxy Data Access [parser] <<
      |  |           +- Op: >> proxy [ new something ]
@@ -162,9 +162,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        |     +- Local Variables:
      |        |     +- Code:
      |        |        +- St: >> unary proxy <<
-     |        |        |  +- Op: >> Proxy Data Access [Access to member println] <<
-     |        |        |     +- Op: >> Proxy Data Access [Access to member out] <<
-     |        |        |        +- Op: Type Access: Ljava.lang.System;
+     |        |        |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
+     |        |        |     +- Op: Static Field:
+     |        |        |        +- Ljava.lang.System; -> out
      |        |        +- >> Proxy Statement: 
      |        |           +- try 
      |        |           +- Block:
@@ -177,9 +177,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        |           +- +- Local Variables:
      |        |           +- +- Code:
      |        |           +-    +- St: >> unary proxy <<
-     |        |           +-    |  +- Op: >> Proxy Data Access [Access to member println] <<
-     |        |           +-    |     +- Op: >> Proxy Data Access [Access to member out] <<
-     |        |           +-    |        +- Op: Type Access: Ljava.lang.System;
+     |        |           +-    |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
+     |        |           +-    |     +- Op: Static Field:
+     |        |           +-    |        +- Ljava.lang.System; -> out
      |        |           +-    +- >> Proxy Statement: 
      |        |           +-       +- return ;
      |        |           +-       <<
@@ -189,21 +189,21 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- Local Variables:
      |              +- Code:
      |                 +- St: >> unary proxy <<
-     |                 |  +- Op: >> Proxy Data Access [Access to member println] <<
-     |                 |     +- Op: >> Proxy Data Access [Access to member out] <<
-     |                 |        +- Op: Type Access: Ljava.lang.System;
+     |                 |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
+     |                 |     +- Op: Static Field:
+     |                 |        +- Ljava.lang.System; -> out
      |                 +- St: >> unary proxy <<
-     |                 |  +- Op: >> Proxy Data Access [Access to member println] <<
-     |                 |     +- Op: >> Proxy Data Access [Access to member out] <<
-     |                 |        +- Op: Type Access: Ljava.lang.System;
+     |                 |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
+     |                 |     +- Op: Static Field:
+     |                 |        +- Ljava.lang.System; -> out
      |                 +- St: >> unary proxy <<
-     |                 |  +- Op: >> Proxy Data Access [Access to member println] <<
-     |                 |     +- Op: >> Proxy Data Access [Access to member out] <<
-     |                 |        +- Op: Type Access: Ljava.lang.System;
+     |                 |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
+     |                 |     +- Op: Static Field:
+     |                 |        +- Ljava.lang.System; -> out
      |                 +- St: >> unary proxy <<
-     |                 |  +- Op: >> Proxy Data Access [Access to member println] <<
-     |                 |     +- Op: >> Proxy Data Access [Access to member out] <<
-     |                 |        +- Op: Type Access: Ljava.lang.System;
+     |                 |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
+     |                 |     +- Op: Static Field:
+     |                 |        +- Ljava.lang.System; -> out
      |                 +- >> Proxy Statement: 
      |                    +- return ;
      |                    <<
@@ -221,35 +221,35 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
         +-    |     +- Op: >> unary proxy <<
         +-    |        +- Op: >> Proxy Data Access [parser.CompilationUnit] <<
         +-    +- St: >> unary proxy <<
-        +-    |  +- Op: >> Proxy Data Access [Access to member println] <<
-        +-    |     +- Op: >> Proxy Data Access [Access to member out] <<
-        +-    |        +- Op: Type Access: Ljava.lang.System;
+        +-    |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
+        +-    |     +- Op: Static Field:
+        +-    |        +- Ljava.lang.System; -> out
         +-    +- Statements:
         +-    |  +- St: =
         +-    |     +- Op: >> unary proxy <<
-        +-    |     |  +- Op: >> Proxy Data Access [Access to member getInstance] <<
-        +-    |     |     +- Op: Type Access: Lcat.quadriga.parsers.code.printers.MegaPrinter;
+        +-    |     |  +- Op: Static Access:
+        +-    |     |     +- Lcat.quadriga.parsers.code.printers.MegaPrinter; -> Proxy access to getInstance
         +-    |     +- Op: >> unary proxy <<
-        +-    |        +- Op: >> Proxy Data Access [Access to member getInstance] <<
-        +-    |           +- Op: Type Access: Lcat.quadriga.parsers.code.printers.MegaPrinter;
+        +-    |        +- Op: Static Access:
+        +-    |           +- Lcat.quadriga.parsers.code.printers.MegaPrinter; -> Proxy access to getInstance
         +-    +- St: >> unary proxy <<
-        +-    |  +- Op: >> Proxy Data Access [Access to member println] <<
-        +-    |     +- Op: >> Proxy Data Access [Access to member out] <<
-        +-    |        +- Op: Type Access: Ljava.lang.System;
+        +-    |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
+        +-    |     +- Op: Static Field:
+        +-    |        +- Ljava.lang.System; -> out
         +-    +- St: >> unary proxy <<
-        +-       +- Op: >> Proxy Data Access [Access to member printToFile] <<
+        +-       +- Op: >> Proxy Data Access [Proxy access to member printToFile] <<
         +-          +- Op: Local variable access: mp catch(Lcat.quadriga.parsers.ParseException; ) 
         +- Block:
         +- +- Local Variables:
         +- +- Code:
         +-    +- St: >> unary proxy <<
-        +-    |  +- Op: >> Proxy Data Access [Access to member println] <<
-        +-    |     +- Op: >> Proxy Data Access [Access to member out] <<
-        +-    |        +- Op: Type Access: Ljava.lang.System;
+        +-    |  +- Op: >> Proxy Data Access [Proxy access to member println] <<
+        +-    |     +- Op: Static Field:
+        +-    |        +- Ljava.lang.System; -> out
         +-    +- St: >> unary proxy <<
-        +-       +- Op: >> Proxy Data Access [Access to member println] <<
-        +-          +- Op: >> Proxy Data Access [Access to member out] <<
-        +-             +- Op: Type Access: Ljava.lang.System;
+        +-       +- Op: >> Proxy Data Access [Proxy access to member println] <<
+        +-          +- Op: Static Field:
+        +-             +- Ljava.lang.System; -> out
         <<
   final public <>Ljava.util.List; CompilationUnit() throws 
   Block:
@@ -271,7 +271,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |        +- St: >> unary proxy <<
      |  |        |  +- Op: >> Proxy Data Access [PackageDeclaration] <<
      |  |        +- St: >> unary proxy <<
-     |  |           +- Op: >> Proxy Data Access [Access to member add] <<
+     |  |           +- Op: >> Proxy Data Access [Proxy access to member add] <<
      |  |              +- Op: Local variable access: out
      |  +- Else Code:
      |     +- Block:
@@ -589,11 +589,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +-    +- Statements:
      |  +-   +-    |  +- St: =
      |  +-   +-    |     +- Op: >> unary proxy <<
-     |  +-   +-    |     |  +- Op: >> Proxy Data Access [Access to member forName] <<
-     |  +-   +-    |     |     +- Op: Type Access: Ljava.lang.Class;
+     |  +-   +-    |     |  +- Op: Static Access:
+     |  +-   +-    |     |     +- Ljava.lang.Class; -> forName
      |  +-   +-    |     +- Op: >> unary proxy <<
-     |  +-   +-    |        +- Op: >> Proxy Data Access [Access to member forName] <<
-     |  +-   +-    |           +- Op: Type Access: Ljava.lang.Class;
+     |  +-   +-    |        +- Op: Static Access:
+     |  +-   +-    |           +- Ljava.lang.Class; -> forName
      |  +-   +-    +- Statements:
      |  +-   +-    |  +- St: =
      |  +-   +-    |     +- Op: >> proxy [ new something ]
@@ -2200,11 +2200,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> unary proxy <<
      |     +- Op: >> Proxy Data Access [jj_consume_token] <<
      +- St: =
-     |  +- Op: >> Proxy Data Access [Access to member name] <<
+     |  +- Op: >> Proxy Data Access [Proxy access to member name] <<
      |  |  +- Op: Local variable access: vai
      |  +- Op: >> Proxy Data Access [t.image] <<
      +- St: =
-     |  +- Op: >> Proxy Data Access [Access to member type] <<
+     |  +- Op: >> Proxy Data Access [Proxy access to member type] <<
      |  |  +- Op: Local variable access: vai
      |  +- Op: >> Proxy Data Access [type] <<
      +- LABEL: label_12
@@ -2231,7 +2231,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    +- St: >> unary proxy <<
      |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    +- St: =
-     |     +-       +- Op: >> Proxy Data Access [Access to member type] <<
+     |     +-       +- Op: >> Proxy Data Access [Proxy access to member type] <<
      |     +-       |  +- Op: Local variable access: vai
      |     +-       +- Op: >> proxy [ new something ]Block:
      |     +- +- Local Variables:
@@ -2254,7 +2254,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    +- St: >> unary proxy <<
      |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    +- St: =
-     |     +-       +- Op: >> Proxy Data Access [Access to member type] <<
+     |     +-       +- Op: >> Proxy Data Access [Proxy access to member type] <<
      |     +-       |  +- Op: Local variable access: vai
      |     +-       +- Op: >> proxy [ new something ]
      |     <<
@@ -2395,7 +2395,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +- Op: >> unary proxy <<
      |  +-      +- Op: >> Proxy Data Access [VariableInitializer] <<
      |  +-   St: >> unary proxy <<
-     |  +-   +- Op: >> Proxy Data Access [Access to member add] <<
+     |  +-   +- Op: >> Proxy Data Access [Proxy access to member add] <<
      |  +-      +- Op: Local variable access: listOfInits
      |  +-   LABEL: label_13
      |  +-   +- >> Proxy Statement: 
@@ -3064,8 +3064,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |     +- Op: >> unary proxy <<
      |  |     |  +- Op: >> Proxy Data Access [out.get] <<
      |  |     +- Op: >> unary proxy <<
-     |  |        +- Op: >> Proxy Data Access [Access to member getInstance] <<
-     |  |           +- Op: Type Access: Lcat.quadriga.parsers.code.printers.PrintInitTab;
+     |  |        +- Op: Static Access:
+     |  |           +- Lcat.quadriga.parsers.code.printers.PrintInitTab; -> Proxy access to getInstance
      |  +- If Code:
      |  |  +- Block:
      |  |     +- Local Variables:
@@ -3478,7 +3478,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> unary proxy <<
      |     +- Op: >> Proxy Data Access [jj_consume_token] <<
      +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Access to member add] <<
+     |  +- Op: >> Proxy Data Access [Proxy access to member add] <<
      |     +- Op: Local variable access: aux
      +- St: =
      |  +- Op: >> Proxy Data Access [first] <<
@@ -3698,11 +3698,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +-    +- Statements:
      |              +-    |  +- St: =
      |              +-    |     +- Op: >> unary proxy <<
-     |              +-    |     |  +- Op: >> Proxy Data Access [Access to member forName] <<
-     |              +-    |     |     +- Op: Type Access: Ljava.lang.Class;
+     |              +-    |     |  +- Op: Static Access:
+     |              +-    |     |     +- Ljava.lang.Class; -> forName
      |              +-    |     +- Op: >> unary proxy <<
-     |              +-    |        +- Op: >> Proxy Data Access [Access to member forName] <<
-     |              +-    |           +- Op: Type Access: Ljava.lang.Class;
+     |              +-    |        +- Op: Static Access:
+     |              +-    |           +- Ljava.lang.Class; -> forName
      |              +-    +- Block:
      |              +-       +- Local Variables:
      |              +-       +- Code:
@@ -3726,11 +3726,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +-       +-    +- Statements:
      |              +-       +-    |  +- St: =
      |              +-       +-    |     +- Op: >> unary proxy <<
-     |              +-       +-    |     |  +- Op: >> Proxy Data Access [Access to member forName] <<
-     |              +-       +-    |     |     +- Op: Type Access: Ljava.lang.Class;
+     |              +-       +-    |     |  +- Op: Static Access:
+     |              +-       +-    |     |     +- Ljava.lang.Class; -> forName
      |              +-       +-    |     +- Op: >> unary proxy <<
-     |              +-       +-    |        +- Op: >> Proxy Data Access [Access to member forName] <<
-     |              +-       +-    |           +- Op: Type Access: Ljava.lang.Class;
+     |              +-       +-    |        +- Op: Static Access:
+     |              +-       +-    |           +- Ljava.lang.Class; -> forName
      |              +-       +-    +- Block:
      |              +-       +-       +- Local Variables:
      |              +-       +-       +- Code:
@@ -4034,8 +4034,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [type] <<
      |  +-   +- Op: >> unary proxy <<
-     |  +-      +- Op: >> Proxy Data Access [Access to member getFromName] <<
-     |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.types.PrimitiveTypeRef;
+     |  +-      +- Op: Static Access:
+     |  +-         +- Lcat.quadriga.parsers.code.types.PrimitiveTypeRef; -> Proxy access to getFromName
      |  +-   >> Proxy Statement: 
      |  +-   +- break;
      |  +-   <<
@@ -4092,7 +4092,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> unary proxy <<
      |     +- Op: >> Proxy Data Access [jj_consume_token] <<
      +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Access to member add] <<
+     |  +- Op: >> Proxy Data Access [Proxy access to member add] <<
      |     +- Op: Local variable access: tokens
      +- LABEL: label_22
      |  +- >> Proxy Statement: 
@@ -4180,7 +4180,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> unary proxy <<
      |     +- Op: >> Proxy Data Access [Name] <<
      +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Access to member add] <<
+     |  +- Op: >> Proxy Data Access [Proxy access to member add] <<
      |     +- Op: Local variable access: names
      +- LABEL: label_23
      |  +- >> Proxy Statement: 
@@ -4206,7 +4206,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    +- St: >> unary proxy <<
      |     +-    |  +- Op: >> Proxy Data Access [Name] <<
      |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [Access to member add] <<
+     |     +-       +- Op: >> Proxy Data Access [Proxy access to member add] <<
      |     +-          +- Op: Local variable access: namesBlock:
      |     +- +- Local Variables:
      |     +- +- Code:
@@ -4228,7 +4228,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    +- St: >> unary proxy <<
      |     +-    |  +- Op: >> Proxy Data Access [Name] <<
      |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [Access to member add] <<
+     |     +-       +- Op: >> Proxy Data Access [Proxy access to member add] <<
      |     +-          +- Op: Local variable access: names
      |     <<
      +- Block:
@@ -4604,9 +4604,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +- Op: >> Proxy Data Access [Access to member OR] <<
-     |     +-    |     +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |        +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.LogicalOperation;
+     |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member OR] <<
+     |     +-    |     +- Op: Static Access:
+     |     +-    |        +- Lcat.quadriga.parsers.code.expressions.LogicalOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
      |     +-    |  +- Op: >> unary proxy <<
@@ -4633,9 +4633,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +- Op: >> Proxy Data Access [Access to member OR] <<
-     |     +-    |     +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |        +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.LogicalOperation;
+     |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member OR] <<
+     |     +-    |     +- Op: Static Access:
+     |     +-    |        +- Lcat.quadriga.parsers.code.expressions.LogicalOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
      |     +-    |  +- Op: >> unary proxy <<
@@ -4691,9 +4691,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +- Op: >> Proxy Data Access [Access to member AND] <<
-     |     +-    |     +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |        +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.LogicalOperation;
+     |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member AND] <<
+     |     +-    |     +- Op: Static Access:
+     |     +-    |        +- Lcat.quadriga.parsers.code.expressions.LogicalOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
      |     +-    |  +- Op: >> unary proxy <<
@@ -4720,9 +4720,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +- Op: >> Proxy Data Access [Access to member AND] <<
-     |     +-    |     +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |        +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.LogicalOperation;
+     |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member AND] <<
+     |     +-    |     +- Op: Static Access:
+     |     +-    |        +- Lcat.quadriga.parsers.code.expressions.LogicalOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
      |     +-    |  +- Op: >> unary proxy <<
@@ -4778,9 +4778,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +- Op: >> Proxy Data Access [Access to member BIT_OR] <<
-     |     +-    |     +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |        +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member BIT_OR] <<
+     |     +-    |     +- Op: Static Access:
+     |     +-    |        +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
      |     +-    |  +- Op: >> unary proxy <<
@@ -4807,9 +4807,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +- Op: >> Proxy Data Access [Access to member BIT_OR] <<
-     |     +-    |     +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |        +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member BIT_OR] <<
+     |     +-    |     +- Op: Static Access:
+     |     +-    |        +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
      |     +-    |  +- Op: >> unary proxy <<
@@ -4865,9 +4865,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +- Op: >> Proxy Data Access [Access to member BIT_XOR] <<
-     |     +-    |     +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |        +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member BIT_XOR] <<
+     |     +-    |     +- Op: Static Access:
+     |     +-    |        +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
      |     +-    |  +- Op: >> unary proxy <<
@@ -4894,9 +4894,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +- Op: >> Proxy Data Access [Access to member BIT_XOR] <<
-     |     +-    |     +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |        +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member BIT_XOR] <<
+     |     +-    |     +- Op: Static Access:
+     |     +-    |        +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
      |     +-    |  +- Op: >> unary proxy <<
@@ -4952,9 +4952,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +- Op: >> Proxy Data Access [Access to member BIT_AND] <<
-     |     +-    |     +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |        +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member BIT_AND] <<
+     |     +-    |     +- Op: Static Access:
+     |     +-    |        +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
      |     +-    |  +- Op: >> unary proxy <<
@@ -4981,9 +4981,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +- Op: >> Proxy Data Access [Access to member BIT_AND] <<
-     |     +-    |     +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |        +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +- Op: >> Proxy Data Access [Proxy access to member BIT_AND] <<
+     |     +-    |     +- Op: Static Access:
+     |     +-    |        +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    +- St: =
      |     +-    |  +- Op: >> Proxy Data Access [auxiliarNode] <<
      |     +-    |  +- Op: >> unary proxy <<
@@ -5043,9 +5043,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member EQ] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.BooleanOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member EQ] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.BooleanOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5054,9 +5054,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member NEQ] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.BooleanOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member NEQ] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.BooleanOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5098,9 +5098,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member EQ] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.BooleanOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member EQ] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.BooleanOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5109,9 +5109,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member NEQ] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.BooleanOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member NEQ] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.BooleanOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5170,9 +5170,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
      |  +-   St: =
      |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |  +-   +- Op: >> Proxy Data Access [Access to member INSTANCEOF] <<
-     |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.BooleanOperation;
+     |  +-   +- Op: >> Proxy Data Access [Proxy access to member INSTANCEOF] <<
+     |  +-      +- Op: Static Access:
+     |  +-         +- Lcat.quadriga.parsers.code.expressions.BooleanOperation; -> Proxy access to Operator
      |  +-   St: >> unary proxy <<
      |  +-   +- Op: >> Proxy Data Access [Type] <<
      |  +-   St: =
@@ -5241,9 +5241,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member LT] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.BooleanOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member LT] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.BooleanOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5252,9 +5252,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member GT] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.BooleanOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member GT] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.BooleanOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5263,9 +5263,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member LE] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.BooleanOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member LE] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.BooleanOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5274,9 +5274,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member GE] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.BooleanOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member GE] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.BooleanOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5320,9 +5320,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member LT] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.BooleanOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member LT] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.BooleanOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5331,9 +5331,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member GT] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.BooleanOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member GT] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.BooleanOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5342,9 +5342,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member LE] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.BooleanOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member LE] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.BooleanOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5353,9 +5353,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member GE] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.BooleanOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member GE] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.BooleanOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5428,9 +5428,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member LEFT_SHIFT] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member LEFT_SHIFT] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5447,9 +5447,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   |        |  +- Op: >> Proxy Data Access [RSIGNEDSHIFT] <<
      |     +-    |  +-   |        +- St: =
      |     +-    |  +-   |           +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   |           +- Op: >> Proxy Data Access [Access to member RIGHT_SHIFT] <<
-     |     +-    |  +-   |              +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-   |                 +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +-   |           +- Op: >> Proxy Data Access [Proxy access to member RIGHT_SHIFT] <<
+     |     +-    |  +-   |              +- Op: Static Access:
+     |     +-    |  +-   |                 +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    |  +-   +- Else Code:
      |     +-    |  +-      +- If Statement:
      |     +-    |  +-         +- Condition:
@@ -5463,9 +5463,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-         |        |  +- Op: >> Proxy Data Access [RUNSIGNEDSHIFT] <<
      |     +-    |  +-         |        +- St: =
      |     +-    |  +-         |           +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-         |           +- Op: >> Proxy Data Access [Access to member RIGHT_UNSIGNED_SHIFT] <<
-     |     +-    |  +-         |              +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         |                 +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +-         |           +- Op: >> Proxy Data Access [Proxy access to member RIGHT_UNSIGNED_SHIFT] <<
+     |     +-    |  +-         |              +- Op: Static Access:
+     |     +-    |  +-         |                 +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    |  +-         +- Else Code:
      |     +-    |  +-            +- Block:
      |     +-    |  +-               +- Local Variables:
@@ -5509,9 +5509,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member LEFT_SHIFT] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member LEFT_SHIFT] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5528,9 +5528,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   |        |  +- Op: >> Proxy Data Access [RSIGNEDSHIFT] <<
      |     +-    |  +-   |        +- St: =
      |     +-    |  +-   |           +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   |           +- Op: >> Proxy Data Access [Access to member RIGHT_SHIFT] <<
-     |     +-    |  +-   |              +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-   |                 +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +-   |           +- Op: >> Proxy Data Access [Proxy access to member RIGHT_SHIFT] <<
+     |     +-    |  +-   |              +- Op: Static Access:
+     |     +-    |  +-   |                 +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    |  +-   +- Else Code:
      |     +-    |  +-      +- If Statement:
      |     +-    |  +-         +- Condition:
@@ -5544,9 +5544,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-         |        |  +- Op: >> Proxy Data Access [RUNSIGNEDSHIFT] <<
      |     +-    |  +-         |        +- St: =
      |     +-    |  +-         |           +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-         |           +- Op: >> Proxy Data Access [Access to member RIGHT_UNSIGNED_SHIFT] <<
-     |     +-    |  +-         |              +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         |                 +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +-         |           +- Op: >> Proxy Data Access [Proxy access to member RIGHT_UNSIGNED_SHIFT] <<
+     |     +-    |  +-         |              +- Op: Static Access:
+     |     +-    |  +-         |                 +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    |  +-         +- Else Code:
      |     +-    |  +-            +- Block:
      |     +-    |  +-               +- Local Variables:
@@ -5617,9 +5617,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member ADD] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member ADD] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5628,9 +5628,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member SUB] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member SUB] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5672,9 +5672,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member ADD] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member ADD] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5683,9 +5683,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member SUB] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member SUB] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5762,9 +5762,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member MUL] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member MUL] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5773,9 +5773,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member DIV] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member DIV] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5784,9 +5784,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member MOD] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member MOD] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5829,9 +5829,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member MUL] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member MUL] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5840,9 +5840,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member DIV] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member DIV] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5851,9 +5851,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +-   +- Op: >> Proxy Data Access [jj_consume_token] <<
      |     +-    |  +-   St: =
      |     +-    |  +-   +- Op: >> Proxy Data Access [operator] <<
-     |     +-    |  +-   +- Op: >> Proxy Data Access [Access to member MOD] <<
-     |     +-    |  +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |     +-    |  +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.MathematicOperation;
+     |     +-    |  +-   +- Op: >> Proxy Data Access [Proxy access to member MOD] <<
+     |     +-    |  +-      +- Op: Static Access:
+     |     +-    |  +-         +- Lcat.quadriga.parsers.code.expressions.MathematicOperation; -> Proxy access to Operator
      |     +-    |  +-   >> Proxy Statement: 
      |     +-    |  +-   +- break;
      |     +-    |  +-   <<
@@ -5924,9 +5924,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [operator] <<
-     |  +-   +-   +- Op: >> Proxy Data Access [Access to member NEGATE] <<
-     |  +-   +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |  +-   +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.UnaryOperation;
+     |  +-   +-   +- Op: >> Proxy Data Access [Proxy access to member NEGATE] <<
+     |  +-   +-      +- Op: Static Access:
+     |  +-   +-         +- Lcat.quadriga.parsers.code.expressions.UnaryOperation; -> Proxy access to Operator
      |  +-   +-   >> Proxy Statement: 
      |  +-   +-   +- break;
      |  +-   +-   <<
@@ -6104,9 +6104,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [operator] <<
-     |  +-   +-   +- Op: >> Proxy Data Access [Access to member BIT_COMP] <<
-     |  +-   +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |  +-   +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.UnaryOperation;
+     |  +-   +-   +- Op: >> Proxy Data Access [Proxy access to member BIT_COMP] <<
+     |  +-   +-      +- Op: Static Access:
+     |  +-   +-         +- Lcat.quadriga.parsers.code.expressions.UnaryOperation; -> Proxy access to Operator
      |  +-   +-   >> Proxy Statement: 
      |  +-   +-   +- break;
      |  +-   +-   <<
@@ -6117,9 +6117,9 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   +-      +- Op: >> Proxy Data Access [jj_consume_token] <<
      |  +-   +-   St: =
      |  +-   +-   +- Op: >> Proxy Data Access [operator] <<
-     |  +-   +-   +- Op: >> Proxy Data Access [Access to member NOT] <<
-     |  +-   +-      +- Op: >> Proxy Data Access [Access to member Operator] <<
-     |  +-   +-         +- Op: Type Access: Lcat.quadriga.parsers.code.expressions.UnaryOperation;
+     |  +-   +-   +- Op: >> Proxy Data Access [Proxy access to member NOT] <<
+     |  +-   +-      +- Op: Static Access:
+     |  +-   +-         +- Lcat.quadriga.parsers.code.expressions.UnaryOperation; -> Proxy access to Operator
      |  +-   +-   >> Proxy Statement: 
      |  +-   +-   +- break;
      |  +-   +-   <<
@@ -6660,7 +6660,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   |        |     +-    +- St: >> unary proxy <<
      |  +-   |        |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
      |  +-   |        |     +-    +- St: >> unary proxy <<
-     |  +-   |        |     +-       +- Op: >> Proxy Data Access [Access to member add] <<
+     |  +-   |        |     +-       +- Op: >> Proxy Data Access [Proxy access to member add] <<
      |  +-   |        |     +-          +- Op: Local variable access: tokenListBlock:
      |  +-   |        |     +- +- Local Variables:
      |  +-   |        |     +- +- Code:
@@ -6684,7 +6684,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-   |        |     +-    +- St: >> unary proxy <<
      |  +-   |        |     +-    |  +- Op: >> Proxy Data Access [jj_consume_token] <<
      |  +-   |        |     +-    +- St: >> unary proxy <<
-     |  +-   |        |     +-       +- Op: >> Proxy Data Access [Access to member add] <<
+     |  +-   |        |     +-       +- Op: >> Proxy Data Access [Proxy access to member add] <<
      |  +-   |        |     +-          +- Op: Local variable access: tokenList
      |  +-   |        |     <<
      |  +-   |        +- St: =
@@ -6825,8 +6825,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-               +-               +-               +-   St: =
      |  +-               +-               +-               +-   +- Op: >> Proxy Data Access [result] <<
      |  +-               +-               +-               +-   +- Op: >> unary proxy <<
-     |  +-               +-               +-               +-      +- Op: >> Proxy Data Access [Access to member resolveName] <<
-     |  +-               +-               +-               +-         +- Op: Type Access: Lcat.quadriga.parsers.code.Utils;
+     |  +-               +-               +-               +-      +- Op: Static Access:
+     |  +-               +-               +-               +-         +- Lcat.quadriga.parsers.code.Utils; -> Proxy access to resolveName
      |  +-               +-               +-               +-   >> Proxy Statement: 
      |  +-               +-               +-               +-   +- break;
      |  +-               +-               +-               +-   <<
@@ -8014,10 +8014,10 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      |  +- St: =
      |     +- Op: >> unary proxy <<
-     |     |  +- Op: >> Proxy Data Access [Access to member treeStringRepresentation] <<
+     |     |  +- Op: >> Proxy Data Access [Proxy access to member treeStringRepresentation] <<
      |     |     +- Op: Local variable access: block
      |     +- Op: >> unary proxy <<
-     |        +- Op: >> Proxy Data Access [Access to member treeStringRepresentation] <<
+     |        +- Op: >> Proxy Data Access [Proxy access to member treeStringRepresentation] <<
      |           +- Op: Local variable access: block
      +- St: >> unary proxy <<
      |  +- Op: >> Proxy Data Access [out.addAll] <<
@@ -8203,7 +8203,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |     +- Op: >> proxy [ new something ]
      |           |     +- Op: >> proxy [ new something ]
      |           +- St: >> unary proxy <<
-     |              +- Op: >> Proxy Data Access [Access to member add] <<
+     |              +- Op: >> Proxy Data Access [Proxy access to member add] <<
      |                 +- Op: Local variable access: initializers
      +- LABEL: label_41
      |  +- >> Proxy Statement: 
@@ -9436,7 +9436,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Op: >> unary proxy <<
      |     +- Op: >> Proxy Data Access [StatementExpression] <<
      +- St: >> unary proxy <<
-     |  +- Op: >> Proxy Data Access [Access to member add] <<
+     |  +- Op: >> Proxy Data Access [Proxy access to member add] <<
      |     +- Op: Local variable access: statements
      +- LABEL: label_44
      |  +- >> Proxy Statement: 
@@ -9464,7 +9464,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +- Op: >> unary proxy <<
      |     +-    |     +- Op: >> Proxy Data Access [StatementExpression] <<
      |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [Access to member add] <<
+     |     +-       +- Op: >> Proxy Data Access [Proxy access to member add] <<
      |     +-          +- Op: Local variable access: statementsBlock:
      |     +- +- Local Variables:
      |     +- +- Code:
@@ -9488,7 +9488,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +-    |  +- Op: >> unary proxy <<
      |     +-    |     +- Op: >> Proxy Data Access [StatementExpression] <<
      |     +-    +- St: >> unary proxy <<
-     |     +-       +- Op: >> Proxy Data Access [Access to member add] <<
+     |     +-       +- Op: >> Proxy Data Access [Proxy access to member add] <<
      |     +-          +- Op: Local variable access: statements
      |     <<
      +- St: =
@@ -23836,14 +23836,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    +- If Statement:
      |  +-       +- Condition:
      |  +-       |  +- Op: !=
-     |  +-       |     +- Op: >> Proxy Data Access [Access to member next] <<
+     |  +-       |     +- Op: >> Proxy Data Access [Proxy access to member next] <<
      |  +-       |     |  +- Op: Local variable access: t
      |  +-       |     +- Op: Literal
      |  +-       |        +- Null
      |  +-       +- If Code:
      |  +-       |  +- St: =
      |  +-       |     +- Op: Local variable access: t
-     |  +-       |     +- Op: >> Proxy Data Access [Access to member next] <<
+     |  +-       |     +- Op: >> Proxy Data Access [Proxy access to member next] <<
      |  +-       |        +- Op: Local variable access: t
      |  +-       +- Else Code:
      |  +-          +- St: =
@@ -23857,14 +23857,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +-    +- If Statement:
      |  +-       +- Condition:
      |  +-       |  +- Op: !=
-     |  +-       |     +- Op: >> Proxy Data Access [Access to member next] <<
+     |  +-       |     +- Op: >> Proxy Data Access [Proxy access to member next] <<
      |  +-       |     |  +- Op: Local variable access: t
      |  +-       |     +- Op: Literal
      |  +-       |        +- Null
      |  +-       +- If Code:
      |  +-       |  +- St: =
      |  +-       |     +- Op: Local variable access: t
-     |  +-       |     +- Op: >> Proxy Data Access [Access to member next] <<
+     |  +-       |     +- Op: >> Proxy Data Access [Proxy access to member next] <<
      |  +-       |        +- Op: Local variable access: t
      |  +-       +- Else Code:
      |  +-          +- St: =
@@ -23911,35 +23911,35 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Op: >> Proxy Data Access [token.next] <<
      +- Statements:
      |  +- St: =
-     |  |  +- Op: >> Proxy Data Access [Access to member beginLine] <<
+     |  |  +- Op: >> Proxy Data Access [Proxy access to member beginLine] <<
      |  |  |  +- Op: Local variable access: errortok
-     |  |  +- Op: >> Proxy Data Access [Access to member beginLine] <<
+     |  |  +- Op: >> Proxy Data Access [Proxy access to member beginLine] <<
      |  |     +- Op: Local variable access: errortok
      |  +- St: =
      |     +- Op: >> proxy [ column ]
-     |     +- Op: >> Proxy Data Access [Access to member beginColumn] <<
+     |     +- Op: >> Proxy Data Access [Proxy access to member beginColumn] <<
      |        +- Op: Local variable access: errortok
      +- Statements:
      |  +- St: =
      |     +- Op: ?
      |     |  +- Op: ==
-     |     |  |  +- Op: >> Proxy Data Access [Access to member kind] <<
+     |     |  |  +- Op: >> Proxy Data Access [Proxy access to member kind] <<
      |     |  |  |  +- Op: Local variable access: errortok
      |     |  |  +- Op: Literal
      |     |  |     +- Integer: 0
      |     |  +- Op: >> unary proxy <<
      |     |  |  +- Op: >> Proxy Data Access [tokenImage] <<
-     |     |  +- Op: >> Proxy Data Access [Access to member image] <<
+     |     |  +- Op: >> Proxy Data Access [Proxy access to member image] <<
      |     |     +- Op: Local variable access: errortok
      |     +- Op: ?
      |        +- Op: ==
-     |        |  +- Op: >> Proxy Data Access [Access to member kind] <<
+     |        |  +- Op: >> Proxy Data Access [Proxy access to member kind] <<
      |        |  |  +- Op: Local variable access: errortok
      |        |  +- Op: Literal
      |        |     +- Integer: 0
      |        +- Op: >> unary proxy <<
      |        |  +- Op: >> Proxy Data Access [tokenImage] <<
-     |        +- Op: >> Proxy Data Access [Access to member image] <<
+     |        +- Op: >> Proxy Data Access [Proxy access to member image] <<
      |           +- Op: Local variable access: errortok
      +- >> Proxy Statement: 
         +- return ;

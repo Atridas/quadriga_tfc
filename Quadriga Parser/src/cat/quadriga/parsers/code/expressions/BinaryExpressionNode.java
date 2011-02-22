@@ -1,15 +1,15 @@
 package cat.quadriga.parsers.code.expressions;
 
-public abstract class BinaryExpressionNode extends ExpressionNode {
+public abstract class BinaryExpressionNode extends ExpressionNodeClass {
 
   public final ExpressionNode leftOperand, rightOperand;
 
   public BinaryExpressionNode(ExpressionNode left, ExpressionNode right) {
     super(
-        left.beginLine,
-        left.beginColumn,
-        right.endLine,
-        right.endColumn
+        left.beginLine(),
+        left.beginColumn(),
+        right.endLine(),
+        right.endColumn()
          );
     leftOperand = left;
     rightOperand = right;

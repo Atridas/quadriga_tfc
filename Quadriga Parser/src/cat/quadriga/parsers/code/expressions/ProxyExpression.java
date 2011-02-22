@@ -7,7 +7,7 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.printers.MegaPrinter;
 import cat.quadriga.parsers.code.printers.PrintInfo;
 
-public class ProxyExpression extends ExpressionNode {
+public class ProxyExpression extends ExpressionNodeClass {
   
   private final String operator;
   private final String[] operands;

@@ -13,6 +13,11 @@ import cat.quadriga.parsers.code.symbols.BaseSymbol;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.symbols.SymbolTable;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
+import cat.quadriga.parsers.code.types.ArrayType;
+import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
+import cat.quadriga.parsers.code.types.ReferenceTypeRef;
+import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
 
 abstract public class Utils {
   public static final String treeStringRepresentation( String operation, String operands[]) {
@@ -89,14 +94,33 @@ abstract public class Utils {
                                 last.endLine, last.endColumn);
     }
     
-    return null;
+    //TODO error?
+    return new ProxyDataAccess("Proxy direct access [" + symbol.name + "]",
+                                first.beginLine, first.beginColumn,
+                                last.endLine, last.endColumn);
   }
   
   public static ExpressionNode accessToMember(DataAccess expression, String member, Token t)
   {
-    return new ProxyDataAccess("Access to member " + member, expression,
-                               expression.beginLine(), expression.beginColumn(),
-                               t.endLine, t.endColumn);
+    CodeZoneClass cz = new CodeZoneClass( expression.beginLine(), expression.beginColumn(),
+                                          t.endLine, t.endColumn);
+    if(expression instanceof TypeDataAccess) {
+      TypeDataAccess tda = (TypeDataAccess) expression;
+      //static accesses
+      BaseType type = tda.type;
+      if("class".compareTo(member) == 0) {
+        //TODO
+      } else if(type instanceof ReferenceTypeRef) {
+        
+        return ((ReferenceTypeRef)type).getStaticAccess(member, cz);
+        /*
+        return new StaticAccess(member, (ReferenceTypeRef)type, 
+                                expression.beginLine(), expression.beginColumn(),
+                                t.endLine, t.endColumn);
+                                */
+      }
+    }
+    return new ProxyDataAccess("Proxy access to member " + member, expression, cz);
   }
 
   public static ExpressionNode resolveName(SymbolTable symbolTable, List<Token> identifiers) {
@@ -133,6 +157,16 @@ abstract public class Utils {
     }
     
     return result;
+  }
+  
+  public static BaseType createType(Class<?> clazz) {
+    if(clazz.isPrimitive()) {
+      return PrimitiveTypeRef.getFromClass(clazz);
+    } else if(clazz.isArray()) {
+      return new ArrayType(createType(clazz.getComponentType()));
+    } else {
+      return ClassOrInterfaceTypeRef.getFromClass(clazz);
+    }
   }
   
   public static final int PUBLIC = 0x0001;

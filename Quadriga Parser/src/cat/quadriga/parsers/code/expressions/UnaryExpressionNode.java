@@ -1,6 +1,6 @@
 package cat.quadriga.parsers.code.expressions;
 
-public abstract class UnaryExpressionNode extends ExpressionNode {
+public abstract class UnaryExpressionNode extends ExpressionNodeClass {
 
   public final ExpressionNode operand;
 

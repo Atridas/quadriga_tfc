@@ -11,10 +11,10 @@ public class AssigmentStatementNode extends StatementNode {
   public AssigmentStatementNode(Operator operator, 
                                 ExpressionNode left, 
                                 ExpressionNode right) {
-    super(left.beginLine, 
-          left.beginColumn, 
-          right.endLine, 
-          right.endColumn);
+    super(left.beginLine(), 
+          left.beginColumn(), 
+          right.endLine(), 
+          right.endColumn());
     leftOperand  = left;
     rightOperand = right;
     this.operator = operator;

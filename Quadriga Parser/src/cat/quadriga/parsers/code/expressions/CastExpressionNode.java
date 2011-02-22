@@ -12,7 +12,7 @@ public class CastExpressionNode extends UnaryExpressionNode {
   public CastExpressionNode(Token t, BaseType type, ExpressionNode castableExpresion) {
     super(castableExpresion, 
           t.beginLine, t.beginColumn, 
-          castableExpresion.endLine, castableExpresion.endColumn);
+          castableExpresion.endLine(), castableExpresion.endColumn());
     newType = type;
     
     operation = "cast " + newType.getBinaryName();
