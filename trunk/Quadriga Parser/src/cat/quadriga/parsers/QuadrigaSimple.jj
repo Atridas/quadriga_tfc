@@ -196,11 +196,19 @@ public class QuadrigaSimple
 
 }
 
-class VarAndInit{  String name;
+class VarAndInit{  Token name;
   BaseType type;
-  ExpressionNode init;
+  StatementNode init;
   int modifiers;
 }
+
+class ParameterClass
+{
+  CodeZone cz;
+  BaseType type;
+  String name;
+  boolean varargs = false;
+  int modifiers;}
 
 PARSER_END(QuadrigaSimple)
 
@@ -1597,15 +1605,29 @@ VarAndInit VariableDeclarator(int modifiers, BaseType type):
 {
   VarAndInit vai;
   ExpressionNode initialization;
+  ExpressionNode leftHand;
 }
 {
   vai = VariableDeclaratorId(type)
   {
-    vai.modifiers = modifiers;  }
+    vai.modifiers = modifiers;
+    if(localBlock != null) //Local var
+    {
+      LocalVariableSymbol localVar = new LocalVariableSymbol(modifiers, vai.type, vai.name.image);
+      symbolTable.addSymbol(localVar);
+      localBlock.addLocalVariable(localVar);
+
+      leftHand = new LocalVarAccess(localVar, new CodeZoneClass(vai.name));
+    } else {
+      //Field
+      leftHand = new ProxyDataAccess("Proxy field: " + vai.name, new CodeZoneClass(vai.name));    }  }
   [ "="
     initialization = VariableInitializer()
     {
-      vai.init = initialization;    }
+      vai.init = new AssigmentStatementNode(
+                                      AssigmentStatementNode.Operator.ASSIGN,
+                                      leftHand,
+                                      initialization);    }
   ]
   {    return vai;
   }
@@ -1619,12 +1641,12 @@ VarAndInit VariableDeclaratorId(BaseType type):
 {
   t=<IDENTIFIER>
   {
-    vai.name = t.image;
+    vai.name = t;
     vai.type = type;
   }
   ( "[" "]" 
     {
-      vai.type = new ArrayType(type);
+      vai.type = new ArrayType(vai.type);
     }
   )*
   {
@@ -1675,6 +1697,10 @@ ExpressionNode ArrayInitializer():
 
 void MethodDeclaration(int modifiers, List<PrintInfo> out):
 {
+  BlockCode bc;
+  List<PrintInfo> other = new LinkedList<PrintInfo>();
+
+  symbolTable.newContext();
 }
 {
   // Modifiers already matched in the caller!
@@ -1695,87 +1721,118 @@ void MethodDeclaration(int modifiers, List<PrintInfo> out):
     }
     NameList()
   ]
-  ( Block(out)
+  ( bc = Block(other)
+    {
+      String treeString = bc.treeStringRepresentation();
+      out.addAll( MegaPrinter.getInstance().format(treeString) );
+    }
   | ";"
     {
       out.add(new PrintString(";"));
     }
   )
+  {
+    symbolTable.deleteContext();  }
 }
 
 void MethodDeclarator(List<PrintInfo> out):
 {
   Token t;
+  List<ParameterClass> params;
 }
 {
   t=<IDENTIFIER>
   {
     out.add(new PrintString(t.image));
   }
-  FormalParameters(out)
+  /* Això servia en el Java vell
   ( "[" "]"
     {
       out.add(new PrintString("["));
       out.add(new PrintString("]"));
     }
   )*
+  */
+  params = FormalParameters()
+  {
+    for(ParameterClass param : params)
+    {
+      symbolTable.addSymbol(new LocalVariableSymbol(param.modifiers,
+                                                    param.type,
+                                                    param.name));
+    }
+  }
+  {
+    out.add(PrintIntro.getInstance());
+    out.add(new PrintString("Params"));
+    for(ParameterClass param : params)
+    {
+      out.add(PrintIntro.getInstance());
+      out.add(new PrintString(param.name + ": " + param.type));
+    }
+    out.add(PrintIntro.getInstance());
+  }
 }
 
-void FormalParameters(List<PrintInfo> out):
-{}
+List<ParameterClass> FormalParameters():
+{
+  List<ParameterClass> params = new LinkedList<ParameterClass>();
+  ParameterClass param;
+}
 {
   "("
-  {
-    out.add(new PrintString("("));
-  }
-  [ FormalParameter(out)
-    ( ","
+  [ param = FormalParameter()
     {
-      out.add(new PrintString(","));
-      out.add(PrintWhiteSpace.getInstance());
+      params.add(param);    }
+    ( ","
+    param = FormalParameter()
+    {
+      params.add(param);
     }
-    FormalParameter(out)
     )*
   ]
   ")"
   {
-    out.add(new PrintString(")"));
+    return params;
   }
 }
 
-void FormalParameter(List<PrintInfo> out):
+ParameterClass FormalParameter():
 {
   int modifiers;
   BaseType type;
+  ParameterClass param = new ParameterClass();
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
+  VarAndInit vai;
 }
 {
   // danson, added
   //          [ "final" | Annotation() ]
   // See Java Language Specification, 3rd Edition, section 8.4.1
   modifiers = Modifiers(out)
-  {
-    if(modifiers > 0)
-      out.add(PrintWhiteSpace.getInstance());
-  }
   [ "final"
     {
-      out.add(new PrintString("final"));
-      out.add(PrintWhiteSpace.getInstance());
+      modifiers &= FINAL;
     }
   | Annotation(out)
+    {      //caca
+    }
+    
   ]
   type = Type(out)
   [ "..."
   {
-    out.add(new PrintString("..."));
+    type = new ArrayType(type);
+    param.varargs = true;
   }
   ]
+  vai = VariableDeclaratorId(type)
   {
-    out.add(PrintWhiteSpace.getInstance());
-  }
-  VariableDeclaratorId(type)
-  {
-    //TODO  }
+    param.name = vai.name.image;
+    param.cz = new CodeZoneClass(vai.name);
+    param.modifiers = modifiers;
+    param.type = vai.type;
+    return param;  }
 }
 
 void ConstructorDeclaration(List<PrintInfo> out):
@@ -1783,6 +1840,10 @@ void ConstructorDeclaration(List<PrintInfo> out):
   Token t;
   out.add(PrintWhiteSpace.getInstance());
   BlockStatementNode bsn;
+
+  List<ParameterClass > params;
+
+  symbolTable.newContext();
 }
 {
   [ TypeParameters(out) ]
@@ -1791,7 +1852,23 @@ void ConstructorDeclaration(List<PrintInfo> out):
   {
     out.add(new PrintString(t.image));
   }
-  FormalParameters(out)
+  params = FormalParameters()
+  {
+    for(ParameterClass param : params)
+    {
+      symbolTable.addSymbol(new LocalVariableSymbol(param.modifiers,
+                                                    param.type,
+                                                    param.name));
+    }
+  }
+  {
+    out.add(PrintIntro.getInstance());
+    out.add(new PrintString("Params"));
+    for(ParameterClass param : params)
+    {
+      out.add(PrintIntro.getInstance());
+      out.add(new PrintString(param.name + ": " + param.type));    }
+    out.add(PrintIntro.getInstance());  }
   [ "throws"
     {
       out.add(PrintWhiteSpace.getInstance());
@@ -1828,6 +1905,9 @@ void ConstructorDeclaration(List<PrintInfo> out):
     }
     out.add(new PrintString("}"));
   }
+
+  {
+    symbolTable.deleteContext();  }
 }
 
 void ExplicitConstructorInvocation(List<PrintInfo> out):
@@ -2153,21 +2233,25 @@ ExpressionNode Expression(List<PrintInfo> out):
 }
 
 AssigmentStatementNode.Operator AssignmentOperator():
-{}
 {
-  ( "="    { return AssigmentStatementNode.Operator.ASSIGN; }
-  | "*="   { return AssigmentStatementNode.Operator.STARASSIGN; }
-  | "/="   { return AssigmentStatementNode.Operator.SLASHASSIGN; }
-  | "%="   { return AssigmentStatementNode.Operator.REMASSIGN; }
-  | "+="   { return AssigmentStatementNode.Operator.PLUSASSIGN; }
-  | "-="   { return AssigmentStatementNode.Operator.MINUSASSIGN; }
-  | "<<="  { return AssigmentStatementNode.Operator.LSHIFTASSIGN; }
-  | ">>="  { return AssigmentStatementNode.Operator.RSIGNEDSHIFTASSIGN; }
-  | ">>>=" { return AssigmentStatementNode.Operator.RUNSIGNEDSHIFTASSIGN; }
-  | "&="   { return AssigmentStatementNode.Operator.ANDASSIGN; }
-  | "^="   { return AssigmentStatementNode.Operator.XORASSIGN; }
-  | "|="   { return AssigmentStatementNode.Operator.ORASSIGN; }
+  AssigmentStatementNode.Operator op;
+}
+{
+  ( "="    { op = AssigmentStatementNode.Operator.ASSIGN; }
+  | "*="   { op = AssigmentStatementNode.Operator.STARASSIGN; }
+  | "/="   { op = AssigmentStatementNode.Operator.SLASHASSIGN; }
+  | "%="   { op = AssigmentStatementNode.Operator.REMASSIGN; }
+  | "+="   { op = AssigmentStatementNode.Operator.PLUSASSIGN; }
+  | "-="   { op = AssigmentStatementNode.Operator.MINUSASSIGN; }
+  | "<<="  { op = AssigmentStatementNode.Operator.LSHIFTASSIGN; }
+  | ">>="  { op = AssigmentStatementNode.Operator.RSIGNEDSHIFTASSIGN; }
+  | ">>>=" { op = AssigmentStatementNode.Operator.RUNSIGNEDSHIFTASSIGN; }
+  | "&="   { op = AssigmentStatementNode.Operator.ANDASSIGN; }
+  | "^="   { op = AssigmentStatementNode.Operator.XORASSIGN; }
+  | "|="   { op = AssigmentStatementNode.Operator.ORASSIGN; }
   )
+  {    return op;
+  }
 }
 
 ExpressionNode ConditionalExpression():
@@ -2409,7 +2493,6 @@ ExpressionNode MultiplicativeExpression():
 
 ExpressionNode UnaryExpression():
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>();
   ExpressionNode finalNode;
   UnaryOperation.Operator operator;
   Token t;
@@ -2422,8 +2505,8 @@ ExpressionNode UnaryExpression():
     {
       if(operator != null)
         finalNode = new UnaryOperation( operator, finalNode, t );    }
-  | finalNode = PreIncrementExpression(out)
-  | finalNode = PreDecrementExpression(out)
+  | finalNode = PreIncrementExpression()
+  | finalNode = PreDecrementExpression()
   | finalNode = UnaryExpressionNotPlusMinus()
   )
   
@@ -2432,28 +2515,28 @@ ExpressionNode UnaryExpression():
   }
 }
 
-ExpressionNode PreIncrementExpression(List<PrintInfo > out):
+ExpressionNode PreIncrementExpression():
 {
   ExpressionNode node;
   Token t;
 }
 {
   t="++"
-  node = PrimaryExpression(out)
+  node = PrimaryExpression()
   
   {
     return new UnaryOperation( UnaryOperation.Operator.PRE_INC, node, t );
   }
 }
 
-ExpressionNode PreDecrementExpression(List<PrintInfo > out):
+ExpressionNode PreDecrementExpression():
 {
   ExpressionNode node;
   Token t;
 }
 {
   t = "--"
-  node = PrimaryExpression(out)
+  node = PrimaryExpression()
   
   {
     return new UnaryOperation( UnaryOperation.Operator.PRE_DEC, node, t );
@@ -2506,13 +2589,12 @@ void CastLookahead():
 
 ExpressionNode PostfixExpression():
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>();
   ExpressionNode finalNode;
   Token t;
   UnaryOperation.Operator operator;
 }
 {
-  finalNode = PrimaryExpression(out)
+  finalNode = PrimaryExpression()
   [ ( t="++" {operator = UnaryOperation.Operator.POST_INC;} | t="--" {operator = UnaryOperation.Operator.POST_DEC;})
     {
       finalNode = new UnaryOperation(operator, finalNode, t);    }
@@ -2542,7 +2624,7 @@ ExpressionNode CastExpression():
   }
 }
 
-ExpressionNode PrimaryExpression(List<PrintInfo> out):
+ExpressionNode PrimaryExpression():
 {
   ExpressionNode result;
 }
@@ -2690,7 +2772,8 @@ ExpressionNode PrimarySuffix(ExpressionNode in):
     |
       Arguments(printAux)
       {
-        out = new ProxyExpression(printAux);
+        
+        out = new UnaryProxy("Method Call",in);
       }
   )
   {    return out;
@@ -2735,16 +2818,21 @@ LiteralData Literal():
 LiteralData BooleanLiteral():
 {
   Token t;
+  LiteralData lit;
 }
 {
+  (    
   t="true"
   {
-    return new LiteralData.TrueLiteral(t);
+    lit = new LiteralData.TrueLiteral(t);
   }
 |
   t="false"
   {
-    return new LiteralData.FalseLiteral(t);
+    lit = new LiteralData.FalseLiteral(t);
+  }
+)
+  {    return lit;
   }
 }
 
@@ -3013,41 +3101,14 @@ StatementList LocalVariableDeclaration():
 {
   modifiers=Modifiers(out) type = Type(out) var=VariableDeclarator(modifiers,type)
   {
-    if(var.init != null)    {
-
-      //TODO modifiers
-      LocalVariableSymbol localVar = new LocalVariableSymbol(modifiers, var.type, var.name);
-      symbolTable.addSymbol(localVar);
-      localBlock.addLocalVariable(localVar);
-
-      
-      //TODO correct left-hand
-      ExpressionNode leftHand = new LocalVarAccess(localVar,
-					                                var.init);
-      
-      initializers.add(new AssigmentStatementNode(
-                                    AssigmentStatementNode.Operator.ASSIGN,
-                                    var.init,
-                                    var.init)
-                      );
-    }  }
+    if(var.init != null) {
+      initializers.add(var.init);    }  }
+  
   ( ","
     var = VariableDeclarator(modifiers,type)
-    {      if(var.init != null)
-      {
-        //TODO correct left-hand
-        ExpressionNode leftHand = new ProxyExpression(var.name);
-      
-        initializers.add(new AssigmentStatementNode(
-                                    AssigmentStatementNode.Operator.ASSIGN,
-                                    leftHand,
-                                    var.init)
-                        );
-
-        //TODO modifiers
-        LocalVariableSymbol localVar = new LocalVariableSymbol(modifiers, var.type, var.name);
-        symbolTable.addSymbol(localVar);
-        localBlock.addLocalVariable(localVar);
+    {
+      if(var.init != null) {
+        initializers.add(var.init);
       }
     }
   )*
@@ -3072,7 +3133,7 @@ StatementNode StatementExpression():
  * use PostfixExpression for performance reasons.
  */
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>();
+  List<PrintInfo > out = new LinkedList<PrintInfo >();
   ExpressionNode expression, expression2;
   Token t;
   AssigmentStatementNode.Operator assignOperator;
@@ -3080,13 +3141,13 @@ StatementNode StatementExpression():
 }
 {
   (
-    ( expression = PreIncrementExpression(out)
-    | expression = PreDecrementExpression(out)
+    ( expression = PreIncrementExpression()
+    | expression = PreDecrementExpression()
     )
     {
       statementNode = new StatementFromExpresion(expression);    }
   |
-    expression = PrimaryExpression(out)
+    expression = PrimaryExpression()
     (
       ( t = "++"
       | t = "--"
@@ -3445,7 +3506,7 @@ void TryStatement(List<PrintInfo> out):
       out.add(new PrintString("catch"));
       out.add(new PrintString("("));
     }
-    FormalParameter(out)
+    FormalParameter()
     ")"
     {
       out.add(new PrintString(")"));
