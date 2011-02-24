@@ -22,4 +22,9 @@ public class CastExpressionNode extends UnaryExpressionNode {
     return operation;
   }
 
+  @Override
+  public BaseType getType() {
+    return newType;
+  }
+
 }

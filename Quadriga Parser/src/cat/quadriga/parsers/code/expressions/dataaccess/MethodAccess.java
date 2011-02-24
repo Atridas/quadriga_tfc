@@ -23,8 +23,12 @@ public class MethodAccess extends MemberAccess {
     this.reference = reference;
   }
   
-  public Method getMethod(int i) {
+  public Method getMethods(int i) {
     return methods[i];
+  }
+  
+  public int getNumMethods() {
+    return methods.length;
   }
   
   @Override

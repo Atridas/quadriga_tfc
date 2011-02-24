@@ -1,7 +1,11 @@
-package cat.quadriga.parsers.code.expressions;
+package cat.quadriga.parsers.code.proxy;
 
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
+import cat.quadriga.parsers.code.expressions.ExpressionNode;
+import cat.quadriga.parsers.code.expressions.UnaryExpressionNode;
+import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.UnknownType;
 
 public class UnaryProxy extends UnaryExpressionNode {
   
@@ -30,5 +34,10 @@ public class UnaryProxy extends UnaryExpressionNode {
   @Override
   public String getOperation() {
     return operation;
+  }
+
+  @Override
+  public BaseType getType() {
+    return UnknownType.empty;
   }
 }

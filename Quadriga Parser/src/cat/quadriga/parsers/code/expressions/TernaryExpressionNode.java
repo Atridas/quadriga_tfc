@@ -1,6 +1,7 @@
 package cat.quadriga.parsers.code.expressions;
 
 import cat.quadriga.parsers.code.CodeZoneClass;
+import cat.quadriga.parsers.code.types.BaseType;
 
 public final class TernaryExpressionNode extends ExpressionNodeClass {
   
@@ -28,5 +29,11 @@ public final class TernaryExpressionNode extends ExpressionNodeClass {
   @Override
   public String getOperation() {
     return "?";
+  }
+
+  @Override
+  public BaseType getType() {
+    // TODO currar-s'ho una mica
+    return resultTrue.getType();
   }
 }
