@@ -2,6 +2,9 @@ package cat.quadriga.parsers.code.expressions;
 
 import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.CodeZoneClass;
+import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
+import cat.quadriga.parsers.code.types.UnknownType;
 
 public class UnaryOperation extends UnaryExpressionNode {
 
@@ -41,6 +44,23 @@ public class UnaryOperation extends UnaryExpressionNode {
     
     public boolean isPost() {
       return post;
+    }
+  }
+
+  @Override
+  public BaseType getType() {
+    switch(operator) {
+    case NOT:
+      return PrimitiveTypeRef.getFromType(PrimitiveTypeRef.Type.BOOLEAN);
+    case BIT_COMP:
+    case NEGATE:
+    case PRE_INC:
+    case PRE_DEC:
+    case POST_INC:
+    case POST_DEC:
+      return operand.getType();
+    default:
+      return UnknownType.empty;
     }
   }
 }

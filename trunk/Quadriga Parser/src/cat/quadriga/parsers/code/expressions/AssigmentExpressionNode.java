@@ -2,6 +2,7 @@ package cat.quadriga.parsers.code.expressions;
 
 import cat.quadriga.parsers.code.statements.AssigmentStatementNode;
 import cat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;
+import cat.quadriga.parsers.code.types.BaseType;
 
 public class AssigmentExpressionNode extends BinaryExpressionNode {
 
@@ -16,6 +17,11 @@ public class AssigmentExpressionNode extends BinaryExpressionNode {
   @Override
   public String getOperation() {
     return statementEquivalent.getOperator().toString();
+  }
+
+  @Override
+  public BaseType getType() {
+    return statementEquivalent.leftOperand.getType();
   }
 
 }

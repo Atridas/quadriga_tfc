@@ -1,10 +1,12 @@
 package cat.quadriga.parsers.code.expressions.dataaccess;
 
 import cat.quadriga.parsers.Token;
+import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
+import cat.quadriga.parsers.code.types.JavaType;
 import cat.quadriga.parsers.code.types.NullType;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 
@@ -12,6 +14,10 @@ public abstract class LiteralData extends DirectDataAccess {
 
   public LiteralData(Token t) {
     super(new CodeZoneClass(t));
+  }
+  
+  public LiteralData(CodeZone cz) {
+    super(cz);
   }
 
   @Override
@@ -235,6 +241,32 @@ public abstract class LiteralData extends DirectDataAccess {
     @Override
     public BaseType getType() {
       return NullType.instance;
+    }
+  }
+  
+  public static class ClassLiteral extends LiteralData { 
+    public final BaseType type;
+    
+    public ClassLiteral(BaseType type, CodeZone cz) {
+      super(cz);
+      this.type = type;
+    }
+    @Override
+    public Object getValue() {
+      if(type instanceof JavaType)
+        return ((JavaType)type).classObject;
+      else
+        return null;
+    }
+    @Override
+    public String[] getOperands() {
+      String[] aux = {type.getBinaryName()};
+      return aux;
+    }
+    @Override
+    public BaseType getType() {
+      //TODO
+      return Utils.createType(Class.class);
     }
   }
 

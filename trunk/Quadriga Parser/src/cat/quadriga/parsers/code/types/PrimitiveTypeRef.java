@@ -2,7 +2,7 @@ package cat.quadriga.parsers.code.types;
 
 public final class PrimitiveTypeRef extends JavaType {
 
-  private Type type;
+  public final Type type;
   
   private PrimitiveTypeRef(Type t) {
     super(t.getClassObject(), t.getBinaryName());

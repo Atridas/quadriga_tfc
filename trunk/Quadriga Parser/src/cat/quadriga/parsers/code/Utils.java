@@ -1,6 +1,7 @@
 package cat.quadriga.parsers.code;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import cat.quadriga.parsers.Token;
@@ -8,17 +9,19 @@ import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.dataaccess.ArrayLengthAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.LocalVarAccess;
-import cat.quadriga.parsers.code.expressions.dataaccess.ProxyDataAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.TypeDataAccess;
+import cat.quadriga.parsers.code.proxy.ProxyDataAccess;
 import cat.quadriga.parsers.code.symbols.BaseSymbol;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.symbols.SymbolTable;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
 import cat.quadriga.parsers.code.types.ArrayType;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.JavaType;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.parsers.code.types.ReferenceTypeRef;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
+import cat.quadriga.parsers.code.types.UnknownType;
 
 abstract public class Utils {
   public static final String treeStringRepresentation( String operation, String operands[]) {
@@ -168,6 +171,98 @@ abstract public class Utils {
       return new ArrayType(createType(clazz.getComponentType()));
     } else {
       return ClassOrInterfaceTypeRef.getFromClass(clazz);
+    }
+  }
+  
+  public static boolean aplicableBySubtyping(BaseType origin, Class<?> destiny) {
+    return aplicableBySubtyping(origin, createType(destiny));
+  }
+  
+  public static boolean aplicableBySubtyping(Class<?> origin, BaseType destiny) {
+    return aplicableBySubtyping(createType(origin), destiny);
+  }
+  
+  public static boolean aplicableBySubtyping(Class<?> origin, Class<?> destiny) {
+    return aplicableBySubtyping(createType(origin), createType(destiny));
+  }
+  
+  public static boolean aplicableBySubtyping(BaseType origin, BaseType destiny) {
+    if(origin instanceof UnknownType || destiny instanceof UnknownType) {
+      return true;
+    }
+    
+    if(origin instanceof PrimitiveTypeRef) {
+      PrimitiveTypeRef oPrim = (PrimitiveTypeRef) origin;
+      if(destiny instanceof PrimitiveTypeRef) {
+        PrimitiveTypeRef dPrim = (PrimitiveTypeRef) destiny;
+        if(oPrim.type == dPrim.type) {
+          return true;
+        } else {
+          //TODO
+          return false;
+        }
+      } else {
+        //TODO
+        return false;
+      }
+    } else {
+      if(destiny instanceof PrimitiveTypeRef) {
+        //TODO
+        return false;
+      } else {
+        Class<?> oClass = ((JavaType) origin).classObject;
+        Class<?> dClass = ((JavaType) destiny).classObject;
+        
+        if(oClass.equals(dClass)) {
+          return true;
+        }
+        Class<?> oSuper = oClass;
+        while (oSuper != null && !oSuper.equals(Object.class)) {
+          oSuper = oSuper.getSuperclass();
+          if(dClass.equals(oSuper)) {
+            return true;
+          }
+        }
+        for(Class<?> oInterface : oClass.getInterfaces()) {
+          if(oInterface.equals(dClass)) {
+            return true;
+          }
+        }
+        return false;
+      }
+    }
+  }
+  
+  public static int selectMethod(List<ExpressionNode> calledArgs, Class<?>[][] realArgs) {
+    List<Integer> validMethods = new LinkedList<Integer>();
+    
+    //Per nombre d'arguments
+    for(int i = 0; i < realArgs.length; i++) {
+      if(realArgs[i].length == calledArgs.size()) {
+        validMethods.add(i);
+      }
+    }
+    if(validMethods.size() == 0) {
+      return -1;
+    } else {
+      List<Integer> validMethods2 = new LinkedList<Integer>();
+      for(Integer validMethod : validMethods) {
+        Class<?>[] declaredArgs = realArgs[validMethod];
+        for(int i = 0; i < declaredArgs.length; i++) {
+          if(!Utils.aplicableBySubtyping(calledArgs.get(i).getType(),declaredArgs[i])) {
+            continue;
+          }
+          //TODO més comprovacions
+          validMethods2.add(validMethod);
+        }
+      }
+      
+      if(validMethods2.size() > 0) {
+        return validMethods2.get(0);
+        // TODO if(validMethods2.size() > 1) {
+      } else {
+        return -1;
+      }
     }
   }
   

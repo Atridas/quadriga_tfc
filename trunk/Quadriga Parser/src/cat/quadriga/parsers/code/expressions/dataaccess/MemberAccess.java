@@ -2,8 +2,7 @@ package cat.quadriga.parsers.code.expressions.dataaccess;
 
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.types.BaseType;
-import cat.quadriga.parsers.code.types.JavaType;
-import cat.quadriga.parsers.code.types.NullType;
+import cat.quadriga.parsers.code.types.UnknownType;
 
 public class MemberAccess extends DirectDataAccess {
   
@@ -23,8 +22,7 @@ public class MemberAccess extends DirectDataAccess {
 
   @Override
   public BaseType getType() {
-    // TODO ¿?
-    return NullType.instance;
+    return UnknownType.empty;
   }
 
   @Override

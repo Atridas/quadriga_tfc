@@ -1,5 +1,9 @@
 package cat.quadriga.parsers.code.expressions;
 
+import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
+import cat.quadriga.parsers.code.types.UnknownType;
+
 public class MathematicOperation extends BinaryExpressionNode {
 
   public final Operator operator;
@@ -28,6 +32,28 @@ public class MathematicOperation extends BinaryExpressionNode {
     @Override
     public String toString() {
       return representation;
+    }
+  }
+
+  @Override
+  public BaseType getType() {
+    switch(operator) {
+    case BIT_OR:
+    case BIT_AND:
+    case BIT_XOR:
+    case LEFT_SHIFT:
+    case RIGHT_SHIFT:
+    case RIGHT_UNSIGNED_SHIFT:
+      return PrimitiveTypeRef.getFromType(PrimitiveTypeRef.Type.INT);
+    case ADD: 
+    case SUB: 
+    case MUL: 
+    case DIV: 
+    case MOD:
+      //TODO currar-s'ho una mica
+      return leftOperand.getType();
+    default:
+      return UnknownType.empty;
     }
   }
 }

@@ -1,9 +1,10 @@
-package cat.quadriga.parsers.code.expressions.dataaccess;
+package cat.quadriga.parsers.code.proxy;
 
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
+import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.NullType;
 
@@ -42,7 +43,7 @@ public class ProxyDataAccess extends ExpressionNodeClass implements DataAccess {
 
   @Override
   public String getOperation() {
-    return ">> Proxy Data Access [" + name + "] <<";
+    return ">> Proxy Data Access [ " + name + " ] <<";
   }
 
   @Override

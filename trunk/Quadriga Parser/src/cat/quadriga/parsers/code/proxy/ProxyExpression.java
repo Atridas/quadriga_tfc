@@ -1,11 +1,14 @@
-package cat.quadriga.parsers.code.expressions;
+package cat.quadriga.parsers.code.proxy;
 
 import java.util.List;
 
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
+import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.printers.MegaPrinter;
 import cat.quadriga.parsers.code.printers.PrintInfo;
+import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.UnknownType;
 
 public class ProxyExpression extends ExpressionNodeClass {
   
@@ -75,5 +78,10 @@ public class ProxyExpression extends ExpressionNodeClass {
   @Override
   public String getOperation() {
     return operator;
+  }
+
+  @Override
+  public BaseType getType() {
+    return UnknownType.empty;
   }
 }

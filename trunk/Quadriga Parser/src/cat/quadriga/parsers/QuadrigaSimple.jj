@@ -42,10 +42,11 @@ package cat.quadriga.parsers;
 import java.io.*;
 import java.util.*;
 import cat.quadriga.parsers.code.*;
-import cat.quadriga.parsers.code.statements.*;
 import cat.quadriga.parsers.code.expressions.*;
 import cat.quadriga.parsers.code.expressions.dataaccess.*;
 import cat.quadriga.parsers.code.printers.*;
+import cat.quadriga.parsers.code.proxy.*;
+import cat.quadriga.parsers.code.statements.*;
 import cat.quadriga.parsers.code.symbols.*;
 import cat.quadriga.parsers.code.types.*;
 
@@ -1701,6 +1702,7 @@ void MethodDeclaration(int modifiers, List<PrintInfo> out):
   List<PrintInfo> other = new LinkedList<PrintInfo>();
 
   symbolTable.newContext();
+  symbolTable.addSymbol(new ThisSymbol());
 }
 {
   // Modifiers already matched in the caller!
@@ -1844,6 +1846,7 @@ void ConstructorDeclaration(List<PrintInfo> out):
   List<ParameterClass > params;
 
   symbolTable.newContext();
+  symbolTable.addSymbol(new ThisSymbol());
 }
 {
   [ TypeParameters(out) ]
@@ -2638,17 +2641,16 @@ ExpressionNode PrimaryExpression():
   }
 }
 
-void MemberSelector(List<PrintInfo> out):
+ExpressionNode MemberSelector(ExpressionNode in):
 {
   List<PrintInfo> other = new LinkedList<PrintInfo>();
-  Token t;
+  Token t, t2;
 }
 {
-  "." TypeArguments(other) t=<IDENTIFIER>
+  t="." TypeArguments(other) t2=<IDENTIFIER>
   {
-    out.add(new PrintString("."));
-    out.addAll(other);
-    out.add(new PrintString(t.image));
+    //TODO arguments
+    return new ProxyDataAccess( "parametrized " + t.image, in, new CodeZoneClass(t, t2));
   }
 }
 
@@ -2672,11 +2674,15 @@ ExpressionNode PrimaryPrefix():
     )*
     t="this"
     {
+      //Code zone things
       if(tokenList.size() > 0) {
         //TODO algo
         result = new ProxyExpression(tokenList.get(0).image + " ... this",
                                      new CodeZoneClass(tokenList.get(0),t));      } else      {
-        result = new ProxyExpression("this", new CodeZoneClass(t));      }
+        BaseSymbol symbol = symbolTable.findSymbol("this");
+        if(symbol != null) {
+          result = new LocalVarAccess((LocalVariableSymbol)symbol, new CodeZoneClass(t));        } else {          result = new ProxyDataAccess("this", new CodeZoneClass(t));
+        }      }
     }
   |
     t="super" "." t2=<IDENTIFIER>
@@ -2702,9 +2708,9 @@ ExpressionNode PrimaryPrefix():
       result = new ProxyExpression("new something");    }
   |
     LOOKAHEAD( ResultType() "." "class" )
-    type = ResultType(out) "." "class"
+    type = ResultType(out) t="." t2="class"
     {
-      result = new ProxyExpression("classe " + type.toString());
+      result = new LiteralData.ClassLiteral(type, new CodeZoneClass(t, t2));
     }
   |
     {
@@ -2747,10 +2753,7 @@ ExpressionNode PrimarySuffix(ExpressionNode in):
         out = new ProxyExpression(printAux);      }
     |
       LOOKAHEAD(3)
-      MemberSelector(printAux)
-      {
-        out = new ProxyExpression(printAux);
-      }
+      out = MemberSelector(in)
     |
       "["
       {
@@ -2770,10 +2773,15 @@ ExpressionNode PrimarySuffix(ExpressionNode in):
           out = new ProxyDataAccess( t.image, in, new CodeZoneClass(t));        }
       }
     |
-      Arguments(printAux)
       {
-        
-        out = new UnaryProxy("Method Call",in);
+        CallToArguments args;      }
+      args = Arguments(printAux)
+      {
+        DataAccess method;
+        if(in instanceof DataAccess)        {
+          method = (DataAccess) in;        } else {          method = new ProxyDataAccess("Method Call",in);
+        }
+        out = new CallToMethod(method,args);
       }
   )
   {    return out;
@@ -2847,30 +2855,28 @@ LiteralData NullLiteral():
   }
 }
 
-void Arguments(List<PrintInfo> out):
+CallToArguments Arguments(List<PrintInfo> out):
 {
-  List<PrintInfo> other = new LinkedList<PrintInfo>();
+  //List<PrintInfo> other = new LinkedList<PrintInfo>();
+  List<ExpressionNode> arguments = new LinkedList<ExpressionNode>();
+  ExpressionNode node;
+  Token t, t2;
 }
 {
-  "(" [ ArgumentList(other) ] ")"
+  t="(" [ node = Expression(out)
+        {
+          arguments.add(node);        }
+        ( ","
+          node = Expression(out)
+          {
+            arguments.add(node);
+          }
+        )*
+      ]
+  t2=")"
   {
-    out.add(new PrintString("("));
-    out.addAll(other);
-    out.add(new PrintString(")"));
+    return new CallToArguments(arguments, new CodeZoneClass(t, t2));
   }
-}
-
-void ArgumentList(List<PrintInfo> out):
-{}
-{
-  Expression(out)
-  ( ","
-    {
-      out.add(new PrintString(","));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    Expression(out)
-  )*
 }
 
 void AllocationExpression(List<PrintInfo> out):

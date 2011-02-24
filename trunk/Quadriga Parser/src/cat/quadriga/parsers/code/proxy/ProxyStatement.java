@@ -1,4 +1,4 @@
-package cat.quadriga.parsers.code.statements;
+package cat.quadriga.parsers.code.proxy;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.printers.MegaPrinter;
 import cat.quadriga.parsers.code.printers.PrintInfo;
+import cat.quadriga.parsers.code.statements.StatementNode;
 
 public class ProxyStatement extends StatementNode {
 

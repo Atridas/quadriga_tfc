@@ -1,5 +1,8 @@
 package cat.quadriga.parsers.code.expressions;
 
+import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
+
 public class BooleanOperation extends BinaryExpressionNode {
 
   public final Operator operator;
@@ -29,5 +32,10 @@ public class BooleanOperation extends BinaryExpressionNode {
     public String toString() {
       return representation;
     }
+  }
+
+  @Override
+  public BaseType getType() {
+    return PrimitiveTypeRef.getFromType(PrimitiveTypeRef.Type.BOOLEAN);
   }
 }
