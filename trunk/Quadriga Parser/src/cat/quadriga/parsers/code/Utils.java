@@ -248,11 +248,15 @@ abstract public class Utils {
       List<Integer> validMethods2 = new LinkedList<Integer>();
       for(Integer validMethod : validMethods) {
         Class<?>[] declaredArgs = realArgs[validMethod];
+        boolean selected = true;
         for(int i = 0; i < declaredArgs.length; i++) {
           if(!Utils.aplicableBySubtyping(calledArgs.get(i).getType(),declaredArgs[i])) {
+            selected = false;
             continue;
           }
           //TODO més comprovacions
+        }
+        if(selected) {
           validMethods2.add(validMethod);
         }
       }

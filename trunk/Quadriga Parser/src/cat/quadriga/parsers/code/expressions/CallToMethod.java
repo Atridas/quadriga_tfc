@@ -58,7 +58,7 @@ public class CallToMethod extends ExpressionNodeClass {
   public String getOperation() {
     if(methodToCall == null) {
       if(function instanceof ProxyDataAccess) {
-        return "Proxy call";
+        return "Proxy Call";
       } else {
         return "Invalid Call";
       }

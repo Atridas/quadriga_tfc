@@ -1,10 +1,8 @@
 package cat.quadriga.parsers.code.expressions.dataaccess;
 
 import cat.quadriga.parsers.code.CodeZone;
-import cat.quadriga.parsers.code.types.BaseType;
-import cat.quadriga.parsers.code.types.UnknownType;
 
-public class MemberAccess extends DirectDataAccess {
+public abstract class MemberAccess extends DirectDataAccess {
   
   public final String staticMember;
   public final Class<?> clazz;
@@ -18,11 +16,6 @@ public class MemberAccess extends DirectDataAccess {
   @Override
   public String getOperation() {
     return "Static Access:";
-  }
-
-  @Override
-  public BaseType getType() {
-    return UnknownType.empty;
   }
 
   @Override

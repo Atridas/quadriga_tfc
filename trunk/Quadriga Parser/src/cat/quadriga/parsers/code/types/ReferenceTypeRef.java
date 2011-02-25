@@ -5,6 +5,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,9 +14,9 @@ import java.util.Map;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
-import cat.quadriga.parsers.code.expressions.dataaccess.MemberAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.FieldAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.MethodAccess;
+import cat.quadriga.parsers.code.proxy.ProxyDataAccess;
 
 public class ReferenceTypeRef extends JavaType {
   
@@ -53,7 +54,7 @@ public class ReferenceTypeRef extends JavaType {
     List<AccessibleObject> ambiguous = ambiguousNames.get(name);
     if(ambiguous != null) {
       //TODO millorable
-      return new MemberAccess(name,this.classObject,cz);
+      return new ProxyDataAccess(name,this.classObject,cz);
     }
     
     Field field = fields.get(name);
@@ -65,8 +66,8 @@ public class ReferenceTypeRef extends JavaType {
     if(methodList != null) {
       return new MethodAccess(reference, methodList.toArray(new Method[methodList.size()]), cz);
     }
-    
-    return new MemberAccess("Proxy access to " + name, this.classObject,cz);
+
+    return new ProxyDataAccess(name,this.classObject,cz);
   }
 
   private boolean searchAndDeleteRedundant(String objectName, boolean fields) {
@@ -105,11 +106,15 @@ public class ReferenceTypeRef extends JavaType {
         this.methods.put(method.getName(), methods);
       }
       methods.add(method);
-    }
-    
+    } 
   }
 
   private void addConstructor(Constructor<?> constructor) {
     constructors.add(constructor);
+  }
+  
+  
+  public List<Constructor<?>> getConstuctors() {
+    return Collections.unmodifiableList(constructors);
   }
 }
