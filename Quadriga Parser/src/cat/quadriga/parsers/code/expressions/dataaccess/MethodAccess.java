@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
+import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.NoType;
 
 public class MethodAccess extends MemberAccess {
   
@@ -46,5 +48,10 @@ public class MethodAccess extends MemberAccess {
                        reference.treeStringRepresentation()}; 
       return aux;
     }
+  }
+
+  @Override
+  public BaseType getType() {
+    return NoType.instance;
   }
 }

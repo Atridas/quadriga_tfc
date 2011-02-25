@@ -2703,9 +2703,7 @@ ExpressionNode PrimaryPrefix():
   |
     "(" result = Expression(out) ")"
   |
-    AllocationExpression(out)
-    {
-      result = new ProxyExpression("new something");    }
+    result = AllocationExpression(null)
   |
     LOOKAHEAD( ResultType() "." "class" )
     type = ResultType(out) t="." t2="class"
@@ -2745,12 +2743,7 @@ ExpressionNode PrimarySuffix(ExpressionNode in):
     |
       LOOKAHEAD(2)
       "."
-      {
-        printAux.add(new PrintString("."));
-      }
-      AllocationExpression(printAux)
-      {
-        out = new ProxyExpression(printAux);      }
+      out = AllocationExpression(in)
     |
       LOOKAHEAD(3)
       out = MemberSelector(in)
@@ -2879,63 +2872,88 @@ CallToArguments Arguments(List<PrintInfo> out):
   }
 }
 
-void AllocationExpression(List<PrintInfo> out):
+ExpressionNode AllocationExpression(ExpressionNode in):
 {
-  List<PrintInfo> other = new LinkedList<PrintInfo>()
-                , other2= new LinkedList<PrintInfo>();
+  List<PrintInfo> other  = new LinkedList<PrintInfo>()
+                , other2 = new LinkedList<PrintInfo>()
+                , out    = new LinkedList<PrintInfo>();
+
+  ExpressionNode exp;
+  BaseType type;
+  CallToArguments args;
+  Token t;
 }
 {
   (
     
     LOOKAHEAD(2)
-    "new" PrimitiveType(other) ArrayDimsAndInits(other2)
-    {
-      out.add(new PrintString("new"));
-      out.add(PrintWhiteSpace.getInstance());
-      out.addAll(other);
-      out.addAll(other2);
-    }
+    t="new" type = PrimitiveType(other) exp = ArrayDimsAndInits(type, t)
   |
-    "new"
-    {
-      out.add(new PrintString("new"));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    ClassOrInterfaceType(out)
-    [ TypeArguments(out) ]
+    t="new"
+    type = ClassOrInterfaceType(out)
+    [ TypeArguments(out)
+      //TODO
+    ]
       (
-        ArrayDimsAndInits(out)
+        exp = ArrayDimsAndInits(type, t)
       |
-        Arguments(out)
-        [ ClassOrInterfaceBody(false, out) ]
+        args = Arguments(out)
+
+        
+        (           ClassOrInterfaceBody(false, out)
+           //TODO Fer inner classes?
+           {
+             //TODO
+             exp = new ProxyExpression(out);
+             exp = new UnaryProxy("new " + type.toString(), exp);
+           }
+        |
+        {
+          if(in == null) {
+            exp = new AllocationExpressionNode(type, args,t);
+          } else {
+            exp = new AllocationExpressionNode(in,type, args,t);          }        }
+        ) 
       )
   )
+  {    return exp;
+  }
 }
 
 /*
  * The third LOOKAHEAD specification below is to parse to PrimarySuffix
  * if there is an expression between the "[...]".
  */
-void ArrayDimsAndInits(List<PrintInfo> out):
-{}
+ExpressionNode ArrayDimsAndInits(BaseType in, Token n):
+{
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
+  ExpressionNode result, aux;
+  List<ExpressionNode> listLengths = new LinkedList<ExpressionNode>();
+  int dims = 0;
+
+  Token t;
+}
 {
   (
     LOOKAHEAD(2)
-    ( LOOKAHEAD(2) "["  
+    ( LOOKAHEAD(2) "[" 
+      aux = Expression(out) t="]"
       {
-        out.add(new PrintString("["));
-      }
-      Expression(out) "]"
-      {
-        out.add(new PrintString("]"));
+        listLengths.add(aux);
+        dims++;
       }
     )+
-    ( LOOKAHEAD(2) "[" "]"
+    ( LOOKAHEAD(2) "[" t="]"
       {
-        out.add(new PrintString("["));
-        out.add(new PrintString("]"));
+        dims++;
       }
     )*
+    {
+      result = new ArrayAllocationExpressionNode(
+                    in, 
+                    listLengths.toArray(new ExpressionNode[listLengths.size()]),
+                    dims,
+                    new CodeZoneClass(n, t));    }
   |
     ( "[" "]"
       {
@@ -2944,7 +2962,11 @@ void ArrayDimsAndInits(List<PrintInfo> out):
       }
     )+
     ArrayInitializer() //TODO
+    {
+      result = new ProxyExpression(out);    }
   )
+  {    return result;
+  }
 }
 
 

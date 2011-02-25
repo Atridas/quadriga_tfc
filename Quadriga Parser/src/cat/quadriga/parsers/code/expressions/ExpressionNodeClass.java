@@ -3,6 +3,7 @@ package cat.quadriga.parsers.code.expressions;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.Utils;
+import cat.quadriga.parsers.code.types.NoType;
 
 public abstract class ExpressionNodeClass extends CodeZoneClass implements ExpressionNode {
   
@@ -19,8 +20,17 @@ public abstract class ExpressionNodeClass extends CodeZoneClass implements Expre
   
     String operation = getOperation();
     String operands[] = getOperands();
+    
+    String typeName;
+    
+    if(getType() instanceof NoType) {
+      typeName = "";
+    } else {
+      typeName = " [" + getType().toString() + "]";
+    }    
   
-    return "Op: " + Utils.treeStringRepresentation(operation, operands);
+    treeStringRepresentation = "Op: " + Utils.treeStringRepresentation(operation + typeName, operands);
+    return treeStringRepresentation;
   }
   
   @Override

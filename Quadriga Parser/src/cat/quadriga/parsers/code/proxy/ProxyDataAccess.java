@@ -6,38 +6,52 @@ import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
 import cat.quadriga.parsers.code.types.BaseType;
-import cat.quadriga.parsers.code.types.NullType;
+import cat.quadriga.parsers.code.types.UnknownType;
 
 public class ProxyDataAccess extends ExpressionNodeClass implements DataAccess {
 
   private final String name;
   private final ExpressionNode indirect;
+  private final Class<?> clazz;
 
   public ProxyDataAccess(String name, CodeZone cz) {
     super(cz);
     this.name = name;
     indirect = null;
+    clazz = null;
   }
   
   public ProxyDataAccess(String name) {
     super(new CodeZoneClass(0,0,0,0));
     this.name = name;
     indirect = null;
+    clazz = null;
   }
 
   public ProxyDataAccess(String name, ExpressionNode indirect, CodeZone cz) {
     super(cz);
     this.name = name;
     this.indirect = indirect;
+    clazz = null;
+  }
+
+  public ProxyDataAccess(String name, Class<?> clazz, CodeZone cz) {
+    super(cz);
+    this.name = name;
+    this.indirect = null;
+    this.clazz = clazz;
   }
 
   @Override
   public String[] getOperands() {
-    if(indirect == null) {
-      return new String[0];
-    } else {
+    if(indirect != null) {
       String[] aux = { indirect.treeStringRepresentation() };
       return aux;
+    } else if(clazz != null) {
+      String[] aux = { clazz.toString() };
+      return aux;
+    } else {
+      return new String[0];
     }
   }
 
@@ -48,7 +62,7 @@ public class ProxyDataAccess extends ExpressionNodeClass implements DataAccess {
 
   @Override
   public BaseType getType() {
-    return NullType.instance; //TODO arreglar això
+    return UnknownType.empty;
   }
 
   @Override
