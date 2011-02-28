@@ -26,7 +26,7 @@ public abstract class ExpressionNodeClass extends CodeZoneClass implements Expre
     if(getType() instanceof NoType) {
       typeName = "";
     } else {
-      typeName = " [" + getType().toString() + "]";
+      typeName = " {" + getType().toString() + "}";
     }    
   
     treeStringRepresentation = "Op: " + Utils.treeStringRepresentation(operation + typeName, operands);
