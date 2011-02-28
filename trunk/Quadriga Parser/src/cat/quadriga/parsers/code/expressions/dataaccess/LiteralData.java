@@ -43,6 +43,10 @@ public abstract class LiteralData extends DirectDataAccess {
       super(t);
       i = Integer.decode(t.image);
     }
+    public IntegerLiteral(int i) {
+      super(new CodeZoneClass(0,0,0,0));
+      this.i = i;
+    }
     @Override
     public Integer getValue() {
       return new Integer(i);

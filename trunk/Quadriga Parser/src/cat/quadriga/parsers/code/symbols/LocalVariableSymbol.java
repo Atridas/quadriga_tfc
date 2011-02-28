@@ -17,4 +17,8 @@ public class LocalVariableSymbol extends BaseSymbol {
   protected String createTreeStringRepresentation() {
     return "Symbol Var [ "+ name +" ] Type [ " + type.toString() + " ]";//TODO modifiers
   }
+  
+  public String toString() {
+    return "Local var \"" + name + "\" {" + type + "}";
+  }
 }

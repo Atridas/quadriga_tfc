@@ -21,7 +21,7 @@ public class SymbolTable {
   }
   
   public void newContext() {
-    mapStack.add(new HashMap<String, BaseSymbol>());
+    mapStack.add(0, new HashMap<String, BaseSymbol>());
   }
   
   public void deleteContext() {

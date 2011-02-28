@@ -1623,7 +1623,7 @@ VarAndInit VariableDeclarator(int modifiers, BaseType type):
       //Field
       leftHand = new ProxyDataAccess("Proxy field: " + vai.name, new CodeZoneClass(vai.name));    }  }
   [ "="
-    initialization = VariableInitializer()
+    initialization = VariableInitializer(type)
     {
       vai.init = new AssigmentStatementNode(
                                       AssigmentStatementNode.Operator.ASSIGN,
@@ -1654,14 +1654,14 @@ VarAndInit VariableDeclaratorId(BaseType type):
     return vai;  }
 }
 
-ExpressionNode VariableInitializer():
+ExpressionNode VariableInitializer(BaseType base):
 {
   List<PrintInfo> out = new LinkedList<PrintInfo>();
   ExpressionNode result;
 }
 {
   (
-    result = ArrayInitializer()
+    result = ArrayInitializer(base)
   |
     result = Expression(out)
   )
@@ -1669,30 +1669,41 @@ ExpressionNode VariableInitializer():
   }
 }
 
-ExpressionNode ArrayInitializer():
+ExpressionNode ArrayInitializer(BaseType base):
 {
   ExpressionNode aux;
   List<ExpressionNode> listOfInits = new LinkedList<ExpressionNode>();
+  Token t, t2;
+  if(base instanceof ArrayType) {
+    base = ((ArrayType)base).base;  }
 }
 {
-  "{"
-  [ aux = VariableInitializer()
+  t="{"
+  [ aux = VariableInitializer(base)
     {
       listOfInits.add(aux);
     }
-    ( LOOKAHEAD(2) "," aux = VariableInitializer()
+    ( LOOKAHEAD(2) "," aux = VariableInitializer(base)
       {
         listOfInits.add(aux);
       }
     )*
   ]
   [ "," ]
-  "}"
+  t2="}"
   {
-    if(listOfInits.size() == 0)    {
-      //TODO
-      return null;    } else    {
-      return new UnaryProxy(listOfInits.get(0));    }
+    ExpressionNode[] arraySize = {new LiteralData.IntegerLiteral(listOfInits.size())};
+
+    ArrayAllocationExpressionNode allocation = new ArrayAllocationExpressionNode(
+                                                   base,
+                                                   arraySize,
+                                                   1,
+                                                   new CodeZoneClass(t, t2)
+                                                   ); 
+    return new ArrayInitializerNode(allocation,
+                                    listOfInits.toArray(
+                                          new ExpressionNode[listOfInits.size()])
+                                    );
   }
 }
 
@@ -2750,12 +2761,11 @@ ExpressionNode PrimarySuffix(ExpressionNode in):
     |
       "["
       {
-        printAux.add(new PrintString("["));
+        ExpressionNode access;
       }
-      Expression(printAux) "]"
+      access = Expression(printAux) t="]"
       {
-        printAux.add(new PrintString("]"));
-        out = new ProxyExpression(printAux);
+        out = new ArrayOrComponentAccess(in, access, t);
       }
     |
       "." t = <IDENTIFIER>
@@ -2957,13 +2967,12 @@ ExpressionNode ArrayDimsAndInits(BaseType in, Token n):
   |
     ( "[" "]"
       {
+        //TODO algo aqui i no se el que...
         out.add(new PrintString("["));
         out.add(new PrintString("]"));
       }
     )+
-    ArrayInitializer() //TODO
-    {
-      result = new ProxyExpression(out);    }
+    result = ArrayInitializer(in)
   )
   {    return result;
   }
