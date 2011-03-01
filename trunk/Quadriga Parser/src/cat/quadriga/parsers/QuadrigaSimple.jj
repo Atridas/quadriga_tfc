@@ -150,8 +150,6 @@ public class QuadrigaSimple
 
    private SymbolTable symbolTable = new SymbolTable();
 
-   private StatementNode recentSwitchOrFor = null;
-
    private BlockCode.TmpBlockCode localBlock = null;
 
    public QuadrigaSimple(String fileName)
@@ -1457,7 +1455,7 @@ void EnumConstant(List<PrintInfo> out):
   {
     out.add(new PrintString(t.image));
   }
-  [ Arguments(out) ]
+  [ Arguments() ]
   [ ClassOrInterfaceBody(false, out) ]
 }
 
@@ -1656,14 +1654,13 @@ VarAndInit VariableDeclaratorId(BaseType type):
 
 ExpressionNode VariableInitializer(BaseType base):
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>();
   ExpressionNode result;
 }
 {
   (
     result = ArrayInitializer(base)
   |
-    result = Expression(out)
+    result = Expression()
   )
   {    return result;
   }
@@ -1734,7 +1731,7 @@ void MethodDeclaration(int modifiers, List<PrintInfo> out):
     }
     NameList()
   ]
-  ( bc = Block(other)
+  ( bc = Block()
     {
       String treeString = bc.treeStringRepresentation();
       out.addAll( MegaPrinter.getInstance().format(treeString) );
@@ -1950,7 +1947,7 @@ void ExplicitConstructorInvocation(List<PrintInfo> out):
     {
       out.add(new PrintString("super"));
     }
-  ) Arguments(out) ";"
+  ) Arguments() ";"
     {
       out.add(new PrintString(";"));
       out.add(PrintIntro.getInstance());
@@ -1967,7 +1964,7 @@ void Initializer(List<PrintInfo> out):
       out.add(PrintWhiteSpace.getInstance());
     }
   }
-  ] Block(out)
+  ] Block() //TODO
 }
 
 
@@ -2212,7 +2209,7 @@ List<List<Token>> NameList():
  * Expression syntax follows.
  */
 
-ExpressionNode Expression(List<PrintInfo> out):
+ExpressionNode Expression():
 /*
  * This expansion has been written this way instead of:
  *   Assignment() | ConditionalExpression()
@@ -2230,14 +2227,8 @@ ExpressionNode Expression(List<PrintInfo> out):
   finalNode = ConditionalExpression()
   [
     LOOKAHEAD(2)
-    {
-      out.add(PrintWhiteSpace.getInstance());
-    }
     operator = AssignmentOperator()
-    {
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    auxNode = Expression(out)
+    auxNode = Expression()
     {
       finalNode = new AssigmentExpressionNode(operator, finalNode, auxNode);    }
   ]
@@ -2270,14 +2261,12 @@ AssigmentStatementNode.Operator AssignmentOperator():
 
 ExpressionNode ConditionalExpression():
 {
-  List<PrintInfo> aux  = new LinkedList<PrintInfo>();
-
   ExpressionNode finalNode, auxNode1, auxNode2;
 }
 {
   finalNode = ConditionalOrExpression()
   
-  [ "?" auxNode1=Expression(aux) ":" auxNode2=Expression(aux)
+  [ "?" auxNode1=Expression() ":" auxNode2=Expression()
     {
       finalNode = new TernaryExpressionNode(finalNode, auxNode1, auxNode2);
     }
@@ -2712,7 +2701,7 @@ ExpressionNode PrimaryPrefix():
       result = new ProxyExpression(type + ".super." + t.image, new CodeZoneClass(t, t2));
      }
   |
-    "(" result = Expression(out) ")"
+    "(" result = Expression() ")"
   |
     result = AllocationExpression(null)
   |
@@ -2736,7 +2725,6 @@ ExpressionNode PrimarySuffix(ExpressionNode in):
 {
   Token t, t2;
   ExpressionNode out;
-  List<PrintInfo > printAux = new LinkedList<PrintInfo >();
 }
 {
   ( 
@@ -2763,7 +2751,7 @@ ExpressionNode PrimarySuffix(ExpressionNode in):
       {
         ExpressionNode access;
       }
-      access = Expression(printAux) t="]"
+      access = Expression() t="]"
       {
         out = new ArrayOrComponentAccess(in, access, t);
       }
@@ -2778,7 +2766,7 @@ ExpressionNode PrimarySuffix(ExpressionNode in):
     |
       {
         CallToArguments args;      }
-      args = Arguments(printAux)
+      args = Arguments()
       {
         DataAccess method;
         if(in instanceof DataAccess)        {
@@ -2858,7 +2846,7 @@ LiteralData NullLiteral():
   }
 }
 
-CallToArguments Arguments(List<PrintInfo> out):
+CallToArguments Arguments():
 {
   //List<PrintInfo> other = new LinkedList<PrintInfo>();
   List<ExpressionNode> arguments = new LinkedList<ExpressionNode>();
@@ -2866,11 +2854,11 @@ CallToArguments Arguments(List<PrintInfo> out):
   Token t, t2;
 }
 {
-  t="(" [ node = Expression(out)
+  t="(" [ node = Expression()
         {
           arguments.add(node);        }
         ( ","
-          node = Expression(out)
+          node = Expression()
           {
             arguments.add(node);
           }
@@ -2907,7 +2895,7 @@ ExpressionNode AllocationExpression(ExpressionNode in):
       (
         exp = ArrayDimsAndInits(type, t)
       |
-        args = Arguments(out)
+        args = Arguments()
 
         
         (           ClassOrInterfaceBody(false, out)
@@ -2936,7 +2924,6 @@ ExpressionNode AllocationExpression(ExpressionNode in):
  */
 ExpressionNode ArrayDimsAndInits(BaseType in, Token n):
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>();
   ExpressionNode result, aux;
   List<ExpressionNode> listLengths = new LinkedList<ExpressionNode>();
   int dims = 0;
@@ -2947,7 +2934,7 @@ ExpressionNode ArrayDimsAndInits(BaseType in, Token n):
   (
     LOOKAHEAD(2)
     ( LOOKAHEAD(2) "[" 
-      aux = Expression(out) t="]"
+      aux = Expression() t="]"
       {
         listLengths.add(aux);
         dims++;
@@ -2968,8 +2955,6 @@ ExpressionNode ArrayDimsAndInits(BaseType in, Token n):
     ( "[" "]"
       {
         //TODO algo aqui i no se el que...
-        out.add(new PrintString("["));
-        out.add(new PrintString("]"));
       }
     )+
     result = ArrayInitializer(in)
@@ -2983,97 +2968,84 @@ ExpressionNode ArrayDimsAndInits(BaseType in, Token n):
  * Statement syntax follows.
  */
 
-StatementNode Statement(List<PrintInfo> out):
+StatementNode Statement():
 {
-  StatementNode statement = null;
+  StatementNode statement;
 }
 {
   (
     LOOKAHEAD(2)
     statement = LabeledStatement()
   |
-    AssertStatement(out)
+    statement = AssertStatement()
   |
-    statement = Block(out)
+    statement = Block()
   |
     statement = EmptyStatement()
   |
     statement = StatementExpression() ";"
   |
-    SwitchStatement(out)
+    statement = SwitchStatement()
   |
     statement = IfStatement()
   |
-    WhileStatement(out)
+    statement = WhileStatement()
   |
-    DoStatement(out)
+    statement = DoStatement()
   |
-    ForStatement(out)
+    statement = ForStatement()
   |
-    BreakStatement(out)
+    statement = BreakStatement()
   |
-    ContinueStatement(out)
+    statement = ContinueStatement()
   |
-    ReturnStatement(out)
+    statement = ReturnStatement()
   |
-    ThrowStatement(out)
+    statement = ThrowStatement()
   |
-    SynchronizedStatement(out)
+    statement = SynchronizedStatement()
   |
-    TryStatement(out)
+    statement = TryStatement()
   )
   {
-    if(statement == null) {
-      statement = new ProxyStatement(out);    } else {      String treeString = statement.treeStringRepresentation();
-      out.addAll( MegaPrinter.getInstance().format(treeString) );
-    }
     return statement;  }
 }
 
-void AssertStatement(List<PrintInfo> out):
-{}
+AssertStatementNode AssertStatement():
 {
-  "assert"
-  {
-    out.add(new PrintString("assert"));
-    out.add(PrintWhiteSpace.getInstance());
-  }
-  Expression(out)
+  ExpressionNode assertion, message=null;
+  Token t, t2;
+}
+{
+  t = "assert"
+  assertion = Expression()
   [ ":"
-    {
-      out.add(new PrintString(":"));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    Expression(out)
-    {
-      out.add(PrintWhiteSpace.getInstance());
-    }
+    message = Expression()
   ]
-  ";"
+  t2 = ";"
   {
-    out.add(new PrintString(";"));
+    return new AssertStatementNode(assertion, message, new CodeZoneClass(t,t2));
   }
 }
 
-StatementNode LabeledStatement():
+LabeledStatementNode LabeledStatement():
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>();
   Token t;
   StatementNode node;
 }
 {
   t=<IDENTIFIER> ":"
-  node = Statement(out)
+  node = Statement()
   {
     return new LabeledStatementNode(t, node, symbolTable, errorLog);  }
 }
 
-BlockCode Block(List<PrintInfo> out):
+BlockCode Block():
 {
-  BlockCode.TmpBlockCode prevBlock = localBlock;
   BlockStatementNode blockStatementNode;
   Token t;
 
+  BlockCode.TmpBlockCode prevBlock = localBlock;
   symbolTable.newContext();
 }
 {
@@ -3089,12 +3061,9 @@ BlockCode Block(List<PrintInfo> out):
   )*
   t="}"
   {
-    out.add(PrintIntro.getInstance());
-    
-    BlockCode block = localBlock.transformToBlockCode();
 
-    String treeString = block.treeStringRepresentation();
-    out.addAll( MegaPrinter.getInstance().format(treeString) );
+    localBlock.setEndToken(t);
+    BlockCode block = localBlock.transformToBlockCode();
 
 
     localBlock = prevBlock;
@@ -3114,7 +3083,7 @@ BlockStatementNode BlockStatement():
   (    LOOKAHEAD( Modifiers() Type() <IDENTIFIER> )
     result = LocalVariableDeclaration() t=";"
   |
-    result = Statement(out)
+    result = Statement()
   |
     ClassOrInterfaceDeclaration(0, out)
     {
@@ -3153,7 +3122,7 @@ StatementList LocalVariableDeclaration():
     return new StatementList(initializers.toArray(new StatementNode[initializers.size()]));  }
 }
 
-StatementNode EmptyStatement():
+NoOpStatement EmptyStatement():
 {
   Token t;
 }
@@ -3170,7 +3139,6 @@ StatementNode StatementExpression():
  * use PostfixExpression for performance reasons.
  */
 {
-  List<PrintInfo > out = new LinkedList<PrintInfo >();
   ExpressionNode expression, expression2;
   Token t;
   AssigmentStatementNode.Operator assignOperator;
@@ -3196,7 +3164,7 @@ StatementNode StatementExpression():
       }
     |
       assignOperator = AssignmentOperator()
-      expression2 = Expression(out)
+      expression2 = Expression()
       {
         statementNode = new AssigmentStatementNode(assignOperator,
                                                    expression,
@@ -3209,90 +3177,83 @@ StatementNode StatementExpression():
   }
 }
 
-void SwitchStatement(List<PrintInfo> out):
-{}
+SwitchStatementNode SwitchStatement():
 {
-  "switch" "("
+  Token t, t2;
+
+  ExpressionNode in, label;
+  List<BlockStatementNode> statements;
+  List<SwitchStatementNode.CaseNode> cases = new LinkedList<SwitchStatementNode.CaseNode>();
+  BlockStatementNode bsn;
+}
+{
+  t="switch" "("
+  in=Expression() ")" "{"
   {
-    out.add(new PrintString("switch"));
-    out.add(new PrintString("("));
-  }
-  Expression(out) ")" "{"
-  {
-    out.add(new PrintString(")"));
-    out.add(PrintWhiteSpace.getInstance());
-    out.add(new PrintString("{"));
-  }
+    BlockCode.TmpBlockCode prevBlock = localBlock;
+    symbolTable.newContext();
+    localBlock = new BlockCode.TmpBlockCode(t);  }
   (
-    {
-      out.add(PrintIntro.getInstance());
-    }
-    SwitchLabel(out)
-    {
-      out.add(PrintInitTab.getInstance());
+    label = SwitchLabel()
+    {      statements = new LinkedList<BlockStatementNode>();
     }
     (
-      {
-        out.add(PrintIntro.getInstance());
-        BlockStatementNode bsn;
-      }
       bsn = BlockStatement()
       {
-        String treeString = bsn.treeStringRepresentation();
-        out.addAll( MegaPrinter.getInstance().format(treeString) );
+        statements.add(bsn);
       }
     )*
     {
-      out.add(PrintEndTab.getInstance());
+      cases.add(new SwitchStatementNode.CaseNode(label,statements));
     }
   )*
-  "}"
+  t2="}"
   {
-    out.add(PrintIntro.getInstance());
-    out.add(new PrintString("}"));
+    SwitchStatementNode node =  new SwitchStatementNode(in, cases,
+                                                        localBlock.localVariables,
+                                                        new CodeZoneClass(t,t2));
+    
+    localBlock = prevBlock;
+    symbolTable.deleteContext();
+    return node;
   }
 }
 
-void SwitchLabel(List<PrintInfo> out):
+ExpressionNode SwitchLabel():
 {
-  List<PrintInfo> other = new LinkedList<PrintInfo>();
+  ExpressionNode cas;
 }
 {
-  "case" Expression(other) ":"
+  (    "case" cas = Expression() ":"
+  |
+    "default" ":"
+    {
+      cas = null;
+    }
+  )
   {
-    out.add(new PrintString("case"));
-    out.add(PrintWhiteSpace.getInstance());
-    out.addAll(other);
-    out.add(new PrintString(":"));
-  }
-|
-  "default" ":"
-  {
-    out.add(new PrintString("default"));
-    out.add(new PrintString(":"));
-  }
+    return cas;  }
 }
 
-StatementNode IfStatement():
+IfStatementNode IfStatement():
 /*
  * The disambiguating algorithm of JavaCC automatically binds dangling
  * else's to the innermost if statement.  The LOOKAHEAD specification
  * is to tell JavaCC that we know what we are doing.
  */
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>();
   StatementNode node1, node2 = null;
   ExpressionNode expression;
   Token t;
 }
 {
   t="if" "("
-  expression = Expression(out)
+  expression = Expression()
   ")"
   {
     symbolTable.newContext();
   }
-  node1 = Statement(out)
+  node1 = Statement()
   {
     symbolTable.deleteContext();
   }
@@ -3300,7 +3261,7 @@ StatementNode IfStatement():
     {
       symbolTable.newContext();
     }
-    node2 = Statement(out)
+    node2 = Statement()
     {
       symbolTable.deleteContext();
     }
@@ -3310,95 +3271,119 @@ StatementNode IfStatement():
                           node1, node2, errorLog);  }
 }
 
-void WhileStatement(List<PrintInfo> out):
-{}
-{
-  "while" "("
-  {
-    out.add(new PrintString("while"));
-    out.add(new PrintString("("));
-    out.add(PrintWhiteSpace.getInstance());
-  }
-  Expression(out)
-  ")"
-  {
-    out.add(PrintWhiteSpace.getInstance());
-    out.add(new PrintString(")"));
-  }
-  Statement(out)
-}
-
-void DoStatement(List<PrintInfo> out):
-{}
-{
-  "do"
-  {
-    out.add(new PrintString("do"));
-    out.add(PrintWhiteSpace.getInstance());
-  }
-  Statement(out)
-  "while" "("
-  {
-    out.add(new PrintString("while"));
-    out.add(new PrintString("("));
-    out.add(PrintWhiteSpace.getInstance());
-  }
-  Expression(out)
-  ")" ";"
-  {
-    out.add(PrintWhiteSpace.getInstance());
-    out.add(new PrintString(")"));
-    out.add(new PrintString(";"));
-  }
-}
-
-void ForStatement(List<PrintInfo> out):
+WhileStatementNode WhileStatement():
 {
   Token t;
+  ExpressionNode condition;
+  StatementNode execution;
 }
 {
-  "for" "("
+  t="while" "("
+  condition = Expression()
+  ")"
+  execution = Statement()
+
   {
-    out.add(new PrintString("for"));
-    out.add(new PrintString("("));
-    out.add(PrintWhiteSpace.getInstance());
+    return new WhileStatementNode(condition, execution,
+                                new CodeZoneClass(t,execution));  }
+}
+
+DoStatementNode DoStatement():
+{
+  Token t, t2;
+  ExpressionNode condition;
+  StatementNode execution;
+}
+{
+  t = "do"
+  execution = Statement()
+  "while" "("
+  condition = Expression()
+  ")" t2 = ";"
+  {
+    return new DoStatementNode(execution, condition, new CodeZoneClass(t,t2));
+  }
+}
+
+StatementNode ForStatement():
+{
+  Token t, t2;
+
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
+
+  StatementNode init, update, execution;
+  ExpressionNode condition;
+
+  int mods;
+  BaseType type;
+  ExpressionNode iterable;
+
+  StatementNode result;
+  
+  BlockCode.TmpBlockCode prevBlock = localBlock;
+  symbolTable.newContext();
+}
+{
+  t="for" "("
+  {    localBlock = new BlockCode.TmpBlockCode(t);
   }
 
   (
       LOOKAHEAD(Modifiers() Type() <IDENTIFIER> ":")
-      Modifiers(out) Type(out) t=<IDENTIFIER> ":"
+      mods = Modifiers(out) type = Type(out) t2=<IDENTIFIER> ":"
+      iterable = Expression()
       {
-        out.add(PrintWhiteSpace.getInstance());
-        out.add(new PrintString(t.image));
-        out.add(new PrintString(":"));
-        out.add(PrintWhiteSpace.getInstance());
-      }
-      Expression(out)
-    |
-      [ ForInit(out) ] ";"
-      {
-        out.add(new PrintString(";"));
-        out.add(PrintWhiteSpace.getInstance());
+        LocalVariableSymbol it = new LocalVariableSymbol(mods, type, t2.image);
+        symbolTable.addSymbol(it);
+        localBlock.addLocalVariable(it);
+
+        LocalVarAccess access = new LocalVarAccess(it, new CodeZoneClass(t2));
       }
 
-      [ Expression(out) ] ";"
-      {
-        out.add(new PrintString(";"));
-        out.add(PrintWhiteSpace.getInstance());
-      }
+      ")" execution = Statement()
 
-      [ ForUpdate(out) ]
+      {
+        result = new IterableFor(access,
+                                 iterable,
+                                 execution,
+                                 new CodeZoneClass(t, execution)
+                                );      }
+    |  // -------------------------------------------------------------------
+      (        init = ForInit() ";"
+      |
+        t2 = ";"
+        {
+          init = new NoOpStatement(new CodeZoneClass(t2,t2));         }
+      )
+
+      (         condition = Expression() ";"
+      |
+        t2 = ";"
+        {
+          condition = new LiteralData.TrueLiteral(t2);        }
+      )
+
+      (        update = ForUpdate() ")"
+      |
+        t2 = ")"
+        {
+          update = new NoOpStatement(new CodeZoneClass(t2,t2));         }
+      )
+      execution = Statement()
+      {
+        result = new ClassicFor(localBlock.localVariables,
+                                init,condition,update,execution,
+                                new CodeZoneClass(t,execution));      }
   )
-  
-  {
-    out.add(new PrintString(")"));
-    out.add(PrintWhiteSpace.getInstance());
-  }
 
-  ")" Statement(out)
+  {    localBlock = prevBlock;
+    symbolTable.deleteContext();
+
+    return result;
+  }
 }
 
-StatementNode ForInit(List<PrintInfo> out):
+StatementNode ForInit():
 {
   StatementNode result;
 }
@@ -3407,15 +3392,13 @@ StatementNode ForInit(List<PrintInfo> out):
     LOOKAHEAD( Modifiers() Type() <IDENTIFIER> )
     result = LocalVariableDeclaration()
   |
-    result = StatementExpressionList(out)
+    result = StatementExpressionList()
   )
-  {
-    String treeString = result.treeStringRepresentation();
-    out.addAll( MegaPrinter.getInstance().format(treeString) );    return result;
+  {    return result;
   }
 }
 
-StatementNode StatementExpressionList(List<PrintInfo> out):
+StatementNode StatementExpressionList():
 {
   StatementNode statement;
   List<StatementNode> statements = new LinkedList<StatementNode>();
@@ -3433,132 +3416,128 @@ StatementNode StatementExpressionList(List<PrintInfo> out):
   {
     statement = new StatementList(statements.toArray(new StatementNode[statements.size()]));
     
-    String treeString = statement.treeStringRepresentation();
-    out.addAll( MegaPrinter.getInstance().format(treeString) );
-
     return statement;  }
 }
 
-void ForUpdate(List<PrintInfo> out):
-{}
+StatementNode ForUpdate():
 {
-  StatementExpressionList(out)
-}
-
-void BreakStatement(List<PrintInfo> out):
-{
-  Token t = null;
+  StatementNode aux;
 }
 {
-  "break" [ t=<IDENTIFIER> ] ";"
-  {
-    out.add(new PrintString("break"));
-    if(t != null)
-    {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString(t.image));
-    }
-    out.add(new PrintString(";"));
+  aux = StatementExpressionList()
+  {    return aux;
   }
 }
 
-void ContinueStatement(List<PrintInfo> out):
+JumpStatement BreakStatement():
 {
-  Token t = null;
+  Token t = null, t2, t3;
 }
 {
-  "continue" [ t=<IDENTIFIER> ] ";"
+  t2="break" [ t=<IDENTIFIER> ] t3=";"
   {
-    out.add(new PrintString("continue"));
-    if(t != null)
-    {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString(t.image));
-    }
-    out.add(new PrintString(";"));
+    return new JumpStatement( JumpStatement.Operator.BREAK,
+                              (t == null)? null : t.image,
+                              new CodeZoneClass(t2,t3));                                
   }
 }
 
-void ReturnStatement(List<PrintInfo> out):
-{}
+JumpStatement ContinueStatement():
 {
-  "return"
+  Token t = null, t2, t3;
+}
+{
+  t2 = "continue" [ t=<IDENTIFIER> ] t3 = ";"
   {
-    out.add(new PrintString("return"));
-    out.add(PrintWhiteSpace.getInstance());
-  }
-  [ Expression(out) ] ";"
-  {
-    out.add(new PrintString(";"));
+    return new JumpStatement( JumpStatement.Operator.CONTINUE,
+                              (t == null)? null : t.image,
+                              new CodeZoneClass(t2,t3));
+                                
   }
 }
 
-void ThrowStatement(List<PrintInfo> out):
+ReturnStatementNode ReturnStatement():
 {
-  List<PrintInfo> other = new LinkedList<PrintInfo>();
+  Token t, t2;
+  ExpressionNode exp = null;
 }
 {
-  "throw" Expression(other) ";"
+  t="return"
+  [ exp=Expression() ] t2=";"
   {
-    out.add(new PrintString("throw"));
-    out.add(PrintWhiteSpace.getInstance());
-    out.addAll(other);
-    out.add(new PrintString(";"));
+    return new ReturnStatementNode(exp, new CodeZoneClass(t, t2));
   }
 }
 
-void SynchronizedStatement(List<PrintInfo> out):
-{}
+ThrowStatementNode ThrowStatement():
 {
-  "synchronized" "("
+  Token t, t2;
+  ExpressionNode exp = null;
+}
+{
+  t="throw" exp = Expression() t2=";"
   {
-    out.add(new PrintString("synchronized"));
-    out.add(new PrintString("("));
+    return new ThrowStatementNode(exp, new CodeZoneClass(t, t2));
   }
-  Expression(out)
+}
+
+SynchronizedStatementNode SynchronizedStatement():
+{
+  Token t;
+  ExpressionNode exp;
+  BlockCode block;
+}
+{
+  t="synchronized" "("
+  exp = Expression()
   ")"
+  block = Block()
   {
-    out.add(new PrintString(")"));
-    out.add(PrintWhiteSpace.getInstance());
-  }
-  Block(out)
+    return new SynchronizedStatementNode(exp, block,
+                                        new CodeZoneClass(t,block));  }
 }
 
-void TryStatement(List<PrintInfo> out):
+TryStatementNode TryStatement():
 /*
  * Semantic check required here to make sure that at least one
  * finally/catch is present.
  */
-{}
 {
-  "try"
+  ParameterClass param;
+  Token t;
+  CodeZone cz;
+
+  BlockCode execution, aux, finalment = null;
+  List<TryStatementNode.CatchBlock> catches = new LinkedList<TryStatementNode.CatchBlock>();
+}
+{
+  t = "try"
+  execution = Block()
   {
-    out.add(new PrintString("try"));
-    out.add(PrintWhiteSpace.getInstance());
-  }
-  Block(out)
+    cz = new CodeZoneClass(t, execution);  }
   ( "catch" "("
-    {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString("catch"));
-      out.add(new PrintString("("));
-    }
-    FormalParameter()
+    param = FormalParameter()
     ")"
     {
-      out.add(new PrintString(")"));
-      out.add(PrintWhiteSpace.getInstance());
+      LocalVariableSymbol symbol = new LocalVariableSymbol(param.modifiers,
+	                                                       param.type,
+	                                                       param.name);
+      symbolTable.newContext();
+      symbolTable.addSymbol(symbol);
     }
-    Block(out)
+    aux = Block()
+    {
+      symbolTable.deleteContext();
+      catches.add(new TryStatementNode.CatchBlock(symbol, aux));
+      cz = new CodeZoneClass(cz, aux);    }
   )*
   [ "finally"
+    finalment = Block()
     {
-      out.add(PrintWhiteSpace.getInstance());
-      out.add(new PrintString("finally"));
-      out.add(PrintWhiteSpace.getInstance());
-    }
-    Block(out)
+      cz = new CodeZoneClass(cz, finalment);    }
   ]
+  {
+    return new TryStatementNode(execution, catches, finalment, cz);  }
 }
 
 /* We use productions to match >>>, >> and > so that we can keep the
