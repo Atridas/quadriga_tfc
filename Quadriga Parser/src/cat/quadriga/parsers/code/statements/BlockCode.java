@@ -46,9 +46,13 @@ public class BlockCode extends StatementNode {
     String code = Utils.treeStringRepresentation("Code:", 
                                                   carr);
     
-    String aux[] = {vars, code};
-    
-    treeStringRepresentation = Utils.treeStringRepresentation("Block:",aux);
+    if(localVariables.size() == 0) {
+      String aux[] = {code};
+      treeStringRepresentation = Utils.treeStringRepresentation("Block:",aux);
+    } else {
+      String aux[] = {vars, code};
+      treeStringRepresentation = Utils.treeStringRepresentation("Block:",aux);
+    }
     
     return treeStringRepresentation;
   }
@@ -56,8 +60,8 @@ public class BlockCode extends StatementNode {
   
   public static final class TmpBlockCode {
     private int beginLine, beginColumn, endLine, endColumn;
-    private final List<LocalVariableSymbol> localVariables;
-    private final List<BlockStatementNode> statements;
+    public final List<LocalVariableSymbol> localVariables;
+    public final List<BlockStatementNode> statements;
     public TmpBlockCode(Token t) {
       beginLine   = endLine   = t.beginLine;
       beginColumn = endColumn = t.beginColumn;

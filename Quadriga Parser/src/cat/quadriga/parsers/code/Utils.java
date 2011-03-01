@@ -24,7 +24,7 @@ import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
 import cat.quadriga.parsers.code.types.UnknownType;
 
 abstract public class Utils {
-  public static final String treeStringRepresentation( String operation, String operands[]) {
+  public static final String treeStringRepresentation( String operation, String... operands) {
     String out = operation;
   
     if(operands.length == 0)
