@@ -32,11 +32,13 @@ public class CallToArguments extends StatementNode {
   }
 
   
-  
+  private String treeStringRepresentation;
   @Override
   public String treeStringRepresentation() {
-    //TODO optimitzar un xic
-    return Utils.treeStringRepresentation(getOperation(), getOperands());
+    if(treeStringRepresentation == null) {
+      treeStringRepresentation = Utils.treeStringRepresentation(getOperation(), getOperands());
+    }
+    return treeStringRepresentation;
   }
 
 }

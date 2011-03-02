@@ -1,14 +1,17 @@
 package cat.quadriga.parsers.code.symbols;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
 
 public class SymbolTable {
-
+  
+  private final Set<String> searchedClasses = new HashSet<String>();
   private final Map<String, BaseSymbol> globalNamesPace = new HashMap<String, BaseSymbol>();
   private final List<Map<String, BaseSymbol>> mapStack = new LinkedList<Map<String,BaseSymbol>>();
   {
@@ -37,6 +40,30 @@ public class SymbolTable {
     }
     
     //Search for classes
+    BaseSymbol symbol = findClassOrInnerClass(name);
+    if(symbol != null) return symbol;
+    String aux[] = name.split("\\.");
+    String aux2 = aux[0];
+    for(int i = 0; i < aux.length-1 ; i++) {
+      symbol = findClassOrInnerClass(aux2);
+      if(symbol == null) {
+        aux2 += "." + aux[i+1];
+        continue;
+      } else {
+        for(int j = i+1; j < aux.length; j++) {
+          aux2 += "$" + aux[j];
+        }
+        symbol = findClassOrInnerClass(aux2);
+        break;
+      }
+    }
+    return symbol;
+  }
+  
+  private BaseSymbol findClassOrInnerClass(String name) {
+    if(searchedClasses.contains(name)) {
+      return null;
+    }
     for(String packa: includedPackages) {
       try {
         Class<?> clazz = Class.forName(packa + "." + name);
@@ -49,7 +76,7 @@ public class SymbolTable {
         continue;
       }
     }
-    
+    searchedClasses.add(name);
     return null;
   }
   
@@ -85,9 +112,11 @@ public class SymbolTable {
         map.put(alias, symbol);
       }
     }
+    searchedClasses.clear();
   }
   
   public void addPackage(String packa) {
     includedPackages.add(packa);
+    searchedClasses.clear();
   }
 }

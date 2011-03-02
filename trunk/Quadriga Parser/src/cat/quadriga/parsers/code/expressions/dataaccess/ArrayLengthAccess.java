@@ -9,8 +9,6 @@ public class ArrayLengthAccess extends UnaryDataAccess {
 
   public ArrayLengthAccess(ExpressionNode operand, CodeZone cz) {
     super(operand, cz);
-    //TODO
-    //operand.getType() instanceof ArrayType
   }
 
   @Override

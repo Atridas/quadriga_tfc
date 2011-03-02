@@ -15,6 +15,7 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.FieldAccess;
+import cat.quadriga.parsers.code.expressions.dataaccess.FieldOrMethodAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.MethodAccess;
 import cat.quadriga.parsers.code.proxy.ProxyDataAccess;
 
@@ -53,8 +54,7 @@ public class ReferenceTypeRef extends JavaType {
   public DataAccess getAccess(ExpressionNode reference, String name, CodeZone cz) {
     List<AccessibleObject> ambiguous = ambiguousNames.get(name);
     if(ambiguous != null) {
-      //TODO millorable
-      return new ProxyDataAccess(name,this.classObject,cz);
+      return new FieldOrMethodAccess(name, this, reference, cz);
     }
     
     Field field = fields.get(name);
@@ -67,6 +67,47 @@ public class ReferenceTypeRef extends JavaType {
       return new MethodAccess(reference, methodList.toArray(new Method[methodList.size()]), cz);
     }
 
+    return new ProxyDataAccess(name,this.classObject,cz);
+  }
+  
+  public DataAccess getAccessAsField(String name, CodeZone cz) {
+    return getAccessAsField(null, name, cz);
+  }
+    
+  public DataAccess getAccessAsField(ExpressionNode reference, String name, CodeZone cz) {
+    List<AccessibleObject> ambiguous = ambiguousNames.get(name);
+    if(ambiguous != null) {
+      for(AccessibleObject field : ambiguous) {
+        if(field instanceof Field)
+          return new FieldAccess(reference,(Field)field,cz);
+      }
+    }
+    Field field = fields.get(name);
+    if(field != null) {
+      return new FieldAccess(reference, field, cz);
+    }
+    return new ProxyDataAccess(name,this.classObject,cz);
+  }
+  
+  public DataAccess getAccessAsMethod(String name, CodeZone cz) {
+    return getAccessAsMethod(null, name, cz);
+  }
+    
+  public DataAccess getAccessAsMethod(ExpressionNode reference, String name, CodeZone cz) {
+    List<AccessibleObject> ambiguous = ambiguousNames.get(name);
+    if(ambiguous != null) {
+      List<Method> methodList = new LinkedList<Method>();
+      for(AccessibleObject method : ambiguous) {
+        if(method instanceof Method) {
+          methodList.add((Method)method);
+        }
+        return new MethodAccess(reference,methodList.toArray(new Method[methodList.size()]),cz);
+      }
+    }
+    List<Method> methodList = methods.get(name);
+    if(methodList != null) {
+      return new MethodAccess(reference, methodList.toArray(new Method[methodList.size()]), cz);
+    }
     return new ProxyDataAccess(name,this.classObject,cz);
   }
 
@@ -116,5 +157,54 @@ public class ReferenceTypeRef extends JavaType {
   
   public List<Constructor<?>> getConstuctors() {
     return Collections.unmodifiableList(constructors);
+  }
+  
+  public PrimitiveTypeRef toPrimitiveType() {
+    if("Ljava.lang.Void;".compareTo(getBinaryName()) == 0 ) {
+      return PrimitiveTypeRef.getFromName("void");
+    }
+    if("Ljava.lang.Void;".compareTo(getBinaryName()) == 0 ) {
+      return PrimitiveTypeRef.getFromName("void");
+    }
+    if("Ljava.lang.Integer;".compareTo(getBinaryName()) == 0 ) {
+      return PrimitiveTypeRef.getFromName("int");
+    }
+    if("Ljava.lang.Long;".compareTo(getBinaryName()) == 0 ) {
+      return PrimitiveTypeRef.getFromName("long");
+    }
+    if("Ljava.lang.Short;".compareTo(getBinaryName()) == 0 ) {
+      return PrimitiveTypeRef.getFromName("short");
+    }
+    if("Ljava.lang.Char;".compareTo(getBinaryName()) == 0 ) {
+      return PrimitiveTypeRef.getFromName("char");
+    }
+    if("Ljava.lang.Byte;".compareTo(getBinaryName()) == 0 ) {
+      return PrimitiveTypeRef.getFromName("byte");
+    }
+    if("Ljava.lang.Float;".compareTo(getBinaryName()) == 0 ) {
+      return PrimitiveTypeRef.getFromName("float");
+    }
+    if("Ljava.lang.Double;".compareTo(getBinaryName()) == 0 ) {
+      return PrimitiveTypeRef.getFromName("double");
+    }
+    return null;
+  }
+  
+  @Override
+  public boolean isMathematicallyOperable() {
+    PrimitiveTypeRef aux = toPrimitiveType();
+    if(aux == null) {
+      return false;
+    }
+    return aux.isMathematicallyOperable(); 
+  }
+
+  @Override
+  public BaseType getMathematicResultType(BaseType other) {
+    PrimitiveTypeRef aux = toPrimitiveType();
+    if(aux == null) {
+      return UnknownType.empty;
+    }
+    return aux.getMathematicResultType(other);
   }
 }

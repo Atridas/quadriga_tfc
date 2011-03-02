@@ -75,4 +75,126 @@ public final class PrimitiveTypeRef extends JavaType {
       return binaryName;
     }
   }
+
+  @Override
+  public boolean isMathematicallyOperable() {
+    switch(type) {
+    case VOID:
+    case BOOLEAN:
+      return false;
+    case INT:
+    case LONG:
+    case SHORT:
+    case CHAR:
+    case BYTE:
+    case FLOAT:
+    case DOUBLE:
+      return true;
+    default:
+      assert false : "No s'hauria d'arribar mai aqui";
+    }
+    
+    return false;
+  }
+
+  @Override
+  public BaseType getMathematicResultType(BaseType other) {
+    //Trobar el tipus de l'altre
+    PrimitiveTypeRef prim;
+    if(other instanceof PrimitiveTypeRef) {
+      prim = (PrimitiveTypeRef)other;
+    } else if(other instanceof ReferenceTypeRef) {
+      other = ((ReferenceTypeRef)other).toPrimitiveType();
+      if(other instanceof PrimitiveTypeRef) {
+        prim = (PrimitiveTypeRef)other;
+      } else {
+        return UnknownType.empty;
+      }
+    } else {
+      return UnknownType.empty;
+    }
+    
+    switch(type) {
+    case BYTE:
+      switch(prim.type) {
+      case BYTE:
+        return this;
+      case CHAR:
+      case SHORT:
+      case INT:
+      case FLOAT:
+      case DOUBLE:
+        return prim;
+      }
+      break;
+    case CHAR:
+      switch(prim.type) {
+      case BYTE:
+      case CHAR:
+        return this;
+      case SHORT:
+      case INT:
+      case FLOAT:
+      case DOUBLE:
+        return prim;
+      }
+      break;
+    case SHORT:
+      switch(prim.type) {
+      case BYTE:
+      case CHAR:
+      case SHORT:
+        return this;
+      case INT:
+      case FLOAT:
+      case DOUBLE:
+        return prim;
+      }
+      break;
+    case INT:
+      switch(prim.type) {
+      case BYTE:
+      case CHAR:
+      case SHORT:
+      case INT:
+        return this;
+      case FLOAT:
+      case DOUBLE:
+        return prim;
+      }
+      break;
+    case FLOAT:
+      switch(prim.type) {
+      case BYTE:
+      case CHAR:
+      case SHORT:
+      case INT:
+      case FLOAT:
+        return this;
+      case DOUBLE:
+        return prim;
+      }
+      break;
+    case DOUBLE:
+      switch(prim.type) {
+      case BYTE:
+      case CHAR:
+      case SHORT:
+      case INT:
+      case FLOAT:
+      case DOUBLE:
+        return this;
+      }
+      break;
+    }
+    return UnknownType.empty;
+  }
 }
+
+/*case INT:
+    case LONG:
+    case SHORT:
+    case CHAR:
+    case BYTE:
+    case FLOAT:
+    case DOUBLE:*/

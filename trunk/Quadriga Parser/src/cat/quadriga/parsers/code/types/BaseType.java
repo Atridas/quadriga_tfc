@@ -1,6 +1,6 @@
 package cat.quadriga.parsers.code.types;
 
-public class BaseType {
+public abstract class BaseType {
 
   private final String binaryName;
   
@@ -19,4 +19,8 @@ public class BaseType {
   public String toString() {
     return binaryName;
   }
+  
+  public abstract boolean isMathematicallyOperable();
+  
+  public abstract BaseType getMathematicResultType(BaseType other);
 }

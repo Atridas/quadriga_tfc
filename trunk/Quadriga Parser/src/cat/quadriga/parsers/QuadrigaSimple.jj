@@ -1188,7 +1188,7 @@ void ImportDeclaration(List<PrintInfo> out):
         symbolTable.addGlobalSymbol(symbol);
       } catch (ClassNotFoundException e) {
         //TODO revisar això
-        BaseSymbol symbol = new TypeSymbol(NullType.instance);
+        BaseSymbol symbol = new TypeSymbol(UnknownType.empty);
         symbolTable.addGlobalSymbol(symbol);
       }    }
   )
@@ -2035,7 +2035,7 @@ BaseType ClassOrInterfaceType(List<PrintInfo> out):
     }
     [ LOOKAHEAD(2) TypeArguments(out)
       {
-        //last = t;      }
+        //TODO;      }
     ]
   )*
   {
@@ -2049,16 +2049,8 @@ BaseType ClassOrInterfaceType(List<PrintInfo> out):
         return ((TypeSymbol)symbol).type;      } else {
         errorLog.insertError("El simbol \"" + name + "\" no és un tipus.", cz);
         return UnknownType.empty;       }    } else {
-      try {
-        Class<?> clazz = Class.forName(name);
-        return ClassOrInterfaceTypeRef.getFromClass(clazz);      } catch(ClassNotFoundException e) {
-        try {
-          Class<?> clazz = Class.forName("java.lang." + name);
-          return ClassOrInterfaceTypeRef.getFromClass(clazz);
-        } catch(ClassNotFoundException e2) {
-          errorLog.insertWarning("No s'ha trobat la classe \"" + name + "\".", cz);
-          return new UnknownType(name);
-        }      }    }  }
+      errorLog.insertWarning("No s'ha trobat la classe \"" + name + "\".", cz);
+      return new UnknownType(name);    }  }
 }
 
 void TypeArguments(List<PrintInfo> out):

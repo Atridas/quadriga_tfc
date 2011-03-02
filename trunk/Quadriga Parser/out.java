@@ -169,7 +169,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
            +- Op: >> Proxy Data Access [ id ] << {#unknown#}
   private Lcat.quadriga.parsers.code.ErrorLog; ;
   private Lcat.quadriga.parsers.code.symbols.SymbolTable; ;
-  private #unknown BlockCode.TmpBlockCode # ;
+  private Lcat.quadriga.parsers.code.statements.BlockCode.TmpBlockCode; ;
   public QuadrigaSimple
   Params
   fileName: Ljava.lang.String;
@@ -265,8 +265,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        |           |        +- Op: Constructor {Lcat.quadriga.parsers.QuadrigaSimple;}
      |        |           |           +- Lcat.quadriga.parsers.QuadrigaSimple;
      |        |           |           +- Arguments
-     |        |           |              +- Op: Constructor {Ljava.io.FileInputStream;}
-     |        |           |              |  +- Ljava.io.FileInputStream;
+     |        |           |              +- Op: Invalid Constructor {#unknown java.io.FileInputStream #}
+     |        |           |              |  +- #unknown java.io.FileInputStream #
      |        |           |              |  +- Arguments
      |        |           |              |     +- Op: Array Access {Ljava.lang.String;}
      |        |           |              |        +- Op: Local variable access: args {[Ljava.lang.String;}
@@ -274,7 +274,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        |           |              |           +- Integer: 0
      |        |           |              +- Op: Literal {Ljava.lang.String;}
      |        |           |                 +- String: "UTF-8"
-     |        |           +- catch {Local var "e" {Ljava.io.FileNotFoundException;}}
+     |        |           +- catch {Local var "e" {#unknown java.io.FileNotFoundException #}}
      |        |              +- Block:
      |        |                 +- Code:
      |        |                    +- St: Call
@@ -845,8 +845,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                 |     +- Op: Constructor {Lcat.quadriga.parsers.code.symbols.TypeSymbol;}
      |                 |        +- Lcat.quadriga.parsers.code.symbols.TypeSymbol;
      |                 |        +- Arguments
-     |                 |           +- Op: Field: {Lcat.quadriga.parsers.code.types.NullType;}
-     |                 |              +- cat.quadriga.parsers.code.types.NullType -> instance
+     |                 |           +- Op: Static Field: {Lcat.quadriga.parsers.code.types.UnknownType;}
+     |                 |              +- cat.quadriga.parsers.code.types.UnknownType -> empty
      |                 +- St: Proxy Call
      |                    +- Op: >> Proxy Data Access [ symbolTable.addGlobalSymbol ] << {#unknown#}
      |                    +- Arguments
@@ -3504,8 +3504,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        |  +- Lcat.quadriga.parsers.code.expressions.ExpressionNode;
      |        |  +- Op: Literal {I}
      |        |     +- Integer: 1
-     |        +- Op: Invalid Constructor {#unknown LiteralData.IntegerLiteral #}
-     |           +- #unknown LiteralData.IntegerLiteral #
+     |        +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.IntegerLiteral;}
+     |           +- Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.IntegerLiteral;
      |           +- Arguments
      |              +- Op: Call {I}
      |                 +- Op: Method:
@@ -3842,8 +3842,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- Op: Constructor {Lcat.quadriga.parsers.code.printers.PrintString;}
      |                 +- Lcat.quadriga.parsers.code.printers.PrintString;
      |                 +- Arguments
-     |                    +- Op: + {#unknown#}
-     |                       +- Op: + {#unknown#}
+     |                    +- Op: + {Ljava.lang.String;}
+     |                       +- Op: + {Ljava.lang.String;}
      |                       |  +- Op: >> Proxy Data Access [ name ] << {#unknown#}
      |                       |  |  +- class cat.quadriga.parsers.ParameterClass
      |                       |  +- Op: Literal {Ljava.lang.String;}
@@ -4300,8 +4300,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- Op: Constructor {Lcat.quadriga.parsers.code.printers.PrintString;}
      |                 +- Lcat.quadriga.parsers.code.printers.PrintString;
      |                 +- Arguments
-     |                    +- Op: + {#unknown#}
-     |                       +- Op: + {#unknown#}
+     |                    +- Op: + {Ljava.lang.String;}
+     |                       +- Op: + {Ljava.lang.String;}
      |                       |  +- Op: >> Proxy Data Access [ name ] << {#unknown#}
      |                       |  |  +- class cat.quadriga.parsers.ParameterClass
      |                       |  +- Op: Literal {Ljava.lang.String;}
@@ -4587,7 +4587,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  |  +- java.util.List -> get
      |  |  |  |  +- Op: Local variable access: out {Ljava.util.List;}
      |  |  |  +- Arguments
-     |  |  |     +- Op: - {I}
+     |  |  |     +- Op: - {#unknown#}
      |  |  |        +- Op: Call {I}
      |  |  |        |  +- Op: Method:
      |  |  |        |  |  +- java.util.List -> size
@@ -4604,7 +4604,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     |  +- java.util.List -> remove
      |     |  +- Op: Local variable access: out {Ljava.util.List;}
      |     +- Arguments
-     |        +- Op: - {I}
+     |        +- Op: - {#unknown#}
      |           +- Op: Call {I}
      |           |  +- Op: Method:
      |           |  |  +- java.util.List -> size
@@ -4620,7 +4620,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |     |  |  +- java.util.List -> get
      |  |     |  |  +- Op: Local variable access: out {Ljava.util.List;}
      |  |     |  +- Arguments
-     |  |     |     +- Op: - {I}
+     |  |     |     +- Op: - {#unknown#}
      |  |     |        +- Op: Call {I}
      |  |     |        |  +- Op: Method:
      |  |     |        |  |  +- java.util.List -> size
@@ -5420,90 +5420,29 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Else Code:
      |     +- Block:
      |        +- Code:
-     |           +- try
-     |              +- Block:
-     |              |  +- Local Variables:
-     |              |  |  +- Symbol Var [ clazz ] Type [ Ljava.lang.Class; ]
-     |              |  +- Code:
-     |              |     +- Statements:
-     |              |     |  +- St: =
-     |              |     |     +- Op: Local variable access: clazz {Ljava.lang.Class;}
-     |              |     |     +- Op: Call {Ljava.lang.Class;}
-     |              |     |        +- Op: Method:
-     |              |     |        |  +- java.lang.Class -> forName
-     |              |     |        +- Arguments
-     |              |     |           +- Op: Local variable access: name {Ljava.lang.String;}
-     |              |     +- Block:
-     |              |        +- Code:
-     |              |           +- If Statement:
-     |              |              +- Condition:
-     |              |              |  +- Op: Literal {Z}
-     |              |              |     +- Boolean: true
-     |              |              +- If Code:
-     |              |                 +- return
-     |              |                    +- Op: Call {Lcat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;}
-     |              |                       +- Op: Method:
-     |              |                       |  +- cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef -> getFromClass
-     |              |                       +- Arguments
-     |              |                          +- Op: Local variable access: clazz {Ljava.lang.Class;}
-     |              +- catch {Local var "e" {Ljava.lang.ClassNotFoundException;}}
-     |                 +- Block:
-     |                    +- Code:
-     |                       +- try
-     |                          +- Block:
-     |                          |  +- Local Variables:
-     |                          |  |  +- Symbol Var [ clazz ] Type [ Ljava.lang.Class; ]
-     |                          |  +- Code:
-     |                          |     +- Statements:
-     |                          |     |  +- St: =
-     |                          |     |     +- Op: Local variable access: clazz {Ljava.lang.Class;}
-     |                          |     |     +- Op: Call {Ljava.lang.Class;}
-     |                          |     |        +- Op: Method:
-     |                          |     |        |  +- java.lang.Class -> forName
-     |                          |     |        +- Arguments
-     |                          |     |           +- Op: + {Ljava.lang.String;}
-     |                          |     |              +- Op: Literal {Ljava.lang.String;}
-     |                          |     |              |  +- String: "java.lang."
-     |                          |     |              +- Op: Local variable access: name {Ljava.lang.String;}
-     |                          |     +- Block:
-     |                          |        +- Code:
-     |                          |           +- If Statement:
-     |                          |              +- Condition:
-     |                          |              |  +- Op: Literal {Z}
-     |                          |              |     +- Boolean: true
-     |                          |              +- If Code:
-     |                          |                 +- return
-     |                          |                    +- Op: Call {Lcat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;}
-     |                          |                       +- Op: Method:
-     |                          |                       |  +- cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef -> getFromClass
-     |                          |                       +- Arguments
-     |                          |                          +- Op: Local variable access: clazz {Ljava.lang.Class;}
-     |                          +- catch {Local var "e2" {Ljava.lang.ClassNotFoundException;}}
-     |                             +- Block:
-     |                                +- Code:
-     |                                   +- St: Proxy Call
-     |                                   |  +- Op: >> Proxy Data Access [ errorLog.insertWarning ] << {#unknown#}
-     |                                   |  +- Arguments
-     |                                   |     +- Op: + {Ljava.lang.String;}
-     |                                   |     |  +- Op: + {Ljava.lang.String;}
-     |                                   |     |  |  +- Op: Literal {Ljava.lang.String;}
-     |                                   |     |  |  |  +- String: "No s'ha trobat la classe \\\""
-     |                                   |     |  |  +- Op: Local variable access: name {Ljava.lang.String;}
-     |                                   |     |  +- Op: Literal {Ljava.lang.String;}
-     |                                   |     |     +- String: "\\\"."
-     |                                   |     +- Op: Local variable access: cz {Lcat.quadriga.parsers.code.CodeZone;}
-     |                                   +- Block:
-     |                                      +- Code:
-     |                                         +- If Statement:
-     |                                            +- Condition:
-     |                                            |  +- Op: Literal {Z}
-     |                                            |     +- Boolean: true
-     |                                            +- If Code:
-     |                                               +- return
-     |                                                  +- Op: Constructor {Lcat.quadriga.parsers.code.types.UnknownType;}
-     |                                                     +- Lcat.quadriga.parsers.code.types.UnknownType;
-     |                                                     +- Arguments
-     |                                                        +- Op: Local variable access: name {Ljava.lang.String;}
+     |           +- St: Proxy Call
+     |           |  +- Op: >> Proxy Data Access [ errorLog.insertWarning ] << {#unknown#}
+     |           |  +- Arguments
+     |           |     +- Op: + {Ljava.lang.String;}
+     |           |     |  +- Op: + {Ljava.lang.String;}
+     |           |     |  |  +- Op: Literal {Ljava.lang.String;}
+     |           |     |  |  |  +- String: "No s'ha trobat la classe \\\""
+     |           |     |  |  +- Op: Local variable access: name {Ljava.lang.String;}
+     |           |     |  +- Op: Literal {Ljava.lang.String;}
+     |           |     |     +- String: "\\\"."
+     |           |     +- Op: Local variable access: cz {Lcat.quadriga.parsers.code.CodeZone;}
+     |           +- Block:
+     |              +- Code:
+     |                 +- If Statement:
+     |                    +- Condition:
+     |                    |  +- Op: Literal {Z}
+     |                    |     +- Boolean: true
+     |                    +- If Code:
+     |                       +- return
+     |                          +- Op: Constructor {Lcat.quadriga.parsers.code.types.UnknownType;}
+     |                             +- Lcat.quadriga.parsers.code.types.UnknownType;
+     |                             +- Arguments
+     |                                +- Op: Local variable access: name {Ljava.lang.String;}
      +- throw
         +- Op: Constructor {Ljava.lang.Error;}
            +- Ljava.lang.Error;
@@ -6157,7 +6096,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Local Variables:
   |  +- Symbol Var [ finalNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
   |  +- Symbol Var [ auxNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
-  |  +- Symbol Var [ operator ] Type [ #unknown AssigmentStatementNode.Operator # ]
+  |  +- Symbol Var [ operator ] Type [ Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator; ]
   +- Code:
      +- Statements:
      +- Statements:
@@ -6177,7 +6116,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  +- Block:
      |  |     +- Code:
      |  |        +- St: =
-     |  |        |  +- Op: Local variable access: operator {#unknown AssigmentStatementNode.Operator #}
+     |  |        |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;}
      |  |        |  +- Op: Proxy Call {#unknown#}
      |  |        |     +- Op: >> Proxy Data Access [ AssignmentOperator ] << {#unknown#}
      |  |        |     +- Arguments
@@ -6191,7 +6130,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |           +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.AssigmentExpressionNode;}
      |  |              +- Lcat.quadriga.parsers.code.expressions.AssigmentExpressionNode;
      |  |              +- Arguments
-     |  |                 +- Op: Local variable access: operator {#unknown AssigmentStatementNode.Operator #}
+     |  |                 +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;}
      |  |                 +- Op: Local variable access: finalNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |  |                 +- Op: Local variable access: auxNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |  +- Else Code:
@@ -6213,11 +6152,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
            +- Arguments
               +- Op: Literal {Ljava.lang.String;}
                  +- String: "Missing return statement in function"
-  final public #unknown AssigmentStatementNode.Operator # AssignmentOperator
+  final public Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator; AssignmentOperator
   Params
   throws Block:
   +- Local Variables:
-  |  +- Symbol Var [ op ] Type [ #unknown AssigmentStatementNode.Operator # ]
+  |  +- Symbol Var [ op ] Type [ Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator; ]
   +- Code:
      +- Statements:
      +- switch
@@ -6238,7 +6177,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  +- Arguments
      |  |  |     +- Op: >> Proxy Data Access [ ASSIGN ] << {#unknown#}
      |  |  +- St: =
-     |  |  |  +- Op: Local variable access: op {#unknown AssigmentStatementNode.Operator #}
+     |  |  |  +- Op: Local variable access: op {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;}
      |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member ASSIGN ] << {#unknown#}
      |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |        +- class cat.quadriga.parsers.code.statements.AssigmentStatementNode
@@ -6250,7 +6189,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  +- Arguments
      |  |  |     +- Op: >> Proxy Data Access [ STARASSIGN ] << {#unknown#}
      |  |  +- St: =
-     |  |  |  +- Op: Local variable access: op {#unknown AssigmentStatementNode.Operator #}
+     |  |  |  +- Op: Local variable access: op {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;}
      |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member STARASSIGN ] << {#unknown#}
      |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |        +- class cat.quadriga.parsers.code.statements.AssigmentStatementNode
@@ -6262,7 +6201,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  +- Arguments
      |  |  |     +- Op: >> Proxy Data Access [ SLASHASSIGN ] << {#unknown#}
      |  |  +- St: =
-     |  |  |  +- Op: Local variable access: op {#unknown AssigmentStatementNode.Operator #}
+     |  |  |  +- Op: Local variable access: op {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;}
      |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member SLASHASSIGN ] << {#unknown#}
      |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |        +- class cat.quadriga.parsers.code.statements.AssigmentStatementNode
@@ -6274,7 +6213,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  +- Arguments
      |  |  |     +- Op: >> Proxy Data Access [ REMASSIGN ] << {#unknown#}
      |  |  +- St: =
-     |  |  |  +- Op: Local variable access: op {#unknown AssigmentStatementNode.Operator #}
+     |  |  |  +- Op: Local variable access: op {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;}
      |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member REMASSIGN ] << {#unknown#}
      |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |        +- class cat.quadriga.parsers.code.statements.AssigmentStatementNode
@@ -6286,7 +6225,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  +- Arguments
      |  |  |     +- Op: >> Proxy Data Access [ PLUSASSIGN ] << {#unknown#}
      |  |  +- St: =
-     |  |  |  +- Op: Local variable access: op {#unknown AssigmentStatementNode.Operator #}
+     |  |  |  +- Op: Local variable access: op {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;}
      |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member PLUSASSIGN ] << {#unknown#}
      |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |        +- class cat.quadriga.parsers.code.statements.AssigmentStatementNode
@@ -6298,7 +6237,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  +- Arguments
      |  |  |     +- Op: >> Proxy Data Access [ MINUSASSIGN ] << {#unknown#}
      |  |  +- St: =
-     |  |  |  +- Op: Local variable access: op {#unknown AssigmentStatementNode.Operator #}
+     |  |  |  +- Op: Local variable access: op {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;}
      |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member MINUSASSIGN ] << {#unknown#}
      |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |        +- class cat.quadriga.parsers.code.statements.AssigmentStatementNode
@@ -6310,7 +6249,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  +- Arguments
      |  |  |     +- Op: >> Proxy Data Access [ LSHIFTASSIGN ] << {#unknown#}
      |  |  +- St: =
-     |  |  |  +- Op: Local variable access: op {#unknown AssigmentStatementNode.Operator #}
+     |  |  |  +- Op: Local variable access: op {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;}
      |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member LSHIFTASSIGN ] << {#unknown#}
      |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |        +- class cat.quadriga.parsers.code.statements.AssigmentStatementNode
@@ -6322,7 +6261,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  +- Arguments
      |  |  |     +- Op: >> Proxy Data Access [ RSIGNEDSHIFTASSIGN ] << {#unknown#}
      |  |  +- St: =
-     |  |  |  +- Op: Local variable access: op {#unknown AssigmentStatementNode.Operator #}
+     |  |  |  +- Op: Local variable access: op {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;}
      |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member RSIGNEDSHIFTASSIGN ] << {#unknown#}
      |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |        +- class cat.quadriga.parsers.code.statements.AssigmentStatementNode
@@ -6334,7 +6273,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  +- Arguments
      |  |  |     +- Op: >> Proxy Data Access [ RUNSIGNEDSHIFTASSIGN ] << {#unknown#}
      |  |  +- St: =
-     |  |  |  +- Op: Local variable access: op {#unknown AssigmentStatementNode.Operator #}
+     |  |  |  +- Op: Local variable access: op {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;}
      |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member RUNSIGNEDSHIFTASSIGN ] << {#unknown#}
      |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |        +- class cat.quadriga.parsers.code.statements.AssigmentStatementNode
@@ -6346,7 +6285,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  +- Arguments
      |  |  |     +- Op: >> Proxy Data Access [ ANDASSIGN ] << {#unknown#}
      |  |  +- St: =
-     |  |  |  +- Op: Local variable access: op {#unknown AssigmentStatementNode.Operator #}
+     |  |  |  +- Op: Local variable access: op {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;}
      |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member ANDASSIGN ] << {#unknown#}
      |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |        +- class cat.quadriga.parsers.code.statements.AssigmentStatementNode
@@ -6358,7 +6297,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  +- Arguments
      |  |  |     +- Op: >> Proxy Data Access [ XORASSIGN ] << {#unknown#}
      |  |  +- St: =
-     |  |  |  +- Op: Local variable access: op {#unknown AssigmentStatementNode.Operator #}
+     |  |  |  +- Op: Local variable access: op {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;}
      |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member XORASSIGN ] << {#unknown#}
      |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |        +- class cat.quadriga.parsers.code.statements.AssigmentStatementNode
@@ -6370,7 +6309,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  +- Arguments
      |  |  |     +- Op: >> Proxy Data Access [ ORASSIGN ] << {#unknown#}
      |  |  +- St: =
-     |  |  |  +- Op: Local variable access: op {#unknown AssigmentStatementNode.Operator #}
+     |  |  |  +- Op: Local variable access: op {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;}
      |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member ORASSIGN ] << {#unknown#}
      |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |        +- class cat.quadriga.parsers.code.statements.AssigmentStatementNode
@@ -6394,7 +6333,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        |     +- Boolean: true
      |        +- If Code:
      |           +- return
-     |              +- Op: Local variable access: op {#unknown AssigmentStatementNode.Operator #}
+     |              +- Op: Local variable access: op {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;}
      +- throw
         +- Op: Constructor {Ljava.lang.Error;}
            +- Ljava.lang.Error;
@@ -6478,7 +6417,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Local Variables:
   |  +- Symbol Var [ finalNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
   |  +- Symbol Var [ auxiliarNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
-  |  +- Symbol Var [ operator ] Type [ #unknown LogicalOperation.Operator # ]
+  |  +- Symbol Var [ operator ] Type [ Lcat.quadriga.parsers.code.expressions.LogicalOperation.Operator; ]
   +- Code:
      +- Statements:
      +- Statements:
@@ -6515,7 +6454,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Arguments
      |           |     +- Op: >> Proxy Data Access [ SC_OR ] << {#unknown#}
      |           +- St: =
-     |           |  +- Op: Local variable access: operator {#unknown LogicalOperation.Operator #}
+     |           |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.LogicalOperation.Operator;}
      |           |  +- Op: >> Proxy Data Access [ Proxy access to member OR ] << {#unknown#}
      |           |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |        +- class cat.quadriga.parsers.code.expressions.LogicalOperation
@@ -6529,7 +6468,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.LogicalOperation;}
      |                 +- Lcat.quadriga.parsers.code.expressions.LogicalOperation;
      |                 +- Arguments
-     |                    +- Op: Local variable access: operator {#unknown LogicalOperation.Operator #}
+     |                    +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.LogicalOperation.Operator;}
      |                    +- Op: Local variable access: finalNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |                    +- Op: Local variable access: auxiliarNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      +- Block:
@@ -6553,7 +6492,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Local Variables:
   |  +- Symbol Var [ finalNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
   |  +- Symbol Var [ auxiliarNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
-  |  +- Symbol Var [ operator ] Type [ #unknown LogicalOperation.Operator # ]
+  |  +- Symbol Var [ operator ] Type [ Lcat.quadriga.parsers.code.expressions.LogicalOperation.Operator; ]
   +- Code:
      +- Statements:
      +- Statements:
@@ -6590,7 +6529,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Arguments
      |           |     +- Op: >> Proxy Data Access [ SC_AND ] << {#unknown#}
      |           +- St: =
-     |           |  +- Op: Local variable access: operator {#unknown LogicalOperation.Operator #}
+     |           |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.LogicalOperation.Operator;}
      |           |  +- Op: >> Proxy Data Access [ Proxy access to member AND ] << {#unknown#}
      |           |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |        +- class cat.quadriga.parsers.code.expressions.LogicalOperation
@@ -6604,7 +6543,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.LogicalOperation;}
      |                 +- Lcat.quadriga.parsers.code.expressions.LogicalOperation;
      |                 +- Arguments
-     |                    +- Op: Local variable access: operator {#unknown LogicalOperation.Operator #}
+     |                    +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.LogicalOperation.Operator;}
      |                    +- Op: Local variable access: finalNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |                    +- Op: Local variable access: auxiliarNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      +- Block:
@@ -6628,7 +6567,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Local Variables:
   |  +- Symbol Var [ finalNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
   |  +- Symbol Var [ auxiliarNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
-  |  +- Symbol Var [ operator ] Type [ #unknown MathematicOperation.Operator # ]
+  |  +- Symbol Var [ operator ] Type [ Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator; ]
   +- Code:
      +- Statements:
      +- Statements:
@@ -6665,7 +6604,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Arguments
      |           |     +- Op: >> Proxy Data Access [ BIT_OR ] << {#unknown#}
      |           +- St: =
-     |           |  +- Op: Local variable access: operator {#unknown MathematicOperation.Operator #}
+     |           |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator;}
      |           |  +- Op: >> Proxy Data Access [ Proxy access to member BIT_OR ] << {#unknown#}
      |           |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |        +- class cat.quadriga.parsers.code.expressions.MathematicOperation
@@ -6679,7 +6618,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.MathematicOperation;}
      |                 +- Lcat.quadriga.parsers.code.expressions.MathematicOperation;
      |                 +- Arguments
-     |                    +- Op: Local variable access: operator {#unknown MathematicOperation.Operator #}
+     |                    +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator;}
      |                    +- Op: Local variable access: finalNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |                    +- Op: Local variable access: auxiliarNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      +- Block:
@@ -6703,7 +6642,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Local Variables:
   |  +- Symbol Var [ finalNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
   |  +- Symbol Var [ auxiliarNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
-  |  +- Symbol Var [ operator ] Type [ #unknown MathematicOperation.Operator # ]
+  |  +- Symbol Var [ operator ] Type [ Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator; ]
   +- Code:
      +- Statements:
      +- Statements:
@@ -6740,7 +6679,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Arguments
      |           |     +- Op: >> Proxy Data Access [ XOR ] << {#unknown#}
      |           +- St: =
-     |           |  +- Op: Local variable access: operator {#unknown MathematicOperation.Operator #}
+     |           |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator;}
      |           |  +- Op: >> Proxy Data Access [ Proxy access to member BIT_XOR ] << {#unknown#}
      |           |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |        +- class cat.quadriga.parsers.code.expressions.MathematicOperation
@@ -6754,7 +6693,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.MathematicOperation;}
      |                 +- Lcat.quadriga.parsers.code.expressions.MathematicOperation;
      |                 +- Arguments
-     |                    +- Op: Local variable access: operator {#unknown MathematicOperation.Operator #}
+     |                    +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator;}
      |                    +- Op: Local variable access: finalNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |                    +- Op: Local variable access: auxiliarNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      +- Block:
@@ -6778,7 +6717,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Local Variables:
   |  +- Symbol Var [ finalNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
   |  +- Symbol Var [ auxiliarNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
-  |  +- Symbol Var [ operator ] Type [ #unknown MathematicOperation.Operator # ]
+  |  +- Symbol Var [ operator ] Type [ Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator; ]
   +- Code:
      +- Statements:
      +- Statements:
@@ -6815,7 +6754,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  +- Arguments
      |           |     +- Op: >> Proxy Data Access [ BIT_AND ] << {#unknown#}
      |           +- St: =
-     |           |  +- Op: Local variable access: operator {#unknown MathematicOperation.Operator #}
+     |           |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator;}
      |           |  +- Op: >> Proxy Data Access [ Proxy access to member BIT_AND ] << {#unknown#}
      |           |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |        +- class cat.quadriga.parsers.code.expressions.MathematicOperation
@@ -6829,7 +6768,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.MathematicOperation;}
      |                 +- Lcat.quadriga.parsers.code.expressions.MathematicOperation;
      |                 +- Arguments
-     |                    +- Op: Local variable access: operator {#unknown MathematicOperation.Operator #}
+     |                    +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator;}
      |                    +- Op: Local variable access: finalNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |                    +- Op: Local variable access: auxiliarNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      +- Block:
@@ -6853,7 +6792,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Local Variables:
   |  +- Symbol Var [ finalNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
   |  +- Symbol Var [ auxiliarNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
-  |  +- Symbol Var [ operator ] Type [ #unknown BooleanOperation.Operator # ]
+  |  +- Symbol Var [ operator ] Type [ Lcat.quadriga.parsers.code.expressions.BooleanOperation.Operator; ]
   +- Code:
      +- Statements:
      +- Statements:
@@ -6905,7 +6844,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  |  |  +- Arguments
      |           |  |  |     +- Op: >> Proxy Data Access [ EQ ] << {#unknown#}
      |           |  |  +- St: =
-     |           |  |  |  +- Op: Local variable access: operator {#unknown BooleanOperation.Operator #}
+     |           |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.BooleanOperation.Operator;}
      |           |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member EQ ] << {#unknown#}
      |           |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |  |  |        +- class cat.quadriga.parsers.code.expressions.BooleanOperation
@@ -6917,7 +6856,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  |  |  +- Arguments
      |           |  |  |     +- Op: >> Proxy Data Access [ NE ] << {#unknown#}
      |           |  |  +- St: =
-     |           |  |  |  +- Op: Local variable access: operator {#unknown BooleanOperation.Operator #}
+     |           |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.BooleanOperation.Operator;}
      |           |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member NEQ ] << {#unknown#}
      |           |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |  |  |        +- class cat.quadriga.parsers.code.expressions.BooleanOperation
@@ -6943,7 +6882,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.BooleanOperation;}
      |                 +- Lcat.quadriga.parsers.code.expressions.BooleanOperation;
      |                 +- Arguments
-     |                    +- Op: Local variable access: operator {#unknown BooleanOperation.Operator #}
+     |                    +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.BooleanOperation.Operator;}
      |                    +- Op: Local variable access: finalNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |                    +- Op: Local variable access: auxiliarNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      +- Block:
@@ -6968,7 +6907,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   |  +- Symbol Var [ out ] Type [ Ljava.util.List; ]
   |  +- Symbol Var [ finalNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
   |  +- Symbol Var [ auxiliarNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
-  |  +- Symbol Var [ operator ] Type [ #unknown BooleanOperation.Operator # ]
+  |  +- Symbol Var [ operator ] Type [ Lcat.quadriga.parsers.code.expressions.BooleanOperation.Operator; ]
   |  +- Symbol Var [ t ] Type [ Lcat.quadriga.parsers.Token; ]
   +- Code:
      +- Statements:
@@ -7005,7 +6944,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |     +- Arguments
      |  |  |        +- Op: >> Proxy Data Access [ INSTANCEOF ] << {#unknown#}
      |  |  +- St: =
-     |  |  |  +- Op: Local variable access: operator {#unknown BooleanOperation.Operator #}
+     |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.BooleanOperation.Operator;}
      |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member INSTANCEOF ] << {#unknown#}
      |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |        +- class cat.quadriga.parsers.code.expressions.BooleanOperation
@@ -7028,7 +6967,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.BooleanOperation;}
      |  |  |     +- Lcat.quadriga.parsers.code.expressions.BooleanOperation;
      |  |  |     +- Arguments
-     |  |  |        +- Op: Local variable access: operator {#unknown BooleanOperation.Operator #}
+     |  |  |        +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.BooleanOperation.Operator;}
      |  |  |        +- Op: Local variable access: finalNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |  |  |        +- Op: Local variable access: auxiliarNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |  |  +- Proxy break
@@ -7055,7 +6994,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Local Variables:
   |  +- Symbol Var [ finalNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
   |  +- Symbol Var [ auxiliarNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
-  |  +- Symbol Var [ operator ] Type [ #unknown BooleanOperation.Operator # ]
+  |  +- Symbol Var [ operator ] Type [ Lcat.quadriga.parsers.code.expressions.BooleanOperation.Operator; ]
   +- Code:
      +- Statements:
      +- Statements:
@@ -7111,7 +7050,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  |  |  +- Arguments
      |           |  |  |     +- Op: >> Proxy Data Access [ LT ] << {#unknown#}
      |           |  |  +- St: =
-     |           |  |  |  +- Op: Local variable access: operator {#unknown BooleanOperation.Operator #}
+     |           |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.BooleanOperation.Operator;}
      |           |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member LT ] << {#unknown#}
      |           |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |  |  |        +- class cat.quadriga.parsers.code.expressions.BooleanOperation
@@ -7123,7 +7062,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  |  |  +- Arguments
      |           |  |  |     +- Op: >> Proxy Data Access [ GT ] << {#unknown#}
      |           |  |  +- St: =
-     |           |  |  |  +- Op: Local variable access: operator {#unknown BooleanOperation.Operator #}
+     |           |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.BooleanOperation.Operator;}
      |           |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member GT ] << {#unknown#}
      |           |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |  |  |        +- class cat.quadriga.parsers.code.expressions.BooleanOperation
@@ -7135,7 +7074,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  |  |  +- Arguments
      |           |  |  |     +- Op: >> Proxy Data Access [ LE ] << {#unknown#}
      |           |  |  +- St: =
-     |           |  |  |  +- Op: Local variable access: operator {#unknown BooleanOperation.Operator #}
+     |           |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.BooleanOperation.Operator;}
      |           |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member LE ] << {#unknown#}
      |           |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |  |  |        +- class cat.quadriga.parsers.code.expressions.BooleanOperation
@@ -7147,7 +7086,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  |  |  +- Arguments
      |           |  |  |     +- Op: >> Proxy Data Access [ GE ] << {#unknown#}
      |           |  |  +- St: =
-     |           |  |  |  +- Op: Local variable access: operator {#unknown BooleanOperation.Operator #}
+     |           |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.BooleanOperation.Operator;}
      |           |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member GE ] << {#unknown#}
      |           |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |  |  |        +- class cat.quadriga.parsers.code.expressions.BooleanOperation
@@ -7173,7 +7112,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.BooleanOperation;}
      |                 +- Lcat.quadriga.parsers.code.expressions.BooleanOperation;
      |                 +- Arguments
-     |                    +- Op: Local variable access: operator {#unknown BooleanOperation.Operator #}
+     |                    +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.BooleanOperation.Operator;}
      |                    +- Op: Local variable access: finalNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |                    +- Op: Local variable access: auxiliarNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      +- Block:
@@ -7197,7 +7136,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Local Variables:
   |  +- Symbol Var [ finalNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
   |  +- Symbol Var [ auxiliarNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
-  |  +- Symbol Var [ operator ] Type [ #unknown MathematicOperation.Operator # ]
+  |  +- Symbol Var [ operator ] Type [ Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator; ]
   +- Code:
      +- Statements:
      +- Statements:
@@ -7245,7 +7184,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  |  |  +- Arguments
      |           |  |  |     +- Op: >> Proxy Data Access [ LSHIFT ] << {#unknown#}
      |           |  |  +- St: =
-     |           |  |  |  +- Op: Local variable access: operator {#unknown MathematicOperation.Operator #}
+     |           |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator;}
      |           |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member LEFT_SHIFT ] << {#unknown#}
      |           |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |  |  |        +- class cat.quadriga.parsers.code.expressions.MathematicOperation
@@ -7265,7 +7204,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |        |        |  +- Op: >> Proxy Data Access [ RSIGNEDSHIFT ] << {#unknown#}
      |           |        |        |  +- Arguments
      |           |        |        +- St: =
-     |           |        |           +- Op: Local variable access: operator {#unknown MathematicOperation.Operator #}
+     |           |        |           +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator;}
      |           |        |           +- Op: >> Proxy Data Access [ Proxy access to member RIGHT_SHIFT ] << {#unknown#}
      |           |        |              +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |        |                 +- class cat.quadriga.parsers.code.expressions.MathematicOperation
@@ -7284,7 +7223,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |              |        |  +- Op: >> Proxy Data Access [ RUNSIGNEDSHIFT ] << {#unknown#}
      |           |              |        |  +- Arguments
      |           |              |        +- St: =
-     |           |              |           +- Op: Local variable access: operator {#unknown MathematicOperation.Operator #}
+     |           |              |           +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator;}
      |           |              |           +- Op: >> Proxy Data Access [ Proxy access to member RIGHT_UNSIGNED_SHIFT ] << {#unknown#}
      |           |              |              +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |              |                 +- class cat.quadriga.parsers.code.expressions.MathematicOperation
@@ -7311,7 +7250,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.MathematicOperation;}
      |                 +- Lcat.quadriga.parsers.code.expressions.MathematicOperation;
      |                 +- Arguments
-     |                    +- Op: Local variable access: operator {#unknown MathematicOperation.Operator #}
+     |                    +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator;}
      |                    +- Op: Local variable access: finalNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |                    +- Op: Local variable access: auxiliarNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      +- Block:
@@ -7335,7 +7274,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Local Variables:
   |  +- Symbol Var [ finalNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
   |  +- Symbol Var [ auxiliarNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
-  |  +- Symbol Var [ operator ] Type [ #unknown MathematicOperation.Operator # ]
+  |  +- Symbol Var [ operator ] Type [ Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator; ]
   +- Code:
      +- Statements:
      +- Statements:
@@ -7387,7 +7326,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  |  |  +- Arguments
      |           |  |  |     +- Op: >> Proxy Data Access [ PLUS ] << {#unknown#}
      |           |  |  +- St: =
-     |           |  |  |  +- Op: Local variable access: operator {#unknown MathematicOperation.Operator #}
+     |           |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator;}
      |           |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member ADD ] << {#unknown#}
      |           |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |  |  |        +- class cat.quadriga.parsers.code.expressions.MathematicOperation
@@ -7399,7 +7338,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  |  |  +- Arguments
      |           |  |  |     +- Op: >> Proxy Data Access [ MINUS ] << {#unknown#}
      |           |  |  +- St: =
-     |           |  |  |  +- Op: Local variable access: operator {#unknown MathematicOperation.Operator #}
+     |           |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator;}
      |           |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member SUB ] << {#unknown#}
      |           |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |  |  |        +- class cat.quadriga.parsers.code.expressions.MathematicOperation
@@ -7425,7 +7364,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.MathematicOperation;}
      |                 +- Lcat.quadriga.parsers.code.expressions.MathematicOperation;
      |                 +- Arguments
-     |                    +- Op: Local variable access: operator {#unknown MathematicOperation.Operator #}
+     |                    +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator;}
      |                    +- Op: Local variable access: finalNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |                    +- Op: Local variable access: auxiliarNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      +- Block:
@@ -7450,7 +7389,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   |  +- Symbol Var [ out ] Type [ Ljava.util.List; ]
   |  +- Symbol Var [ finalNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
   |  +- Symbol Var [ auxiliarNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
-  |  +- Symbol Var [ operator ] Type [ #unknown MathematicOperation.Operator # ]
+  |  +- Symbol Var [ operator ] Type [ Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator; ]
   +- Code:
      +- Statements:
      |  +- St: =
@@ -7510,7 +7449,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  |  |  +- Arguments
      |           |  |  |     +- Op: >> Proxy Data Access [ STAR ] << {#unknown#}
      |           |  |  +- St: =
-     |           |  |  |  +- Op: Local variable access: operator {#unknown MathematicOperation.Operator #}
+     |           |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator;}
      |           |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member MUL ] << {#unknown#}
      |           |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |  |  |        +- class cat.quadriga.parsers.code.expressions.MathematicOperation
@@ -7522,7 +7461,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  |  |  +- Arguments
      |           |  |  |     +- Op: >> Proxy Data Access [ SLASH ] << {#unknown#}
      |           |  |  +- St: =
-     |           |  |  |  +- Op: Local variable access: operator {#unknown MathematicOperation.Operator #}
+     |           |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator;}
      |           |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member DIV ] << {#unknown#}
      |           |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |  |  |        +- class cat.quadriga.parsers.code.expressions.MathematicOperation
@@ -7534,7 +7473,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  |  |  +- Arguments
      |           |  |  |     +- Op: >> Proxy Data Access [ REM ] << {#unknown#}
      |           |  |  +- St: =
-     |           |  |  |  +- Op: Local variable access: operator {#unknown MathematicOperation.Operator #}
+     |           |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator;}
      |           |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member MOD ] << {#unknown#}
      |           |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |           |  |  |        +- class cat.quadriga.parsers.code.expressions.MathematicOperation
@@ -7560,7 +7499,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.MathematicOperation;}
      |                 +- Lcat.quadriga.parsers.code.expressions.MathematicOperation;
      |                 +- Arguments
-     |                    +- Op: Local variable access: operator {#unknown MathematicOperation.Operator #}
+     |                    +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.MathematicOperation.Operator;}
      |                    +- Op: Local variable access: finalNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |                    +- Op: Local variable access: auxiliarNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      +- Block:
@@ -7583,7 +7522,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   throws Block:
   +- Local Variables:
   |  +- Symbol Var [ finalNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
-  |  +- Symbol Var [ operator ] Type [ #unknown UnaryOperation.Operator # ]
+  |  +- Symbol Var [ operator ] Type [ Lcat.quadriga.parsers.code.expressions.UnaryOperation.Operator; ]
   |  +- Symbol Var [ t ] Type [ Lcat.quadriga.parsers.Token; ]
   +- Code:
      +- Statements:
@@ -7624,7 +7563,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  |  |     +- Arguments
      |  |  |  |  |        +- Op: >> Proxy Data Access [ PLUS ] << {#unknown#}
      |  |  |  |  +- St: =
-     |  |  |  |  |  +- Op: Local variable access: operator {#unknown UnaryOperation.Operator #}
+     |  |  |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.UnaryOperation.Operator;}
      |  |  |  |  |  +- Op: Literal {Null type}
      |  |  |  |  |     +- Null
      |  |  |  |  +- Proxy break
@@ -7637,7 +7576,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  |  |     +- Arguments
      |  |  |  |  |        +- Op: >> Proxy Data Access [ MINUS ] << {#unknown#}
      |  |  |  |  +- St: =
-     |  |  |  |  |  +- Op: Local variable access: operator {#unknown UnaryOperation.Operator #}
+     |  |  |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.UnaryOperation.Operator;}
      |  |  |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member NEGATE ] << {#unknown#}
      |  |  |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |  |  |        +- class cat.quadriga.parsers.code.expressions.UnaryOperation
@@ -7661,7 +7600,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  +- If Statement:
      |  |  |  +- Condition:
      |  |  |  |  +- Op: != {Z}
-     |  |  |  |     +- Op: Local variable access: operator {#unknown UnaryOperation.Operator #}
+     |  |  |  |     +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.UnaryOperation.Operator;}
      |  |  |  |     +- Op: Literal {Null type}
      |  |  |  |        +- Null
      |  |  |  +- If Code:
@@ -7670,7 +7609,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |        +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.UnaryOperation;}
      |  |  |           +- Lcat.quadriga.parsers.code.expressions.UnaryOperation;
      |  |  |           +- Arguments
-     |  |  |              +- Op: Local variable access: operator {#unknown UnaryOperation.Operator #}
+     |  |  |              +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.UnaryOperation.Operator;}
      |  |  |              +- Op: Local variable access: finalNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |  |  |              +- Op: Local variable access: t {Lcat.quadriga.parsers.Token;}
      |  |  +- Proxy break
@@ -7858,7 +7797,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Local Variables:
   |  +- Symbol Var [ out ] Type [ Ljava.util.List; ]
   |  +- Symbol Var [ finalNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
-  |  +- Symbol Var [ operator ] Type [ #unknown UnaryOperation.Operator # ]
+  |  +- Symbol Var [ operator ] Type [ Lcat.quadriga.parsers.code.expressions.UnaryOperation.Operator; ]
   |  +- Symbol Var [ t ] Type [ Lcat.quadriga.parsers.Token; ]
   +- Code:
      +- Statements:
@@ -7905,7 +7844,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  |  |     +- Arguments
      |  |  |  |  |        +- Op: >> Proxy Data Access [ TILDE ] << {#unknown#}
      |  |  |  |  +- St: =
-     |  |  |  |  |  +- Op: Local variable access: operator {#unknown UnaryOperation.Operator #}
+     |  |  |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.UnaryOperation.Operator;}
      |  |  |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member BIT_COMP ] << {#unknown#}
      |  |  |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |  |  |        +- class cat.quadriga.parsers.code.expressions.UnaryOperation
@@ -7919,7 +7858,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  |  |     +- Arguments
      |  |  |  |  |        +- Op: >> Proxy Data Access [ BANG ] << {#unknown#}
      |  |  |  |  +- St: =
-     |  |  |  |  |  +- Op: Local variable access: operator {#unknown UnaryOperation.Operator #}
+     |  |  |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.UnaryOperation.Operator;}
      |  |  |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member NOT ] << {#unknown#}
      |  |  |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |  |  |        +- class cat.quadriga.parsers.code.expressions.UnaryOperation
@@ -7945,7 +7884,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.UnaryOperation;}
      |  |  |     +- Lcat.quadriga.parsers.code.expressions.UnaryOperation;
      |  |  |     +- Arguments
-     |  |  |        +- Op: Local variable access: operator {#unknown UnaryOperation.Operator #}
+     |  |  |        +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.UnaryOperation.Operator;}
      |  |  |        +- Op: Local variable access: finalNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |  |  |        +- Op: Local variable access: t {Lcat.quadriga.parsers.Token;}
      |  |  +- Proxy break
@@ -8245,7 +8184,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Local Variables:
   |  +- Symbol Var [ finalNode ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
   |  +- Symbol Var [ t ] Type [ Lcat.quadriga.parsers.Token; ]
-  |  +- Symbol Var [ operator ] Type [ #unknown UnaryOperation.Operator # ]
+  |  +- Symbol Var [ operator ] Type [ Lcat.quadriga.parsers.code.expressions.UnaryOperation.Operator; ]
   +- Code:
      +- Statements:
      +- Statements:
@@ -8290,7 +8229,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  |  |     +- Arguments
      |  |  |  |  |        +- Op: >> Proxy Data Access [ INCR ] << {#unknown#}
      |  |  |  |  +- St: =
-     |  |  |  |  |  +- Op: Local variable access: operator {#unknown UnaryOperation.Operator #}
+     |  |  |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.UnaryOperation.Operator;}
      |  |  |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member POST_INC ] << {#unknown#}
      |  |  |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |  |  |        +- class cat.quadriga.parsers.code.expressions.UnaryOperation
@@ -8304,7 +8243,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  |  |     +- Arguments
      |  |  |  |  |        +- Op: >> Proxy Data Access [ DECR ] << {#unknown#}
      |  |  |  |  +- St: =
-     |  |  |  |  |  +- Op: Local variable access: operator {#unknown UnaryOperation.Operator #}
+     |  |  |  |  |  +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.UnaryOperation.Operator;}
      |  |  |  |  |  +- Op: >> Proxy Data Access [ Proxy access to member POST_DEC ] << {#unknown#}
      |  |  |  |  |     +- Op: >> Proxy Data Access [ Operator ] << {#unknown#}
      |  |  |  |  |        +- class cat.quadriga.parsers.code.expressions.UnaryOperation
@@ -8325,7 +8264,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.UnaryOperation;}
      |  |  |     +- Lcat.quadriga.parsers.code.expressions.UnaryOperation;
      |  |  |     +- Arguments
-     |  |  |        +- Op: Local variable access: operator {#unknown UnaryOperation.Operator #}
+     |  |  |        +- Op: Local variable access: operator {Lcat.quadriga.parsers.code.expressions.UnaryOperation.Operator;}
      |  |  |        +- Op: Local variable access: finalNode {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |  |  |        +- Op: Local variable access: t {Lcat.quadriga.parsers.Token;}
      |  |  +- Proxy break
@@ -8710,7 +8649,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        |           |           +- Op: Constructor {Lcat.quadriga.parsers.code.proxy.ProxyExpression;}
      |        |           |              +- Lcat.quadriga.parsers.code.proxy.ProxyExpression;
      |        |           |              +- Arguments
-     |        |           |                 +- Op: + {#unknown#}
+     |        |           |                 +- Op: + {Ljava.lang.String;}
      |        |           |                 |  +- Op: >> Proxy Data Access [ image ] << {#unknown#}
      |        |           |                 |  |  +- Op: Call {Ljava.lang.Object;}
      |        |           |                 |  |     +- Op: Method:
@@ -8867,11 +8806,11 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                          |        |        +- Op: >> Proxy Data Access [ IDENTIFIER ] << {#unknown#}
      |                          |        +- St: =
      |                          |           +- Op: Local variable access: result {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
-     |                          |           +- Op: Invalid Constructor {Lcat.quadriga.parsers.code.proxy.ProxyExpression;}
+     |                          |           +- Op: Constructor {Lcat.quadriga.parsers.code.proxy.ProxyExpression;}
      |                          |              +- Lcat.quadriga.parsers.code.proxy.ProxyExpression;
      |                          |              +- Arguments
-     |                          |                 +- Op: + {Lcat.quadriga.parsers.code.types.BaseType;}
-     |                          |                 |  +- Op: + {Lcat.quadriga.parsers.code.types.BaseType;}
+     |                          |                 +- Op: + {Ljava.lang.String;}
+     |                          |                 |  +- Op: + {Ljava.lang.String;}
      |                          |                 |  |  +- Op: Local variable access: type {Lcat.quadriga.parsers.code.types.BaseType;}
      |                          |                 |  |  +- Op: Literal {Ljava.lang.String;}
      |                          |                 |  |     +- String: ".super."
@@ -8954,8 +8893,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                            |        |        +- Op: >> Proxy Data Access [ CLASS ] << {#unknown#}
      |                                            |        +- St: =
      |                                            |           +- Op: Local variable access: result {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
-     |                                            |           +- Op: Invalid Constructor {#unknown LiteralData.ClassLiteral #}
-     |                                            |              +- #unknown LiteralData.ClassLiteral #
+     |                                            |           +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.ClassLiteral;}
+     |                                            |              +- Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.ClassLiteral;
      |                                            |              +- Arguments
      |                                            |                 +- Op: Local variable access: type {Lcat.quadriga.parsers.code.types.BaseType;}
      |                                            |                 +- Op: Constructor {Lcat.quadriga.parsers.code.CodeZoneClass;}
@@ -9330,8 +9269,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |        +- Op: >> Proxy Data Access [ INTEGER_LITERAL ] << {#unknown#}
      |  |  +- St: =
      |  |  |  +- Op: Local variable access: data {Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData;}
-     |  |  |  +- Op: Invalid Constructor {#unknown LiteralData.IntegerLiteral #}
-     |  |  |     +- #unknown LiteralData.IntegerLiteral #
+     |  |  |  +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.IntegerLiteral;}
+     |  |  |     +- Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.IntegerLiteral;
      |  |  |     +- Arguments
      |  |  |        +- Op: Local variable access: t {Lcat.quadriga.parsers.Token;}
      |  |  +- Proxy break
@@ -9345,8 +9284,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |        +- Op: >> Proxy Data Access [ FLOATING_POINT_LITERAL ] << {#unknown#}
      |  |  +- St: =
      |  |  |  +- Op: Local variable access: data {Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData;}
-     |  |  |  +- Op: Invalid Constructor {#unknown LiteralData.FloatLiteral #}
-     |  |  |     +- #unknown LiteralData.FloatLiteral #
+     |  |  |  +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.FloatLiteral;}
+     |  |  |     +- Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.FloatLiteral;
      |  |  |     +- Arguments
      |  |  |        +- Op: Local variable access: t {Lcat.quadriga.parsers.Token;}
      |  |  +- Proxy break
@@ -9360,8 +9299,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |        +- Op: >> Proxy Data Access [ CHARACTER_LITERAL ] << {#unknown#}
      |  |  +- St: =
      |  |  |  +- Op: Local variable access: data {Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData;}
-     |  |  |  +- Op: Invalid Constructor {#unknown LiteralData.CharacterLiteral #}
-     |  |  |     +- #unknown LiteralData.CharacterLiteral #
+     |  |  |  +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.CharacterLiteral;}
+     |  |  |     +- Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.CharacterLiteral;
      |  |  |     +- Arguments
      |  |  |        +- Op: Local variable access: t {Lcat.quadriga.parsers.Token;}
      |  |  +- Proxy break
@@ -9375,8 +9314,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |        +- Op: >> Proxy Data Access [ STRING_LITERAL ] << {#unknown#}
      |  |  +- St: =
      |  |  |  +- Op: Local variable access: data {Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData;}
-     |  |  |  +- Op: Invalid Constructor {#unknown LiteralData.StringLiteral #}
-     |  |  |     +- #unknown LiteralData.StringLiteral #
+     |  |  |  +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.StringLiteral;}
+     |  |  |     +- Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.StringLiteral;
      |  |  |     +- Arguments
      |  |  |        +- Op: Local variable access: t {Lcat.quadriga.parsers.Token;}
      |  |  +- Proxy break
@@ -9454,8 +9393,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |        +- Op: >> Proxy Data Access [ TRUE ] << {#unknown#}
      |  |  +- St: =
      |  |  |  +- Op: Local variable access: lit {Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData;}
-     |  |  |  +- Op: Invalid Constructor {#unknown LiteralData.TrueLiteral #}
-     |  |  |     +- #unknown LiteralData.TrueLiteral #
+     |  |  |  +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.TrueLiteral;}
+     |  |  |     +- Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.TrueLiteral;
      |  |  |     +- Arguments
      |  |  |        +- Op: Local variable access: t {Lcat.quadriga.parsers.Token;}
      |  |  +- Proxy break
@@ -9469,8 +9408,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |        +- Op: >> Proxy Data Access [ FALSE ] << {#unknown#}
      |  |  +- St: =
      |  |  |  +- Op: Local variable access: lit {Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData;}
-     |  |  |  +- Op: Invalid Constructor {#unknown LiteralData.FalseLiteral #}
-     |  |  |     +- #unknown LiteralData.FalseLiteral #
+     |  |  |  +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.FalseLiteral;}
+     |  |  |     +- Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.FalseLiteral;
      |  |  |     +- Arguments
      |  |  |        +- Op: Local variable access: t {Lcat.quadriga.parsers.Token;}
      |  |  +- Proxy break
@@ -9521,8 +9460,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        |     +- Boolean: true
      |        +- If Code:
      |           +- return
-     |              +- Op: Invalid Constructor {#unknown LiteralData.NullLiteral #}
-     |                 +- #unknown LiteralData.NullLiteral #
+     |              +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.NullLiteral;}
+     |                 +- Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.NullLiteral;
      |                 +- Arguments
      |                    +- Op: Local variable access: t {Lcat.quadriga.parsers.Token;}
      +- throw
@@ -10525,14 +10464,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   +- Local Variables:
   |  +- Symbol Var [ blockStatementNode ] Type [ Lcat.quadriga.parsers.code.statements.BlockStatementNode; ]
   |  +- Symbol Var [ t ] Type [ Lcat.quadriga.parsers.Token; ]
-  |  +- Symbol Var [ prevBlock ] Type [ #unknown BlockCode.TmpBlockCode # ]
+  |  +- Symbol Var [ prevBlock ] Type [ Lcat.quadriga.parsers.code.statements.BlockCode.TmpBlockCode; ]
   |  +- Symbol Var [ block ] Type [ Lcat.quadriga.parsers.code.statements.BlockCode; ]
   +- Code:
      +- Statements:
      +- Statements:
      +- Statements:
      |  +- St: =
-     |     +- Op: Local variable access: prevBlock {#unknown BlockCode.TmpBlockCode #}
+     |     +- Op: Local variable access: prevBlock {Lcat.quadriga.parsers.code.statements.BlockCode.TmpBlockCode;}
      |     +- Op: >> Proxy Data Access [ localBlock ] << {#unknown#}
      +- St: Proxy Call
      |  +- Op: >> Proxy Data Access [ symbolTable.newContext ] << {#unknown#}
@@ -10545,8 +10484,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        +- Op: >> Proxy Data Access [ LBRACE ] << {#unknown#}
      +- St: =
      |  +- Op: >> Proxy Data Access [ localBlock ] << {#unknown#}
-     |  +- Op: Invalid Constructor {#unknown BlockCode.TmpBlockCode #}
-     |     +- #unknown BlockCode.TmpBlockCode #
+     |  +- Op: Constructor {Lcat.quadriga.parsers.code.statements.BlockCode.TmpBlockCode;}
+     |     +- Lcat.quadriga.parsers.code.statements.BlockCode.TmpBlockCode;
      |     +- Arguments
      |        +- Op: Local variable access: t {Lcat.quadriga.parsers.Token;}
      +- LABEL: label_39
@@ -10697,7 +10636,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        +- Arguments
      +- St: =
      |  +- Op: >> Proxy Data Access [ localBlock ] << {#unknown#}
-     |  +- Op: Local variable access: prevBlock {#unknown BlockCode.TmpBlockCode #}
+     |  +- Op: Local variable access: prevBlock {Lcat.quadriga.parsers.code.statements.BlockCode.TmpBlockCode;}
      +- St: Proxy Call
      |  +- Op: >> Proxy Data Access [ symbolTable.deleteContext ] << {#unknown#}
      |  +- Arguments
@@ -11071,7 +11010,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   |  +- Symbol Var [ expression ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
   |  +- Symbol Var [ expression2 ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
   |  +- Symbol Var [ t ] Type [ Lcat.quadriga.parsers.Token; ]
-  |  +- Symbol Var [ assignOperator ] Type [ #unknown AssigmentStatementNode.Operator # ]
+  |  +- Symbol Var [ assignOperator ] Type [ Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator; ]
   |  +- Symbol Var [ statementNode ] Type [ Lcat.quadriga.parsers.code.statements.StatementNode; ]
   +- Code:
      +- Statements:
@@ -11282,7 +11221,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  +- case
      |  |  |  |  +- Op: >> Proxy Data Access [ RUNSIGNEDSHIFTASSIGN ] << {#unknown#}
      |  |  |  |  +- St: =
-     |  |  |  |  |  +- Op: Local variable access: assignOperator {#unknown AssigmentStatementNode.Operator #}
+     |  |  |  |  |  +- Op: Local variable access: assignOperator {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;}
      |  |  |  |  |  +- Op: Proxy Call {#unknown#}
      |  |  |  |  |     +- Op: >> Proxy Data Access [ AssignmentOperator ] << {#unknown#}
      |  |  |  |  |     +- Arguments
@@ -11296,7 +11235,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  |  |  |  +- Op: Constructor {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode;}
      |  |  |  |  |     +- Lcat.quadriga.parsers.code.statements.AssigmentStatementNode;
      |  |  |  |  |     +- Arguments
-     |  |  |  |  |        +- Op: Local variable access: assignOperator {#unknown AssigmentStatementNode.Operator #}
+     |  |  |  |  |        +- Op: Local variable access: assignOperator {Lcat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;}
      |  |  |  |  |        +- Op: Local variable access: expression {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |  |  |  |  |        +- Op: Local variable access: expression2 {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |  |  |  |  +- Proxy break
@@ -11345,7 +11284,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   |  +- Symbol Var [ statements ] Type [ Ljava.util.List; ]
   |  +- Symbol Var [ cases ] Type [ Ljava.util.List; ]
   |  +- Symbol Var [ bsn ] Type [ Lcat.quadriga.parsers.code.statements.BlockStatementNode; ]
-  |  +- Symbol Var [ prevBlock ] Type [ #unknown BlockCode.TmpBlockCode # ]
+  |  +- Symbol Var [ prevBlock ] Type [ Lcat.quadriga.parsers.code.statements.BlockCode.TmpBlockCode; ]
   |  +- Symbol Var [ node ] Type [ Lcat.quadriga.parsers.code.statements.SwitchStatementNode; ]
   +- Code:
      +- Statements:
@@ -11383,15 +11322,15 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Op: >> Proxy Data Access [ LBRACE ] << {#unknown#}
      +- Statements:
      |  +- St: =
-     |     +- Op: Local variable access: prevBlock {#unknown BlockCode.TmpBlockCode #}
+     |     +- Op: Local variable access: prevBlock {Lcat.quadriga.parsers.code.statements.BlockCode.TmpBlockCode;}
      |     +- Op: >> Proxy Data Access [ localBlock ] << {#unknown#}
      +- St: Proxy Call
      |  +- Op: >> Proxy Data Access [ symbolTable.newContext ] << {#unknown#}
      |  +- Arguments
      +- St: =
      |  +- Op: >> Proxy Data Access [ localBlock ] << {#unknown#}
-     |  +- Op: Invalid Constructor {#unknown BlockCode.TmpBlockCode #}
-     |     +- #unknown BlockCode.TmpBlockCode #
+     |  +- Op: Constructor {Lcat.quadriga.parsers.code.statements.BlockCode.TmpBlockCode;}
+     |     +- Lcat.quadriga.parsers.code.statements.BlockCode.TmpBlockCode;
      |     +- Arguments
      |        +- Op: Local variable access: t {Lcat.quadriga.parsers.Token;}
      +- LABEL: label_41
@@ -11566,8 +11505,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              |  +- java.util.List -> add
      |              |  +- Op: Local variable access: cases {Ljava.util.List;}
      |              +- Arguments
-     |                 +- Op: Invalid Constructor {#unknown SwitchStatementNode.CaseNode #}
-     |                    +- #unknown SwitchStatementNode.CaseNode #
+     |                 +- Op: Constructor {Lcat.quadriga.parsers.code.statements.SwitchStatementNode.CaseNode;}
+     |                    +- Lcat.quadriga.parsers.code.statements.SwitchStatementNode.CaseNode;
      |                    +- Arguments
      |                       +- Op: Local variable access: label {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
      |                       +- Op: Local variable access: statements {Ljava.util.List;}
@@ -11593,7 +11532,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                 +- Op: Local variable access: t2 {Lcat.quadriga.parsers.Token;}
      +- St: =
      |  +- Op: >> Proxy Data Access [ localBlock ] << {#unknown#}
-     |  +- Op: Local variable access: prevBlock {#unknown BlockCode.TmpBlockCode #}
+     |  +- Op: Local variable access: prevBlock {Lcat.quadriga.parsers.code.statements.BlockCode.TmpBlockCode;}
      +- St: Proxy Call
      |  +- Op: >> Proxy Data Access [ symbolTable.deleteContext ] << {#unknown#}
      |  +- Arguments
@@ -11930,7 +11869,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   |  +- Symbol Var [ type ] Type [ Lcat.quadriga.parsers.code.types.BaseType; ]
   |  +- Symbol Var [ iterable ] Type [ Lcat.quadriga.parsers.code.expressions.ExpressionNode; ]
   |  +- Symbol Var [ result ] Type [ Lcat.quadriga.parsers.code.statements.StatementNode; ]
-  |  +- Symbol Var [ prevBlock ] Type [ #unknown BlockCode.TmpBlockCode # ]
+  |  +- Symbol Var [ prevBlock ] Type [ Lcat.quadriga.parsers.code.statements.BlockCode.TmpBlockCode; ]
   +- Code:
      +- Statements:
      +- Statements:
@@ -11947,7 +11886,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- Statements:
      +- Statements:
      |  +- St: =
-     |     +- Op: Local variable access: prevBlock {#unknown BlockCode.TmpBlockCode #}
+     |     +- Op: Local variable access: prevBlock {Lcat.quadriga.parsers.code.statements.BlockCode.TmpBlockCode;}
      |     +- Op: >> Proxy Data Access [ localBlock ] << {#unknown#}
      +- St: Proxy Call
      |  +- Op: >> Proxy Data Access [ symbolTable.newContext ] << {#unknown#}
@@ -11964,8 +11903,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- Op: >> Proxy Data Access [ LPAREN ] << {#unknown#}
      +- St: =
      |  +- Op: >> Proxy Data Access [ localBlock ] << {#unknown#}
-     |  +- Op: Invalid Constructor {#unknown BlockCode.TmpBlockCode #}
-     |     +- #unknown BlockCode.TmpBlockCode #
+     |  +- Op: Constructor {Lcat.quadriga.parsers.code.statements.BlockCode.TmpBlockCode;}
+     |     +- Lcat.quadriga.parsers.code.statements.BlockCode.TmpBlockCode;
      |     +- Arguments
      |        +- Op: Local variable access: t {Lcat.quadriga.parsers.Token;}
      +- If Statement:
@@ -12352,8 +12291,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |              |  |  |  |        +- Op: >> Proxy Data Access [ SEMICOLON ] << {#unknown#}
      |              |  |  |  +- St: =
      |              |  |  |  |  +- Op: Local variable access: condition {Lcat.quadriga.parsers.code.expressions.ExpressionNode;}
-     |              |  |  |  |  +- Op: Invalid Constructor {#unknown LiteralData.TrueLiteral #}
-     |              |  |  |  |     +- #unknown LiteralData.TrueLiteral #
+     |              |  |  |  |  +- Op: Constructor {Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.TrueLiteral;}
+     |              |  |  |  |     +- Lcat.quadriga.parsers.code.expressions.dataaccess.LiteralData.TrueLiteral;
      |              |  |  |  |     +- Arguments
      |              |  |  |  |        +- Op: Local variable access: t2 {Lcat.quadriga.parsers.Token;}
      |              |  |  |  +- Proxy break
@@ -12499,7 +12438,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                       +- Arguments
      +- St: =
      |  +- Op: >> Proxy Data Access [ localBlock ] << {#unknown#}
-     |  +- Op: Local variable access: prevBlock {#unknown BlockCode.TmpBlockCode #}
+     |  +- Op: Local variable access: prevBlock {Lcat.quadriga.parsers.code.statements.BlockCode.TmpBlockCode;}
      +- St: Proxy Call
      |  +- Op: >> Proxy Data Access [ symbolTable.deleteContext ] << {#unknown#}
      |  +- Arguments
@@ -13271,8 +13210,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |           |  |  +- java.util.List -> add
      |           |  |  +- Op: Local variable access: catches {Ljava.util.List;}
      |           |  +- Arguments
-     |           |     +- Op: Invalid Constructor {#unknown TryStatementNode.CatchBlock #}
-     |           |        +- #unknown TryStatementNode.CatchBlock #
+     |           |     +- Op: Constructor {Lcat.quadriga.parsers.code.statements.TryStatementNode.CatchBlock;}
+     |           |        +- Lcat.quadriga.parsers.code.statements.TryStatementNode.CatchBlock;
      |           |        +- Arguments
      |           |           +- Op: Local variable access: symbol {Lcat.quadriga.parsers.code.symbols.LocalVariableSymbol;}
      |           |           +- Op: Local variable access: aux {Lcat.quadriga.parsers.code.statements.BlockCode;}
@@ -13353,7 +13292,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |     |  +- Op: >> Proxy Data Access [ GT ] << {#unknown#}
      |  |     +- Op: == {Z}
      |  |        +- Op: >> Proxy Data Access [ realKind ] << {#unknown#}
-     |  |        |  +- Op: cast Lcat.quadriga.parsers.tokens.MySimpleToken; {Lcat.quadriga.parsers.tokens.MySimpleToken;}
+     |  |        |  +- Op: cast #unknown cat.quadriga.parsers.tokens.MySimpleToken # {#unknown cat.quadriga.parsers.tokens.MySimpleToken #}
      |  |        |     +- Op: Proxy Call {#unknown#}
      |  |        |        +- Op: >> Proxy Data Access [ getToken ] << {#unknown#}
      |  |        |        +- Arguments
@@ -13405,7 +13344,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |     |  +- Op: >> Proxy Data Access [ GT ] << {#unknown#}
      |  |     +- Op: == {Z}
      |  |        +- Op: >> Proxy Data Access [ realKind ] << {#unknown#}
-     |  |        |  +- Op: cast Lcat.quadriga.parsers.tokens.MySimpleToken; {Lcat.quadriga.parsers.tokens.MySimpleToken;}
+     |  |        |  +- Op: cast #unknown cat.quadriga.parsers.tokens.MySimpleToken # {#unknown cat.quadriga.parsers.tokens.MySimpleToken #}
      |  |        |     +- Op: Proxy Call {#unknown#}
      |  |        |        +- Op: >> Proxy Data Access [ getToken ] << {#unknown#}
      |  |        |        +- Arguments
@@ -15809,6 +15748,223 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
                  +- return
                     +- Op: Literal {Z}
                        +- Boolean: true
+  private Z jj_3R_183
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_204 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_182
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_203 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_181
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_202 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_319
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ LBRACE ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- Statements:
+     +- while
+     |  +- Op: Literal {Z}
+     |  |  +- Boolean: true
+     |  +- Block:
+     |     +- Code:
+     |        +- St: =
+     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- If Statement:
+     |           +- Condition:
+     |           |  +- Op: Proxy Call {#unknown#}
+     |           |     +- Op: >> Proxy Data Access [ jj_3R_328 ] << {#unknown#}
+     |           |     +- Arguments
+     |           +- If Code:
+     |              +- Block:
+     |                 +- Code:
+     |                    +- St: =
+     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |                    +- Proxy break
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ RBRACE ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_114
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ ORASSIGN ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_180
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_201 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ SEMICOLON ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_166
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ BIT_AND ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_79 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_113
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ XORASSIGN ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_112
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ ANDASSIGN ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_179
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_200 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_111
   Params
   Block:
@@ -15876,22 +16032,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_177
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_199 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_108
   Params
   Block:
@@ -15902,6 +16042,22 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
      |  |        +- Op: >> Proxy Data Access [ MINUSASSIGN ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_177
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_199 ] << {#unknown#}
+     |  |     +- Arguments
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -15940,6 +16096,55 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- return
      |        +- Op: Literal {Z}
      |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_154
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ EXTENDS ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_79 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- Statements:
+     +- while
+     |  +- Op: Literal {Z}
+     |  |  +- Boolean: true
+     |  +- Block:
+     |     +- Code:
+     |        +- St: =
+     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- If Statement:
+     |           +- Condition:
+     |           |  +- Op: Proxy Call {#unknown#}
+     |           |     +- Op: >> Proxy Data Access [ jj_3R_166 ] << {#unknown#}
+     |           |     +- Arguments
+     |           +- If Code:
+     |              +- Block:
+     |                 +- Code:
+     |                    +- St: =
+     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |                    +- Proxy break
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -15986,32 +16191,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
      |  |        +- Op: >> Proxy Data Access [ STARASSIGN ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_166
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ BIT_AND ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_79 ] << {#unknown#}
-     |  |     +- Arguments
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -16412,55 +16591,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_154
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ EXTENDS ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_79 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- Statements:
-     +- while
-     |  +- Op: Literal {Z}
-     |  |  +- Boolean: true
-     |  +- Block:
-     |     +- Code:
-     |        +- St: =
-     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- If Statement:
-     |           +- Condition:
-     |           |  +- Op: Proxy Call {#unknown#}
-     |           |     +- Op: >> Proxy Data Access [ jj_3R_166 ] << {#unknown#}
-     |           |     +- Arguments
-     |           +- If Code:
-     |              +- Block:
-     |                 +- Code:
-     |                    +- St: =
-     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |                    +- Proxy break
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_147
   Params
   Block:
@@ -16474,6 +16604,38 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- return
      |        +- Op: Literal {Z}
      |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_134
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ IDENTIFIER ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- Statements:
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_147 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -16608,38 +16770,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_134
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ IDENTIFIER ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- Statements:
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_147 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3_43
   Params
   Block:
@@ -16719,6 +16849,32 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_135
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ COMMA ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_134 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3_35
   Params
   Block:
@@ -16788,16 +16944,18 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_135
+  private Z jj_3R_89
   Params
   Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
   +- Code:
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ COMMA ] << {#unknown#}
+     |  |        +- Op: >> Proxy Data Access [ LT ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -16807,6 +16965,37 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_134 ] << {#unknown#}
      |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- Statements:
+     +- while
+     |  +- Op: Literal {Z}
+     |  |  +- Boolean: true
+     |  +- Block:
+     |     +- Code:
+     |        +- St: =
+     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- If Statement:
+     |           +- Condition:
+     |           |  +- Op: Proxy Call {#unknown#}
+     |           |     +- Op: >> Proxy Data Access [ jj_3R_135 ] << {#unknown#}
+     |           |     +- Arguments
+     |           +- If Code:
+     |              +- Block:
+     |                 +- Code:
+     |                    +- St: =
+     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |                    +- Proxy break
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ GT ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -16866,6 +17055,22 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_338
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_286 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_129
   Params
   Block:
@@ -16874,6 +17079,22 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_143 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_337
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_99 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -17034,7 +17255,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_89
+  private Z jj_3R_61
   Params
   Block:
   +- Local Variables:
@@ -17043,9 +17264,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_84 ] << {#unknown#}
      |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ LT ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -17053,59 +17273,38 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_134 ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ IDENTIFIER ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
      |           +- Boolean: true
      +- Statements:
-     +- while
-     |  +- Op: Literal {Z}
-     |  |  +- Boolean: true
-     |  +- Block:
-     |     +- Code:
-     |        +- St: =
-     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- If Statement:
-     |           +- Condition:
-     |           |  +- Op: Proxy Call {#unknown#}
-     |           |     +- Op: >> Proxy Data Access [ jj_3R_135 ] << {#unknown#}
-     |           |     +- Arguments
-     |           +- If Code:
-     |              +- Block:
-     |                 +- Code:
-     |                    +- St: =
-     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |                    +- Proxy break
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_337 ] << {#unknown#}
      |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ GT ] << {#unknown#}
      |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_338
-  Params
-  Block:
-  +- Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_286 ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_338 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -17127,22 +17326,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_85 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_337
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_99 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -17226,7 +17409,23 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_61
+  private Z jj_3R_331
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_289 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_323
   Params
   Block:
   +- Local Variables:
@@ -17235,47 +17434,34 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_84 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ IDENTIFIER ] << {#unknown#}
+     |  |        +- Op: >> Proxy Data Access [ SEMICOLON ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
      |           +- Boolean: true
      +- Statements:
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_337 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_338 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     +- while
+     |  +- Op: Literal {Z}
+     |  |  +- Boolean: true
+     |  +- Block:
+     |     +- Code:
+     |        +- St: =
+     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- If Statement:
+     |           +- Condition:
+     |           |  +- Op: Proxy Call {#unknown#}
+     |           |     +- Op: >> Proxy Data Access [ jj_3R_331 ] << {#unknown#}
+     |           |     +- Arguments
+     |           +- If Code:
+     |              +- Block:
+     |                 +- Code:
+     |                    +- St: =
+     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |                    +- Proxy break
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -17394,14 +17580,24 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_331
+  private Z jj_3_3
   Params
   Block:
   +- Code:
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_289 ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ COMMA ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_61 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -17410,7 +17606,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_323
+  private Z jj_3R_322
   Params
   Block:
   +- Local Variables:
@@ -17419,9 +17615,8 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_61 ] << {#unknown#}
      |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ SEMICOLON ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -17438,7 +17633,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |        +- If Statement:
      |           +- Condition:
      |           |  +- Op: Proxy Call {#unknown#}
-     |           |     +- Op: >> Proxy Data Access [ jj_3R_331 ] << {#unknown#}
+     |           |     +- Op: >> Proxy Data Access [ jj_3_3 ] << {#unknown#}
      |           |     +- Arguments
      |           +- If Code:
      |              +- Block:
@@ -17548,33 +17743,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3_3
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ COMMA ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_61 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_322
+  private Z jj_3R_306
   Params
   Block:
   +- Local Variables:
@@ -17583,33 +17752,62 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_61 ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ LBRACE ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
      |           +- Boolean: true
      +- Statements:
-     +- while
-     |  +- Op: Literal {Z}
-     |  |  +- Boolean: true
-     |  +- Block:
-     |     +- Code:
-     |        +- St: =
-     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- If Statement:
-     |           +- Condition:
-     |           |  +- Op: Proxy Call {#unknown#}
-     |           |     +- Op: >> Proxy Data Access [ jj_3_3 ] << {#unknown#}
-     |           |     +- Arguments
-     |           +- If Code:
-     |              +- Block:
-     |                 +- Code:
-     |                    +- St: =
-     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |                    +- Proxy break
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_322 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: Literal {I}
+     |  |           +- Integer: 87
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_323 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ RBRACE ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -17764,67 +17962,15 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_306
+  private Z jj_3R_305
   Params
   Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
   +- Code:
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_321 ] << {#unknown#}
      |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ LBRACE ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- Statements:
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_322 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: Literal {I}
-     |  |           +- Integer: 87
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_323 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ RBRACE ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -17950,91 +18096,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_146
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ AT ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_85 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_305
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_321 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_86
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ IDENTIFIER ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ ASSIGN ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_153
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_165 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_297
   Params
   Block:
@@ -18086,6 +18147,75 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_146
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ AT ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_85 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_86
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ IDENTIFIER ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ ASSIGN ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_153
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_165 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_150
   Params
   Block:
@@ -18104,6 +18234,32 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_71 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_330
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ COMMA ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_79 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -18312,16 +18468,18 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_330
+  private Z jj_3R_321
   Params
   Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
   +- Code:
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ COMMA ] << {#unknown#}
+     |  |        +- Op: >> Proxy Data Access [ IMPLEMENTS ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -18335,6 +18493,27 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- return
      |        +- Op: Literal {Z}
      |           +- Boolean: true
+     +- Statements:
+     +- while
+     |  +- Op: Literal {Z}
+     |  |  +- Boolean: true
+     |  +- Block:
+     |     +- Code:
+     |        +- St: =
+     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- If Statement:
+     |           +- Condition:
+     |           |  +- Op: Proxy Call {#unknown#}
+     |           |     +- Op: >> Proxy Data Access [ jj_3R_330 ] << {#unknown#}
+     |           |     +- Arguments
+     |           +- If Code:
+     |              +- Block:
+     |                 +- Code:
+     |                    +- St: =
+     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |                    +- Proxy break
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -18594,18 +18773,16 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_321
+  private Z jj_3R_329
   Params
   Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
   +- Code:
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ IMPLEMENTS ] << {#unknown#}
+     |  |        +- Op: >> Proxy Data Access [ COMMA ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -18619,27 +18796,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- return
      |        +- Op: Literal {Z}
      |           +- Boolean: true
-     +- Statements:
-     +- while
-     |  +- Op: Literal {Z}
-     |  |  +- Boolean: true
-     |  +- Block:
-     |     +- Code:
-     |        +- St: =
-     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- If Statement:
-     |           +- Condition:
-     |           |  +- Op: Proxy Call {#unknown#}
-     |           |     +- Op: >> Proxy Data Access [ jj_3R_330 ] << {#unknown#}
-     |           |     +- Arguments
-     |           +- If Code:
-     |              +- Block:
-     |                 +- Code:
-     |                    +- St: =
-     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |                    +- Proxy break
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -18740,7 +18896,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     |  +- Op: >> Proxy Data Access [ GT ] << {#unknown#}
      |     +- Op: == {Z}
      |        +- Op: >> Proxy Data Access [ realKind ] << {#unknown#}
-     |        |  +- Op: cast Lcat.quadriga.parsers.tokens.MySimpleToken; {Lcat.quadriga.parsers.tokens.MySimpleToken;}
+     |        |  +- Op: cast #unknown cat.quadriga.parsers.tokens.MySimpleToken # {#unknown cat.quadriga.parsers.tokens.MySimpleToken #}
      |        |     +- Op: Proxy Call {#unknown#}
      |        |        +- Op: >> Proxy Data Access [ getToken ] << {#unknown#}
      |        |        +- Arguments
@@ -18759,142 +18915,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |     +- Op: Proxy Call {#unknown#}
      |  |        +- Op: >> Proxy Data Access [ jj_3R_116 ] << {#unknown#}
      |  |        +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ GT ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ GT ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_193
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_213 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- Block:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |           |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: Proxy Call {#unknown#}
-     |              |     +- Op: >> Proxy Data Access [ jj_3R_214 ] << {#unknown#}
-     |              |     +- Arguments
-     |              +- If Code:
-     |                 +- return
-     |                    +- Op: Literal {Z}
-     |                       +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_329
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ COMMA ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_79 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_74
-  Params
-  Block:
-  +- Code:
-     +- St: =
-     |  +- Op: >> Proxy Data Access [ jj_lookingAhead ] << {#unknown#}
-     |  +- Op: Literal {Z}
-     |     +- Boolean: true
-     +- St: =
-     |  +- Op: >> Proxy Data Access [ jj_semLA ] << {#unknown#}
-     |  +- Op: && {Z}
-     |     +- Op: == {Z}
-     |     |  +- Op: >> Proxy Data Access [ kind ] << {#unknown#}
-     |     |  |  +- Op: Proxy Call {#unknown#}
-     |     |  |     +- Op: >> Proxy Data Access [ getToken ] << {#unknown#}
-     |     |  |     +- Arguments
-     |     |  |        +- Op: Literal {I}
-     |     |  |           +- Integer: 1
-     |     |  +- Op: >> Proxy Data Access [ GT ] << {#unknown#}
-     |     +- Op: == {Z}
-     |        +- Op: >> Proxy Data Access [ realKind ] << {#unknown#}
-     |        |  +- Op: cast Lcat.quadriga.parsers.tokens.MySimpleToken; {Lcat.quadriga.parsers.tokens.MySimpleToken;}
-     |        |     +- Op: Proxy Call {#unknown#}
-     |        |        +- Op: >> Proxy Data Access [ getToken ] << {#unknown#}
-     |        |        +- Arguments
-     |        |           +- Op: Literal {I}
-     |        |              +- Integer: 1
-     |        +- Op: >> Proxy Data Access [ RUNSIGNEDSHIFT ] << {#unknown#}
-     +- St: =
-     |  +- Op: >> Proxy Data Access [ jj_lookingAhead ] << {#unknown#}
-     |  +- Op: Literal {Z}
-     |     +- Boolean: false
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: || {Z}
-     |  |     +- Op: ! {Z}
-     |  |     |  +- Op: >> Proxy Data Access [ jj_semLA ] << {#unknown#}
-     |  |     +- Op: Proxy Call {#unknown#}
-     |  |        +- Op: >> Proxy Data Access [ jj_3R_117 ] << {#unknown#}
-     |  |        +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ GT ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -18971,6 +18991,165 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_193
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_213 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- Block:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |           |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: Proxy Call {#unknown#}
+     |              |     +- Op: >> Proxy Data Access [ jj_3R_214 ] << {#unknown#}
+     |              |     +- Arguments
+     |              +- If Code:
+     |                 +- return
+     |                    +- Op: Literal {Z}
+     |                       +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_74
+  Params
+  Block:
+  +- Code:
+     +- St: =
+     |  +- Op: >> Proxy Data Access [ jj_lookingAhead ] << {#unknown#}
+     |  +- Op: Literal {Z}
+     |     +- Boolean: true
+     +- St: =
+     |  +- Op: >> Proxy Data Access [ jj_semLA ] << {#unknown#}
+     |  +- Op: && {Z}
+     |     +- Op: == {Z}
+     |     |  +- Op: >> Proxy Data Access [ kind ] << {#unknown#}
+     |     |  |  +- Op: Proxy Call {#unknown#}
+     |     |  |     +- Op: >> Proxy Data Access [ getToken ] << {#unknown#}
+     |     |  |     +- Arguments
+     |     |  |        +- Op: Literal {I}
+     |     |  |           +- Integer: 1
+     |     |  +- Op: >> Proxy Data Access [ GT ] << {#unknown#}
+     |     +- Op: == {Z}
+     |        +- Op: >> Proxy Data Access [ realKind ] << {#unknown#}
+     |        |  +- Op: cast #unknown cat.quadriga.parsers.tokens.MySimpleToken # {#unknown cat.quadriga.parsers.tokens.MySimpleToken #}
+     |        |     +- Op: Proxy Call {#unknown#}
+     |        |        +- Op: >> Proxy Data Access [ getToken ] << {#unknown#}
+     |        |        +- Arguments
+     |        |           +- Op: Literal {I}
+     |        |              +- Integer: 1
+     |        +- Op: >> Proxy Data Access [ RUNSIGNEDSHIFT ] << {#unknown#}
+     +- St: =
+     |  +- Op: >> Proxy Data Access [ jj_lookingAhead ] << {#unknown#}
+     |  +- Op: Literal {Z}
+     |     +- Boolean: false
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: || {Z}
+     |  |     +- Op: ! {Z}
+     |  |     |  +- Op: >> Proxy Data Access [ jj_semLA ] << {#unknown#}
+     |  |     +- Op: Proxy Call {#unknown#}
+     |  |        +- Op: >> Proxy Data Access [ jj_3R_117 ] << {#unknown#}
+     |  |        +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ GT ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ GT ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ GT ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_304
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_321 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_303
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_320 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_192
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ INTERFACE ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_197
   Params
   Block:
@@ -18996,6 +19175,22 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_193 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_302
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_89 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -19086,38 +19281,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_304
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_321 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_303
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_320 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_139
   Params
   Block:
@@ -19126,130 +19289,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_68 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_192
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ INTERFACE ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_102
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_139 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- Block:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |           |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: Proxy Call {#unknown#}
-     |              |     +- Op: >> Proxy Data Access [ jj_3R_140 ] << {#unknown#}
-     |              |     +- Arguments
-     |              +- If Code:
-     |                 +- return
-     |                    +- Op: Literal {Z}
-     |                       +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_358
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ FINALLY ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_92 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_302
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_89 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_164
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_174 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_163
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_173 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -19340,6 +19379,97 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_286 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_102
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_139 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- Block:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |           |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: Proxy Call {#unknown#}
+     |              |     +- Op: >> Proxy Data Access [ jj_3R_140 ] << {#unknown#}
+     |              |     +- Arguments
+     |              +- If Code:
+     |                 +- return
+     |                    +- Op: Literal {Z}
+     |                       +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_358
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ FINALLY ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_92 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_164
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_174 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_163
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_173 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -19694,6 +19824,55 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_60
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_88 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3_15
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_69 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_59
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ STRICTFP ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_211
   Params
   Block:
@@ -19749,71 +19928,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_60
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_88 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_124
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_99 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3_15
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_69 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_59
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ STRICTFP ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3_14
   Params
   Block:
@@ -19856,62 +19970,15 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_210
+  private Z jj_3R_124
   Params
   Block:
   +- Code:
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_99 ] << {#unknown#}
      |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ THROW ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_71 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ SEMICOLON ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_123
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ IDENTIFIER ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -19944,22 +20011,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_69 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_356
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_71 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -20034,6 +20085,102 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
      |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
      |                    +- Proxy break
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_210
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ THROW ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_71 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ SEMICOLON ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_123
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ IDENTIFIER ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_56
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ NATIVE ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_356
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_71 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -20115,129 +20262,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3_32
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_82 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3_30
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ THIS ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_56
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ NATIVE ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3_31
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_81 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3_29
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ SUPER ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_55
   Params
   Block:
@@ -20255,7 +20279,23 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_121
+  private Z jj_3_32
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_82 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3_30
   Params
   Block:
   +- Code:
@@ -20348,43 +20388,25 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_208
+  private Z jj_3_31
   Params
   Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
   +- Code:
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ CONTINUE ] << {#unknown#}
+     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
      |           +- Boolean: true
-     +- Statements:
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_81 ] << {#unknown#}
      |  |     +- Arguments
-     |  |        +- Op: Literal {I}
-     |  |           +- Integer: 77
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ SEMICOLON ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -20392,7 +20414,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_120
+  private Z jj_3_29
   Params
   Block:
   +- Code:
@@ -20412,6 +20434,16 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
      |  |        +- Op: >> Proxy Data Access [ SUPER ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -20456,6 +20488,33 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
      |  |        +- Op: >> Proxy Data Access [ RBRACKET ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_121
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ THIS ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -20508,6 +20567,144 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
      |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
      |                    +- Proxy break
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_53
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ FINAL ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_208
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ CONTINUE ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- Statements:
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: Literal {I}
+     |  |           +- Integer: 77
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ SEMICOLON ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_68
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_100 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- Block:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |           |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: Proxy Call {#unknown#}
+     |              |     +- Op: >> Proxy Data Access [ jj_3R_101 ] << {#unknown#}
+     |              |     +- Arguments
+     |              +- If Code:
+     |                 +- return
+     |                    +- Op: Literal {Z}
+     |                       +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_120
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ SUPER ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_52
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ PRIVATE ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -20599,153 +20796,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_53
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ FINAL ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_68
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_100 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- Block:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |           |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: Proxy Call {#unknown#}
-     |              |     +- Op: >> Proxy Data Access [ jj_3R_101 ] << {#unknown#}
-     |              |     +- Arguments
-     |              +- If Code:
-     |                 +- return
-     |                    +- Op: Literal {Z}
-     |                       +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_207
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ BREAK ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- Statements:
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: Literal {I}
-     |  |           +- Integer: 77
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ SEMICOLON ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_52
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ PRIVATE ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3_28
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_80 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ CLASS ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_90
   Params
   Block:
@@ -20795,31 +20845,43 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_238
+  private Z jj_3R_207
   Params
   Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
   +- Code:
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_85 ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ BREAK ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
      |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_374
-  Params
-  Block:
-  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_377 ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
+     |  |        +- Op: Literal {I}
+     |  |           +- Integer: 77
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ SEMICOLON ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -20857,6 +20919,108 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                 +- return
      |                    +- Op: Literal {Z}
      |                       +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3_28
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_80 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ CLASS ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_50
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ STATIC ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_238
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_85 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_374
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_377 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_49
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ PUBLIC ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -20945,148 +21109,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
      |  |        +- Op: >> Proxy Data Access [ CLASS ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_50
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ STATIC ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_236
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_81 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_235
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ LPAREN ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_71 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ RPAREN ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_49
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ PUBLIC ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_234
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_79 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ SUPER ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ IDENTIFIER ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -21237,24 +21259,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_378
+  private Z jj_3R_236
   Params
   Block:
   +- Code:
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ COMMA ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_201 ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_81 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -21290,6 +21302,42 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
      |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
      |                    +- Proxy break
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_235
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ LPAREN ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_71 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ RPAREN ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -21341,6 +21389,88 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_234
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_79 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ SUPER ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ IDENTIFIER ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_378
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ COMMA ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_201 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_377
   Params
   Block:
@@ -21377,6 +21507,23 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
      |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
      |                    +- Proxy break
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_98
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ SUPER ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -21452,6 +21599,39 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_97
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ THIS ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_96
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_69 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_376
   Params
   Block:
@@ -21468,7 +21648,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_98
+  private Z jj_3_9
   Params
   Block:
   +- Code:
@@ -21477,7 +21657,17 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ SUPER ] << {#unknown#}
+     |  |        +- Op: >> Proxy Data Access [ THIS ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -21528,23 +21718,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_97
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ THIS ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3_26
   Params
   Block:
@@ -21585,22 +21758,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_96
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_69 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_373
   Params
   Block:
@@ -21634,100 +21791,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3_9
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ THIS ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_241
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ IDENTIFIER ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_232
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- Statements:
-     +- while
-     |  +- Op: Literal {Z}
-     |  |  +- Boolean: true
-     |  +- Block:
-     |     +- Code:
-     |        +- St: =
-     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- If Statement:
-     |           +- Condition:
-     |           |  +- Op: Proxy Call {#unknown#}
-     |           |     +- Op: >> Proxy Data Access [ jj_3R_241 ] << {#unknown#}
-     |           |     +- Arguments
-     |           +- If Code:
-     |              +- Block:
-     |                 +- Code:
-     |                    +- St: =
-     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |                    +- Proxy break
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ THIS ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_95
   Params
   Block:
@@ -21748,22 +21811,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
      |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_231
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_152 ] << {#unknown#}
-     |  |     +- Arguments
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -21860,6 +21907,89 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
      |  |        +- Op: >> Proxy Data Access [ SEMICOLON ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_241
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ IDENTIFIER ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ DOT ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_232
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- Statements:
+     +- while
+     |  +- Op: Literal {Z}
+     |  |  +- Boolean: true
+     |  +- Block:
+     |     +- Code:
+     |        +- St: =
+     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- If Statement:
+     |           +- Condition:
+     |           |  +- Op: Proxy Call {#unknown#}
+     |           |     +- Op: >> Proxy Data Access [ jj_3R_241 ] << {#unknown#}
+     |           |     +- Arguments
+     |           +- If Code:
+     |              +- Block:
+     |                 +- Code:
+     |                    +- St: =
+     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |                    +- Proxy break
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ THIS ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_231
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_152 ] << {#unknown#}
+     |  |     +- Arguments
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -22042,6 +22172,22 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3_8
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_67 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_368
   Params
   Block:
@@ -22085,6 +22231,22 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_311
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_148 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_82
   Params
   Block:
@@ -22121,7 +22283,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3_8
+  private Z jj_3R_310
   Params
   Block:
   +- Code:
@@ -22173,22 +22335,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
      |  |        +- Op: >> Proxy Data Access [ SEMICOLON ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_311
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_148 ] << {#unknown#}
-     |  |     +- Arguments
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -22284,22 +22430,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_310
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_67 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3_25
   Params
   Block:
@@ -22355,6 +22485,48 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_309
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ THROWS ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_325 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_48
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_88 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3_24
   Params
   Block:
@@ -22374,6 +22546,46 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_76 ] << {#unknown#}
      |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3_1
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- Statements:
+     +- while
+     |  +- Op: Literal {Z}
+     |  |  +- Boolean: true
+     |  +- Block:
+     |     +- Code:
+     |        +- St: =
+     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- If Statement:
+     |           +- Condition:
+     |           |  +- Op: Proxy Call {#unknown#}
+     |           |     +- Op: >> Proxy Data Access [ jj_3R_48 ] << {#unknown#}
+     |           |     +- Arguments
+     |           +- If Code:
+     |              +- Block:
+     |                 +- Code:
+     |                    +- St: =
+     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |                    +- Proxy break
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ PACKAGE ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -22471,48 +22683,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_309
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ THROWS ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_325 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_48
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_88 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_273
   Params
   Block:
@@ -22551,46 +22721,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_247 ] << {#unknown#}
      |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3_1
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- Statements:
-     +- while
-     |  +- Op: Literal {Z}
-     |  |  +- Boolean: true
-     |  +- Block:
-     |     +- Code:
-     |        +- St: =
-     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- If Statement:
-     |           +- Condition:
-     |           |  +- Op: Proxy Call {#unknown#}
-     |           |     +- Op: >> Proxy Data Access [ jj_3R_48 ] << {#unknown#}
-     |           |     +- Arguments
-     |           +- If Code:
-     |              +- Block:
-     |                 +- Code:
-     |                    +- St: =
-     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |                    +- Proxy break
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ PACKAGE ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -22704,6 +22834,22 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_307
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_89 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_206
   Params
   Block:
@@ -22754,103 +22900,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                 +- return
      |                    +- Op: Literal {Z}
      |                       +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_276
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ INCR ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_275
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_276 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- Block:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |           |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: Proxy Call {#unknown#}
-     |              |     +- Op: >> Proxy Data Access [ jj_3R_277 ] << {#unknown#}
-     |              |     +- Arguments
-     |              +- If Code:
-     |                 +- return
-     |                    +- Op: Literal {Z}
-     |                       +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_307
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_89 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_272
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_223 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- Statements:
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_275 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -22956,6 +23005,87 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- return
      |        +- Op: Literal {Z}
      |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_276
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ INCR ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_275
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_276 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- Block:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |           |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: Proxy Call {#unknown#}
+     |              |     +- Op: >> Proxy Data Access [ jj_3R_277 ] << {#unknown#}
+     |              |     +- Arguments
+     |              +- If Code:
+     |                 +- return
+     |                    +- Op: Literal {Z}
+     |                       +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_272
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_223 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- Statements:
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_275 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -23253,6 +23383,23 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_340
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ ELLIPSIS ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_205
   Params
   Block:
@@ -23344,7 +23491,23 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_340
+  private Z jj_3R_344
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_88 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_343
   Params
   Block:
   +- Code:
@@ -23353,11 +23516,44 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ ELLIPSIS ] << {#unknown#}
+     |  |        +- Op: >> Proxy Data Access [ FINAL ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
      |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_339
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_343 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- Block:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |           |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: Proxy Call {#unknown#}
+     |              |     +- Op: >> Proxy Data Access [ jj_3R_344 ] << {#unknown#}
+     |              |     +- Arguments
+     |              +- If Code:
+     |                 +- return
+     |                    +- Op: Literal {Z}
+     |                       +- Boolean: true
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -23377,14 +23573,59 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_264
+  private Z jj_3R_332
   Params
   Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
   +- Code:
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_271 ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_84 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- Statements:
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_339 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_63 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_340 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_326 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -23393,14 +23634,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_344
+  private Z jj_3R_264
   Params
   Block:
   +- Code:
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_88 ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_271 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -23481,56 +23722,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_343
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ FINAL ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_339
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_343 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- Block:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |           |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: Proxy Call {#unknown#}
-     |              |     +- Op: >> Proxy Data Access [ jj_3R_344 ] << {#unknown#}
-     |              |     +- Arguments
-     |              +- If Code:
-     |                 +- return
-     |                    +- Op: Literal {Z}
-     |                       +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_269
   Params
   Block:
@@ -23590,67 +23781,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_332
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_84 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- Statements:
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_339 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_63 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_340 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_326 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_259
   Params
   Block:
@@ -23695,58 +23825,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_353
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ ELSE ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_168 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_227
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ DECR ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_223 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_333
   Params
   Block:
@@ -23765,6 +23843,32 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_332 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_353
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ ELSE ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_168 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -23809,6 +23913,74 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
      |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
      |                    +- Proxy break
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_227
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ DECR ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_223 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_308
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ LPAREN ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- Statements:
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_324 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ RPAREN ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -23879,48 +24051,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |     +- St: =
      |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
      |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_308
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ LPAREN ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- Statements:
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_324 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ RPAREN ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -24225,6 +24355,32 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_315
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ IDENTIFIER ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_308 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_268
   Params
   Block:
@@ -24259,32 +24415,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_315
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ IDENTIFIER ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_308 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_266
   Params
   Block:
@@ -24295,6 +24425,23 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
      |  |        +- Op: >> Proxy Data Access [ STAR ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_318
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ SEMICOLON ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -24363,6 +24510,22 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_148 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_317
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_92 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -24449,7 +24612,7 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_318
+  private Z jj_3R_316
   Params
   Block:
   +- Code:
@@ -24458,22 +24621,15 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ SEMICOLON ] << {#unknown#}
+     |  |        +- Op: >> Proxy Data Access [ THROWS ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
      |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_317
-  Params
-  Block:
-  +- Code:
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_92 ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_325 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -24605,113 +24761,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_316
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ THROWS ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_325 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_256
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_261 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- Block:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |           |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: Proxy Call {#unknown#}
-     |              |     +- Op: >> Proxy Data Access [ jj_3R_262 ] << {#unknown#}
-     |              |     +- Arguments
-     |              +- If Code:
-     |                 +- return
-     |                    +- Op: Literal {Z}
-     |                       +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_245 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_240
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_245 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- Statements:
-     +- while
-     |  +- Op: Literal {Z}
-     |  |  +- Boolean: true
-     |  +- Block:
-     |     +- Code:
-     |        +- St: =
-     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- If Statement:
-     |           +- Condition:
-     |           |  +- Op: Proxy Call {#unknown#}
-     |           |     +- Op: >> Proxy Data Access [ jj_3R_256 ] << {#unknown#}
-     |           |     +- Arguments
-     |           +- If Code:
-     |              +- Block:
-     |                 +- Code:
-     |                    +- St: =
-     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |                    +- Proxy break
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_314
   Params
   Block:
@@ -24800,6 +24849,87 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                 +- return
      |                    +- Op: Literal {Z}
      |                       +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_256
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_261 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- Block:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |           |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: Proxy Call {#unknown#}
+     |              |     +- Op: >> Proxy Data Access [ jj_3R_262 ] << {#unknown#}
+     |              |     +- Arguments
+     |              +- If Code:
+     |                 +- return
+     |                    +- Op: Literal {Z}
+     |                       +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_245 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_240
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_245 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- Statements:
+     +- while
+     |  +- Op: Literal {Z}
+     |  |  +- Boolean: true
+     |  +- Block:
+     |     +- Code:
+     |        +- St: =
+     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- If Statement:
+     |           +- Condition:
+     |           |  +- Op: Proxy Call {#unknown#}
+     |           |     +- Op: >> Proxy Data Access [ jj_3R_256 ] << {#unknown#}
+     |           |     +- Arguments
+     |           +- If Code:
+     |              +- Block:
+     |                 +- Code:
+     |                    +- St: =
+     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |                    +- Proxy break
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -25013,6 +25143,32 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3_7
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ COMMA ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_66 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_218
   Params
   Block:
@@ -25066,6 +25222,45 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_287
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_66 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- Statements:
+     +- while
+     |  +- Op: Literal {Z}
+     |  |  +- Boolean: true
+     |  +- Block:
+     |     +- Code:
+     |        +- St: =
+     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- If Statement:
+     |           +- Condition:
+     |           |  +- Op: Proxy Call {#unknown#}
+     |           |     +- Op: >> Proxy Data Access [ jj_3_7 ] << {#unknown#}
+     |           |     +- Arguments
+     |           +- If Code:
+     |              +- Block:
+     |                 +- Code:
+     |                    +- St: =
+     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |                    +- Proxy break
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_222
   Params
   Block:
@@ -25098,25 +25293,55 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3_7
+  private Z jj_3R_137
   Params
   Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
   +- Code:
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ COMMA ] << {#unknown#}
+     |  |        +- Op: >> Proxy Data Access [ LBRACE ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
      |           +- Boolean: true
+     +- Statements:
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_66 ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_287 ] << {#unknown#}
      |  |     +- Arguments
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: Literal {I}
+     |  |           +- Integer: 87
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ RBRACE ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -25258,45 +25483,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_287
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_66 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- Statements:
-     +- while
-     |  +- Op: Literal {Z}
-     |  |  +- Boolean: true
-     |  +- Block:
-     |     +- Code:
-     |        +- St: =
-     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- If Statement:
-     |           +- Condition:
-     |           |  +- Op: Proxy Call {#unknown#}
-     |           |     +- Op: >> Proxy Data Access [ jj_3_7 ] << {#unknown#}
-     |           |     +- Arguments
-     |           +- If Code:
-     |              +- Block:
-     |                 +- Code:
-     |                    +- St: =
-     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |                    +- Proxy break
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_246
   Params
   Block:
@@ -25361,62 +25547,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_137
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ LBRACE ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- Statements:
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_287 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: Literal {I}
-     |  |           +- Integer: 87
-     |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ RBRACE ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_225
   Params
   Block:
@@ -25456,23 +25586,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_200
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ SEMICOLON ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_94
   Params
   Block:
@@ -25497,32 +25610,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_137 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_242
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ INSTANCEOF ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_63 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -25564,6 +25651,49 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_200
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ SEMICOLON ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_242
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ INSTANCEOF ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_63 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_220
   Params
   Block:
@@ -25595,6 +25725,33 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_335
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ LBRACKET ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ RBRACKET ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_342
   Params
   Block:
@@ -25621,30 +25778,43 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_335
+  private Z jj_3R_326
   Params
   Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
   +- Code:
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ LBRACKET ] << {#unknown#}
+     |  |        +- Op: >> Proxy Data Access [ IDENTIFIER ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
      |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ RBRACKET ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
+     +- Statements:
+     +- while
+     |  +- Op: Literal {Z}
+     |  |  +- Boolean: true
+     |  +- Block:
+     |     +- Code:
+     |        +- St: =
+     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- If Statement:
+     |           +- Condition:
+     |           |  +- Op: Proxy Call {#unknown#}
+     |           |     +- Op: >> Proxy Data Access [ jj_3R_335 ] << {#unknown#}
+     |           |     +- Arguments
+     |           +- If Code:
+     |              +- Block:
+     |                 +- Code:
+     |                    +- St: =
+     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |                    +- Proxy break
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -25739,46 +25909,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_326
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ IDENTIFIER ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- Statements:
-     +- while
-     |  +- Op: Literal {Z}
-     |  |  +- Boolean: true
-     |  +- Block:
-     |     +- Code:
-     |        +- St: =
-     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- If Statement:
-     |           +- Condition:
-     |           |  +- Op: Proxy Call {#unknown#}
-     |           |     +- Op: >> Proxy Data Access [ jj_3R_335 ] << {#unknown#}
-     |           |     +- Arguments
-     |           +- If Code:
-     |              +- Block:
-     |                 +- Code:
-     |                    +- St: =
-     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |                    +- Proxy break
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_239
   Params
   Block:
@@ -25860,6 +25990,32 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_327
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ ASSIGN ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_66 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3_38
   Params
   Block:
@@ -25903,32 +26059,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_169 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_327
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ ASSIGN ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_66 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -26044,6 +26174,37 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_312
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_326 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- Statements:
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_327 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- St: =
+     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_148
   Params
   Block:
@@ -26088,34 +26249,30 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_312
+  private Z jj_3R_64
   Params
   Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
   +- Code:
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_326 ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ LBRACKET ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
      |           +- Boolean: true
-     +- Statements:
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_327 ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
      |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ RBRACKET ] << {#unknown#}
      |  +- If Code:
-     |     +- St: =
-     |        +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -26138,33 +26295,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_195 ] << {#unknown#}
      |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_64
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ LBRACKET ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ RBRACKET ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -26211,22 +26341,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_136
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_148 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_313
   Params
   Block:
@@ -26246,82 +26360,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_312 ] << {#unknown#}
      |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_219
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ BIT_OR ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_172 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_92
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ LBRACE ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- Statements:
-     +- while
-     |  +- Op: Literal {Z}
-     |  |  +- Boolean: true
-     |  +- Block:
-     |     +- Code:
-     |        +- St: =
-     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- If Statement:
-     |           +- Condition:
-     |           |  +- Op: Proxy Call {#unknown#}
-     |           |     +- Op: >> Proxy Data Access [ jj_3R_136 ] << {#unknown#}
-     |           |     +- Arguments
-     |           +- If Code:
-     |              +- Block:
-     |                 +- Code:
-     |                    +- St: =
-     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |                    +- Proxy break
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ RBRACE ] << {#unknown#}
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
@@ -26387,42 +26425,19 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_158
+  private Z jj_3R_136
   Params
   Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
   +- Code:
      +- If Statement:
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_172 ] << {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_148 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
      |        +- Op: Literal {Z}
      |           +- Boolean: true
-     +- Statements:
-     +- while
-     |  +- Op: Literal {Z}
-     |  |  +- Boolean: true
-     |  +- Block:
-     |     +- Code:
-     |        +- St: =
-     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- If Statement:
-     |           +- Condition:
-     |           |  +- Op: Proxy Call {#unknown#}
-     |           |     +- Op: >> Proxy Data Access [ jj_3R_219 ] << {#unknown#}
-     |           |     +- Arguments
-     |           +- If Code:
-     |              +- Block:
-     |                 +- Code:
-     |                    +- St: =
-     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |                    +- Proxy break
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -26573,6 +26588,32 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_219
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ BIT_OR ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_172 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_296
   Params
   Block:
@@ -26589,6 +26630,56 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_92
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ LBRACE ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- Statements:
+     +- while
+     |  +- Op: Literal {Z}
+     |  |  +- Boolean: true
+     |  +- Block:
+     |     +- Code:
+     |        +- St: =
+     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- If Statement:
+     |           +- Condition:
+     |           |  +- Op: Proxy Call {#unknown#}
+     |           |     +- Op: >> Proxy Data Access [ jj_3R_136 ] << {#unknown#}
+     |           |     +- Arguments
+     |           +- If Code:
+     |              +- Block:
+     |                 +- Code:
+     |                    +- St: =
+     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |                    +- Proxy break
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ RBRACE ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_295
   Params
   Block:
@@ -26597,6 +26688,109 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_300 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_158
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_172 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- Statements:
+     +- while
+     |  +- Op: Literal {Z}
+     |  |  +- Boolean: true
+     |  +- Block:
+     |     +- Code:
+     |        +- St: =
+     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- If Statement:
+     |           +- Condition:
+     |           |  +- Op: Proxy Call {#unknown#}
+     |           |     +- Op: >> Proxy Data Access [ jj_3R_219 ] << {#unknown#}
+     |           |     +- Arguments
+     |           +- If Code:
+     |              +- Block:
+     |                 +- Code:
+     |                    +- St: =
+     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |                    +- Proxy break
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_294
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_299 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_293
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_298 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_292
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_297 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_291
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_169 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -26623,22 +26817,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_87 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_294
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_299 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -26701,183 +26879,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_158 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_293
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_298 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_292
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_297 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_151
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_158 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- Statements:
-     +- while
-     |  +- Op: Literal {Z}
-     |  |  +- Boolean: true
-     |  +- Block:
-     |     +- Code:
-     |        +- St: =
-     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- If Statement:
-     |           +- Condition:
-     |           |  +- Op: Proxy Call {#unknown#}
-     |           |     +- Op: >> Proxy Data Access [ jj_3R_215 ] << {#unknown#}
-     |           |     +- Arguments
-     |           +- If Code:
-     |              +- Block:
-     |                 +- Code:
-     |                    +- St: =
-     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |                    +- Proxy break
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_291
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_169 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_349
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_299 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_348
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_301 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_347
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_297 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_351
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ COLON ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_71 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_346
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_169 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -26969,6 +26970,197 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                                                                 +- return
      |                                                                    +- Op: Literal {Z}
      |                                                                       +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_151
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_158 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- Statements:
+     +- while
+     |  +- Op: Literal {Z}
+     |  |  +- Boolean: true
+     |  +- Block:
+     |     +- Code:
+     |        +- St: =
+     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- If Statement:
+     |           +- Condition:
+     |           |  +- Op: Proxy Call {#unknown#}
+     |           |     +- Op: >> Proxy Data Access [ jj_3R_215 ] << {#unknown#}
+     |           |     +- Arguments
+     |           +- If Code:
+     |              +- Block:
+     |                 +- Code:
+     |                    +- St: =
+     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |                    +- Proxy break
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_349
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_299 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_348
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_301 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3_6
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_65 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_347
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_297 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_351
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ COLON ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_71 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_346
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_169 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
+  private Z jj_3R_289
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- Statements:
+     +- St: =
+     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3_6 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- Block:
+     |        +- Code:
+     |           +- St: =
+     |           |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |           |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |           +- If Statement:
+     |              +- Condition:
+     |              |  +- Op: Proxy Call {#unknown#}
+     |              |     +- Op: >> Proxy Data Access [ jj_3R_290 ] << {#unknown#}
+     |              |     +- Arguments
+     |              +- If Code:
+     |                 +- Block:
+     |                    +- Code:
+     |                       +- St: =
+     |                       |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |                       |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |                       +- If Statement:
+     |                          +- Condition:
+     |                          |  +- Op: Proxy Call {#unknown#}
+     |                          |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |                          |     +- Arguments
+     |                          |        +- Op: Literal {I}
+     |                          |           +- Integer: 86
+     |                          +- If Code:
+     |                             +- return
+     |                                +- Op: Literal {Z}
+     |                                   +- Boolean: true
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -27101,22 +27293,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3_6
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_65 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_141
   Params
   Block:
@@ -27153,52 +27329,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
      |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
      |                    +- Proxy break
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_289
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- Statements:
-     +- St: =
-     |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3_6 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- Block:
-     |        +- Code:
-     |           +- St: =
-     |           |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |           |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |           +- If Statement:
-     |              +- Condition:
-     |              |  +- Op: Proxy Call {#unknown#}
-     |              |     +- Op: >> Proxy Data Access [ jj_3R_290 ] << {#unknown#}
-     |              |     +- Arguments
-     |              +- If Code:
-     |                 +- Block:
-     |                    +- Code:
-     |                       +- St: =
-     |                       |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |                       |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |                       +- If Statement:
-     |                          +- Condition:
-     |                          |  +- Op: Proxy Call {#unknown#}
-     |                          |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |                          |     +- Arguments
-     |                          |        +- Op: Literal {I}
-     |                          |           +- Integer: 86
-     |                          +- If Code:
-     |                             +- return
-     |                                +- Op: Literal {Z}
-     |                                   +- Boolean: true
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
@@ -27415,6 +27545,22 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_288
+  Params
+  Block:
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_3R_289 ] << {#unknown#}
+     |  |     +- Arguments
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_189
   Params
   Block:
@@ -27524,6 +27670,56 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
+  private Z jj_3R_286
+  Params
+  Block:
+  +- Local Variables:
+  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
+  +- Code:
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ LBRACE ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- Statements:
+     +- while
+     |  +- Op: Literal {Z}
+     |  |  +- Boolean: true
+     |  +- Block:
+     |     +- Code:
+     |        +- St: =
+     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |        +- If Statement:
+     |           +- Condition:
+     |           |  +- Op: Proxy Call {#unknown#}
+     |           |     +- Op: >> Proxy Data Access [ jj_3R_288 ] << {#unknown#}
+     |           |     +- Arguments
+     |           +- If Code:
+     |              +- Block:
+     |                 +- Code:
+     |                    +- St: =
+     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
+     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
+     |                    +- Proxy break
+     +- If Statement:
+     |  +- Condition:
+     |  |  +- Op: Proxy Call {#unknown#}
+     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
+     |  |     +- Arguments
+     |  |        +- Op: >> Proxy Data Access [ RBRACE ] << {#unknown#}
+     |  +- If Code:
+     |     +- return
+     |        +- Op: Literal {Z}
+     |           +- Boolean: true
+     +- return
+        +- Op: Literal {Z}
+           +- Boolean: false
   private Z jj_3R_115
   Params
   Block:
@@ -27587,22 +27783,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      +- return
         +- Op: Literal {Z}
            +- Boolean: false
-  private Z jj_3R_288
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_289 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
   private Z jj_3R_184
   Params
   Block:
@@ -27611,247 +27791,6 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  +- Condition:
      |  |  +- Op: Proxy Call {#unknown#}
      |  |     +- Op: >> Proxy Data Access [ jj_3R_205 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_183
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_204 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_182
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_203 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_181
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_202 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_319
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ LBRACE ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- Statements:
-     +- while
-     |  +- Op: Literal {Z}
-     |  |  +- Boolean: true
-     |  +- Block:
-     |     +- Code:
-     |        +- St: =
-     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- If Statement:
-     |           +- Condition:
-     |           |  +- Op: Proxy Call {#unknown#}
-     |           |     +- Op: >> Proxy Data Access [ jj_3R_328 ] << {#unknown#}
-     |           |     +- Arguments
-     |           +- If Code:
-     |              +- Block:
-     |                 +- Code:
-     |                    +- St: =
-     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |                    +- Proxy break
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ RBRACE ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_286
-  Params
-  Block:
-  +- Local Variables:
-  |  +- Symbol Var [ xsp ] Type [ Lcat.quadriga.parsers.Token; ]
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ LBRACE ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- Statements:
-     +- while
-     |  +- Op: Literal {Z}
-     |  |  +- Boolean: true
-     |  +- Block:
-     |     +- Code:
-     |        +- St: =
-     |        |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |        |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |        +- If Statement:
-     |           +- Condition:
-     |           |  +- Op: Proxy Call {#unknown#}
-     |           |     +- Op: >> Proxy Data Access [ jj_3R_288 ] << {#unknown#}
-     |           |     +- Arguments
-     |           +- If Code:
-     |              +- Block:
-     |                 +- Code:
-     |                    +- St: =
-     |                    |  +- Op: >> Proxy Data Access [ jj_scanpos ] << {#unknown#}
-     |                    |  +- Op: Local variable access: xsp {Lcat.quadriga.parsers.Token;}
-     |                    +- Proxy break
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ RBRACE ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_114
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ ORASSIGN ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_180
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_201 ] << {#unknown#}
-     |  |     +- Arguments
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ SEMICOLON ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_113
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ XORASSIGN ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_112
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_scan_token ] << {#unknown#}
-     |  |     +- Arguments
-     |  |        +- Op: >> Proxy Data Access [ ANDASSIGN ] << {#unknown#}
-     |  +- If Code:
-     |     +- return
-     |        +- Op: Literal {Z}
-     |           +- Boolean: true
-     +- return
-        +- Op: Literal {Z}
-           +- Boolean: false
-  private Z jj_3R_179
-  Params
-  Block:
-  +- Code:
-     +- If Statement:
-     |  +- Condition:
-     |  |  +- Op: Proxy Call {#unknown#}
-     |  |     +- Op: >> Proxy Data Access [ jj_3R_200 ] << {#unknown#}
      |  |     +- Arguments
      |  +- If Code:
      |     +- return
@@ -27871,13 +27810,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   private Z ;
   public QuadrigaSimple
   Params
-  stream: Ljava.io.InputStream;
+  stream: #unknown java.io.InputStream #
   {
     this;
   }
   public QuadrigaSimple
   Params
-  stream: Ljava.io.InputStream;
+  stream: #unknown java.io.InputStream #
   encoding: Ljava.lang.String;
   {
     try
@@ -27888,20 +27827,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
     |        +- Op: Constructor {Lcat.quadriga.parsers.JavaCharStream;}
     |           +- Lcat.quadriga.parsers.JavaCharStream;
     |           +- Arguments
-    |              +- Op: Local variable access: stream {Ljava.io.InputStream;}
+    |              +- Op: Local variable access: stream {#unknown java.io.InputStream #}
     |              +- Op: Local variable access: encoding {Ljava.lang.String;}
     |              +- Op: Literal {I}
     |              |  +- Integer: 1
     |              +- Op: Literal {I}
     |                 +- Integer: 1
-    +- catch {Local var "e" {Ljava.io.UnsupportedEncodingException;}}
+    +- catch {Local var "e" {#unknown java.io.UnsupportedEncodingException #}}
        +- Block:
           +- Code:
              +- throw
                 +- Op: Constructor {Ljava.lang.RuntimeException;}
                    +- Ljava.lang.RuntimeException;
                    +- Arguments
-                      +- Op: Local variable access: e {Ljava.io.UnsupportedEncodingException;}St: =
+                      +- Op: Local variable access: e {#unknown java.io.UnsupportedEncodingException #}St: =
     +- Op: >> Proxy Data Access [ token_source ] << {#unknown#}
     +- Op: Constructor {Lcat.quadriga.parsers.QuadrigaSimpleTokenManager;}
        +- Lcat.quadriga.parsers.QuadrigaSimpleTokenManager;
@@ -27918,18 +27857,18 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   }
   public ReInit
   Params
-  stream: Ljava.io.InputStream;
+  stream: #unknown java.io.InputStream #
   Block:
   +- Code:
      +- St: Proxy Call
         +- Op: >> Proxy Data Access [ ReInit ] << {#unknown#}
         +- Arguments
-           +- Op: Local variable access: stream {Ljava.io.InputStream;}
+           +- Op: Local variable access: stream {#unknown java.io.InputStream #}
            +- Op: Literal {Null type}
               +- Null
   public ReInit
   Params
-  stream: Ljava.io.InputStream;
+  stream: #unknown java.io.InputStream #
   encoding: Ljava.lang.String;
   Block:
   +- Code:
@@ -27939,20 +27878,20 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
      |  |     +- St: Proxy Call
      |  |        +- Op: >> Proxy Data Access [ jj_input_stream.ReInit ] << {#unknown#}
      |  |        +- Arguments
-     |  |           +- Op: Local variable access: stream {Ljava.io.InputStream;}
+     |  |           +- Op: Local variable access: stream {#unknown java.io.InputStream #}
      |  |           +- Op: Local variable access: encoding {Ljava.lang.String;}
      |  |           +- Op: Literal {I}
      |  |           |  +- Integer: 1
      |  |           +- Op: Literal {I}
      |  |              +- Integer: 1
-     |  +- catch {Local var "e" {Ljava.io.UnsupportedEncodingException;}}
+     |  +- catch {Local var "e" {#unknown java.io.UnsupportedEncodingException #}}
      |     +- Block:
      |        +- Code:
      |           +- throw
      |              +- Op: Constructor {Ljava.lang.RuntimeException;}
      |                 +- Ljava.lang.RuntimeException;
      |                 +- Arguments
-     |                    +- Op: Local variable access: e {Ljava.io.UnsupportedEncodingException;}
+     |                    +- Op: Local variable access: e {#unknown java.io.UnsupportedEncodingException #}
      +- St: Proxy Call
      |  +- Op: >> Proxy Data Access [ token_source.ReInit ] << {#unknown#}
      |  +- Arguments
@@ -27969,14 +27908,14 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
               +- Integer: 1
   public QuadrigaSimple
   Params
-  stream: Ljava.io.Reader;
+  stream: #unknown java.io.Reader #
   {
     St: =
     +- Op: >> Proxy Data Access [ jj_input_stream ] << {#unknown#}
     +- Op: Constructor {Lcat.quadriga.parsers.JavaCharStream;}
        +- Lcat.quadriga.parsers.JavaCharStream;
        +- Arguments
-          +- Op: Local variable access: stream {Ljava.io.Reader;}
+          +- Op: Local variable access: stream {#unknown java.io.Reader #}
           +- Op: Literal {I}
           |  +- Integer: 1
           +- Op: Literal {I}
@@ -27997,13 +27936,13 @@ import java.io.*;import java.util.*;import cat.quadriga.parsers.code.*;import ca
   }
   public ReInit
   Params
-  stream: Ljava.io.Reader;
+  stream: #unknown java.io.Reader #
   Block:
   +- Code:
      +- St: Proxy Call
      |  +- Op: >> Proxy Data Access [ jj_input_stream.ReInit ] << {#unknown#}
      |  +- Arguments
-     |     +- Op: Local variable access: stream {Ljava.io.Reader;}
+     |     +- Op: Local variable access: stream {#unknown java.io.Reader #}
      |     +- Op: Literal {I}
      |     |  +- Integer: 1
      |     +- Op: Literal {I}

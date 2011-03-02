@@ -6,6 +6,7 @@ import java.util.List;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
+import cat.quadriga.parsers.code.expressions.dataaccess.FieldOrMethodAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.MethodAccess;
 import cat.quadriga.parsers.code.proxy.ProxyDataAccess;
 import cat.quadriga.parsers.code.statements.CallToArguments;
@@ -18,7 +19,7 @@ public class CallToMethod extends ExpressionNodeClass {
   public final DataAccess  function;
   public final Method      methodToCall;
 
-  public CallToMethod(DataAccess  function, CallToArguments arguments) {
+  public CallToMethod(DataAccess function, CallToArguments arguments) {
     super(new CodeZoneClass(function, arguments));
     this.arguments = arguments;
     this.function = function;
@@ -40,8 +41,12 @@ public class CallToMethod extends ExpressionNodeClass {
         methodToCall = method.getMethods(finalMethod);
       }
       
-    } //else if() TODO algo amb els metodes-elements desconneguts
-    else {
+    } else if(function instanceof FieldOrMethodAccess) {
+      CallToMethod aux = new CallToMethod(
+                            ((FieldOrMethodAccess)function).getAsMethod(),
+                            arguments);
+      methodToCall = aux.methodToCall;
+    } else {
       methodToCall = null;
     }
   }

@@ -15,4 +15,14 @@ public class UnknownType extends BaseType {
   public boolean isValid() {
     return false;
   }
+
+  @Override
+  public boolean isMathematicallyOperable() {
+    return false;
+  }
+
+  @Override
+  public BaseType getMathematicResultType(BaseType other) {
+    return this;
+  }
 }
