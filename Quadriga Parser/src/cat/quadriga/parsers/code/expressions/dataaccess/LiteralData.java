@@ -269,7 +269,6 @@ public abstract class LiteralData extends DirectDataAccess {
     }
     @Override
     public BaseType getType() {
-      //TODO
       return Utils.createType(Class.class);
     }
   }

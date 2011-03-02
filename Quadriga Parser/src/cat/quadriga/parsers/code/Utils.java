@@ -8,6 +8,7 @@ import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.dataaccess.ArrayLengthAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.expressions.dataaccess.LocalVarAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.TypeDataAccess;
 import cat.quadriga.parsers.code.proxy.ProxyDataAccess;
@@ -94,7 +95,6 @@ abstract public class Utils {
       return new TypeDataAccess(((TypeSymbol)symbol).type, new CodeZoneClass(first,last));
     }
     
-    //TODO error?
     return new ProxyDataAccess("Proxy direct access [" + symbol.name + "]", new CodeZoneClass(first,last));
   }
   
@@ -107,15 +107,10 @@ abstract public class Utils {
       //static accesses
       BaseType type = tda.type;
       if("class".compareTo(member) == 0) {
-        //TODO
+        return new LiteralData.ClassLiteral((JavaType)type, cz);
       } else if(type instanceof ReferenceTypeRef) {
         
         return ((ReferenceTypeRef)type).getAccess(member, cz);
-        /*
-        return new StaticAccess(member, (ReferenceTypeRef)type, 
-                                expression.beginLine(), expression.beginColumn(),
-                                t.endLine, t.endColumn);
-                                */
       }
     } 
     BaseType type = expression.getType();

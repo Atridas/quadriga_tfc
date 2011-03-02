@@ -19,7 +19,6 @@ public class IfStatementNode extends StatementNode {
                           ErrorLog errorLog) {
     super( new CodeZoneClass(ifToken, (elseCode == null) ? ifCode : elseCode) );
     
-    //TODO comprovar tipus!
     this.conditionExpression = conditionExpression;
     this.ifCode = ifCode;
     this.elseCode = elseCode;

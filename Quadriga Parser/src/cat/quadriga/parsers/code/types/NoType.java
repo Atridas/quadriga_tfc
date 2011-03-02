@@ -8,4 +8,15 @@ public class NoType extends BaseType {
     super("No type");
   }
 
+  @Override
+  public boolean isMathematicallyOperable() {
+    return false;
+  }
+
+  @Override
+  public BaseType getMathematicResultType(BaseType other) {
+    return UnknownType.empty;
+  }
+
+  
 }

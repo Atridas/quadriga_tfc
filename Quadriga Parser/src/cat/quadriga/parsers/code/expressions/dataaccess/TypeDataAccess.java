@@ -2,6 +2,7 @@ package cat.quadriga.parsers.code.expressions.dataaccess;
 
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.NoType;
 
 public class TypeDataAccess extends DirectDataAccess {
 
@@ -24,7 +25,7 @@ public class TypeDataAccess extends DirectDataAccess {
 
   @Override
   public BaseType getType() {
-    return type;//TODO ??
+    return NoType.instance;
   }
 
   @Override

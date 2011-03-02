@@ -46,12 +46,20 @@ public class MathematicOperation extends BinaryExpressionNode {
     case RIGHT_UNSIGNED_SHIFT:
       return PrimitiveTypeRef.getFromType(PrimitiveTypeRef.Type.INT);
     case ADD: 
+      if("Ljava.lang.String;".compareTo(leftOperand.getType().getBinaryName()) == 0) {
+        return leftOperand.getType();
+      } else if("Ljava.lang.String;".compareTo(rightOperand.getType().getBinaryName()) == 0) {
+        return rightOperand.getType();
+      }
     case SUB: 
     case MUL: 
     case DIV: 
     case MOD:
-      //TODO currar-s'ho una mica
-      return leftOperand.getType();
+      if(leftOperand.getType().isMathematicallyOperable()) {
+        return UnknownType.empty;
+      } else {
+        return leftOperand.getType().getMathematicResultType(rightOperand.getType());
+      }
     default:
       return UnknownType.empty;
     }

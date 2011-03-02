@@ -1,14 +1,13 @@
 package cat.quadriga.parsers.code.symbols;
 
 import cat.quadriga.parsers.code.types.BaseType;
-import cat.quadriga.parsers.code.types.ReferenceTypeRef;
 
 public class TypeSymbol extends BaseSymbol {
 
   public final BaseType type;
   private final String[] alias;
   
-  public TypeSymbol(ReferenceTypeRef type) {
+  public TypeSymbol(BaseType type) {
     super(type.getClass().getCanonicalName());
     
     this.type = type;

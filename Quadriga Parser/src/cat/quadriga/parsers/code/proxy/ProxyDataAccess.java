@@ -10,9 +10,9 @@ import cat.quadriga.parsers.code.types.UnknownType;
 
 public class ProxyDataAccess extends ExpressionNodeClass implements DataAccess {
 
-  private final String name;
-  private final ExpressionNode indirect;
-  private final Class<?> clazz;
+  public final String name;
+  public final ExpressionNode indirect;
+  public final Class<?> clazz;
 
   public ProxyDataAccess(String name, CodeZone cz) {
     super(cz);

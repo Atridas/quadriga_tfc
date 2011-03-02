@@ -9,7 +9,7 @@ import cat.quadriga.parsers.code.types.NoType;
 
 public class MethodAccess extends MemberAccess {
   
-  private final Method[] methods;//TODO
+  private final Method[] methods;
   
   public final ExpressionNode reference;
 
