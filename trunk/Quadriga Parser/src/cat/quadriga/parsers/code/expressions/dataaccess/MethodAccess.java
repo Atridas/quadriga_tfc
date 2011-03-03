@@ -35,7 +35,11 @@ public class MethodAccess extends MemberAccess {
   
   @Override
   public String getOperation() {
-    return "Method:";
+    if(reference == null) {
+      return "Static Method:";
+    } else {
+      return "Method:";
+    }
   }
   
   @Override

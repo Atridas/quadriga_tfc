@@ -2016,6 +2016,7 @@ BaseType ClassOrInterfaceType(List<PrintInfo> out):
 {
   Token t, first, last;
   List<String> aux = new LinkedList<String>();
+  List<ParametrizedClass.ParameterClass> arguments = null;
   //List<PrintInfo> out = new LinkedList<PrintInfo>();
   BaseType type;
 }
@@ -2025,17 +2026,18 @@ BaseType ClassOrInterfaceType(List<PrintInfo> out):
     aux.add(t.image);
     first = last = t;
   }
-  [ LOOKAHEAD(2)TypeArguments(out)
-    //TODO type arguments
-  ]
+  (     LOOKAHEAD(2)arguments = TypeArguments(out)
+  |
+   {
+     arguments = null;   }
+  )
   ( LOOKAHEAD(2) "." t=<IDENTIFIER>
     {
       aux.add(t.image);
       last = t;
     }
-    [ LOOKAHEAD(2) TypeArguments(out)
-      {
-        //TODO;      }
+    [ LOOKAHEAD(2) arguments = TypeArguments(out)
+      //TODO reformular tot això
     ]
   )*
   {
@@ -2044,68 +2046,89 @@ BaseType ClassOrInterfaceType(List<PrintInfo> out):
     for(int i = 1; i < aux.size(); i++) {
 	  name += "." + aux.get(i);    }
     BaseSymbol symbol = symbolTable.findSymbol(name);
+    BaseType result = null;
     if(symbol != null) {
       if(symbol instanceof TypeSymbol) {
-        return ((TypeSymbol)symbol).type;      } else {
+        result = ((TypeSymbol)symbol).type;      } else {
         errorLog.insertError("El simbol \"" + name + "\" no és un tipus.", cz);
         return UnknownType.empty;       }    } else {
       errorLog.insertWarning("No s'ha trobat la classe \"" + name + "\".", cz);
-      return new UnknownType(name);    }  }
+      return new UnknownType(name);    }
+
+    //Type Arguments
+    if(arguments != null) {
+      if(result instanceof ClassOrInterfaceTypeRef) {
+        result = new ParametrizedClass((ClassOrInterfaceTypeRef)result, arguments);
+      } else {
+        result = new ParametrizedClass(result, arguments);      }    }
+    return result;  }
 }
 
-void TypeArguments(List<PrintInfo> out):
-{}
+List<ParametrizedClass.ParameterClass> TypeArguments(List<PrintInfo> out):
+{
+  List<ParametrizedClass.ParameterClass> arguments = new LinkedList<ParametrizedClass.ParameterClass>();
+  ParametrizedClass.ParameterClass argument;
+}
 {
    "<"
+   argument = TypeArgument()
    {
-     out.add(new PrintString("<"));
-   }
-   TypeArgument(out)
+     arguments.add(argument);   }
    ( ","
+     argument = TypeArgument()
      {
-       out.add(new PrintString(","));
-       out.add(PrintWhiteSpace.getInstance());
+       arguments.add(argument);
      }
-     TypeArgument(out)
    )* ">"
    {
-     out.add(new PrintString(">"));
+     return arguments;
    }
 }
 
-void TypeArgument(List<PrintInfo> out):
-{}
+ParametrizedClass.ParameterClass TypeArgument():
+{
+  ParametrizedClass.ParameterClass typeArgument;
+  BaseType base;
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
+}
 {
  ( 
-   ReferenceType(out)
+   base = ReferenceType(out)
+   {
+     typeArgument = new ParametrizedClass.ParameterClass(base);   }
  |
    "?"
-   {
-     out.add(new PrintString("?"));
-   }
-   [ {
-       out.add(PrintWhiteSpace.getInstance());
-     }
-     WildcardBounds(out)
-   ]
+   (
+     typeArgument = WildcardBounds()
+   |
+     {
+       typeArgument = new ParametrizedClass.ParameterClass();     }
+   )
  )
+ {   return typeArgument;
+ }
 }
 
-void WildcardBounds(List<PrintInfo> out):
+ParametrizedClass.ParameterClass WildcardBounds():
 {
-  Token t;
-  List<PrintInfo> other = new LinkedList<PrintInfo>();
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
+  ParametrizedClass.ParameterClass typeArgument;
+  BaseType base;
 }
 {
  (
-   t="extends" ReferenceType(other)
+   "extends" base=ReferenceType(out)
+   {
+     typeArgument = new ParametrizedClass.ParameterClass(base,ParametrizedClass.ParameterClass.Bound.EXTENDS);
+   }
  |
-   t="super" ReferenceType(other)
+   "super" base=ReferenceType(out)
+   {
+     typeArgument = new ParametrizedClass.ParameterClass(base,ParametrizedClass.ParameterClass.Bound.SUPER);
+   }
  )
  {
-   out.add(new PrintString(t.image));
-   out.add(PrintWhiteSpace.getInstance());
-   out.addAll(other);
+   return typeArgument;
  }
 }
 

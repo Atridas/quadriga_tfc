@@ -3,10 +3,12 @@ package cat.quadriga.parsers.code.types;
 import java.util.Map;
 import java.util.HashMap;
 
-public final class ClassOrInterfaceTypeRef extends ReferenceTypeRef {
+public class ClassOrInterfaceTypeRef extends ReferenceTypeRef {
+  
+  public Map<? extends String, ? super String> aux;
 
-  private ClassOrInterfaceTypeRef(Class<?> c) {
-    super(c, "L" + c.getCanonicalName() + ";");
+  protected ClassOrInterfaceTypeRef(Class<?> c) {
+    super(c, "L" + c.getCanonicalName().replace('.', '/') + ";");
   }
 
   private static Map<Class<?>, ClassOrInterfaceTypeRef> map = new HashMap<Class<?>, ClassOrInterfaceTypeRef>();

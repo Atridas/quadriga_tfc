@@ -1,6 +1,6 @@
 package cat.quadriga.parsers.code.types;
 
-public class ArrayType extends ReferenceTypeRef {
+public final class ArrayType extends ReferenceTypeRef {
   
   public final BaseType base;
   
@@ -12,7 +12,7 @@ public class ArrayType extends ReferenceTypeRef {
   
   private static Class<?> createArrayClass(BaseType base) {
     
-    String arrayClassName = "[" + base.getBinaryName();
+    String arrayClassName = "[" + base.getInstanceableName();
     
     try {
       return Class.forName(arrayClassName);

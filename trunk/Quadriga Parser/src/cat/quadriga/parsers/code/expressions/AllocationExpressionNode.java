@@ -10,6 +10,7 @@ import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.statements.CallToArguments;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
+import cat.quadriga.parsers.code.types.ParametrizedClass;
 
 public class AllocationExpressionNode extends ExpressionNodeClass {
   
@@ -37,10 +38,19 @@ public class AllocationExpressionNode extends ExpressionNodeClass {
   private Constructor<?> getConstructor() {
     List<ExpressionNode> calledArgs = arguments.arguments;
     
-    if(!(type instanceof ClassOrInterfaceTypeRef))
+    List<Constructor<?>> constructors;
+    if(type instanceof ParametrizedClass) {
+      BaseType base = ((ParametrizedClass)type).base;
+      if(base instanceof ClassOrInterfaceTypeRef) {
+        constructors = ((ClassOrInterfaceTypeRef)base).getConstuctors();
+      } else {
+        return null;
+      }
+    } else if(type instanceof ClassOrInterfaceTypeRef) {
+      constructors = ((ClassOrInterfaceTypeRef)type).getConstuctors();
+    } else {
       return null;
-    
-    List<Constructor<?>> constructors = ((ClassOrInterfaceTypeRef)type).getConstuctors();
+    }
     
     Class<?>[][] realArgs = new Class<?>[constructors.size()][];
     for(int i = 0; i < constructors.size(); i++) {
