@@ -19,7 +19,7 @@ import cat.quadriga.parsers.code.expressions.dataaccess.FieldOrMethodAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.MethodAccess;
 import cat.quadriga.parsers.code.proxy.ProxyDataAccess;
 
-public class ReferenceTypeRef extends JavaType {
+public abstract class ReferenceTypeRef extends JavaType {
   
   private final Map<String, List<AccessibleObject>> ambiguousNames = new HashMap<String, List<AccessibleObject>>();
   private final Map<String, Field> fields = new HashMap<String, Field>();

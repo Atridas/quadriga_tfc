@@ -28,7 +28,11 @@ public class CallToArguments extends StatementNode {
   }
 
   private String getOperation() {
-    return "Arguments";
+    if(arguments.size() == 0) {
+      return "No Arguments";
+    } else {
+      return "Arguments";
+    }
   }
 
   
