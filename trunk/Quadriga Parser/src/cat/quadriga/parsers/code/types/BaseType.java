@@ -1,34 +1,14 @@
 package cat.quadriga.parsers.code.types;
 
-public abstract class BaseType {
+public interface BaseType {
 
-  private final String binaryName;
-  private final String instanceableName;
+  String getBinaryName();
   
-  public BaseType(String binaryName) {
-    this.binaryName = binaryName;
-    int aux0 = binaryName.indexOf('<');
-    String aux1 = (aux0 >= 0)?binaryName.substring(0, aux0) : binaryName;
-    this.instanceableName = aux1.replace('/', '.');
-  }
+  String getInstanceableName();
   
-  public final String getBinaryName() {
-    return binaryName;
-  }
+  boolean isValid();
   
-  public final String getInstanceableName() {
-    return instanceableName;
-  }
+  boolean isMathematicallyOperable();
   
-  public boolean isValid() {
-    return true;
-  }
-  
-  public String toString() {
-    return binaryName;
-  }
-  
-  public abstract boolean isMathematicallyOperable();
-  
-  public abstract BaseType getMathematicResultType(BaseType other);
+  BaseType getMathematicResultType(BaseType other);
 }

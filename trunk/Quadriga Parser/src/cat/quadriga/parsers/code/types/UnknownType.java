@@ -1,6 +1,6 @@
 package cat.quadriga.parsers.code.types;
 
-public class UnknownType extends BaseType {
+public class UnknownType extends BaseTypeClass {
 
   public static final UnknownType empty = new UnknownType();
 
