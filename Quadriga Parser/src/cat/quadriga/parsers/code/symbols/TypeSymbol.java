@@ -8,10 +8,10 @@ public class TypeSymbol extends BaseSymbol {
   private final String[] alias;
   
   public TypeSymbol(BaseType type) {
-    super(type.getClass().getCanonicalName());
+    super(type.getBinaryName());
     
     this.type = type;
-    String aux[] = name.split(".");
+    String aux[] = name.split("\\.");
     if(aux.length > 1) {
       this.alias = new String[1];
       this.alias[0] = aux[aux.length - 1];

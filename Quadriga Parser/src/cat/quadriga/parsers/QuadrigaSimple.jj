@@ -49,6 +49,7 @@ import cat.quadriga.parsers.code.proxy.*;
 import cat.quadriga.parsers.code.statements.*;
 import cat.quadriga.parsers.code.symbols.*;
 import cat.quadriga.parsers.code.types.*;
+import cat.quadriga.parsers.code.types.qua.*;
 
 /**
  * Grammar to parse Java version 1.5
@@ -148,9 +149,24 @@ public class QuadrigaSimple
 
    private ErrorLog errorLog = new ErrorLog();
 
-   private SymbolTable symbolTable = new SymbolTable();
+   public final SymbolTable symbolTable = new SymbolTable();
 
    private BlockCode.TmpBlockCode localBlock = null;
+
+   private String currentFile;
+
+   private Set<String> dependencies = new HashSet<String>();
+
+   private void addDependency(String dependency) {
+     if(dependency != null
+        && currentFile.compareTo(dependency) != 0
+        && !dependencies.contains(dependency)
+       )
+     {
+       dependencies.add( dependency );       }   }
+
+   public Set<String> getDependences() {
+     return Collections.unmodifiableSet(dependencies);   }
 
    public QuadrigaSimple(String fileName)
    {
@@ -207,7 +223,8 @@ class ParameterClass
   BaseType type;
   String name;
   boolean varargs = false;
-  int modifiers;}
+  int modifiers;
+  ExpressionNode init;}
 
 PARSER_END(QuadrigaSimple)
 
@@ -312,6 +329,38 @@ TOKEN :
 | < VOLATILE: "volatile" >
 | < WHILE: "while" >
 }
+
+// Quadriga Tokens:
+
+TOKEN :
+{    < AT_REMOVE:    "@remove" >
+  | < AT_ADD:       "@add" >
+  | < AT_SYSTEM:    "@system" >
+  | < AT_STRUCT:    "@struct" >
+  | < AT_COMPONENT: "@component" >
+  | < AT_PROTOTYPE: "@prototype" >
+  | < AT_CONST:     "@const" >
+  | < AT_COMPONENTS:      "@components" >
+  | < AT_ADDITIONAL_INFO: "@additionalInfo" >
+  | < AT_EXTERN_INFO:     "@externInfo" >
+  | < AT_EVENT:           "@event" >
+  | < AT_NEW_ENTITY:      "@newEntity" >
+  | < AT_ERASE_ENTITY:    "@eraseEntity" >
+  | < AT_CHANGE:   "@change" >
+  | < AT_UPDATE:   "@update" >
+  | < AT_QUADRIGA: "@quadriga" >
+  | < AT_THREAD:   "@thread" >
+  | < AT_INIT:     "@init" >
+  | < AT_SYSTEMS:  "@systems" >
+  | < AT_AFFECTED_SYSTEMS: "@affectedSystems" >
+  | < AT_CHANGED: "@changed" >
+  | < AT_DISCARD: "@discard" >
+  | < AT_OLD:     "@old" >
+  | < AT_CHILD:   "@child" >
+  | < AT_JAVA:    "@java" >
+  | < AT_MAIN:    "@main" >
+
+}   
 
 /* LITERALS */
 
@@ -1357,13 +1406,13 @@ void ExtendsList(boolean isInterface, List<PrintInfo> out):
      out.add(new PrintString("extends"));
      out.add(PrintWhiteSpace.getInstance());
    }
-   ClassOrInterfaceType(out)
+   ClassOrInterfaceType()
    ( "," 
      {
        out.add(new PrintString(","));
        out.add(PrintWhiteSpace.getInstance());
      }
-     ClassOrInterfaceType(out) { extendsMoreThanOne = true; }
+     ClassOrInterfaceType() { extendsMoreThanOne = true; }
    )*
    {
       if (extendsMoreThanOne && !isInterface)
@@ -1379,13 +1428,13 @@ void ImplementsList(boolean isInterface, List<PrintInfo> out):
      out.add(new PrintString("implements"));
      out.add(PrintWhiteSpace.getInstance());
    }
-   ClassOrInterfaceType(out)
+   ClassOrInterfaceType()
    ( "," 
      {
        out.add(new PrintString(","));
        out.add(PrintWhiteSpace.getInstance());
      }
-     ClassOrInterfaceType(out)
+     ClassOrInterfaceType()
    )*
    {
       if (isInterface)
@@ -1505,14 +1554,14 @@ void TypeBound(List<PrintInfo> out):
      out.add(new PrintString("extends"));
      out.add(PrintWhiteSpace.getInstance());
    }
-   ClassOrInterfaceType(out)
+   ClassOrInterfaceType()
    ( "&"
      {
        out.add(PrintWhiteSpace.getInstance());
        out.add(new PrintString("&"));
        out.add(PrintWhiteSpace.getInstance());
      }
-     ClassOrInterfaceType(out)
+     ClassOrInterfaceType()
    )*
 }
 
@@ -1584,7 +1633,7 @@ void FieldDeclaration(int modifiers, List<PrintInfo> out):
 }
 {
   // Modifiers are already matched in the caller
-  tipus = Type(out)
+  tipus = Type()
   {
     out.add(PrintWhiteSpace.getInstance());
   }
@@ -1718,7 +1767,7 @@ void MethodDeclaration(int modifiers, List<PrintInfo> out):
   {
     out.add(PrintWhiteSpace.getInstance());
   }
-  ResultType(out)
+  ResultType()
   {
     out.add(PrintWhiteSpace.getInstance());
   }
@@ -1814,6 +1863,7 @@ ParameterClass FormalParameter():
   ParameterClass param = new ParameterClass();
   List<PrintInfo> out = new LinkedList<PrintInfo>();
   VarAndInit vai;
+  ExpressionNode init = null;
 }
 {
   // danson, added
@@ -1829,7 +1879,7 @@ ParameterClass FormalParameter():
     }
     
   ]
-  type = Type(out)
+  type = Type()
   [ "..."
   {
     type = new ArrayType(type);
@@ -1837,11 +1887,13 @@ ParameterClass FormalParameter():
   }
   ]
   vai = VariableDeclaratorId(type)
+  [ "=" init = Expression() ]
   {
     param.name = vai.name.image;
     param.cz = new CodeZoneClass(vai.name);
     param.modifiers = modifiers;
     param.type = vai.type;
+    param.init = init;
     return param;  }
 }
 
@@ -1938,7 +1990,7 @@ void ExplicitConstructorInvocation(List<PrintInfo> out):
       out.add(new PrintString("."));
     }
   ]
-  [ TypeArguments(out) ]
+  [ TypeArguments() ]
   ( "this"
     {
       out.add(new PrintString("this"));
@@ -1972,36 +2024,36 @@ void Initializer(List<PrintInfo> out):
  * Type, name and expression syntax follows.
  */
 
-BaseType Type(List<PrintInfo> out):
+BaseType Type():
 {
   BaseType t;
 }
 {
   ( 
-    LOOKAHEAD(2) t = ReferenceType(out)
+    LOOKAHEAD(2) t = ReferenceType()
   |
-    t = PrimitiveType(out)
+    t = PrimitiveType()
   )
-  {    out.add(new PrintString(t.getBinaryName()));
+  {
     return t;
   }
 }
 
-BaseType ReferenceType(List<PrintInfo> out):
+BaseType ReferenceType():
 {
   BaseType type;
 }
 {
   (
     
-    type = PrimitiveType(out)
+    type = PrimitiveType()
     ( LOOKAHEAD(2) "[" "]"
       {
         type = new ArrayType(type);
       }
     )+
   |
-    type = ClassOrInterfaceType(out) 
+    type = ClassOrInterfaceType() 
     ( LOOKAHEAD(2) "[" "]"
       {
         type = new ArrayType(type);
@@ -2012,12 +2064,12 @@ BaseType ReferenceType(List<PrintInfo> out):
   }
 }
 
-BaseType ClassOrInterfaceType(List<PrintInfo> out):
+BaseType ClassOrInterfaceType():
 {
   Token t, first, last;
   List<String> aux = new LinkedList<String>();
   List<ParametrizedClass.ParameterClass> arguments = null;
-  //List<PrintInfo> out = new LinkedList<PrintInfo>();
+  List<PrintInfo> out = new LinkedList<PrintInfo>();
   BaseType type;
 }
 {
@@ -2026,7 +2078,7 @@ BaseType ClassOrInterfaceType(List<PrintInfo> out):
     aux.add(t.image);
     first = last = t;
   }
-  (     LOOKAHEAD(2)arguments = TypeArguments(out)
+  (     LOOKAHEAD(2)arguments = TypeArguments()
   |
    {
      arguments = null;   }
@@ -2036,7 +2088,7 @@ BaseType ClassOrInterfaceType(List<PrintInfo> out):
       aux.add(t.image);
       last = t;
     }
-    [ LOOKAHEAD(2) arguments = TypeArguments(out)
+    [ LOOKAHEAD(2) arguments = TypeArguments()
       //TODO reformular tot això
     ]
   )*
@@ -2064,7 +2116,7 @@ BaseType ClassOrInterfaceType(List<PrintInfo> out):
     return result;  }
 }
 
-List<ParametrizedClass.ParameterClass> TypeArguments(List<PrintInfo> out):
+List<ParametrizedClass.ParameterClass> TypeArguments():
 {
   List<ParametrizedClass.ParameterClass> arguments = new LinkedList<ParametrizedClass.ParameterClass>();
   ParametrizedClass.ParameterClass argument;
@@ -2089,11 +2141,10 @@ ParametrizedClass.ParameterClass TypeArgument():
 {
   ParametrizedClass.ParameterClass typeArgument;
   BaseType base;
-  List<PrintInfo> out = new LinkedList<PrintInfo>();
 }
 {
  ( 
-   base = ReferenceType(out)
+   base = ReferenceType()
    {
      typeArgument = new ParametrizedClass.ParameterClass(base);   }
  |
@@ -2117,12 +2168,12 @@ ParametrizedClass.ParameterClass WildcardBounds():
 }
 {
  (
-   "extends" base=ReferenceType(out)
+   "extends" base=ReferenceType()
    {
      typeArgument = new ParametrizedClass.ParameterClass(base,ParametrizedClass.ParameterClass.Bound.EXTENDS);
    }
  |
-   "super" base=ReferenceType(out)
+   "super" base=ReferenceType()
    {
      typeArgument = new ParametrizedClass.ParameterClass(base,ParametrizedClass.ParameterClass.Bound.SUPER);
    }
@@ -2133,7 +2184,7 @@ ParametrizedClass.ParameterClass WildcardBounds():
 }
 
 
-PrimitiveTypeRef PrimitiveType(List<PrintInfo> out):
+PrimitiveTypeRef PrimitiveType():
 {
   Token t;
 }
@@ -2160,7 +2211,7 @@ PrimitiveTypeRef PrimitiveType(List<PrintInfo> out):
   }
 }
 
-BaseType ResultType(List<PrintInfo> out):
+BaseType ResultType():
 {
   BaseType type;
   Token t;
@@ -2172,7 +2223,7 @@ BaseType ResultType(List<PrintInfo> out):
         type = PrimitiveTypeRef.getFromName(t.image);
       }
     |
-      type = Type(out)
+      type = Type()
     )
     {      return type;
     }
@@ -2410,7 +2461,7 @@ ExpressionNode InstanceOfExpression():
 {
   finalNode = RelationalExpression()
   [ t="instanceof" { operator = BooleanOperation.Operator.INSTANCEOF; }
-    Type(out)
+    Type()
     {
       auxiliarNode = new ProxyExpression(out,new CodeZoneClass(t));
       finalNode = new BooleanOperation(operator,finalNode,auxiliarNode);    }
@@ -2593,16 +2644,15 @@ ExpressionNode UnaryExpressionNotPlusMinus():
 // this.
 void CastLookahead():
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>();
 }
 {
   LOOKAHEAD(2)
-  "(" PrimitiveType(out)
+  "(" PrimitiveType()
 |
   LOOKAHEAD("(" Type() "[")
-  "(" Type(out) "[" "]"
+  "(" Type() "[" "]"
 |
-  "(" Type(out) ")" ( "~" | "!" | "(" | <IDENTIFIER> | "this" | "super" | "new" | Literal() )
+  "(" Type() ")" ( "~" | "!" | "(" | <IDENTIFIER> | "this" | "super" | "new" | Literal() )
 }
 
 ExpressionNode PostfixExpression():
@@ -2633,9 +2683,9 @@ ExpressionNode CastExpression():
 {
   (
     LOOKAHEAD("(" PrimitiveType())
-    t="(" type=Type(out) ")" finalNode = UnaryExpression()
+    t="(" type=Type() ")" finalNode = UnaryExpression()
   |
-    t="(" type=Type(out) ")" finalNode = UnaryExpressionNotPlusMinus()
+    t="(" type=Type() ")" finalNode = UnaryExpressionNotPlusMinus()
   )
   {
     return new CastExpressionNode(t, type, finalNode);
@@ -2658,11 +2708,10 @@ ExpressionNode PrimaryExpression():
 
 ExpressionNode MemberSelector(ExpressionNode in):
 {
-  List<PrintInfo> other = new LinkedList<PrintInfo>();
   Token t, t2;
 }
 {
-  t="." TypeArguments(other) t2=<IDENTIFIER>
+  t="." TypeArguments() t2=<IDENTIFIER>
   {
     //TODO arguments
     return new ProxyDataAccess( "parametrized " + t.image, in, new CodeZoneClass(t, t2));
@@ -2710,7 +2759,7 @@ ExpressionNode PrimaryPrefix():
      //   Buffer.super.setDirty(true);
      // See Java Language Specification, 3rd edition, section 15.11.2.
      LOOKAHEAD( ClassOrInterfaceType() "." "super" "." <IDENTIFIER> )
-     type = ClassOrInterfaceType(out) t="." "super" "." t2=<IDENTIFIER>
+     type = ClassOrInterfaceType() t="." "super" "." t2=<IDENTIFIER>
      {
        //TODO
       result = new ProxyExpression(type + ".super." + t.image, new CodeZoneClass(t, t2));
@@ -2721,7 +2770,7 @@ ExpressionNode PrimaryPrefix():
     result = AllocationExpression(null)
   |
     LOOKAHEAD( ResultType() "." "class" )
-    type = ResultType(out) t="." t2="class"
+    type = ResultType() t="." t2="class"
     {
       result = new LiteralData.ClassLiteral(type, new CodeZoneClass(t, t2));
     }
@@ -2900,11 +2949,11 @@ ExpressionNode AllocationExpression(ExpressionNode in):
   (
     
     LOOKAHEAD(2)
-    t="new" type = PrimitiveType(other) exp = ArrayDimsAndInits(type, t)
+    t="new" type = PrimitiveType() exp = ArrayDimsAndInits(type, t)
   |
     t="new"
-    type = ClassOrInterfaceType(out)
-    [ TypeArguments(out)
+    type = ClassOrInterfaceType()
+    [ TypeArguments()
       //TODO
     ]
       (
@@ -3120,7 +3169,7 @@ StatementList LocalVariableDeclaration():
   List<StatementNode > initializers = new LinkedList<StatementNode >();
 }
 {
-  modifiers=Modifiers(out) type = Type(out) var=VariableDeclarator(modifiers,type)
+  modifiers=Modifiers(out) type = Type() var=VariableDeclarator(modifiers,type)
   {
     if(var.init != null) {
       initializers.add(var.init);    }  }
@@ -3345,7 +3394,7 @@ StatementNode ForStatement():
 
   (
       LOOKAHEAD(Modifiers() Type() <IDENTIFIER> ":")
-      mods = Modifiers(out) type = Type(out) t2=<IDENTIFIER> ":"
+      mods = Modifiers(out) type = Type() t2=<IDENTIFIER> ":"
       iterable = Expression()
       {
         LocalVariableSymbol it = new LocalVariableSymbol(mods, type, t2.image);
@@ -3751,7 +3800,7 @@ void AnnotationTypeMemberDeclaration(List<PrintInfo> out):
  modifiers = Modifiers(out)
  (
    LOOKAHEAD(Type() <IDENTIFIER> "(")
-   Type(out) t=<IDENTIFIER> "(" ")"
+   Type() t=<IDENTIFIER> "(" ")"
    {
      out.add(new PrintString(t.image));
      out.add(new PrintString("("));
@@ -3783,4 +3832,207 @@ void DefaultValue(List<PrintInfo> out):
      out.add(PrintWhiteSpace.getInstance());
   }
   MemberValue(out)
+}
+
+
+// Coses de quadriga a partir d'aqui:
+
+void QuadrigaUnit():
+{
+  String packa;}
+{
+  ( packa = QuadrigaPackageDeclaration()
+  | { packa = ""; }
+  )
+
+  ( QuadrigaDeclaration() [";"] )+    
+
+  ( < "\u001a" > )?
+  ( <STUFF_TO_IGNORE_BIS: ~[]> )?
+  <EOF>}
+
+String QuadrigaPackageDeclaration():
+{
+  List<Token> name;}
+{
+  "@quadriga" name = Name() [";"]
+  {
+    String res = "";
+    boolean first = true;
+    for(Token t: name) {
+      if(!first) {
+        res += "." + t.image;      } else {
+        res = t.image;
+        first = false;      }    }
+    currentFile = res.replace('.', '/');
+    return res;  }}
+
+void QuadrigaDeclaration():
+{}
+{
+  JavaImport()
+| ComponentDeclaration()
+| PrototypeDeclaration()}
+
+void JavaImport():
+{
+  List<Token> name;}
+{
+  "@java"  name = Name()
+  {
+    String res = "";
+    boolean first = true;
+    for(Token t: name) {
+      if(!first) {
+        res += "." + t.image;
+      } else {
+        res = t.image;
+        first = false;
+      }
+    }
+	try {
+	  Class<?> clazz = Class.forName(res);
+	  BaseSymbol symbol = new TypeSymbol(ClassOrInterfaceTypeRef.getFromClass(clazz));
+	  symbolTable.addGlobalSymbol(symbol);
+    } catch (ClassNotFoundException e) {
+	  //TODO revisar això
+	  BaseSymbol symbol = new TypeSymbol(UnknownType.empty);
+	  symbolTable.addGlobalSymbol(symbol);
+    }
+  }}
+
+void ComponentDeclaration():
+{
+  Token t;
+  Component component = null;
+  List<Token> name;
+  BaseType type;
+  ExpressionNode initialization = null;
+}
+{
+  "@component" 
+  (
+    LOOKAHEAD( 2 ) 
+    t= < IDENTIFIER >
+    {
+      IncompleteComponent iComponent = new IncompleteComponent(currentFile.replace('/','.') + t.image);    }
+    "{"
+        (
+          // Dependencies
+          "*" name = Name() [";"]
+          {
+            iComponent.addDependency(name, symbolTable, errorLog);            }
+        )*
+        ( type = Type()
+          t = < IDENTIFIER >
+          [ "=" initialization = Expression() ] [";"]
+          {
+            iComponent.fields.add(new Component.ComponentField(
+                                           type, t.image, initialization
+                                                                )
+                                 );          }         )*
+    "}"
+    {
+      component = new CompleteComponent(iComponent);    }
+  |
+    name = Name()
+    {
+      String res = "";
+      String dependency = null;
+      for(int i = 0; i < name.size(); i++) {
+        if(i == name.size() - 1)
+        {
+          dependency = res;
+        }
+        if(i != 0) {
+          res += "." + name.get(i).image;
+        } else {
+          res = name.get(i).image;
+        }
+      }
+      if(name.size() == 1)      {
+        component = new ProxyComponent(currentFile.replace('/','.') + res);      } else      {
+        BaseSymbol symbol = symbolTable.findSymbol(res);
+        if(symbol != null) {
+          if(symbol instanceof TypeSymbol
+             && ((TypeSymbol)symbol).type instanceof Component)
+          {
+            component = null; //Ja hi és a la taula de símbols          } else          {
+            component = new ProxyComponent(res);
+            errorLog.insertError("El símbol " + res + " no és un component",
+                                 new CodeZoneClass(name.get(0),name.get(name.size()-1)));          }        } else {          component = new ProxyComponent(res);
+          addDependency(dependency);
+        }
+      }
+    }
+  )
+  {
+    if(component != null) {
+      BaseSymbol symbol = new TypeSymbol(component);
+	  symbolTable.addSymbol(symbol);
+    }
+  }
+}
+
+void PrototypeDeclaration():
+{
+  Token t;
+  Prototype prototype = null;
+  List<Token> name;
+  List<ParameterClass> parameters = new LinkedList<ParameterClass>();
+}
+{
+  "@prototype" 
+  (
+    LOOKAHEAD( 2 ) 
+    t= < IDENTIFIER > [ parameters=FormalParameters() ]
+    "{"
+        //TODO!!!!
+    "}"
+  |
+    name = Name()
+    {
+      String res = "";
+      String dependency = null;
+      for(int i = 0; i < name.size(); i++) {
+        if(i == name.size() - 1)
+        {
+          dependency = res;
+        }
+        if(i != 0) {
+          res += "." + name.get(i).image;
+        } else {
+          res = name.get(i).image;
+        }
+      }
+      if(name.size() == 1)
+      {
+        prototype = new ProxyPrototype(currentFile.replace('/','.') + res);
+      } else
+      {
+        BaseSymbol symbol = symbolTable.findSymbol(res);
+        if(symbol != null) {
+          if(symbol instanceof TypeSymbol
+             && ((TypeSymbol)symbol).type instanceof Prototype)
+          {
+            prototype = null; //Ja hi és a la taula de símbols
+          } else
+          {
+            prototype = new ProxyPrototype(res);
+            errorLog.insertError("El símbol " + res + " no és un prototip",
+                                 new CodeZoneClass(name.get(0),name.get(name.size()-1)));
+          }
+        } else {
+          prototype = new ProxyPrototype(res);
+          addDependency(dependency);
+        }
+      }
+    }
+  )
+  {
+    if(prototype != null) {
+      BaseSymbol symbol = new TypeSymbol(prototype);
+      symbolTable.addSymbol(symbol);
+    }
+  }
 }

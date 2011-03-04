@@ -1,6 +1,6 @@
 package cat.quadriga.parsers.code.types;
 
-public class NoType extends BaseType {
+public class NoType extends BaseTypeClass {
   
   public static NoType instance = new NoType();
 
@@ -18,5 +18,9 @@ public class NoType extends BaseType {
     return UnknownType.empty;
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    return obj == this;
+  }
   
 }
