@@ -1,0 +1,80 @@
+@quadriga cat.quadriga.base
+
+@component Transform {
+  Vector3f position   = Vector3f();
+  Vector3f scale      = Vector3f();
+  Quaternion rotation = Quaternion();
+}
+
+
+//@component Materials {}
+
+@component StaticMeshRenderer {
+  * Transform
+  String mesh;
+  int[] materials;
+}
+
+@component CilynderRenderer {
+  * Transform
+  float radi = 1.0f;
+  Vector3f pos1 = 0.0f;
+  Vector3f pos2 = 1.0f;
+}
+
+@component TexturedQuad {
+  String   texture  = "";
+  Vector3f position = Vector3f();
+}
+
+@component FontQuad {
+  String text       = "";
+  Vector3f position = Vector3f();
+  Vector4f color    = Vector4f();
+}
+
+@component BillboardRenderer {
+  * Transform
+}
+
+@prototype TexturedQuadPrototype {
+  Transform()
+  TexturedQuad()
+}
+
+@prototype FontQuadPrototype {
+  Transform()
+  FontQuad()
+}
+
+
+// ------------------------------------------------------------------------------------
+
+@prototype SceneComponent {
+  Entity<CameraComponent> camera;
+}
+
+@component CameraComponent {
+  Vector3f position = Vector3f(0,0,0);
+  Vector3f lookAt   = Vector3f(0,0,1);
+  Vector3f up       = Vector3f(0,1,0);
+}
+
+@prototype SimpleCamera {
+  CameraComponent()
+}
+
+@system SimpleStaticMeshRenderer {
+  @components {
+    Transform
+    StaticMeshRenderer
+  }
+  
+  @update(Entity<Transform, StaticMeshRenderer> entity : ENTITY) {
+    entity[Transform].position = entity[Transform].scale;
+  }
+}
+
+@thread SimpleRenderThread {
+  @system SimpleStaticMeshRenderer
+}
