@@ -1,26 +1,51 @@
 @quadriga riskppt3d.demo
 
+
+@import cat.quadriga.base.Transform
 @import cat.quadriga.base.SimpleRenderThread
+@import cat.quadriga.base.SceneComponent
+@import cat.quadriga.base.SimpleCamera
+
 
 @import riskppt3d.planeta.Planeta
 @import riskppt3d.aresta.Aresta
 
-@scene SimpleDemo {
-  Planeta( hue = 0.0f,   Transform.position = Vect3f(0.0f, 0.0f, 6.0f) ) : "Planeta1"
-  Planeta( hue = 0.0f,   Transform.position = Vect3f(0.0f, 6.0f, 2.0f) ) : "Planeta2"
-  Planeta( hue = 0.0f,   Transform.position = Vect3f(0.0f, 6.0f, 6.0f) ) : "Planeta3"
-  
-  Planeta( hue = 180.0f, Transform.position = Vect3f(6.0f, 0.0f, 0.0f) ) : "Planeta4"
-  Planeta( hue = 180.0f, Transform.position = Vect3f(2.0f, 6.0f, 0.0f) ) : "Planeta5"
-  Planeta( hue = 180.0f, Transform.position = Vect3f(6.0f, 6.0f, 0.0f) ) : "Planeta6"
-  
-  Aresta( planeta1 = "Planeta1", planeta2 = "Planeta2" )
-  Aresta( planeta1 = "Planeta2", planeta2 = "Planeta3" )
-  Aresta( planeta1 = "Planeta1", planeta2 = "Planeta3" )
-  
-  Aresta( planeta1 = "Planeta4", planeta2 = "Planeta5" )
-  Aresta( planeta1 = "Planeta4", planeta2 = "Planeta6" )
-  Aresta( planeta1 = "Planeta5", planeta2 = "Planeta6" )
+@prototype SimpleDemo {
+  Transform()
 
-  Aresta( planeta1 = "Planeta2", planeta2 = "Planeta5" )
+  @child {
+    Planeta( hue = 0.0f,   Transform.position = Vector3f(0.0f, 0.0f,  0.0f) ) : "Planeta1"
+    Planeta( hue = 0.0f,   Transform.position = Vector3f(0.0f, 4.5f,  2.0f) ) : "Planeta2"
+    Planeta( hue = 0.0f,   Transform.position = Vector3f(0.0f, 9.0f, -2.0f) ) : "Planeta3"
+    
+    Planeta( hue = 180.0f, Transform.position = Vector3f(6.0f, 0.0f, 0.0f) ) : "Planeta4"
+    Planeta( hue = 180.0f, Transform.position = Vector3f(2.0f, 6.0f, 2.0f) ) : "Planeta5"
+    Planeta( hue = 180.0f, Transform.position = Vector3f(6.0f, 6.0f, 4.0f) ) : "Planeta6"
+    
+    Aresta( planeta1 = this["Planeta1"], planeta2 = this["Planeta2"] )
+    Aresta( planeta1 = this["Planeta2"], planeta2 = this["Planeta3"] )
+    Aresta( planeta1 = this["Planeta1"], planeta2 = this["Planeta3"] )
+    
+    Aresta( planeta1 = this["Planeta4"], planeta2 = this["Planeta5"] )
+    Aresta( planeta1 = this["Planeta4"], planeta2 = this["Planeta6"] )
+    Aresta( planeta1 = this["Planeta5"], planeta2 = this["Planeta6"] )
+
+    Aresta( planeta1 = this["Planeta2"], planeta2 = this["Planeta5"] )
+    
+    SimpleCamera( CameraComponent.position = Vector3f(-1.0f, -1.0f, 2.0f), CameraComponent.lookAt = Vector3f(0.0f,0.0f,0.0f)) : "Camera"
+  }
+
+  SceneComponent( camera = this["Camera"] )
+}
+
+@main DemoMain {
+  @quadriga riskppt3d.planeta : interpreted
+  @quadriga riskppt3d.aresta : interpreted
+  
+  @init {
+    @newEntity["BaseScene"] SimpleDemo()
+  }
+  
+  @thread SimpleRenderThread
+  
 }
