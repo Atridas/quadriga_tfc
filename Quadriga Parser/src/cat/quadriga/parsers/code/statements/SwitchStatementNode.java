@@ -10,7 +10,7 @@ import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 
-public class SwitchStatementNode extends StatementNode {
+public class SwitchStatementNode extends StatementNodeClass {
   
   public final ExpressionNode input;
   public final List<CaseNode> cases;
@@ -49,11 +49,11 @@ public class SwitchStatementNode extends StatementNode {
 
   public final static class CaseNode {
     public final ExpressionNode cas;
-    public final List<BlockStatementNode> statements;
+    public final List<StatementNode> statements;
     
-    public CaseNode(ExpressionNode cas, List<BlockStatementNode> statements) {
+    public CaseNode(ExpressionNode cas, List<StatementNode> statements) {
       this.cas = cas;
-      this.statements = Collections.unmodifiableList(new Vector<BlockStatementNode>(statements));
+      this.statements = Collections.unmodifiableList(new Vector<StatementNode>(statements));
     }
     
     public String toString() {
@@ -61,7 +61,7 @@ public class SwitchStatementNode extends StatementNode {
       if(cas != null) {
         args.add(cas.treeStringRepresentation());
       }
-      for(BlockStatementNode statement : statements) {
+      for(StatementNode statement : statements) {
         args.add(statement.treeStringRepresentation());
       }
       String[] aux = args.toArray(new String[args.size()]);

@@ -10,13 +10,13 @@ import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 
-public class BlockCode extends StatementNode {
+public class BlockCode extends StatementNodeClass {
 
   public final List<LocalVariableSymbol> localVariables;
-  public final List<BlockStatementNode> statements;
+  public final List<StatementNode> statements;
   
   private BlockCode(List<LocalVariableSymbol> localVariables,
-                    List<BlockStatementNode> statements,
+                    List<StatementNode> statements,
                     CodeZone cz) {
     super(cz);
     this.localVariables = Collections.unmodifiableList(localVariables);
@@ -40,7 +40,7 @@ public class BlockCode extends StatementNode {
 
     String carr[] = new String[statements.size()];
     i = 0;
-    for(BlockStatementNode c : statements) {
+    for(StatementNode c : statements) {
       carr[i++] = c.treeStringRepresentation();
     }
     String code = Utils.treeStringRepresentation("Code:", 
@@ -61,13 +61,13 @@ public class BlockCode extends StatementNode {
   public static final class TmpBlockCode {
     private int beginLine, beginColumn, endLine, endColumn;
     public final List<LocalVariableSymbol> localVariables;
-    public final List<BlockStatementNode> statements;
+    public final List<StatementNode> statements;
     public TmpBlockCode(Token t) {
       beginLine   = endLine   = t.beginLine;
       beginColumn = endColumn = t.beginColumn;
       
       localVariables = new LinkedList<LocalVariableSymbol>();
-      statements     = new LinkedList<BlockStatementNode>();
+      statements     = new LinkedList<StatementNode>();
     }
     
     public void setEndToken(Token t) {
@@ -78,7 +78,7 @@ public class BlockCode extends StatementNode {
     public void addLocalVariable(LocalVariableSymbol local) {
       localVariables.add(local);
     }
-    public void addStatement(BlockStatementNode statement) {
+    public void addStatement(StatementNode statement) {
       statements.add(statement);
     }
     

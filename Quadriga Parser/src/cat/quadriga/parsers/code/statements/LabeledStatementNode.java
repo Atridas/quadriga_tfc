@@ -7,7 +7,7 @@ import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.symbols.LabelSymbol;
 import cat.quadriga.parsers.code.symbols.SymbolTable;
 
-public class LabeledStatementNode extends StatementNode {
+public class LabeledStatementNode extends StatementNodeClass {
   
   public final LabelSymbol label;
   public final StatementNode statement;

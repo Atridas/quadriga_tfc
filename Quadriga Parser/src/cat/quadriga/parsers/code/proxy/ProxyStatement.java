@@ -6,9 +6,9 @@ import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.printers.MegaPrinter;
 import cat.quadriga.parsers.code.printers.PrintInfo;
-import cat.quadriga.parsers.code.statements.StatementNode;
+import cat.quadriga.parsers.code.statements.StatementNodeClass;
 
-public class ProxyStatement extends StatementNode {
+public class ProxyStatement extends StatementNodeClass {
 
   private String treeStringRepresentation;
   

@@ -52,4 +52,9 @@ public abstract class BaseTypeClass implements BaseType {
       return false;
     return true;
   }
+
+  @Override
+  public String treeStringRepresentation() {
+    return binaryName;
+  }
 }

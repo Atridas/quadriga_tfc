@@ -10,5 +10,6 @@ public class Quadriga {
     } catch (ParseException e) {
       e.printStackTrace();
     }
+    System.out.println(quadrigaSimple.symbolTable.treeStringRepresentation());
   }
 }

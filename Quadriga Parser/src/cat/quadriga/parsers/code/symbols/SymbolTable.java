@@ -6,16 +6,20 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
+import java.util.Map.Entry;
 
+import cat.quadriga.parsers.code.TreeRepresentable;
+import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
 
-public class SymbolTable {
+public class SymbolTable implements TreeRepresentable {
   
   private final Set<String> searchedClasses = new HashSet<String>();
-  private final Map<String, BaseSymbol> globalNamesPace = new HashMap<String, BaseSymbol>();
-  private final List<Map<String, BaseSymbol>> mapStack = new LinkedList<Map<String,BaseSymbol>>();
+  private final Map<String, BaseSymbol> globalNamespace = new HashMap<String, BaseSymbol>();
+  private final Stack<Map<String, BaseSymbol>> mapStack = new Stack<Map<String,BaseSymbol>>();
   {
-    mapStack.add(globalNamesPace);
+    mapStack.push(globalNamespace);
   }
 
   private final List<String> includedPackages = new LinkedList<String>();
@@ -24,11 +28,11 @@ public class SymbolTable {
   }
   
   public void newContext() {
-    mapStack.add(0, new HashMap<String, BaseSymbol>());
+    mapStack.push(new HashMap<String, BaseSymbol>());
   }
   
   public void deleteContext() {
-    mapStack.remove(0);
+    mapStack.pop();
   }
   
   public BaseSymbol findSymbol(String name) {
@@ -105,7 +109,7 @@ public class SymbolTable {
     String name = symbol.name;
     String aliases[] = symbol.getAlias();
     
-    Map<String, BaseSymbol> map = globalNamesPace;
+    Map<String, BaseSymbol> map = globalNamespace;
     map.put(name, symbol);
     for(String alias : aliases) {
       if(!map.containsKey(alias)) {
@@ -118,5 +122,30 @@ public class SymbolTable {
   public void addPackage(String packa) {
     includedPackages.add(packa);
     searchedClasses.clear();
+  }
+
+  @Override
+  public String treeStringRepresentation() {
+    Stack<String> aux = new Stack<String>();
+    for(Map<String,BaseSymbol> namespace : mapStack) {
+      String kind;
+      if(namespace == globalNamespace) {
+        kind = "Globals";
+      } else {
+        kind = "Locals";
+      }
+      List<String> symbols = new LinkedList<String>();
+      for(Entry<String,BaseSymbol> symbol : namespace.entrySet()) {
+        symbols.add("\"" + symbol.getKey() + "\" : " + symbol.getValue().treeStringRepresentation());
+      }
+      String element = Utils.treeStringRepresentation(kind, symbols);
+      aux.push(element);
+    }
+    return Utils.treeStringRepresentation("", aux);
+  }
+
+  @Override
+  public String toString() {
+    return treeStringRepresentation();
   }
 }

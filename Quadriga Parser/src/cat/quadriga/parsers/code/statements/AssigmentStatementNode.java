@@ -4,7 +4,7 @@ import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
-public class AssigmentStatementNode extends StatementNode {
+public class AssigmentStatementNode extends StatementNodeClass {
   
   public final ExpressionNode leftOperand, rightOperand;
   public final Operator operator;

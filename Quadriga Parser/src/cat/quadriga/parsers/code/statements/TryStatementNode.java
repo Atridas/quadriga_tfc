@@ -9,7 +9,7 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 
-public class TryStatementNode extends StatementNode {
+public class TryStatementNode extends StatementNodeClass {
   
   public final BlockCode block;
   public final List<CatchBlock> catches;

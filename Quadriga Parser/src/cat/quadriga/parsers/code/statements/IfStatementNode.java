@@ -6,7 +6,7 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
-public class IfStatementNode extends StatementNode {
+public class IfStatementNode extends StatementNodeClass {
   
   private final String treeStringRepresentation;
   

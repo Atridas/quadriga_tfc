@@ -9,7 +9,7 @@ import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 
-public class ClassicFor extends StatementNode implements BucleInterface {
+public class ClassicFor extends StatementNodeClass implements BucleInterface {
   
   public final StatementNode init, update, execution;
   public final ExpressionNode condition;

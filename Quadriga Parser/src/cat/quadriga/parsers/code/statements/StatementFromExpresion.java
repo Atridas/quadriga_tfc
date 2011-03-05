@@ -3,7 +3,7 @@ package cat.quadriga.parsers.code.statements;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
-public class StatementFromExpresion extends StatementNode {
+public class StatementFromExpresion extends StatementNodeClass {
 
   public final ExpressionNode expression;
   

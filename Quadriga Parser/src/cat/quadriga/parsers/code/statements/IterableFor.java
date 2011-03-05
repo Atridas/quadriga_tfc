@@ -6,7 +6,7 @@ import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.dataaccess.LocalVarAccess;
 
-public class IterableFor extends StatementNode implements BucleInterface {
+public class IterableFor extends StatementNodeClass implements BucleInterface {
   
   public final LocalVarAccess iterator;
   public final ExpressionNode iterable;
