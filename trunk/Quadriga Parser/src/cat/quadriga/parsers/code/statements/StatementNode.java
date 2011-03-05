@@ -1,10 +1,8 @@
 package cat.quadriga.parsers.code.statements;
 
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.TreeRepresentable;
 
-public abstract class StatementNode extends BlockStatementNode {
+public interface StatementNode extends TreeRepresentable, CodeZone {
   
-  public StatementNode(CodeZone cz) {
-    super(cz);
-  }
 }

@@ -1,5 +1,6 @@
 package cat.quadriga.parsers.code.symbols;
 
+import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.types.BaseType;
 
 public class TypeSymbol extends BaseSymbol {
@@ -30,6 +31,6 @@ public class TypeSymbol extends BaseSymbol {
   
   @Override
   protected String createTreeStringRepresentation() {
-    return "Symbol Type [" + type.toString() + "]";
+    return Utils.treeStringRepresentation("Symbol Type", type.treeStringRepresentation());
   }
 }

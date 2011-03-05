@@ -1,5 +1,6 @@
 package cat.quadriga.parsers.code;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,20 +27,29 @@ import cat.quadriga.parsers.code.types.UnknownType;
 
 abstract public class Utils {
   public static final String treeStringRepresentation( String operation, String... operands) {
-    String out = operation;
-  
     if(operands.length == 0)
-      return out;
+      return operation;
   
-    for(int i = 0; i < operands.length-1; i++)
+    boolean lastLine = true;
+    String aux = "";
+    for(int i = operands.length-1; i >= 0 ; i--)
     {
-      out += "\n+- " + operands[i].replace("\n", "\n|  ");
-  
+      if(operands[i] != null) {
+        if(lastLine) {
+          aux = "\n+- " + operands[i].replace("\n", "\n   ");
+          lastLine = false;
+        } else {
+          aux = "\n+- " + operands[i].replace("\n", "\n|  ") + aux;
+        }
+      }
     }
   
-    return out += "\n+- " + operands[operands.length-1].replace("\n", "\n   ");
+    return operation + aux;
   }
 
+  public static final String treeStringRepresentation( String operation, Collection<String> operands) {
+    return treeStringRepresentation(operation, operands.toArray(new String[operands.size()]));
+  }
   
   public static final char convertImageToChar(String image) {
     image = image.substring(1, image.length() - 1);
@@ -263,6 +273,14 @@ abstract public class Utils {
         return -1;
       }
     }
+  }
+  
+  public static String getName(List<Token> t) {
+    String aux = t.get(0).image;
+    for(int i = 1; i < t.size(); i++) {
+      aux += "." + t.get(i).image;
+    }
+    return aux;
   }
   
   public static final int PUBLIC = 0x0001;

@@ -4,7 +4,7 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
-public class DoStatementNode extends StatementNode implements BucleInterface {
+public class DoStatementNode extends StatementNodeClass implements BucleInterface {
 
   public final ExpressionNode condition;
   public final StatementNode execution;

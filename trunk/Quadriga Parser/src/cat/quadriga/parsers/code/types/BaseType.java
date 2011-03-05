@@ -1,6 +1,8 @@
 package cat.quadriga.parsers.code.types;
 
-public interface BaseType {
+import cat.quadriga.parsers.code.TreeRepresentable;
+
+public interface BaseType extends TreeRepresentable {
 
   String getBinaryName();
   

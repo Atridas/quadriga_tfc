@@ -8,6 +8,7 @@ import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.statements.CallToArguments;
+import cat.quadriga.parsers.code.statements.CallToListedArguments;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
 import cat.quadriga.parsers.code.types.ParametrizedClass;
@@ -36,7 +37,9 @@ public class AllocationExpressionNode extends ExpressionNodeClass {
   }
   
   private Constructor<?> getConstructor() {
-    List<ExpressionNode> calledArgs = arguments.arguments;
+    if(!(arguments instanceof CallToListedArguments))
+      return null;
+    List<ExpressionNode> calledArgs = ((CallToListedArguments)arguments).arguments;
     
     List<Constructor<?>> constructors;
     if(type instanceof ParametrizedClass) {

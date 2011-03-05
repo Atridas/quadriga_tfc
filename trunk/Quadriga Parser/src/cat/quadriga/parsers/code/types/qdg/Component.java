@@ -1,11 +1,13 @@
-package cat.quadriga.parsers.code.types.qua;
+package cat.quadriga.parsers.code.types.qdg;
 
+import cat.quadriga.parsers.code.TreeRepresentable;
+import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.types.BaseType;
 
-public interface Component extends BaseType {
+public interface Component extends BaseType, TreeRepresentable {
 
-  public static class ComponentField {
+  public static class ComponentField implements TreeRepresentable {
     public final BaseType type;
     public final String name;
     public final ExpressionNode initialization;
@@ -17,13 +19,18 @@ public interface Component extends BaseType {
     }
 
     @Override
+    public String treeStringRepresentation() {
+      return Utils.treeStringRepresentation("Component Field", 
+                                            type.treeStringRepresentation(),
+                                            "\"" + name +"\"",
+                                            (initialization == null)? null : initialization.treeStringRepresentation());
+    }
+
+    @Override
     public int hashCode() {
       final int prime = 31;
       int result = 1;
-      result = prime * result
-          + ((initialization == null) ? 0 : initialization.hashCode());
       result = prime * result + ((name == null) ? 0 : name.hashCode());
-      result = prime * result + ((type == null) ? 0 : type.hashCode());
       return result;
     }
 
@@ -36,20 +43,10 @@ public interface Component extends BaseType {
       if (getClass() != obj.getClass())
         return false;
       ComponentField other = (ComponentField) obj;
-      if (initialization == null) {
-        if (other.initialization != null)
-          return false;
-      } else if (!initialization.equals(other.initialization))
-        return false;
       if (name == null) {
         if (other.name != null)
           return false;
       } else if (!name.equals(other.name))
-        return false;
-      if (type == null) {
-        if (other.type != null)
-          return false;
-      } else if (!type.equals(other.type))
         return false;
       return true;
     }

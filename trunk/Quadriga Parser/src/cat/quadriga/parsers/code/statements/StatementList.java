@@ -6,11 +6,11 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.Utils;
 
-public class StatementList extends StatementNode {
+public class StatementList extends StatementNodeClass {
   
   private final StatementNode[] nodes;
   
-  public StatementList(StatementNode[] nodes) {
+  public StatementList(StatementNode... nodes) {
     super(getFromArray(nodes));
     
     this.nodes = new StatementNode[nodes.length];
@@ -24,8 +24,8 @@ public class StatementList extends StatementNode {
     if(nodes == null || nodes.length == 0) {
       return new CodeZoneClass(0,0,0,0);
     } else {
-      return new CodeZoneClass(nodes[0].beginLine, nodes[0].beginColumn, 
-          nodes[nodes.length-1].endLine, nodes[nodes.length-1].endColumn);
+      return new CodeZoneClass(nodes[0].beginLine(), nodes[0].beginColumn(), 
+          nodes[nodes.length-1].endLine(), nodes[nodes.length-1].endColumn());
     }
   }
   

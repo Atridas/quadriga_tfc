@@ -1,5 +1,6 @@
-package cat.quadriga.parsers.code.types.qua;
+package cat.quadriga.parsers.code.types.qdg;
 
+import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.parsers.code.types.UnknownType;
@@ -22,6 +23,21 @@ public class ProxyPrototype extends BaseTypeClass implements Prototype {
   @Override
   public boolean isMathematicallyOperable() {
     return false;
+  }
+
+  @Override
+  public String treeStringRepresentation() {
+    return Utils.treeStringRepresentation(">> Proxy Prototype " + getBinaryName() + " <<");
+  }
+
+  @Override
+  public boolean isValid() {
+    return false;
+  }
+
+  @Override
+  public String toString() {
+    return treeStringRepresentation();
   }
 
 }

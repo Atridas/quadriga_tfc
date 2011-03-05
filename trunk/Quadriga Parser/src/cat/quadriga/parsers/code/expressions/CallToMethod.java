@@ -10,6 +10,7 @@ import cat.quadriga.parsers.code.expressions.dataaccess.FieldOrMethodAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.MethodAccess;
 import cat.quadriga.parsers.code.proxy.ProxyDataAccess;
 import cat.quadriga.parsers.code.statements.CallToArguments;
+import cat.quadriga.parsers.code.statements.CallToListedArguments;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.UnknownType;
 
@@ -26,19 +27,23 @@ public class CallToMethod extends ExpressionNodeClass {
     
     if(function instanceof MethodAccess) {
       MethodAccess method = (MethodAccess) function;
-      
-      List<ExpressionNode> calledArgs = arguments.arguments;
-      
-      Class<?>[][] realArgs = new Class<?>[method.getNumMethods()][];
-      for(int i = 0; i < method.getNumMethods(); i++) {
-        realArgs[i] = method.getMethods(i).getParameterTypes();
-      }
-      
-      int finalMethod = Utils.selectMethod(calledArgs, realArgs);
-      if(finalMethod < 0) {
-        methodToCall = null;
+
+      if(arguments instanceof CallToListedArguments) {
+        List<ExpressionNode> calledArgs = ((CallToListedArguments)arguments).arguments;
+        
+        Class<?>[][] realArgs = new Class<?>[method.getNumMethods()][];
+        for(int i = 0; i < method.getNumMethods(); i++) {
+          realArgs[i] = method.getMethods(i).getParameterTypes();
+        }
+        
+        int finalMethod = Utils.selectMethod(calledArgs, realArgs);
+        if(finalMethod < 0) {
+          methodToCall = null;
+        } else {
+          methodToCall = method.getMethods(finalMethod);
+        }
       } else {
-        methodToCall = method.getMethods(finalMethod);
+        methodToCall = null;
       }
       
     } else if(function instanceof FieldOrMethodAccess) {

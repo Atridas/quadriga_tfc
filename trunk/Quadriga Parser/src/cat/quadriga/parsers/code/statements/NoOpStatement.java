@@ -3,7 +3,7 @@ package cat.quadriga.parsers.code.statements;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 
-public class NoOpStatement extends StatementNode {
+public class NoOpStatement extends StatementNodeClass {
 
   public NoOpStatement(CodeZone cz) {
     super(cz);

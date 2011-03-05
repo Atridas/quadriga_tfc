@@ -4,7 +4,7 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
-public class WhileStatementNode extends StatementNode implements BucleInterface {
+public class WhileStatementNode extends StatementNodeClass implements BucleInterface {
 
   public final ExpressionNode condition;
   

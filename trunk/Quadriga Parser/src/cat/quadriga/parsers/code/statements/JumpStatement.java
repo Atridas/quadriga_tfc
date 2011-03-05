@@ -3,7 +3,7 @@ package cat.quadriga.parsers.code.statements;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.Utils;
 
-public class JumpStatement extends StatementNode {
+public class JumpStatement extends StatementNodeClass {
 
   public final String label;
   public final Operator operator;

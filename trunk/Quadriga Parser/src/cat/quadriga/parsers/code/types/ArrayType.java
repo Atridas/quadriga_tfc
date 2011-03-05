@@ -36,8 +36,12 @@ public final class ArrayType extends ReferenceTypeRef {
   }
   
   private static Class<?> createArrayClass(BaseType base) {
-    
-    String arrayClassName = "[" + base.getInstanceableName();
+    String arrayClassName;
+    if(base instanceof UnknownType) {
+      arrayClassName = "[Lcat.quadriga.parsers.code.types.UnknownType;";
+    } else {
+      arrayClassName = "[" + base.getInstanceableName();
+    }
     
     try {
       return Class.forName(arrayClassName);
@@ -45,6 +49,5 @@ public final class ArrayType extends ReferenceTypeRef {
       throw new IllegalArgumentException("No es pot instanciar la classe " + arrayClassName);
     }
   }
-  
 
 }

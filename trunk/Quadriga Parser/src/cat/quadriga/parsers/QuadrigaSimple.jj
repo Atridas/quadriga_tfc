@@ -44,12 +44,14 @@ import java.util.*;
 import cat.quadriga.parsers.code.*;
 import cat.quadriga.parsers.code.expressions.*;
 import cat.quadriga.parsers.code.expressions.dataaccess.*;
+import cat.quadriga.parsers.code.expressions.qdg.*;
 import cat.quadriga.parsers.code.printers.*;
 import cat.quadriga.parsers.code.proxy.*;
 import cat.quadriga.parsers.code.statements.*;
+import cat.quadriga.parsers.code.statements.qdg.*;
 import cat.quadriga.parsers.code.symbols.*;
 import cat.quadriga.parsers.code.types.*;
-import cat.quadriga.parsers.code.types.qua.*;
+import cat.quadriga.parsers.code.types.qdg.*;
 
 /**
  * Grammar to parse Java version 1.5
@@ -216,15 +218,6 @@ class VarAndInit{  Token name;
   StatementNode init;
   int modifiers;
 }
-
-class ParameterClass
-{
-  CodeZone cz;
-  BaseType type;
-  String name;
-  boolean varargs = false;
-  int modifiers;
-  ExpressionNode init;}
 
 PARSER_END(QuadrigaSimple)
 
@@ -1860,10 +1853,10 @@ ParameterClass FormalParameter():
 {
   int modifiers;
   BaseType type;
-  ParameterClass param = new ParameterClass();
   List<PrintInfo> out = new LinkedList<PrintInfo>();
   VarAndInit vai;
   ExpressionNode init = null;
+  boolean varargs = false;
 }
 {
   // danson, added
@@ -1883,25 +1876,26 @@ ParameterClass FormalParameter():
   [ "..."
   {
     type = new ArrayType(type);
-    param.varargs = true;
+    varargs = true;
   }
   ]
   vai = VariableDeclaratorId(type)
   [ "=" init = Expression() ]
   {
-    param.name = vai.name.image;
-    param.cz = new CodeZoneClass(vai.name);
-    param.modifiers = modifiers;
-    param.type = vai.type;
-    param.init = init;
-    return param;  }
+    return new ParameterClass(
+      new CodeZoneClass(vai.name),
+      vai.type,
+      vai.name.image,
+      varargs,
+      modifiers,
+      init);  }
 }
 
 void ConstructorDeclaration(List<PrintInfo> out):
 {
   Token t;
   out.add(PrintWhiteSpace.getInstance());
-  BlockStatementNode bsn;
+  StatementNode bsn;
 
   List<ParameterClass > params;
 
@@ -2914,11 +2908,35 @@ CallToArguments Arguments():
 {
   //List<PrintInfo> other = new LinkedList<PrintInfo>();
   List<ExpressionNode> arguments = new LinkedList<ExpressionNode>();
+  Map<String,ExpressionNode> argNames = new HashMap<String,ExpressionNode>();
   ExpressionNode node;
-  Token t, t2;
+  Token t, t2, argumentName;
+  CallToArguments result;
 }
 {
-  t="(" [ node = Expression()
+  t="("
+      (
+        LOOKAHEAD( < IDENTIFIER > ":" )
+        argumentName = < IDENTIFIER >
+        ":"
+        node = VariableInitializer(UnknownType.empty)//TODO
+        {
+          argNames.put(argumentName.image, node);
+        }
+        (
+          ","
+          argumentName = < IDENTIFIER >
+          ":"
+          node = VariableInitializer(UnknownType.empty)//TODO
+          {
+            argNames.put(argumentName.image, node);
+          }        )*
+        t2=")"
+        {
+          result = new CallToNamedArguments(argNames, new CodeZoneClass(t,t2));        }
+
+      | //non-named arguments
+        node = Expression()
         {
           arguments.add(node);        }
         ( ","
@@ -2927,10 +2945,19 @@ CallToArguments Arguments():
             arguments.add(node);
           }
         )*
-      ]
-  t2=")"
+        t2=")"
+        {
+          result = new CallToListedArguments(arguments, new CodeZoneClass(t,t2));
+        }
+      | 
+        t2=")"
+        {
+          result = new CallToListedArguments(arguments, new CodeZoneClass(t,t2));
+        }
+      )
+        
   {
-    return new CallToArguments(arguments, new CodeZoneClass(t, t2));
+    return result;
   }
 }
 
@@ -3106,7 +3133,7 @@ LabeledStatementNode LabeledStatement():
 
 BlockCode Block():
 {
-  BlockStatementNode blockStatementNode;
+  StatementNode blockStatementNode;
   Token t;
 
   BlockCode.TmpBlockCode prevBlock = localBlock;
@@ -3137,11 +3164,11 @@ BlockCode Block():
   }
 }
 
-BlockStatementNode BlockStatement():
+StatementNode BlockStatement():
 {
   List<PrintInfo> out = new LinkedList<PrintInfo>();
   Token t;
-  BlockStatementNode result;
+  StatementNode result;
 }
 {
   (    LOOKAHEAD( Modifiers() Type() <IDENTIFIER> )
@@ -3246,9 +3273,9 @@ SwitchStatementNode SwitchStatement():
   Token t, t2;
 
   ExpressionNode in, label;
-  List<BlockStatementNode> statements;
+  List<StatementNode> statements;
   List<SwitchStatementNode.CaseNode> cases = new LinkedList<SwitchStatementNode.CaseNode>();
-  BlockStatementNode bsn;
+  StatementNode bsn;
 }
 {
   t="switch" "("
@@ -3259,7 +3286,7 @@ SwitchStatementNode SwitchStatement():
     localBlock = new BlockCode.TmpBlockCode(t);  }
   (
     label = SwitchLabel()
-    {      statements = new LinkedList<BlockStatementNode>();
+    {      statements = new LinkedList<StatementNode>();
     }
     (
       bsn = BlockStatement()
@@ -3915,7 +3942,7 @@ void ComponentDeclaration():
     LOOKAHEAD( 2 ) 
     t= < IDENTIFIER >
     {
-      IncompleteComponent iComponent = new IncompleteComponent(currentFile.replace('/','.') + t.image);    }
+      IncompleteComponent iComponent = new IncompleteComponent(currentFile.replace('/','.'), t.image);    }
     "{"
         (
           // Dependencies
@@ -3925,7 +3952,7 @@ void ComponentDeclaration():
         )*
         ( type = Type()
           t = < IDENTIFIER >
-          [ "=" initialization = Expression() ] [";"]
+          [ "=" initialization = VariableInitializer(type) ] [";"]
           {
             iComponent.fields.add(new Component.ComponentField(
                                            type, t.image, initialization
@@ -3980,15 +4007,97 @@ void PrototypeDeclaration():
   Prototype prototype = null;
   List<Token> name;
   List<ParameterClass> parameters = new LinkedList<ParameterClass>();
+  ComponentAllocation componentAllocation;
+  ApplyPrototypeToEntity proto;
+  ExpressionNode thisEntity;
+  BlockCode blockAux;
 }
 {
   "@prototype" 
   (
     LOOKAHEAD( 2 ) 
-    t= < IDENTIFIER > [ parameters=FormalParameters() ]
+    t= < IDENTIFIER >
+    {
+      IncompletePrototype iPrototype = new IncompletePrototype(currentFile.replace('/','.'), t.image);
+      symbolTable.newContext();
+      symbolTable.addSymbol(new ThisSymbol(iPrototype));
+
+      BlockCode.TmpBlockCode prevBlock = localBlock;
+      localBlock = new BlockCode.TmpBlockCode(t);    }
+    ( parameters=FormalParameters()
+      {
+        for(ParameterClass param : parameters)
+        {
+          LocalVariableSymbol localVar =
+                                new LocalVariableSymbol(param.modifiers,
+                                                        param.type,
+                                                        param.name);
+          symbolTable.addSymbol(localVar);
+          localBlock.addLocalVariable(localVar);
+        }
+        iPrototype.parameters = parameters;
+      }
+    | {
+        iPrototype.parameters = new Vector<ParameterClass>();      }
+    ) 
+    [ t="extends"
+      {        thisEntity = new LocalVarAccess(
+                                   (ThisSymbol)symbolTable.findSymbol("this"),
+                                   new CodeZoneClass(t)
+                                   );
+      }
+      proto=EntityInitialization(thisEntity)
+      {        localBlock.addStatement(proto);      }      ( "," proto=EntityInitialization(thisEntity)        {          localBlock.addStatement(proto);        }      )*
+    ] 
     "{"
-        //TODO!!!!
+        (          componentAllocation = ComponentDeclarator() [";"]
+          {
+            thisEntity = new LocalVarAccess(
+                                   (ThisSymbol)symbolTable.findSymbol("this"),
+                                   componentAllocation
+                                   );
+            localBlock.addStatement( new AddComponentNode(componentAllocation,
+                                                          thisEntity,
+                                                          componentAllocation)
+                                        );          }
+        |
+          "@child" t="{"
+              (
+                {
+                  ExpressionNode entityCreation, expAux;                }               (
+                 LOOKAHEAD(Expression() ":")                 expAux = Expression() t=":"
+                 {
+                   CodeZoneClass czaux = new CodeZoneClass(expAux,t);
+                   thisEntity = new LocalVarAccess(
+                           (ThisSymbol)symbolTable.findSymbol("this"),
+                           czaux
+                           );
+                   entityCreation = new NewEntity(thisEntity,expAux,czaux);                 }
+               |                 {
+                   CodeZoneClass czaux = new CodeZoneClass(t);
+                   thisEntity = new LocalVarAccess(
+                           (ThisSymbol)symbolTable.findSymbol("this"),
+                           czaux
+                           );
+                   entityCreation = new NewEntity(thisEntity,null,czaux);                 }
+               )
+
+               proto = EntityInitialization(entityCreation) [t=";"]
+               {
+                 localBlock.addStatement(proto);               }
+              )*
+          "}"
+        | "@init" blockAux=Block()
+          {
+            localBlock.addStatement(blockAux);          }
+        )*
     "}"
+    {
+      localBlock.setEndToken(t);
+      iPrototype.initializations = localBlock.transformToBlockCode();
+      localBlock = prevBlock;      symbolTable.deleteContext();
+      
+      prototype = new CompletePrototype(iPrototype);    }
   |
     name = Name()
     {
@@ -4030,9 +4139,86 @@ void PrototypeDeclaration():
     }
   )
   {
-    if(prototype != null) {
-      BaseSymbol symbol = new TypeSymbol(prototype);
-      symbolTable.addSymbol(symbol);
-    }
+    BaseSymbol symbol = new TypeSymbol(prototype);
+    symbolTable.addSymbol(symbol);
   }
 }
+
+
+ComponentAllocation ComponentDeclarator():
+{
+  List<Token> name;
+  CallToArguments args;}
+{
+  name = Name() args = Arguments()
+  {
+    CodeZone cz = new CodeZoneClass(name.get(0), args);
+    
+    String symbolName = Utils.getName(name);
+    BaseSymbol symbol = symbolTable.findSymbol(symbolName);
+    if(symbol != null && symbol instanceof TypeSymbol) {
+      BaseType type = ((TypeSymbol)symbol).type;
+      if(type instanceof Component) {
+        CallToNamedArguments named;
+        if(args instanceof CallToListedArguments)        {
+          if(((CallToListedArguments)args).arguments.size() > 0) {
+            errorLog.insertError("Component arguments must be named", cz);          }
+          named = new CallToNamedArguments(Collections.<String,ExpressionNode>emptyMap(),args);        } else {          named = (CallToNamedArguments) args;
+        }
+        
+        return new ComponentAllocation((Component)type,named,cz);      } else {
+        errorLog.insertError("Symbol " + symbolName + " is not a Component", cz);      }    } else {      errorLog.insertError("Symbol " + symbolName + " is not a Type", cz);
+    }
+    Component component = new ProxyComponent(symbolName);
+    CallToNamedArguments named = new CallToNamedArguments(Collections.<String,ExpressionNode>emptyMap(),args);
+    return new ComponentAllocation(component,named,cz);  }}
+
+ApplyPrototypeToEntity EntityInitialization(ExpressionNode entity):
+{
+  List<Token> name;
+  CodeZone cz, argsZone;
+  Token t;
+  Map<String,ExpressionNode> namedArguments = new HashMap<String,ExpressionNode>();
+  Map<Component,CallToNamedArguments> componentArguments = new HashMap<Component,CallToNamedArguments>();}
+{
+  name=Name() t="("
+  {
+    cz = new CodeZoneClass(name.get(0), t);
+    argsZone = new CodeZoneClass(t);
+    String prototypeName = Utils.getName(name);
+    BaseSymbol symbol = symbolTable.findSymbol(prototypeName);
+    Prototype prototype;
+    if(symbol != null && symbol instanceof TypeSymbol) {
+      BaseType type = ((TypeSymbol)symbol).type;
+      if(type instanceof Prototype) {
+        prototype = ((Prototype)type);      } else {
+        errorLog.insertError("Symbol " + prototypeName + " is not a Prototype",cz);
+        prototype = new ProxyPrototype(prototypeName);
+        symbolTable.addSymbol(new TypeSymbol(prototype));      }    } else {
+      errorLog.insertError("Symbol " + prototypeName + " is not a Type",cz);
+      prototype = new ProxyPrototype(prototypeName);
+      symbolTable.addSymbol(new TypeSymbol(prototype));    }  }
+  [  PrototypeArgument(namedArguments,componentArguments)
+     ("," PrototypeArgument(namedArguments,componentArguments))*
+  ]
+  t=")"
+  {
+    cz = new CodeZoneClass(cz, t);
+    argsZone = new CodeZoneClass(argsZone,t);
+    return new ApplyPrototypeToEntity(
+                        entity,
+                        prototype,
+                        new CallToNamedArguments(namedArguments,argsZone),
+                        componentArguments,
+                        cz);  }}
+
+void PrototypeArgument(Map<String,ExpressionNode> namedArguments, Map<Component,CallToNamedArguments> componentArguments):
+{
+  ExpressionNode expression;
+  Token t;}{
+  LOOKAHEAD(< IDENTIFIER > ":")
+  t=< IDENTIFIER > ":" expression=Expression()
+  {
+    namedArguments.put(t.image, expression);
+  }
+| Name() ":" Expression()}

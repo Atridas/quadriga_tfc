@@ -4,7 +4,7 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
-public class ThrowStatementNode extends StatementNode {
+public class ThrowStatementNode extends StatementNodeClass {
 
   public final ExpressionNode toThrow;
   

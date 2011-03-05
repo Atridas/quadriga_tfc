@@ -4,7 +4,7 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
-public class SynchronizedStatementNode extends StatementNode {
+public class SynchronizedStatementNode extends StatementNodeClass {
 
   public final ExpressionNode monitor;
   public final BlockCode block;
