@@ -4,14 +4,14 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.statements.CallToNamedArguments;
 import cat.quadriga.parsers.code.types.BaseType;
-import cat.quadriga.parsers.code.types.qdg.Component;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 
 public class ComponentAllocation extends ExpressionNodeClass {
   
-  public final Component            component;
+  public final QuadrigaComponent            component;
   public final CallToNamedArguments arguments;
 
-  public ComponentAllocation(Component component, CallToNamedArguments arguments, CodeZone cz) {
+  public ComponentAllocation(QuadrigaComponent component, CallToNamedArguments arguments, CodeZone cz) {
     super(cz);
     this.component = component;
     this.arguments = arguments;

@@ -10,22 +10,22 @@ import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.statements.CallToNamedArguments;
 import cat.quadriga.parsers.code.statements.StatementNodeClass;
-import cat.quadriga.parsers.code.types.qdg.Component;
-import cat.quadriga.parsers.code.types.qdg.Prototype;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaPrototype;
 
 public class ApplyPrototypeToEntity extends StatementNodeClass {
   
   public final ExpressionNode entity;
-  public final Prototype base;
+  public final QuadrigaPrototype base;
   public final CallToNamedArguments arguments;
-  public final Map<Component, CallToNamedArguments> componentArguments;
+  public final Map<QuadrigaComponent, CallToNamedArguments> componentArguments;
   
 
   public ApplyPrototypeToEntity(
       ExpressionNode entity,
-      Prototype base, 
+      QuadrigaPrototype base, 
       CallToNamedArguments arguments, 
-      Map<Component, CallToNamedArguments> componentArguments,
+      Map<QuadrigaComponent, CallToNamedArguments> componentArguments,
       CodeZone cz) {
     super(cz);
     this.entity = entity;
@@ -40,7 +40,7 @@ public class ApplyPrototypeToEntity extends StatementNodeClass {
     aux.add(entity.treeStringRepresentation());
     aux.add(base.treeStringRepresentation());
     aux.add(arguments.treeStringRepresentation());
-    for(Entry<Component, CallToNamedArguments> entry : componentArguments.entrySet()) {
+    for(Entry<QuadrigaComponent, CallToNamedArguments> entry : componentArguments.entrySet()) {
       aux.add(
           Utils.treeStringRepresentation("Component redefinition", 
               entry.getKey().getBinaryName(),

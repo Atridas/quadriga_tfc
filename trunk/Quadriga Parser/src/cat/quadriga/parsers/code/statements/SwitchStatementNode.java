@@ -1,10 +1,9 @@
 package cat.quadriga.parsers.code.statements;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
-
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
@@ -19,8 +18,8 @@ public class SwitchStatementNode extends StatementNodeClass {
   public SwitchStatementNode(ExpressionNode input, List<CaseNode> cases, List<LocalVariableSymbol> localVariables, CodeZone cz) {
     super(cz);
     this.input = input;
-    this.cases = Collections.unmodifiableList(new Vector<CaseNode>(cases));
-    this.localVariables = Collections.unmodifiableList(new Vector<LocalVariableSymbol>(localVariables));
+    this.cases = Collections.unmodifiableList(new ArrayList<CaseNode>(cases));
+    this.localVariables = Collections.unmodifiableList(new ArrayList<LocalVariableSymbol>(localVariables));
   }
 
   private String treeStringRepresentation;
@@ -53,7 +52,7 @@ public class SwitchStatementNode extends StatementNodeClass {
     
     public CaseNode(ExpressionNode cas, List<StatementNode> statements) {
       this.cas = cas;
-      this.statements = Collections.unmodifiableList(new Vector<StatementNode>(statements));
+      this.statements = Collections.unmodifiableList(new ArrayList<StatementNode>(statements));
     }
     
     public String toString() {

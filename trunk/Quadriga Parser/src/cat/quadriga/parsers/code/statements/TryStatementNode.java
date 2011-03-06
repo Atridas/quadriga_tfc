@@ -1,10 +1,9 @@
 package cat.quadriga.parsers.code.statements;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
-
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
@@ -21,7 +20,7 @@ public class TryStatementNode extends StatementNodeClass {
                           CodeZone cz) {
     super(cz);
     this.block = block;
-    this.catches = Collections.unmodifiableList(new Vector<CatchBlock>(catches));
+    this.catches = Collections.unmodifiableList(new ArrayList<CatchBlock>(catches));
     this.finalment = finalment;
   }
 

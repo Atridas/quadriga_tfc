@@ -5,7 +5,7 @@ import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.parsers.code.types.UnknownType;
 
-public class ProxyPrototype extends BaseTypeClass implements Prototype {
+public class ProxyPrototype extends BaseTypeClass implements QuadrigaPrototype {
 
   public ProxyPrototype(String pack, String name) {
     super((pack.length()>0)? (pack + "." + name) : name);

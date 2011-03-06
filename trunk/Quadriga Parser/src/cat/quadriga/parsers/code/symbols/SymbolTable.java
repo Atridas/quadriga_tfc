@@ -39,6 +39,9 @@ public class SymbolTable implements TreeRepresentable {
     for(Map<String, BaseSymbol> map : mapStack) {
       BaseSymbol symbol = map.get(name);
       if(symbol != null) {
+        if(symbol instanceof SymbolRef) {
+          symbol = ((SymbolRef)symbol).base;
+        }
         return symbol;
       }
     }
@@ -60,6 +63,9 @@ public class SymbolTable implements TreeRepresentable {
         symbol = findClassOrInnerClass(aux2);
         break;
       }
+    }
+    if(symbol instanceof SymbolRef) {
+      symbol = ((SymbolRef)symbol).base;
     }
     return symbol;
   }
@@ -86,7 +92,11 @@ public class SymbolTable implements TreeRepresentable {
   
   public BaseSymbol findSymbolOnTop(String name) {
     if(mapStack.size() != 0) {
-      return mapStack.get(0).get(name);
+      BaseSymbol symbol = mapStack.get(0).get(name);
+      if(symbol instanceof SymbolRef) {
+        symbol = ((SymbolRef)symbol).base;
+      }
+      return symbol;
     } else {
       return null;
     }
@@ -96,12 +106,12 @@ public class SymbolTable implements TreeRepresentable {
     String name = symbol.name;
     String aliases[] = symbol.getAlias();
     
-    Map<String, BaseSymbol> map = mapStack.get(0);
+    Map<String, BaseSymbol> map = mapStack.peek();
     map.put(name, symbol);
     for(String alias : aliases) {
-      if(!map.containsKey(alias)) {
-        map.put(alias, symbol);
-      }
+      //if(!map.containsKey(alias)) {
+        map.put(alias, new SymbolRef( symbol ));
+      //}
     }
   }
   
@@ -112,9 +122,9 @@ public class SymbolTable implements TreeRepresentable {
     Map<String, BaseSymbol> map = globalNamespace;
     map.put(name, symbol);
     for(String alias : aliases) {
-      if(!map.containsKey(alias)) {
-        map.put(alias, symbol);
-      }
+      //if(!map.containsKey(alias)) {
+        map.put(alias, new SymbolRef( symbol ));
+      //}
     }
     searchedClasses.clear();
   }
@@ -122,6 +132,28 @@ public class SymbolTable implements TreeRepresentable {
   public void addPackage(String packa) {
     includedPackages.add(packa);
     searchedClasses.clear();
+  }
+  
+  public void copyGlobals(SymbolTable other) {
+    if(other == null || this == other) {
+      return;
+    }
+    
+    globalNamespace.putAll(other.globalNamespace);
+  }
+  
+  public void cleanQuadrigaPackage(String pack) {
+    if(!pack.endsWith(".")) {
+      pack += '.';
+    }
+    
+    List<String> aux = new LinkedList<String>();
+    for(Entry<String,BaseSymbol> entry: globalNamespace.entrySet()) {
+      String str = entry.getKey();
+      if(str.startsWith(pack)) {
+        aux.add(str);
+      }
+    }
   }
 
   @Override
@@ -136,7 +168,9 @@ public class SymbolTable implements TreeRepresentable {
       }
       List<String> symbols = new LinkedList<String>();
       for(Entry<String,BaseSymbol> symbol : namespace.entrySet()) {
-        symbols.add("\"" + symbol.getKey() + "\" : " + symbol.getValue().treeStringRepresentation());
+        if(!(symbol.getValue() instanceof SymbolRef)) {
+          symbols.add("\"" + symbol.getKey() + "\" : " + symbol.getValue().treeStringRepresentation());
+        }
       }
       String element = Utils.treeStringRepresentation(kind, symbols);
       aux.push(element);
@@ -147,5 +181,21 @@ public class SymbolTable implements TreeRepresentable {
   @Override
   public String toString() {
     return treeStringRepresentation();
+  }
+  
+  private static class SymbolRef extends BaseSymbol {
+    
+    public final BaseSymbol base;
+
+    public SymbolRef(BaseSymbol origin) {
+      super(origin.name);
+      base = origin;
+    }
+
+    @Override
+    protected String createTreeStringRepresentation() {
+      return base.createTreeStringRepresentation();
+    }
+    
   }
 }

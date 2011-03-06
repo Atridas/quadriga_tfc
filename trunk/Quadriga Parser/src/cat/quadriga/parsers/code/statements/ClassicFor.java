@@ -1,9 +1,8 @@
 package cat.quadriga.parsers.code.statements;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Vector;
-
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
@@ -27,7 +26,7 @@ public class ClassicFor extends StatementNodeClass implements BucleInterface {
     this.update = update;
     this.execution = execution;
     
-    this.localVariables = Collections.unmodifiableList(new Vector<LocalVariableSymbol>(localVariables));
+    this.localVariables = Collections.unmodifiableList(new ArrayList<LocalVariableSymbol>(localVariables));
   }
 
   private String treeStringRepresentation;

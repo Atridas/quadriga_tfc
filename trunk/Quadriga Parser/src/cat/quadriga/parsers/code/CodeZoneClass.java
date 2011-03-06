@@ -59,7 +59,7 @@ public class CodeZoneClass implements CodeZone {
 
   @Override
   public final int beginColumn() {
-    return beginLine;
+    return beginColumn;
   }
 
   @Override

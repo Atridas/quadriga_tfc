@@ -12,6 +12,7 @@ import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.expressions.dataaccess.LocalVarAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.TypeDataAccess;
+import cat.quadriga.parsers.code.expressions.qdg.ComponentFieldAccess;
 import cat.quadriga.parsers.code.proxy.ProxyDataAccess;
 import cat.quadriga.parsers.code.symbols.BaseSymbol;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
@@ -24,6 +25,9 @@ import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.parsers.code.types.ReferenceTypeRef;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
 import cat.quadriga.parsers.code.types.UnknownType;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
+import cat.quadriga.runtime.Entity;
 
 abstract public class Utils {
   public static final String treeStringRepresentation( String operation, String... operands) {
@@ -31,24 +35,41 @@ abstract public class Utils {
       return operation;
   
     boolean lastLine = true;
-    String aux = "";
+    StringBuilder aux = new StringBuilder();
     for(int i = operands.length-1; i >= 0 ; i--)
     {
       if(operands[i] != null) {
         if(lastLine) {
-          aux = "\n+- " + operands[i].replace("\n", "\n   ");
+          aux.append("\n+- ");
+          aux.append(operands[i].replace("\n", "\n   "));
           lastLine = false;
         } else {
-          aux = "\n+- " + operands[i].replace("\n", "\n|  ") + aux;
+          aux.insert(0,operands[i].replace("\n", "\n|  "));
+          aux.insert(0,"\n+- ");
         }
       }
     }
-  
-    return operation + aux;
+    aux.insert(0,operation);
+    return aux.toString();
   }
 
   public static final String treeStringRepresentation( String operation, Collection<String> operands) {
     return treeStringRepresentation(operation, operands.toArray(new String[operands.size()]));
+  }
+  
+  public static final String parametersRepresentation(List<ParameterClass> parameters) {
+    List<String> aux = new LinkedList<String>();
+    for(ParameterClass parameter : parameters) {
+      aux.add(Utils.treeStringRepresentation(
+          "parameter",
+          parameter.type.getBinaryName(),
+          parameter.name,
+          (parameter.init == null)? null : Utils.treeStringRepresentation("init", parameter.init.treeStringRepresentation()),
+          (parameter.semantic==null)?null : "Semantic: " + parameter.semantic
+              ));
+    }
+    return (aux.size()==0) ? null:
+                          Utils.treeStringRepresentation("parameters",aux);
   }
   
   public static final char convertImageToChar(String image) {
@@ -108,7 +129,7 @@ abstract public class Utils {
     return new ProxyDataAccess("Proxy direct access [" + symbol.name + "]", new CodeZoneClass(first,last));
   }
   
-  public static ExpressionNode accessToMember(DataAccess expression, String member, Token t)
+  public static ExpressionNode accessToMember(ExpressionNode expression, String member, Token t)
   {
     CodeZoneClass cz = new CodeZoneClass( expression.beginLine(), expression.beginColumn(),
                                           t.endLine, t.endColumn);
@@ -126,6 +147,9 @@ abstract public class Utils {
     BaseType type = expression.getType();
     if(type instanceof ArrayType && member.compareTo("length") == 0) {
       return new ArrayLengthAccess(expression, cz);
+    }
+    if(type instanceof QuadrigaComponent) {
+      return new ComponentFieldAccess(expression, member, cz);
     }
     
     if(type instanceof ReferenceTypeRef) {
@@ -174,6 +198,8 @@ abstract public class Utils {
       return PrimitiveTypeRef.getFromClass(clazz);
     } else if(clazz.isArray()) {
       return new ArrayType(createType(clazz.getComponentType()));
+    } else if(clazz == Entity.class) {
+      return QuadrigaEntity.baseEntity;
     } else {
       return ClassOrInterfaceTypeRef.getFromClass(clazz);
     }

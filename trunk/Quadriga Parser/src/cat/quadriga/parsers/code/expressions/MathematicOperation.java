@@ -55,7 +55,7 @@ public class MathematicOperation extends BinaryExpressionNode {
     case MUL: 
     case DIV: 
     case MOD:
-      if(leftOperand.getType().isMathematicallyOperable()) {
+      if(!leftOperand.getType().isMathematicallyOperable()) {
         return UnknownType.empty;
       } else {
         return leftOperand.getType().getMathematicResultType(rightOperand.getType());

@@ -17,10 +17,5 @@ public class NoType extends BaseTypeClass {
   public BaseType getMathematicResultType(BaseType other) {
     return UnknownType.empty;
   }
-
-  @Override
-  public boolean equals(Object obj) {
-    return obj == this;
-  }
   
 }

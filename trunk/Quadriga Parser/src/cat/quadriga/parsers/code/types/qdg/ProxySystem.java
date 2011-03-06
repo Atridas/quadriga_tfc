@@ -5,19 +5,14 @@ import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.parsers.code.types.UnknownType;
 
-public class ProxyComponent extends BaseTypeClass implements QuadrigaComponent {
+public class ProxySystem extends BaseTypeClass implements QuadrigaSystem {
 
-  public ProxyComponent(String pack, String name) {
+  public ProxySystem(String pack, String name) {
     super((pack.length()>0)? (pack + "." + name) : name);
   }
 
-  public ProxyComponent(String name) {
+  public ProxySystem(String name) {
     super(name);
-  }
-
-  @Override
-  public ComponentField getField(String name) {
-    return null;
   }
 
   @Override
@@ -32,7 +27,7 @@ public class ProxyComponent extends BaseTypeClass implements QuadrigaComponent {
 
   @Override
   public String treeStringRepresentation() {
-    return Utils.treeStringRepresentation(">> Proxy Component " + getBinaryName() + " <<");
+    return Utils.treeStringRepresentation(">> Proxy System " + getBinaryName() + " <<");
   }
 
   @Override

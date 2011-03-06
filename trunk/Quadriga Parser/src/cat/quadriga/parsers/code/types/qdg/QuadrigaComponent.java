@@ -5,7 +5,9 @@ import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.types.BaseType;
 
-public interface Component extends BaseType, TreeRepresentable {
+public interface QuadrigaComponent extends BaseType, TreeRepresentable {
+  
+  public ComponentField getField(String name);
 
   public static class ComponentField implements TreeRepresentable {
     public final BaseType type;
