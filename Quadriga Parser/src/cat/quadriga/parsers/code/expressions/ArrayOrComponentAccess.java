@@ -2,6 +2,8 @@ package cat.quadriga.parsers.code.expressions;
 
 import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.CodeZoneClass;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.dataaccess.TypeDataAccess;
 import cat.quadriga.parsers.code.types.ArrayType;
 import cat.quadriga.parsers.code.types.BaseType;
@@ -10,7 +12,7 @@ import cat.quadriga.parsers.code.types.UnknownType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
 
-public class ArrayOrComponentAccess extends ExpressionNodeClass {
+public final class ArrayOrComponentAccess extends ExpressionNodeClass {
 
   public ExpressionNode array;
   public ExpressionNode access;
@@ -63,6 +65,19 @@ public class ArrayOrComponentAccess extends ExpressionNodeClass {
       }
     }
     return UnknownType.empty;
+  }
+
+  @Override
+  public ArrayOrComponentAccess getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
   }
 
 }

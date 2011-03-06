@@ -2,13 +2,15 @@ package cat.quadriga.parsers.code.proxy;
 
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.UnknownType;
 
-public class ProxyDataAccess extends ExpressionNodeClass implements DataAccess {
+public final class ProxyDataAccess extends ExpressionNodeClass implements DataAccess {
 
   public final String name;
   public final ExpressionNode indirect;
@@ -22,7 +24,7 @@ public class ProxyDataAccess extends ExpressionNodeClass implements DataAccess {
   }
   
   public ProxyDataAccess(String name) {
-    super(new CodeZoneClass(0,0,0,0));
+    super(new CodeZoneClass(0,0,0,0,""));
     this.name = name;
     indirect = null;
     clazz = null;
@@ -73,6 +75,18 @@ public class ProxyDataAccess extends ExpressionNodeClass implements DataAccess {
   @Override
   public boolean isReadable() {
     return true;
+  }
+
+  @Override
+  public ProxyDataAccess getLinkedVersion(SymbolTable symbolTable, ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
   }
 
 }

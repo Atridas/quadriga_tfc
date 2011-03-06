@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
@@ -50,5 +52,17 @@ public class CallToNamedArguments extends StatementNodeClass implements CallToAr
       treeStringRepresentation = Utils.treeStringRepresentation(getOperation(), getOperands());
     }
     return treeStringRepresentation;
+  }
+  
+  @Override
+  public CallToNamedArguments getLinkedVersion(SymbolTable symbolTable, ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
   }
 }

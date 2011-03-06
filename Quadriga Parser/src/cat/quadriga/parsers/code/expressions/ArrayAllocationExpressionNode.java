@@ -4,11 +4,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.types.ArrayType;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 
-public class ArrayAllocationExpressionNode extends ExpressionNodeClass {
+public final class ArrayAllocationExpressionNode extends ExpressionNodeClass {
 
   public final BaseType arrayType;
   public final BaseType base;
@@ -62,6 +65,54 @@ public class ArrayAllocationExpressionNode extends ExpressionNodeClass {
   @Override
   public BaseType getType() {
     return arrayType;
+  }
+
+  private ArrayAllocationExpressionNode linkedVersion = null;
+  @Override
+  public ArrayAllocationExpressionNode getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    if(linkedVersion == null) {
+      BaseType newBase;
+      ExpressionNode[] newLengths = new ExpressionNode[lengths.length];
+      
+      if(base.isValid()) {
+        newBase = base; 
+      } else {
+        newBase = base.getValid(symbolTable, errorLog);
+        if(newBase == null) {
+          return null;
+        }
+      }
+      
+      for(int i = 0; i < lengths.length; i++) {
+        ExpressionNode len = lengths[i];
+        if(!len.isCorrectlyLinked()) {
+          len = len.getLinkedVersion(symbolTable, errorLog);
+          if(len == null) {
+            return null;
+          }
+        }
+        if(len.getType() != PrimitiveTypeRef.getFromName("int") &&
+           len.getType() != ClassOrInterfaceTypeRef.getFromClass(Integer.class)) {
+          errorLog.insertError("S'ha trobat un " + len.getType().getBinaryName() + " quan es buscava un enter", lengths[i]);
+          return null;
+        }
+        newLengths[i] = len;
+      }
+      
+      linkedVersion = new ArrayAllocationExpressionNode(newBase, newLengths, dimensions, this);
+      if(!linkedVersion.arrayType.isValid()) {
+        errorLog.insertError("No es pot crear un array de " + base.getBinaryName(), this);
+        return null;
+      }
+      linkedVersion.linkedVersion = linkedVersion;
+    }
+    return linkedVersion;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    return linkedVersion != null;
   }
 
 }

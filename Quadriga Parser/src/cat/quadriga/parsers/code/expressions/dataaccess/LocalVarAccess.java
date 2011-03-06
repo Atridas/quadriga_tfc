@@ -1,11 +1,13 @@
 package cat.quadriga.parsers.code.expressions.dataaccess;
 
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 
-public class LocalVarAccess extends DirectDataAccess {
+public final class LocalVarAccess extends DirectDataAccess {
   
   public final LocalVariableSymbol var;
 
@@ -38,6 +40,19 @@ public class LocalVarAccess extends DirectDataAccess {
   @Override
   public boolean isReadable() {
     return true;
+  }
+
+  @Override
+  public LocalVarAccess getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
   }
 
 }

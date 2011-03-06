@@ -7,7 +7,7 @@ public class LabelSymbol extends BaseSymbol {
   }
 
   @Override
-  protected String createTreeStringRepresentation() {
+  public String createTreeStringRepresentation() {
     return "Symbol Label [" + name + "]";
   }
   

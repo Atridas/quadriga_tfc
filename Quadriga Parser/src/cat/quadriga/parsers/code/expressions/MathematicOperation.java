@@ -1,10 +1,12 @@
 package cat.quadriga.parsers.code.expressions;
 
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.parsers.code.types.UnknownType;
 
-public class MathematicOperation extends BinaryExpressionNode {
+public final class MathematicOperation extends BinaryExpressionNode {
 
   public final Operator operator;
   public MathematicOperation( Operator operator,
@@ -63,5 +65,18 @@ public class MathematicOperation extends BinaryExpressionNode {
     default:
       return UnknownType.empty;
     }
+  }
+
+  @Override
+  public MathematicOperation getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
   }
 }

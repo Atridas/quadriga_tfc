@@ -4,13 +4,15 @@ import java.util.List;
 
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.printers.MegaPrinter;
 import cat.quadriga.parsers.code.printers.PrintInfo;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.UnknownType;
 
-public class ProxyExpression extends ExpressionNodeClass {
+public final class ProxyExpression extends ExpressionNodeClass {
   
   private final String operator;
   private final String[] operands;
@@ -35,7 +37,7 @@ public class ProxyExpression extends ExpressionNodeClass {
   
   public ProxyExpression(List<PrintInfo> in)
   {
-    super(new CodeZoneClass(0,0,0,0));
+    super(new CodeZoneClass(0,0,0,0,""));
     MegaPrinter printer = MegaPrinter.getInstance();
     
     String aux = printer.print(in);
@@ -53,7 +55,7 @@ public class ProxyExpression extends ExpressionNodeClass {
   
   public ProxyExpression(String in)
   {
-    super(new CodeZoneClass(0,0,0,0));
+    super(new CodeZoneClass(0,0,0,0,""));
     
     
     operator = ">> proxy [ " + in + " ]";
@@ -83,5 +85,18 @@ public class ProxyExpression extends ExpressionNodeClass {
   @Override
   public BaseType getType() {
     return UnknownType.empty;
+  }
+
+  @Override
+  public ProxyExpression getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
   }
 }

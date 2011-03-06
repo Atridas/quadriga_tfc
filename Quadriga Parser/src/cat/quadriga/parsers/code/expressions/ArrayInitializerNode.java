@@ -5,9 +5,11 @@ import java.util.Collections;
 import java.util.List;
 
 import cat.quadriga.parsers.code.CodeZoneClass;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.types.BaseType;
 
-public class ArrayInitializerNode extends ExpressionNodeClass {
+public final class ArrayInitializerNode extends ExpressionNodeClass {
 
   public final ArrayAllocationExpressionNode allocation;
   public final List<ExpressionNode> inits;
@@ -46,6 +48,19 @@ public class ArrayInitializerNode extends ExpressionNodeClass {
   @Override
   public BaseType getType() {
     return allocation.getType();
+  }
+
+  @Override
+  public ArrayInitializerNode getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
   }
 
 }

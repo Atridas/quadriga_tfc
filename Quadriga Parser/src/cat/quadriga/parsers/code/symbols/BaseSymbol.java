@@ -23,7 +23,7 @@ public abstract class BaseSymbol implements TreeRepresentable {
     return treeStringRepresentation = createTreeStringRepresentation();
   }
   
-  protected abstract String createTreeStringRepresentation();
+  public abstract String createTreeStringRepresentation();
   
   
 }

@@ -1,4 +1,4 @@
-package cat.quadriga.parsers.code.symbols;
+package cat.quadriga.parsers.code;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,8 +9,9 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.Map.Entry;
 
-import cat.quadriga.parsers.code.TreeRepresentable;
-import cat.quadriga.parsers.code.Utils;
+import cat.quadriga.parsers.code.symbols.BaseSymbol;
+import cat.quadriga.parsers.code.symbols.TypeSymbol;
+import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
 
 public class SymbolTable implements TreeRepresentable {
@@ -142,6 +143,32 @@ public class SymbolTable implements TreeRepresentable {
     globalNamespace.putAll(other.globalNamespace);
   }
   
+  public boolean link(ErrorLog errorLog) {
+    boolean errorsOcurred = false;
+    for(Entry<String, BaseSymbol> entry : globalNamespace.entrySet()) {
+      BaseSymbol symbol = entry.getValue();
+      
+      if(symbol instanceof SymbolRef) {
+        symbol = ((SymbolRef)symbol).base;
+      }
+      
+      if(symbol instanceof TypeSymbol) {
+        BaseType type = ((TypeSymbol)symbol).type;
+        if(!type.isValid()) {
+          type = type.getValid(this, errorLog);
+          if(type == null) {
+            errorsOcurred = true;
+          } else {
+            globalNamespace.put(entry.getKey(), new TypeSymbol(type));
+          }
+        }
+      } else {
+        errorLog.insertWarning("Symbol " + entry.getKey() + " is not a type", new CodeZoneClass(0,0,0,0, "Linkage"));
+      }
+    }
+    return !errorsOcurred;
+  }
+  
   public void cleanQuadrigaPackage(String pack) {
     if(!pack.endsWith(".")) {
       pack += '.';
@@ -193,7 +220,7 @@ public class SymbolTable implements TreeRepresentable {
     }
 
     @Override
-    protected String createTreeStringRepresentation() {
+    public String createTreeStringRepresentation() {
       return base.createTreeStringRepresentation();
     }
     
