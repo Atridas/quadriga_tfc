@@ -62,6 +62,7 @@ public class BlockCode extends StatementNodeClass {
     private int beginLine, beginColumn, endLine, endColumn;
     public final List<LocalVariableSymbol> localVariables;
     public final List<StatementNode> statements;
+    
     public TmpBlockCode(Token t) {
       beginLine   = endLine   = t.beginLine;
       beginColumn = endColumn = t.beginColumn;
@@ -70,9 +71,22 @@ public class BlockCode extends StatementNodeClass {
       statements     = new LinkedList<StatementNode>();
     }
     
+    public TmpBlockCode() {
+      beginLine   = endLine   = 
+      beginColumn = endColumn = 0;
+      
+      localVariables = new LinkedList<LocalVariableSymbol>();
+      statements     = new LinkedList<StatementNode>();
+    }
+    
     public void setEndToken(Token t) {
       endLine   = t.endLine;
       endColumn = t.endColumn;
+    }
+    
+    public void setEndCode(CodeZone cz) {
+      endLine   = cz.endLine();
+      endColumn = cz.endColumn();
     }
 
     public void addLocalVariable(LocalVariableSymbol local) {

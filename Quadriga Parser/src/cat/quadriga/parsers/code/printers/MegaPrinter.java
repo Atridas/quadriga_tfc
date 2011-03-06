@@ -5,8 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 public class MegaPrinter {
   private int tabLen = 0;
@@ -78,7 +78,7 @@ public class MegaPrinter {
   
   public List<PrintInfo> format(String in) {
     String[] lines = in.split("\n");
-    List<PrintInfo> out = new Vector<PrintInfo>(lines.length);
+    List<PrintInfo> out = new ArrayList<PrintInfo>(lines.length);
 
     for(int i = 0; i < lines.length; i++)
     {

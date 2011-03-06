@@ -1,10 +1,9 @@
 package cat.quadriga.parsers.code.statements;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
-
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
@@ -15,7 +14,7 @@ public class CallToListedArguments extends StatementNodeClass implements CallToA
 
   public CallToListedArguments(List<ExpressionNode> arguments, CodeZone cz) {
     super(cz);
-    this.arguments = Collections.unmodifiableList(new Vector<ExpressionNode>(arguments));
+    this.arguments = Collections.unmodifiableList(new ArrayList<ExpressionNode>(arguments));
   }
 
   private String[] getOperands() {

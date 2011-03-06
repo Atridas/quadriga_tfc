@@ -9,7 +9,7 @@ import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.parsers.code.types.UnknownType;
 
-public class IncompletePrototype extends BaseTypeClass implements Prototype {
+public class IncompletePrototype extends BaseTypeClass implements QuadrigaPrototype {
 
   public List<ParameterClass> parameters;
   public BlockCode initializations; 
@@ -39,7 +39,8 @@ public class IncompletePrototype extends BaseTypeClass implements Prototype {
 
   @Override
   public String treeStringRepresentation() {
-    return Utils.treeStringRepresentation("Incomplete Prototype " + getBinaryName(), 
+    return Utils.treeStringRepresentation("Incomplete Prototype " + getBinaryName(),
+        (parameters == null || parameters.size() == 0)? null : Utils.parametersRepresentation(parameters),
         initializations.treeStringRepresentation());
   }
 

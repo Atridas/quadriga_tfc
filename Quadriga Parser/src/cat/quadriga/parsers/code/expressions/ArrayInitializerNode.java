@@ -1,8 +1,8 @@
 package cat.quadriga.parsers.code.expressions;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Vector;
 
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.types.BaseType;
@@ -17,7 +17,7 @@ public class ArrayInitializerNode extends ExpressionNodeClass {
 
     this.allocation = allocation;
     
-    List<ExpressionNode> aux = new Vector<ExpressionNode>(inits.length);
+    List<ExpressionNode> aux = new ArrayList<ExpressionNode>(inits.length);
     for(int i = 0; i < inits.length; i++) {
       aux.add(inits[i]);
     }

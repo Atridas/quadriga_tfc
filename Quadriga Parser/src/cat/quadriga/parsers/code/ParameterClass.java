@@ -10,13 +10,15 @@ public class ParameterClass {
   public final boolean varargs;
   public final int modifiers;
   public final ExpressionNode init;
+  public final String semantic;
   
-  public ParameterClass(CodeZone cz, BaseType type, String name, boolean varargs, int modifiers, ExpressionNode init) {
+  public ParameterClass(CodeZone cz, BaseType type, String name, boolean varargs, int modifiers, ExpressionNode init, String semantic) {
     this.cz = cz;
     this.type = type;
     this.name = name;
     this.varargs = varargs;
     this.modifiers = modifiers;
     this.init = init;
+    this.semantic = semantic;
   }
 }

@@ -2,9 +2,13 @@ package cat.quadriga.parsers.code.expressions;
 
 import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.CodeZoneClass;
+import cat.quadriga.parsers.code.expressions.dataaccess.TypeDataAccess;
 import cat.quadriga.parsers.code.types.ArrayType;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
 import cat.quadriga.parsers.code.types.UnknownType;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
 
 public class ArrayOrComponentAccess extends ExpressionNodeClass {
 
@@ -25,7 +29,19 @@ public class ArrayOrComponentAccess extends ExpressionNodeClass {
 
   @Override
   public String getOperation() {
-    // TODO comprovar si és un array o una entitat
+    if(array.getType() instanceof QuadrigaEntity) {
+      if(access.getType() == ClassOrInterfaceTypeRef.getFromClass(String.class)) {
+        return "Child Access";
+      } else {
+        if(access instanceof TypeDataAccess) {
+          BaseType type = ((TypeDataAccess)access).type;
+          if(type instanceof QuadrigaComponent) {
+            return "Component Access";
+          }
+        }
+      }
+      return "Unknown Array Access";
+    }
     return "Array Access";
   }
 
@@ -34,7 +50,18 @@ public class ArrayOrComponentAccess extends ExpressionNodeClass {
     if(array.getType() instanceof ArrayType) {
       return ((ArrayType)array.getType()).base;
     }
-    // TODO entitats i components
+    if(array.getType() instanceof QuadrigaEntity) {
+      if(access.getType() == ClassOrInterfaceTypeRef.getFromClass(String.class)) {
+        return QuadrigaEntity.baseEntity;
+      } else {
+        if(access instanceof TypeDataAccess) {
+          BaseType type = ((TypeDataAccess)access).type;
+          if(type instanceof QuadrigaComponent) {
+            return type;
+          }
+        }
+      }
+    }
     return UnknownType.empty;
   }
 

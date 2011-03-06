@@ -4,7 +4,7 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.types.BaseType;
-import cat.quadriga.parsers.code.types.UnknownType;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
 
 public class NewEntity extends ExpressionNodeClass {
   
@@ -36,8 +36,7 @@ public class NewEntity extends ExpressionNodeClass {
 
   @Override
   public BaseType getType() {
-    // TODO Auto-generated method stub
-    return UnknownType.empty;
+    return QuadrigaEntity.baseEntity;
   }
 
 }
