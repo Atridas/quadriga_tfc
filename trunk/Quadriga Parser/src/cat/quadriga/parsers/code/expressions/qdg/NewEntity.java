@@ -1,12 +1,14 @@
 package cat.quadriga.parsers.code.expressions.qdg;
 
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
 
-public class NewEntity extends ExpressionNodeClass {
+public final class NewEntity extends ExpressionNodeClass {
   
   public final ExpressionNode parent;
   public final ExpressionNode name;
@@ -38,5 +40,15 @@ public class NewEntity extends ExpressionNodeClass {
   public BaseType getType() {
     return QuadrigaEntity.baseEntity;
   }
-
+  @Override
+  public NewEntity getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
+  }
 }

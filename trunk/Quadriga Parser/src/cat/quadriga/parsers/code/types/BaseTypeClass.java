@@ -1,5 +1,8 @@
 package cat.quadriga.parsers.code.types;
 
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
+
 public abstract class BaseTypeClass implements BaseType {
   private final String binaryName;
   private final String instanceableName;
@@ -56,5 +59,10 @@ public abstract class BaseTypeClass implements BaseType {
   @Override
   public String treeStringRepresentation() {
     return binaryName;
+  }
+  
+  //TODO borrar això i implementar-ho on toca
+  public BaseType getValid(SymbolTable symbolTable, ErrorLog errorLog) {
+    return null;
   }
 }

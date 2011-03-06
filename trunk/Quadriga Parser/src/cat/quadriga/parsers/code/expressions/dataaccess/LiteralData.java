@@ -3,6 +3,8 @@ package cat.quadriga.parsers.code.expressions.dataaccess;
 import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
@@ -12,8 +14,8 @@ import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 
 public abstract class LiteralData extends DirectDataAccess {
 
-  public LiteralData(Token t) {
-    super(new CodeZoneClass(t));
+  public LiteralData(Token t, String file) {
+    super(new CodeZoneClass(t,file));
   }
   
   public LiteralData(CodeZone cz) {
@@ -37,14 +39,18 @@ public abstract class LiteralData extends DirectDataAccess {
   
   public abstract Object getValue();
   
-  public static class IntegerLiteral extends LiteralData {
+  @Override
+  public abstract LiteralData getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog);
+  
+  public static final class IntegerLiteral extends LiteralData {
     public final int i;
-    public IntegerLiteral(Token t) {
-      super(t);
+    public IntegerLiteral(Token t, String file) {
+      super(t, file);
       i = Integer.decode(t.image);
     }
     public IntegerLiteral(int i) {
-      super(new CodeZoneClass(0,0,0,0));
+      super(new CodeZoneClass(0,0,0,0, ""));
       this.i = i;
     }
     @Override
@@ -60,12 +66,21 @@ public abstract class LiteralData extends DirectDataAccess {
     public BaseType getType() {
       return PrimitiveTypeRef.getFromType(PrimitiveTypeRef.Type.INT);
     }
+    @Override
+    public IntegerLiteral getLinkedVersion(SymbolTable symbolTable,
+        ErrorLog errorLog) {
+      return this;
+    }
+    @Override
+    public boolean isCorrectlyLinked() {
+      return true;
+    }
   }
   
-  public static class LongLiteral extends LiteralData {
+  public static final class LongLiteral extends LiteralData {
     public final long l;
-    public LongLiteral(Token t) {
-      super(t);
+    public LongLiteral(Token t, String file) {
+      super(t,file);
       l = Long.decode(t.image);
     }
     @Override
@@ -81,12 +96,21 @@ public abstract class LiteralData extends DirectDataAccess {
     public BaseType getType() {
       return PrimitiveTypeRef.getFromType(PrimitiveTypeRef.Type.LONG);
     }
+    @Override
+    public LongLiteral getLinkedVersion(SymbolTable symbolTable,
+        ErrorLog errorLog) {
+      return this;
+    }
+    @Override
+    public boolean isCorrectlyLinked() {
+      return true;
+    }
   }
   
-  public static class FloatLiteral extends LiteralData {
+  public static final class FloatLiteral extends LiteralData {
     public final float f;
-    public FloatLiteral(Token t) {
-      super(t);
+    public FloatLiteral(Token t, String file) {
+      super(t, file);
       f = Float.parseFloat(t.image);
     }
     @Override
@@ -102,12 +126,21 @@ public abstract class LiteralData extends DirectDataAccess {
     public BaseType getType() {
       return PrimitiveTypeRef.getFromType(PrimitiveTypeRef.Type.FLOAT);
     }
+    @Override
+    public FloatLiteral getLinkedVersion(SymbolTable symbolTable,
+        ErrorLog errorLog) {
+      return this;
+    }
+    @Override
+    public boolean isCorrectlyLinked() {
+      return true;
+    }
   }
   
-  public static class DoubleLiteral extends LiteralData {
+  public static final class DoubleLiteral extends LiteralData {
     public final double d;
-    public DoubleLiteral(Token t) {
-      super(t);
+    public DoubleLiteral(Token t, String file) {
+      super(t, file);
       d = Double.parseDouble(t.image);
     }
     @Override
@@ -123,12 +156,21 @@ public abstract class LiteralData extends DirectDataAccess {
     public BaseType getType() {
       return PrimitiveTypeRef.getFromType(PrimitiveTypeRef.Type.DOUBLE);
     }
+    @Override
+    public DoubleLiteral getLinkedVersion(SymbolTable symbolTable,
+        ErrorLog errorLog) {
+      return this;
+    }
+    @Override
+    public boolean isCorrectlyLinked() {
+      return true;
+    }
   }
   
-  public static class CharacterLiteral extends LiteralData {
+  public static final class CharacterLiteral extends LiteralData {
     public final char c;
-    public CharacterLiteral(Token t) {
-      super(t);
+    public CharacterLiteral(Token t, String file) {
+      super(t, file);
       c = Utils.convertImageToChar(t.image);
     }
 
@@ -162,13 +204,22 @@ public abstract class LiteralData extends DirectDataAccess {
     public BaseType getType() {
       return PrimitiveTypeRef.getFromType(PrimitiveTypeRef.Type.CHAR);
     }
+    @Override
+    public CharacterLiteral getLinkedVersion(SymbolTable symbolTable,
+        ErrorLog errorLog) {
+      return this;
+    }
+    @Override
+    public boolean isCorrectlyLinked() {
+      return true;
+    }
   }
   
   //["n","t","b","r","f","\\","'","\""]
-  public static class StringLiteral extends LiteralData {
+  public static final class StringLiteral extends LiteralData {
     public final String s;
-    public StringLiteral(Token t) {
-      super(t);
+    public StringLiteral(Token t, String file) {
+      super(t, file);
       s = Utils.convertImageToString(t.image);
     }
     @Override
@@ -189,11 +240,20 @@ public abstract class LiteralData extends DirectDataAccess {
     public BaseType getType() {
       return ClassOrInterfaceTypeRef.getFromClass(String.class);
     }
+    @Override
+    public StringLiteral getLinkedVersion(SymbolTable symbolTable,
+        ErrorLog errorLog) {
+      return this;
+    }
+    @Override
+    public boolean isCorrectlyLinked() {
+      return true;
+    }
   }
   
-  public static class TrueLiteral extends LiteralData {    
-    public TrueLiteral(Token t) {
-      super(t);
+  public static final class TrueLiteral extends LiteralData {    
+    public TrueLiteral(Token t, String file) {
+      super(t, file);
     }
     @Override
     public Boolean getValue() {
@@ -208,11 +268,20 @@ public abstract class LiteralData extends DirectDataAccess {
     public BaseType getType() {
       return PrimitiveTypeRef.getFromType(PrimitiveTypeRef.Type.BOOLEAN);
     }
+    @Override
+    public TrueLiteral getLinkedVersion(SymbolTable symbolTable,
+        ErrorLog errorLog) {
+      return this;
+    }
+    @Override
+    public boolean isCorrectlyLinked() {
+      return true;
+    }
   }
   
-  public static class FalseLiteral extends LiteralData {    
-    public FalseLiteral(Token t) {
-      super(t);
+  public static final class FalseLiteral extends LiteralData {    
+    public FalseLiteral(Token t, String file) {
+      super(t, file);
     }
     @Override
     public Boolean getValue() {
@@ -227,11 +296,20 @@ public abstract class LiteralData extends DirectDataAccess {
     public BaseType getType() {
       return PrimitiveTypeRef.getFromType(PrimitiveTypeRef.Type.BOOLEAN);
     }
+    @Override
+    public FalseLiteral getLinkedVersion(SymbolTable symbolTable,
+        ErrorLog errorLog) {
+      return this;
+    }
+    @Override
+    public boolean isCorrectlyLinked() {
+      return true;
+    }
   }
   
-  public static class NullLiteral extends LiteralData {    
-    public NullLiteral(Token t) {
-      super(t);
+  public static final class NullLiteral extends LiteralData {    
+    public NullLiteral(Token t, String file) {
+      super(t, file);
     }
     @Override
     public Object getValue() {
@@ -246,9 +324,18 @@ public abstract class LiteralData extends DirectDataAccess {
     public BaseType getType() {
       return NullType.instance;
     }
+    @Override
+    public NullLiteral getLinkedVersion(SymbolTable symbolTable,
+        ErrorLog errorLog) {
+      return this;
+    }
+    @Override
+    public boolean isCorrectlyLinked() {
+      return true;
+    }
   }
   
-  public static class ClassLiteral extends LiteralData { 
+  public static final class ClassLiteral extends LiteralData { 
     public final BaseType type;
     
     public ClassLiteral(BaseType type, CodeZone cz) {
@@ -270,6 +357,15 @@ public abstract class LiteralData extends DirectDataAccess {
     @Override
     public BaseType getType() {
       return Utils.createType(Class.class);
+    }
+    @Override
+    public ClassLiteral getLinkedVersion(SymbolTable symbolTable,
+        ErrorLog errorLog) {
+      return this;
+    }
+    @Override
+    public boolean isCorrectlyLinked() {
+      return true;
     }
   }
 

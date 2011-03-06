@@ -1,6 +1,8 @@
 package cat.quadriga.parsers.code.expressions.qdg;
 
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.dataaccess.DirectDataAccess;
 import cat.quadriga.parsers.code.types.BaseType;
@@ -8,7 +10,7 @@ import cat.quadriga.parsers.code.types.UnknownType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent.ComponentField;
 
-public class ComponentFieldAccess extends DirectDataAccess {
+public final class ComponentFieldAccess extends DirectDataAccess {
   
   public final String field;
   public final QuadrigaComponent component;
@@ -61,6 +63,19 @@ public class ComponentFieldAccess extends DirectDataAccess {
   public boolean isReadable() {
     //TODO fer-ho depenent de la entitat?
     return true;
+  }
+
+  @Override
+  public ComponentFieldAccess getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
   }
 
 }

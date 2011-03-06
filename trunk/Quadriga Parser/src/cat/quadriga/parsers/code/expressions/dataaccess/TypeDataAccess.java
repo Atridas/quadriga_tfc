@@ -1,10 +1,12 @@
 package cat.quadriga.parsers.code.expressions.dataaccess;
 
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.NoType;
 
-public class TypeDataAccess extends DirectDataAccess {
+public final class TypeDataAccess extends DirectDataAccess {
 
   public final BaseType type;
 
@@ -35,6 +37,19 @@ public class TypeDataAccess extends DirectDataAccess {
 
   @Override
   public boolean isReadable() {
+    return false;
+  }
+
+  @Override
+  public TypeDataAccess getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
     return false;
   }
 

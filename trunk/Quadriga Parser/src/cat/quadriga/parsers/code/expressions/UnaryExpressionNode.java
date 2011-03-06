@@ -1,6 +1,8 @@
 package cat.quadriga.parsers.code.expressions;
 
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 
 public abstract class UnaryExpressionNode extends ExpressionNodeClass {
 
@@ -20,5 +22,8 @@ public abstract class UnaryExpressionNode extends ExpressionNodeClass {
   public ExpressionNode getOperant() {
     return operand;
   }
-
+  
+  @Override
+  public abstract UnaryExpressionNode getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog);
 }

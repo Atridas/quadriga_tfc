@@ -16,7 +16,6 @@ import cat.quadriga.parsers.code.expressions.qdg.ComponentFieldAccess;
 import cat.quadriga.parsers.code.proxy.ProxyDataAccess;
 import cat.quadriga.parsers.code.symbols.BaseSymbol;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
-import cat.quadriga.parsers.code.symbols.SymbolTable;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
 import cat.quadriga.parsers.code.types.ArrayType;
 import cat.quadriga.parsers.code.types.BaseType;
@@ -118,21 +117,20 @@ abstract public class Utils {
     
   }
   
-  public static ExpressionNode symbolToExpression(BaseSymbol symbol, Token first, Token last)
+  public static ExpressionNode symbolToExpression(BaseSymbol symbol, Token first, Token last, String file)
   {
     if(symbol instanceof LocalVariableSymbol) {
-      return new LocalVarAccess((LocalVariableSymbol)symbol, new CodeZoneClass(first,last));
+      return new LocalVarAccess((LocalVariableSymbol)symbol, new CodeZoneClass(first,last, file));
     } else if(symbol instanceof TypeSymbol) {
-      return new TypeDataAccess(((TypeSymbol)symbol).type, new CodeZoneClass(first,last));
+      return new TypeDataAccess(((TypeSymbol)symbol).type, new CodeZoneClass(first,last, file));
     }
     
-    return new ProxyDataAccess("Proxy direct access [" + symbol.name + "]", new CodeZoneClass(first,last));
+    return new ProxyDataAccess("Proxy direct access [" + symbol.name + "]", new CodeZoneClass(first,last, file));
   }
   
   public static ExpressionNode accessToMember(ExpressionNode expression, String member, Token t)
   {
-    CodeZoneClass cz = new CodeZoneClass( expression.beginLine(), expression.beginColumn(),
-                                          t.endLine, t.endColumn);
+    CodeZoneClass cz = new CodeZoneClass( expression, t);
     if(expression instanceof TypeDataAccess) {
       TypeDataAccess tda = (TypeDataAccess) expression;
       //static accesses
@@ -158,7 +156,7 @@ abstract public class Utils {
     return new ProxyDataAccess("Proxy access to member " + member, expression, cz);
   }
 
-  public static ExpressionNode resolveName(SymbolTable symbolTable, List<Token> identifiers) {
+  public static ExpressionNode resolveName(SymbolTable symbolTable, List<Token> identifiers, String file) {
     Token first = identifiers.get(0);
     Token actual;
     Iterator<Token> it = identifiers.iterator();
@@ -168,7 +166,7 @@ abstract public class Utils {
     String aux = actual.image;
     BaseSymbol symbol = symbolTable.findSymbol(aux);
     if(symbol != null) {
-      result = symbolToExpression(symbol,first,actual);
+      result = symbolToExpression(symbol,first,actual, file);
     }
     
     while(result == null && it.hasNext()) {
@@ -176,12 +174,12 @@ abstract public class Utils {
       aux += '.' + actual.image;
       symbol = symbolTable.findSymbol(aux);
       if(symbol != null) {
-        result = symbolToExpression(symbol,first,actual);
+        result = symbolToExpression(symbol,first,actual, file);
       }
     }
 
     if(result == null) {
-      result = new ProxyDataAccess(aux,  new CodeZoneClass(identifiers.get(0),identifiers.get(identifiers.size()-1)));
+      result = new ProxyDataAccess(aux,  new CodeZoneClass(identifiers.get(0),identifiers.get(identifiers.size()-1),file));
     } else {
       while(it.hasNext()) {
         actual = it.next();

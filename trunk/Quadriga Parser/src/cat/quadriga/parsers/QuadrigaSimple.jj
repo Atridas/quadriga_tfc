@@ -149,7 +149,7 @@ public class QuadrigaSimple
    private int getNewId()   {     return id++;
    }
 
-   public final ErrorLog errorLog = new ErrorLog();
+   public ErrorLog errorLog = new ErrorLog();
 
    public final SymbolTable symbolTable = new SymbolTable();
 
@@ -158,6 +158,8 @@ public class QuadrigaSimple
    private String currentFile;
 
    private Set<String> dependencies = new HashSet<String>();
+
+   private String file;
 
    private void addDependency(String dependency) {
      if(dependency != null
@@ -175,6 +177,7 @@ public class QuadrigaSimple
       this(System.in);
       try { ReInit(new FileInputStream(new File(fileName))); }
       catch(Exception e) { e.printStackTrace(); }
+      file = fileName;
    }
 
   public static void main(String args[]) {
@@ -1659,10 +1662,10 @@ VarAndInit VariableDeclarator(int modifiers, BaseType type):
       symbolTable.addSymbol(localVar);
       localBlock.addLocalVariable(localVar);
 
-      leftHand = new LocalVarAccess(localVar, new CodeZoneClass(vai.name));
+      leftHand = new LocalVarAccess(localVar, new CodeZoneClass(vai.name,file));
     } else {
       //Field
-      leftHand = new ProxyDataAccess("Proxy field: " + vai.name, new CodeZoneClass(vai.name));    }  }
+      leftHand = new ProxyDataAccess("Proxy field: " + vai.name, new CodeZoneClass(vai.name,file));    }  }
   [ "="
     initialization = VariableInitializer(type)
     {
@@ -1738,7 +1741,7 @@ ExpressionNode ArrayInitializer(BaseType base):
                                                    base,
                                                    arraySize,
                                                    1,
-                                                   new CodeZoneClass(t, t2)
+                                                   new CodeZoneClass(t, t2,file)
                                                    ); 
     return new ArrayInitializerNode(allocation,
                                     listOfInits.toArray(
@@ -1890,7 +1893,7 @@ ParameterClass FormalParameter():
   | ":" t = < IDENTIFIER > { semantic = t.image; } ]
   {
     return new ParameterClass(
-      new CodeZoneClass(vai.name),
+      new CodeZoneClass(vai.name,file),
       vai.type,
       vai.name.image,
       varargs,
@@ -2097,7 +2100,7 @@ BaseType ClassOrInterfaceType():
     ]
   )*
   {
-    CodeZone cz = new CodeZoneClass(first.beginLine, last.beginColumn, last.endLine, first.endColumn);
+    CodeZone cz = new CodeZoneClass(first, last, file);
     String name = aux.get(0);
     for(int i = 1; i < aux.size(); i++) {
 	  name += "." + aux.get(i);    }
@@ -2457,17 +2460,17 @@ ExpressionNode EqualityExpression():
 
 ExpressionNode InstanceOfExpression():
 {
-  List<PrintInfo> out = new LinkedList<PrintInfo>();
   ExpressionNode finalNode, auxiliarNode;
   BooleanOperation.Operator operator;
   Token t;
+  BaseType type;
 }
 {
   finalNode = RelationalExpression()
   [ t="instanceof" { operator = BooleanOperation.Operator.INSTANCEOF; }
-    Type()
+    type = Type()
     {
-      auxiliarNode = new ProxyExpression(out,new CodeZoneClass(t));
+      auxiliarNode = new TypeDataAccess(type,new CodeZoneClass(t,file));
       finalNode = new BooleanOperation(operator,finalNode,auxiliarNode);    }
   ]
   {
@@ -2718,7 +2721,7 @@ ExpressionNode MemberSelector(ExpressionNode in):
   t="." TypeArguments() t2=<IDENTIFIER>
   {
     //TODO arguments
-    return new ProxyDataAccess( "parametrized " + t.image, in, new CodeZoneClass(t, t2));
+    return new ProxyDataAccess( "parametrized " + t.image, in, new CodeZoneClass(t, t2, file));
   }
 }
 
@@ -2746,17 +2749,17 @@ ExpressionNode PrimaryPrefix():
       if(tokenList.size() > 0) {
         //TODO algo
         result = new ProxyExpression(tokenList.get(0).image + " ... this",
-                                     new CodeZoneClass(tokenList.get(0),t));      } else      {
+                                     new CodeZoneClass(tokenList.get(0),t,file));      } else      {
         BaseSymbol symbol = symbolTable.findSymbol("this");
         if(symbol != null) {
-          result = new LocalVarAccess((LocalVariableSymbol)symbol, new CodeZoneClass(t));        } else {          result = new ProxyDataAccess("this", new CodeZoneClass(t));
+          result = new LocalVarAccess((LocalVariableSymbol)symbol, new CodeZoneClass(t,file));        } else {          result = new ProxyDataAccess("this", new CodeZoneClass(t,file));
         }      }
     }
   |
     t="super" "." t2=<IDENTIFIER>
     {
       //TODO
-      result = new ProxyExpression("super." + t2.image, new CodeZoneClass(t, t2));
+      result = new ProxyExpression("super." + t2.image, new CodeZoneClass(t, t2,file));
     }
   |
      // danson, added this part to support a construct like:
@@ -2766,7 +2769,7 @@ ExpressionNode PrimaryPrefix():
      type = ClassOrInterfaceType() t="." "super" "." t2=<IDENTIFIER>
      {
        //TODO
-      result = new ProxyExpression(type + ".super." + t.image, new CodeZoneClass(t, t2));
+      result = new ProxyExpression(type + ".super." + t.image, new CodeZoneClass(t, t2,file));
      }
   |
     "(" result = Expression() ")"
@@ -2776,14 +2779,14 @@ ExpressionNode PrimaryPrefix():
     LOOKAHEAD( ResultType() "." "class" )
     type = ResultType() t="." t2="class"
     {
-      result = new LiteralData.ClassLiteral(type, new CodeZoneClass(t, t2));
+      result = new LiteralData.ClassLiteral(type, new CodeZoneClass(t, t2,file));
     }
   |
     {
       List<Token> aux;    }
     aux = Name()
     {
-      result = Utils.resolveName(symbolTable,aux);    }
+      result = Utils.resolveName(symbolTable,aux,file);    }
   )
   {
     return result;  }
@@ -2799,13 +2802,13 @@ ExpressionNode PrimarySuffix(ExpressionNode in):
       LOOKAHEAD("." "super" ".")
       t="." t2="super"
       {
-        out = new ProxyExpression(".super",new CodeZoneClass(t,t2));
+        out = new ProxyExpression(".super",new CodeZoneClass(t,t2,file));
       }
     |
       LOOKAHEAD("." "this")
       t="." t2="this"
       {
-        out = new ProxyExpression(".this",new CodeZoneClass(t,t2));
+        out = new ProxyExpression(".this",new CodeZoneClass(t,t2,file));
       }
     |
       LOOKAHEAD(2)
@@ -2853,22 +2856,22 @@ LiteralData Literal():
   (    
     t=<INTEGER_LITERAL>
     {
-      data = new LiteralData.IntegerLiteral(t);
+      data = new LiteralData.IntegerLiteral(t,file);
     }
   |
     t=<FLOATING_POINT_LITERAL>
     {
-      data = new LiteralData.FloatLiteral(t);
+      data = new LiteralData.FloatLiteral(t,file);
     }
   |
     t=<CHARACTER_LITERAL>
     {
-      data = new LiteralData.CharacterLiteral(t);
+      data = new LiteralData.CharacterLiteral(t,file);
     }
   |
     t=<STRING_LITERAL>
     {
-      data = new LiteralData.StringLiteral(t);
+      data = new LiteralData.StringLiteral(t,file);
     }
   |
     data = BooleanLiteral()
@@ -2888,12 +2891,12 @@ LiteralData BooleanLiteral():
   (    
   t="true"
   {
-    lit = new LiteralData.TrueLiteral(t);
+    lit = new LiteralData.TrueLiteral(t,file);
   }
 |
   t="false"
   {
-    lit = new LiteralData.FalseLiteral(t);
+    lit = new LiteralData.FalseLiteral(t,file);
   }
 )
   {    return lit;
@@ -2907,7 +2910,7 @@ LiteralData NullLiteral():
 {
   t = "null"
   {
-    return new LiteralData.NullLiteral(t);
+    return new LiteralData.NullLiteral(t,file);
   }
 }
 
@@ -2940,7 +2943,7 @@ CallToArguments Arguments():
           }        )*
         t2=")"
         {
-          result = new CallToNamedArguments(argNames, new CodeZoneClass(t,t2));        }
+          result = new CallToNamedArguments(argNames, new CodeZoneClass(t,t2,file));        }
 
       | //non-named arguments
         node = Expression()
@@ -2954,12 +2957,12 @@ CallToArguments Arguments():
         )*
         t2=")"
         {
-          result = new CallToListedArguments(arguments, new CodeZoneClass(t,t2));
+          result = new CallToListedArguments(arguments, new CodeZoneClass(t,t2,file));
         }
       | 
         t2=")"
         {
-          result = new CallToListedArguments(arguments, new CodeZoneClass(t,t2));
+          result = new CallToListedArguments(arguments, new CodeZoneClass(t,t2,file));
         }
       )
         
@@ -3048,7 +3051,7 @@ ExpressionNode ArrayDimsAndInits(BaseType in, Token n):
                     in, 
                     listLengths.toArray(new ExpressionNode[listLengths.size()]),
                     dims,
-                    new CodeZoneClass(n, t));    }
+                    new CodeZoneClass(n, t,file));    }
   |
     ( "[" "]"
       {
@@ -3122,7 +3125,7 @@ AssertStatementNode AssertStatement():
   ]
   t2 = ";"
   {
-    return new AssertStatementNode(assertion, message, new CodeZoneClass(t,t2));
+    return new AssertStatementNode(assertion, message, new CodeZoneClass(t,t2,file));
   }
 }
 
@@ -3149,7 +3152,7 @@ BlockCode Block():
 {
   t = "{"
   {
-    localBlock = new BlockCode.TmpBlockCode(t);
+    localBlock = new BlockCode.TmpBlockCode(t,file);
   }
   ( 
     blockStatementNode = BlockStatement()
@@ -3227,7 +3230,7 @@ NoOpStatement EmptyStatement():
 {
   t = ";"
   {
-    return new NoOpStatement(new CodeZoneClass(t));  }
+    return new NoOpStatement(new CodeZoneClass(t,file));  }
 }
 
 StatementNode StatementExpression():
@@ -3290,7 +3293,7 @@ SwitchStatementNode SwitchStatement():
   {
     BlockCode.TmpBlockCode prevBlock = localBlock;
     symbolTable.newContext();
-    localBlock = new BlockCode.TmpBlockCode(t);  }
+    localBlock = new BlockCode.TmpBlockCode(t,file);  }
   (
     label = SwitchLabel()
     {      statements = new LinkedList<StatementNode>();
@@ -3309,7 +3312,7 @@ SwitchStatementNode SwitchStatement():
   {
     SwitchStatementNode node =  new SwitchStatementNode(in, cases,
                                                         localBlock.localVariables,
-                                                        new CodeZoneClass(t,t2));
+                                                        new CodeZoneClass(t,t2,file));
     
     localBlock = prevBlock;
     symbolTable.deleteContext();
@@ -3399,7 +3402,7 @@ DoStatementNode DoStatement():
   condition = Expression()
   ")" t2 = ";"
   {
-    return new DoStatementNode(execution, condition, new CodeZoneClass(t,t2));
+    return new DoStatementNode(execution, condition, new CodeZoneClass(t,t2,file));
   }
 }
 
@@ -3423,7 +3426,7 @@ StatementNode ForStatement():
 }
 {
   t="for" "("
-  {    localBlock = new BlockCode.TmpBlockCode(t);
+  {    localBlock = new BlockCode.TmpBlockCode(t,file);
   }
 
   (
@@ -3435,7 +3438,7 @@ StatementNode ForStatement():
         symbolTable.addSymbol(it);
         localBlock.addLocalVariable(it);
 
-        LocalVarAccess access = new LocalVarAccess(it, new CodeZoneClass(t2));
+        LocalVarAccess access = new LocalVarAccess(it, new CodeZoneClass(t2,file));
       }
 
       ")" execution = Statement()
@@ -3451,21 +3454,21 @@ StatementNode ForStatement():
       |
         t2 = ";"
         {
-          init = new NoOpStatement(new CodeZoneClass(t2,t2));         }
+          init = new NoOpStatement(new CodeZoneClass(t2,t2,file));         }
       )
 
       (         condition = Expression() ";"
       |
         t2 = ";"
         {
-          condition = new LiteralData.TrueLiteral(t2);        }
+          condition = new LiteralData.TrueLiteral(t2,file);        }
       )
 
       (        update = ForUpdate() ")"
       |
         t2 = ")"
         {
-          update = new NoOpStatement(new CodeZoneClass(t2,t2));         }
+          update = new NoOpStatement(new CodeZoneClass(t2,t2,file));         }
       )
       execution = Statement()
       {
@@ -3536,7 +3539,7 @@ JumpStatement BreakStatement():
   {
     return new JumpStatement( JumpStatement.Operator.BREAK,
                               (t == null)? null : t.image,
-                              new CodeZoneClass(t2,t3));                                
+                              new CodeZoneClass(t2,t3,file));                                
   }
 }
 
@@ -3549,7 +3552,7 @@ JumpStatement ContinueStatement():
   {
     return new JumpStatement( JumpStatement.Operator.CONTINUE,
                               (t == null)? null : t.image,
-                              new CodeZoneClass(t2,t3));
+                              new CodeZoneClass(t2,t3,file));
                                 
   }
 }
@@ -3563,7 +3566,7 @@ ReturnStatementNode ReturnStatement():
   t="return"
   [ exp=Expression() ] t2=";"
   {
-    return new ReturnStatementNode(exp, new CodeZoneClass(t, t2));
+    return new ReturnStatementNode(exp, new CodeZoneClass(t, t2,file));
   }
 }
 
@@ -3575,7 +3578,7 @@ ThrowStatementNode ThrowStatement():
 {
   t="throw" exp = Expression() t2=";"
   {
-    return new ThrowStatementNode(exp, new CodeZoneClass(t, t2));
+    return new ThrowStatementNode(exp, new CodeZoneClass(t, t2,file));
   }
 }
 
@@ -3895,7 +3898,7 @@ BaseType QuadrigaEntity():
   [components = TypeArguments()]
   {
     if(components != null) {
-      CodeZone cz = new CodeZoneClass(t);      Set<QuadrigaComponent> componentSet = new HashSet<QuadrigaComponent>();
+      CodeZone cz = new CodeZoneClass(t,file);      Set<QuadrigaComponent> componentSet = new HashSet<QuadrigaComponent>();
       for(ParametrizedClass.ParameterClass param : components) {
         if(param.bound != ParametrizedClass.ParameterClass.Bound.NO) {
           errorLog.insertError("Un paràmetre d'una entitat no pot tenir \"super\" ni \"extends\"", cz);        } else if(param.base instanceof QuadrigaComponent) {
@@ -3982,7 +3985,7 @@ void ComponentDeclaration():
           // Dependencies
           "*" name = Name() [";"]
           {
-            iComponent.addDependency(name, symbolTable, errorLog);            }
+            iComponent.addDependency(name, symbolTable, errorLog,file);            }
         )*
         ( type = Type()
           t = < IDENTIFIER >
@@ -3992,7 +3995,7 @@ void ComponentDeclaration():
                                            type, t.image, initialization
                                                                 ),
                                 errorLog,
-                                new CodeZoneClass(t)
+                                new CodeZoneClass(t,file)
                                  );          }         )*
     "}"
     {
@@ -4023,7 +4026,7 @@ void ComponentDeclaration():
             component = null; //Ja hi és a la taula de símbols          } else          {
             component = new ProxyComponent(res);
             errorLog.insertError("El símbol " + res + " no és un component",
-                                 new CodeZoneClass(name.get(0),name.get(name.size()-1)));          }        } else {          component = new ProxyComponent(res);
+                                 new CodeZoneClass(name.get(0),name.get(name.size()-1),file));          }        } else {          component = new ProxyComponent(res);
           addDependency(dependency);
         }
       }
@@ -4059,7 +4062,7 @@ void PrototypeDeclaration():
       symbolTable.addSymbol(new ThisSymbol(iPrototype));
 
       BlockCode.TmpBlockCode prevBlock = localBlock;
-      localBlock = new BlockCode.TmpBlockCode(t);    }
+      localBlock = new BlockCode.TmpBlockCode(t,file);    }
     ( parameters=FormalParameters()
       {
         for(ParameterClass param : parameters)
@@ -4079,7 +4082,7 @@ void PrototypeDeclaration():
     [ t="extends"
       {        thisEntity = new LocalVarAccess(
                                    (ThisSymbol)symbolTable.findSymbol("this"),
-                                   new CodeZoneClass(t)
+                                   new CodeZoneClass(t,file)
                                    );
       }
       proto=EntityInitialization(thisEntity)
@@ -4110,7 +4113,7 @@ void PrototypeDeclaration():
                            );
                    entityCreation = new NewEntity(thisEntity,expAux,czaux);                 }
                |                 {
-                   CodeZoneClass czaux = new CodeZoneClass(t);
+                   CodeZoneClass czaux = new CodeZoneClass(t,file);
                    thisEntity = new LocalVarAccess(
                            (ThisSymbol)symbolTable.findSymbol("this"),
                            czaux
@@ -4165,7 +4168,7 @@ void PrototypeDeclaration():
           {
             prototype = new ProxyPrototype(res);
             errorLog.insertError("El símbol " + res + " no és un prototip",
-                                 new CodeZoneClass(name.get(0),name.get(name.size()-1)));
+                                 new CodeZoneClass(name.get(0),name.get(name.size()-1),file));
           }
         } else {
           prototype = new ProxyPrototype(res);
@@ -4236,7 +4239,7 @@ void SystemDeclaration():
           {
             system = new ProxySystem(res);
             errorLog.insertError("El símbol " + res + " no és un sistema",
-                                 new CodeZoneClass(name.get(0),name.get(name.size()-1)));
+                                 new CodeZoneClass(name.get(0),name.get(name.size()-1),file));
           }
         } else {
           system = new ProxySystem(res);
@@ -4277,15 +4280,15 @@ void ThreadDeclaration():
               QuadrigaSystem system = (QuadrigaSystem)((TypeSymbol)symbol).type;
               if(systemNames.contains(system.getBinaryName())) {
                 errorLog.insertError("El sistema " + n + " està repetit",
-                                   new CodeZoneClass(name.get(0),name.get(name.size()-1)));              } else              {                systemNames.add(system.getBinaryName());
+                                   new CodeZoneClass(name.get(0),name.get(name.size()-1),file));              } else              {                systemNames.add(system.getBinaryName());
                 systems.add(system);
               }            } else {
               errorLog.insertError("El símbol " + n + " no és un sistema",
-                                   new CodeZoneClass(name.get(0),name.get(name.size()-1)));            }          }        )+
+                                   new CodeZoneClass(name.get(0),name.get(name.size()-1),file));            }          }        )+
         [ "@init" block = Block() ]
         {
           thread = new CompleteThread(currentFile.replace('/','.'),t.image,
-                                      systems, block);        }
+                                      systems, block,file);        }
     "}"
   |
     name = Name()
@@ -4318,7 +4321,7 @@ void ThreadDeclaration():
           {
             thread = new ProxyThread(res);
             errorLog.insertError("El símbol " + res + " no és un thread",
-                                 new CodeZoneClass(name.get(0),name.get(name.size()-1)));
+                                 new CodeZoneClass(name.get(0),name.get(name.size()-1),file));
           }
         } else {
           thread = new ProxyThread(res);
@@ -4370,8 +4373,8 @@ ApplyPrototypeToEntity EntityInitialization(ExpressionNode entity):
 {
   name=Name() t="("
   {
-    cz = new CodeZoneClass(name.get(0), t);
-    argsZone = new CodeZoneClass(t);
+    cz = new CodeZoneClass(name.get(0), t,file);
+    argsZone = new CodeZoneClass(t,file);
     String prototypeName = Utils.getName(name);
     BaseSymbol symbol = symbolTable.findSymbol(prototypeName);
     QuadrigaPrototype prototype;
@@ -4422,7 +4425,7 @@ QuadrigaFunction QuadrigaUpdate():
   BlockCode code;
   Token t;}{
   t="@update"
-  { localBlock = new BlockCode.TmpBlockCode(t); }
+  { localBlock = new BlockCode.TmpBlockCode(t,file); }
   parameters = FormalParameters()
   code = Block()
 

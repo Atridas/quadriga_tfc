@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
@@ -41,6 +43,18 @@ public class CallToListedArguments extends StatementNodeClass implements CallToA
       treeStringRepresentation = Utils.treeStringRepresentation(getOperation(), getOperands());
     }
     return treeStringRepresentation;
+  }
+  
+  @Override
+  public CallToListedArguments getLinkedVersion(SymbolTable symbolTable, ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
   }
 
 }

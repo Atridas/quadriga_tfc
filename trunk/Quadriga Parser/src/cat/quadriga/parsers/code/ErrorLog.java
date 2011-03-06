@@ -45,7 +45,10 @@ public final class ErrorLog {
       sb.append(error.endLine);
       sb.append(" column:");
       sb.append(error.endColumn);
-      sb.append('\n');
+      sb.append("\n  \"");
+      
+      sb.append(error.file);
+      sb.append("\"\n");
     }
     for(Warning warning : warnings) {
       sb.append("* Warning: ");
@@ -60,7 +63,10 @@ public final class ErrorLog {
       sb.append(warning.endLine);
       sb.append(" column:");
       sb.append(warning.endColumn);
-      sb.append('\n');
+      sb.append("\n  \"");
+      
+      sb.append(warning.file);
+      sb.append("\"\n");
     }
     return sb.toString();
   }

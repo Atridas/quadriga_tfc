@@ -2,9 +2,11 @@ package cat.quadriga.parsers.code.expressions;
 
 import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.CodeZoneClass;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.types.BaseType;
 
-public class CastExpressionNode extends UnaryExpressionNode {
+public final class CastExpressionNode extends UnaryExpressionNode {
 
   public final BaseType newType;
   
@@ -25,6 +27,19 @@ public class CastExpressionNode extends UnaryExpressionNode {
   @Override
   public BaseType getType() {
     return newType;
+  }
+
+  @Override
+  public CastExpressionNode getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
   }
 
 }

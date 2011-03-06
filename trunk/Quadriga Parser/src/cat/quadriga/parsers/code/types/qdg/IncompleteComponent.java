@@ -11,9 +11,9 @@ import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.symbols.BaseSymbol;
-import cat.quadriga.parsers.code.symbols.SymbolTable;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
@@ -32,7 +32,7 @@ public class IncompleteComponent extends BaseTypeClass implements QuadrigaCompon
     super(name);
   }
   
-  public void addDependency(List<Token> name, SymbolTable symbolTable, ErrorLog errorLog) {
+  public void addDependency(List<Token> name, SymbolTable symbolTable, ErrorLog errorLog, String file) {
     String res = "";
     for(int i = 0; i < name.size(); i++) {
       if(i != 0) {
@@ -48,11 +48,11 @@ public class IncompleteComponent extends BaseTypeClass implements QuadrigaCompon
         dependencies.add((QuadrigaComponent)type);
       } else {
         errorLog.insertError("El símbol " + res + " no és un component",
-                         new CodeZoneClass(name.get(0),name.get(name.size()-1)));
+                         new CodeZoneClass(name.get(0),name.get(name.size()-1), file));
       }
     } else {
       errorLog.insertError("El símbol " + res + " no és un component",
-                         new CodeZoneClass(name.get(0),name.get(name.size()-1)));
+                         new CodeZoneClass(name.get(0),name.get(name.size()-1), file));
     }
   }
   

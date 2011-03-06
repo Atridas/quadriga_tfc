@@ -2,11 +2,13 @@ package cat.quadriga.parsers.code.expressions;
 
 import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.CodeZoneClass;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.parsers.code.types.UnknownType;
 
-public class UnaryOperation extends UnaryExpressionNode {
+public final class UnaryOperation extends UnaryExpressionNode {
 
   public final Operator operator;
   public UnaryOperation( Operator operator,
@@ -62,5 +64,18 @@ public class UnaryOperation extends UnaryExpressionNode {
     default:
       return UnknownType.empty;
     }
+  }
+
+  @Override
+  public UnaryOperation getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
   }
 }

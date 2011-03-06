@@ -30,7 +30,7 @@ public class TypeSymbol extends BaseSymbol {
   }
   
   @Override
-  protected String createTreeStringRepresentation() {
+  public String createTreeStringRepresentation() {
     return Utils.treeStringRepresentation("Symbol Type", type.treeStringRepresentation());
   }
 }

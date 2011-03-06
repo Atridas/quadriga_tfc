@@ -5,4 +5,5 @@ public interface CodeZone {
   int beginColumn();
   int endLine();
   int endColumn();
+  String file();
 }

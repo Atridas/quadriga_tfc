@@ -10,7 +10,7 @@ public class NoOpStatement extends StatementNodeClass {
   }
   
   public NoOpStatement() {
-    super(new CodeZoneClass(0,0,0,0));
+    super(new CodeZoneClass(0,0,0,0,""));
   }
 
   @Override

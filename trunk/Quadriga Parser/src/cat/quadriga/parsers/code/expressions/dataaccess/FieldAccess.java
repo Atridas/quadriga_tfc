@@ -3,11 +3,13 @@ package cat.quadriga.parsers.code.expressions.dataaccess;
 import java.lang.reflect.Field;
 
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.types.BaseType;
 
-public class FieldAccess extends MemberAccess {
+public final class FieldAccess extends MemberAccess {
   
   public final Field field;
   public final BaseType type;
@@ -55,6 +57,19 @@ public class FieldAccess extends MemberAccess {
   @Override
   public BaseType getType() {
     return type;
+  }
+
+  @Override
+  public FieldAccess getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
   }
 
 }

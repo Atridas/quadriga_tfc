@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import cat.quadriga.parsers.code.CodeZoneClass;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.FieldOrMethodAccess;
@@ -14,7 +16,7 @@ import cat.quadriga.parsers.code.statements.CallToListedArguments;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.UnknownType;
 
-public class CallToMethod extends ExpressionNodeClass {
+public final class CallToMethod extends ExpressionNodeClass {
   
   public final CallToArguments arguments;
   public final DataAccess  function;
@@ -84,6 +86,19 @@ public class CallToMethod extends ExpressionNodeClass {
     } else {
       return Utils.createType(methodToCall.getReturnType());
     }
+  }
+
+  @Override
+  public CallToMethod getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
   }
 
 }

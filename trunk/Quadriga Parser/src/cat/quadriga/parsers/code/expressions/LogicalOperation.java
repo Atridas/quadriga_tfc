@@ -1,9 +1,11 @@
 package cat.quadriga.parsers.code.expressions;
 
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 
-public class LogicalOperation extends BinaryExpressionNode {
+public final class LogicalOperation extends BinaryExpressionNode {
 
   public final Operator operator;
   public LogicalOperation( Operator operator,
@@ -35,5 +37,18 @@ public class LogicalOperation extends BinaryExpressionNode {
   @Override
   public BaseType getType() {
     return PrimitiveTypeRef.getFromType(PrimitiveTypeRef.Type.BOOLEAN);
+  }
+
+  @Override
+  public LogicalOperation getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
   }
 }

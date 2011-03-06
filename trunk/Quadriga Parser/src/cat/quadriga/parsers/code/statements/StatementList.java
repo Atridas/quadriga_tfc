@@ -22,10 +22,9 @@ public class StatementList extends StatementNodeClass {
   
   private static CodeZone getFromArray(StatementNode[] nodes) {
     if(nodes == null || nodes.length == 0) {
-      return new CodeZoneClass(0,0,0,0);
+      return new CodeZoneClass(0,0,0,0,"");
     } else {
-      return new CodeZoneClass(nodes[0].beginLine(), nodes[0].beginColumn(), 
-          nodes[nodes.length-1].endLine(), nodes[nodes.length-1].endColumn());
+      return new CodeZoneClass(nodes[0], nodes[nodes.length-1]);
     }
   }
   
@@ -54,5 +53,4 @@ public class StatementList extends StatementNodeClass {
     
     return treeStringRepresentation;
   }
-
 }

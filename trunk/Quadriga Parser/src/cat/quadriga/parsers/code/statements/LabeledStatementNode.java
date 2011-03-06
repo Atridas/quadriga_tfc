@@ -3,9 +3,9 @@ package cat.quadriga.parsers.code.statements;
 import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.symbols.LabelSymbol;
-import cat.quadriga.parsers.code.symbols.SymbolTable;
 
 public class LabeledStatementNode extends StatementNodeClass {
   

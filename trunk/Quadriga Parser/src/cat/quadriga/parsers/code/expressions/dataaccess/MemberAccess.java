@@ -1,6 +1,8 @@
 package cat.quadriga.parsers.code.expressions.dataaccess;
 
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 
 public abstract class MemberAccess extends DirectDataAccess {
   
@@ -28,4 +30,7 @@ public abstract class MemberAccess extends DirectDataAccess {
     return true;
   }
 
+  @Override
+  public abstract MemberAccess getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog);
 }

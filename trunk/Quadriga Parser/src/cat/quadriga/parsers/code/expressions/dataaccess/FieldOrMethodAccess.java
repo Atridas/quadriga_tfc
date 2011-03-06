@@ -1,12 +1,14 @@
 package cat.quadriga.parsers.code.expressions.dataaccess;
 
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ReferenceTypeRef;
 import cat.quadriga.parsers.code.types.UnknownType;
 
-public class FieldOrMethodAccess extends MemberAccess {
+public final class FieldOrMethodAccess extends MemberAccess {
   
   public final ExpressionNode reference;
   public final ReferenceTypeRef type;
@@ -30,5 +32,18 @@ public class FieldOrMethodAccess extends MemberAccess {
 
   public DataAccess getAsField() {
     return type.getAccessAsField(reference, name, this);
+  }
+
+  @Override
+  public FieldOrMethodAccess getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
   }
 }

@@ -13,7 +13,7 @@ public class ProxyStatement extends StatementNodeClass {
   private String treeStringRepresentation;
   
   public ProxyStatement(List<PrintInfo> in) {
-    super(new CodeZoneClass(0,0,0,0));
+    super(new CodeZoneClass(0,0,0,0,""));
     
     treeStringRepresentation = 
       Utils.treeStringRepresentation(">> Proxy Statement: ",
