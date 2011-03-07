@@ -6,25 +6,24 @@ import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
-import cat.quadriga.parsers.code.expressions.dataaccess.DirectDataAccess;
+import cat.quadriga.parsers.code.expressions.dataaccess.UnaryDataAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.WriteAccess;
+import cat.quadriga.parsers.code.symbols.BaseSymbol;
+import cat.quadriga.parsers.code.symbols.TypeSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.UnknownType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent.ComponentField;
 
-public final class ComponentFieldAccess extends DirectDataAccess {
+public final class ComponentFieldAccess extends UnaryDataAccess {
   
   public final String field;
   public final QuadrigaComponent component;
-  
-  public final ExpressionNode reference;
 
   public ComponentFieldAccess(ExpressionNode reference, String field, CodeZone cz) {
-    super(cz);
+    super(reference,cz);
     this.field = field;
     this.component = (QuadrigaComponent)reference.getType();
-    this.reference = reference;
   }
   
   public boolean isStatic() {
@@ -43,7 +42,7 @@ public final class ComponentFieldAccess extends DirectDataAccess {
   @Override
   public String[] getOperands() {
     String[] aux = { component.getBinaryName() + " -> " + field,
-                     reference.treeStringRepresentation()}; 
+                     operand.treeStringRepresentation()}; 
     return aux;
   }
 
@@ -68,17 +67,63 @@ public final class ComponentFieldAccess extends DirectDataAccess {
     return true;
   }
 
+  private boolean linked = false;
+  private ComponentFieldAccess linkedVersion = null;
   @Override
   public ComponentFieldAccess getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
-    // TODO Auto-generated method stub
-    return null;
+    if(linked) {
+      return this;
+    } else if(linkedVersion == null) {
+      QuadrigaComponent validC;
+      if(component.isValid()) {
+        validC = component;
+      } else {
+        BaseSymbol symbol = symbolTable.findSymbol(component.getBinaryName());
+        try {
+          assert symbol != null;
+          assert symbol instanceof TypeSymbol;
+          assert ((TypeSymbol)symbol).type instanceof QuadrigaComponent;
+          validC = (QuadrigaComponent)((TypeSymbol)symbol).type;
+          if(!validC.isValid()) {
+            validC = validC.getValid(symbolTable, errorLog);
+            if(validC == null) {
+              return null;
+            }
+            symbolTable.addGlobalSymbol(new TypeSymbol(validC));
+          }
+        } catch(AssertionError e) {
+          errorLog.insertError("Error while finding the component" + component.getBinaryName(),this);
+          return null;
+        }
+      }
+      ExpressionNode op;
+      if(operand.isCorrectlyLinked()) {
+        op = operand;
+      } else {
+        op = operand.getLinkedVersion(symbolTable, errorLog);
+        if(op == null) {
+          return null;
+        }
+      }
+      
+      QuadrigaComponent.ComponentField field = validC.getField(this.field);
+      if(field == null) {
+        errorLog.insertError("Component " + validC.getBinaryName() + " has no " + this.field,this);
+        return null;
+      }
+
+
+      linkedVersion = new ComponentFieldAccess(op, this.field, this);
+      linkedVersion.linkedVersion = linkedVersion;
+      linkedVersion.linked = true;
+    }
+    return linkedVersion;
   }
 
   @Override
   public boolean isCorrectlyLinked() {
-    // TODO Auto-generated method stub
-    return false;
+    return linked;
   }
 
   @Override

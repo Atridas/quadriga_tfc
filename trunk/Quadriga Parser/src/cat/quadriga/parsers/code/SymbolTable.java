@@ -196,8 +196,9 @@ public class SymbolTable implements TreeRepresentable {
         kind = "Locals";
       }
       List<String> symbols = new LinkedList<String>();
+      //for(Entry<String,BaseSymbol> symbol : new TreeMap<String,BaseSymbol>(namespace).entrySet()) {
       for(Entry<String,BaseSymbol> symbol : namespace.entrySet()) {
-        if(!(symbol.getValue() instanceof SymbolRef)) {
+            if(!(symbol.getValue() instanceof SymbolRef)) {
           symbols.add("\"" + symbol.getKey() + "\" : " + symbol.getValue().treeStringRepresentation());
         }
       }

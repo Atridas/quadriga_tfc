@@ -88,17 +88,46 @@ public final class CallToMethod extends ExpressionNodeClass {
     }
   }
 
+  private boolean linked = false;
+  private CallToMethod linkedVersion = null;
   @Override
   public CallToMethod getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
-    // TODO Auto-generated method stub
-    return null;
+    if(linked) {
+      return this;
+    } else if(linkedVersion == null) {
+      if(methodToCall == null) {
+        errorLog.insertError("Invalid function",this);
+        return null;
+      }
+      CallToArguments args;
+      if(arguments.isCorrectlyLinked()) {
+        args = arguments;
+      } else {
+        args = arguments.getLinkedVersion(symbolTable, errorLog);
+        if(args == null) {
+          return null;
+        }
+      }
+      DataAccess fun;
+      if(arguments.isCorrectlyLinked()) {
+        fun = function;
+      } else {
+        fun = function.getLinkedVersion(symbolTable, errorLog);
+        if(fun == null) {
+          return null;
+        }
+      }
+      linkedVersion = new CallToMethod(fun, args);
+      linkedVersion.linked = true;
+      linkedVersion.linkedVersion = linkedVersion;
+    }
+    return linkedVersion;
   }
 
   @Override
   public boolean isCorrectlyLinked() {
-    // TODO Auto-generated method stub
-    return false;
+    return linked;
   }
 
 }

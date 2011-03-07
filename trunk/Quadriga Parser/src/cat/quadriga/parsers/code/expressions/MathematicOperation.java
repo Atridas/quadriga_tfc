@@ -67,16 +67,47 @@ public final class MathematicOperation extends BinaryExpressionNode {
     }
   }
 
+  private boolean linked = false;
+  private MathematicOperation linkedVersion = null;
   @Override
   public MathematicOperation getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
-    // TODO Auto-generated method stub
-    return null;
+    if(linked) {
+      return this;
+    } else if(linkedVersion == null) {
+      ExpressionNode left, right;
+      if(leftOperand.isCorrectlyLinked()) {
+        left = leftOperand;
+      } else {
+        left = leftOperand.getLinkedVersion(symbolTable, errorLog);
+        if(left == null) {
+          return null;
+        }
+      }
+      if(rightOperand.isCorrectlyLinked()) {
+        right = rightOperand;
+      } else {
+        right = rightOperand.getLinkedVersion(symbolTable, errorLog);
+        if(right == null) {
+          return null;
+        }
+      }
+      BaseType type = getType();
+      if(!type.isValid()) {
+        errorLog.insertError("Operadors invàlids", this);
+        return null;
+      }
+      
+      linkedVersion = new MathematicOperation(operator, left, right);
+      linkedVersion.linkedVersion = linkedVersion;
+      linkedVersion.linked = true;
+      
+    }
+    return linkedVersion;
   }
 
   @Override
   public boolean isCorrectlyLinked() {
-    // TODO Auto-generated method stub
-    return false;
+    return linked;
   }
 }

@@ -1,6 +1,7 @@
 package cat.quadriga.parsers.code.expressions.dataaccess;
 
 import cat.quadriga.parsers.Token;
+import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
@@ -19,7 +20,11 @@ public final class ArrayOrComponentAccess extends ExpressionNodeClass implements
   public ExpressionNode access;
   
   public ArrayOrComponentAccess(ExpressionNode array, ExpressionNode access, Token t) {
-    super(new CodeZoneClass(array, t));
+    this(array, access, new CodeZoneClass(array, t));
+  }
+  
+  public ArrayOrComponentAccess(ExpressionNode array, ExpressionNode access, CodeZone cz) {
+    super(cz);
     this.array = array;
     this.access = access;
   }
@@ -68,17 +73,48 @@ public final class ArrayOrComponentAccess extends ExpressionNodeClass implements
     return UnknownType.empty;
   }
 
+  private boolean linked = false;
+  private ArrayOrComponentAccess linkedVersion = null;
   @Override
   public ArrayOrComponentAccess getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
-    // TODO Auto-generated method stub
-    return null;
+    if(linked) {
+      return this;
+    } else if(linkedVersion == null) {
+      ExpressionNode arr;
+      if(array.isCorrectlyLinked()) {
+        arr = array;
+      } else {
+        arr = array.getLinkedVersion(symbolTable, errorLog);
+        if(arr == null) {
+          return null;
+        }
+      }
+      ExpressionNode acc;
+      if(access.isCorrectlyLinked()) {
+        acc = access;
+      } else {
+        acc = access.getLinkedVersion(symbolTable, errorLog);
+        if(acc == null) {
+          return null;
+        }
+      }
+      
+      if(getType() instanceof UnknownType) {
+        errorLog.insertError("Accés [ ] invàlid",this);
+        return null;
+      }
+
+      linkedVersion = new ArrayOrComponentAccess(arr, acc, this); 
+      linkedVersion.linkedVersion = linkedVersion;
+      linkedVersion.linked = true;
+    }
+    return linkedVersion;
   }
 
   @Override
   public boolean isCorrectlyLinked() {
-    // TODO Auto-generated method stub
-    return false;
+    return linked;
   }
 
   @Override

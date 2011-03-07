@@ -50,17 +50,48 @@ public final class ArrayInitializerNode extends ExpressionNodeClass {
     return allocation.getType();
   }
 
+  private boolean linked = false;
+  private ArrayInitializerNode linkedVersion = null;
   @Override
   public ArrayInitializerNode getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
-    // TODO Auto-generated method stub
-    return null;
+    if(linked) {
+      return this;
+    } else if(linkedVersion == null) {
+      ArrayAllocationExpressionNode newalloc;
+      if(allocation.isCorrectlyLinked()) {
+        newalloc = allocation;
+      } else {
+        newalloc = allocation.getLinkedVersion(symbolTable, errorLog);
+        if(newalloc == null) {
+          return null;
+        }
+      }
+      
+      List<ExpressionNode> nInits = new ArrayList<ExpressionNode>();
+      for(ExpressionNode init : inits) {
+        if(init.isCorrectlyLinked()) {
+          nInits.add(init);
+        } else {
+          init = init.getLinkedVersion(symbolTable, errorLog);
+          if(init == null) {
+            return null;
+          } else {
+            nInits.add(init);
+          }
+        }
+      }
+      
+      linkedVersion = new ArrayInitializerNode(newalloc,nInits.toArray(new ExpressionNode[nInits.size()]));
+      linkedVersion.linkedVersion = linkedVersion;
+      linkedVersion.linked = true;
+    }
+    return linkedVersion;
   }
 
   @Override
   public boolean isCorrectlyLinked() {
-    // TODO Auto-generated method stub
-    return false;
+    return linked;
   }
 
 }

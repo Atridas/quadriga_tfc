@@ -41,6 +41,7 @@ public final class CastExpressionNode extends UnaryExpressionNode {
   public CastExpressionNode getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
     // TODO Auto-generated method stub
+    errorLog.insertError("Not yet implemented [" + this.getClass().getCanonicalName() + "]", this);
     return null;
   }
 

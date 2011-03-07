@@ -3,6 +3,8 @@ package cat.quadriga.parsers.code.expressions.dataaccess;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.parsers.code.symbols.BaseSymbol;
+import cat.quadriga.parsers.code.symbols.TypeSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.NoType;
 
@@ -43,14 +45,34 @@ public final class TypeDataAccess extends DirectDataAccess {
   @Override
   public TypeDataAccess getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
-    // TODO Auto-generated method stub
-    return null;
+    if(isCorrectlyLinked()) {
+      return this;
+    }
+    BaseSymbol symbol = symbolTable.findSymbol(type.getInstanceableName());
+    if(symbol != null) {
+      if(symbol instanceof TypeSymbol) {
+        BaseType t = ((TypeSymbol)symbol).type;
+        if(!t.isValid()) {
+          t = t.getValid(symbolTable, errorLog);
+          if(t == null) {
+            errorLog.insertError("El tipus " + type.getInstanceableName() + " no és vàlid.", this);
+            return null;
+          }
+        }
+        return new TypeDataAccess(t, this);
+      } else {
+        errorLog.insertError("El símbol " + type.getInstanceableName() + " no és un tipus.", this);
+        return null;
+      }
+    } else {
+      errorLog.insertError("No s'ha trobat el símbol " + type.getInstanceableName(), this);
+      return null;
+    }
   }
 
   @Override
   public boolean isCorrectlyLinked() {
-    // TODO Auto-generated method stub
-    return false;
+    return type.isValid();
   }
 
   @Override

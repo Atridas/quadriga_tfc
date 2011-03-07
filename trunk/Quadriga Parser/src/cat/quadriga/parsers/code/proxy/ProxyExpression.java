@@ -91,6 +91,7 @@ public final class ProxyExpression extends ExpressionNodeClass {
   public ProxyExpression getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
     // TODO Auto-generated method stub
+    errorLog.insertError("Not yet implemented [" + this.getClass().getCanonicalName() + "]", this);
     return null;
   }
 
