@@ -5,6 +5,8 @@ import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.TreeRepresentable;
 
 public interface BaseType extends TreeRepresentable {
+  
+  boolean isAssignableFrom(BaseType rightOperand);
 
   String getBinaryName();
   

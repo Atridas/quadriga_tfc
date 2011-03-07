@@ -40,6 +40,11 @@ public abstract class LiteralData extends DirectDataAccess {
   public abstract Object getValue();
   
   @Override
+  public WriteAccess getWriteVersion() {
+    return null;
+  }
+  
+  @Override
   public abstract LiteralData getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog);
   

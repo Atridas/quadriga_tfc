@@ -1,8 +1,13 @@
 package cat.quadriga.parsers.code.statements;
 
 import cat.quadriga.parsers.code.CodeZoneClass;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
+import cat.quadriga.parsers.code.expressions.CastExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
+import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
+import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 
 public class AssigmentStatementNode extends StatementNodeClass {
   
@@ -53,5 +58,67 @@ public class AssigmentStatementNode extends StatementNodeClass {
     public String toString() {
       return representation;
     }
+  }
+
+  
+  private boolean linked = false;
+  private AssigmentStatementNode linkedVersion = null;
+  @Override
+  public AssigmentStatementNode getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    if(linked) return this;
+    if(linkedVersion == null) {
+      ExpressionNode leftOp;
+      if(leftOperand.isCorrectlyLinked()) {
+        leftOp = leftOperand;
+      } else {
+        leftOp = leftOperand.getLinkedVersion(symbolTable, errorLog);
+        if(leftOp == null) {
+          return null;
+        }
+      }
+      if(leftOp instanceof DataAccess) {
+        DataAccess da = (DataAccess)leftOp;
+        if(da.isAssignable()) {
+          leftOp = da.getWriteVersion();
+          assert(leftOp != null);
+        } else {
+          errorLog.insertError("L'operand esquerra no s'hi pot escriure",leftOp);
+          return null;
+        }
+      } else {
+        errorLog.insertError("L'operand esquerra no és un accés a dades",leftOp);
+        return null;
+      }
+      ExpressionNode rightOp;
+      if(rightOperand.isCorrectlyLinked()) {
+        rightOp = rightOperand;
+      } else {
+        rightOp = rightOperand.getLinkedVersion(symbolTable, errorLog);
+        if(rightOp == null) {
+          return null;
+        }
+      }
+      if(leftOp.getType().isAssignableFrom(rightOp.getType())) {
+        if(leftOp.getType() instanceof PrimitiveTypeRef && leftOp.getType() != rightOp.getType()) {
+          rightOp = new CastExpressionNode(leftOp.getType(), rightOp, rightOp).getLinkedVersion(symbolTable, errorLog);
+          assert(rightOp != null);
+        }
+        
+        linkedVersion = new AssigmentStatementNode(operator, leftOp, rightOp);
+        linkedVersion.linked = true;
+        linkedVersion.linkedVersion = linkedVersion;
+        
+      } else {
+        errorLog.insertError("No es pot assignar " + rightOp.getType().getBinaryName() + " a " + leftOp.getType().getBinaryName(),this);
+        return null;
+      }
+    }
+    return linkedVersion;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    return linked;
   }
 }

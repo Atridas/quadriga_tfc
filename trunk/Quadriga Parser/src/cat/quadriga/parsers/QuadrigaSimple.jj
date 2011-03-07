@@ -3368,8 +3368,7 @@ IfStatementNode IfStatement():
     }
   ]
   {
-    return new IfStatementNode( t, expression, 
-                          node1, node2, errorLog);  }
+    return new IfStatementNode( t, expression, node1, node2);  }
 }
 
 WhileStatementNode WhileStatement():
@@ -3437,14 +3436,12 @@ StatementNode ForStatement():
         LocalVariableSymbol it = new LocalVariableSymbol(mods, type, t2.image);
         symbolTable.addSymbol(it);
         localBlock.addLocalVariable(it);
-
-        LocalVarAccess access = new LocalVarAccess(it, new CodeZoneClass(t2,file));
       }
 
       ")" execution = Statement()
 
       {
-        result = new IterableFor(access,
+        result = new IterableFor(it,
                                  iterable,
                                  execution,
                                  new CodeZoneClass(t, execution)

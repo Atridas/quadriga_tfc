@@ -7,6 +7,7 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
+import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.types.BaseType;
 
 public final class FieldAccess extends MemberAccess {
@@ -70,6 +71,60 @@ public final class FieldAccess extends MemberAccess {
   public boolean isCorrectlyLinked() {
     // TODO Auto-generated method stub
     return false;
+  }
+
+  @Override
+  public WriteAccess getWriteVersion() {
+    return new WriteVersion();
+  }
+  
+  private class WriteVersion extends ExpressionNodeClass implements WriteAccess {
+
+    public WriteVersion() {
+      super(FieldAccess.this);
+    }
+
+    @Override
+    public DataAccess getLinkedVersion(SymbolTable symbolTable,
+        ErrorLog errorLog) {
+      return this;
+    }
+
+    @Override
+    public BaseType getType() {
+      return FieldAccess.this.getType();
+    }
+
+    @Override
+    public WriteAccess getWriteVersion() {
+      return this;
+    }
+
+    @Override
+    public boolean isAssignable() {
+      return true;
+    }
+
+    @Override
+    public boolean isReadable() {
+      return true;
+    }
+
+    @Override
+    public String[] getOperands() {
+      return FieldAccess.this.getOperands();
+    }
+
+    @Override
+    public String getOperation() {
+      return FieldAccess.this.getOperation();
+    }
+
+    @Override
+    public boolean isCorrectlyLinked() {
+      return true;
+    }
+    
   }
 
 }

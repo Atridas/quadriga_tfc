@@ -26,7 +26,7 @@ public class Quadriga {
     }
     
     quadrigaSimple.symbolTable.link(quadrigaSimple.errorLog);
-    //System.out.println(quadrigaSimple.symbolTable.treeStringRepresentation());
+    System.out.println(quadrigaSimple.symbolTable.treeStringRepresentation());
 
     System.out.println(quadrigaSimple.errorLog.print());
   }

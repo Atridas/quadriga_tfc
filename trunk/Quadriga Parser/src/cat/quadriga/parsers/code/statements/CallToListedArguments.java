@@ -45,16 +45,35 @@ public class CallToListedArguments extends StatementNodeClass implements CallToA
     return treeStringRepresentation;
   }
   
+  private boolean linked = false;
+  private CallToListedArguments linkedVersion = null;
   @Override
   public CallToListedArguments getLinkedVersion(SymbolTable symbolTable, ErrorLog errorLog) {
-    // TODO Auto-generated method stub
-    return null;
+    if(linked) {
+      return this;
+    } if(linkedVersion == null) {
+      List<ExpressionNode> linkedArgs = new ArrayList<ExpressionNode>(arguments.size());
+      for(ExpressionNode arg : arguments) {
+        if(arg.isCorrectlyLinked()) {
+          linkedArgs.add(arg);
+        } else {
+          ExpressionNode aux = arg.getLinkedVersion(symbolTable, errorLog);
+          if(aux == null) {
+            return null;
+          }
+          linkedArgs.add(aux);
+        }
+      }
+      linkedVersion = new CallToListedArguments(linkedArgs, this);
+      linkedVersion.linked = true;
+      linkedVersion.linkedVersion = linkedVersion;
+    }
+    return linkedVersion;
   }
 
   @Override
   public boolean isCorrectlyLinked() {
-    // TODO Auto-generated method stub
-    return false;
+    return linked;
   }
 
 }

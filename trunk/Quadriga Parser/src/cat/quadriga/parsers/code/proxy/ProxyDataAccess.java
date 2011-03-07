@@ -7,6 +7,7 @@ import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
+import cat.quadriga.parsers.code.expressions.dataaccess.WriteAccess;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.UnknownType;
 
@@ -80,13 +81,18 @@ public final class ProxyDataAccess extends ExpressionNodeClass implements DataAc
   @Override
   public ProxyDataAccess getLinkedVersion(SymbolTable symbolTable, ErrorLog errorLog) {
     // TODO Auto-generated method stub
+    errorLog.insertError("unimplemented",this);
     return null;
   }
 
   @Override
   public boolean isCorrectlyLinked() {
-    // TODO Auto-generated method stub
     return false;
+  }
+
+  @Override
+  public WriteAccess getWriteVersion() {
+    return null;
   }
 
 }

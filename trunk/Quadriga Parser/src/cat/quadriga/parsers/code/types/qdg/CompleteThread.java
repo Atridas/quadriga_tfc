@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.statements.BlockCode;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
@@ -40,8 +43,63 @@ public class CompleteThread extends BaseTypeClass implements QuadrigaThread {
 
   @Override
   public String treeStringRepresentation() {
-    //TODO
-    return null;
+    List<String> aux = new ArrayList<String>(systems.size());
+    for(QuadrigaSystem s : systems) {
+      aux.add(s.getBinaryName());
+    }
+    return Utils.treeStringRepresentation("thread", aux);
   }
 
+  @Override
+  public CompleteThread getValid(SymbolTable symbolTable, ErrorLog errorLog) {
+    if(isValid()) {
+      return this;
+    }
+    List<QuadrigaSystem> qs = new ArrayList<QuadrigaSystem>();
+    for(QuadrigaSystem s : systems) {
+      if(s.isValid()) {
+        qs.add(s);
+      } else {
+        QuadrigaSystem aux = s.getValid(symbolTable, errorLog);
+        if(aux == null) {
+          break;
+        } else {
+          qs.add(aux);
+        }
+      }
+    }
+    if(qs.size() == systems.size()) {
+      return null;
+    }
+    BlockCode bc;
+    if(init.isCorrectlyLinked()) {
+      bc = init;
+    } else {
+      bc = init.getLinkedVersion(symbolTable, errorLog);
+      if(bc == null) {
+        return null;
+      }
+    }
+    
+    return new CompleteThread(getBinaryName(), qs, bc, bc.file);
+  }
+
+  @Override
+  public boolean isValid() {
+    for(QuadrigaSystem s : systems) {
+      if(!s.isValid()) {
+        return false;
+      }
+    }
+    if(!init.isCorrectlyLinked()) {
+      return false;
+    }
+    return true;
+  }
+
+
+  @Override
+  public boolean isAssignableFrom(BaseType rightOperand) {
+    return getBinaryName().compareTo(rightOperand.getBinaryName()) == 0;
+  }
 }

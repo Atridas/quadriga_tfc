@@ -54,15 +54,35 @@ public class CallToNamedArguments extends StatementNodeClass implements CallToAr
     return treeStringRepresentation;
   }
   
+  private boolean linked = false;
+  private CallToNamedArguments linkedVersion = null;
   @Override
   public CallToNamedArguments getLinkedVersion(SymbolTable symbolTable, ErrorLog errorLog) {
-    // TODO Auto-generated method stub
-    return null;
+    if(linked) {
+      return this;
+    } if(linkedVersion == null) {
+      Map<String,ExpressionNode> linkedArgs = new HashMap<String,ExpressionNode>(arguments.size());
+      for(Entry<String,ExpressionNode> entry : arguments.entrySet()) {
+        ExpressionNode arg = entry.getValue();
+        if(arg.isCorrectlyLinked()) {
+          linkedArgs.put(entry.getKey(),arg);
+        } else {
+          ExpressionNode aux = arg.getLinkedVersion(symbolTable, errorLog);
+          if(aux == null) {
+            return null;
+          }
+          linkedArgs.put(entry.getKey(),aux);
+        }
+      }
+      linkedVersion = new CallToNamedArguments(linkedArgs, this);
+      linkedVersion.linked = true;
+      linkedVersion.linkedVersion = linkedVersion;
+    }
+    return linkedVersion;
   }
 
   @Override
   public boolean isCorrectlyLinked() {
-    // TODO Auto-generated method stub
-    return false;
+    return linked;
   }
 }

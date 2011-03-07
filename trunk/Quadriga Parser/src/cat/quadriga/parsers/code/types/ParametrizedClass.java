@@ -1,6 +1,10 @@
 package cat.quadriga.parsers.code.types;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 
 
 public final class ParametrizedClass extends ReferenceTypeRef {
@@ -76,6 +80,49 @@ public final class ParametrizedClass extends ReferenceTypeRef {
 
   @Override
   public boolean isMathematicallyOperable() {
+    return false;
+  }
+
+  @Override
+  public ParametrizedClass getValid(SymbolTable symbolTable, ErrorLog errorLog) {
+    if(isValid()) {
+      return this;
+    }
+    BaseType base = this.base;
+    if(base == null) {
+      return null;
+    }
+    List<ParameterClass> parameters = new ArrayList<ParameterClass>(this.parameters.size());
+    for(ParameterClass param: parameters) {
+      BaseType validParam = param.base.getValid(symbolTable, errorLog);
+      if(validParam == null) {
+        return null;
+      }
+      parameters.add(new ParameterClass(validParam, param.bound));
+    }
+    try {
+      return new ParametrizedClass((ClassOrInterfaceTypeRef)base, parameters);
+    } catch (ClassCastException e) {
+      return null;
+    }
+  }
+
+  @Override
+  public boolean isValid() {
+    if(!base.isValid()) {
+      return false;
+    }
+    for(ParameterClass param : parameters) {
+      if(!param.base.isValid()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @Override
+  public boolean isAssignableFrom(BaseType rightOperand) {
+    // TODO Auto-generated method stub
     return false;
   }
   

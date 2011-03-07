@@ -1,6 +1,8 @@
 package cat.quadriga.parsers.code.statements;
 
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
@@ -21,6 +23,23 @@ public class ThrowStatementNode extends StatementNodeClass {
                                   toThrow.treeStringRepresentation());
     }
     return treeStringRepresentation;
+  }
+  @Override
+  public StatementNodeClass getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    if(isCorrectlyLinked()) {
+      return this;
+    }
+    ExpressionNode aux = toThrow.getLinkedVersion(symbolTable, errorLog);
+    if(aux == null) {
+      return null;
+    } else {
+      return new ThrowStatementNode(aux, this);
+    }
+  }
+  @Override
+  public boolean isCorrectlyLinked() {
+    return toThrow.isCorrectlyLinked();
   }
 
 }

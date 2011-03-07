@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ReferenceTypeRef;
 import cat.quadriga.parsers.code.types.UnknownType;
@@ -47,4 +49,19 @@ public class QuadrigaEntity extends ReferenceTypeRef {
     return false;
   }
 
+  @Override
+  public ReferenceTypeRef getValid(SymbolTable symbolTable, ErrorLog errorLog) {
+    return this;
+  }
+
+  @Override
+  public boolean isValid() {
+    return true;
+  }
+
+
+  @Override
+  public boolean isAssignableFrom(BaseType rightOperand) {
+    return getBinaryName().compareTo(rightOperand.getBinaryName()) == 0;
+  }
 }

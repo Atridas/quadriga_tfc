@@ -4,7 +4,10 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
+import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
+import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.DirectDataAccess;
+import cat.quadriga.parsers.code.expressions.dataaccess.WriteAccess;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.UnknownType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
@@ -76,6 +79,60 @@ public final class ComponentFieldAccess extends DirectDataAccess {
   public boolean isCorrectlyLinked() {
     // TODO Auto-generated method stub
     return false;
+  }
+
+  @Override
+  public WriteAccess getWriteVersion() {
+    return new WriteVersion();
+  }
+  
+  private class WriteVersion extends ExpressionNodeClass implements WriteAccess {
+
+    public WriteVersion() {
+      super(ComponentFieldAccess.this);
+    }
+
+    @Override
+    public DataAccess getLinkedVersion(SymbolTable symbolTable,
+        ErrorLog errorLog) {
+      return this;
+    }
+
+    @Override
+    public BaseType getType() {
+      return ComponentFieldAccess.this.getType();
+    }
+
+    @Override
+    public WriteAccess getWriteVersion() {
+      return this;
+    }
+
+    @Override
+    public boolean isAssignable() {
+      return true;
+    }
+
+    @Override
+    public boolean isReadable() {
+      return true;
+    }
+
+    @Override
+    public String[] getOperands() {
+      return ComponentFieldAccess.this.getOperands();
+    }
+
+    @Override
+    public String getOperation() {
+      return ComponentFieldAccess.this.getOperation();
+    }
+
+    @Override
+    public boolean isCorrectlyLinked() {
+      return true;
+    }
+    
   }
 
 }

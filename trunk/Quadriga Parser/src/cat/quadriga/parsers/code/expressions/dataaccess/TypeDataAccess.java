@@ -53,4 +53,9 @@ public final class TypeDataAccess extends DirectDataAccess {
     return false;
   }
 
+  @Override
+  public WriteAccess getWriteVersion() {
+    return null;
+  }
+
 }

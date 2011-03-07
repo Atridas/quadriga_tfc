@@ -4,6 +4,7 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
+import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 
@@ -53,6 +54,60 @@ public final class LocalVarAccess extends DirectDataAccess {
   public boolean isCorrectlyLinked() {
     // TODO Auto-generated method stub
     return false;
+  }
+
+  @Override
+  public WriteAccess getWriteVersion() {
+    return new WriteVersion();
+  }
+  
+  private class WriteVersion extends ExpressionNodeClass implements WriteAccess {
+
+    public WriteVersion() {
+      super(LocalVarAccess.this);
+    }
+
+    @Override
+    public DataAccess getLinkedVersion(SymbolTable symbolTable,
+        ErrorLog errorLog) {
+      return this;
+    }
+
+    @Override
+    public BaseType getType() {
+      return LocalVarAccess.this.getType();
+    }
+
+    @Override
+    public WriteAccess getWriteVersion() {
+      return this;
+    }
+
+    @Override
+    public boolean isAssignable() {
+      return true;
+    }
+
+    @Override
+    public boolean isReadable() {
+      return true;
+    }
+
+    @Override
+    public String[] getOperands() {
+      return LocalVarAccess.this.getOperands();
+    }
+
+    @Override
+    public String getOperation() {
+      return LocalVarAccess.this.getOperation();
+    }
+
+    @Override
+    public boolean isCorrectlyLinked() {
+      return true;
+    }
+    
   }
 
 }
