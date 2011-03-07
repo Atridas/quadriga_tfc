@@ -1,6 +1,8 @@
 package cat.quadriga.parsers.code.statements;
 
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
@@ -24,6 +26,17 @@ public class SynchronizedStatementNode extends StatementNodeClass {
                                     block.treeStringRepresentation());
     }
     return treeStringRepresentation;
+  }
+  @Override
+  public StatementNodeClass getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
   }
 
 }

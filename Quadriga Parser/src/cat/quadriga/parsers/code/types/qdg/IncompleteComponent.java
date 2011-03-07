@@ -104,12 +104,22 @@ public class IncompleteComponent extends BaseTypeClass implements QuadrigaCompon
   }
 
   @Override
+  public String toString() {
+    return treeStringRepresentation();
+  }
+  
+  @Override
   public boolean isValid() {
     return false;
   }
 
   @Override
-  public String toString() {
-    return treeStringRepresentation();
+  public CompleteComponent getValid(SymbolTable symbolTable, ErrorLog errorLog) {
+    return new CompleteComponent(this).getValid(symbolTable, errorLog);
+  }
+
+  @Override
+  public boolean isAssignableFrom(BaseType rightOperand) {
+    return getBinaryName().compareTo(rightOperand.getBinaryName()) == 0;
   }
 }

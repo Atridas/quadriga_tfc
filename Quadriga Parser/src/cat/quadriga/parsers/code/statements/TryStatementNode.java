@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 
@@ -65,6 +67,19 @@ public class TryStatementNode extends StatementNodeClass {
       this.exception = exception;
       this.code = code;
     }
+  }
+
+  @Override
+  public StatementNodeClass getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    // TODO Auto-generated method stub
+    return false;
   }
   
 }

@@ -26,6 +26,11 @@ public final class MethodAccess extends MemberAccess {
     this.methods = methods.clone();
     this.reference = reference;
   }
+
+  @Override
+  public boolean isAssignable() {
+    return false;
+  }
   
   public Method getMethods(int i) {
     return methods[i];
@@ -72,5 +77,10 @@ public final class MethodAccess extends MemberAccess {
   public boolean isCorrectlyLinked() {
     // TODO Auto-generated method stub
     return false;
+  }
+
+  @Override
+  public WriteAccess getWriteVersion() {
+    return null;
   }
 }

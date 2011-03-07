@@ -1,5 +1,8 @@
 package cat.quadriga.parsers.code.types;
 
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
+
 public final class PrimitiveTypeRef extends JavaType {
 
   public final Type type;
@@ -189,12 +192,99 @@ public final class PrimitiveTypeRef extends JavaType {
     }
     return UnknownType.empty;
   }
-}
 
-/*case INT:
-    case LONG:
-    case SHORT:
-    case CHAR:
+  @Override
+  public PrimitiveTypeRef getValid(SymbolTable symbolTable, ErrorLog errorLog) {
+    return this;
+  }
+
+  @Override
+  public boolean isValid() {
+    return true;
+  }
+
+  @Override
+  public boolean isAssignableFrom(BaseType rightOperand) {
+    PrimitiveTypeRef prim;
+    if(rightOperand instanceof PrimitiveTypeRef) {
+      prim = (PrimitiveTypeRef) rightOperand;
+    } else {
+      return false;
+    }
+    
+    switch(type) {
     case BYTE:
+      switch(prim.type) {
+      case BYTE:
+        return true;
+      case CHAR:
+      case SHORT:
+      case INT:
+      case FLOAT:
+      case DOUBLE:
+        return false;
+      }
+      break;
+    case CHAR:
+      switch(prim.type) {
+      case BYTE:
+      case CHAR:
+        return true;
+      case SHORT:
+      case INT:
+      case FLOAT:
+      case DOUBLE:
+        return false;
+      }
+      break;
+    case SHORT:
+      switch(prim.type) {
+      case BYTE:
+      case CHAR:
+      case SHORT:
+        return true;
+      case INT:
+      case FLOAT:
+      case DOUBLE:
+        return false;
+      }
+      break;
+    case INT:
+      switch(prim.type) {
+      case BYTE:
+      case CHAR:
+      case SHORT:
+      case INT:
+        return true;
+      case FLOAT:
+      case DOUBLE:
+        return false;
+      }
+      break;
     case FLOAT:
-    case DOUBLE:*/
+      switch(prim.type) {
+      case BYTE:
+      case CHAR:
+      case SHORT:
+      case INT:
+      case FLOAT:
+        return true;
+      case DOUBLE:
+        return false;
+      }
+      break;
+    case DOUBLE:
+      switch(prim.type) {
+      case BYTE:
+      case CHAR:
+      case SHORT:
+      case INT:
+      case FLOAT:
+      case DOUBLE:
+        return true;
+      }
+      break;
+    }
+    return false;
+  }
+}

@@ -17,16 +17,7 @@ public abstract class StatementNodeClass extends CodeZoneClass implements Statem
   
   
 
-  //TODO borrar això i implementar-ho on toca
   @Override
-  public StatementNodeClass getLinkedVersion(SymbolTable symbolTable, ErrorLog errorLog) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  @Override
-  public boolean isCorrectlyLinked() {
-    // TODO Auto-generated method stub
-    return false;
-  }
+  public abstract StatementNodeClass getLinkedVersion(SymbolTable symbolTable, 
+      ErrorLog errorLog);
 }

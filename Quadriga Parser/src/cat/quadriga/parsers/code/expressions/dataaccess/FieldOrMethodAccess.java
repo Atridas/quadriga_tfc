@@ -46,4 +46,9 @@ public final class FieldOrMethodAccess extends MemberAccess {
     // TODO Auto-generated method stub
     return false;
   }
+
+  @Override
+  public WriteAccess getWriteVersion() {
+    return null;
+  }
 }

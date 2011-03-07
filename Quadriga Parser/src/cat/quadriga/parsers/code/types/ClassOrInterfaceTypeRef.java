@@ -3,6 +3,9 @@ package cat.quadriga.parsers.code.types;
 import java.util.Map;
 import java.util.HashMap;
 
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
+
 public class ClassOrInterfaceTypeRef extends ReferenceTypeRef {
   
   public Map<? extends String, ? super String> aux;
@@ -19,5 +22,22 @@ public class ClassOrInterfaceTypeRef extends ReferenceTypeRef {
       map.put(c, res);
     }
     return res;
+  }
+  @Override
+  public ClassOrInterfaceTypeRef getValid(SymbolTable symbolTable, ErrorLog errorLog) {
+    return this;
+  }
+  @Override
+  public boolean isValid() {
+    return true;
+  }
+  @Override
+  public boolean isAssignableFrom(BaseType rightOperand) {
+    if(rightOperand instanceof ClassOrInterfaceTypeRef) {
+      return classObject.isAssignableFrom(((ClassOrInterfaceTypeRef)rightOperand).classObject);
+    } else if(rightOperand instanceof NullType) {
+      return true;
+    }
+    return false;
   }
 }

@@ -15,7 +15,7 @@ public final class ArrayInitializerNode extends ExpressionNodeClass {
   public final List<ExpressionNode> inits;
   
   public ArrayInitializerNode(ArrayAllocationExpressionNode allocation, ExpressionNode... inits) {
-    super(new CodeZoneClass(allocation, inits[inits.length-1]));
+    super(new CodeZoneClass(allocation, (inits.length>0)?inits[inits.length-1]:allocation));
 
     this.allocation = allocation;
     

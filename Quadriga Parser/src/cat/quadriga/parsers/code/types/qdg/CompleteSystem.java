@@ -9,7 +9,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.QuadrigaFunction;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
@@ -106,4 +108,21 @@ public class CompleteSystem extends BaseTypeClass implements QuadrigaSystem {
     return Utils.treeStringRepresentation("System", comp, special, extern, systems, upd, newE, remE, change, events);
   }
 
+  @Override
+  public CompleteSystem getValid(SymbolTable symbolTable, ErrorLog errorLog) {
+    //TODO
+    return this;
+  }
+
+  @Override
+  public boolean isValid() {
+    //TODO
+    return true;
+  }
+
+
+  @Override
+  public boolean isAssignableFrom(BaseType rightOperand) {
+    return getBinaryName().compareTo(rightOperand.getBinaryName()) == 0;
+  }
 }

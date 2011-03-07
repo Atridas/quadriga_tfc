@@ -6,8 +6,9 @@ import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.types.BaseType;
 
 public interface DataAccess extends ExpressionNode {
-  boolean isReadable();
-  boolean isAssignable();
+  public boolean isAssignable();
+  public boolean isReadable();
+  WriteAccess getWriteVersion();
   BaseType getType();
   @Override
   DataAccess getLinkedVersion(SymbolTable symbolTable, ErrorLog errorLog);

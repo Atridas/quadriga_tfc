@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.Map.Entry;
 
+import cat.quadriga.parsers.code.statements.BucleOrSwitchInterface;
 import cat.quadriga.parsers.code.symbols.BaseSymbol;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
@@ -19,6 +20,7 @@ public class SymbolTable implements TreeRepresentable {
   private final Set<String> searchedClasses = new HashSet<String>();
   private final Map<String, BaseSymbol> globalNamespace = new HashMap<String, BaseSymbol>();
   private final Stack<Map<String, BaseSymbol>> mapStack = new Stack<Map<String,BaseSymbol>>();
+  public BucleOrSwitchInterface closestBucleOrSwitch = null;
   {
     mapStack.push(globalNamespace);
   }

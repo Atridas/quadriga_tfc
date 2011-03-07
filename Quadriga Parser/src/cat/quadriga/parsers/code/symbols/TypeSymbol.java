@@ -2,6 +2,7 @@ package cat.quadriga.parsers.code.symbols;
 
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
 
 public class TypeSymbol extends BaseSymbol {
 
@@ -9,7 +10,7 @@ public class TypeSymbol extends BaseSymbol {
   private final String[] alias;
   
   public TypeSymbol(BaseType type) {
-    super(type.getBinaryName());
+    super(getSimpleName(type));
     
     this.type = type;
     String aux[] = name.split("\\.");
@@ -19,6 +20,15 @@ public class TypeSymbol extends BaseSymbol {
     } else {
       this.alias = new String[0];
     }
+  }
+  
+  private static String getSimpleName(BaseType type) {
+    if(type instanceof ClassOrInterfaceTypeRef) {
+      String aux = type.getBinaryName().replace('/', '.');
+      aux = aux.substring(1, aux.length()-1);
+      return aux;
+    }
+    return type.getBinaryName();
   }
   
   public BaseType getType() {

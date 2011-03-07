@@ -1,5 +1,5 @@
 package cat.quadriga.parsers.code.statements;
 
-public interface BucleOrSwitchInterface {
+public interface BucleOrSwitchInterface extends StatementNode {
 
 }

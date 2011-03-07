@@ -1,5 +1,7 @@
 package cat.quadriga.parsers.code.types.qdg;
 
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.TreeRepresentable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
@@ -8,6 +10,9 @@ import cat.quadriga.parsers.code.types.BaseType;
 public interface QuadrigaComponent extends BaseType, TreeRepresentable {
   
   public ComponentField getField(String name);
+  
+  @Override
+  public QuadrigaComponent getValid(SymbolTable symbolTable, ErrorLog errorLog);
 
   public static class ComponentField implements TreeRepresentable {
     public final BaseType type;

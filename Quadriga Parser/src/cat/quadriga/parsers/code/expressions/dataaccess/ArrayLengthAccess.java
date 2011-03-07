@@ -46,4 +46,9 @@ public final class ArrayLengthAccess extends UnaryDataAccess {
     return false;
   }
 
+  @Override
+  public WriteAccess getWriteVersion() {
+    return null;
+  }
+
 }

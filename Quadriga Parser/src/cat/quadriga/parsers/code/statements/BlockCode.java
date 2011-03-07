@@ -7,8 +7,11 @@ import java.util.List;
 import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
+import cat.quadriga.parsers.code.types.BaseType;
 
 public class BlockCode extends StatementNodeClass {
 
@@ -57,6 +60,65 @@ public class BlockCode extends StatementNodeClass {
     return treeStringRepresentation;
   }
   
+  private boolean linked = false;
+  private BlockCode linkedVersion = null;
+  @Override
+  public BlockCode getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    if(linked) {
+      return this;
+    } if(linkedVersion == null) {
+      TmpBlockCode tmp = new TmpBlockCode(this);
+      symbolTable.newContext();
+      for(LocalVariableSymbol localVariableSymbol : localVariables) {
+        if(localVariableSymbol.type.isValid()) {
+          tmp.addLocalVariable(localVariableSymbol);
+          symbolTable.addSymbol(localVariableSymbol);
+        } else {
+          BaseType type = localVariableSymbol.type.getValid(symbolTable, errorLog);
+          if(type != null) {
+            break;
+          }
+          LocalVariableSymbol lvs = new LocalVariableSymbol(
+              localVariableSymbol.modifiers, 
+              type, 
+              localVariableSymbol.name
+              );
+          tmp.addLocalVariable(lvs);
+          symbolTable.addSymbol(lvs);
+        }
+      }
+      
+      if(tmp.localVariables.size() == localVariables.size()) {
+        for(StatementNode stmt : statements) {
+          if(stmt.isCorrectlyLinked()) {
+            tmp.addStatement(stmt);
+          } else {
+            StatementNode newStatement = stmt.getLinkedVersion(symbolTable, errorLog);
+            if(newStatement == null) {
+              break;
+            } else {
+              tmp.addStatement(newStatement);
+            }
+          }
+        }
+        if(tmp.statements.size() == statements.size()) {
+          linkedVersion = tmp.transformToBlockCode();
+          linkedVersion.linkedVersion = linkedVersion;
+          linkedVersion.linked = true;
+        }
+      }
+      
+      symbolTable.deleteContext();
+    }
+    return linkedVersion;
+  }
+
+  @Override
+  public boolean isCorrectlyLinked() {
+    return linked;
+  }
+  
   
   public static final class TmpBlockCode {
     private int beginLine, beginColumn, endLine, endColumn;
@@ -77,6 +139,17 @@ public class BlockCode extends StatementNodeClass {
       beginLine   = endLine   = 
       beginColumn = endColumn = 0;
       this.file = file;
+      
+      localVariables = new LinkedList<LocalVariableSymbol>();
+      statements     = new LinkedList<StatementNode>();
+    }
+    
+    private TmpBlockCode(CodeZone cz) {
+      beginLine   = cz.beginLine();
+      endLine     = cz.endLine();
+      beginColumn = cz.beginColumn();
+      endColumn   = cz.endColumn();
+      file        = cz.file();
       
       localVariables = new LinkedList<LocalVariableSymbol>();
       statements     = new LinkedList<StatementNode>();

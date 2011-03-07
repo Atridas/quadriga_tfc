@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.FieldAccess;
@@ -207,4 +209,7 @@ public abstract class ReferenceTypeRef extends JavaType {
     }
     return aux.getMathematicResultType(other);
   }
+  
+  @Override
+  public abstract ReferenceTypeRef getValid(SymbolTable symbolTable, ErrorLog errorLog);
 }

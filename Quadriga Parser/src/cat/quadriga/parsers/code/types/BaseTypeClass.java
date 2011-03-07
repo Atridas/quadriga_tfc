@@ -22,9 +22,6 @@ public abstract class BaseTypeClass implements BaseType {
     return instanceableName;
   }
   
-  public boolean isValid() {
-    return true;
-  }
   
   public String toString() {
     return binaryName;
@@ -60,9 +57,7 @@ public abstract class BaseTypeClass implements BaseType {
   public String treeStringRepresentation() {
     return binaryName;
   }
-  
-  //TODO borrar això i implementar-ho on toca
-  public BaseType getValid(SymbolTable symbolTable, ErrorLog errorLog) {
-    return null;
-  }
+
+  @Override
+  public abstract BaseType getValid(SymbolTable symbolTable, ErrorLog errorLog);
 }

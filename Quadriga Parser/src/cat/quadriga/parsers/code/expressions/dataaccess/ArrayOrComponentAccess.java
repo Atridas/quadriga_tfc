@@ -1,10 +1,11 @@
-package cat.quadriga.parsers.code.expressions;
+package cat.quadriga.parsers.code.expressions.dataaccess;
 
 import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
-import cat.quadriga.parsers.code.expressions.dataaccess.TypeDataAccess;
+import cat.quadriga.parsers.code.expressions.ExpressionNode;
+import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.types.ArrayType;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
@@ -12,7 +13,7 @@ import cat.quadriga.parsers.code.types.UnknownType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
 
-public final class ArrayOrComponentAccess extends ExpressionNodeClass {
+public final class ArrayOrComponentAccess extends ExpressionNodeClass implements DataAccess {
 
   public ExpressionNode array;
   public ExpressionNode access;
@@ -78,6 +79,70 @@ public final class ArrayOrComponentAccess extends ExpressionNodeClass {
   public boolean isCorrectlyLinked() {
     // TODO Auto-generated method stub
     return false;
+  }
+
+  @Override
+  public boolean isAssignable() {
+    return true; //TODO revisar?
+  }
+
+  @Override
+  public boolean isReadable() {
+    return true;
+  }
+
+  @Override
+  public WriteAccess getWriteVersion() {
+    return new WriteVersion();
+  }
+  
+  private class WriteVersion extends ExpressionNodeClass implements WriteAccess {
+
+    public WriteVersion() {
+      super(ArrayOrComponentAccess.this);
+    }
+
+    @Override
+    public DataAccess getLinkedVersion(SymbolTable symbolTable,
+        ErrorLog errorLog) {
+      return this;
+    }
+
+    @Override
+    public BaseType getType() {
+      return ArrayOrComponentAccess.this.getType();
+    }
+
+    @Override
+    public WriteAccess getWriteVersion() {
+      return this;
+    }
+
+    @Override
+    public boolean isAssignable() {
+      return true;
+    }
+
+    @Override
+    public boolean isReadable() {
+      return true;
+    }
+
+    @Override
+    public String[] getOperands() {
+      return ArrayOrComponentAccess.this.getOperands();
+    }
+
+    @Override
+    public String getOperation() {
+      return ArrayOrComponentAccess.this.getOperation();
+    }
+
+    @Override
+    public boolean isCorrectlyLinked() {
+      return true;
+    }
+    
   }
 
 }
