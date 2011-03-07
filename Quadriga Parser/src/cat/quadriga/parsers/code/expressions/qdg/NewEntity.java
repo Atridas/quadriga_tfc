@@ -44,6 +44,7 @@ public final class NewEntity extends ExpressionNodeClass {
   public NewEntity getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
     // TODO Auto-generated method stub
+    errorLog.insertError("Not yet implemented [" + this.getClass().getCanonicalName() + "]", this);
     return null;
   }
   @Override

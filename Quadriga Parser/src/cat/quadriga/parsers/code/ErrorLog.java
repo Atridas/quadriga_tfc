@@ -6,21 +6,17 @@ import java.util.List;
 
 public final class ErrorLog {
 
+  public boolean writeClasses = false;
+  
   private final List<Error>   errors   = new ArrayList<Error>();
   private final List<Warning> warnings = new ArrayList<Warning>();
 
   public void insertError(String error, CodeZone cz) {
-    errors.add(new Error(cz, error));
-  }
-  public void insertError(Error error) {
-    errors.add( error );
+    errors.add(new Error(cz, error+getCallingMethod()));
   }
 
   public void insertWarning(String warning, CodeZone cz) {
-    warnings.add(new Warning(cz, warning));
-  }
-  public void insertWarning(Warning warning) {
-    warnings.add( warning );
+    warnings.add(new Warning(cz, warning+getCallingMethod()));
   }
 
   public List<Error> getErrors() {
@@ -86,5 +82,20 @@ public final class ErrorLog {
       super(cz);
       stringWarning = str;
     }
+  }
+  
+  private String getCallingMethod() {
+    if(!writeClasses) return "";
+    String res = " [";
+    try {
+      throw new Exception();
+    } catch (Exception e) {
+      if(e.getStackTrace().length < 3) {
+        return "";
+      }
+      StackTraceElement aux = e.getStackTrace()[2];
+      res += aux.getClassName();
+    }
+    return res + "]";
   }
 }

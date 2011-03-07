@@ -5,6 +5,7 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
+import cat.quadriga.parsers.code.symbols.BaseSymbol;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 
@@ -43,17 +44,36 @@ public final class LocalVarAccess extends DirectDataAccess {
     return true;
   }
 
+  private boolean linked = false;
+  private LocalVarAccess linkedVersion = null;
   @Override
   public LocalVarAccess getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
-    // TODO Auto-generated method stub
-    return null;
+    if(linked) {
+      return this;
+    } else if(linkedVersion == null) {
+      LocalVariableSymbol lvs;
+      BaseSymbol symbol = symbolTable.findSymbol(var.name);
+      if(symbol instanceof LocalVariableSymbol) {
+        lvs = (LocalVariableSymbol)symbol;
+        if(!lvs.type.isValid()) {
+          errorLog.insertError("Type " + lvs.type + " not valid",this);
+          return null;
+        }
+      } else {
+        errorLog.insertError("Symbol " + var.name + " not found",this);
+        return null;
+      }
+      linkedVersion = new LocalVarAccess(lvs, this);
+      linkedVersion.linked = true;
+      linkedVersion.linkedVersion = linkedVersion;
+    }
+    return linkedVersion;
   }
 
   @Override
   public boolean isCorrectlyLinked() {
-    // TODO Auto-generated method stub
-    return false;
+    return linked;
   }
 
   @Override

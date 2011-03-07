@@ -69,14 +69,22 @@ public final class MethodAccess extends MemberAccess {
   @Override
   public MethodAccess getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
-    // TODO Auto-generated method stub
-    return null;
+    if(isCorrectlyLinked()) {
+      return this;
+    }
+    ExpressionNode expression = reference.getLinkedVersion(symbolTable, errorLog);
+    if(expression == null) {
+      return null;
+    }
+    return new MethodAccess(expression, methods, this);
   }
 
   @Override
   public boolean isCorrectlyLinked() {
-    // TODO Auto-generated method stub
-    return false;
+    if(reference == null)
+      return true;
+    else
+      return reference.isCorrectlyLinked();
   }
 
   @Override

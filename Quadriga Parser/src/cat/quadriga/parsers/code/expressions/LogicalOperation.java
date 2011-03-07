@@ -43,6 +43,7 @@ public final class LogicalOperation extends BinaryExpressionNode {
   public LogicalOperation getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
     // TODO Auto-generated method stub
+    errorLog.insertError("Not yet implemented [" + this.getClass().getCanonicalName() + "]", this);
     return null;
   }
 

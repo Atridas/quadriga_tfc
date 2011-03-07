@@ -70,6 +70,7 @@ public final class UnaryOperation extends UnaryExpressionNode {
   public UnaryOperation getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
     // TODO Auto-generated method stub
+    errorLog.insertError("Not yet implemented [" + this.getClass().getCanonicalName() + "]", this);
     return null;
   }
 

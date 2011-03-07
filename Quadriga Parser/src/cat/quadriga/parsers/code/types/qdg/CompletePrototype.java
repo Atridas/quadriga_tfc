@@ -10,6 +10,8 @@ import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.statements.BlockCode;
+import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
+import cat.quadriga.parsers.code.symbols.ThisSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.parsers.code.types.UnknownType;
@@ -63,12 +65,7 @@ public class CompletePrototype extends BaseTypeClass implements QuadrigaPrototyp
     validated = true;
     
     
-    
-    if(original.initializations.isCorrectlyLinked()) {
-      initializations = original.initializations;
-    } else {
-      initializations = original.initializations.getLinkedVersion(symbolTable, errorLog);
-    }
+    symbolTable.newContext();
     
     List<ParameterClass> params = new ArrayList<ParameterClass>();
     for(ParameterClass parameter: original.parameters) {
@@ -92,14 +89,24 @@ public class CompletePrototype extends BaseTypeClass implements QuadrigaPrototyp
           }
         }
       }
-      params.add(new ParameterClass(
+      ParameterClass param =
+             new ParameterClass(
           parameter.cz, 
           nType, 
           parameter.name, 
           parameter.varargs, 
           parameter.modifiers, 
           nInit, 
-          parameter.semantic));
+          parameter.semantic);
+      params.add(param);
+      LocalVariableSymbol lvs = new LocalVariableSymbol(parameter.modifiers, nType, parameter.name);
+      symbolTable.addSymbol(lvs);
+    }
+    symbolTable.addSymbol(new ThisSymbol(QuadrigaEntity.baseEntity));
+    if(original.initializations.isCorrectlyLinked()) {
+      initializations = original.initializations;
+    } else {
+      initializations = original.initializations.getLinkedVersion(symbolTable, errorLog);
     }
     if(initializations == null) {
       validated = false;
@@ -107,6 +114,7 @@ public class CompletePrototype extends BaseTypeClass implements QuadrigaPrototyp
       validated = false;
     }
     parameters = Collections.unmodifiableList(params);
+    symbolTable.deleteContext();
   }
   
   private Aux aux = new Aux();

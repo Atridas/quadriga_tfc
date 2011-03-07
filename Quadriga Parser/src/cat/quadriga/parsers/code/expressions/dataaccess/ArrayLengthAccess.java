@@ -37,6 +37,7 @@ public final class ArrayLengthAccess extends UnaryDataAccess {
   public ArrayLengthAccess getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
     // TODO Auto-generated method stub
+    errorLog.insertError("Not yet implemented [" + this.getClass().getCanonicalName() + "]", this);
     return null;
   }
 

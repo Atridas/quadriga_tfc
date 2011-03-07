@@ -9,6 +9,7 @@ public class Quadriga {
     QuadrigaSimple quadrigaSimple = new QuadrigaSimple(args[0]);
     SymbolTable symbolTable = quadrigaSimple.symbolTable;
     ErrorLog errorLog = quadrigaSimple.errorLog;
+    errorLog.writeClasses = true;
     try {
       System.out.println("Parsing " + args[0]);
       quadrigaSimple.QuadrigaUnit();
@@ -25,9 +26,12 @@ public class Quadriga {
       e.printStackTrace();
     }
     
-    quadrigaSimple.symbolTable.link(quadrigaSimple.errorLog);
-    System.out.println(quadrigaSimple.symbolTable.treeStringRepresentation());
-
+    if(quadrigaSimple.symbolTable.link(quadrigaSimple.errorLog)) {
+      System.out.println(quadrigaSimple.symbolTable.treeStringRepresentation());
+    } else {
+      System.out.println("Errors While Linking");
+      System.out.println(quadrigaSimple.symbolTable.treeStringRepresentation());
+    }
     System.out.println(quadrigaSimple.errorLog.print());
   }
 }

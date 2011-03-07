@@ -2,6 +2,8 @@ package cat.quadriga.parsers.code.expressions;
 
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
+import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.types.NoType;
 
@@ -13,6 +15,8 @@ public abstract class ExpressionNodeClass extends CodeZoneClass implements Expre
     super(cz);
   }
 
+  private static SymbolTable symbolTable = new SymbolTable();
+  private static ErrorLog    errorLog    = new ErrorLog();
   public final String treeStringRepresentation() {
     if(treeStringRepresentation != null) {
       return treeStringRepresentation;
@@ -29,6 +33,17 @@ public abstract class ExpressionNodeClass extends CodeZoneClass implements Expre
       typeName = " {" + getType().toString() + "}";
     }    
   
+    if(!isCorrectlyLinked()) {
+      ExpressionNode enc = getLinkedVersion(symbolTable, errorLog);
+      if(enc != null) {
+        typeName += " <+>";
+      } else {
+        typeName += " <->";
+      }
+    } else {
+      typeName += " <+>";
+    }
+    
     treeStringRepresentation = "Op: " + Utils.treeStringRepresentation(operation + typeName, operands);
     return treeStringRepresentation;
   }

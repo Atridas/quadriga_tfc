@@ -47,6 +47,7 @@ public final class UnaryProxy extends UnaryExpressionNode {
   public UnaryProxy getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
     // TODO Auto-generated method stub
+    errorLog.insertError("Not yet implemented [" + this.getClass().getCanonicalName() + "]", this);
     return null;
   }
 

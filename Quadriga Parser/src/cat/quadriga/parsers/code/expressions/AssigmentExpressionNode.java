@@ -26,17 +26,30 @@ public final class AssigmentExpressionNode extends BinaryExpressionNode {
     return statementEquivalent.leftOperand.getType();
   }
 
+  private AssigmentExpressionNode(AssigmentStatementNode asn) {
+    super(asn.leftOperand, asn.rightOperand);
+    statementEquivalent = asn;
+  }
+  
+  private AssigmentExpressionNode linkedVersion = null;
   @Override
   public AssigmentExpressionNode getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
-    // TODO Auto-generated method stub
-    return null;
+    if(isCorrectlyLinked()) {
+      return this;
+    } else if(linkedVersion == null) {
+      AssigmentStatementNode asn = statementEquivalent.getLinkedVersion(symbolTable, errorLog);
+      if(asn == null) {
+        return null;
+      }
+      linkedVersion = new AssigmentExpressionNode(asn);
+    }
+    return linkedVersion;
   }
 
   @Override
   public boolean isCorrectlyLinked() {
-    // TODO Auto-generated method stub
-    return false;
+    return statementEquivalent.isCorrectlyLinked();
   }
 
 }
