@@ -20,6 +20,20 @@ public class CallToNamedArguments extends StatementNodeClass implements CallToAr
     super(cz);
     this.arguments = Collections.unmodifiableMap(new HashMap<String,ExpressionNode>(arguments));
   }
+  
+  public CallToNamedArguments(CallToNamedArguments origin, String name, ExpressionNode arg, CodeZone cz) { 
+    super(cz);
+    Map<String,ExpressionNode> aux = new HashMap<String,ExpressionNode>(origin.arguments);
+    aux.put(name, arg);
+    this.arguments = Collections.unmodifiableMap(aux);
+  }
+  
+  public CallToNamedArguments(String name, ExpressionNode arg, CodeZone cz) { 
+    super(cz);
+    Map<String,ExpressionNode> aux = new HashMap<String,ExpressionNode>();
+    aux.put(name, arg);
+    this.arguments = Collections.unmodifiableMap(aux);
+  }
 
   public String[] getOperands() {
     List<String> aux = new LinkedList<String>();
