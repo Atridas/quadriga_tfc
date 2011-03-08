@@ -32,35 +32,36 @@ public class ClassicFor extends StatementNodeClass implements BucleInterface {
     this.localVariables = Collections.unmodifiableList(new ArrayList<LocalVariableSymbol>(localVariables));
   }
 
-  private String treeStringRepresentation;
-  @Override
-  public String treeStringRepresentation() {
-    if(treeStringRepresentation == null) {
-      String varr[] = new String[localVariables.size()];
-      int i = 0;
-      for(LocalVariableSymbol v : localVariables) {
-        varr[i++] = v.treeStringRepresentation();
-      }
-      
-      String vars = Utils.treeStringRepresentation("Local Variables:", 
-                                                    varr);
-      
-      if(localVariables.size() == 0) {
-        treeStringRepresentation = Utils.treeStringRepresentation("for", 
-                      init.treeStringRepresentation(),
-                      condition.treeStringRepresentation(),
-                      update.treeStringRepresentation(),
-                      execution.treeStringRepresentation());
-      } else {
-        treeStringRepresentation = Utils.treeStringRepresentation("for", 
-                      vars,
-                      init.treeStringRepresentation(),
-                      condition.treeStringRepresentation(),
-                      update.treeStringRepresentation(),
-                      execution.treeStringRepresentation());
-      }
+  public String[] getOperands() {
+    String varr[] = new String[localVariables.size()];
+    int i = 0;
+    for(LocalVariableSymbol v : localVariables) {
+      varr[i++] = v.treeStringRepresentation();
     }
-    return treeStringRepresentation;
+    
+    String vars = Utils.treeStringRepresentation("Local Variables:", 
+                                                  varr);
+    
+    if(localVariables.size() == 0) {
+      String[] aux = {
+                    init.treeStringRepresentation(),
+                    condition.treeStringRepresentation(),
+                    update.treeStringRepresentation(),
+                    execution.treeStringRepresentation()};
+      return aux;
+    } else {
+      String[] aux = {
+                    vars,
+                    init.treeStringRepresentation(),
+                    condition.treeStringRepresentation(),
+                    update.treeStringRepresentation(),
+                    execution.treeStringRepresentation()};
+      return aux;
+    }
+  }
+
+  public String getOperation() {
+    return "for";
   }
   
   private ClassicFor(List<LocalVariableSymbol> localVariables, 

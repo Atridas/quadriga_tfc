@@ -2,7 +2,6 @@ package cat.quadriga.parsers.code.statements;
 
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
-import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
 public class StatementFromExpresion extends StatementNodeClass {
@@ -16,9 +15,13 @@ public class StatementFromExpresion extends StatementNodeClass {
   }
 
   @Override
-  public String treeStringRepresentation() {
-    return "St: " + Utils.treeStringRepresentation(expression.getOperation(), 
-                                                   expression.getOperands());
+  public String[] getOperands() {
+    return expression.getOperands();
+  }
+
+  @Override
+  public String getOperation() {
+    return "Statement From Expression : " + expression.getOperation();
   }
   
   @Override

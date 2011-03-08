@@ -100,12 +100,13 @@ public final class ArrayOrComponentAccess extends ExpressionNodeClass implements
         }
       }
       
-      if(getType() instanceof UnknownType) {
+
+      linkedVersion = new ArrayOrComponentAccess(arr, acc, this); 
+      if(linkedVersion.getType() instanceof UnknownType) {
+        linkedVersion = null;
         errorLog.insertError("Accés [ ] invàlid",this);
         return null;
       }
-
-      linkedVersion = new ArrayOrComponentAccess(arr, acc, this); 
       linkedVersion.linkedVersion = linkedVersion;
       linkedVersion.linked = true;
     }

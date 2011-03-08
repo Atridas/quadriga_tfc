@@ -25,13 +25,9 @@ public class BlockCode extends StatementNodeClass {
     this.localVariables = Collections.unmodifiableList(localVariables);
     this.statements     = Collections.unmodifiableList(statements);
   }
-  
-  private String treeStringRepresentation = null;
-  public String treeStringRepresentation() {
-    if(treeStringRepresentation != null) {
-      return treeStringRepresentation;
-    }
-    
+
+  @Override
+  public String[] getOperands() {
     String varr[] = new String[localVariables.size()];
     int i = 0;
     for(LocalVariableSymbol v : localVariables) {
@@ -51,14 +47,18 @@ public class BlockCode extends StatementNodeClass {
     
     if(localVariables.size() == 0) {
       String aux[] = {code};
-      treeStringRepresentation = Utils.treeStringRepresentation("Block:",aux);
+      return aux;
     } else {
       String aux[] = {vars, code};
-      treeStringRepresentation = Utils.treeStringRepresentation("Block:",aux);
+      return aux;
     }
-    
-    return treeStringRepresentation;
   }
+
+  @Override
+  public String getOperation() {
+    return "Block";
+  }
+  
   
   private boolean linked = false;
   private BlockCode linkedVersion = null;

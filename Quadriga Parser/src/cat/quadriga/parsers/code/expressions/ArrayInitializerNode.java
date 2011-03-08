@@ -7,7 +7,9 @@ import java.util.List;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
 
 public final class ArrayInitializerNode extends ExpressionNodeClass {
 
@@ -58,15 +60,6 @@ public final class ArrayInitializerNode extends ExpressionNodeClass {
     if(linked) {
       return this;
     } else if(linkedVersion == null) {
-      ArrayAllocationExpressionNode newalloc;
-      if(allocation.isCorrectlyLinked()) {
-        newalloc = allocation;
-      } else {
-        newalloc = allocation.getLinkedVersion(symbolTable, errorLog);
-        if(newalloc == null) {
-          return null;
-        }
-      }
       
       List<ExpressionNode> nInits = new ArrayList<ExpressionNode>();
       for(ExpressionNode init : inits) {
@@ -78,6 +71,22 @@ public final class ArrayInitializerNode extends ExpressionNodeClass {
             return null;
           } else {
             nInits.add(init);
+          }
+        }
+      }
+      ArrayAllocationExpressionNode newalloc;
+      if(allocation.isCorrectlyLinked()) {
+        newalloc = allocation;
+      } else {
+        newalloc = allocation.getLinkedVersion(symbolTable, errorLog);
+        if(newalloc == null) {
+          newalloc = allocFromInits();
+          if(newalloc == null) {
+            return null;
+          }
+          newalloc = newalloc.getLinkedVersion(symbolTable, errorLog);
+          if(newalloc == null) {
+            return null;
           }
         }
       }
@@ -94,4 +103,30 @@ public final class ArrayInitializerNode extends ExpressionNodeClass {
     return linked;
   }
 
+  
+  private ArrayAllocationExpressionNode allocFromInits() {
+    int size = inits.size();
+    BaseType type = null;
+    if(size == 0) {
+      type = ClassOrInterfaceTypeRef.getFromClass(Object.class);
+    }
+    for(ExpressionNode xn : inits) {
+      BaseType newType = xn.getType();
+      if(type == null) {
+        type = newType;
+      } if(!type.isAssignableFrom(newType)) {
+        if(newType.isAssignableFrom(type)) {
+          type = newType;
+        } else {
+          return null;
+        }
+      }
+    }
+    ExpressionNode[] sizes = {new LiteralData.IntegerLiteral(size)}; 
+    return new ArrayAllocationExpressionNode(
+        type, 
+        sizes, 
+        1, 
+        this);
+  }
 }

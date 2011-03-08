@@ -3,7 +3,6 @@ package cat.quadriga.parsers.code.statements.qdg;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
-import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.statements.StatementNodeClass;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
@@ -21,10 +20,16 @@ public class AddComponentNode extends StatementNodeClass {
   }
 
   @Override
-  public String treeStringRepresentation() {
-    return Utils.treeStringRepresentation("Add Component",
-    		component.treeStringRepresentation(),
-        entity.treeStringRepresentation());
+  public String[] getOperands() {
+    String[] aux = {
+        component.treeStringRepresentation(),
+        entity.treeStringRepresentation()};
+    return aux;
+  }
+
+  @Override
+  public String getOperation() {
+    return "Add Component";
   }
 
   private boolean linked = false;

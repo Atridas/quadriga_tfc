@@ -39,7 +39,13 @@ public class CompletePrototype extends BaseTypeClass implements QuadrigaPrototyp
 
   @Override
   public String treeStringRepresentation() {
-    return Utils.treeStringRepresentation("Prototype", 
+    String linkedStatus; 
+    if(!isValid()) {
+      linkedStatus = " <->";
+    } else {
+      linkedStatus = " <+>";
+    }
+    return Utils.treeStringRepresentation("Prototype" + linkedStatus, 
         (parameters == null || parameters.size() == 0)? null : Utils.parametersRepresentation(parameters),
         initializations.treeStringRepresentation());
   }

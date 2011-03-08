@@ -5,7 +5,6 @@ package cat.quadriga.parsers.code.statements;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
-import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.types.ArrayType;
@@ -25,16 +24,17 @@ public class IterableFor extends StatementNodeClass implements BucleInterface {
     this.execution = execution;
   }
 
-  private String treeStringRepresentation;
   @Override
-  public String treeStringRepresentation() {
-    if(treeStringRepresentation == null) {
-      treeStringRepresentation = Utils.treeStringRepresentation("for iteration", 
-                                    "iterator: " + iterator.name + " {" + iterator.type + "}",
-                                    iterable.treeStringRepresentation(),
-                                    execution.treeStringRepresentation());
-    }
-    return treeStringRepresentation;
+  public String[] getOperands() {
+    String[] aux = {"iterator: " + iterator.name + " {" + iterator.type + "}",
+        iterable.treeStringRepresentation(),
+        execution.treeStringRepresentation()};
+    return aux;
+  }
+
+  @Override
+  public String getOperation() {
+    return "for iteration";
   }
   
   private IterableFor(IterableFor original, 

@@ -3,7 +3,6 @@ package cat.quadriga.parsers.code.statements;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
-import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
 public class ThrowStatementNode extends StatementNodeClass {
@@ -14,16 +13,18 @@ public class ThrowStatementNode extends StatementNodeClass {
     super(cz);
     this.toThrow = toThrow;
   }
-
-  private String treeStringRepresentation;
+  
   @Override
-  public String treeStringRepresentation() {
-    if(treeStringRepresentation == null) {
-      treeStringRepresentation = Utils.treeStringRepresentation("throw", 
-                                  toThrow.treeStringRepresentation());
-    }
-    return treeStringRepresentation;
+  public String[] getOperands() {
+    String[] aux = {toThrow.treeStringRepresentation()};
+    return aux;
   }
+  
+  @Override
+  public String getOperation() {
+    return "throw";
+  }
+  
   @Override
   public StatementNodeClass getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {

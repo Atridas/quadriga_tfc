@@ -47,7 +47,13 @@ public class CompleteThread extends BaseTypeClass implements QuadrigaThread {
     for(QuadrigaSystem s : systems) {
       aux.add(s.getBinaryName());
     }
-    return Utils.treeStringRepresentation("thread", aux);
+    String linkedStatus; 
+    if(!isValid()) {
+      linkedStatus = " <->";
+    } else {
+      linkedStatus = " <+>";
+    }
+    return Utils.treeStringRepresentation("thread" + linkedStatus, aux);
   }
 
   @Override
@@ -68,7 +74,7 @@ public class CompleteThread extends BaseTypeClass implements QuadrigaThread {
         }
       }
     }
-    if(qs.size() == systems.size()) {
+    if(qs.size() != systems.size()) {
       return null;
     }
     BlockCode bc;

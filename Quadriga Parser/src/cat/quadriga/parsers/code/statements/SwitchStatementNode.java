@@ -24,28 +24,28 @@ public class SwitchStatementNode extends StatementNodeClass {
     this.localVariables = Collections.unmodifiableList(new ArrayList<LocalVariableSymbol>(localVariables));
   }
 
-  private String treeStringRepresentation;
   @Override
-  public String treeStringRepresentation() {
-    if(treeStringRepresentation == null) {
-      List<String> args = new LinkedList<String>();
-      args.add(input.treeStringRepresentation());
-      
-      if(localVariables.size() > 0) {
-        List<String> vars = new LinkedList<String>();
-        for(LocalVariableSymbol var : localVariables) {
-          vars.add(var.toString());
-        }
-        args.add(Utils.treeStringRepresentation("Local Variables", vars.toArray(new String[vars.size()])));
+  public String[] getOperands() {
+    List<String> args = new LinkedList<String>();
+    args.add(input.treeStringRepresentation());
+    
+    if(localVariables.size() > 0) {
+      List<String> vars = new LinkedList<String>();
+      for(LocalVariableSymbol var : localVariables) {
+        vars.add(var.toString());
       }
-      
-      for(CaseNode cas : cases) {
-        args.add(cas.toString());
-      }
-      treeStringRepresentation = Utils.treeStringRepresentation("switch", 
-                                    args.toArray(new String[args.size()]));
+      args.add(Utils.treeStringRepresentation("Local Variables", vars.toArray(new String[vars.size()])));
     }
-    return treeStringRepresentation;
+    
+    for(CaseNode cas : cases) {
+      args.add(cas.toString());
+    }
+    return args.toArray(new String[args.size()]);
+  }
+
+  @Override
+  public String getOperation() {
+    return "switch";
   }
 
   @Override

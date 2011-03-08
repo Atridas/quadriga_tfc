@@ -4,10 +4,12 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.WriteAccess;
+import cat.quadriga.parsers.code.symbols.BaseSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.UnknownType;
 
@@ -79,9 +81,34 @@ public final class ProxyDataAccess extends ExpressionNodeClass implements DataAc
   }
 
   @Override
-  public ProxyDataAccess getLinkedVersion(SymbolTable symbolTable, ErrorLog errorLog) {
-    // TODO Auto-generated method stub
-    errorLog.insertError("unimplemented",this);
+  public DataAccess getLinkedVersion(SymbolTable symbolTable, ErrorLog errorLog) {
+    ExpressionNode nInd;
+    if(indirect == null || indirect.isCorrectlyLinked()) {
+      nInd = indirect;
+    } else {
+      nInd = indirect.getLinkedVersion(symbolTable, errorLog);
+      if(nInd == null) {
+        return null;
+      }
+    }
+    //TODO errorlog
+    if(nInd == null) {
+      BaseSymbol symbol = symbolTable.findSymbol(name);
+      if(symbol != null) {
+        DataAccess aux = Utils.symbolToDataAccess(symbol, this);
+        if(aux instanceof ProxyDataAccess) {
+          errorLog.insertError("Symbol " + name + " is not of valid type", this);
+        } else {
+          return aux.getLinkedVersion(symbolTable, errorLog);
+        }
+      } else {
+        errorLog.insertError("Can not find " + name, this);
+      }
+    } else {
+      return Utils.accessToMember(nInd, name, this)
+              .getLinkedVersion(symbolTable, errorLog);
+    }
+    
     return null;
   }
 

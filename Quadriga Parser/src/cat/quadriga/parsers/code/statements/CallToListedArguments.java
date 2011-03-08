@@ -7,7 +7,6 @@ import java.util.List;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
-import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
 public class CallToListedArguments extends StatementNodeClass implements CallToArguments {
@@ -19,7 +18,7 @@ public class CallToListedArguments extends StatementNodeClass implements CallToA
     this.arguments = Collections.unmodifiableList(new ArrayList<ExpressionNode>(arguments));
   }
 
-  private String[] getOperands() {
+  public String[] getOperands() {
     List<String> aux = new LinkedList<String>();
     for(ExpressionNode node : arguments) {
       aux.add(node.treeStringRepresentation());
@@ -27,22 +26,12 @@ public class CallToListedArguments extends StatementNodeClass implements CallToA
     return aux.toArray(new String[aux.size()]);
   }
 
-  private String getOperation() {
+  public String getOperation() {
     if(arguments.size() == 0) {
       return "Zero Arguments";
     } else {
       return "Arguments";
     }
-  }
-
-  
-  private String treeStringRepresentation;
-  @Override
-  public String treeStringRepresentation() {
-    if(treeStringRepresentation == null) {
-      treeStringRepresentation = Utils.treeStringRepresentation(getOperation(), getOperands());
-    }
-    return treeStringRepresentation;
   }
   
   private boolean linked = false;

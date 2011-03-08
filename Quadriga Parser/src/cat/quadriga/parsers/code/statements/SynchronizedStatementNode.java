@@ -3,7 +3,6 @@ package cat.quadriga.parsers.code.statements;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
-import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
 public class SynchronizedStatementNode extends StatementNodeClass {
@@ -17,16 +16,20 @@ public class SynchronizedStatementNode extends StatementNodeClass {
     this.block = block;
   }
   
-  private String treeStringRepresentation;
   @Override
-  public String treeStringRepresentation() {
-    if(treeStringRepresentation == null) {
-      treeStringRepresentation = Utils.treeStringRepresentation("synchronized",
-                                    monitor.treeStringRepresentation(),
-                                    block.treeStringRepresentation());
-    }
-    return treeStringRepresentation;
+  public String[] getOperands() {
+    String[] aux = {
+        monitor.treeStringRepresentation(), 
+        block.treeStringRepresentation()
+        };
+    return aux;
   }
+  
+  @Override
+  public String getOperation() {
+    return "synchronized";
+  }
+  
   @Override
   public StatementNodeClass getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {

@@ -1,5 +1,11 @@
 package cat.quadriga.parsers;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 
@@ -26,12 +32,23 @@ public class Quadriga {
       e.printStackTrace();
     }
     
-    if(quadrigaSimple.symbolTable.link(quadrigaSimple.errorLog)) {
-      System.out.println(quadrigaSimple.symbolTable.treeStringRepresentation());
-    } else {
+    if(!quadrigaSimple.symbolTable.link(quadrigaSimple.errorLog)) {
       System.out.println("Errors While Linking");
-      System.out.println(quadrigaSimple.symbolTable.treeStringRepresentation());
     }
+    
+    try {
+      OutputStream os = new FileOutputStream("output tree.txt");
+      os.write(quadrigaSimple.symbolTable.treeStringRepresentation().getBytes("UTF-8"));
+      
+      os.close();
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (UnsupportedEncodingException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    
     System.out.println(quadrigaSimple.errorLog.print());
   }
 }

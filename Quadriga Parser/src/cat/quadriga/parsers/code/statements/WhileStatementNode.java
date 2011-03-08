@@ -3,7 +3,6 @@ package cat.quadriga.parsers.code.statements;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
-import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
 public class WhileStatementNode extends StatementNodeClass implements BucleInterface {
@@ -19,10 +18,16 @@ public class WhileStatementNode extends StatementNodeClass implements BucleInter
   }
 
   @Override
-  public String treeStringRepresentation() {
-    return Utils.treeStringRepresentation("while", 
-                  condition.treeStringRepresentation(),
-                  execution.treeStringRepresentation());
+  public String[] getOperands() {
+    String[] aux = {
+        condition.treeStringRepresentation(),
+        execution.treeStringRepresentation()};
+    return aux;
+  }
+
+  @Override
+  public String getOperation() {
+    return "while";
   }
 
   private boolean linked = false;

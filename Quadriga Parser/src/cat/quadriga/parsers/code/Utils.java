@@ -117,20 +117,27 @@ abstract public class Utils {
     
   }
   
-  public static ExpressionNode symbolToExpression(BaseSymbol symbol, Token first, Token last, String file)
-  {
-    if(symbol instanceof LocalVariableSymbol) {
-      return new LocalVarAccess((LocalVariableSymbol)symbol, new CodeZoneClass(first,last, file));
-    } else if(symbol instanceof TypeSymbol) {
-      return new TypeDataAccess(((TypeSymbol)symbol).type, new CodeZoneClass(first,last, file));
-    }
-    
-    return new ProxyDataAccess("Proxy direct access [" + symbol.name + "]", new CodeZoneClass(first,last, file));
+  public static DataAccess symbolToDataAccess(BaseSymbol symbol, Token first, Token last, String file) {
+    return symbolToDataAccess(symbol, new CodeZoneClass(first,last, file));
   }
   
-  public static ExpressionNode accessToMember(ExpressionNode expression, String member, Token t)
+  public static DataAccess symbolToDataAccess(BaseSymbol symbol, CodeZone cz)
   {
-    CodeZoneClass cz = new CodeZoneClass( expression, t);
+    if(symbol instanceof LocalVariableSymbol) {
+      return new LocalVarAccess((LocalVariableSymbol)symbol, cz);
+    } else if(symbol instanceof TypeSymbol) {
+      return new TypeDataAccess(((TypeSymbol)symbol).type, cz);
+    }
+    
+    return new ProxyDataAccess("Proxy direct access [" + symbol.name + "]", cz);
+  }
+  
+  public static DataAccess accessToMember(ExpressionNode expression, String member, Token t)
+  {
+    return accessToMember(expression,member,new CodeZoneClass( expression, t));
+  }
+  public static DataAccess accessToMember(ExpressionNode expression, String member, CodeZone cz)
+  {
     if(expression instanceof TypeDataAccess) {
       TypeDataAccess tda = (TypeDataAccess) expression;
       //static accesses
@@ -153,7 +160,7 @@ abstract public class Utils {
     if(type instanceof ReferenceTypeRef) {
       return ((ReferenceTypeRef)type).getAccess(expression, member, cz);
     }
-    return new ProxyDataAccess("Proxy access to member " + member, expression, cz);
+    return new ProxyDataAccess(member, expression, cz);
   }
 
   public static ExpressionNode resolveName(SymbolTable symbolTable, List<Token> identifiers, String file) {
@@ -166,7 +173,7 @@ abstract public class Utils {
     String aux = actual.image;
     BaseSymbol symbol = symbolTable.findSymbol(aux);
     if(symbol != null) {
-      result = symbolToExpression(symbol,first,actual, file);
+      result = symbolToDataAccess(symbol,first,actual, file);
     }
     
     while(result == null && it.hasNext()) {
@@ -174,7 +181,7 @@ abstract public class Utils {
       aux += '.' + actual.image;
       symbol = symbolTable.findSymbol(aux);
       if(symbol != null) {
-        result = symbolToExpression(symbol,first,actual, file);
+        result = symbolToDataAccess(symbol,first,actual, file);
       }
     }
 

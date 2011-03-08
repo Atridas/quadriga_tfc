@@ -88,7 +88,14 @@ public final class ComponentAllocation extends ExpressionNodeClass {
           return null;
         }
         if(!field.type.isAssignableFrom(namedArg.getValue().getType())) {
-          errorLog.insertError("Cannot assign this value to field " + namedArg.getKey(), namedArg.getValue());
+          errorLog.insertError("Cannot assign this value [" 
+              + namedArg.getValue().getType().getBinaryName() 
+              + "] to field " 
+              + namedArg.getKey()
+              + " ["
+              + field.type.getBinaryName()
+              + "]"
+              , namedArg.getValue());
           return null;
         }
       }

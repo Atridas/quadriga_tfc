@@ -39,7 +39,7 @@ public class ApplyPrototypeToEntity extends StatementNodeClass {
   }
 
   @Override
-  public String treeStringRepresentation() {
+  public String[] getOperands() {
     List<String> aux = new LinkedList<String>();
     aux.add(entity.treeStringRepresentation());
     aux.add(base.treeStringRepresentation());
@@ -51,7 +51,12 @@ public class ApplyPrototypeToEntity extends StatementNodeClass {
               entry.getValue().treeStringRepresentation())
           );
     }
-    return Utils.treeStringRepresentation("Apply Prototype to Entity",aux);
+    return aux.toArray(new String[aux.size()]);
+  }
+
+  @Override
+  public String getOperation() {
+    return "Apply Prototype to Entity";
   }
 
   private boolean linked = false;
