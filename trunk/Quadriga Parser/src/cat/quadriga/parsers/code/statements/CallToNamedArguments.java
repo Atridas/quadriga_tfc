@@ -21,7 +21,7 @@ public class CallToNamedArguments extends StatementNodeClass implements CallToAr
     this.arguments = Collections.unmodifiableMap(new HashMap<String,ExpressionNode>(arguments));
   }
 
-  private String[] getOperands() {
+  public String[] getOperands() {
     List<String> aux = new LinkedList<String>();
     for(Entry<String, ExpressionNode> entry : arguments.entrySet()) {
       aux.add(
@@ -36,22 +36,12 @@ public class CallToNamedArguments extends StatementNodeClass implements CallToAr
     return aux.toArray(new String[aux.size()]);
   }
 
-  private String getOperation() {
+  public String getOperation() {
     if(arguments.size() == 0) {
       return "Zero Arguments";
     } else {
       return "Named Arguments";
     }
-  }
-
-  
-  private String treeStringRepresentation;
-  @Override
-  public String treeStringRepresentation() {
-    if(treeStringRepresentation == null) {
-      treeStringRepresentation = Utils.treeStringRepresentation(getOperation(), getOperands());
-    }
-    return treeStringRepresentation;
   }
   
   private boolean linked = false;

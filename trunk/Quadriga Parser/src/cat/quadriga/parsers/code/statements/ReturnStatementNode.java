@@ -3,7 +3,6 @@ package cat.quadriga.parsers.code.statements;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
-import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
 public class ReturnStatementNode extends StatementNodeClass {
@@ -20,20 +19,21 @@ public class ReturnStatementNode extends StatementNodeClass {
     this.returnExpression = null;
   }
 
-  private String treeStringRepresentation;
   @Override
-  public String treeStringRepresentation() {
-    if(treeStringRepresentation == null) {
-      if(returnExpression == null) {
-        treeStringRepresentation = Utils.treeStringRepresentation("return");
-      } else {
-        treeStringRepresentation = Utils.treeStringRepresentation("return",
-                                          returnExpression.treeStringRepresentation());
-      }
+  public String[] getOperands() {
+    if(returnExpression == null) {
+      String[] aux = {};
+      return aux;
+    } else {
+      String[] aux = {returnExpression.treeStringRepresentation()};
+      return aux;
     }
-    return treeStringRepresentation;
   }
 
+  @Override
+  public String getOperation() {
+    return "Return";
+  }
   
   //TODO trobar la funcio actual i el tipus de retorn, no???
   @Override

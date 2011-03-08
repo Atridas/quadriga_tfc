@@ -3,7 +3,6 @@ package cat.quadriga.parsers.code.statements;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
-import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
 public class AssertStatementNode extends StatementNodeClass {
@@ -16,21 +15,25 @@ public class AssertStatementNode extends StatementNodeClass {
     this.message = message;
   }
 
-  
-  private String treeStringRepresentation = null;
+
+
   @Override
-  public String treeStringRepresentation() {
-    if(treeStringRepresentation != null)
-      return treeStringRepresentation;
+  public String[] getOperands() {
+    
     if(message == null) {
-      treeStringRepresentation = Utils.treeStringRepresentation("assert", 
-                                  assertion.treeStringRepresentation());
+      String[] aux = { assertion.treeStringRepresentation() };
+      return aux;
     } else {
-      treeStringRepresentation = Utils.treeStringRepresentation("assert", 
-                                  assertion.treeStringRepresentation(),
-                                  message.treeStringRepresentation());
+      String[] aux = { assertion.treeStringRepresentation(),
+                       message.treeStringRepresentation() };
+      return aux;
     }
-    return treeStringRepresentation;
+  }
+
+
+  @Override
+  public String getOperation() {
+    return "assert";
   }
   
   private boolean linked = false;

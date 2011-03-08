@@ -75,7 +75,14 @@ public class CompleteComponent extends BaseTypeClass implements QuadrigaComponen
     }
     dependencyTree = Utils.treeStringRepresentation("fields", aux);
     
-    return Utils.treeStringRepresentation("Component", dependencyTree, fieldsTree);
+    String linkedStatus; 
+    if(!isValid()) {
+      linkedStatus = " <->";
+    } else {
+      linkedStatus = " <+>";
+    }
+    
+    return Utils.treeStringRepresentation("Component" + linkedStatus, dependencyTree, fieldsTree);
   }
 
   @Override

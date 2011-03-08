@@ -10,8 +10,6 @@ import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
 public class IfStatementNode extends StatementNodeClass {
   
-  private final String treeStringRepresentation;
-  
   public final ExpressionNode conditionExpression;
   
   public final StatementNode ifCode, elseCode;
@@ -23,28 +21,6 @@ public class IfStatementNode extends StatementNodeClass {
     this.conditionExpression = conditionExpression;
     this.ifCode = ifCode;
     this.elseCode = elseCode;
-    
-    String[] conditionString = {conditionExpression.treeStringRepresentation()};
-    String[] ifString        = {ifCode.treeStringRepresentation()};
-    
-    String operandsString[];
-    if(elseCode == null) {
-      String aux[] = {Utils.treeStringRepresentation("Condition:", conditionString),
-                      Utils.treeStringRepresentation("If Code:", ifString),
-                     };
-      operandsString = aux;
-    } else {
-      String[] elseString      = {elseCode.treeStringRepresentation()};
-      
-      String aux[] = {Utils.treeStringRepresentation("Condition:", conditionString),
-                      Utils.treeStringRepresentation("If Code:", ifString),
-                      Utils.treeStringRepresentation("Else Code:", elseString)
-                     };
-      operandsString = aux;
-    }
-    
-    treeStringRepresentation = Utils.treeStringRepresentation("If Statement:",
-                                                              operandsString);
   }
   
   public IfStatementNode( Token ifToken, ExpressionNode conditionExpression, 
@@ -56,10 +32,30 @@ public class IfStatementNode extends StatementNodeClass {
         new CodeZoneClass(ifToken, (elseCode == null) ? ifCode : elseCode) 
         );
   }
+  
+  @Override
+  public String[] getOperands() {
+    String[] conditionString = {conditionExpression.treeStringRepresentation()};
+    String[] ifString        = {ifCode.treeStringRepresentation()};
+    if(elseCode == null) {
+      String aux[] = {Utils.treeStringRepresentation("Condition:", conditionString),
+                      Utils.treeStringRepresentation("If Code:", ifString),
+                     };
+      return aux;
+    } else {
+      String[] elseString      = {elseCode.treeStringRepresentation()};
+      
+      String aux[] = {Utils.treeStringRepresentation("Condition:", conditionString),
+                      Utils.treeStringRepresentation("If Code:", ifString),
+                      Utils.treeStringRepresentation("Else Code:", elseString)
+                     };
+      return aux;
+    }
+  }
 
   @Override
-  public String treeStringRepresentation() {
-    return treeStringRepresentation;
+  public String getOperation() {
+    return "If Statement:";
   }
 
   private boolean linked = false;

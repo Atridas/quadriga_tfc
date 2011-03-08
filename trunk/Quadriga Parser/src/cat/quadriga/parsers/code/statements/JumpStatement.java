@@ -3,7 +3,6 @@ package cat.quadriga.parsers.code.statements;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
-import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.symbols.BaseSymbol;
 
 public class JumpStatement extends StatementNodeClass {
@@ -27,24 +26,26 @@ public class JumpStatement extends StatementNodeClass {
     this(operator, null, null, cz);
   }
 
-  private String treeStringRepresentation;
   @Override
-  public String treeStringRepresentation() {
-    if(treeStringRepresentation == null) {
-      String operator;
-      if(direction == null) {
-        operator = "Proxy " + this.operator;
-      } else if(this.operator == Operator.CONTINUE && !(direction instanceof BucleInterface)) {
-        operator = "Invalid Continue";
-      } else {
-        operator = this.operator.toString();
-      }
-      if(label != null) {
-        operator += ": " + label;
-      }
-      treeStringRepresentation = Utils.treeStringRepresentation(operator);
+  public String[] getOperands() {
+    String[] aux = {};
+    return aux;
+  }
+
+  @Override
+  public String getOperation() {
+    String operator;
+    if(direction == null) {
+      operator = "Proxy " + this.operator;
+    } else if(this.operator == Operator.CONTINUE && !(direction instanceof BucleInterface)) {
+      operator = "Invalid Continue";
+    } else {
+      operator = this.operator.toString();
     }
-    return treeStringRepresentation;
+    if(label != null) {
+      operator += ": " + label;
+    }
+    return operator;
   }
   
   

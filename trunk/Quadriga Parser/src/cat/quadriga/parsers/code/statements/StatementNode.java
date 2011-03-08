@@ -10,4 +10,6 @@ public interface StatementNode extends TreeRepresentable, CodeZone, Linkable {
   @Override
   StatementNode getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog);
+  String   getOperation();
+  String[] getOperands();
 }

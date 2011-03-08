@@ -3,7 +3,6 @@ package cat.quadriga.parsers.code.statements;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
-import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.CastExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
@@ -24,12 +23,16 @@ public class AssigmentStatementNode extends StatementNodeClass {
   }
 
   @Override
-  public String treeStringRepresentation() {
-    String operation = operator.toString();
+  public String[] getOperands() {
     String operands[] = { leftOperand.treeStringRepresentation(),
-                         rightOperand.treeStringRepresentation() 
-                        };
-    return "St: " + Utils.treeStringRepresentation(operation, operands);
+        rightOperand.treeStringRepresentation() 
+       };
+    return operands;
+  }
+
+  @Override
+  public String getOperation() {
+    return operator.toString();
   }
   
   public Operator getOperator() {

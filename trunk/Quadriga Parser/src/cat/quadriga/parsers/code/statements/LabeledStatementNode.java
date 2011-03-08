@@ -4,7 +4,6 @@ import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
-import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.symbols.BaseSymbol;
 
 public class LabeledStatementNode extends StatementNodeClass {
@@ -67,18 +66,15 @@ public class LabeledStatementNode extends StatementNodeClass {
     return linked;
   }
 
-  private String treeStringRepresentation = null;
   @Override
-  public String treeStringRepresentation() {
-    if(treeStringRepresentation != null) {
-      return treeStringRepresentation;
-    }
+  public String[] getOperands() {
     String[] aux = {statement.treeStringRepresentation()};
-    return
-           treeStringRepresentation = Utils.treeStringRepresentation(
-                                          "LABEL: " + label.name,
-                                           aux);
-    
+    return aux;
+  }
+
+  @Override
+  public String getOperation() {
+    return "LABEL: " + label.name;
   }
   
   public class LabelSymbol extends BaseSymbol {

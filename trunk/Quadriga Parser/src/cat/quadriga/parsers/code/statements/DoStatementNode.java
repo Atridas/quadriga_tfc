@@ -3,7 +3,6 @@ package cat.quadriga.parsers.code.statements;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
-import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 
 public class DoStatementNode extends StatementNodeClass implements BucleInterface {
@@ -16,12 +15,17 @@ public class DoStatementNode extends StatementNodeClass implements BucleInterfac
     this.condition = condition;
     this.execution = execution;
   }
+  
+  @Override
+  public String[] getOperands() {
+    String[] aux = {execution.treeStringRepresentation(),
+                    condition.treeStringRepresentation()};
+    return aux;
+  }
 
   @Override
-  public String treeStringRepresentation() {
-    return Utils.treeStringRepresentation("do", 
-                  execution.treeStringRepresentation(),
-                  condition.treeStringRepresentation());
+  public String getOperation() {
+    return "do";
   }
 
   private boolean linked = false;

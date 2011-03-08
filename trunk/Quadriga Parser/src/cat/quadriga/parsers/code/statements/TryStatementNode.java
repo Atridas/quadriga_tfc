@@ -26,37 +26,33 @@ public class TryStatementNode extends StatementNodeClass {
     this.finalment = finalment;
   }
 
-  private String treeStringRepresentation;
   @Override
-  public String treeStringRepresentation() {
-    if(treeStringRepresentation == null) {
-      List<String> operands = new LinkedList<String>();
-      operands.add(block.treeStringRepresentation());
-      for(CatchBlock catx : catches) {
-        operands.add(
-            Utils.treeStringRepresentation("catch {" + catx.exception + "}", 
-                catx.code.treeStringRepresentation())
-                    );
-      }
-      if(finalment != null) {
-        operands.add(
-            Utils.treeStringRepresentation("finally",
-                finalment.treeStringRepresentation())
-                    );
-      }
-      
-      String operator;
-      if(operands.size() == 1) {
-        operator ="Wrong formed try";
-      } else {
-        operator ="try";
-      }
-      treeStringRepresentation = Utils.treeStringRepresentation(
-                                        operator,
-                                        operands.toArray(new String[operands.size()])
-                                        );
+  public String[] getOperands() {
+    List<String> operands = new LinkedList<String>();
+    operands.add(block.treeStringRepresentation());
+    for(CatchBlock catx : catches) {
+      operands.add(
+          Utils.treeStringRepresentation("catch {" + catx.exception + "}", 
+              catx.code.treeStringRepresentation())
+                  );
     }
-    return treeStringRepresentation;
+    if(finalment != null) {
+      operands.add(
+          Utils.treeStringRepresentation("finally",
+              finalment.treeStringRepresentation())
+                  );
+    }
+    
+    return operands.toArray(new String[operands.size()]);
+  }
+
+  @Override
+  public String getOperation() {
+    if(catches.size() == 0 && finalment == null) {
+      return "Wrong formed try";
+    } else {
+      return "try";
+    }
   }
 
   public final static class CatchBlock {

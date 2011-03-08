@@ -6,7 +6,6 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
-import cat.quadriga.parsers.code.Utils;
 
 public class StatementList extends StatementNodeClass {
   
@@ -38,22 +37,21 @@ public class StatementList extends StatementNodeClass {
     return nodes.clone();
   }
 
-  private String treeStringRepresentation = null;
   
   @Override
-  public String treeStringRepresentation() {
-    if(treeStringRepresentation != null) {
-      return treeStringRepresentation;
-    }
+  public String[] getOperands() {
     
     String aux[] = new String[nodes.length];
     for(int i = 0; i < nodes.length; i++) {
       aux[i] = nodes[i].treeStringRepresentation();
     }
     
-    treeStringRepresentation = Utils.treeStringRepresentation("Statements:", aux);
-    
-    return treeStringRepresentation;
+    return aux;
+  }
+
+  @Override
+  public String getOperation() {
+    return "Statements:";
   }
   
   private boolean linked = false;

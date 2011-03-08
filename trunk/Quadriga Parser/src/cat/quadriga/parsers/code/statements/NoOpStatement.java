@@ -16,8 +16,14 @@ public class NoOpStatement extends StatementNodeClass {
   }
 
   @Override
-  public String treeStringRepresentation() {
-    return "St: No operation";
+  public String[] getOperands() {
+    String[] aux = {};
+    return aux;
+  }
+
+  @Override
+  public String getOperation() {
+    return "No Operation";
   }
 
   @Override

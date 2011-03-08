@@ -40,16 +40,40 @@ public final class NewEntity extends ExpressionNodeClass {
   public BaseType getType() {
     return QuadrigaEntity.baseEntity;
   }
+  
+  private boolean linked = false;
+  private NewEntity linkedVersion = null;
   @Override
   public NewEntity getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
-    // TODO Auto-generated method stub
-    errorLog.insertError("Not yet implemented [" + this.getClass().getCanonicalName() + "]", this);
-    return null;
+    if(isCorrectlyLinked()) {
+      return this;
+    } else if(linkedVersion == null) {
+      ExpressionNode nParent, nName;
+      if(parent == null || parent.isCorrectlyLinked()) {
+        nParent = parent;
+      } else {
+        nParent = parent.getLinkedVersion(symbolTable, errorLog);
+        if(nParent == null) {
+          return null;
+        }
+      }
+      if(name == null || name.isCorrectlyLinked()) {
+        nName = name;
+      } else {
+        nName = name.getLinkedVersion(symbolTable, errorLog);
+        if(nParent == null) {
+          return null;
+        }
+      }
+      linkedVersion = new NewEntity(nParent, nName, this);
+      linkedVersion.linkedVersion = linkedVersion;
+      linkedVersion.linked = true;
+    }
+    return linkedVersion;
   }
   @Override
   public boolean isCorrectlyLinked() {
-    // TODO Auto-generated method stub
-    return false;
+    return linked || ( parent == null &&  name == null );
   }
 }
