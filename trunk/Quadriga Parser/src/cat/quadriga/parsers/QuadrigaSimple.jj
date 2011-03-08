@@ -2737,6 +2737,8 @@ ExpressionNode PrimaryPrefix():
   (
     result = Literal()
   |
+    result = NewEntity()
+  |
     LOOKAHEAD( ( <IDENTIFIER> "." )* "this" )
     ( t=<IDENTIFIER> "."
       {
@@ -3107,6 +3109,8 @@ StatementNode Statement():
     statement = SynchronizedStatement()
   |
     statement = TryStatement()
+  |
+    statement = ApplyPrototype()
   )
   {
     return statement;  }
@@ -3881,7 +3885,7 @@ void QuadrigaUnit():
 {
   packa = QuadrigaPackageDeclaration()
 
-  ( QuadrigaDeclaration() [";"] )+    
+  ( QuadrigaDeclaration() )+    
 
   ( < "\u001a" > )?
   ( <STUFF_TO_IGNORE_BIS: ~[]> )?
@@ -3913,7 +3917,7 @@ String QuadrigaPackageDeclaration():
 {
   List<Token> name;}
 {
-  "@quadriga" name = Name() [";"]
+  "@quadriga" name = Name()
   {
     String res = "";
     boolean first = true;
@@ -3933,7 +3937,9 @@ void QuadrigaDeclaration():
 | ComponentDeclaration()
 | PrototypeDeclaration()
 | SystemDeclaration()
-| ThreadDeclaration()}
+| ThreadDeclaration()
+| MainDeclaration()
+| ";"}
 
 void JavaImport():
 {
@@ -4086,7 +4092,7 @@ void PrototypeDeclaration():
       {        localBlock.addStatement(proto);      }      ( "," proto=EntityInitialization(thisEntity)        {          localBlock.addStatement(proto);        }      )*
     ] 
     "{"
-        (          componentAllocation = ComponentDeclarator() [";"]
+        (          componentAllocation = ComponentCreator() [";"]
           {
             thisEntity = new LocalVarAccess(
                                    (ThisSymbol)symbolTable.findSymbol("this"),
@@ -4121,7 +4127,7 @@ void PrototypeDeclaration():
                proto = EntityInitialization(entityCreation) [t=";"]
                {
                  localBlock.addStatement(proto);               }
-              )*
+              )+
           "}"
         | "@init" blockAux=Block()
           {
@@ -4175,8 +4181,8 @@ void PrototypeDeclaration():
     }
   )
   {
-    BaseSymbol symbol = new TypeSymbol(prototype);
-    symbolTable.addSymbol(symbol);
+    if(prototype != null) {      BaseSymbol symbol = new TypeSymbol(prototype);
+      symbolTable.addSymbol(symbol);    }
   }
 }
 
@@ -4202,7 +4208,8 @@ void SystemDeclaration():
              if(iSystem.update == null)
              {
                iSystem.update = fun;             } else {
-               errorLog.insertError("Més d'un update al sistema " + t.image, fun);             }           }         )*
+               errorLog.insertError("Més d'un update al sistema " + t.image, fun);             }           }
+           //|AtChange()|AtNew()|AtDelete()|AtEvent()         )*
     "}"
     {
       system = new CompleteSystem(iSystem);    }  |
@@ -4332,7 +4339,21 @@ void ThreadDeclaration():
       symbolTable.addSymbol(symbol);
     }  }}
 
-ComponentAllocation ComponentDeclarator():
+void MainDeclaration():
+{
+  //TODO}
+{
+  "@main"
+  (
+    LOOKAHEAD(2)
+    < IDENTIFIER >    "{"
+      ( "@thread" Name() )+      [ "@init" Block() ]
+    "}"
+  |
+    Name()
+  ) }
+
+ComponentAllocation ComponentCreator():
 {
   List<Token> name;
   CallToArguments args;}
@@ -4402,13 +4423,30 @@ ApplyPrototypeToEntity EntityInitialization(ExpressionNode entity):
 void PrototypeArgument(Map<String,ExpressionNode> namedArguments, Map<QuadrigaComponent,CallToNamedArguments> componentArguments):
 {
   ExpressionNode expression;
-  Token t;}{
-  LOOKAHEAD(< IDENTIFIER > ":")
+  Token t,t2,t0;
+  List<Token> name;
+  BaseType type;}{
   t=< IDENTIFIER > ":" expression=Expression()
   {
     namedArguments.put(t.image, expression);
   }
-| Name() ":" Expression()}
+| t0="[" type = Type() t2="]""." t = < IDENTIFIER > ":" expression = Expression()
+  {
+    if(type instanceof QuadrigaComponent) {      QuadrigaComponent comp = (QuadrigaComponent) type;
+      CallToNamedArguments ctna = componentArguments.get(comp);
+      if(ctna == null) {
+        ctna = new CallToNamedArguments(
+                      t.image,
+                      expression,
+                      new CodeZoneClass(t0,expression));      } else {
+        ctna = new CallToNamedArguments(
+                      ctna,
+                      t.image,
+                      expression,
+                      new CodeZoneClass(t0,expression));      }
+      componentArguments.put(comp,ctna);
+    } else {
+      errorLog.insertError(type.getBinaryName(),new CodeZoneClass(t0,t2,file));    }  }}
 
 QuadrigaFunction QuadrigaUpdate():
 {
@@ -4434,3 +4472,30 @@ QuadrigaFunction QuadrigaUpdate():
     symbolTable.deleteContext();
 
     return new QuadrigaFunction(parameters, code, code);  }}
+
+ExpressionNode NewEntity():
+{
+  //TODO
+  Token t;
+  ExpressionNode father = null, name = null;
+  CodeZone cz;}
+{
+  t="@newEntity"
+  { cz = new CodeZoneClass(t,file); }
+  //No hi ha "crida a funció", sempre és el nom
+  //de l'entitat si hi ha "()"
+
+  [ LOOKAHEAD(0) "(" name=Expression() "," father=Expression() t=")"
+    { cz = new CodeZoneClass(cz,t); }
+  ]
+  {
+    return new NewEntity(father, name, cz);  }}
+
+StatementNode ApplyPrototype():
+{
+  //TODO
+  ExpressionNode xn;
+  StatementNode statement;}
+{
+  "@prototype" xn=Expression() ":" statement=EntityInitialization(xn)
+  {    return statement;  }}

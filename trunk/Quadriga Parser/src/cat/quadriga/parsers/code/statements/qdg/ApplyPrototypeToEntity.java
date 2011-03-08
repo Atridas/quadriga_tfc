@@ -42,7 +42,7 @@ public class ApplyPrototypeToEntity extends StatementNodeClass {
   public String[] getOperands() {
     List<String> aux = new LinkedList<String>();
     aux.add(entity.treeStringRepresentation());
-    aux.add(base.treeStringRepresentation());
+    aux.add(base.getBinaryName());
     aux.add(arguments.treeStringRepresentation());
     for(Entry<QuadrigaComponent, CallToNamedArguments> entry : componentArguments.entrySet()) {
       aux.add(

@@ -20,12 +20,12 @@ public class QuadrigaEntity extends ReferenceTypeRef {
   public final Set<QuadrigaComponent> catchedComponents;
 
   private QuadrigaEntity() {
-    super(Entity.class,"Lcat.quadriga.runtime.Entity");
+    super(Entity.class,"Lcat/quadriga/runtime/Entity;");
     catchedComponents = Collections.emptySet();
   }
   
   private QuadrigaEntity(Set<QuadrigaComponent> catchedComponents) {
-    super(Entity.class,"Lcat.quadriga.runtime.Entity");
+    super(Entity.class,"Lcat/quadriga/runtime/Entity;");
     this.catchedComponents = Collections.unmodifiableSet(new HashSet<QuadrigaComponent>(catchedComponents));
   }
   

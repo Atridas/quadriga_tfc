@@ -34,6 +34,8 @@ public class Quadriga {
     
     if(!quadrigaSimple.symbolTable.link(quadrigaSimple.errorLog)) {
       System.out.println("Errors While Linking");
+    } else {
+      System.out.println("No errors");
     }
     
     try {
