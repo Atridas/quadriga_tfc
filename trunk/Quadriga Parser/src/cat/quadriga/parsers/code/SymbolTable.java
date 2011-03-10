@@ -165,7 +165,7 @@ public class SymbolTable implements TreeRepresentable {
           }
         }
       } else {
-        errorLog.insertWarning("Symbol " + entry.getKey() + " is not a type", new CodeZoneClass(0,0,0,0, "Linkage"));
+        errorLog.insertWarning("Symbol " + entry.getKey() + " is not a type", CodeZoneClass.linking);
       }
     }
     return !errorsOcurred;

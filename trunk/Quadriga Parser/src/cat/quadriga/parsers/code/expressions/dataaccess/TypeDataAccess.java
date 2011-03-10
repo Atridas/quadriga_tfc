@@ -80,4 +80,9 @@ public final class TypeDataAccess extends DirectDataAccess {
     return null;
   }
 
+  @Override
+  public LiteralData getCompileTimeConstant() {
+    return new LiteralData.ClassLiteral(type,this);
+  }
+
 }

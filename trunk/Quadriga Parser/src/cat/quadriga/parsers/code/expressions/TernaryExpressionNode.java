@@ -3,6 +3,8 @@ package cat.quadriga.parsers.code.expressions;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData.BooleanLiteral;
 import cat.quadriga.parsers.code.types.BaseType;
 
 public final class TernaryExpressionNode extends ExpressionNodeClass {
@@ -51,5 +53,18 @@ public final class TernaryExpressionNode extends ExpressionNodeClass {
   public boolean isCorrectlyLinked() {
     // TODO Auto-generated method stub
     return false;
+  }
+
+  @Override
+  public LiteralData getCompileTimeConstant() {
+    LiteralData bool = boolValue.getCompileTimeConstant();
+    if(bool == null) {
+      return null;
+    }
+    if(((BooleanLiteral)bool).z) {
+      return resultTrue.getCompileTimeConstant();
+    } else {
+      return resultFalse.getCompileTimeConstant();
+    }
   }
 }

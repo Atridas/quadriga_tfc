@@ -7,6 +7,7 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.statements.CallToNamedArguments;
 import cat.quadriga.parsers.code.symbols.BaseSymbol;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
@@ -109,6 +110,11 @@ public final class ComponentAllocation extends ExpressionNodeClass {
   @Override
   public boolean isCorrectlyLinked() {
     return linked;
+  }
+
+  @Override
+  public LiteralData getCompileTimeConstant() {
+    return null;
   }
 
 }

@@ -132,6 +132,11 @@ public final class ArrayOrComponentAccess extends ExpressionNodeClass implements
   public WriteAccess getWriteVersion() {
     return new WriteVersion();
   }
+
+  @Override
+  public LiteralData getCompileTimeConstant() {
+    return null;
+  }
   
   private class WriteVersion extends ExpressionNodeClass implements WriteAccess {
 
@@ -178,6 +183,11 @@ public final class ArrayOrComponentAccess extends ExpressionNodeClass implements
     @Override
     public boolean isCorrectlyLinked() {
       return true;
+    }
+
+    @Override
+    public LiteralData getCompileTimeConstant() {
+      return null;
     }
     
   }

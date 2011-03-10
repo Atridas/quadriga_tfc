@@ -8,6 +8,10 @@ public class CodeZoneClass implements CodeZone {
   public final int endLine;
   public final int endColumn;
   public final String file;
+
+  public static final CodeZoneClass compiling = new CodeZoneClass(0,0,0,0,"compiling");
+  public static final CodeZoneClass linking = new CodeZoneClass(0,0,0,0,"linking");
+  public static final CodeZoneClass runtime = new CodeZoneClass(0,0,0,0,"runtime");
   
   public CodeZoneClass(int beginLine, int beginColumn, int endLine, int endColumn, String file) {
     this.beginLine = beginLine;

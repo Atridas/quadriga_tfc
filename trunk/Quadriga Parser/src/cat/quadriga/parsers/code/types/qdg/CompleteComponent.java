@@ -17,9 +17,14 @@ import cat.quadriga.parsers.code.symbols.BaseSymbol;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
+import cat.quadriga.parsers.code.types.JavaType;
 import cat.quadriga.parsers.code.types.UnknownType;
+import cat.quadriga.runtime.ComponentObject;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.RuntimeComponent;
+import cat.quadriga.runtime.qvm.VirtualComponent;
 
-public class CompleteComponent extends BaseTypeClass implements QuadrigaComponent {
+public class CompleteComponent extends BaseTypeClass implements RuntimeComponent {
 
   public final Set<QuadrigaComponent> dependencies;
   public final Map<String,ComponentField> fields;
@@ -85,91 +90,153 @@ public class CompleteComponent extends BaseTypeClass implements QuadrigaComponen
     return Utils.treeStringRepresentation("Component" + linkedStatus, dependencyTree, fieldsTree);
   }
 
+  private boolean valid = false;
+  private CompleteComponent validVersion = null;
   @Override
   public boolean isValid() {
-    for(QuadrigaComponent component: dependencies) {
-      if(!(component instanceof CompleteComponent)) {
-        return false;
-      }
-    }
-    
-    for(Entry<String, ComponentField> field: fields.entrySet()) {
-      ComponentField cf = field.getValue();
-      if(!cf.type.isValid()) {
-        return false;
-      }
-      if(cf.initialization != null && !cf.initialization.isCorrectlyLinked()) {
-        return false;
-      }
-    }
-    
-    return true;
+    return valid;
   }
 
   @Override
   public CompleteComponent getValid(SymbolTable symbolTable, ErrorLog errorLog) {
-    if(isValid()) {
+    if(valid) {
       return this;
-    }
-    CodeZone cz = new CodeZoneClass(0,0,0,0,"Linkage");
-    
-    Set<QuadrigaComponent> dependencies = new HashSet<QuadrigaComponent>();
-    for(QuadrigaComponent component: this.dependencies) {
-      if(component instanceof CompleteComponent) {
-        dependencies.add(component);
-      } if(component instanceof IncompleteComponent || component instanceof ProxyComponent) {
-        BaseSymbol symbol = symbolTable.findSymbol(component.getInstanceableName());
-        if(symbol != null) {
-          if( symbol instanceof TypeSymbol) {
-            if(((TypeSymbol)symbol).type instanceof CompleteComponent) {
-              dependencies.add((CompleteComponent)((TypeSymbol)symbol).type);
-            } else if(!(((TypeSymbol)symbol).type instanceof QuadrigaComponent)) {
-              errorLog.insertError("El simbol " + component.getInstanceableName() + " no és un component",cz);
+    } else if(validVersion == null) {
+      CodeZone cz = new CodeZoneClass(0,0,0,0,"Linkage");
+      
+      Set<QuadrigaComponent> dependencies = new HashSet<QuadrigaComponent>();
+      for(QuadrigaComponent component: this.dependencies) {
+        if(component instanceof CompleteComponent) {
+          dependencies.add(component);
+        } if(component instanceof IncompleteComponent || component instanceof ProxyComponent) {
+          BaseSymbol symbol = symbolTable.findSymbol(component.getInstanceableName());
+          if(symbol != null) {
+            if( symbol instanceof TypeSymbol) {
+              if(((TypeSymbol)symbol).type instanceof CompleteComponent) {
+                dependencies.add((CompleteComponent)((TypeSymbol)symbol).type);
+              } else if(!(((TypeSymbol)symbol).type instanceof QuadrigaComponent)) {
+                errorLog.insertError("El simbol " + component.getInstanceableName() + " no és un component",cz);
+                return null;
+              }
+            } else {
+              errorLog.insertError("El simbol " + component.getInstanceableName() + " no és un tipus",cz);
               return null;
             }
+          } else if(component instanceof IncompleteComponent) {
+            dependencies.add(new CompleteComponent((IncompleteComponent)component));
           } else {
-            errorLog.insertError("El simbol " + component.getInstanceableName() + " no és un tipus",cz);
+            errorLog.insertError("No s'ha trobat el simbol " + component.getInstanceableName(),cz);
             return null;
           }
-        } else if(component instanceof IncompleteComponent) {
-          dependencies.add(new CompleteComponent((IncompleteComponent)component));
-        } else {
-          errorLog.insertError("No s'ha trobat el simbol " + component.getInstanceableName(),cz);
-          return null;
         }
       }
-    }
+      
     
-    Map<String, ComponentField> newFields = new HashMap<String, ComponentField>();
-    for(Entry<String, ComponentField> field: fields.entrySet()) {
-      ComponentField cf = field.getValue();
-      BaseType newType;
-      ExpressionNode newInit;
-      if(cf.type.isValid()) {
-        newType = cf.type;
-      } else {
-        newType = cf.type.getValid(symbolTable, errorLog);
-        if(newType == null) {
+      Map<String, ComponentField> newFields = new HashMap<String, ComponentField>();
+      for(Entry<String, ComponentField> field: fields.entrySet()) {
+        ComponentField cf = field.getValue();
+        JavaType newType;
+        ExpressionNode newInit;
+        if(cf.type.isValid()) {
+          newType = cf.type;
+        } else {
+          newType = cf.type.getValid(symbolTable, errorLog);
+          if(newType == null) {
+            return null;
+          }
+        }
+        if(cf.initialization == null) {
+          newInit = null;
+        } else if(cf.initialization.isCorrectlyLinked()) {
+          newInit = cf.initialization;
+        } else {
+          newInit = cf.initialization.getLinkedVersion(symbolTable, errorLog);
+          if(newInit == null) {
+            return null;
+          }
+        }
+        
+        if(newInit != null && !newType.isAssignableFrom(newInit.getType())) {
+          errorLog.insertError("Field " + field.getKey() + " type and "
+              + " its init are not compatible.", newInit);
           return null;
         }
+        
+        newFields.put(field.getKey(), new ComponentField(newType, field.getKey(), newInit));
       }
-      if(cf.initialization == null) {
-        newInit = null;
-      } else if(cf.initialization.isCorrectlyLinked()) {
-        newInit = cf.initialization;
-      } else {
-        newInit = cf.initialization.getLinkedVersion(symbolTable, errorLog);
-        if(newInit == null) {
-          return null;
-        }
-      }
-      newFields.put(field.getKey(), new ComponentField(newType, field.getKey(), newInit));
+      validVersion = new CompleteComponent(
+                              getBinaryName(),
+                              dependencies,
+                              newFields);
+      validVersion.validVersion = validVersion;
+      validVersion.valid = true;
     }
-    return new CompleteComponent(getBinaryName(),dependencies,newFields);
+    return validVersion;
   }
 
   @Override
   public boolean isAssignableFrom(BaseType rightOperand) {
     return getBinaryName().compareTo(rightOperand.getBinaryName()) == 0;
+  }
+
+  @Override
+  public ComponentObject createObject(Map<String, ComputedValue> arguments) {
+    assert isValid();
+    Set<String> usedArguments = new HashSet<String>();
+    VirtualComponent newComponent = new VirtualComponent(this);
+    
+    for(Entry<String, ComponentField> field: fields.entrySet()) {
+      ComponentField cf = field.getValue();
+      String fieldName  = field.getKey();
+      ComputedValue value = arguments.get(fieldName);
+      if(value == null) {
+        if(cf.initialization == null) {
+          throw new IllegalArgumentException("To initialize component " 
+              + getBinaryName() + " you need field " + fieldName);
+        } else {
+          value = cf.initialization.compute();
+        }
+      } else {
+        usedArguments.add(fieldName);
+      }
+      newComponent.values.put(fieldName, value);
+    }
+    
+    if(usedArguments.size() != arguments.size()) {
+      Set<String> unusedArguments = arguments.keySet();
+      unusedArguments.removeAll(usedArguments);
+      String aux = "Arguments \"";
+      boolean first = true;
+      for(String arg : unusedArguments) {
+        if(first) {
+          aux += arg;
+          first = false;
+        } else {
+          aux += ", " + arg;
+        }
+      }
+      aux += "\" not used";
+      throw new IllegalArgumentException(aux);
+    }
+    
+    return newComponent;
+  }
+
+  @Override
+  public JavaType getFieldType(String field) {
+    ComponentField cF = fields.get(field);
+    if(cF == null) {
+      return null;
+    }
+    return cF.type;
+  }
+
+  @Override
+  public Set<String> getAllFields() {
+    return fields.keySet();
+  }
+  
+  public Set<QuadrigaComponent> getDependencies() {
+    return dependencies;
   }
 }

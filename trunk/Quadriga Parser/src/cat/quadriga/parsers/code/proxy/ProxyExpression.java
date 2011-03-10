@@ -7,6 +7,7 @@ import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.printers.MegaPrinter;
 import cat.quadriga.parsers.code.printers.PrintInfo;
 import cat.quadriga.parsers.code.types.BaseType;
@@ -99,5 +100,10 @@ public final class ProxyExpression extends ExpressionNodeClass {
   public boolean isCorrectlyLinked() {
     // TODO Auto-generated method stub
     return false;
+  }
+
+  @Override
+  public LiteralData getCompileTimeConstant() {
+    return null;
   }
 }

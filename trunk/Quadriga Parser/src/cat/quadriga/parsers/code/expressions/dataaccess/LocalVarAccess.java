@@ -36,7 +36,7 @@ public final class LocalVarAccess extends DirectDataAccess {
 
   @Override
   public boolean isAssignable() {
-    return 0 != (Utils.FINAL & var.modifiers);
+    return 0 == (Utils.FINAL & var.modifiers);
   }
 
   @Override
@@ -79,6 +79,12 @@ public final class LocalVarAccess extends DirectDataAccess {
   @Override
   public WriteAccess getWriteVersion() {
     return new WriteVersion();
+  }
+
+  @Override
+  public LiteralData getCompileTimeConstant() {
+    // TODO Auto-generated method stub
+    return null;
   }
   
   private class WriteVersion extends ExpressionNodeClass implements WriteAccess {
@@ -126,6 +132,11 @@ public final class LocalVarAccess extends DirectDataAccess {
     @Override
     public boolean isCorrectlyLinked() {
       return true;
+    }
+
+    @Override
+    public LiteralData getCompileTimeConstant() {
+      return null;
     }
     
   }

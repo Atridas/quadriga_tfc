@@ -8,6 +8,7 @@ import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.expressions.dataaccess.WriteAccess;
 import cat.quadriga.parsers.code.symbols.BaseSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
@@ -119,6 +120,11 @@ public final class ProxyDataAccess extends ExpressionNodeClass implements DataAc
 
   @Override
   public WriteAccess getWriteVersion() {
+    return null;
+  }
+
+  @Override
+  public LiteralData getCompileTimeConstant() {
     return null;
   }
 

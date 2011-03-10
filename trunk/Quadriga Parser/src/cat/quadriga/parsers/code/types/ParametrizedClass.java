@@ -5,6 +5,8 @@ import java.util.List;
 
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.JavaReference;
 
 
 public final class ParametrizedClass extends ReferenceTypeRef {
@@ -124,6 +126,11 @@ public final class ParametrizedClass extends ReferenceTypeRef {
   public boolean isAssignableFrom(BaseType rightOperand) {
     // TODO Auto-generated method stub
     return false;
+  }
+
+  @Override
+  public ComputedValue getDefaultValue() {
+    return new JavaReference(null);
   }
   
 }

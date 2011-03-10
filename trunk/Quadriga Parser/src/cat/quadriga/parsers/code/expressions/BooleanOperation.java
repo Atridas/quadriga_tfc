@@ -2,6 +2,7 @@ package cat.quadriga.parsers.code.expressions;
 
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.expressions.dataaccess.TypeDataAccess;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
@@ -106,5 +107,16 @@ public final class BooleanOperation extends BinaryExpressionNode {
   @Override
   public boolean isCorrectlyLinked() {
     return linked;
+  }
+
+  @Override
+  public LiteralData getCompileTimeConstant() {
+    LiteralData left  = leftOperand .getCompileTimeConstant();
+    LiteralData right = rightOperand.getCompileTimeConstant();
+    if(left == null || right == null) {
+      return null;
+    }
+    
+    return left.executeBooleanOp(right, operator);
   }
 }

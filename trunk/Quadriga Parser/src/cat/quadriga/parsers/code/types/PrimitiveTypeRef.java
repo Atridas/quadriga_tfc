@@ -1,7 +1,12 @@
 package cat.quadriga.parsers.code.types;
 
+
+import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
+import cat.quadriga.runtime.ComputedValue;
+
 
 public final class PrimitiveTypeRef extends JavaType {
 
@@ -286,5 +291,27 @@ public final class PrimitiveTypeRef extends JavaType {
       break;
     }
     return false;
+  }
+
+  @Override
+  public ComputedValue getDefaultValue() {
+    switch(type) {
+    case CHAR:
+      return new LiteralData.CharacterLiteral('\0',CodeZoneClass.runtime );
+    case SHORT:
+    case INT:
+    case BYTE:
+      return new LiteralData.IntegerLiteral(0, CodeZoneClass.runtime);
+    case LONG:
+      return new LiteralData.LongLiteral(0l, CodeZoneClass.runtime);
+    case FLOAT:
+      return new LiteralData.FloatLiteral(0, CodeZoneClass.runtime);
+    case DOUBLE:
+      return new LiteralData.DoubleLiteral(0, CodeZoneClass.runtime);
+    case BOOLEAN:
+      return new LiteralData.BooleanLiteral(false, CodeZoneClass.runtime);
+    default:
+      throw new IllegalStateException("Cann not instantiate " + getBinaryName());        
+    }
   }
 }

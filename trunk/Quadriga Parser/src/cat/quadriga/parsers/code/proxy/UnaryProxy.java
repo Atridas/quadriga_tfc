@@ -6,6 +6,7 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.UnaryExpressionNode;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.UnknownType;
 
@@ -55,5 +56,10 @@ public final class UnaryProxy extends UnaryExpressionNode {
   public boolean isCorrectlyLinked() {
     // TODO Auto-generated method stub
     return false;
+  }
+
+  @Override
+  public LiteralData getCompileTimeConstant() {
+    return null;
   }
 }

@@ -2,6 +2,7 @@ package cat.quadriga.parsers.code.expressions;
 
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.statements.AssigmentStatementNode;
 import cat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;
 import cat.quadriga.parsers.code.types.BaseType;
@@ -50,6 +51,11 @@ public final class AssigmentExpressionNode extends BinaryExpressionNode {
   @Override
   public boolean isCorrectlyLinked() {
     return statementEquivalent.isCorrectlyLinked();
+  }
+
+  @Override
+  public LiteralData getCompileTimeConstant() {
+    return null;
   }
 
 }

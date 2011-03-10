@@ -2,6 +2,8 @@ package cat.quadriga.parsers.code.types;
 
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.JavaReference;
 
 public final class NullType extends ReferenceTypeRef {
 
@@ -24,5 +26,10 @@ public final class NullType extends ReferenceTypeRef {
   @Override
   public boolean isAssignableFrom(BaseType rightOperand) {
     return false;
+  }
+
+  @Override
+  public ComputedValue getDefaultValue() {
+    return new JavaReference(null);
   }
 }
