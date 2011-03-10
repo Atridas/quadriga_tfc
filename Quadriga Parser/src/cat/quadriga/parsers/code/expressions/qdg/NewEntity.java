@@ -5,6 +5,7 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
 
@@ -75,5 +76,9 @@ public final class NewEntity extends ExpressionNodeClass {
   @Override
   public boolean isCorrectlyLinked() {
     return linked || ( parent == null &&  name == null );
+  }
+  @Override
+  public LiteralData getCompileTimeConstant() {
+    return null;
   }
 }

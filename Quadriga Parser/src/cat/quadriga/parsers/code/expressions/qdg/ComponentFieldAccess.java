@@ -6,6 +6,7 @@ import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.expressions.dataaccess.UnaryDataAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.WriteAccess;
 import cat.quadriga.parsers.code.symbols.BaseSymbol;
@@ -130,6 +131,11 @@ public final class ComponentFieldAccess extends UnaryDataAccess {
   public WriteAccess getWriteVersion() {
     return new WriteVersion();
   }
+
+  @Override
+  public LiteralData getCompileTimeConstant() {
+    return null;
+  }
   
   private class WriteVersion extends ExpressionNodeClass implements WriteAccess {
 
@@ -176,6 +182,11 @@ public final class ComponentFieldAccess extends UnaryDataAccess {
     @Override
     public boolean isCorrectlyLinked() {
       return true;
+    }
+
+    @Override
+    public LiteralData getCompileTimeConstant() {
+      return null;
     }
     
   }

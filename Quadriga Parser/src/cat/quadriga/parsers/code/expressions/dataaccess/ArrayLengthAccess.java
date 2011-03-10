@@ -52,4 +52,9 @@ public final class ArrayLengthAccess extends UnaryDataAccess {
     return null;
   }
 
+  @Override
+  public LiteralData getCompileTimeConstant() {
+    return null;
+  }
+
 }

@@ -2884,21 +2884,21 @@ LiteralData Literal():
   }
 }
 
-LiteralData BooleanLiteral():
+LiteralData.BooleanLiteral BooleanLiteral():
 {
   Token t;
-  LiteralData lit;
+  LiteralData.BooleanLiteral lit;
 }
 {
   (    
   t="true"
   {
-    lit = new LiteralData.TrueLiteral(t,file);
+    lit = new LiteralData.BooleanLiteral(true,t,file);
   }
 |
   t="false"
   {
-    lit = new LiteralData.FalseLiteral(t,file);
+    lit = new LiteralData.BooleanLiteral(false,t,file);
   }
 )
   {    return lit;
@@ -3462,7 +3462,7 @@ StatementNode ForStatement():
       |
         t2 = ";"
         {
-          condition = new LiteralData.TrueLiteral(t2,file);        }
+          condition = new LiteralData.BooleanLiteral(true,t2,file);        }
       )
 
       (        update = ForUpdate() ")"
@@ -3994,12 +3994,19 @@ void ComponentDeclaration():
           t = < IDENTIFIER >
           [ "=" initialization = VariableInitializer(type) ] [";"]
           {
-            iComponent.addField(new QuadrigaComponent.ComponentField(
-                                           type, t.image, initialization
+            if(type instanceof JavaType) {
+              iComponent.addField(new QuadrigaComponent.ComponentField(
+                                                         (JavaType)type,
+                                                         t.image,
+                                                         initialization
                                                                 ),
-                                errorLog,
-                                new CodeZoneClass(t,file)
-                                 );          }         )*
+                                  errorLog,
+                                  new CodeZoneClass(t,file)
+                                   );            } else            {
+              errorLog.insertError("Type " + type.getBinaryName()
+                                 + " not valid as a component member",
+                                 new CodeZoneClass(t,file));            }
+          }         )*
     "}"
     {
       component = new CompleteComponent(iComponent);    }
@@ -4341,17 +4348,90 @@ void ThreadDeclaration():
 
 void MainDeclaration():
 {
-  //TODO}
+  QuadrigaMain main;
+  List<Token > name;
+  Token t;
+  List<QuadrigaThread> threads = new LinkedList<QuadrigaThread>();
+  Set<String> threadNames = new HashSet<String>();
+  BlockCode block = null;}
 {
   "@main"
   (
     LOOKAHEAD(2)
-    < IDENTIFIER >    "{"
-      ( "@thread" Name() )+      [ "@init" Block() ]
+    t=< IDENTIFIER >    "{"
+      ( "@thread" name=Name()
+          {
+            String n = Utils.getName(name);
+            BaseSymbol symbol = symbolTable.findSymbol(n);
+            if(symbol instanceof TypeSymbol
+               && ((TypeSymbol)symbol).type instanceof QuadrigaThread)
+            {
+              QuadrigaThread thread = (QuadrigaThread)((TypeSymbol)symbol).type;
+              if(threadNames.contains(thread.getBinaryName())) {
+                errorLog.insertError("El thread " + n + " està repetit",
+                                   new CodeZoneClass(name.get(0),name.get(name.size()-1),file));
+              } else
+              {
+                threadNames.add(thread.getBinaryName());
+                threads.add(thread);
+              }
+            } else {
+              errorLog.insertError("El símbol " + n + " no és un thread",
+                                   new CodeZoneClass(name.get(0),name.get(name.size()-1),file));
+            }
+          }
+
+      )+      [ "@init" block=Block() ]
+      {
+        main = new CompleteMain(currentFile.replace('/','.'),t.image,
+                                threads, block);      }
     "}"
   |
-    Name()
-  ) }
+    name = Name()
+    {
+      String res = "";
+      String dependency = null;
+      for(int i = 0; i < name.size(); i++) {
+        if(i == name.size() - 1)
+        {
+          dependency = res;
+        }
+        if(i != 0) {
+          res += "." + name.get(i).image;
+        } else {
+          res = name.get(i).image;
+        }
+      }
+      if(name.size() == 1)
+      {
+        main = new ProxyMain(currentFile.replace('/','.') + '.' + res);
+      } else
+      {
+        BaseSymbol symbol = symbolTable.findSymbol(res);
+        if(symbol != null) {
+          if(symbol instanceof TypeSymbol
+             && ((TypeSymbol)symbol).type instanceof QuadrigaMain)
+          {
+            main = null; //Ja hi és a la taula de símbols
+          } else
+          {
+            main = new ProxyMain(res);
+            errorLog.insertError("El símbol " + res + " no és un main",
+                                 new CodeZoneClass(name.get(0),name.get(name.size()-1),file));
+          }
+        } else {
+          main = new ProxyMain(res);
+          addDependency(dependency);
+        }
+      }
+    }
+  ) 
+  {
+    if(main != null) {
+      BaseSymbol symbol = new TypeSymbol(main);
+      symbolTable.addSymbol(symbol);
+    }
+  }}
 
 ComponentAllocation ComponentCreator():
 {
@@ -4475,7 +4555,6 @@ QuadrigaFunction QuadrigaUpdate():
 
 ExpressionNode NewEntity():
 {
-  //TODO
   Token t;
   ExpressionNode father = null, name = null;
   CodeZone cz;}
@@ -4493,7 +4572,6 @@ ExpressionNode NewEntity():
 
 StatementNode ApplyPrototype():
 {
-  //TODO
   ExpressionNode xn;
   StatementNode statement;}
 {

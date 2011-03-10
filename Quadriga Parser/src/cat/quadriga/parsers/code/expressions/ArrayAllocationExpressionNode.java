@@ -6,6 +6,7 @@ import java.util.List;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.types.ArrayType;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
@@ -113,6 +114,11 @@ public final class ArrayAllocationExpressionNode extends ExpressionNodeClass {
   @Override
   public boolean isCorrectlyLinked() {
     return linkedVersion != null;
+  }
+
+  @Override
+  public LiteralData getCompileTimeConstant() {
+    return null;
   }
 
 }

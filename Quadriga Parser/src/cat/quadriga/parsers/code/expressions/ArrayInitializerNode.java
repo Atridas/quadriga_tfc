@@ -129,4 +129,9 @@ public final class ArrayInitializerNode extends ExpressionNodeClass {
         1, 
         this);
   }
+
+  @Override
+  public LiteralData getCompileTimeConstant() {
+    return null;
+  }
 }

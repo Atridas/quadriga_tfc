@@ -5,9 +5,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.parsers.code.symbols.TypeSymbol;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.RuntimeComponent;
 
 public class Quadriga {
 
@@ -36,6 +41,12 @@ public class Quadriga {
       System.out.println("Errors While Linking");
     } else {
       System.out.println("No errors");
+      
+      
+      RuntimeComponent rc = (RuntimeComponent)((TypeSymbol)symbolTable.findSymbol("riskppt3d.planeta.DadesComponent")).type;
+      
+      Map<String,ComputedValue> compArgs = new HashMap<String, ComputedValue>();
+      System.out.println(rc.createObject(compArgs));
     }
     
     try {

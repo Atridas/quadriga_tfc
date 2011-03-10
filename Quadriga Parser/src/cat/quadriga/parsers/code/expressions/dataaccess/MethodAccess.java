@@ -91,4 +91,9 @@ public final class MethodAccess extends MemberAccess {
   public WriteAccess getWriteVersion() {
     return null;
   }
+
+  @Override
+  public LiteralData getCompileTimeConstant() {
+    return null;
+  }
 }

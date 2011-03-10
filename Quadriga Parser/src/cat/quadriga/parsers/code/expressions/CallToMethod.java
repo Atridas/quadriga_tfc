@@ -9,6 +9,7 @@ import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.FieldOrMethodAccess;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.expressions.dataaccess.MethodAccess;
 import cat.quadriga.parsers.code.proxy.ProxyDataAccess;
 import cat.quadriga.parsers.code.statements.CallToArguments;
@@ -128,6 +129,11 @@ public final class CallToMethod extends ExpressionNodeClass {
   @Override
   public boolean isCorrectlyLinked() {
     return linked;
+  }
+
+  @Override
+  public LiteralData getCompileTimeConstant() {
+    return null;
   }
 
 }

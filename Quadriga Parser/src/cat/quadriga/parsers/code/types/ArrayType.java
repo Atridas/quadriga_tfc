@@ -2,6 +2,8 @@ package cat.quadriga.parsers.code.types;
 
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.JavaReference;
 
 public final class ArrayType extends ReferenceTypeRef {
   
@@ -53,6 +55,11 @@ public final class ArrayType extends ReferenceTypeRef {
       return true;
     }
     return false;
+  }
+
+  @Override
+  public ComputedValue getDefaultValue() {
+    return new JavaReference(null);
   }
 
 }

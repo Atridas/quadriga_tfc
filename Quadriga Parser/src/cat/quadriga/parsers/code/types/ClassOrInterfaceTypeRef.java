@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.JavaReference;
 
 public class ClassOrInterfaceTypeRef extends ReferenceTypeRef {
   
@@ -39,5 +41,10 @@ public class ClassOrInterfaceTypeRef extends ReferenceTypeRef {
       return true;
     }
     return false;
+  }
+
+  @Override
+  public ComputedValue getDefaultValue() {
+    return new JavaReference(null);
   }
 }

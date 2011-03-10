@@ -5,7 +5,9 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.Linkable;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.TreeRepresentable;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.runtime.ComputedValue;
 
 public interface ExpressionNode extends CodeZone, TreeRepresentable, Linkable {
   String   getOperation();
@@ -13,4 +15,8 @@ public interface ExpressionNode extends CodeZone, TreeRepresentable, Linkable {
   BaseType getType();
   @Override
   ExpressionNode getLinkedVersion(SymbolTable symbolTable, ErrorLog errorLog);
+  
+  LiteralData getCompileTimeConstant();
+  
+  ComputedValue compute();
 }

@@ -11,6 +11,7 @@ import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ReferenceTypeRef;
 import cat.quadriga.parsers.code.types.UnknownType;
+import cat.quadriga.runtime.ComputedValue;
 import cat.quadriga.runtime.Entity;
 
 public class QuadrigaEntity extends ReferenceTypeRef {
@@ -63,5 +64,11 @@ public class QuadrigaEntity extends ReferenceTypeRef {
   @Override
   public boolean isAssignableFrom(BaseType rightOperand) {
     return getBinaryName().compareTo(rightOperand.getBinaryName()) == 0;
+  }
+
+  @Override
+  public ComputedValue getDefaultValue() {
+    // TODO Auto-generated method stub
+    throw new IllegalStateException("Not yet implemented");
   }
 }

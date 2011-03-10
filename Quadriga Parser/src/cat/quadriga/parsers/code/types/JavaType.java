@@ -2,6 +2,7 @@ package cat.quadriga.parsers.code.types;
 
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.runtime.ComputedValue;
 
 public abstract class JavaType extends BaseTypeClass {
 
@@ -18,4 +19,6 @@ public abstract class JavaType extends BaseTypeClass {
   
   @Override
   public abstract JavaType getValid(SymbolTable symbolTable, ErrorLog errorLog);
+  
+  public abstract ComputedValue getDefaultValue();
 }

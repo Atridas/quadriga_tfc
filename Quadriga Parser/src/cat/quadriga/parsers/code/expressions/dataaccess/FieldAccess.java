@@ -60,23 +60,51 @@ public final class FieldAccess extends MemberAccess {
     return type;
   }
 
+  private boolean linked = false;
+  private FieldAccess linkedVersion = null;
   @Override
   public FieldAccess getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
-    // TODO Auto-generated method stub
-    errorLog.insertError("Not yet implemented [" + this.getClass().getCanonicalName() + "]", this);
-    return null;
+    if(linked) {
+      return this;
+    } else if(linkedVersion == null) {
+      ExpressionNode newRef;
+      if(reference == null) {
+        if(!isStatic()) {
+          errorLog.insertError("El camp no és estàtic",this);
+          return null;
+        }
+        newRef = null;
+      } else if(reference.isCorrectlyLinked()) {
+        newRef = reference;        
+      } else {
+        newRef = reference.getLinkedVersion(symbolTable, errorLog);
+        if(newRef == null) {
+          return null;
+        }
+      }
+      
+      linkedVersion = new FieldAccess(newRef, field, this);
+      linkedVersion.linkedVersion = linkedVersion;
+      linkedVersion.linked = true;
+    }
+    return linkedVersion;
   }
 
   @Override
   public boolean isCorrectlyLinked() {
-    // TODO Auto-generated method stub
-    return false;
+    return linked;
   }
 
   @Override
   public WriteAccess getWriteVersion() {
     return new WriteVersion();
+  }
+
+  @Override
+  public LiteralData getCompileTimeConstant() {
+    // TODO Auto-generated method stub
+    return null;
   }
   
   private class WriteVersion extends ExpressionNodeClass implements WriteAccess {
@@ -124,6 +152,11 @@ public final class FieldAccess extends MemberAccess {
     @Override
     public boolean isCorrectlyLinked() {
       return true;
+    }
+
+    @Override
+    public LiteralData getCompileTimeConstant() {
+      return null;
     }
     
   }
