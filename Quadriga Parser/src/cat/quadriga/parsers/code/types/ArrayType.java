@@ -62,4 +62,9 @@ public final class ArrayType extends ReferenceTypeRef {
     return new JavaReference(null);
   }
 
+  @Override
+  public boolean isSerializable() {
+    return base.isSerializable();
+  }
+
 }

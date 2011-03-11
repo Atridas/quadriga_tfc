@@ -75,4 +75,9 @@ public class ProxyThread extends BaseTypeClass implements QuadrigaThread {
   public boolean isAssignableFrom(BaseType rightOperand) {
     return getBinaryName().compareTo(rightOperand.getBinaryName()) == 0;
   }
+
+  @Override
+  public boolean isSerializable() {
+    return false;
+  }
 }

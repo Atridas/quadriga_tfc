@@ -116,4 +116,9 @@ public class IncompleteSystem extends BaseTypeClass implements QuadrigaSystem {
   public boolean isAssignableFrom(BaseType rightOperand) {
     return getBinaryName().compareTo(rightOperand.getBinaryName()) == 0;
   }
+
+  @Override
+  public boolean isSerializable() {
+    return false;
+  }
 }

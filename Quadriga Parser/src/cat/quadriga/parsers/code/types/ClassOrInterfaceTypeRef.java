@@ -1,5 +1,6 @@
 package cat.quadriga.parsers.code.types;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -46,5 +47,14 @@ public class ClassOrInterfaceTypeRef extends ReferenceTypeRef {
   @Override
   public ComputedValue getDefaultValue() {
     return new JavaReference(null);
+  }
+  @Override
+  public boolean isSerializable() {
+    for(Class<?> c : classObject.getInterfaces()) {
+      if(c.equals(Serializable.class)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

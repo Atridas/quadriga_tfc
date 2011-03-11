@@ -19,4 +19,6 @@ public interface BaseType extends TreeRepresentable {
   boolean isMathematicallyOperable();
   
   BaseType getMathematicResultType(BaseType other);
+  
+  boolean isSerializable();
 }

@@ -12,4 +12,6 @@ public interface StatementNode extends TreeRepresentable, CodeZone, Linkable {
       ErrorLog errorLog);
   String   getOperation();
   String[] getOperands();
+  
+  void execute(SymbolTable symbolTable);
 }

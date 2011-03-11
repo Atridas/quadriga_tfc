@@ -2,10 +2,12 @@ package cat.quadriga.parsers.code.types.qdg;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.statements.BlockCode;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
@@ -80,6 +82,26 @@ public class CompleteMain extends BaseTypeClass implements QuadrigaMain {
   @Override
   public boolean isValid() {
     return valid;
+  }
+  
+  @Override
+  public String treeStringRepresentation() {
+    List<String> aux = new LinkedList<String>();
+    
+    for(QuadrigaThread qt : threads) {
+      aux.add("thread: " + qt.getBinaryName());
+    }
+    
+    if(init != null) {
+      aux.add(init.treeStringRepresentation());
+    }
+    
+    return Utils.treeStringRepresentation("main", aux);
+  }
+
+  @Override
+  public boolean isSerializable() {
+    return false;
   }
 
 }

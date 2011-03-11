@@ -35,5 +35,10 @@ public class NoType extends BaseTypeClass {
   public boolean isAssignableFrom(BaseType rightOperand) {
     return false;
   }
+
+  @Override
+  public boolean isSerializable() {
+    return false;
+  }
   
 }
