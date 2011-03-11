@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +17,60 @@ import cat.quadriga.runtime.RuntimeComponent;
 
 public class Quadriga {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws SQLException {
+    /*
+    Connection testConnection = DriverManager.getConnection("jdbc:hsqldb:mem:localES","SA","");
+    
+    Statement st = testConnection.createStatement();
+    
+    st.execute("CREATE TABLE proves (a INT, b INT)");
+
+    st.execute("INSERT INTO proves VALUES (3,4)");
+    st.execute("INSERT INTO proves VALUES (5,6)");
+    
+    
+
+    
+    PreparedStatement ps = testConnection.prepareStatement("INSERT INTO proves VALUES (?,?)");
+
+    ps.setInt(1, 100);
+    ps.setInt(2, 200);
+    ps.addBatch();
+    ps.setInt(1, 500);
+    ps.setInt(2, 700);
+    ps.addBatch();
+    ps.executeBatch();
+    
+    st.execute("SELECT * FROM proves");
+    
+    ResultSet rs = st.getResultSet();
+    
+    while(rs.next()) {
+      System.out.println("Fila: " + rs.getInt("a") + ", " + rs.getInt("b"));
+    }
+    
+    st.execute("CREATE TABLE p2 (vertex OTHER)");
+    
+    testConnection.setAutoCommit(false);
+    
+    ps = testConnection.prepareStatement("INSERT INTO p2 VALUES (?)");
+    
+    ps.setObject(1, new Vector3f(1,2,3));
+    ps.execute();
+    
+    testConnection.commit();
+    
+    ps = testConnection.prepareStatement("SELECT vertex FROM p2");
+    rs = ps.executeQuery();
+    
+    testConnection.commit();
+    
+    while(rs.next()) {
+      Object o = rs.getObject("vertex");
+      System.out.println(o);
+    }
+    */
+    
     QuadrigaSimple quadrigaSimple = new QuadrigaSimple(args[0]);
     SymbolTable symbolTable = quadrigaSimple.symbolTable;
     ErrorLog errorLog = quadrigaSimple.errorLog;

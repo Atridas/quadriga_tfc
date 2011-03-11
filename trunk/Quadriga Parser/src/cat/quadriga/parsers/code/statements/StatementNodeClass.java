@@ -42,4 +42,10 @@ public abstract class StatementNodeClass extends CodeZoneClass implements Statem
   @Override
   public abstract StatementNodeClass getLinkedVersion(SymbolTable symbolTable, 
       ErrorLog errorLog);
+  
+  @Override
+  public void execute(SymbolTable symbolTable) {
+    //TODO
+    throw new IllegalStateException("Not yet implemented");
+  }
 }

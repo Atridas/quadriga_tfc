@@ -63,4 +63,9 @@ public class ProxyMain extends BaseTypeClass implements QuadrigaMain {
     return false;
   }
 
+  @Override
+  public boolean isSerializable() {
+    return false;
+  }
+
 }

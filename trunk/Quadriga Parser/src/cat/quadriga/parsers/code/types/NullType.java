@@ -32,4 +32,9 @@ public final class NullType extends ReferenceTypeRef {
   public ComputedValue getDefaultValue() {
     return new JavaReference(null);
   }
+
+  @Override
+  public boolean isSerializable() {
+    return false;
+  }
 }

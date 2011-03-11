@@ -411,7 +411,25 @@
    +- "javax.vecmath.Quat4f" : Symbol Type
    |  +- Ljavax/vecmath/Quat4f;
    +- "DemoMain" : Symbol Type
-   |  +- riskppt3d.demo.DemoMain
+   |  +- main
+   |     +- thread: cat.quadriga.base.SimpleRenderThread
+   |     +- St: Block <+>
+   |        +- Local Variables:
+   |        |  +- Symbol Var [ demo ] Type [ Lcat/quadriga/runtime/Entity; ]
+   |        +- Code:
+   |           +- St: Statements: <+>
+   |           |  +- St: = <+>
+   |           |     +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
+   |           |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
+   |           |        +- Op: Literal {Null type} <+>
+   |           |        |  +- Null
+   |           |        +- Op: Literal {Ljava/lang/String;} <+>
+   |           |           +- String: "BaseScene"
+   |           +- St: Apply Prototype to Entity <+>
+   |           |  +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
+   |           |  +- riskppt3d.demo.SimpleDemo
+   |           |  +- St: Zero Arguments <+>
+   |           +- St: No Operation <+>
    +- "SimpleDemo" : Symbol Type
    |  +- Prototype <+>
    |     +- St: Block <+>
@@ -1196,7 +1214,25 @@
    |                 +- Op: Literal {F} <+>
    |                    +- Float: 1.0
    +- "riskppt3d.demo.DemoMain" : Symbol Type
-   |  +- riskppt3d.demo.DemoMain
+   |  +- main
+   |     +- thread: cat.quadriga.base.SimpleRenderThread
+   |     +- St: Block <+>
+   |        +- Local Variables:
+   |        |  +- Symbol Var [ demo ] Type [ Lcat/quadriga/runtime/Entity; ]
+   |        +- Code:
+   |           +- St: Statements: <+>
+   |           |  +- St: = <+>
+   |           |     +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
+   |           |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
+   |           |        +- Op: Literal {Null type} <+>
+   |           |        |  +- Null
+   |           |        +- Op: Literal {Ljava/lang/String;} <+>
+   |           |           +- String: "BaseScene"
+   |           +- St: Apply Prototype to Entity <+>
+   |           |  +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
+   |           |  +- riskppt3d.demo.SimpleDemo
+   |           |  +- St: Zero Arguments <+>
+   |           +- St: No Operation <+>
    +- "cat.quadriga.base.SimpleRenderThread" : Symbol Type
    |  +- thread <+>
    |     +- cat.quadriga.base.SimpleStaticMeshRenderer

@@ -132,5 +132,10 @@ public final class ParametrizedClass extends ReferenceTypeRef {
   public ComputedValue getDefaultValue() {
     return new JavaReference(null);
   }
+
+  @Override
+  public boolean isSerializable() {
+    return base.isSerializable();
+  }
   
 }

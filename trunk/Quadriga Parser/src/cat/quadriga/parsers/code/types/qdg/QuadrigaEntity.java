@@ -71,4 +71,9 @@ public class QuadrigaEntity extends ReferenceTypeRef {
     // TODO Auto-generated method stub
     throw new IllegalStateException("Not yet implemented");
   }
+
+  @Override
+  public boolean isSerializable() {
+    return true;
+  }
 }

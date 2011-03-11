@@ -1,5 +1,7 @@
 package cat.quadriga.runtime;
 
-public interface Entity {
+import java.io.Serializable;
+
+public interface Entity extends Serializable {
   Entity getParent();
 }

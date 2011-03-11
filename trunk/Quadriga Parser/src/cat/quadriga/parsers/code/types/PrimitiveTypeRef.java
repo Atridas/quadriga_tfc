@@ -314,4 +314,9 @@ public final class PrimitiveTypeRef extends JavaType {
       throw new IllegalStateException("Cann not instantiate " + getBinaryName());        
     }
   }
+
+  @Override
+  public boolean isSerializable() {
+    return true;
+  }
 }

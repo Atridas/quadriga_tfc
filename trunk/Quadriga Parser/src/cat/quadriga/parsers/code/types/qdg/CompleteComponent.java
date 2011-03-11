@@ -145,6 +145,12 @@ public class CompleteComponent extends BaseTypeClass implements RuntimeComponent
             return null;
           }
         }
+        
+        if(!newType.isSerializable()) {
+          errorLog.insertError("El tipus " + newType.getBinaryName() + " al component " + getBinaryName() + " no és serializable", CodeZoneClass.linking);
+          return null;
+        }
+        
         if(cf.initialization == null) {
           newInit = null;
         } else if(cf.initialization.isCorrectlyLinked()) {
@@ -238,5 +244,10 @@ public class CompleteComponent extends BaseTypeClass implements RuntimeComponent
   
   public Set<QuadrigaComponent> getDependencies() {
     return dependencies;
+  }
+
+  @Override
+  public boolean isSerializable() {
+    return true;
   }
 }
