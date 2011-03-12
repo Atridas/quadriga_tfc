@@ -26,6 +26,7 @@ import cat.quadriga.runtime.qvm.VirtualComponent;
 
 public class CompleteComponent extends BaseTypeClass implements RuntimeComponent {
 
+  public final String description;
   public final Set<QuadrigaComponent> dependencies;
   public final Map<String,ComponentField> fields;
   
@@ -33,15 +34,18 @@ public class CompleteComponent extends BaseTypeClass implements RuntimeComponent
     super(iComponent.getBinaryName());
     dependencies = Collections.unmodifiableSet(new HashSet<QuadrigaComponent>(iComponent.dependencies));
     fields = Collections.unmodifiableMap(new HashMap<String,ComponentField>(iComponent.fields));
+    description = iComponent.description;
   }
   
   private CompleteComponent(
       String binaryName,
       Set<QuadrigaComponent> dependencies,
-      Map<String,ComponentField> fields) {
+      Map<String,ComponentField> fields,
+      String desc) {
     super(binaryName);
     this.dependencies = Collections.unmodifiableSet(dependencies);
     this.fields = Collections.unmodifiableMap(fields);
+    description = desc;
   }
 
   @Override
@@ -173,7 +177,8 @@ public class CompleteComponent extends BaseTypeClass implements RuntimeComponent
       validVersion = new CompleteComponent(
                               getBinaryName(),
                               dependencies,
-                              newFields);
+                              newFields,
+                              description);
       validVersion.validVersion = validVersion;
       validVersion.valid = true;
     }
@@ -249,5 +254,10 @@ public class CompleteComponent extends BaseTypeClass implements RuntimeComponent
   @Override
   public boolean isSerializable() {
     return true;
+  }
+
+  @Override
+  public String getDescription() {
+    return description;
   }
 }

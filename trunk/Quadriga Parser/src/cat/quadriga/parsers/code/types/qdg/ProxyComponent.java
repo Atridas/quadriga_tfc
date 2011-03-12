@@ -1,5 +1,8 @@
 package cat.quadriga.parsers.code.types.qdg;
 
+import java.util.Collections;
+import java.util.Set;
+
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
@@ -84,5 +87,19 @@ public class ProxyComponent extends BaseTypeClass implements QuadrigaComponent {
   @Override
   public boolean isSerializable() {
     return false;
+  }
+
+  @Override
+  public String getDescription() {
+    return "";
+  }
+
+  @Override
+  public Set<String> getAllFields() {
+    return Collections.emptySet();
+  }
+  
+  public Set<QuadrigaComponent> getDependencies() {
+    return Collections.emptySet();
   }
 }

@@ -356,6 +356,7 @@ TOKEN :
   | < AT_JAVA:    "@java" >
   | < AT_MAIN:    "@main" >
   | < ENTITY:     "Entity" >
+  | < DESCRIPTION:"@description" >
 
 }   
 
@@ -3984,6 +3985,11 @@ void ComponentDeclaration():
     {
       IncompleteComponent iComponent = new IncompleteComponent(currentFile.replace('/','.'), t.image);    }
     "{"
+        [
+            "@description" t = < STRING_LITERAL >
+            {
+              iComponent.description = t.image;            }
+        ]
         (
           // Dependencies
           "*" name = Name() [";"]
