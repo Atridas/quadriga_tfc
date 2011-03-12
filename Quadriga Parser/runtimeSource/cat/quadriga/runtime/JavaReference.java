@@ -32,4 +32,32 @@ public class JavaReference implements ComputedValue {
     }
   }
 
+  
+  public boolean getAsBool() {
+    throw new IllegalStateException();
+  }
+  public char getAsChar() {
+    throw new IllegalStateException();
+  }
+  public byte getAsByte() {
+    throw new IllegalStateException();
+  }
+  public short getAsShort() {
+    throw new IllegalStateException();
+  }
+  public int getAsInt() {
+    throw new IllegalStateException();
+  }
+  public long getAsLong() {
+    throw new IllegalStateException();
+  }
+  public float getAsFloat() {
+    throw new IllegalStateException();
+  }
+  public double getAsDouble() {
+    throw new IllegalStateException();
+  }
+  public Object getAsObject() {
+    return reference;
+  }
 }

@@ -655,6 +655,34 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
       }
       return new IntegerLiteral(result, this);
     }
+    
+    public boolean getAsBool() {
+      throw new IllegalStateException();
+    }
+    public char getAsChar() {
+      throw new IllegalStateException();
+    }
+    public byte getAsByte() {
+      throw new IllegalStateException();
+    }
+    public short getAsShort() {
+      throw new IllegalStateException();
+    }
+    public int getAsInt() {
+      return i;
+    }
+    public long getAsLong() {
+      return i;
+    }
+    public float getAsFloat() {
+      return i;
+    }
+    public double getAsDouble() {
+      return i;
+    }
+    public Object getAsObject() {
+      return new Integer(i);
+    }
   }
   
   public static final class LongLiteral extends LiteralData {
@@ -1083,6 +1111,34 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
       }
       return new LongLiteral(result, this);
     }
+    
+    public boolean getAsBool() {
+      throw new IllegalStateException();
+    }
+    public char getAsChar() {
+      throw new IllegalStateException();
+    }
+    public byte getAsByte() {
+      throw new IllegalStateException();
+    }
+    public short getAsShort() {
+      throw new IllegalStateException();
+    }
+    public int getAsInt() {
+      throw new IllegalStateException();
+    }
+    public long getAsLong() {
+      return l;
+    }
+    public float getAsFloat() {
+      return l;
+    }
+    public double getAsDouble() {
+      return l;
+    }
+    public Object getAsObject() {
+      return new Long(l);
+    }
   }
   
   public static final class FloatLiteral extends LiteralData {
@@ -1473,6 +1529,34 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
         return null;
       }
       return new FloatLiteral(result, this);
+    }
+    
+    public boolean getAsBool() {
+      throw new IllegalStateException();
+    }
+    public char getAsChar() {
+      throw new IllegalStateException();
+    }
+    public byte getAsByte() {
+      throw new IllegalStateException();
+    }
+    public short getAsShort() {
+      throw new IllegalStateException();
+    }
+    public int getAsInt() {
+      throw new IllegalStateException();
+    }
+    public long getAsLong() {
+      throw new IllegalStateException();
+    }
+    public float getAsFloat() {
+      return f;
+    }
+    public double getAsDouble() {
+      return f;
+    }
+    public Object getAsObject() {
+      return new Float(f);
     }
   }
   
@@ -1867,6 +1951,34 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
         return null;
       }
       return new DoubleLiteral(result, this);
+    }
+    
+    public boolean getAsBool() {
+      throw new IllegalStateException();
+    }
+    public char getAsChar() {
+      throw new IllegalStateException();
+    }
+    public byte getAsByte() {
+      throw new IllegalStateException();
+    }
+    public short getAsShort() {
+      throw new IllegalStateException();
+    }
+    public int getAsInt() {
+      throw new IllegalStateException();
+    }
+    public long getAsLong() {
+      throw new IllegalStateException();
+    }
+    public float getAsFloat() {
+      throw new IllegalStateException();
+    }
+    public double getAsDouble() {
+      return d;
+    }
+    public Object getAsObject() {
+      return new Double(d);
     }
   }
   
@@ -2311,6 +2423,34 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
       }
       return new IntegerLiteral(result, this);
     }
+    
+    public boolean getAsBool() {
+      throw new IllegalStateException();
+    }
+    public char getAsChar() {
+      return c;
+    }
+    public byte getAsByte() {
+      throw new IllegalStateException();
+    }
+    public short getAsShort() {
+      throw new IllegalStateException();
+    }
+    public int getAsInt() {
+      return c;
+    }
+    public long getAsLong() {
+      return c;
+    }
+    public float getAsFloat() {
+      return c;
+    }
+    public double getAsDouble() {
+      return c;
+    }
+    public Object getAsObject() {
+      return new Character(c);
+    }
   }
   
   //["n","t","b","r","f","\\","'","\""]
@@ -2369,6 +2509,34 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
       if(other instanceof StringLiteral) {
         s = ((StringLiteral)other).s;
       }
+    }
+    
+    public boolean getAsBool() {
+      throw new IllegalStateException();
+    }
+    public char getAsChar() {
+      throw new IllegalStateException();
+    }
+    public byte getAsByte() {
+      throw new IllegalStateException();
+    }
+    public short getAsShort() {
+      throw new IllegalStateException();
+    }
+    public int getAsInt() {
+      throw new IllegalStateException();
+    }
+    public long getAsLong() {
+      throw new IllegalStateException();
+    }
+    public float getAsFloat() {
+      throw new IllegalStateException();
+    }
+    public double getAsDouble() {
+      throw new IllegalStateException();
+    }
+    public Object getAsObject() {
+      return s;
     }
   }
   
@@ -2448,6 +2616,38 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
     public boolean isCorrectlyLinked() {
       return true;
     }
+    
+    public boolean getAsBool() {
+      return z;
+    }
+    public char getAsChar() {
+      throw new IllegalStateException();
+    }
+    public byte getAsByte() {
+      throw new IllegalStateException();
+    }
+    public short getAsShort() {
+      throw new IllegalStateException();
+    }
+    public int getAsInt() {
+      throw new IllegalStateException();
+    }
+    public long getAsLong() {
+      throw new IllegalStateException();
+    }
+    public float getAsFloat() {
+      throw new IllegalStateException();
+    }
+    public double getAsDouble() {
+      throw new IllegalStateException();
+    }
+    public Object getAsObject() {
+      if(z) {
+        return Boolean.TRUE;
+      } else {
+        return Boolean.FALSE;
+      }
+    }
   }
   
   public static final class NullLiteral extends LiteralData {    
@@ -2494,6 +2694,34 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
     @Override
     public void set(ComputedValue other) {
       // -------------------
+    }
+    
+    public boolean getAsBool() {
+      throw new IllegalStateException();
+    }
+    public char getAsChar() {
+      throw new IllegalStateException();
+    }
+    public byte getAsByte() {
+      throw new IllegalStateException();
+    }
+    public short getAsShort() {
+      throw new IllegalStateException();
+    }
+    public int getAsInt() {
+      throw new IllegalStateException();
+    }
+    public long getAsLong() {
+      throw new IllegalStateException();
+    }
+    public float getAsFloat() {
+      throw new IllegalStateException();
+    }
+    public double getAsDouble() {
+      throw new IllegalStateException();
+    }
+    public Object getAsObject() {
+      return null;
     }
   }
   
@@ -2546,6 +2774,34 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
       if(other instanceof ClassLiteral) {
         type = ((ClassLiteral)other).type;
       }
+    }
+    
+    public boolean getAsBool() {
+      throw new IllegalStateException();
+    }
+    public char getAsChar() {
+      throw new IllegalStateException();
+    }
+    public byte getAsByte() {
+      throw new IllegalStateException();
+    }
+    public short getAsShort() {
+      throw new IllegalStateException();
+    }
+    public int getAsInt() {
+      throw new IllegalStateException();
+    }
+    public long getAsLong() {
+      throw new IllegalStateException();
+    }
+    public float getAsFloat() {
+      throw new IllegalStateException();
+    }
+    public double getAsDouble() {
+      throw new IllegalStateException();
+    }
+    public Object getAsObject() {
+      return type;
     }
   }
 

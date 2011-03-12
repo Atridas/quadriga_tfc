@@ -21,6 +21,7 @@ import cat.quadriga.parsers.code.types.UnknownType;
 
 public class IncompleteComponent extends BaseTypeClass implements QuadrigaComponent {
 
+  public String description = "";
   public final Set<QuadrigaComponent> dependencies = new HashSet<QuadrigaComponent>();
   public final Map<String,ComponentField> fields  = new HashMap<String,ComponentField>();
 
@@ -126,5 +127,19 @@ public class IncompleteComponent extends BaseTypeClass implements QuadrigaCompon
   @Override
   public boolean isSerializable() {
     return false;
+  }
+
+  @Override
+  public String getDescription() {
+    return description;
+  }
+
+  @Override
+  public Set<String> getAllFields() {
+    return fields.keySet();
+  }
+  
+  public Set<QuadrigaComponent> getDependencies() {
+    return dependencies;
   }
 }
