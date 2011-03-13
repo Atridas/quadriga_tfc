@@ -7,6 +7,7 @@ import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.types.NoType;
 import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public abstract class ExpressionNodeClass extends CodeZoneClass implements ExpressionNode {
   
@@ -54,7 +55,8 @@ public abstract class ExpressionNodeClass extends CodeZoneClass implements Expre
     return treeStringRepresentation();
   }
   
-  public ComputedValue compute() {
+  @Override
+  public ComputedValue compute(RuntimeEnvironment runtime) {
     //TODO
     throw new IllegalStateException("Not yet implemented! " + this.getClass().getCanonicalName());
   }

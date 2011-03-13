@@ -5,11 +5,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import cat.quadriga.parsers.code.types.BaseType;
-import cat.quadriga.runtime.ComponentObject;
+import cat.quadriga.runtime.ComponentInstance;
 import cat.quadriga.runtime.ComputedValue;
 import cat.quadriga.runtime.RuntimeComponent;
 
-public class VirtualComponent implements ComponentObject {
+public class VirtualComponent implements ComponentInstance {
   public final RuntimeComponent component;
   public final Map<String,ComputedValue> values = new HashMap<String, ComputedValue>();
   
@@ -59,8 +59,19 @@ public class VirtualComponent implements ComponentObject {
   }
 
   @Override
-  public void copy(ComponentObject other) {
+  public void copy(ComponentInstance other) {
     // TODO Auto-generated method stub
     throw new IllegalStateException("Not implemented");
+  }
+
+  @Override
+  public void commitChanges() {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public Map<String, ComputedValue> getFieldValues() {
+    return values;
   }
 }

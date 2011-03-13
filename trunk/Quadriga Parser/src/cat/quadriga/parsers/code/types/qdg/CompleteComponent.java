@@ -19,9 +19,10 @@ import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.parsers.code.types.JavaType;
 import cat.quadriga.parsers.code.types.UnknownType;
-import cat.quadriga.runtime.ComponentObject;
+import cat.quadriga.runtime.ComponentInstance;
 import cat.quadriga.runtime.ComputedValue;
 import cat.quadriga.runtime.RuntimeComponent;
+import cat.quadriga.runtime.RuntimeEnvironment;
 import cat.quadriga.runtime.qvm.VirtualComponent;
 
 public class CompleteComponent extends BaseTypeClass implements RuntimeComponent {
@@ -191,7 +192,7 @@ public class CompleteComponent extends BaseTypeClass implements RuntimeComponent
   }
 
   @Override
-  public ComponentObject createObject(Map<String, ComputedValue> arguments) {
+  public ComponentInstance createInstance(Map<String, ComputedValue> arguments, RuntimeEnvironment runtime) {
     assert isValid();
     Set<String> usedArguments = new HashSet<String>();
     VirtualComponent newComponent = new VirtualComponent(this);
@@ -205,7 +206,7 @@ public class CompleteComponent extends BaseTypeClass implements RuntimeComponent
           throw new IllegalArgumentException("To initialize component " 
               + getBinaryName() + " you need field " + fieldName);
         } else {
-          value = cf.initialization.compute();
+          value = cf.initialization.compute(runtime);
         }
       } else {
         usedArguments.add(fieldName);

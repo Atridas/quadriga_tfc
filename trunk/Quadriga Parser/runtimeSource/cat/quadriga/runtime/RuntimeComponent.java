@@ -7,7 +7,7 @@ import cat.quadriga.parsers.code.types.JavaType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 
 public interface RuntimeComponent extends QuadrigaComponent {
-  public ComponentObject createObject(Map<String, ComputedValue> arguments);
+  public ComponentInstance createInstance(Map<String, ComputedValue> arguments, RuntimeEnvironment runtime);
   public JavaType getFieldType(String field);
   public Set<String> getAllFields();
   public Set<QuadrigaComponent> getDependencies();
