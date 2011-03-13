@@ -2,7 +2,12 @@ package cat.quadriga.parsers.code.types.qdg;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.ParameterClass;
@@ -10,13 +15,17 @@ import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.statements.BlockCode;
+import cat.quadriga.parsers.code.statements.CallToNamedArguments;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.symbols.ThisSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.parsers.code.types.UnknownType;
+import cat.quadriga.runtime.Entity;
+import cat.quadriga.runtime.RuntimeEnvironment;
+import cat.quadriga.runtime.RuntimePrototype;
 
-public class CompletePrototype extends BaseTypeClass implements QuadrigaPrototype {
+public class CompletePrototype extends BaseTypeClass implements RuntimePrototype {
 
   public final List<ParameterClass> parameters;
   public final BlockCode initializations; 
@@ -95,6 +104,7 @@ public class CompletePrototype extends BaseTypeClass implements QuadrigaPrototyp
           }
         }
       }
+      //TODO comprovar que els parametres estiguin ben "adaptats"
       ParameterClass param =
              new ParameterClass(
           parameter.cz, 
@@ -149,5 +159,55 @@ public class CompletePrototype extends BaseTypeClass implements QuadrigaPrototyp
   @Override
   public boolean isSerializable() {
     return true;
+  }
+
+  @Override
+  public void apply(Entity entity, CallToNamedArguments arguments,
+      Map<QuadrigaComponent, CallToNamedArguments> componentArguments,
+      RuntimeEnvironment runtime) {
+    
+    //TODO comprovar parametres?
+    
+    Map<String, ParameterClass> params = new HashMap<String, ParameterClass>();
+    for(ParameterClass param : parameters) {
+      params.put(param.name, param);
+    }
+    
+    Map<String, LocalVariableSymbol> locals = new HashMap<String, LocalVariableSymbol>();
+    for(LocalVariableSymbol local : initializations.localVariables) {
+      locals.put(local.name, local);
+    }
+    
+    runtime.newLocalContext();
+    Set<LocalVariableSymbol> symbolsToSkip = new HashSet<LocalVariableSymbol>();
+    
+    for(Entry<String, ExpressionNode> arg : arguments.arguments.entrySet()) {
+      params.remove(arg.getKey());
+      LocalVariableSymbol lvs = locals.get(arg.getKey());
+      
+      runtime.putLocalVariable(lvs, arg.getValue().compute(runtime));
+      symbolsToSkip.add(lvs);
+    }
+    
+    for(Entry<String, ParameterClass> param : params.entrySet()) {
+      LocalVariableSymbol lvs = locals.get(param.getKey());
+      ParameterClass p = param.getValue();
+      if(p.semantic == null) {
+        runtime.putLocalVariable(lvs, param.getValue().init.compute(runtime));
+      } else {
+        if("ENTITY".compareToIgnoreCase( p.semantic ) == 0) {
+          runtime.putLocalVariable(lvs,entity);
+        } else {
+          throw new IllegalArgumentException("Sempantic " + p.semantic + " not suported.");
+        }
+      }
+      symbolsToSkip.add(lvs);
+    }
+    
+    runtime.putLocalVariable(new ThisSymbol(QuadrigaEntity.baseEntity),entity);
+    
+    initializations.execute(runtime,symbolsToSkip);
+    
+    runtime.deleteLocalContext();
   }
 }

@@ -1,5 +1,6 @@
 package cat.quadriga.parsers.code.expressions;
 
+import java.lang.reflect.Array;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,7 +11,11 @@ import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.types.ArrayType;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
+import cat.quadriga.parsers.code.types.JavaType;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.JavaReference;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class ArrayAllocationExpressionNode extends ExpressionNodeClass {
 
@@ -119,6 +124,18 @@ public final class ArrayAllocationExpressionNode extends ExpressionNodeClass {
   @Override
   public LiteralData getCompileTimeConstant() {
     return null;
+  }
+  
+  @Override
+  public ComputedValue compute(RuntimeEnvironment runtime) {
+    int[] dims = new int[lengths.length];
+    for(int i = 0; i < dims.length; i++) {
+      dims[i] = lengths[i].compute(runtime).getAsInt();
+    }
+    
+    Object obj = Array.newInstance(((JavaType)base).classObject, dims);
+    
+    return new JavaReference(obj);
   }
 
 }

@@ -12,5 +12,15 @@ public class ThisSymbol extends LocalVariableSymbol {
   public ThisSymbol() {
     super(0, UnknownType.empty, "this");
   }
+  
+  @Override
+  public boolean equals(Object other) {
+    return other instanceof ThisSymbol;
+  }
+  
+  @Override
+  public int hashCode() {
+    return 782634722;
+  }
 
 }

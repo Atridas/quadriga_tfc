@@ -2,7 +2,7 @@ package cat.quadriga.runtime;
 
 import java.util.Map;
 
-public interface ComponentInstance {
+public interface ComponentInstance extends ComputedValue {
 
   RuntimeComponent getComponent();
   

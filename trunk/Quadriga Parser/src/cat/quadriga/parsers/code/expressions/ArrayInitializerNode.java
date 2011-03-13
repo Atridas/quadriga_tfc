@@ -1,5 +1,6 @@
 package cat.quadriga.parsers.code.expressions;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,8 +9,12 @@ import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
+import cat.quadriga.parsers.code.types.ArrayType;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
+import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class ArrayInitializerNode extends ExpressionNodeClass {
 
@@ -133,5 +138,52 @@ public final class ArrayInitializerNode extends ExpressionNodeClass {
   @Override
   public LiteralData getCompileTimeConstant() {
     return null;
+  }
+  
+  @Override
+  public ComputedValue compute(RuntimeEnvironment runtime) {
+    ComputedValue cv = allocation.compute(runtime);
+    Object array = cv.getAsObject();
+    
+    BaseType type = ((ArrayType)allocation.getType()).base;
+    
+    int i = 0;
+    for(ExpressionNode init : inits) {
+      if(type instanceof PrimitiveTypeRef) {
+        switch(((PrimitiveTypeRef)type).type) {
+        case BOOLEAN:
+          Array.setBoolean(array, i, init.compute(runtime).getAsBool());
+          break;
+        case BYTE:
+          Array.setByte(array, i, init.compute(runtime).getAsByte());
+          break;
+        case CHAR:
+          Array.setChar(array, i, init.compute(runtime).getAsChar());
+          break;
+        case DOUBLE:
+          Array.setDouble(array, i, init.compute(runtime).getAsDouble());
+          break;
+        case FLOAT:
+          Array.setFloat(array, i, init.compute(runtime).getAsFloat());
+          break;
+        case INT:
+          Array.setInt(array, i, init.compute(runtime).getAsInt());
+          break;
+        case LONG:
+          Array.setLong(array, i, init.compute(runtime).getAsLong());
+          break;
+        case SHORT:
+          Array.setShort(array, i, init.compute(runtime).getAsShort());
+          break;
+        default :
+          throw new IllegalStateException();
+        }
+      } else {
+        Array.set(array, i, init.compute(runtime).getAsObject());
+      }
+      
+      ++i;
+    }
+    return cv;
   }
 }

@@ -11,11 +11,17 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
+import cat.quadriga.parsers.code.expressions.dataaccess.WriteAccess;
 import cat.quadriga.parsers.code.statements.CallToNamedArguments;
 import cat.quadriga.parsers.code.statements.StatementNodeClass;
+import cat.quadriga.parsers.code.statements.AssigmentStatementNode.Operator;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaPrototype;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.Entity;
+import cat.quadriga.runtime.RuntimeEnvironment;
+import cat.quadriga.runtime.RuntimePrototype;
 
 public class ApplyPrototypeToEntity extends StatementNodeClass {
   
@@ -127,5 +133,20 @@ public class ApplyPrototypeToEntity extends StatementNodeClass {
   public boolean isCorrectlyLinked() {
     return linked;
   }
+  
 
+  
+  @Override
+  public void execute(RuntimeEnvironment runtime) {
+    try {
+      assert isCorrectlyLinked();
+      
+      Entity entity = (Entity)this.entity.compute(runtime);
+      
+      ((RuntimePrototype)base).apply(entity, arguments, componentArguments, runtime);
+    } catch (Exception e) {
+      throw new RuntimeException("Error in line " + beginLine + " column " + beginColumn + " file " + file, e);
+    }
+  }
+  
 }

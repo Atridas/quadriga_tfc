@@ -9,6 +9,8 @@ import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class FieldAccess extends MemberAccess {
   
@@ -157,6 +159,11 @@ public final class FieldAccess extends MemberAccess {
     @Override
     public LiteralData getCompileTimeConstant() {
       return null;
+    }
+
+    @Override
+    public void setValue(ComputedValue value, RuntimeEnvironment runtime) {
+      throw new IllegalStateException("Not yet implemented " + this.getClass().getCanonicalName());
     }
     
   }

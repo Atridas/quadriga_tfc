@@ -3,6 +3,7 @@ package cat.quadriga.parsers.code.statements;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.CodeZone;
@@ -12,6 +13,7 @@ import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public class BlockCode extends StatementNodeClass {
 
@@ -117,6 +119,34 @@ public class BlockCode extends StatementNodeClass {
   @Override
   public boolean isCorrectlyLinked() {
     return linked;
+  }
+  
+
+  @Override
+  public void execute(RuntimeEnvironment runtime) {
+    execute(runtime, Collections.<LocalVariableSymbol>emptySet());
+  }
+
+  public void execute(RuntimeEnvironment runtime, Set<LocalVariableSymbol> varsToSkip) {
+    try {
+      assert isCorrectlyLinked();
+      
+      runtime.newLocalContext();
+      
+      for(LocalVariableSymbol lvs : localVariables) {
+        if(!varsToSkip.contains(lvs)) {
+          runtime.putLocalVariable(lvs, null);
+        }
+      }
+      
+      for(StatementNode statement : statements) {
+        statement.execute(runtime);
+      }
+  
+      runtime.deleteLocalContext();
+    } catch (Exception e) {
+      throw new RuntimeException("Error in line " + beginLine + " column " + beginColumn + " file " + file, e);
+    }
   }
   
   

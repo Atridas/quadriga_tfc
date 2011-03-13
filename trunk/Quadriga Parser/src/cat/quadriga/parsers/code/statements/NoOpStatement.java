@@ -4,6 +4,9 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.runtime.Entity;
+import cat.quadriga.runtime.RuntimeEnvironment;
+import cat.quadriga.runtime.RuntimePrototype;
 
 public class NoOpStatement extends StatementNodeClass {
 
@@ -35,6 +38,11 @@ public class NoOpStatement extends StatementNodeClass {
   @Override
   public boolean isCorrectlyLinked() {
     return true;
+  }
+  
+  @Override
+  public void execute(RuntimeEnvironment runtime) {
+    // Nà
   }
 
 }

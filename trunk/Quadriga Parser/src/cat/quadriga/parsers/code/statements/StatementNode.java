@@ -5,6 +5,7 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.Linkable;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.TreeRepresentable;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public interface StatementNode extends TreeRepresentable, CodeZone, Linkable {
   @Override
@@ -13,5 +14,5 @@ public interface StatementNode extends TreeRepresentable, CodeZone, Linkable {
   String   getOperation();
   String[] getOperands();
   
-  void execute(SymbolTable symbolTable);
+  void execute(RuntimeEnvironment runtime);
 }

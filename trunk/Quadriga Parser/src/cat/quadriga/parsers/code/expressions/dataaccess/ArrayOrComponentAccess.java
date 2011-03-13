@@ -13,6 +13,8 @@ import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
 import cat.quadriga.parsers.code.types.UnknownType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class ArrayOrComponentAccess extends ExpressionNodeClass implements DataAccess {
 
@@ -188,6 +190,11 @@ public final class ArrayOrComponentAccess extends ExpressionNodeClass implements
     @Override
     public LiteralData getCompileTimeConstant() {
       return null;
+    }
+
+    @Override
+    public void setValue(ComputedValue value, RuntimeEnvironment runtime) {
+      throw new IllegalStateException("Not yet implemented " + this.getClass().getCanonicalName());
     }
     
   }

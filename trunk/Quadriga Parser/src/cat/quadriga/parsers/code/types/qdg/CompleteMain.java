@@ -11,8 +11,10 @@ import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.statements.BlockCode;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
+import cat.quadriga.runtime.RuntimeEnvironment;
+import cat.quadriga.runtime.RuntimeMain;
 
-public class CompleteMain extends BaseTypeClass implements QuadrigaMain {
+public class CompleteMain extends BaseTypeClass implements RuntimeMain {
   
   public final List<QuadrigaThread> threads;
   public final BlockCode init;
@@ -102,6 +104,13 @@ public class CompleteMain extends BaseTypeClass implements QuadrigaMain {
   @Override
   public boolean isSerializable() {
     return false;
+  }
+
+  @Override
+  public void execute(RuntimeEnvironment runtime) {
+    init.execute(runtime);
+    
+    //TODO systems!
   }
 
 }

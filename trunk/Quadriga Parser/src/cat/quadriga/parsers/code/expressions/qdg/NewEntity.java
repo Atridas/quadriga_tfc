@@ -8,6 +8,9 @@ import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.Entity;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class NewEntity extends ExpressionNodeClass {
   
@@ -80,5 +83,29 @@ public final class NewEntity extends ExpressionNodeClass {
   @Override
   public LiteralData getCompileTimeConstant() {
     return null;
+  }
+  
+  @Override
+  public ComputedValue compute(RuntimeEnvironment runtime) {
+    
+    String entityName = null;
+    if(name != null) {
+      entityName = name.compute(runtime).getStringValue();
+    }
+    ComputedValue entityParent = parent.compute(runtime);
+    Entity realParent;
+    if(entityParent instanceof Entity) {
+      realParent = (Entity) entityParent;
+    } else if(entityParent instanceof LiteralData.NullLiteral) {
+      realParent = null;
+    } else {
+      throw new IllegalStateException("Needed a entity, found: " + entityParent);
+    }
+    
+    return runtime.entitySystem.createEntity(
+        entityName, 
+        null, //TODO 
+        realParent,
+        runtime);
   }
 }

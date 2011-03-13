@@ -7,6 +7,10 @@ import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.statements.StatementNodeClass;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
+import cat.quadriga.runtime.ComponentInstance;
+import cat.quadriga.runtime.Entity;
+import cat.quadriga.runtime.RuntimeEnvironment;
+import cat.quadriga.runtime.RuntimePrototype;
 
 public class AddComponentNode extends StatementNodeClass {
 
@@ -66,7 +70,7 @@ public class AddComponentNode extends StatementNodeClass {
         errorLog.insertError("Necessita una entitat", ent);
         return null;
       }
-      linkedVersion = new AddComponentNode(component, entity, this);
+      linkedVersion = new AddComponentNode(comp, ent, this);
       linkedVersion.linkedVersion = linkedVersion;
       linkedVersion.linked = true;
     }
@@ -78,4 +82,17 @@ public class AddComponentNode extends StatementNodeClass {
     return linked;
   }
 
+  @Override
+  public void execute(RuntimeEnvironment runtime) {
+    try {
+      assert isCorrectlyLinked();
+  
+      Entity entity = (Entity)this.entity.compute(runtime);
+      ComponentInstance component = (ComponentInstance)this.component.compute(runtime);
+      
+      runtime.entitySystem.addComponent(entity, component, runtime);
+    } catch (Exception e) {
+      throw new RuntimeException("Error in line " + beginLine + " column " + beginColumn + " file " + file, e);
+    }
+  }
 }
