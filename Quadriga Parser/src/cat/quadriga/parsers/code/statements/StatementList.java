@@ -6,6 +6,7 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public class StatementList extends StatementNodeClass {
   
@@ -85,5 +86,14 @@ public class StatementList extends StatementNodeClass {
   @Override
   public boolean isCorrectlyLinked() {
     return linked;
+  }
+  
+  @Override
+  public void execute(RuntimeEnvironment runtime) {
+    assert isCorrectlyLinked();
+    
+    for(StatementNode statement : nodes) {
+      statement.execute(runtime);
+    }
   }
 }

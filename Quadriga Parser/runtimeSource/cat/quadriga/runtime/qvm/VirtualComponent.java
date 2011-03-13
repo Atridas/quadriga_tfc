@@ -74,4 +74,64 @@ public class VirtualComponent implements ComponentInstance {
   public Map<String, ComputedValue> getFieldValues() {
     return values;
   }
+
+  @Override
+  public boolean getAsBool() {
+    throw new IllegalStateException("Error");
+  }
+
+  @Override
+  public byte getAsByte() {
+    throw new IllegalStateException("Error");
+  }
+
+  @Override
+  public char getAsChar() {
+    throw new IllegalStateException("Error");
+  }
+
+  @Override
+  public double getAsDouble() {
+    throw new IllegalStateException("Error");
+  }
+
+  @Override
+  public float getAsFloat() {
+    throw new IllegalStateException("Error");
+  }
+
+  @Override
+  public int getAsInt() {
+    throw new IllegalStateException("Error");
+  }
+
+  @Override
+  public long getAsLong() {
+    throw new IllegalStateException("Error");
+  }
+
+  @Override
+  public Object getAsObject() {
+    return this;
+  }
+
+  @Override
+  public short getAsShort() {
+    throw new IllegalStateException("Error");
+  }
+
+  @Override
+  public String getStringValue() {
+    return toString();
+  }
+
+  @Override
+  public BaseType getType() {
+    return component;
+  }
+
+  @Override
+  public void set(ComputedValue other) {
+    throw new IllegalStateException("Error");
+  }
 }

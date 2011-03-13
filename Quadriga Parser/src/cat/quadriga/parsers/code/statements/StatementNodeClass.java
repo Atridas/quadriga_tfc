@@ -5,6 +5,7 @@ import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public abstract class StatementNodeClass extends CodeZoneClass implements StatementNode {
 
@@ -44,8 +45,8 @@ public abstract class StatementNodeClass extends CodeZoneClass implements Statem
       ErrorLog errorLog);
   
   @Override
-  public void execute(SymbolTable symbolTable) {
-    //TODO
-    throw new IllegalStateException("Not yet implemented");
+  public void execute(RuntimeEnvironment runtime) {
+    assert isCorrectlyLinked();
+    throw new IllegalStateException("Not yet implemented " + this.getClass().getCanonicalName());
   }
 }

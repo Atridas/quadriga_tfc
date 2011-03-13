@@ -8,6 +8,8 @@ import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.symbols.BaseSymbol;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class LocalVarAccess extends DirectDataAccess {
   
@@ -83,10 +85,15 @@ public final class LocalVarAccess extends DirectDataAccess {
 
   @Override
   public LiteralData getCompileTimeConstant() {
-    // TODO Auto-generated method stub
     return null;
   }
   
+  @Override
+  public ComputedValue compute(RuntimeEnvironment runtime) {
+    assert isCorrectlyLinked();
+    return runtime.getLocalVariable(var);
+  }
+
   private class WriteVersion extends ExpressionNodeClass implements WriteAccess {
 
     public WriteVersion() {
@@ -137,6 +144,11 @@ public final class LocalVarAccess extends DirectDataAccess {
     @Override
     public LiteralData getCompileTimeConstant() {
       return null;
+    }
+
+    @Override
+    public void setValue(ComputedValue value, RuntimeEnvironment runtime) {
+      runtime.putLocalVariable(var, value);
     }
     
   }

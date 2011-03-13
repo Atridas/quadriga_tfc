@@ -16,6 +16,9 @@ import cat.quadriga.parsers.code.statements.CallToArguments;
 import cat.quadriga.parsers.code.statements.CallToListedArguments;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.UnknownType;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.JavaReference;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class CallToMethod extends ExpressionNodeClass {
   
@@ -136,4 +139,37 @@ public final class CallToMethod extends ExpressionNodeClass {
     return null;
   }
 
+  @Override
+  public ComputedValue compute(RuntimeEnvironment runtime) {
+    assert isCorrectlyLinked();
+    
+    Object obj;
+    MethodAccess method = (MethodAccess) this.function;
+    if(method.reference == null) {
+      obj = null;
+    } else {
+      obj = method.reference.compute(runtime).getAsObject();
+    }
+    
+    int stackSize = runtime.stack.size();
+    arguments.execute(runtime);
+    Object[] args = new Object[runtime.stack.size() - stackSize];
+    for(int i = 1; i <= args.length; ++i) {
+      args[args.length-i] = runtime.stack.pop().getAsObject();
+    }
+    
+    try {
+      Object ret = methodToCall.invoke(obj, args);
+      
+      if(ret.getClass().isPrimitive()) {
+        throw new IllegalStateException("Not implemented");
+      } else {
+        return new JavaReference(ret);
+      }
+      
+    } catch (Exception e) {
+      throw new IllegalStateException(e);
+    }
+    
+  }
 }

@@ -1,5 +1,7 @@
 package cat.quadriga.parsers.code.expressions.qdg;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import cat.quadriga.parsers.code.CodeZone;
@@ -13,6 +15,10 @@ import cat.quadriga.parsers.code.symbols.BaseSymbol;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.Entity;
+import cat.quadriga.runtime.RuntimeComponent;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class ComponentAllocation extends ExpressionNodeClass {
   
@@ -115,6 +121,19 @@ public final class ComponentAllocation extends ExpressionNodeClass {
   @Override
   public LiteralData getCompileTimeConstant() {
     return null;
+  }
+  
+  @Override
+  public ComputedValue compute(RuntimeEnvironment runtime) {
+    
+    RuntimeComponent runtimeComponent = (RuntimeComponent) component;
+    
+    Map<String, ComputedValue> args = new HashMap<String, ComputedValue>();
+    for(Entry<String, ExpressionNode> arg : arguments.arguments.entrySet()) {
+      args.put(arg.getKey(), arg.getValue().compute(runtime));
+    }
+    
+    return runtimeComponent.createInstance(args, runtime);
   }
 
 }

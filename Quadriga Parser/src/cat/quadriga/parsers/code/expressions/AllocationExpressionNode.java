@@ -16,6 +16,9 @@ import cat.quadriga.parsers.code.statements.CallToListedArguments;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
 import cat.quadriga.parsers.code.types.ParametrizedClass;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.JavaReference;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class AllocationExpressionNode extends ExpressionNodeClass {
   
@@ -163,6 +166,25 @@ public final class AllocationExpressionNode extends ExpressionNodeClass {
   @Override
   public LiteralData getCompileTimeConstant() {
     return null;
+  }
+  
+
+  @Override
+  public ComputedValue compute(RuntimeEnvironment runtime) {
+    assert isCorrectlyLinked();
+    
+    int stackSize = runtime.stack.size();
+    arguments.execute(runtime);
+    Object[] initargs = new Object[runtime.stack.size() - stackSize];
+    for(int i = 1; i <= initargs.length; ++i) {
+      initargs[initargs.length-i] = runtime.stack.pop().getAsObject();
+    }
+    
+    try {
+      return new JavaReference( constructor.newInstance(initargs) );
+    } catch (Exception e) {
+      throw new IllegalStateException(e);
+    }
   }
 
 }

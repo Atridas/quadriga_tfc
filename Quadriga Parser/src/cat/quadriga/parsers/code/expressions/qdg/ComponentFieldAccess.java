@@ -15,6 +15,8 @@ import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.UnknownType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent.ComponentField;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class ComponentFieldAccess extends UnaryDataAccess {
   
@@ -187,6 +189,11 @@ public final class ComponentFieldAccess extends UnaryDataAccess {
     @Override
     public LiteralData getCompileTimeConstant() {
       return null;
+    }
+
+    @Override
+    public void setValue(ComputedValue value, RuntimeEnvironment runtime) {
+      throw new IllegalStateException("Not yet implemented " + this.getClass().getCanonicalName());
     }
     
   }

@@ -5,8 +5,12 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.CastExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
+import cat.quadriga.parsers.code.expressions.MathematicOperation;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
+import cat.quadriga.parsers.code.expressions.dataaccess.WriteAccess;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public class AssigmentStatementNode extends StatementNodeClass {
   
@@ -123,5 +127,19 @@ public class AssigmentStatementNode extends StatementNodeClass {
   @Override
   public boolean isCorrectlyLinked() {
     return linked;
+  }
+  
+  @Override
+  public void execute(RuntimeEnvironment runtime) {
+    assert isCorrectlyLinked();
+    
+    ComputedValue result = rightOperand.compute(runtime);
+    if(operator != Operator.ASSIGN) {
+      throw new IllegalStateException("Not yet implemented " + this.getClass().getCanonicalName());
+    }
+    
+    WriteAccess writeTo = (WriteAccess) leftOperand;
+    
+    writeTo.setValue(result, runtime);
   }
 }

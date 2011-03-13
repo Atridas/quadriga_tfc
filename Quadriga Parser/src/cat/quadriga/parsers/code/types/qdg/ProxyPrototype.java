@@ -54,7 +54,12 @@ public class ProxyPrototype extends BaseTypeClass implements QuadrigaPrototype {
     if(symbol != null) {
       if( symbol instanceof TypeSymbol) {
         if(((TypeSymbol)symbol).type instanceof CompletePrototype) {
-          return (CompletePrototype)((TypeSymbol)symbol).type;
+          CompletePrototype cp = (CompletePrototype)((TypeSymbol)symbol).type;
+          if(cp.isValid()) {
+            return cp;
+          } else {
+            return cp.getValid(symbolTable, errorLog);
+          }
         } else if(!(((TypeSymbol)symbol).type instanceof QuadrigaPrototype)) {
           errorLog.insertError("El simbol " + getInstanceableName() + " no és un prototip",cz);
           return null;

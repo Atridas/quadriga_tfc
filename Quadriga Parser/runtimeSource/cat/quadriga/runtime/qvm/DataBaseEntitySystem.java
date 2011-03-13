@@ -21,11 +21,13 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.JavaType;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
 import cat.quadriga.runtime.ComponentInstance;
 import cat.quadriga.runtime.ComputedValue;
 import cat.quadriga.runtime.Entity;
@@ -75,14 +77,15 @@ public class DataBaseEntitySystem implements EntitySystem {
       
       statement.addBatch("CREATE TABLE entities ("
                           + "id IDENTITY,"
-                          + "parent INTEGER,"
+                          + "parent INTEGER NOT NULL,"
                           + "debug_info VARCHAR(500))"
                         );
       
       statement.addBatch("CREATE TABLE entity_names ("
                           + "id INTEGER NOT NULL,"
+                          + "parent INTEGER NOT NULL,"
                           + "name VARCHAR(500),"
-                          + "PRIMARY KEY(name),"
+                          + "PRIMARY KEY(parent,name),"
                           + "FOREIGN KEY(id) REFERENCES entities(id))"
                         );
       
@@ -118,8 +121,8 @@ public class DataBaseEntitySystem implements EntitySystem {
           @Override protected PreparedStatement initialValue() {
             try{
               return databaseConnection.get().prepareStatement(
-                                       "INSERT INTO entity_names (id, name)" +
-                                       "VALUES (?,?)");
+                                       "INSERT INTO entity_names (id, parent, name)" +
+                                       "VALUES (?,?,?)");
             } catch (SQLException e) {
               anyException = e;
             }
@@ -162,7 +165,7 @@ public class DataBaseEntitySystem implements EntitySystem {
       DBEntity entity = new DBEntity();
         
       if(dbFather == null) {
-        newEntity.get().setNull(1, Types.INTEGER);
+        newEntity.get().setInt(1, -1);
       } else {
         newEntity.get().setInt(1, dbFather.id);
       }
@@ -173,12 +176,17 @@ public class DataBaseEntitySystem implements EntitySystem {
         newEntity.get().setString(2, entityDebugInfo);
       }
       newEntity.get().execute();
-      
+
       entity.id = lastAutoIncrement();
       
       if(entityName != null) {
         setEntityName.get().setInt(1, entity.id);
-        setEntityName.get().setString(2, entityName);
+        if(dbFather == null) {
+          setEntityName.get().setInt(2, -1);
+        } else {
+          setEntityName.get().setInt(2, dbFather.id);
+        }
+        setEntityName.get().setString(3, entityName);
         setEntityName.get().execute();
       }
 
@@ -293,6 +301,16 @@ public class DataBaseEntitySystem implements EntitySystem {
     return component;
   }
   
+  public ComponentInstance getComponent(Entity entity, QuadrigaComponent type) {
+    DBComponent dbc = components.get(type.getBinaryName());
+    
+    try {
+      return dbc.getComponent((DBEntity)entity);
+    } catch (SQLException e) {
+      throw new IllegalStateException(e);
+    }
+  }
+  
   @Override
   public void addComponent(Entity entity, ComponentInstance component,
       RuntimeEnvironment runtimeEnv) {
@@ -364,7 +382,7 @@ public class DataBaseEntitySystem implements EntitySystem {
         builder.append("  id: ");
         builder.append(rs.getInt(1));
         int parent = rs.getInt(2);
-        if(!rs.wasNull()) {
+        if(parent >= 0) {
           builder.append("\n   parent: ");
           builder.append(parent);
         }
@@ -375,13 +393,18 @@ public class DataBaseEntitySystem implements EntitySystem {
 
       
       
-      rs = st.executeQuery("SELECT id, name FROM entity_names");
+      rs = st.executeQuery("SELECT id, parent, name FROM entity_names");
       builder.append("\nENTITY NAMES:\n");
       while(rs.next()) {
         builder.append("  id: ");
         builder.append(rs.getInt(1));
-        builder.append(", name: ");
-        builder.append(rs.getString(2));
+        int parent = rs.getInt(2);
+        if(parent >= 0) {
+          builder.append("\n   parent: ");
+          builder.append(parent);
+        }
+        builder.append("\n   name: ");
+        builder.append(rs.getString(3));
         builder.append('\n');
       }
       
@@ -436,6 +459,31 @@ public class DataBaseEntitySystem implements EntitySystem {
     return builder.toString();
   }
   
+  public String printAllEntities() {
+    StringBuilder builder = new StringBuilder();
+
+    List<String> aux = new LinkedList<String>();
+    try {
+      Statement st = databaseConnection.get().createStatement();
+    
+      ResultSet rs = st.executeQuery("SELECT id FROM entities WHERE parent = -1");
+      builder.append("HSQLDB Entity System\n\n");
+      
+      while(rs.next()) {
+        DBEntity ent = new DBEntity();
+        ent.id = rs.getInt(1);
+        aux.add(ent.print());
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return Utils.treeStringRepresentation("ENTITIES", aux);
+  }
+  
+  public String toString() {
+    return printAllEntities();
+  }
+  
   private final class DBEntity implements Entity {
     
     /**
@@ -469,7 +517,117 @@ public class DataBaseEntitySystem implements EntitySystem {
         throw new IllegalStateException(e);
       }
     }
+
+    @Override
+    public boolean getAsBool() {
+      throw new IllegalStateException("Error");
+    }
+
+    @Override
+    public byte getAsByte() {
+      throw new IllegalStateException("Error");
+    }
+
+    @Override
+    public char getAsChar() {
+      throw new IllegalStateException("Error");
+    }
+
+    @Override
+    public double getAsDouble() {
+      throw new IllegalStateException("Error");
+    }
+
+    @Override
+    public float getAsFloat() {
+      throw new IllegalStateException("Error");
+    }
+
+    @Override
+    public int getAsInt() {
+      throw new IllegalStateException("Error");
+    }
+
+    @Override
+    public long getAsLong() {
+      throw new IllegalStateException("Error");
+    }
+
+    @Override
+    public Object getAsObject() {
+      return this;
+    }
+
+    @Override
+    public short getAsShort() {
+      throw new IllegalStateException("Error");
+    }
+
+    @Override
+    public String getStringValue() {
+      return toString();
+    }
+
+    @Override
+    public BaseType getType() {
+      //TODO
+      return QuadrigaEntity.baseEntity;
+    }
+
+    @Override
+    public void set(ComputedValue other) {
+      throw new IllegalStateException("Error");
+    }
     
+    
+    public String print() throws SQLException {
+      List<String> aux = new LinkedList<String>();
+      
+      Statement st = databaseConnection.get().createStatement();
+      
+      ResultSet rs = st.executeQuery(
+                      "SELECT debug_info " +
+                      "FROM entities " +
+                      "WHERE id = " + id);
+      
+      rs.next();
+      aux.add("debug_info: " + rs.getString(1));
+      
+      rs = st.executeQuery(
+          "SELECT name " +
+          "FROM entity_names " +
+          "WHERE id = " + id);
+      
+      if(rs.next()) {
+        aux.add("name: " + rs.getString(1));
+      }
+      
+      rs = st.executeQuery(
+          "SELECT C.name " +
+          "FROM entity_components EC, components C " +
+          "WHERE entity_id = " + id +
+          " AND EC.component_id = C.id");
+      while(rs.next()) {
+        String componentName = rs.getString(1);
+        
+        
+        ComponentInstance ci = getComponent(this, components.get(componentName));
+        DBComponent.DBComponentObject dbci = (DBComponent.DBComponentObject)ci;
+        
+        aux.add(Utils.treeStringRepresentation(
+                         "Component: " + componentName, dbci.print(st)));
+      }
+      
+      
+      rs = st.executeQuery("SELECT id FROM entities WHERE parent = " + id);
+      while(rs.next()) {
+        DBEntity ent = new DBEntity();
+        ent.id = rs.getInt(1);
+        aux.add(Utils.treeStringRepresentation(
+                  "child:", ent.print()));
+      }
+      return Utils.treeStringRepresentation("id: " + id, aux);
+    }
   }
   
   private final class DBComponent implements RuntimeComponent {
@@ -510,17 +668,10 @@ public class DataBaseEntitySystem implements EntitySystem {
                                           @Override protected PreparedStatement initialValue() {
                                             try{
                                               
-                                              String names = null, quest = null;
-                                              boolean first = true;
+                                              String names = "data_id", quest = "NULL";
                                               for(String field : fieldList) {
-                                                if(first) {
-                                                  names = field;
-                                                  quest = "?";
-                                                  first = false;
-                                                } else {
-                                                  names += ", " + field;
-                                                  quest = ", ?";
-                                                }
+                                                names += ", " + field;
+                                                quest += ", ?";
                                               }
                                               
                                               String st = "INSERT INTO " + tableName
@@ -597,6 +748,19 @@ public class DataBaseEntitySystem implements EntitySystem {
       
       testExceptions();
       return componentObject;
+    }
+    
+    public DBComponentObject getComponent(DBEntity entity) throws SQLException {
+      ResultSet rs = databaseConnection.get().createStatement().executeQuery(
+                      "SELECT component_data " +
+                      "FROM entity_components " +
+                      "WHERE entity_id = " + entity.id +
+                      " AND component_id = " + id);
+      
+      rs.next();
+      DBComponentObject dbobj = new DBComponentObject();
+      dbobj.id = rs.getInt(1);
+      return dbobj;
     }
 
     @Override
@@ -1039,6 +1203,118 @@ public class DataBaseEntitySystem implements EntitySystem {
           throw new IllegalStateException(e);
         }
         return cachedFields;
+      }
+
+      @Override
+      public boolean getAsBool() {
+        throw new IllegalStateException("Error");
+      }
+
+      @Override
+      public byte getAsByte() {
+        throw new IllegalStateException("Error");
+      }
+
+      @Override
+      public char getAsChar() {
+        throw new IllegalStateException("Error");
+      }
+
+      @Override
+      public double getAsDouble() {
+        throw new IllegalStateException("Error");
+      }
+
+      @Override
+      public float getAsFloat() {
+        throw new IllegalStateException("Error");
+      }
+
+      @Override
+      public int getAsInt() {
+        throw new IllegalStateException("Error");
+      }
+
+      @Override
+      public long getAsLong() {
+        throw new IllegalStateException("Error");
+      }
+
+      @Override
+      public Object getAsObject() {
+        return this;
+      }
+
+      @Override
+      public short getAsShort() {
+        throw new IllegalStateException("Error");
+      }
+
+      @Override
+      public String getStringValue() {
+        return toString();
+      }
+
+      @Override
+      public BaseType getType() {
+        return DBComponent.this;
+      }
+
+      @Override
+      public void set(ComputedValue other) {
+        throw new IllegalStateException("Error");
+      }
+      
+      public List<String> print(Statement st) throws SQLException {
+        ResultSet rs = st.executeQuery(
+            "SELECT * " +
+            "FROM " + tableName +
+            " WHERE data_id = " + id);
+        
+        List<String> aux = new LinkedList<String>();
+        
+        while(rs.next()) {
+          for(String field : getAllFields()) {
+            String f = field + ": ";
+            
+            JavaType type = getField(field).type;
+            if(type instanceof PrimitiveTypeRef) {
+              switch(((PrimitiveTypeRef)type).type) {
+              case BOOLEAN:
+                f += rs.getBoolean(field);
+                break;
+              case CHAR:
+                f += rs.getInt(field);
+                break;
+              case BYTE:
+                f += rs.getByte(field);
+                break;
+              case SHORT:
+                f += rs.getShort(field);
+                break;
+              case INT:
+                f += rs.getInt(field);
+                break;
+              case LONG:
+                f += rs.getLong(field);
+                break;
+              case FLOAT:
+                f += rs.getFloat(field);
+                break;
+              case DOUBLE:
+                f += rs.getDouble(field);
+                break;
+              default:
+                throw new IllegalArgumentException("Component " + getBinaryName()
+                    + " field " + field + " type not suported.");
+              }
+            } else {
+              f += rs.getObject(field);
+            }
+            aux.add(f);
+          }
+        }
+        return aux;
       }
     }
     
