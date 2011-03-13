@@ -8,6 +8,7 @@ import cat.quadriga.parsers.code.TreeRepresentable;
 import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public interface ExpressionNode extends CodeZone, TreeRepresentable, Linkable {
   String   getOperation();
@@ -18,5 +19,5 @@ public interface ExpressionNode extends CodeZone, TreeRepresentable, Linkable {
   
   LiteralData getCompileTimeConstant();
   
-  ComputedValue compute();
+  ComputedValue compute(RuntimeEnvironment runtime);
 }

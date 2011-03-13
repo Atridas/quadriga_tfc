@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,23 +15,30 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
+import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.JavaType;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
-import cat.quadriga.runtime.ComponentObject;
+import cat.quadriga.runtime.ComponentInstance;
 import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.Entity;
+import cat.quadriga.runtime.EntitySystem;
+import cat.quadriga.runtime.JavaReference;
 import cat.quadriga.runtime.RuntimeComponent;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
-public class CentralEntitySystem {
+public class DataBaseEntitySystem implements EntitySystem {
   private final ThreadLocal<Connection> databaseConnection;
   
   private final ThreadLocal<PreparedStatement> 
-                        newEntityWithInfo, 
-                        newEntityWithoutInfo,
+                        newEntity,
                         setEntityName;
   
   private final ThreadLocal<CallableStatement> lastAutoIncrement;
@@ -40,9 +48,9 @@ public class CentralEntitySystem {
   
   
   private Set<String> componentTables = new HashSet<String>();
-  private List<DBComponent> components = new ArrayList<DBComponent>();
+  private Map<String,DBComponent> components = new HashMap<String,DBComponent>();
   
-  public CentralEntitySystem() {
+  public DataBaseEntitySystem() {
     try {
       databaseConnection = 
         new ThreadLocal < Connection > () {
@@ -67,6 +75,7 @@ public class CentralEntitySystem {
       
       statement.addBatch("CREATE TABLE entities ("
                           + "id IDENTITY,"
+                          + "parent INTEGER,"
                           + "debug_info VARCHAR(500))"
                         );
       
@@ -90,26 +99,13 @@ public class CentralEntitySystem {
       statement.executeBatch();
       
       
-      newEntityWithInfo = 
+      newEntity = 
         new ThreadLocal < PreparedStatement > () {
         @Override protected PreparedStatement initialValue() {
           try{
             return databaseConnection.get().prepareStatement(
-                                     "INSERT INTO entities (debug_info)" +
-                                     "VALUES (?)");
-          } catch (SQLException e) {
-            anyException = e;
-          }
-          return null;
-          }
-        };
-      newEntityWithoutInfo = 
-        new ThreadLocal < PreparedStatement > () {
-        @Override protected PreparedStatement initialValue() {
-          try{
-            return databaseConnection.get().prepareStatement(
-                                     "INSERT INTO entities (debug_info)" +
-                                     "VALUES (NULL)");
+                                     "INSERT INTO entities (parent,debug_info)" +
+                                     "VALUES (?,?)");
           } catch (SQLException e) {
             anyException = e;
           }
@@ -150,34 +146,53 @@ public class CentralEntitySystem {
     testExceptions();
   }
 
-  public int createEntity(String entityName, String entityDebugInfo) {
+  @Override
+  public Entity createEntity(String entityName, String entityDebugInfo, Entity father,
+      RuntimeEnvironment runtime) {
     try {
-      int newId;
-        
-      if(entityDebugInfo == null) {
-        newEntityWithoutInfo.get().execute();
+      
+      DBEntity dbFather;
+      if(father == null || father instanceof DBEntity) {
+        dbFather = (DBEntity)father;
+        //TODO comprovar que sigui de la mateixa BBDD?
       } else {
-        newEntityWithInfo.get().setString(1, entityDebugInfo);
-        newEntityWithInfo.get().execute();
+        throw new IllegalArgumentException("Type of father " + father + " no compatible.");
       }
       
-      newId = lastAutoIncrement();
+      DBEntity entity = new DBEntity();
+        
+      if(dbFather == null) {
+        newEntity.get().setNull(1, Types.INTEGER);
+      } else {
+        newEntity.get().setInt(1, dbFather.id);
+      }
+        
+      if(entityDebugInfo == null) {
+        newEntity.get().setNull(2, Types.VARCHAR);
+      } else {
+        newEntity.get().setString(2, entityDebugInfo);
+      }
+      newEntity.get().execute();
+      
+      entity.id = lastAutoIncrement();
       
       if(entityName != null) {
-        setEntityName.get().setInt(1, newId);
+        setEntityName.get().setInt(1, entity.id);
         setEntityName.get().setString(2, entityName);
         setEntityName.get().execute();
       }
 
       testExceptions();
-      return newId;
+      return entity;
     } catch (SQLException e) {
       throw new IllegalStateException(e);
     }
     
   }
   
-  public RuntimeComponent createComponent(RuntimeComponent qc, String tableName) {
+  @Override
+  public RuntimeComponent createComponent(RuntimeComponent qc, String tableName,
+      RuntimeEnvironment runtime) {
     
     assert qc.isValid();
     
@@ -274,8 +289,54 @@ public class CentralEntitySystem {
     }
     
     testExceptions();
-    components.add(component);
+    components.put(component.getBinaryName(), component);
     return component;
+  }
+  
+  @Override
+  public void addComponent(Entity entity, ComponentInstance component,
+      RuntimeEnvironment runtimeEnv) {
+    DBComponent.DBComponentObject dbCompInstance;
+    DBEntity dbEntity;
+    if(entity instanceof DBEntity) {
+      dbEntity = (DBEntity) entity;
+      //TODO comprovar que sigui d'aquesta BBDD
+    } else {
+      throw new IllegalArgumentException("Type of entity " + entity + " not compatible.");
+    }
+    
+    
+    if(component instanceof DBComponent.DBComponentObject) {
+      dbCompInstance = (DBComponent.DBComponentObject)component;
+      //TODO assegurar-se que no estigui assignat? o no cal?
+      
+      //TODO assegurar-se que sigui d'aquesta classe?¿
+    } else {
+      RuntimeComponent runtime = component.getComponent();
+      DBComponent dbComp = components.get(runtime.getBinaryName());
+      if(dbComp == null) {
+        dbComp = (DBComponent)createComponent(runtime, null, runtimeEnv);
+      }
+      dbCompInstance = (DBComponent.DBComponentObject) dbComp.createInstance(component.getFieldValues(),runtimeEnv);
+    }
+    
+    //TODO cachejar l'statement?
+    try {
+      PreparedStatement ps = databaseConnection.get().prepareStatement(
+                                "INSERT INTO entity_components "
+                              + "(entity_id, component_id, component_data) "
+                              + "VALUES (?, ?, ?)");
+      
+      ps.setInt(1, dbEntity.id);
+      ps.setInt(2, dbCompInstance.getComponentTypeId());
+      ps.setInt(3, dbCompInstance.id);
+      
+      ps.execute();
+      
+    } catch (SQLException e) {
+      throw new IllegalStateException(e);
+    }
+    
   }
   
   private int lastAutoIncrement() throws SQLException {
@@ -297,18 +358,23 @@ public class CentralEntitySystem {
     try {
       Statement st = databaseConnection.get().createStatement();
     
-      ResultSet rs = st.executeQuery("SELECT id, debug_info FROM entities");
+      ResultSet rs = st.executeQuery("SELECT id, parent, debug_info FROM entities");
       builder.append("HSQLDB Entity System\nENTITIES:\n");
       while(rs.next()) {
         builder.append("  id: ");
         builder.append(rs.getInt(1));
-        builder.append(", debug_info: ");
-        builder.append(rs.getString(2));
+        int parent = rs.getInt(2);
+        if(!rs.wasNull()) {
+          builder.append("\n   parent: ");
+          builder.append(parent);
+        }
+        builder.append("\n   debug_info: ");
+        builder.append(rs.getString(3));
         builder.append('\n');
       }
+
       
       
-    
       rs = st.executeQuery("SELECT id, name FROM entity_names");
       builder.append("\nENTITY NAMES:\n");
       while(rs.next()) {
@@ -316,6 +382,19 @@ public class CentralEntitySystem {
         builder.append(rs.getInt(1));
         builder.append(", name: ");
         builder.append(rs.getString(2));
+        builder.append('\n');
+      }
+      
+    
+      rs = st.executeQuery("SELECT entity_id, component_id, component_data FROM entity_components");
+      builder.append("\nENTITY COMPONENTS:\n");
+      while(rs.next()) {
+        builder.append("  entity: ");
+        builder.append(rs.getInt(1));
+        builder.append(", component type: ");
+        builder.append(rs.getInt(2));
+        builder.append(", component: ");
+        builder.append(rs.getInt(3));
         builder.append('\n');
       }
       
@@ -337,7 +416,7 @@ public class CentralEntitySystem {
         builder.append('\n');
       }
       
-      for(DBComponent component : components) {
+      for(DBComponent component : components.values()) {
         rs = st.executeQuery("SELECT * FROM " + component.tableName);
         builder.append('\n');
         builder.append("TABLE ");
@@ -357,6 +436,41 @@ public class CentralEntitySystem {
     return builder.toString();
   }
   
+  private final class DBEntity implements Entity {
+    
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 5442595694189819152L;
+    int id;
+
+    @Override
+    public Entity getParent() {
+      DBEntity father = new DBEntity();
+      
+      
+      try {
+        PreparedStatement st = databaseConnection.get().prepareStatement(
+                                  "SELECT id " +
+                                  "FROM entities " +
+                                  "WHERE id = (SELECT id " +
+                                              "FROM entities" +
+                                              "WHERE id = " + id + ")");
+        
+        ResultSet rs = st.executeQuery();
+        if(rs.next()) {
+          father.id = rs.getInt(1);
+          if(!rs.wasNull()) 
+            return father;
+        }
+        
+        return null;
+      } catch(SQLException e) {
+        throw new IllegalStateException(e);
+      }
+    }
+    
+  }
   
   private final class DBComponent implements RuntimeComponent {
     
@@ -423,12 +537,12 @@ public class CentralEntitySystem {
     
 
     @Override
-    public ComponentObject createObject(Map<String, ComputedValue> arguments) {
+    public ComponentInstance createInstance(Map<String, ComputedValue> arguments, RuntimeEnvironment runtime) {
       
       DBComponentObject componentObject = new DBComponentObject();
       
       try {
-        ComponentObject base = original.createObject(arguments);
+        ComponentInstance base = original.createInstance(arguments, runtime);
         
         PreparedStatement createObject = this.createObject.get();
         
@@ -599,6 +713,7 @@ public class CentralEntitySystem {
               sb.append(rs.getBoolean(field));
               break;
             case CHAR:
+              sb.append(rs.getInt(field));
               break;
             case BYTE:
               sb.append(rs.getByte(field));
@@ -632,14 +747,82 @@ public class CentralEntitySystem {
     }
     
     
-    private class DBComponentObject implements ComponentObject {
+    private class DBComponentObject implements ComponentInstance {
       
       int id;
+      private final Map<String,ComputedValue> cachedFields = new HashMap<String, ComputedValue>();
+      private final Map<String,ComputedValue> changedFields = new HashMap<String, ComputedValue>();
 
+      private int getComponentTypeId() {
+        return DBComponent.this.id;
+      }
+      
       @Override
-      public void copy(ComponentObject other) {
-        // TODO Auto-generated method stub
+      public void copy(ComponentInstance other) {
+        cachedFields.clear();
+        changedFields.clear();
+        String sql = "UPDATE " + tableName + " SET ";
+        boolean first = true;
+        for(String field: fieldList) {
+          if(first) {
+            sql += field + "=?";
+            first = false;
+          } else {
+            sql += ", " + field + "=?";
+          }
+        }
+        sql += " WHERE data_id = " + id;
         
+        try {
+          PreparedStatement ps = databaseConnection.get().prepareStatement(sql);
+          
+          int i = 0;
+          for(String field: fieldList) {
+            ++i;
+            JavaType type = getField(field).type;
+            ComputedValue cv = other.getFieldValue(field);
+            if(type instanceof PrimitiveTypeRef) {
+              switch(((PrimitiveTypeRef)type).type) {
+              case BOOLEAN:
+                ps.setBoolean(i,cv.getAsBool());
+                break;
+              case CHAR:
+                ps.setInt(i, cv.getAsChar());
+                break;
+              case BYTE:
+                ps.setByte(i, cv.getAsByte());
+                break;
+              case SHORT:
+                ps.setShort(i, cv.getAsShort());
+                break;
+              case INT:
+                ps.setInt(i, cv.getAsInt());
+                break;
+              case LONG:
+                ps.setLong(i, cv.getAsLong());
+                break;
+              case FLOAT:
+                ps.setFloat(i, cv.getAsFloat());
+                break;
+              case DOUBLE:
+                ps.setDouble(i, cv.getAsDouble());
+                break;
+              default:
+                throw new IllegalArgumentException("Component " + getBinaryName()
+                    + " field " + field + " type not suported.");
+              }
+            } else {
+              ps.setObject(i, cv.getAsObject());
+            }
+          }
+          
+          ps.execute();
+          
+        } catch (SQLException e) {
+          throw new IllegalStateException(e);
+        }
+        
+        testExceptions();
       }
 
       @Override
@@ -649,14 +832,213 @@ public class CentralEntitySystem {
 
       @Override
       public ComputedValue getFieldValue(String field) {
-        // TODO Auto-generated method stub
-        return null;
+        ComputedValue cv = cachedFields.get(field);
+        if(cv != null) {
+          return cv;
+        }
+        
+        try {
+          Statement st = databaseConnection.get().createStatement();
+          testExceptions();
+          ResultSet rs = st.executeQuery(
+                              "SELECT " + field 
+                            + " FROM " + tableName 
+                            + " WHERE data_id = " + id);
+          
+          rs.next();
+          
+          JavaType type = getField(field).type;
+          CodeZone cz = CodeZoneClass.runtime;
+          if(type instanceof PrimitiveTypeRef) {
+            switch(((PrimitiveTypeRef)type).type) {
+            case BOOLEAN:
+              cv = new LiteralData.BooleanLiteral(rs.getBoolean(1), cz);
+              break;
+            case CHAR:
+              cv = new LiteralData.CharacterLiteral((char)rs.getInt(1), cz);
+              break;
+            case BYTE:
+              cv = new LiteralData.IntegerLiteral(rs.getInt(1), cz);
+              break;
+            case SHORT:
+              cv = new LiteralData.IntegerLiteral(rs.getInt(1), cz);
+              break;
+            case INT:
+              cv = new LiteralData.IntegerLiteral(rs.getInt(1), cz);
+              break;
+            case LONG:
+              cv = new LiteralData.LongLiteral(rs.getLong(1), cz);
+              break;
+            case FLOAT:
+              cv = new LiteralData.FloatLiteral(rs.getFloat(1), cz);
+              break;
+            case DOUBLE:
+              cv = new LiteralData.DoubleLiteral(rs.getDouble(1), cz);
+              break;
+            default:
+              throw new IllegalArgumentException("Component " + getBinaryName()
+                  + " field " + field + " type not suported.");
+            }
+          } else {
+            cv = new JavaReference( rs.getObject(1) );
+            changedFields.put(field,cv);
+          }
+        } catch (SQLException e) {
+          throw new IllegalStateException(e);
+        }
+        
+        cachedFields.put(field,cv);
+        return cv;
+        
       }
 
       @Override
       public void setFieldValue(String field, ComputedValue value) {
-        // TODO Auto-generated method stub
+        assert fields.get(field) != null;
+        cachedFields.put(field,value);
+        changedFields.put(field,value);
+      }
+
+      @Override
+      public void commitChanges() {
         
+        String sql = "UPDATE " + tableName + " SET ";
+        boolean first = true;
+        for(String field: changedFields.keySet()) {
+          if(first) {
+            sql += field + "=?";
+            first = false;
+          } else {
+            sql += ", " + field + "=?";
+          }
+        }
+        sql += " WHERE data_id = " + id;
+        
+        try {
+          PreparedStatement ps = databaseConnection.get().prepareStatement(sql);
+          
+          int i = 0;
+          //TODO no m'en fio que segueixi el mateix ordre que abans, s'hauria
+          //de re-mirar.
+          for(Entry<String, ComputedValue> field: changedFields.entrySet()) {
+            ++i;
+            JavaType type = getField(field.getKey()).type;
+            ComputedValue cv = field.getValue();
+            if(type instanceof PrimitiveTypeRef) {
+              switch(((PrimitiveTypeRef)type).type) {
+              case BOOLEAN:
+                ps.setBoolean(i,cv.getAsBool());
+                break;
+              case CHAR:
+                ps.setInt(i, cv.getAsChar());
+                break;
+              case BYTE:
+                ps.setByte(i, cv.getAsByte());
+                break;
+              case SHORT:
+                ps.setShort(i, cv.getAsShort());
+                break;
+              case INT:
+                ps.setInt(i, cv.getAsInt());
+                break;
+              case LONG:
+                ps.setLong(i, cv.getAsLong());
+                break;
+              case FLOAT:
+                ps.setFloat(i, cv.getAsFloat());
+                break;
+              case DOUBLE:
+                ps.setDouble(i, cv.getAsDouble());
+                break;
+              default:
+                throw new IllegalArgumentException("Component " + getBinaryName()
+                    + " field " + field + " type not suported.");
+              }
+            } else {
+              ps.setObject(i, cv.getAsObject());
+            }
+          }
+          
+          ps.execute();
+          
+        } catch (SQLException e) {
+          throw new IllegalStateException(e);
+        }
+
+        cachedFields.clear();
+        testExceptions();
+      }
+
+      @Override
+      public Map<String, ComputedValue> getFieldValues() {
+        String sql = "SELECT ";
+        boolean first = true;
+        for(String field: getAllFields()) {
+          if(!cachedFields.containsKey(field)) {
+            if(first) {
+              sql += field;
+              first = false;
+            } else {
+              sql += ", " + field;
+            }
+          }
+        }
+        sql += " FROM " + tableName + " WHERE data_id = " + id;
+
+        try {
+          PreparedStatement ps = databaseConnection.get().prepareStatement(sql);
+        
+          ResultSet rs = ps.executeQuery();
+          
+          rs.next();
+          
+          for(String field: getAllFields()) {
+            if(!cachedFields.containsKey(field)) {
+              JavaType type = getField(field).type;
+              CodeZone cz = CodeZoneClass.runtime;
+              ComputedValue cv;
+              if(type instanceof PrimitiveTypeRef) {
+                switch(((PrimitiveTypeRef)type).type) {
+                case BOOLEAN:
+                  cv = new LiteralData.BooleanLiteral(rs.getBoolean(field), cz);
+                  break;
+                case CHAR:
+                  cv = new LiteralData.CharacterLiteral((char)rs.getInt(field), cz);
+                  break;
+                case BYTE:
+                  cv = new LiteralData.IntegerLiteral(rs.getInt(field), cz);
+                  break;
+                case SHORT:
+                  cv = new LiteralData.IntegerLiteral(rs.getInt(field), cz);
+                  break;
+                case INT:
+                  cv = new LiteralData.IntegerLiteral(rs.getInt(field), cz);
+                  break;
+                case LONG:
+                  cv = new LiteralData.LongLiteral(rs.getLong(field), cz);
+                  break;
+                case FLOAT:
+                  cv = new LiteralData.FloatLiteral(rs.getFloat(field), cz);
+                  break;
+                case DOUBLE:
+                  cv = new LiteralData.DoubleLiteral(rs.getDouble(field), cz);
+                  break;
+                default:
+                  throw new IllegalArgumentException("Component " + getBinaryName()
+                      + " field " + field + " type not suported.");
+                }
+              } else {
+                cv = new JavaReference( rs.getObject(1) );
+                changedFields.put(field,cv);
+              }
+              cachedFields.put(field, cv);
+            }
+          }
+          
+        } catch (SQLException e) {
+          throw new IllegalStateException(e);
+        }
+        return cachedFields;
       }
     }
     

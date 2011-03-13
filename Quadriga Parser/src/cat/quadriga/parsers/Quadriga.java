@@ -14,9 +14,12 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
+import cat.quadriga.runtime.ComponentInstance;
 import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.Entity;
 import cat.quadriga.runtime.RuntimeComponent;
-import cat.quadriga.runtime.qvm.CentralEntitySystem;
+import cat.quadriga.runtime.RuntimeEnvironment;
+import cat.quadriga.runtime.qvm.DataBaseEntitySystem;
 
 public class Quadriga {
 
@@ -64,23 +67,32 @@ public class Quadriga {
     
     
     
-    CentralEntitySystem ces = new CentralEntitySystem();
+    DataBaseEntitySystem ces = new DataBaseEntitySystem();
+    RuntimeEnvironment runtime = new RuntimeEnvironment();
+    runtime.entitySystem = ces;
+    runtime.symbolTable  = symbolTable;
     
-    ces.createEntity("joan", "el primer");
-    ces.createEntity(null,  "el segon");
-    ces.createEntity("sigfried",  "el tercer");
-    ces.createEntity("macbeth", null);
+    Entity joan     = ces.createEntity("joan",     "el primer", null,     runtime);
+    Entity segon    = ces.createEntity(null,       "el segon",  joan,     runtime);
+    Entity sigfried = ces.createEntity("sigfried", "el tercer", joan,     runtime);
+    Entity macbeth  = ces.createEntity("macbeth",  null,        sigfried, runtime);
     
     RuntimeComponent rc = (RuntimeComponent)((TypeSymbol)symbolTable.findSymbol("riskppt3d.planeta.DadesComponent")).type;
+    //RuntimeComponent rc = (RuntimeComponent)((TypeSymbol)symbolTable.findSymbol("cat.quadriga.base.Transform")).type;
     
-    rc = ces.createComponent(rc, null);
+    rc = ces.createComponent(rc, null,runtime);
     
     Map<String,ComputedValue> compArgs = new HashMap<String, ComputedValue>();
-    rc.createObject(compArgs);
+    ComponentInstance ci = rc.createInstance(compArgs,runtime);
+    ces.addComponent(joan, ci,runtime);
+    
     compArgs.put("radi", new LiteralData.FloatLiteral(15,CodeZoneClass.runtime));
-    rc.createObject(compArgs);
+    ComponentInstance ci2 = rc.createInstance(compArgs,runtime);
+    ces.addComponent(segon, ci2,runtime);
+    ci2.copy(ci);
+    
     compArgs.put("radi", new LiteralData.FloatLiteral(22,CodeZoneClass.runtime));
-    rc.createObject(compArgs);
+    rc.createInstance(compArgs,runtime);
     
     System.out.println(ces.printAllTables());
   }

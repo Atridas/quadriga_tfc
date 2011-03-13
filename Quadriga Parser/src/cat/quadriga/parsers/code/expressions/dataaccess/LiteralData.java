@@ -16,6 +16,7 @@ import cat.quadriga.parsers.code.types.JavaType;
 import cat.quadriga.parsers.code.types.NullType;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public abstract class LiteralData extends DirectDataAccess implements ComputedValue {
 
@@ -52,8 +53,9 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
   @Override
   public abstract LiteralData getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog);
-  
-  public ComputedValue compute() {
+
+  @Override
+  public ComputedValue compute(RuntimeEnvironment runtime) {
     return this;
   }
   
