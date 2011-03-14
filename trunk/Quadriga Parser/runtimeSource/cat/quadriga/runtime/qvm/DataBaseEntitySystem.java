@@ -52,8 +52,6 @@ public class DataBaseEntitySystem implements EntitySystem {
   private Set<String> componentTables = new HashSet<String>();
   private Map<String,DBComponent> components = new HashMap<String,DBComponent>();
   
-  private static ThreadLocal<DataBaseEntitySystem> actualDBEntitySystem = new ThreadLocal<DataBaseEntitySystem>();
-  
   public DataBaseEntitySystem() {
     try {
       databaseConnection = 
@@ -69,6 +67,8 @@ public class DataBaseEntitySystem implements EntitySystem {
         };
       
       Statement statement = databaseConnection.get().createStatement();
+      
+      databaseConnection.get().setAutoCommit(true);
       
       statement.addBatch("CREATE TABLE components ("
                           + "id IDENTITY,"
@@ -154,7 +154,6 @@ public class DataBaseEntitySystem implements EntitySystem {
   @Override
   public Entity createEntity(String entityName, String entityDebugInfo, Entity father,
       RuntimeEnvironment runtime) {
-    actualDBEntitySystem.set(this);
     try {
       
       DBEntity dbFather;
@@ -206,7 +205,6 @@ public class DataBaseEntitySystem implements EntitySystem {
       RuntimeEnvironment runtime) {
     
     assert qc.isValid();
-    actualDBEntitySystem.set(this);
     
     DBComponent component = new DBComponent();
     
@@ -315,10 +313,10 @@ public class DataBaseEntitySystem implements EntitySystem {
     return component;
   }
   
+  
   @Override
   public ComponentInstance getComponent(Entity entity, QuadrigaComponent type) {
     DBComponent dbc = components.get(type.getBinaryName());
-    actualDBEntitySystem.set(this);
     
     try {
       return dbc.getComponent((DBEntity)entity);
@@ -329,13 +327,11 @@ public class DataBaseEntitySystem implements EntitySystem {
   
   @Override
   public Entity findEntity(String name) {
-    actualDBEntitySystem.set(this);
     return findEntity(name, null);
   }
   @Override
   public Entity findEntity(String name, Entity parent) {
     int parentId;
-    actualDBEntitySystem.set(this);
     if(parent == null) {
       parentId = -1;
     } else if(parent instanceof DBEntity) {
@@ -378,7 +374,6 @@ public class DataBaseEntitySystem implements EntitySystem {
   @Override
   public void addComponent(Entity entity, ComponentInstance component,
       RuntimeEnvironment runtimeEnv) {
-    actualDBEntitySystem.set(this);
     DBComponent.DBComponentObject dbCompInstance;
     DBEntity dbEntity;
     if(entity instanceof DBEntity) {
@@ -422,6 +417,60 @@ public class DataBaseEntitySystem implements EntitySystem {
     
   }
   
+  @Override
+  public List<Entity> getAllEntitiesWithComponents(
+      List<QuadrigaComponent> components, 
+      RuntimeEnvironment runtime) 
+  {
+    //List<DBComponent> dbComponents = new ArrayList<DBComponent>(components.size());
+    List<String> subtables = new ArrayList<String>(components.size());
+    for(QuadrigaComponent comp : components) {
+      DBComponent dbComp = this.components.get(comp.getBinaryName());
+      if(dbComp == null) {
+        dbComp = (DBComponent)createComponent((RuntimeComponent)comp, null, runtime);
+      }
+      
+      String aux = "SELECT entity_id FROM entity_components WHERE component_id = " + dbComp.id;
+      subtables.add(aux);
+    }
+
+    String statement;
+    if(subtables.size() == 0) {
+      statement = "SELECT id FROM entities";      
+    } else if(subtables.size() == 1) {
+      statement = subtables.get(0);   
+    } else {
+      String from = "";
+      String where = "";
+      for(int i = 0; i < subtables.size(); ++i) {
+        if(i!=0) from += ",";
+        from += " (" + subtables.get(i) + ") T" + i;
+        
+        if(i>1) where += " AND";
+        if(i>0) where += " T" + i + ".entity_id = T0.entity_id";
+      }
+      
+      statement = "SELECT entity_id FROM " + from + " WHERE " + where;
+    }
+
+    try {
+      ResultSet rs = databaseConnection.get().prepareStatement(statement).executeQuery();
+    
+      List<Entity> entities = new ArrayList<Entity>(0);
+      while(rs.next()) {
+        DBEntity entity = new DBEntity();
+        entity.id = rs.getInt(1);
+        entities.add(entity);
+      }
+      
+      return entities;
+      
+    } catch (SQLException e) {
+      throw new IllegalStateException(e);
+    }
+
+  }
+  
   private int lastAutoIncrement() throws SQLException {
     ResultSet rs = lastAutoIncrement.get().executeQuery();
     rs.next();
@@ -435,7 +484,6 @@ public class DataBaseEntitySystem implements EntitySystem {
   
   public String printAllTables() {
     StringBuilder builder = new StringBuilder();
-    actualDBEntitySystem.set(this);
     
     
     
@@ -527,7 +575,6 @@ public class DataBaseEntitySystem implements EntitySystem {
   
   public String printAllEntities() {
     StringBuilder builder = new StringBuilder();
-    actualDBEntitySystem.set(this);
 
     List<String> aux = new LinkedList<String>();
     try {
@@ -562,7 +609,6 @@ public class DataBaseEntitySystem implements EntitySystem {
     @Override
     public Entity getParent() {
       DBEntity father = new DBEntity();
-      actualDBEntitySystem.set(DataBaseEntitySystem.this);
       
       
       try {
@@ -648,7 +694,6 @@ public class DataBaseEntitySystem implements EntitySystem {
     
     public String print() throws SQLException {
       List<String> aux = new LinkedList<String>();
-      actualDBEntitySystem.set(DataBaseEntitySystem.this);
       
       Statement st = databaseConnection.get().createStatement();
       
@@ -678,7 +723,7 @@ public class DataBaseEntitySystem implements EntitySystem {
         String componentName = rs.getString(1);
         
         
-        ComponentInstance ci = getComponent(this, components.get(componentName));
+        ComponentInstance ci = getComponent(components.get(componentName));
         DBComponent.DBComponentObject dbci = (DBComponent.DBComponentObject)ci;
         
         aux.add(Utils.treeStringRepresentation(
@@ -694,6 +739,17 @@ public class DataBaseEntitySystem implements EntitySystem {
                   "child:", ent.print()));
       }
       return Utils.treeStringRepresentation("id: " + id, aux);
+    }
+
+    @Override
+    public ComponentInstance getComponent(QuadrigaComponent type) {
+      DBComponent dbc = components.get(type.getBinaryName());
+      
+      try {
+        return dbc.getComponent(this);
+      } catch (SQLException e) {
+        throw new IllegalStateException(e);
+      }
     }
   }
   
@@ -757,7 +813,6 @@ public class DataBaseEntitySystem implements EntitySystem {
     @Override
     public ComponentInstance createInstance(Map<String, ComputedValue> arguments, RuntimeEnvironment runtime) {
 
-      actualDBEntitySystem.set(DataBaseEntitySystem.this);
       DBComponentObject componentObject = new DBComponentObject();
       
       PreparedStatement createObject = this.createObject.get();
@@ -997,7 +1052,6 @@ public class DataBaseEntitySystem implements EntitySystem {
       
       @Override
       public void copy(ComponentInstance other) {
-        actualDBEntitySystem.set(DataBaseEntitySystem.this);
         cachedFields.clear();
         changedFields.clear();
         String sql = "UPDATE " + tableName + " SET ";
@@ -1073,7 +1127,6 @@ public class DataBaseEntitySystem implements EntitySystem {
 
       @Override
       public ComputedValue getFieldValue(String field) {
-        actualDBEntitySystem.set(DataBaseEntitySystem.this);
         ComputedValue cv = cachedFields.get(field);
         if(cv != null) {
           return cv;
@@ -1147,7 +1200,6 @@ public class DataBaseEntitySystem implements EntitySystem {
 
       @Override
       public void commitChanges() {
-        actualDBEntitySystem.set(DataBaseEntitySystem.this);
         
         String sql = "UPDATE " + tableName + " SET ";
         boolean first = true;
@@ -1355,7 +1407,6 @@ public class DataBaseEntitySystem implements EntitySystem {
       }
       
       public List<String> print(Statement st) throws SQLException {
-        actualDBEntitySystem.set(DataBaseEntitySystem.this);
         ResultSet rs = st.executeQuery(
             "SELECT * " +
             "FROM " + tableName +

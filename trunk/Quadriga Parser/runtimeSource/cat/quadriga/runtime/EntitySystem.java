@@ -1,5 +1,7 @@
 package cat.quadriga.runtime;
 
+import java.util.List;
+
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 
 public interface EntitySystem {
@@ -23,4 +25,8 @@ public interface EntitySystem {
 
   Entity findEntity(String name);
   Entity findEntity(String name, Entity parent);
+  
+  List<Entity> getAllEntitiesWithComponents(
+              List<QuadrigaComponent> components,
+              RuntimeEnvironment re);
 }

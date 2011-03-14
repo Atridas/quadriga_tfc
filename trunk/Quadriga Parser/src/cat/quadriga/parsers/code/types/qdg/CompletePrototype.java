@@ -21,6 +21,7 @@ import cat.quadriga.parsers.code.symbols.ThisSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.parsers.code.types.UnknownType;
+import cat.quadriga.runtime.ComponentInstance;
 import cat.quadriga.runtime.Entity;
 import cat.quadriga.runtime.RuntimeEnvironment;
 import cat.quadriga.runtime.RuntimePrototype;
@@ -209,5 +210,17 @@ public class CompletePrototype extends BaseTypeClass implements RuntimePrototype
     initializations.execute(runtime,symbolsToSkip);
     
     runtime.deleteLocalContext();
+    
+    for(Entry<QuadrigaComponent, CallToNamedArguments> componentArgument : componentArguments.entrySet()) {
+      ComponentInstance ci = runtime.entitySystem.getComponent(entity, componentArgument.getKey());
+      if(ci == null) {
+        //TODO
+        throw new IllegalStateException("Not implemented");
+      }
+      for(Entry<String, ExpressionNode> ca : componentArgument.getValue().arguments.entrySet()) {
+        ci.setFieldValue(ca.getKey(), ca.getValue().compute(runtime));
+      }
+      ci.commitChanges();
+    }
   }
 }

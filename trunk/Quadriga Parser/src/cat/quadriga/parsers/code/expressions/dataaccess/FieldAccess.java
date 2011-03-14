@@ -10,6 +10,7 @@ import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.JavaReference;
 import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class FieldAccess extends MemberAccess {
@@ -107,6 +108,31 @@ public final class FieldAccess extends MemberAccess {
   public LiteralData getCompileTimeConstant() {
     // TODO Auto-generated method stub
     return null;
+  }
+  
+  public ComputedValue compute(RuntimeEnvironment runtime) {
+    Object result;
+    if(reference == null) {
+      try {
+        result = field.get(null);
+      } catch (Exception e) {
+        throw new IllegalStateException(e);
+      }
+    } else {
+      try {
+        result = field.get(reference.compute(runtime).getAsObject());
+      } catch (Exception e) {
+        throw new IllegalStateException(e);
+      }
+    }
+    
+    if(result.getClass().isPrimitive()) {
+      throw new IllegalStateException("Not implemented");
+    } else if(result instanceof ComputedValue) {
+      return (ComputedValue) result;
+    } else {
+      return new JavaReference(result);
+    }
   }
   
   private class WriteVersion extends ExpressionNodeClass implements WriteAccess {

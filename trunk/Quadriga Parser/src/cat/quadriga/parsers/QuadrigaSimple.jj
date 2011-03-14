@@ -370,7 +370,7 @@ TOKEN :
       | <OCTAL_LITERAL> (["l","L"])?
   >
 |
-  < #DECIMAL_LITERAL: ["1"-"9"] (["0"-"9"])* >
+  < #DECIMAL_LITERAL: (["-"])? ["1"-"9"] (["0"-"9"])* >
 |
   < #HEX_LITERAL: "0" ["x","X"] (<HEXADECIMAL_DIGIT>)+ >
 |
@@ -382,10 +382,10 @@ TOKEN :
   >
 |
   < #DECIMAL_FLOATING_POINT_LITERAL:
-        (["0"-"9"])+ "." (["0"-"9"])* (<DECIMAL_EXPONENT>)? (["f","F","d","D"])?
+        (["-"])? (["0"-"9"])+ "." (["0"-"9"])* (<DECIMAL_EXPONENT>)? (["f","F","d","D"])?
       | "." (["0"-"9"])+ (<DECIMAL_EXPONENT>)? (["f","F","d","D"])?
-      | (["0"-"9"])+ <DECIMAL_EXPONENT> (["f","F","d","D"])?
-      | (["0"-"9"])+ (<DECIMAL_EXPONENT>)? ["f","F","d","D"]
+      | (["-"])? (["0"-"9"])+ <DECIMAL_EXPONENT> (["f","F","d","D"])?
+      | (["-"])? (["0"-"9"])+ (<DECIMAL_EXPONENT>)? ["f","F","d","D"]
   >
 |
   < #DECIMAL_EXPONENT: ["e","E"] (["+","-"])? (["0"-"9"])+ >
@@ -4214,7 +4214,27 @@ void SystemDeclaration():
       IncompleteSystem iSystem = new IncompleteSystem(currentFile.replace('/','.'),t.image);    }
     "{"
          "@components" "{"
-               (Name())+
+               (name = Name() [";"]
+                 {
+                   String res = "";
+			       for(int i = 0; i < name.size(); i++) {
+			         if(i != 0) {
+			           res += "." + name.get(i).image;
+			         } else {
+			           res = name.get(i).image;
+			         }
+			       }
+                   BaseSymbol symbol = symbolTable.findSymbol(res);
+                   CodeZone cz = new CodeZoneClass(name.get(0), name.get(name.size()-1),file);
+                   if(symbol != null) {
+                     if(symbol instanceof TypeSymbol) {
+                       BaseType bt = ((TypeSymbol)symbol).type;
+                       if(bt instanceof QuadrigaComponent) {
+                         iSystem.components.add((QuadrigaComponent)bt);                       } else {
+                         errorLog.insertError("Symbol " + res + " not a component", cz);                       }                     } else {
+                       errorLog.insertError("Symbol " + res + " not a type", cz);                     }                   } else {                     errorLog.insertError("Symbol " + res + " not found", cz);
+                   }                 }
+               )+
                "}"         (
            fun=QuadrigaUpdate()
            {
