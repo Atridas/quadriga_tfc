@@ -6,6 +6,9 @@ import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.parsers.code.types.UnknownType;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.JavaReference;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class MathematicOperation extends BinaryExpressionNode {
 
@@ -121,5 +124,43 @@ public final class MathematicOperation extends BinaryExpressionNode {
     }
     
     return left.executeMathematicalOp(right, operator);
+  }
+
+  
+  @Override
+  public ComputedValue compute(RuntimeEnvironment runtime) {
+    switch(operator) {
+    case BIT_OR:
+    case BIT_AND:
+    case BIT_XOR:
+    case LEFT_SHIFT:
+    case RIGHT_SHIFT:
+    case RIGHT_UNSIGNED_SHIFT:
+      {
+        LiteralData left = (LiteralData) leftOperand.compute(runtime);
+        LiteralData right = (LiteralData) leftOperand.compute(runtime);
+        return left.executeMathematicalOp(right, operator);
+      }
+        
+    case ADD: 
+      if("Ljava.lang.String;".compareTo(leftOperand.getType().getBinaryName()) == 0
+       ||"Ljava.lang.String;".compareTo(rightOperand.getType().getBinaryName()) == 0) {
+        return new JavaReference(
+               leftOperand.compute(runtime).getStringValue() + 
+               rightOperand.compute(runtime).getStringValue()
+                                );
+      }
+    case SUB: 
+    case MUL: 
+    case DIV: 
+    case MOD:
+      {
+        LiteralData left = (LiteralData) leftOperand.compute(runtime);
+        LiteralData right = (LiteralData) leftOperand.compute(runtime);
+        return left.executeMathematicalOp(right, operator);
+      }
+    default:
+      throw new IllegalStateException();
+    }
   }
 }
