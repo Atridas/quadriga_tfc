@@ -97,6 +97,17 @@ public class Quadriga {
       System.out.println(ces.printAllTables());
       
       */
+      
+
+      //RuntimeComponent transform = (RuntimeComponent)((TypeSymbol)symbolTable.findSymbol("cat.quadriga.base.Transform")).type;
+      //RuntimeComponent planeta = (RuntimeComponent)((TypeSymbol)symbolTable.findSymbol("riskppt3d.planeta.DadesComponent")).type;
+      
+      //List<QuadrigaComponent> components = new LinkedList<QuadrigaComponent>();
+      //components.add(transform);
+      //components.add(planeta);
+      
+      //runtime.entitySystem.getAllEntitiesWithComponents(components, runtime);
+      
     } finally {
       System.out.println(ces.printAllEntities());
     }
