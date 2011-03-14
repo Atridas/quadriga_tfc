@@ -16,7 +16,6 @@ import cat.quadriga.parsers.code.symbols.TypeSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.runtime.ComputedValue;
-import cat.quadriga.runtime.Entity;
 import cat.quadriga.runtime.RuntimeComponent;
 import cat.quadriga.runtime.RuntimeEnvironment;
 

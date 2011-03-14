@@ -163,6 +163,8 @@ public final class CallToMethod extends ExpressionNodeClass {
       
       if(ret.getClass().isPrimitive()) {
         throw new IllegalStateException("Not implemented");
+      } else if(ret instanceof ComputedValue) {
+        return (ComputedValue) ret;
       } else {
         return new JavaReference(ret);
       }

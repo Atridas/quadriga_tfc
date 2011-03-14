@@ -6,21 +6,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.vecmath.Vector3f;
-
-import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
-import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
-import cat.quadriga.runtime.ComponentInstance;
-import cat.quadriga.runtime.ComputedValue;
-import cat.quadriga.runtime.Entity;
-import cat.quadriga.runtime.JavaReference;
-import cat.quadriga.runtime.RuntimeComponent;
 import cat.quadriga.runtime.RuntimeEnvironment;
 import cat.quadriga.runtime.RuntimeMain;
 import cat.quadriga.runtime.qvm.DataBaseEntitySystem;

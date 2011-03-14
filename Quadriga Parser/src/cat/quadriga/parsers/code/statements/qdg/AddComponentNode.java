@@ -10,7 +10,6 @@ import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
 import cat.quadriga.runtime.ComponentInstance;
 import cat.quadriga.runtime.Entity;
 import cat.quadriga.runtime.RuntimeEnvironment;
-import cat.quadriga.runtime.RuntimePrototype;
 
 public class AddComponentNode extends StatementNodeClass {
 

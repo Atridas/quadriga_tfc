@@ -5,7 +5,6 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.CastExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
-import cat.quadriga.parsers.code.expressions.MathematicOperation;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.WriteAccess;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;

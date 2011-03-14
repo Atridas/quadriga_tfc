@@ -15,6 +15,7 @@ import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.UnknownType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent.ComponentField;
+import cat.quadriga.runtime.ComponentInstance;
 import cat.quadriga.runtime.ComputedValue;
 import cat.quadriga.runtime.RuntimeEnvironment;
 
@@ -139,6 +140,14 @@ public final class ComponentFieldAccess extends UnaryDataAccess {
     return null;
   }
   
+  @Override
+  public ComputedValue compute(RuntimeEnvironment runtime) {
+    
+    ComponentInstance ci = (ComponentInstance) operand.compute(runtime);
+    
+    return ci.getFieldValue(field);
+  }
+  
   private class WriteVersion extends ExpressionNodeClass implements WriteAccess {
 
     public WriteVersion() {
@@ -193,7 +202,9 @@ public final class ComponentFieldAccess extends UnaryDataAccess {
 
     @Override
     public void setValue(ComputedValue value, RuntimeEnvironment runtime) {
-      throw new IllegalStateException("Not yet implemented " + this.getClass().getCanonicalName());
+      ComponentInstance ci = (ComponentInstance) operand.compute(runtime);
+        
+      ci.setFieldValue(field,value);
     }
     
   }
