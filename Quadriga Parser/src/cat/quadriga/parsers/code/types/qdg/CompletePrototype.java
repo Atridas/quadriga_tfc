@@ -212,7 +212,7 @@ public class CompletePrototype extends BaseTypeClass implements RuntimePrototype
     runtime.deleteLocalContext();
     
     for(Entry<QuadrigaComponent, CallToNamedArguments> componentArgument : componentArguments.entrySet()) {
-      ComponentInstance ci = runtime.entitySystem.getComponent(entity, componentArgument.getKey());
+      ComponentInstance ci = entity.getComponent(componentArgument.getKey());
       if(ci == null) {
         //TODO
         throw new IllegalStateException("Not implemented");

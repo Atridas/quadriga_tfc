@@ -76,7 +76,7 @@ public final class TypeDataAccess extends DirectDataAccess {
   }
 
   @Override
-  public WriteAccess getWriteVersion() {
+  public WriteAccess getWriteVersion(SymbolTable symbolTable) {
     return null;
   }
 

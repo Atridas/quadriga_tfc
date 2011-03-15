@@ -145,7 +145,9 @@ public class BlockCode extends StatementNodeClass {
   
       runtime.deleteLocalContext();
     } catch (Exception e) {
-      throw new RuntimeException("Error in line " + beginLine + " column " + beginColumn + " file " + file, e);
+      throw new RuntimeException("Error in " 
+          + beginLine + ":" + beginColumn + " "
+          + endLine + ":" + endColumn + " " + file, e);
     }
   }
   

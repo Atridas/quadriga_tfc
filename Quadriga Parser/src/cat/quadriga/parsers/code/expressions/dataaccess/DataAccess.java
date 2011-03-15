@@ -7,7 +7,7 @@ import cat.quadriga.parsers.code.expressions.ExpressionNode;
 public interface DataAccess extends ExpressionNode {
   public boolean isAssignable();
   public boolean isReadable();
-  WriteAccess getWriteVersion();
+  WriteAccess getWriteVersion(SymbolTable symbolTable);
   @Override
   DataAccess getLinkedVersion(SymbolTable symbolTable, ErrorLog errorLog);
 }

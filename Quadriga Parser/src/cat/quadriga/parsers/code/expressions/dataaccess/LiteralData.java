@@ -46,7 +46,7 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
   public abstract Object getValue();
   
   @Override
-  public WriteAccess getWriteVersion() {
+  public WriteAccess getWriteVersion(SymbolTable symbolTable) {
     return null;
   }
   

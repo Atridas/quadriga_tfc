@@ -10,14 +10,19 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.ParameterClass;
 import cat.quadriga.parsers.code.QuadrigaFunction;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
+import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.parsers.code.types.UnknownType;
+import cat.quadriga.runtime.Entity;
+import cat.quadriga.runtime.RuntimeEnvironment;
+import cat.quadriga.runtime.RuntimeSystem;
 
-public class CompleteSystem extends BaseTypeClass implements QuadrigaSystem {
+public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
 
   public final Set<QuadrigaComponent> components;
   public final Set<QuadrigaComponent> specialComponents;
@@ -159,6 +164,9 @@ public class CompleteSystem extends BaseTypeClass implements QuadrigaSystem {
     aux.aux = this;
     validated = true;
     
+    symbolTable.accesses.clear();
+    symbolTable.writes.clear();
+    
     Set<QuadrigaComponent> components = new HashSet<QuadrigaComponent>();
     for(QuadrigaComponent component: original.components) {
       if(!component.isValid()) {
@@ -294,5 +302,43 @@ public class CompleteSystem extends BaseTypeClass implements QuadrigaSystem {
   @Override
   public boolean isSerializable() {
     return true;
+  }
+
+  @Override
+  public Set<QuadrigaComponent> neededComponents() {
+    return components;
+  }
+
+  @Override
+  public boolean hasUpdate() {
+    return update != null;
+  }
+  @Override
+  public void update(Entity entity, RuntimeEnvironment runtime) {
+    assert isValid();
+    
+    runtime.newLocalContext();
+    
+    
+    
+    //TODO components especials
+    
+    
+    for(ParameterClass param : update.parameters) {
+      if(param.semantic == null) {
+        throw new IllegalStateException("All update params must have a semantic " + getBinaryName());
+      } else {
+        if("ENTITY".compareToIgnoreCase( param.semantic ) == 0) {
+          runtime.putLocalVariable(
+              new LocalVariableSymbol(param.modifiers, param.type, param.name), entity);
+        } else {
+          throw new IllegalArgumentException("Sempantic " + param.semantic + " not suported.");
+        }
+      }
+    }
+    
+    update.code.execute(runtime);
+    
+    runtime.deleteLocalContext();
   }
 }

@@ -54,7 +54,7 @@ public class ProxyThread extends BaseTypeClass implements QuadrigaThread {
     if(symbol != null) {
       if( symbol instanceof TypeSymbol) {
         if(((TypeSymbol)symbol).type instanceof CompleteThread) {
-          return (CompleteThread)((TypeSymbol)symbol).type;
+          return ((CompleteThread)((TypeSymbol)symbol).type).getValid(symbolTable, errorLog);
         } else if(!(((TypeSymbol)symbol).type instanceof QuadrigaThread)) {
           errorLog.insertError("El simbol " + getInstanceableName() + " no és un thread",cz);
           return null;

@@ -11,8 +11,12 @@ import cat.quadriga.parsers.code.statements.BlockCode;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.parsers.code.types.UnknownType;
+import cat.quadriga.runtime.Entity;
+import cat.quadriga.runtime.RuntimeEnvironment;
+import cat.quadriga.runtime.RuntimeSystem;
+import cat.quadriga.runtime.RuntimeThread;
 
-public class CompleteThread extends BaseTypeClass implements QuadrigaThread {
+public class CompleteThread extends BaseTypeClass implements RuntimeThread {
   
   public final List<QuadrigaSystem> systems;
   public final BlockCode init;
@@ -56,51 +60,49 @@ public class CompleteThread extends BaseTypeClass implements QuadrigaThread {
     return Utils.treeStringRepresentation("thread" + linkedStatus, aux);
   }
 
+  private boolean valid = false;
+  private CompleteThread validVersion = null;
   @Override
   public CompleteThread getValid(SymbolTable symbolTable, ErrorLog errorLog) {
-    if(isValid()) {
+    if(valid) {
       return this;
-    }
-    List<QuadrigaSystem> qs = new ArrayList<QuadrigaSystem>();
-    for(QuadrigaSystem s : systems) {
-      if(s.isValid()) {
-        qs.add(s);
-      } else {
-        QuadrigaSystem aux = s.getValid(symbolTable, errorLog);
-        if(aux == null) {
-          break;
+    } else if(validVersion == null) {
+      List<QuadrigaSystem> qs = new ArrayList<QuadrigaSystem>();
+      for(QuadrigaSystem s : systems) {
+        if(s.isValid()) {
+          qs.add(s);
         } else {
-          qs.add(aux);
+          QuadrigaSystem aux = s.getValid(symbolTable, errorLog);
+          if(aux == null) {
+            break;
+          } else {
+            qs.add(aux);
+          }
         }
       }
-    }
-    if(qs.size() != systems.size()) {
-      return null;
-    }
-    BlockCode bc;
-    if(init.isCorrectlyLinked()) {
-      bc = init;
-    } else {
-      bc = init.getLinkedVersion(symbolTable, errorLog);
-      if(bc == null) {
+      if(qs.size() != systems.size()) {
         return null;
       }
+      BlockCode bc;
+      if(init.isCorrectlyLinked()) {
+        bc = init;
+      } else {
+        bc = init.getLinkedVersion(symbolTable, errorLog);
+        if(bc == null) {
+          return null;
+        }
+      }
+      
+      validVersion = new CompleteThread(getBinaryName(), qs, bc, bc.file);
+      validVersion.validVersion = validVersion;
+      validVersion.valid = true;
     }
-    
-    return new CompleteThread(getBinaryName(), qs, bc, bc.file);
+    return validVersion;
   }
 
   @Override
   public boolean isValid() {
-    for(QuadrigaSystem s : systems) {
-      if(!s.isValid()) {
-        return false;
-      }
-    }
-    if(!init.isCorrectlyLinked()) {
-      return false;
-    }
-    return true;
+    return valid;
   }
 
 
@@ -112,5 +114,32 @@ public class CompleteThread extends BaseTypeClass implements QuadrigaThread {
   @Override
   public boolean isSerializable() {
     return true;
+  }
+
+  @Override
+  public void init(RuntimeEnvironment runtime) {
+    assert isValid();
+    for(QuadrigaSystem qs : systems) {
+      init.execute(runtime);
+    }
+  }
+
+  @Override
+  public void execute(RuntimeEnvironment runtime) {
+    assert isValid();
+    for(QuadrigaSystem qs : systems) {
+      RuntimeSystem system = (RuntimeSystem) qs;
+      List<Entity> entities = runtime.entitySystem.getAllEntitiesWithComponents(
+                                                  system.neededComponents(),
+                                                  runtime);
+
+      for(Entity entity : entities) {
+        system.update(entity, runtime);
+      }
+      for(Entity entity : entities) {
+        entity.commitChanges();
+      }
+      
+    }
   }
 }

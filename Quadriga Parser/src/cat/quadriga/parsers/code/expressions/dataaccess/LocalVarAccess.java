@@ -79,7 +79,7 @@ public final class LocalVarAccess extends DirectDataAccess {
   }
 
   @Override
-  public WriteAccess getWriteVersion() {
+  public WriteAccess getWriteVersion(SymbolTable symbolTable) {
     return new WriteVersion();
   }
 
@@ -112,7 +112,7 @@ public final class LocalVarAccess extends DirectDataAccess {
     }
 
     @Override
-    public WriteAccess getWriteVersion() {
+    public WriteAccess getWriteVersion(SymbolTable symbolTable) {
       return this;
     }
 

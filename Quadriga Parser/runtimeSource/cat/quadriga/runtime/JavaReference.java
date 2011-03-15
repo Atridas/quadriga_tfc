@@ -9,7 +9,6 @@ public class JavaReference implements ComputedValue {
   public Object reference;
   
   public JavaReference(Object ref) {
-    assert ref != null;
     reference = ref;
   }
 

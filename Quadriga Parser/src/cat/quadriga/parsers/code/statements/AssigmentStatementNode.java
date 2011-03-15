@@ -8,7 +8,10 @@ import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.WriteAccess;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
 import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.Entity;
 import cat.quadriga.runtime.RuntimeEnvironment;
 
 public class AssigmentStatementNode extends StatementNodeClass {
@@ -86,7 +89,7 @@ public class AssigmentStatementNode extends StatementNodeClass {
       if(leftOp instanceof DataAccess) {
         DataAccess da = (DataAccess)leftOp;
         if(da.isAssignable()) {
-          leftOp = da.getWriteVersion();
+          leftOp = da.getWriteVersion(symbolTable);
           assert(leftOp != null);
         } else {
           errorLog.insertError("L'operand esquerra no s'hi pot escriure",leftOp);
@@ -138,6 +141,15 @@ public class AssigmentStatementNode extends StatementNodeClass {
     }
     
     WriteAccess writeTo = (WriteAccess) leftOperand;
+    
+    if(writeTo.getType() instanceof QuadrigaEntity) {
+      QuadrigaEntity qe = (QuadrigaEntity) writeTo.getType();
+      Entity resEntity = (Entity) result;
+      for(QuadrigaComponent qc : qe.catchedComponents) {
+        resEntity.cacheComponent(qc);
+      }
+      result = resEntity;
+    }
     
     writeTo.setValue(result, runtime);
   }

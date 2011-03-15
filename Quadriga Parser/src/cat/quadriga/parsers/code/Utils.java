@@ -1,5 +1,6 @@
 package cat.quadriga.parsers.code;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -157,6 +158,10 @@ abstract public class Utils {
       return new ComponentFieldAccess(expression, member, cz);
     }
     
+    if(type instanceof QuadrigaEntity) {
+      type = ClassOrInterfaceTypeRef.getFromClass(Entity.class);
+    }
+    
     if(type instanceof ReferenceTypeRef) {
       return ((ReferenceTypeRef)type).getAccess(expression, member, cz);
     }
@@ -164,34 +169,49 @@ abstract public class Utils {
   }
 
   public static ExpressionNode resolveName(SymbolTable symbolTable, List<Token> identifiers, String file) {
-    Token first = identifiers.get(0);
-    Token actual;
-    Iterator<Token> it = identifiers.iterator();
+    List<String> aux = new ArrayList<String>(identifiers.size());
+    for(Token t : identifiers) {
+      aux.add(t.image);
+    }
+    return resolveName(symbolTable, aux, new CodeZoneClass(identifiers.get(0),identifiers.get(identifiers.size()-1),file));
+  }
+
+  public static ExpressionNode resolveName(SymbolTable symbolTable, String[] identifiers, CodeZone cz) {
+    List<String> aux = new ArrayList<String>(identifiers.length);
+    for(String t : identifiers) {
+      aux.add(t);
+    }
+    return resolveName(symbolTable, aux, cz);
+  }
+  
+  public static ExpressionNode resolveName(SymbolTable symbolTable, List<String> identifiers, CodeZone cz) {
+    String actual;
+    Iterator<String> it = identifiers.iterator();
     ExpressionNode result = null;
 
     actual = it.next();
-    String aux = actual.image;
+    String aux = actual;
     BaseSymbol symbol = symbolTable.findSymbol(aux);
     if(symbol != null) {
-      result = symbolToDataAccess(symbol,first,actual, file);
+      result = symbolToDataAccess(symbol,cz);
     }
     
     while(result == null && it.hasNext()) {
       actual = it.next();
-      aux += '.' + actual.image;
+      aux += '.' + actual;
       symbol = symbolTable.findSymbol(aux);
       if(symbol != null) {
-        result = symbolToDataAccess(symbol,first,actual, file);
+        result = symbolToDataAccess(symbol,cz);
       }
     }
 
     if(result == null) {
-      result = new ProxyDataAccess(aux,  new CodeZoneClass(identifiers.get(0),identifiers.get(identifiers.size()-1),file));
+      result = new ProxyDataAccess(aux,  cz);
     } else {
       while(it.hasNext()) {
         actual = it.next();
-        aux = actual.image;
-        result = accessToMember((DataAccess)result, aux, actual);
+        aux = actual;
+        result = accessToMember((DataAccess)result, aux, cz);
       }
     }
     

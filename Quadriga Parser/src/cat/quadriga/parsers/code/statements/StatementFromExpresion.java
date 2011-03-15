@@ -3,6 +3,7 @@ package cat.quadriga.parsers.code.statements;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public class StatementFromExpresion extends StatementNodeClass {
 
@@ -40,6 +41,12 @@ public class StatementFromExpresion extends StatementNodeClass {
   @Override
   public boolean isCorrectlyLinked() {
     return expression.isCorrectlyLinked();
+  }
+  
+  @Override
+  public void execute(RuntimeEnvironment runtime) {
+    assert isCorrectlyLinked();
+    expression.compute(runtime);
   }
 
 }

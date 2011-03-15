@@ -136,7 +136,7 @@ public final class ArrayOrComponentAccess extends ExpressionNodeClass implements
   }
 
   @Override
-  public WriteAccess getWriteVersion() {
+  public WriteAccess getWriteVersion(SymbolTable symbolTable) {
     return new WriteVersion();
   }
 
@@ -193,9 +193,7 @@ public final class ArrayOrComponentAccess extends ExpressionNodeClass implements
           TypeDataAccess tda = (TypeDataAccess) access;
           
           
-          return runtime.entitySystem.getComponent(
-                                       entity, 
-                                       (QuadrigaComponent)tda.type);
+          return entity.getComponent((QuadrigaComponent)tda.type);
         }
       }
     }
@@ -220,7 +218,7 @@ public final class ArrayOrComponentAccess extends ExpressionNodeClass implements
     }
 
     @Override
-    public WriteAccess getWriteVersion() {
+    public WriteAccess getWriteVersion(SymbolTable symbolTable) {
       return this;
     }
 

@@ -42,6 +42,12 @@ public abstract class ReferenceTypeRef extends JavaType {
     for(int i = 0; i < methods.length; i++) {
       addMethod(methods[i]);
     }
+    if(c.isInterface()) {
+      methods = Object.class.getMethods();
+      for(int i = 0; i < methods.length; i++) {
+        addMethod(methods[i]);
+      }
+    }
     
     Constructor<?>[] constructors = c.getConstructors();
     for(int i = 0; i < constructors.length; i++) {

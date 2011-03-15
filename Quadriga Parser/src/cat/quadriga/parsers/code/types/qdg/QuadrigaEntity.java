@@ -23,6 +23,8 @@ public class QuadrigaEntity extends ReferenceTypeRef {
   private QuadrigaEntity() {
     super(Entity.class,"Lcat/quadriga/runtime/Entity;");
     catchedComponents = Collections.emptySet();
+    valid = true;
+    validVersion = this;
   }
   
   private QuadrigaEntity(Set<QuadrigaComponent> catchedComponents) {
@@ -50,9 +52,32 @@ public class QuadrigaEntity extends ReferenceTypeRef {
     return false;
   }
 
+  
+  private boolean valid;
+  private QuadrigaEntity validVersion;
   @Override
-  public ReferenceTypeRef getValid(SymbolTable symbolTable, ErrorLog errorLog) {
-    return this;
+  public QuadrigaEntity getValid(SymbolTable symbolTable, ErrorLog errorLog) {
+    if(valid) {
+      return this;
+    } else if(validVersion == null) {
+      Set<QuadrigaComponent> newCached = new HashSet<QuadrigaComponent>();
+      for(QuadrigaComponent qc : catchedComponents) {
+        if(qc.isValid()) {
+          newCached.add(qc);
+        } else {
+          QuadrigaComponent aux = qc.getValid(symbolTable, errorLog);
+          if(aux == null) {
+            return null;
+          } else {
+            newCached.add(aux);
+          }
+        }
+      }
+      validVersion = new QuadrigaEntity(newCached);
+      validVersion.valid = true;
+      validVersion.validVersion = validVersion;
+    }
+    return validVersion;
   }
 
   @Override

@@ -313,7 +313,7 @@ public class DataBaseEntitySystem implements EntitySystem {
     return component;
   }
   
-  
+  /*
   @Override
   public ComponentInstance getComponent(Entity entity, QuadrigaComponent type) {
     DBComponent dbc = components.get(type.getBinaryName());
@@ -323,7 +323,7 @@ public class DataBaseEntitySystem implements EntitySystem {
     } catch (SQLException e) {
       throw new IllegalStateException(e);
     }
-  }
+  }*/
   
   @Override
   public Entity findEntity(String name) {
@@ -357,10 +357,9 @@ public class DataBaseEntitySystem implements EntitySystem {
         return result;
       } else {
         if(parentId == -1) {
-          throw new IndexOutOfBoundsException("Not found Entity " + name);
+          return null;
         } else {
-          throw new IndexOutOfBoundsException("Not found Entity " + name
-              + " with parent " + parent.toString() + " [" + parentId +"]");
+          return null;
         }
       }
       
@@ -419,7 +418,7 @@ public class DataBaseEntitySystem implements EntitySystem {
   
   @Override
   public List<Entity> getAllEntitiesWithComponents(
-      List<QuadrigaComponent> components, 
+      Set<QuadrigaComponent> components, 
       RuntimeEnvironment runtime) 
   {
     //List<DBComponent> dbComponents = new ArrayList<DBComponent>(components.size());
@@ -460,6 +459,11 @@ public class DataBaseEntitySystem implements EntitySystem {
       while(rs.next()) {
         DBEntity entity = new DBEntity();
         entity.id = rs.getInt(1);
+        
+        for(QuadrigaComponent comp : components) {
+          entity.cacheComponent(comp);
+        }
+        
         entities.add(entity);
       }
       
@@ -605,6 +609,7 @@ public class DataBaseEntitySystem implements EntitySystem {
      */
     private static final long serialVersionUID = 5442595694189819152L;
     int id;
+    private Map<String,DBComponent.DBComponentObject> cachedComponents = new HashMap<String,DBComponent.DBComponentObject>();
 
     @Override
     public Entity getParent() {
@@ -743,13 +748,45 @@ public class DataBaseEntitySystem implements EntitySystem {
 
     @Override
     public ComponentInstance getComponent(QuadrigaComponent type) {
+      ComponentInstance ci = cachedComponents.get(type.getBinaryName());
+      if(ci!=null) return ci;
+      
       DBComponent dbc = components.get(type.getBinaryName());
       
       try {
-        return dbc.getComponent(this);
+        ci = dbc.getComponent(this);
+        cachedComponents.put(type.getBinaryName(), (DBComponent.DBComponentObject)ci);
+        return ci;
       } catch (SQLException e) {
         throw new IllegalStateException(e);
       }
+    }
+    
+    @Override
+    public void cacheComponent(QuadrigaComponent component) {
+      if( cachedComponents.containsKey(component.getBinaryName()) ) return;
+      DBComponent dbc = components.get(component.getBinaryName());
+      
+      try {
+        cachedComponents.put(
+            component.getBinaryName(), 
+            dbc.getComponent(this));
+      } catch (SQLException e) {
+        throw new IllegalStateException(e);
+      }
+      
+    }
+
+    @Override
+    public void commitChanges() {
+      for(ComponentInstance ci : cachedComponents.values()) {
+        ci.commitChanges();
+      }
+    }
+    
+    @Override
+    public String toString() {
+      return "DBEntity: " + id;
     }
   }
   
@@ -1200,6 +1237,8 @@ public class DataBaseEntitySystem implements EntitySystem {
 
       @Override
       public void commitChanges() {
+        
+        if(changedFields.size() == 0) return;
         
         String sql = "UPDATE " + tableName + " SET ";
         boolean first = true;
