@@ -1,16 +1,20 @@
 @quadriga riskppt3d.planeta
 
-@import cat.quadriga.base.Transform
-@import cat.quadriga.base.StaticMeshRenderer
-@import cat.quadriga.base.BillboardRenderer
-@import cat.quadriga.base.TexturedQuad
-@import cat.quadriga.base.TexturedQuadPrototype
-@import cat.quadriga.base.FontQuad
-@import cat.quadriga.base.FontQuadPrototype
-@import cat.quadriga.base.Materials
-
 @java cat.quadriga.java.base.ColorUtils
 @java cat.quadriga.java.base.MaterialUnshadedColor
+
+@component cat.quadriga.base.Transform
+@component cat.quadriga.base.StaticMeshRenderer
+@component cat.quadriga.base.BillboardRenderer
+@component cat.quadriga.base.TexturedQuad
+@component cat.quadriga.base.FontQuad
+@component cat.quadriga.base.Materials
+@prototype cat.quadriga.base.TexturedQuadPrototype
+@prototype cat.quadriga.base.FontQuadPrototype
+
+//Forward declarations
+@prototype PlanetaInfo
+@prototype PlanetInfoQuad
 
 @component DadesComponent
 {
@@ -20,12 +24,12 @@
 @prototype Planeta( float hue = 0.0 )
 {
   Transform()
-  StaticMeshRenderer(mesh = "quadriga.baseassets.staticmeshes.Sphere", material = { 0 })
-  //Materials( materials = { new MaterialUnshadedColor( ColorUtils.getHSV(hue, 0.8f, 0.9f) ) } )
+  StaticMeshRenderer(mesh: "quadriga.baseassets.staticmeshes.Sphere", materials: { 0 })
+  Materials( materials : { new MaterialUnshadedColor( ColorUtils.getHSV(hue, 0.8f, 0.9f) ) } )
   DadesComponent();
 
   @child {
-    PlanetaInfo() : "Info"
+    "Info":PlanetaInfo()
   }
 }
 
@@ -34,31 +38,31 @@
   Transform()
   BillboardRenderer()
   @child {
-    PlanetInfoQuad() : "Quad"
+    "Quad":PlanetInfoQuad()
   }
 }
 
-@prototype PlanetInfoQuad
+@prototype PlanetInfoQuad(Entity entity : ENTITY)
 {
-  Transform(position = Vector3f(0, 0, parentEntity().parentEntity()[DadesComponent].radi * 2))
+  Transform(position: new Vector3f(0.0f, 0.0f, entity.getParent().getParent()[DadesComponent].radi *  2.0f))
   @child {
-    TexturedQuadPrototype(TexturedQuad.texture = "riskppt3d/assets/planetinfo.png") : "Base"
+    "Base":TexturedQuadPrototype([TexturedQuad].texture: "riskppt3d/assets/planetinfo.png")
     
     //Edificis construits
-    TexturedQuadPrototype(TexturedQuad.texture = "riskppt3d/assets/gris.png",
-                          TexturedQuad.position = Vector3f(2, 2,0) ) : "Edifici1"
-    TexturedQuadPrototype(TexturedQuad.texture = "riskppt3d/assets/gris.png",
-                          TexturedQuad.position = Vector3f(2,25,0) ) : "Edifici2"
-    TexturedQuadPrototype(TexturedQuad.texture = "riskppt3d/assets/gris.png",
-                          TexturedQuad.position = Vector3f(2,48,0) ) : "Edifici3"
+    "Edifici1":TexturedQuadPrototype([TexturedQuad].texture: "riskppt3d/assets/gris.png",
+                                     [TexturedQuad].position: new Vector3f(2.0f, 2.0f,0.0f) )
+    "Edifici2":TexturedQuadPrototype([TexturedQuad].texture: "riskppt3d/assets/gris.png",
+                                     [TexturedQuad].position: new Vector3f(2.0f,25.0f,0.0f) )
+    "Edifici3":TexturedQuadPrototype([TexturedQuad].texture: "riskppt3d/assets/gris.png",
+                                     [TexturedQuad].position: new Vector3f(2.0f,48.0f,0.0f) )
                           
     //Per indicar el nombre de naus
-    FontQuadPrototype( FontQuad.text = "", FontQuad.position = Vector3f(61, 2,0),  FontQuad.color = ColorUtils.Green ) : "NumPedra"
-    FontQuadPrototype( FontQuad.text = "", FontQuad.position = Vector3f(61,25,0),  FontQuad.color = ColorUtils.Green ) : "NumPaper"
-    FontQuadPrototype( FontQuad.text = "", FontQuad.position = Vector3f(61,48,0),  FontQuad.color = ColorUtils.Green ) : "NumTisores"
-    FontQuadPrototype( FontQuad.text = "", FontQuad.position = Vector3f(111, 2,0), FontQuad.color = ColorUtils.Red )   : "NumPedraEnemics"
-    FontQuadPrototype( FontQuad.text = "", FontQuad.position = Vector3f(111,25,0), FontQuad.color = ColorUtils.Red )   : "NumPaperEnemics"
-    FontQuadPrototype( FontQuad.text = "", FontQuad.position = Vector3f(111,48,0), FontQuad.color = ColorUtils.Red )   : "NumTisoresEnemics"
+    "NumPedra":         FontQuadPrototype( [FontQuad].text: "", [FontQuad].position: new Vector3f( 61.0f, 2.0f,0.0f), [FontQuad].color: ColorUtils.GREEN )
+    "NumPaper":         FontQuadPrototype( [FontQuad].text: "", [FontQuad].position: new Vector3f( 61.0f,25.0f,0.0f), [FontQuad].color: ColorUtils.GREEN )
+    "NumTisores":       FontQuadPrototype( [FontQuad].text: "", [FontQuad].position: new Vector3f( 61.0f,48.0f,0.0f), [FontQuad].color: ColorUtils.GREEN )
+    "NumPedraEnemics":  FontQuadPrototype( [FontQuad].text: "", [FontQuad].position: new Vector3f(111.0f, 2.0f,0.0f), [FontQuad].color: ColorUtils.RED   )
+    "NumPaperEnemics":  FontQuadPrototype( [FontQuad].text: "", [FontQuad].position: new Vector3f(111.0f,25.0f,0.0f), [FontQuad].color: ColorUtils.RED   )
+    "NumTisoresEnemics":FontQuadPrototype( [FontQuad].text: "", [FontQuad].position: new Vector3f(111.0f,48.0f,0.0f), [FontQuad].color: ColorUtils.RED   )
   }
 }
 

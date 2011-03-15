@@ -1,13 +1,17 @@
 @quadriga cat.quadriga.base
 
+@java cat.quadriga.java.base.BaseMaterial
+
 @component Transform {
-  Vector3f position   = Vector3f();
-  Vector3f scale      = Vector3f();
-  Quaternion rotation = Quaternion();
+  Vector3f position  = new Vector3f();
+  float scale        = 1.0f;
+  Quat4f rotation    = new Quat4f(0.0f,0.0f,0.0f,1.0f);
 }
 
 
-//@component Materials {}
+@component Materials {
+  BaseMaterial[] materials = {};
+}
 
 @component StaticMeshRenderer {
   * Transform
@@ -18,19 +22,19 @@
 @component CilynderRenderer {
   * Transform
   float radi = 1.0f;
-  Vector3f pos1 = 0.0f;
-  Vector3f pos2 = 1.0f;
+  Vector3f pos1 = new Vector3f(0.0f,0.0f,0.0f);
+  Vector3f pos2 = new Vector3f(0.0f,0.0f,1.0f);
 }
 
 @component TexturedQuad {
   String   texture  = "";
-  Vector3f position = Vector3f();
+  Vector3f position = new Vector3f();
 }
 
 @component FontQuad {
   String text       = "";
-  Vector3f position = Vector3f();
-  Vector4f color    = Vector4f();
+  Vector3f position = new Vector3f();
+  Vector4f color    = new Vector4f();
 }
 
 @component BillboardRenderer {
@@ -49,15 +53,16 @@
 
 
 // ------------------------------------------------------------------------------------
+@component CameraComponent
 
-@prototype SceneComponent {
+@component SceneComponent {
   Entity<CameraComponent> camera;
 }
 
 @component CameraComponent {
-  Vector3f position = Vector3f(0,0,0);
-  Vector3f lookAt   = Vector3f(0,0,1);
-  Vector3f up       = Vector3f(0,1,0);
+  Vector3f position = new Vector3f(0.0f,0.0f,0.0f);
+  Vector3f lookAt   = new Vector3f(0.0f,0.0f,1.0f);
+  Vector3f up       = new Vector3f(0.0f,1.0f,0.0f);
 }
 
 @prototype SimpleCamera {
@@ -71,7 +76,8 @@
   }
   
   @update(Entity<Transform, StaticMeshRenderer> entity : ENTITY) {
-    entity[Transform].position = entity[Transform].scale;
+    //entity[Transform].position = new Vector3f(1.0f,1.0f,entity[Transform].scale*15);
+    System.out.println(entity.toString());
   }
 }
 
