@@ -14,12 +14,17 @@ import cat.quadriga.parsers.code.symbols.BaseSymbol;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 
 public class SymbolTable implements TreeRepresentable {
   
   private final Set<String> searchedClasses = new HashSet<String>();
   private final Map<String, BaseSymbol> globalNamespace = new HashMap<String, BaseSymbol>();
   private final Stack<Map<String, BaseSymbol>> mapStack = new Stack<Map<String,BaseSymbol>>();
+
+  public final Set<QuadrigaComponent> accesses = new HashSet<QuadrigaComponent>();
+  public final Set<QuadrigaComponent> writes = new HashSet<QuadrigaComponent>();
+  
   public BucleOrSwitchInterface closestBucleOrSwitch = null;
   {
     mapStack.push(globalNamespace);

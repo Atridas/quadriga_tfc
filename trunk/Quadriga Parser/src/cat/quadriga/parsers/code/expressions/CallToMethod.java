@@ -100,10 +100,6 @@ public final class CallToMethod extends ExpressionNodeClass {
     if(linked) {
       return this;
     } else if(linkedVersion == null) {
-      if(methodToCall == null) {
-        errorLog.insertError("Invalid function",this);
-        return null;
-      }
       CallToArguments args;
       if(arguments.isCorrectlyLinked()) {
         args = arguments;
@@ -123,6 +119,11 @@ public final class CallToMethod extends ExpressionNodeClass {
         }
       }
       linkedVersion = new CallToMethod(fun, args);
+      if(linkedVersion.methodToCall == null) {
+        linkedVersion = null;
+        errorLog.insertError("Invalid function",this);
+        return null;
+      }
       linkedVersion.linked = true;
       linkedVersion.linkedVersion = linkedVersion;
     }
@@ -142,36 +143,43 @@ public final class CallToMethod extends ExpressionNodeClass {
   @Override
   public ComputedValue compute(RuntimeEnvironment runtime) {
     assert isCorrectlyLinked();
-    
-    Object obj;
-    MethodAccess method = (MethodAccess) this.function;
-    if(method.reference == null) {
-      obj = null;
-    } else {
-      obj = method.reference.compute(runtime).getAsObject();
-    }
-    
-    int stackSize = runtime.stack.size();
-    arguments.execute(runtime);
-    Object[] args = new Object[runtime.stack.size() - stackSize];
-    for(int i = 1; i <= args.length; ++i) {
-      args[args.length-i] = runtime.stack.pop().getAsObject();
-    }
-    
     try {
-      Object ret = methodToCall.invoke(obj, args);
-      
-      if(ret.getClass().isPrimitive()) {
-        throw new IllegalStateException("Not implemented");
-      } else if(ret instanceof ComputedValue) {
-        return (ComputedValue) ret;
+    
+      Object obj;
+      MethodAccess method = (MethodAccess) this.function;
+      if(method.reference == null) {
+        obj = null;
       } else {
-        return new JavaReference(ret);
+        obj = method.reference.compute(runtime).getAsObject();
       }
       
-    } catch (Exception e) {
-      throw new IllegalStateException(e);
+      int stackSize = runtime.stack.size();
+      arguments.execute(runtime);
+      Object[] args = new Object[runtime.stack.size() - stackSize];
+      for(int i = 1; i <= args.length; ++i) {
+        args[args.length-i] = runtime.stack.pop().getAsObject();
+      }
+      
+      try {
+        Object ret = methodToCall.invoke(obj, args);
+        
+        if(ret == null) {
+          return new JavaReference(null);
+        } else if(ret.getClass().isPrimitive()) {
+          throw new IllegalStateException("Not implemented");
+        } else if(ret instanceof ComputedValue) {
+          return (ComputedValue) ret;
+        } else {
+          return new JavaReference(ret);
+        }
+        
+      } catch (Exception e) {
+        throw new IllegalStateException(e);
+      }
+    } catch(Exception e) {
+      throw new RuntimeException("Error in " 
+          + beginLine + ":" + beginColumn + " "
+          + endLine + ":" + endColumn + " " + file, e);
     }
-    
   }
 }

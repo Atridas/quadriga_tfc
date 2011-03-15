@@ -96,13 +96,15 @@ public final class MathematicOperation extends BinaryExpressionNode {
           return null;
         }
       }
-      BaseType type = getType();
+      
+      linkedVersion = new MathematicOperation(operator, left, right);
+      
+      BaseType type = linkedVersion.getType();
       if(!type.isValid()) {
+        linkedVersion = null;
         errorLog.insertError("Operadors invàlids", this);
         return null;
       }
-      
-      linkedVersion = new MathematicOperation(operator, left, right);
       linkedVersion.linkedVersion = linkedVersion;
       linkedVersion.linked = true;
       
@@ -156,7 +158,7 @@ public final class MathematicOperation extends BinaryExpressionNode {
     case MOD:
       {
         LiteralData left = (LiteralData) leftOperand.compute(runtime);
-        LiteralData right = (LiteralData) leftOperand.compute(runtime);
+        LiteralData right = (LiteralData) rightOperand.compute(runtime);
         return left.executeMathematicalOp(right, operator);
       }
     default:

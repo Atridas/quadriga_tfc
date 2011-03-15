@@ -100,7 +100,7 @@ public final class FieldAccess extends MemberAccess {
   }
 
   @Override
-  public WriteAccess getWriteVersion() {
+  public WriteAccess getWriteVersion(SymbolTable symbolTable) {
     return new WriteVersion();
   }
 
@@ -153,7 +153,7 @@ public final class FieldAccess extends MemberAccess {
     }
 
     @Override
-    public WriteAccess getWriteVersion() {
+    public WriteAccess getWriteVersion(SymbolTable symbolTable) {
       return this;
     }
 

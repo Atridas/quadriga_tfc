@@ -484,6 +484,8 @@
    |     +- St: Block <+>
    |        +- Local Variables:
    |        |  +- Symbol Var [ demo ] Type [ Lcat/quadriga/runtime/Entity; ]
+   |        |  +- Symbol Var [ demo2 ] Type [ Lcat/quadriga/runtime/Entity; ]
+   |        |  +- Symbol Var [ demo3 ] Type [ Lcat/quadriga/runtime/Entity; ]
    |        +- Code:
    |           +- St: Statements: <+>
    |           |  +- St: = <+>
@@ -498,6 +500,18 @@
    |           |  +- riskppt3d.demo.SimpleDemo
    |           |  +- St: Zero Arguments <+>
    |           +- St: No Operation <+>
+   |           +- St: Statements: <+>
+   |           |  +- St: = <+>
+   |           |     +- Op: Local variable access: demo2 {Lcat/quadriga/runtime/Entity;} <+>
+   |           |     +- Op: Find Entity {Lcat/quadriga/runtime/Entity;} <+>
+   |           |        +- Op: Literal {Ljava/lang/String;} <+>
+   |           |           +- String: "BaseScene"
+   |           +- St: Statements: <+>
+   |              +- St: = <+>
+   |                 +- Op: Local variable access: demo3 {Lcat/quadriga/runtime/Entity;} <+>
+   |                 +- Op: Find Entity {Lcat/quadriga/runtime/Entity;} <+>
+   |                    +- Op: Literal {Ljava/lang/String;} <+>
+   |                       +- String: "Nobody"
    +- "SimpleDemo" : Symbol Type
    |  +- Prototype <+>
    |     +- St: Block <+>
@@ -1030,11 +1044,14 @@
    |                                |  +- Float: 1.0
    |                                +- Op: Literal {F} <+>
    |                                |  +- Float: 1.0
-   |                                +- Op: Component Field: {F} <+>
-   |                                   +- cat.quadriga.base.Transform -> scale
-   |                                   +- Op: Component Access {cat.quadriga.base.Transform} <+>
-   |                                      +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
-   |                                      +- Op: Type Access: cat.quadriga.base.Transform <+>
+   |                                +- Op: * {F} <+>
+   |                                   +- Op: Component Field: {F} <+>
+   |                                   |  +- cat.quadriga.base.Transform -> scale
+   |                                   |  +- Op: Component Access {cat.quadriga.base.Transform} <+>
+   |                                   |     +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |                                   |     +- Op: Type Access: cat.quadriga.base.Transform <+>
+   |                                   +- Op: Literal {I} <+>
+   |                                      +- Integer: 15
    +- "riskppt3d.demo.SimpleDemo" : Symbol Type
    |  +- Prototype <+>
    |     +- St: Block <+>
@@ -1434,6 +1451,8 @@
    |     +- St: Block <+>
    |        +- Local Variables:
    |        |  +- Symbol Var [ demo ] Type [ Lcat/quadriga/runtime/Entity; ]
+   |        |  +- Symbol Var [ demo2 ] Type [ Lcat/quadriga/runtime/Entity; ]
+   |        |  +- Symbol Var [ demo3 ] Type [ Lcat/quadriga/runtime/Entity; ]
    |        +- Code:
    |           +- St: Statements: <+>
    |           |  +- St: = <+>
@@ -1448,6 +1467,18 @@
    |           |  +- riskppt3d.demo.SimpleDemo
    |           |  +- St: Zero Arguments <+>
    |           +- St: No Operation <+>
+   |           +- St: Statements: <+>
+   |           |  +- St: = <+>
+   |           |     +- Op: Local variable access: demo2 {Lcat/quadriga/runtime/Entity;} <+>
+   |           |     +- Op: Find Entity {Lcat/quadriga/runtime/Entity;} <+>
+   |           |        +- Op: Literal {Ljava/lang/String;} <+>
+   |           |           +- String: "BaseScene"
+   |           +- St: Statements: <+>
+   |              +- St: = <+>
+   |                 +- Op: Local variable access: demo3 {Lcat/quadriga/runtime/Entity;} <+>
+   |                 +- Op: Find Entity {Lcat/quadriga/runtime/Entity;} <+>
+   |                    +- Op: Literal {Ljava/lang/String;} <+>
+   |                       +- String: "Nobody"
    +- "cat.quadriga.base.SimpleRenderThread" : Symbol Type
    |  +- thread <+>
    |     +- cat.quadriga.base.SimpleStaticMeshRenderer
@@ -1540,11 +1571,14 @@
    |                                |  +- Float: 1.0
    |                                +- Op: Literal {F} <+>
    |                                |  +- Float: 1.0
-   |                                +- Op: Component Field: {F} <+>
-   |                                   +- cat.quadriga.base.Transform -> scale
-   |                                   +- Op: Component Access {cat.quadriga.base.Transform} <+>
-   |                                      +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
-   |                                      +- Op: Type Access: cat.quadriga.base.Transform <+>
+   |                                +- Op: * {F} <+>
+   |                                   +- Op: Component Field: {F} <+>
+   |                                   |  +- cat.quadriga.base.Transform -> scale
+   |                                   |  +- Op: Component Access {cat.quadriga.base.Transform} <+>
+   |                                   |     +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |                                   |     +- Op: Type Access: cat.quadriga.base.Transform <+>
+   |                                   +- Op: Literal {I} <+>
+   |                                      +- Integer: 15
    +- "cat.quadriga.base.BillboardRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields

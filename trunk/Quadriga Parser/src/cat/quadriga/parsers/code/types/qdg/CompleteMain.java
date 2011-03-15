@@ -13,6 +13,7 @@ import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.runtime.RuntimeEnvironment;
 import cat.quadriga.runtime.RuntimeMain;
+import cat.quadriga.runtime.RuntimeThread;
 
 public class CompleteMain extends BaseTypeClass implements RuntimeMain {
   
@@ -110,7 +111,16 @@ public class CompleteMain extends BaseTypeClass implements RuntimeMain {
   public void execute(RuntimeEnvironment runtime) {
     init.execute(runtime);
     
-    //TODO systems!
+    for(QuadrigaThread qt: threads) {
+      RuntimeThread thread = (RuntimeThread) qt;
+      thread.init(runtime);
+    }
+    
+    //TODO fer bucle!!
+    for(QuadrigaThread qt: threads) {
+      RuntimeThread thread = (RuntimeThread) qt;
+      thread.execute(runtime);
+    }
   }
 
 }

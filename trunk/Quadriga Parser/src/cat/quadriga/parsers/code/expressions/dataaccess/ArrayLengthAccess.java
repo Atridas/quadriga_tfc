@@ -48,7 +48,7 @@ public final class ArrayLengthAccess extends UnaryDataAccess {
   }
 
   @Override
-  public WriteAccess getWriteVersion() {
+  public WriteAccess getWriteVersion(SymbolTable symbolTable) {
     return null;
   }
 

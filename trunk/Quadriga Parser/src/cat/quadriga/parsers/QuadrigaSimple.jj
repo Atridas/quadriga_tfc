@@ -357,6 +357,7 @@ TOKEN :
   | < AT_MAIN:    "@main" >
   | < ENTITY:     "Entity" >
   | < DESCRIPTION:"@description" >
+  | < FIND:       "@find" >
 
 }   
 
@@ -2740,6 +2741,8 @@ ExpressionNode PrimaryPrefix():
   |
     result = NewEntity()
   |
+    result = FindEntity()
+  |
     LOOKAHEAD( ( <IDENTIFIER> "." )* "this" )
     ( t=<IDENTIFIER> "."
       {
@@ -4568,6 +4571,13 @@ QuadrigaFunction QuadrigaUpdate():
   t="@update"
   { localBlock = new BlockCode.TmpBlockCode(t,file); }
   parameters = FormalParameters()
+  {    for(ParameterClass param : parameters)
+    {
+      symbolTable.addSymbol(new LocalVariableSymbol(param.modifiers,
+                                                    param.type,
+                                                    param.name));
+    }
+  }
   code = Block()
 
   {
@@ -4603,3 +4613,12 @@ StatementNode ApplyPrototype():
 {
   "@prototype" xn=Expression() ":" statement=EntityInitialization(xn)
   {    return statement;  }}
+
+ExpressionNode FindEntity():
+{
+  ExpressionNode xn;
+  Token t, t2;}
+{
+  t="@find" "[" xn = Expression() t2="]"
+  {
+    return new FindEntity(xn, new CodeZoneClass(t,t2,file));  }}

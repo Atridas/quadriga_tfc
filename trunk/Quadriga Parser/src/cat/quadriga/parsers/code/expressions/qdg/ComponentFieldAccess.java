@@ -12,6 +12,7 @@ import cat.quadriga.parsers.code.expressions.dataaccess.WriteAccess;
 import cat.quadriga.parsers.code.symbols.BaseSymbol;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.parsers.code.types.UnknownType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent.ComponentField;
@@ -117,7 +118,11 @@ public final class ComponentFieldAccess extends UnaryDataAccess {
         return null;
       }
 
-
+      symbolTable.accesses.add(component);
+      if(!(getType() instanceof PrimitiveTypeRef)) {
+        symbolTable.writes.add(component);
+      }
+      
       linkedVersion = new ComponentFieldAccess(op, this.field, this);
       linkedVersion.linkedVersion = linkedVersion;
       linkedVersion.linked = true;
@@ -131,7 +136,8 @@ public final class ComponentFieldAccess extends UnaryDataAccess {
   }
 
   @Override
-  public WriteAccess getWriteVersion() {
+  public WriteAccess getWriteVersion(SymbolTable symbolTable) {
+    symbolTable.writes.add(component);
     return new WriteVersion();
   }
 
@@ -166,7 +172,7 @@ public final class ComponentFieldAccess extends UnaryDataAccess {
     }
 
     @Override
-    public WriteAccess getWriteVersion() {
+    public WriteAccess getWriteVersion(SymbolTable symbolTable) {
       return this;
     }
 

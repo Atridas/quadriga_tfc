@@ -103,7 +103,12 @@ public final class ProxyDataAccess extends ExpressionNodeClass implements DataAc
           return aux.getLinkedVersion(symbolTable, errorLog);
         }
       } else {
-        errorLog.insertError("Can not find " + name, this);
+        //ExpressionNode xn = Utils.resolveName(symbolTable, name.split("\\."), this);
+        //if(xn == null) {
+          errorLog.insertError("Can not find " + name, this);
+        //} else {
+        //  return (DataAccess)xn.getLinkedVersion(symbolTable, errorLog);
+        //}
       }
     } else {
       return Utils.accessToMember(nInd, name, this)
@@ -119,7 +124,7 @@ public final class ProxyDataAccess extends ExpressionNodeClass implements DataAc
   }
 
   @Override
-  public WriteAccess getWriteVersion() {
+  public WriteAccess getWriteVersion(SymbolTable symbolTable) {
     return null;
   }
 
