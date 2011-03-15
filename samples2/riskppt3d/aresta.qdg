@@ -1,18 +1,18 @@
 @quadriga riskppt3d.aresta
 
-@import cat.quadriga.base.Transform
-@import cat.quadriga.base.CilynderRenderer
-@import cat.quadriga.base.Materials
+@component cat.quadriga.base.Transform
+@component cat.quadriga.base.CilynderRenderer
+@component cat.quadriga.base.Materials
 
 @java cat.quadriga.java.base.ColorUtils
 @java cat.quadriga.java.base.MaterialUnshadedColor
 
-@import riskppt3d.planeta.DadesComponent
+@component riskppt3d.planeta.DadesComponent
 
 @prototype Aresta(Entity<DadesComponent, Transform> planeta1, Entity<DadesComponent, Transform> planeta2) {
   Transform()
   
-  CilynderRenderer(radi = 0.5f, pos1 = planeta1[Transform], pos2 = planeta1[Transform])
-  //Materials( materials = { new MaterialUnshadedColor( ColorUtils.getHSV(0, 0, 1) ) } )
+  CilynderRenderer(radi: 0.5f, pos1: planeta1[Transform].position, pos2: planeta2[Transform].position)
+  Materials( materials: { new MaterialUnshadedColor( ColorUtils.getHSV(0.0f, 0.0f, 1.0f) ) } )
 
 }
