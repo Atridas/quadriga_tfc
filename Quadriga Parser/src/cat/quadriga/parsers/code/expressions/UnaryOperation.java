@@ -8,7 +8,11 @@ import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
+import cat.quadriga.parsers.code.types.ReferenceTypeRef;
 import cat.quadriga.parsers.code.types.UnknownType;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.Entity;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class UnaryOperation extends UnaryExpressionNode {
 
@@ -42,7 +46,8 @@ public final class UnaryOperation extends UnaryExpressionNode {
     PRE_INC("++X", false),
     PRE_DEC("--X", false),
     POST_INC("X++", true),
-    POST_DEC("X--", true);
+    POST_DEC("X--", true),
+    IS_NULL("isnull",false);
     
     private String representation;
     private boolean post;
@@ -64,6 +69,7 @@ public final class UnaryOperation extends UnaryExpressionNode {
   public BaseType getType() {
     switch(operator) {
     case NOT:
+    case IS_NULL:
       return PrimitiveTypeRef.getFromType(PrimitiveTypeRef.Type.BOOLEAN);
     case BIT_COMP:
     case NEGATE:
@@ -139,6 +145,12 @@ public final class UnaryOperation extends UnaryExpressionNode {
           return null;
         }
         break;
+      case IS_NULL:
+        if(!(bt instanceof ReferenceTypeRef)) {
+          errorLog.insertError("Need a reference operand", operand);
+          return null;
+        }
+        break;
       default:
         errorLog.insertError("Operator '" + operator.representation + "' not recognized", this);
         return null;
@@ -162,5 +174,37 @@ public final class UnaryOperation extends UnaryExpressionNode {
     if(lit == null)
       return null;
     return lit.unaryOp(operator);
+  }
+  
+
+  @Override
+  public ComputedValue compute(RuntimeEnvironment runtime) {
+    try {
+      ComputedValue cv = operand.compute(runtime);
+      switch(operator) {
+      case NOT:
+        return new LiteralData.BooleanLiteral(
+            !cv.getAsBool(), this);
+      case IS_NULL:
+        if(cv instanceof Entity) {
+          return new LiteralData.BooleanLiteral(false, this);
+        } else {
+          return new LiteralData.BooleanLiteral(
+              cv.getAsObject() == null, this);
+        }
+      case BIT_COMP:
+      case NEGATE:
+      case PRE_INC:
+      case PRE_DEC:
+      case POST_INC:
+      case POST_DEC:
+      default:
+        throw new RuntimeException("Not yet implemented");
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("Error in " 
+          + beginLine + ":" + beginColumn + " "
+          + endLine + ":" + endColumn + " " + file, e);
+    }
   }
 }

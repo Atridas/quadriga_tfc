@@ -6,9 +6,18 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.vecmath.Matrix4f;
+
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
+import cat.quadriga.render.simple.Box;
+import cat.quadriga.render.simple.QuadExample;
+import cat.quadriga.render.simple.RenderManager;
+import cat.quadriga.render.simple.Sphere;
 import cat.quadriga.runtime.RuntimeEnvironment;
 import cat.quadriga.runtime.RuntimeMain;
 import cat.quadriga.runtime.qvm.DataBaseEntitySystem;
@@ -19,21 +28,33 @@ public class Quadriga {
     DataBaseEntitySystem ces = new DataBaseEntitySystem();
     try {
     
-      QuadrigaSimple quadrigaSimple = new QuadrigaSimple(args[0]);
+      QuadrigaSimple quadrigaSimple = new QuadrigaSimple(args[0].replace('.', '/') + ".qdg");
       SymbolTable symbolTable = quadrigaSimple.symbolTable;
       ErrorLog errorLog = quadrigaSimple.errorLog;
       errorLog.writeClasses = true;
       try {
         System.out.println("Parsing " + args[0]);
         quadrigaSimple.QuadrigaUnit();
-        for(int i = 1; i < args.length; i++) {
-          System.out.println("Parsing " + args[i]);
-          quadrigaSimple = new QuadrigaSimple(args[i]);
+        
+        Set<String> parsedPackages = new HashSet<String>();
+        parsedPackages.add(args[0]);
+        Set<String> dependencies = quadrigaSimple.dependencies;
+        dependencies.removeAll(parsedPackages);
+        
+        while(dependencies.size() > 0) {
+          String parse = dependencies.iterator().next();
+          parsedPackages.add(parse);
+          
+          System.out.println("Parsing " + parse);
+          quadrigaSimple = new QuadrigaSimple(parse.replace('.', '/') + ".qdg");
           quadrigaSimple.symbolTable.copyGlobals(symbolTable);
           quadrigaSimple.errorLog = errorLog;
           quadrigaSimple.QuadrigaUnit();
           symbolTable = quadrigaSimple.symbolTable;
           errorLog = quadrigaSimple.errorLog;
+          
+          dependencies.addAll(quadrigaSimple.dependencies);
+          dependencies.removeAll(parsedPackages);
         }
       } catch (ParseException e) {
         e.printStackTrace();
@@ -69,47 +90,32 @@ public class Quadriga {
       RuntimeMain rm = (RuntimeMain)((TypeSymbol)symbolTable.findSymbol("riskppt3d.demo.DemoMain")).type;
       
       rm.execute(runtime);
-      
-      /*
-      Entity joan     = ces.createEntity("joan",     "el primer", null,     runtime);
-      Entity segon    = ces.createEntity(null,       "el segon",  joan,     runtime);
-      Entity sigfried = ces.createEntity("sigfried", "el tercer", joan,     runtime);
-      Entity macbeth  = ces.createEntity("macbeth",  null,        sigfried, runtime);
-      
-      //RuntimeComponent rc = (RuntimeComponent)((TypeSymbol)symbolTable.findSymbol("riskppt3d.planeta.DadesComponent")).type;
-      RuntimeComponent rc = (RuntimeComponent)((TypeSymbol)symbolTable.findSymbol("cat.quadriga.base.Transform")).type;
-      
-      rc = ces.createComponent(rc, null,runtime);
-      
-      Map<String,ComputedValue> compArgs = new HashMap<String, ComputedValue>();
-      ComponentInstance ci = rc.createInstance(compArgs,runtime);
-      ces.addComponent(joan, ci,runtime);
-      
-      //compArgs.put("radi", new LiteralData.FloatLiteral(15,CodeZoneClass.runtime));
-      ComponentInstance ci2 = rc.createInstance(compArgs,runtime);
-      ces.addComponent(segon, ci2,runtime);
-      ci2.copy(ci);
-  
-      compArgs.put("position", new JavaReference(new Vector3f(1, 2, 3)));
-      compArgs.put("scale", new LiteralData.FloatLiteral(22,CodeZoneClass.runtime));
-      rc.createInstance(compArgs,runtime);
-      
-      System.out.println(ces.printAllTables());
-      
-      */
-      
-
-      //RuntimeComponent transform = (RuntimeComponent)((TypeSymbol)symbolTable.findSymbol("cat.quadriga.base.Transform")).type;
-      //RuntimeComponent planeta = (RuntimeComponent)((TypeSymbol)symbolTable.findSymbol("riskppt3d.planeta.DadesComponent")).type;
-      
-      //List<QuadrigaComponent> components = new LinkedList<QuadrigaComponent>();
-      //components.add(transform);
-      //components.add(planeta);
-      
-      //runtime.entitySystem.getAllEntitiesWithComponents(components, runtime);
-      
     } finally {
-      System.out.println(ces.printAllEntities());
     }
+    
+    
+    //QuadExample qe = new QuadExample();
+    //qe.start();
+    
+    RenderManager rm = RenderManager.instance;
+    RenderManager.initGL(800, 600);
+    
+    //Sphere sphere = new Sphere(1, 20);
+    Box box = new Box();
+
+    Matrix4f world = new Matrix4f();
+    Matrix4f proj = new Matrix4f();
+    world.setIdentity();
+    //Matrix4f viewProj = new Matrix4f();
+    while(!RenderManager.isCloseRequested()) {
+      RenderManager.initRender();
+      rm.getViewProjectionMatrix(proj);
+      //sphere.render(world, viewProj);
+      box.render(world, proj);
+      
+      RenderManager.switchBuffers();
+    }
+    Sphere.cleanUp();
+    RenderManager.close();
   }
 }

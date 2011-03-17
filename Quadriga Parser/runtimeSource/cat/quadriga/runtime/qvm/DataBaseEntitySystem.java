@@ -313,17 +313,13 @@ public class DataBaseEntitySystem implements EntitySystem {
     return component;
   }
   
-  /*
+  
   @Override
-  public ComponentInstance getComponent(Entity entity, QuadrigaComponent type) {
-    DBComponent dbc = components.get(type.getBinaryName());
-    
-    try {
-      return dbc.getComponent((DBEntity)entity);
-    } catch (SQLException e) {
-      throw new IllegalStateException(e);
-    }
-  }*/
+  public Entity findEntity(int guid) {
+    DBEntity entity = new DBEntity();
+    entity.id = guid;
+    return entity;
+  }
   
   @Override
   public Entity findEntity(String name) {
@@ -625,7 +621,7 @@ public class DataBaseEntitySystem implements EntitySystem {
         ResultSet rs = st.executeQuery();
         if(rs.next()) {
           father.id = rs.getInt(1);
-          if(!rs.wasNull()) 
+          if(father.id >= 0) 
             return father;
         }
         
@@ -787,6 +783,11 @@ public class DataBaseEntitySystem implements EntitySystem {
     @Override
     public String toString() {
       return "DBEntity: " + id;
+    }
+
+    @Override
+    public int getGUID() {
+      return id;
     }
   }
   

@@ -8,6 +8,9 @@ import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.parsers.code.types.ReferenceTypeRef;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.Entity;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class BooleanOperation extends BinaryExpressionNode {
 
@@ -17,6 +20,18 @@ public final class BooleanOperation extends BinaryExpressionNode {
                               ExpressionNode operant2) {
     super(operant1,  operant2);
     this.operator = operator;
+  }
+
+  public BooleanOperation( Operator operator,
+                              ExpressionNode operant1, 
+                              ExpressionNode operant2,
+                              boolean linked) {
+    super(operant1,  operant2);
+    this.operator = operator;
+    this.linked = true;
+    if(linked) {
+      linkedVersion = this;
+    }
   }
   
   @Override
@@ -46,9 +61,9 @@ public final class BooleanOperation extends BinaryExpressionNode {
   }
   
   private boolean linked = false;
-  private BooleanOperation linkedVersion = null;
+  private ExpressionNode linkedVersion = null;
   @Override
-  public BooleanOperation getLinkedVersion(SymbolTable symbolTable,
+  public ExpressionNode getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
     if(linked) {
       return this;
@@ -81,7 +96,23 @@ public final class BooleanOperation extends BinaryExpressionNode {
         }
         break;
       case EQ:
+        if(left instanceof LiteralData.NullLiteral) {
+          linkedVersion = new UnaryOperation(UnaryOperation.Operator.IS_NULL,right,this).getLinkedVersion(symbolTable, errorLog);
+          return linkedVersion;
+        } else if(right instanceof LiteralData.NullLiteral) {
+          linkedVersion = new UnaryOperation(UnaryOperation.Operator.IS_NULL,left,this).getLinkedVersion(symbolTable, errorLog);
+          return linkedVersion;
+        }
       case NEQ:
+        if(left instanceof LiteralData.NullLiteral) {
+          linkedVersion = new UnaryOperation(UnaryOperation.Operator.IS_NULL,right,this);
+          linkedVersion = new UnaryOperation(UnaryOperation.Operator.NOT,linkedVersion,this).getLinkedVersion(symbolTable, errorLog);
+          return linkedVersion;
+        } else if(right instanceof LiteralData.NullLiteral) {
+          linkedVersion = new UnaryOperation(UnaryOperation.Operator.IS_NULL,left,this);
+          linkedVersion = new UnaryOperation(UnaryOperation.Operator.NOT,linkedVersion,this).getLinkedVersion(symbolTable, errorLog);
+          return linkedVersion;
+        }
         if(left.getType() instanceof ReferenceTypeRef && right.getType() instanceof ReferenceTypeRef) {
           break;
         }
@@ -98,8 +129,6 @@ public final class BooleanOperation extends BinaryExpressionNode {
         }
       }
       linkedVersion = new BooleanOperation(operator, left, right);
-      linkedVersion.linkedVersion = linkedVersion;
-      linkedVersion.linked = true;
     }
     return linkedVersion;
   }
@@ -118,5 +147,53 @@ public final class BooleanOperation extends BinaryExpressionNode {
     }
     
     return left.executeBooleanOp(right, operator);
+  }
+  
+  @Override
+  public ComputedValue compute(RuntimeEnvironment runtime) {
+    assert isCorrectlyLinked();
+    
+    try {
+      ComputedValue left  = leftOperand .compute(runtime);
+      ComputedValue right = rightOperand.compute(runtime);
+      
+      if(left instanceof LiteralData) {
+        if(right instanceof LiteralData) {
+          return ((LiteralData)left).executeBooleanOp((LiteralData)right, operator);
+        } else {
+          return new LiteralData.BooleanLiteral(false, this);
+        }
+      } else if(left instanceof Entity) {
+        if(right instanceof Entity) {
+          return new LiteralData.BooleanLiteral(
+              ((Entity)left).getGUID() == ((Entity)right).getGUID(),
+              this);
+        } else {
+          return new LiteralData.BooleanLiteral(false, this);
+        }
+      } else {
+        switch(operator) {
+        case EQ:
+          return new LiteralData.BooleanLiteral(
+              left.getAsObject() == right.getAsObject(),
+              this);
+        case NEQ:
+          return new LiteralData.BooleanLiteral(
+              left.getAsObject() != right.getAsObject(),
+              this);
+        case LT:
+        case GT:
+        case LE:
+        case GE:
+        case INSTANCEOF:
+        default:
+          throw new IllegalStateException("Not yet implemented");
+        }
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("Error in " 
+          + beginLine + ":" + beginColumn + " "
+          + endLine + ":" + endColumn + " " + file, e);
+    }
   }
 }
