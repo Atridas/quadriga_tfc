@@ -24,6 +24,7 @@ public interface EntitySystem {
               Entity entity, 
               QuadrigaComponent type);
   */
+  Entity findEntity(int guid);
   Entity findEntity(String name);
   Entity findEntity(String name, Entity parent);
   

@@ -7,6 +7,7 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public class IfStatementNode extends StatementNodeClass {
   
@@ -106,4 +107,22 @@ public class IfStatementNode extends StatementNodeClass {
     return linked;
   }
 
+  
+  @Override
+  public void execute(RuntimeEnvironment runtime) {
+    assert isCorrectlyLinked();
+    
+    try {
+      boolean condResult = conditionExpression.compute(runtime).getAsBool();
+      if(condResult) {
+        ifCode.execute(runtime);
+      } else if(elseCode != null) {
+        elseCode.execute(runtime);
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("Error in " 
+          + beginLine + ":" + beginColumn + " "
+          + endLine + ":" + endColumn + " " + file, e);
+    }
+  }
 }

@@ -9,4 +9,5 @@ public interface Entity extends Serializable, ComputedValue {
   ComponentInstance getComponent(QuadrigaComponent type);
   void cacheComponent(QuadrigaComponent component);
   void commitChanges();
+  int getGUID();
 }

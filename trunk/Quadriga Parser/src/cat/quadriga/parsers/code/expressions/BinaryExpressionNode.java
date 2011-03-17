@@ -29,8 +29,4 @@ public abstract class BinaryExpressionNode extends ExpressionNodeClass {
   public ExpressionNode getRightOperand() {
     return rightOperand ;
   }
-  
-  @Override
-  public abstract BinaryExpressionNode getLinkedVersion(SymbolTable symbolTable,
-      ErrorLog errorLog);
 }

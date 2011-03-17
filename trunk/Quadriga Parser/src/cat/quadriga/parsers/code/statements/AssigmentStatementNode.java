@@ -134,23 +134,30 @@ public class AssigmentStatementNode extends StatementNodeClass {
   @Override
   public void execute(RuntimeEnvironment runtime) {
     assert isCorrectlyLinked();
-    
-    ComputedValue result = rightOperand.compute(runtime);
-    if(operator != Operator.ASSIGN) {
-      throw new IllegalStateException("Not yet implemented " + this.getClass().getCanonicalName());
-    }
-    
-    WriteAccess writeTo = (WriteAccess) leftOperand;
-    
-    if(writeTo.getType() instanceof QuadrigaEntity) {
-      QuadrigaEntity qe = (QuadrigaEntity) writeTo.getType();
-      Entity resEntity = (Entity) result;
-      for(QuadrigaComponent qc : qe.catchedComponents) {
-        resEntity.cacheComponent(qc);
+    try {
+      ComputedValue result = rightOperand.compute(runtime);
+      if(operator != Operator.ASSIGN) {
+        throw new IllegalStateException("Not yet implemented " + this.getClass().getCanonicalName());
       }
-      result = resEntity;
+      
+      WriteAccess writeTo = (WriteAccess) leftOperand;
+      
+      if(writeTo.getType() instanceof QuadrigaEntity) {
+        QuadrigaEntity qe = (QuadrigaEntity) writeTo.getType();
+        if(result instanceof Entity) {
+          Entity resEntity = (Entity) result;
+          for(QuadrigaComponent qc : qe.catchedComponents) {
+            resEntity.cacheComponent(qc);
+          }
+          result = resEntity;
+        }
+      }
+      
+      writeTo.setValue(result, runtime);
+    } catch (Exception e) {
+      throw new RuntimeException("Error in " 
+          + beginLine + ":" + beginColumn + " "
+          + endLine + ":" + endColumn + " " + file, e);
     }
-    
-    writeTo.setValue(result, runtime);
   }
 }
