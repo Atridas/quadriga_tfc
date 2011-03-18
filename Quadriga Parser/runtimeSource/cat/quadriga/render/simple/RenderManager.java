@@ -24,6 +24,8 @@ public class RenderManager {
   
   private static Map<String, RenderManager> instances = new HashMap<String, RenderManager>();
   public final static RenderManager instance = new RenderManager();
+  private static StaticMesh axis;
+  private static final MaterialManager materialManager = new MaterialManager();
   
   public static RenderManager getInstance(String name) {
     RenderManager instance = instances.get(name);
@@ -56,7 +58,36 @@ public class RenderManager {
     childs.add(child);
   }
   
-  public void setProjection(
+  public static MaterialManager getMaterialManager() {
+    return materialManager;
+  }
+  
+  public void setPerspective(float fovy, float aspect, float zNear, float zFar) {
+    float f = (float)(1.0 / Math.tan(fovy/2.));
+    projectionMatrix.setColumn(0, 
+        f/aspect,
+        0,
+        0,
+        0);
+    projectionMatrix.setColumn(1, 
+        0,
+        f,
+        0,
+        0);
+    projectionMatrix.setColumn(2, 
+        0,
+        0,
+        (zFar+zNear)/(zNear-zFar),
+        -1);
+    projectionMatrix.setColumn(3, 
+        0,
+        0,
+        2*zFar*zNear / (zNear-zFar),
+        0);
+        
+  }
+  
+  public void setFrustum(
       float left, float right, 
       float bottom, float top, 
       float near, float far) 
@@ -79,7 +110,7 @@ public class RenderManager {
     projectionMatrix.setColumn(3, 
         0.0f, 
         0.0f, 
-        -near * far / (far-near), 
+        -2*near * far / (far-near), 
         0.0f);
   }
   
@@ -106,16 +137,16 @@ public class RenderManager {
   }
   
   public void getViewProjectionMatrix(Matrix4f viewProjection) {
-    viewProjection.set( projectionMatrix );
+    viewProjection.mul( projectionMatrix );
     viewProjection.mul( viewMatrix   );
   }
   
   public void getViewMatrix(Matrix4f view) {
-    view.set( viewMatrix );
+    view.mul( viewMatrix );
   }
   
   public void getProjectionMatrix(Matrix4f projection) {
-    projection.set( projectionMatrix );
+    projection.mul( projectionMatrix );
   }
   
   public static void initGL(int width, int height) {
@@ -124,24 +155,7 @@ public class RenderManager {
       
       Display.create();
       
-      /*GL11.glClearColor(1, 0, 1, 1);
-      GL11.glDisable(GL11.GL_DEPTH_TEST);
-      GL11.glDisable(GL11.GL_CULL_FACE);
-      GL11.glViewport(0, 0, width, height);
-      GL11.glClearDepth(0);*/
-    //GL20.glUseProgram(0);
-      glMatrixMode(GL_PROJECTION);
-      glLoadIdentity();
-      //glOrtho(0, 800, 600, 0, 1, -1);
-      glFrustum(-5.0f, 5.0f,
-                -5.0f, 5.0f,
-                1.0f,99.9f);
-      
-      glMatrixMode(GL_MODELVIEW);
-      //glLoadIdentity();
-      //GL11.glTranslatef(0, 1, 10);
-      
-      glColor3f(0.5f,0.5f,1.0f);
+      glEnable(GL_DEPTH_TEST);
       
     } catch (LWJGLException e) {
       throw new IllegalStateException(e);
@@ -153,24 +167,6 @@ public class RenderManager {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
   }
   
-  public static void testRender() {
-    glBegin(GL_QUADS);
-    {
-      glColor4f(1, 0, 0, 1);
-      glVertex3f(100,100,0);
-  
-      glColor4f(0, 1, 0, 1);
-      glVertex3f(100+200,100,0);
-  
-      glColor4f(1, 1, 0, 1);
-      glVertex3f(100+200,100+200,0);
-  
-      glColor4f(0, 0, 1, 1);
-      glVertex3f(100,100+200,0);
-    }
-    glEnd();
-  }
-  
   public static void switchBuffers() {
     Display.update();
   }
@@ -180,6 +176,13 @@ public class RenderManager {
   }
   
   public static void close() {
+    
+    if(axis != null) {
+      axis.cleanUp();
+      axis = null;
+    }
+    materialManager.cleanUp();
+    
     Display.destroy();
   }
   
@@ -192,4 +195,63 @@ public class RenderManager {
     }
     out.rewind();
   }
+  
+  private static void initAxis() {
+    
+    Material axisMaterial = materialManager.getMaterial("resources/materials/color.xml");
+    
+    /*String fragmentShader = 
+      "varying vec4 v_Color;\n" +
+
+      "void main(void) {\n" +
+      "    gl_FragColor = v_Color;\n" +
+      "}\n";
+    
+    String vertexShader = 
+      "attribute vec3 a_Position;\n" +
+      "attribute vec4 a_Color;\n\n" +
+      
+      "varying vec4 v_Color;\n\n" +
+
+       "uniform mat4 u_World;\n" +
+       "uniform mat4 u_ViewProj;\n\n" +
+    
+       "void main(void) {\n" +
+       "    gl_Position = u_ViewProj * u_World * vec4(a_Position, 1.0);\n" +
+       "    v_Color = a_Color;\n" +
+       "}\n";
+    
+    ShaderObject axisShader = new ShaderObject(vertexShader, fragmentShader);
+    
+    Material axisMaterial = new Material();
+    axisMaterial.shader             = axisShader;
+    axisMaterial.positionName       = "a_Position";
+    axisMaterial.colorName          = "a_Color";
+    axisMaterial.worldMatrixName    = "u_World";
+    axisMaterial.viewProjMatrixName = "u_ViewProj";*/
+    
+    Vertex[] axisVertex = {
+        new Vertex.PositionColor(0, 0, 0, 1, 1, 1, 1),
+        new Vertex.PositionColor(1, 0, 0, 1, 0, 0, 1),
+        new Vertex.PositionColor(0, 1, 0, 0, 1, 0, 1),
+        new Vertex.PositionColor(0, 0, 1, 0, 0, 1, 1),
+                          };
+    
+    int indexos[] = {0,1,0,2,0,3};
+    
+    axis = new StaticMesh(axisMaterial, axisVertex, indexos, GL_LINES);
+  }
+  
+  public void drawAxis(Vector3f position) {
+    Matrix4f world = new Matrix4f();
+    world.setIdentity();
+    if(position!=null) {
+      world.setTranslation(position);
+    }
+    if(axis == null) {
+      initAxis();
+    }
+    axis.render(world, this);
+  }
 }
+
