@@ -19,11 +19,18 @@
   int[] materials;
 }
 
+@component SphereRenderer {
+  * Transform
+  float radi = 1.0f;
+  int[] materials;
+}
+
 @component CilynderRenderer {
   * Transform
   float radi = 1.0f;
   Vector3f pos1 = new Vector3f(0.0f,0.0f,0.0f);
   Vector3f pos2 = new Vector3f(0.0f,0.0f,1.0f);
+  int[] materials;
 }
 
 @component TexturedQuad {
@@ -69,6 +76,49 @@
   CameraComponent()
 }
 
+@java cat.quadriga.render.simple.RenderManager
+@java cat.quadriga.render.simple.Node
+
+@system SimpleNodeSystem {
+  @components {
+    Transform
+  }
+  
+  @update(Entity<Transform> entity: ENTITY) {
+    RenderManager rm = RenderManager.instance;
+    Node node = rm.getNode(entity.getGUID());
+    Entity parent = entity.getParent();
+    if(parent != null) {
+      rm.setParent(entity.getGUID(), parent.getGUID());
+    }
+    node.setTranslation( entity[Transform].position );
+    node.setRotation( entity[Transform].rotation );
+    node.setScale( entity[Transform].scale );
+  }
+}
+
+@system SimpleCameraSystem {
+  @components {
+    CameraComponent
+  }
+  
+  @update(Entity<CameraComponent> entity : ENTITY) {
+    RenderManager rm = RenderManager.instance;
+    rm.setCamera(entity[CameraComponent].position, entity[CameraComponent].lookAt, entity[CameraComponent].up);
+  }
+}
+
+@system SimpleSphereRenderer {
+  @components {
+    SphereRenderer
+  }
+  
+  @update(Entity<Transform, SphereRenderer> entity : ENTITY) {
+  
+  }
+}
+
+/*
 @system SimpleStaticMeshRenderer {
   @components {
     Transform
@@ -80,7 +130,20 @@
     System.out.println(entity.toString());
   }
 }
+*/
+
 
 @thread SimpleRenderThread {
-  @system SimpleStaticMeshRenderer
+  @system SimpleCameraSystem
+  @system SimpleNodeSystem
+  @system SimpleSphereRenderer
+  
+  @init {
+    RenderManager rm = RenderManager.instance;
+    /*rm.setFrustum(-4.0f, 4.0f,
+                     -3.0f, 3.0f,
+                      1.0f,99.9f);*/
+                      
+    rm.setPerspective(45.f, 800.0f/600.0f, 1.f, 99.f);
+  }
 }

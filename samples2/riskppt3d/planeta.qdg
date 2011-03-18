@@ -5,6 +5,7 @@
 
 @component cat.quadriga.base.Transform
 @component cat.quadriga.base.StaticMeshRenderer
+@component cat.quadriga.base.SphereRenderer
 @component cat.quadriga.base.BillboardRenderer
 @component cat.quadriga.base.TexturedQuad
 @component cat.quadriga.base.FontQuad
@@ -18,15 +19,16 @@
 
 @component DadesComponent
 {
-  float radi = 1.0;
+  float radi = 1.0f;
 }
 
-@prototype Planeta( float hue = 0.0 )
+@prototype Planeta( float hue = 0.0 , float radi = 1.0)
 {
   Transform()
-  StaticMeshRenderer(mesh: "quadriga.baseassets.staticmeshes.Sphere", materials: { 0 })
+  DadesComponent(radi: radi)
+  //StaticMeshRenderer(mesh: "quadriga.baseassets.staticmeshes.Sphere", materials: { 0 })
+  SphereRenderer(radi: this[DadesComponent].radi, materials: { 0 })
   Materials( materials : { new MaterialUnshadedColor( ColorUtils.getHSV(hue, 0.8f, 0.9f) ) } )
-  DadesComponent();
 
   @child {
     "Info":PlanetaInfo()

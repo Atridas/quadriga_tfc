@@ -34,7 +34,9 @@
 
     "Aresta7" : Aresta( planeta1: this["Planeta2"], planeta2: this["Planeta5"] )
     
-    "Camera" : SimpleCamera( [CameraComponent].position: new Vector3f(-1.0f, -1.0f, 2.0f), [CameraComponent].lookAt: new Vector3f(0.0f,0.0f,0.0f))
+    "Camera" : SimpleCamera( [CameraComponent].position: new Vector3f(1.0f, 1.0f, 2.0f), 
+                             [CameraComponent].lookAt: new Vector3f(0.0f,0.0f,0.0f),
+                             [CameraComponent].up: new Vector3f(0.0f,0.0f,1.0f))
   }
   SceneComponent( camera: this["Camera"] )
 }
