@@ -1,40 +1,36 @@
 package cat.quadriga.render.simple;
 
-import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.*;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.vecmath.Matrix4f;
 
 import org.lwjgl.BufferUtils;
 
-public class ShaderObject {
-  private int vs, fs, program;
+public final class ShaderObject {
+  private int vs=-1, fs=-1, program=-1;
   private Map<String, Integer> uniforms = new HashMap<String, Integer>();
   private Map<String, Integer> attributes = new HashMap<String, Integer>();
   private Map<Integer, FloatBuffer> floatBuffers = new HashMap<Integer, FloatBuffer>();
   private Map<Integer, IntBuffer> intBuffers = new HashMap<Integer, IntBuffer>();
   
-  public ShaderObject(String vertexShader, String fragmentShader, 
-                      Set<String> uniforms, Set<String> attributes) {
+  public ShaderObject(String vertexShader, String fragmentShader) {
+    glUseProgram(0);
+    
     vs = glCreateShader(GL_VERTEX_SHADER);
     
     glShaderSource(vs, vertexShader);
     glCompileShader( vs );
     
-    IntBuffer result = BufferUtils.createIntBuffer(1);
-    result.rewind();
-    glGetShader(vs, GL_COMPILE_STATUS, result);
+    int result;
+    result = glGetShader(vs, GL_COMPILE_STATUS);
     
-    if(result.get() == 0) {
-      result.rewind();
-      glGetShader(vs, GL_INFO_LOG_LENGTH, result);
-      int len = result.get();
+    if(result == 0) {
+      int len = glGetShader(vs, GL_INFO_LOG_LENGTH);
       String info = glGetShaderInfoLog(vs, len);
       throw new IllegalArgumentException("Error in vertex shader: " + info + "\nSource:\n" + vertexShader);
     }
@@ -46,13 +42,10 @@ public class ShaderObject {
     glCompileShader( fs );
     
     //IntBuffer result = BufferUtils.createIntBuffer(1);
-    result.rewind();
-    glGetShader(fs, GL_COMPILE_STATUS, result);
+    result = glGetShader(fs, GL_COMPILE_STATUS);
     
-    if(result.get() == 0) {
-      result.rewind();
-      glGetShader(fs, GL_INFO_LOG_LENGTH, result);
-      int len = result.get();
+    if(result == 0) {
+      int len = glGetShader(fs, GL_INFO_LOG_LENGTH);
       String info = glGetShaderInfoLog(fs, len);
       throw new IllegalArgumentException("Error in fragment shader: " + info + "\nSource:\n" + fragmentShader);
     }
@@ -66,13 +59,10 @@ public class ShaderObject {
     
     glLinkProgram(program);
 
-    result.rewind();
-    glGetProgram(program, GL_LINK_STATUS, result);
+    result = glGetProgram(program, GL_LINK_STATUS);
     
-    if(result.get() == 0) {
-      result.rewind();
-      glGetProgram(program, GL_INFO_LOG_LENGTH, result);
-      int len = result.get();
+    if(result == 0) {
+      int len = glGetProgram(program, GL_INFO_LOG_LENGTH);
       String info = glGetProgramInfoLog(program, len);
       throw new IllegalArgumentException("Error linking shader: " + info 
           + "\nVertex:\n" + vertexShader
@@ -80,19 +70,21 @@ public class ShaderObject {
     }
 
     
-    for(String uniform : uniforms) {
+    int numUniforms = glGetProgram(program, GL_ACTIVE_UNIFORMS);
+    int uniformLen  = glGetProgram(program, GL_ACTIVE_UNIFORM_MAX_LENGTH);
+    
+    for(int i = 0; i < numUniforms; ++i) {
+      String uniform = glGetActiveUniform(program, i, uniformLen);
       int id = glGetUniformLocation(program, uniform);
-      if(id < 0) throw new IllegalArgumentException("Uniform not valid " + uniform 
-          + "\nVertex:\n" + vertexShader
-          + "\nFragment:\n" + fragmentShader);
       this.uniforms.put(uniform, id);
     }
+
+    int numAttributes = glGetProgram(program, GL_ACTIVE_ATTRIBUTES);
+    int attributeLen  = glGetProgram(program, GL_ACTIVE_ATTRIBUTE_MAX_LENGTH);
     
-    for(String attribute : attributes) {
+    for(int i = 0; i < numAttributes; ++i) {
+      String attribute = glGetActiveAttrib(program, i, attributeLen);
       int id = glGetAttribLocation(program, attribute);
-      if(id < 0) throw new IllegalArgumentException("Attribute not valid " + attribute 
-          + "\nVertex:\n" + vertexShader
-          + "\nFragment:\n" + fragmentShader);
       this.attributes.put(attribute, id);
     }
   }
@@ -144,13 +136,23 @@ public class ShaderObject {
                                 offset);
   }
   
-  public void drawBufferedElements(int numPrimitives, boolean isShort) {
-    glDrawElements(GL_TRIANGLES, 
-        numPrimitives * 3, 
-        (isShort)?GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, 0);
-  }
-  
   public void activate() {
     glUseProgram(program);
+  }
+  
+  public void cleanUp() {
+    if(program >= 0)
+      glDeleteProgram(program);
+    if(vs >= 0)
+      glDeleteShader(vs);
+    if(fs >= 0)
+      glDeleteShader(fs);
+    
+    fs = vs = program = -1;
+  }
+  
+  @Override
+  public void finalize() {
+    cleanUp();
   }
 }

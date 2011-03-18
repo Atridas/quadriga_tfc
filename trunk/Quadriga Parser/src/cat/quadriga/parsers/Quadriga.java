@@ -109,9 +109,11 @@ public class Quadriga {
     //Matrix4f viewProj = new Matrix4f();
     while(!RenderManager.isCloseRequested()) {
       RenderManager.initRender();
-      rm.getViewProjectionMatrix(proj);
+      //rm.getViewProjectionMatrix(proj);
       //sphere.render(world, viewProj);
-      box.render(world, proj);
+      box.render(null, world, rm);
+      
+      rm.drawAxis(null);
       
       RenderManager.switchBuffers();
     }
