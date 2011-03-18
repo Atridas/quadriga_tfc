@@ -12,7 +12,10 @@
 @prototype Aresta(Entity<DadesComponent, Transform> planeta1, Entity<DadesComponent, Transform> planeta2) {
   Transform()
   
-  CilynderRenderer(radi: 0.5f, pos1: planeta1[Transform].position, pos2: planeta2[Transform].position)
+  CilynderRenderer(radi: 0.5f, 
+                   pos1: planeta1[Transform].position, 
+                   pos2: planeta2[Transform].position,
+                   materials: { 0 })
   Materials( materials: { new MaterialUnshadedColor( ColorUtils.getHSV(0.0f, 0.0f, 1.0f) ) } )
 
 }

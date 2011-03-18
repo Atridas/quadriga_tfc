@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<material name="simple">
+  <vertex_shader>
+    <file>resources/materials/shaders/simple.vs</file>
+  </vertex_shader>
+  <fragment_shader>
+    <file>resources/materials/shaders/white.fs</file>
+  </fragment_shader>
+  <uniforms>
+    <world_view_projection>u_WorldViewProj</world_view_projection>
+  </uniforms>
+  <attributes>
+    <position>_Position</position>
+  </attributes>
+</material>
