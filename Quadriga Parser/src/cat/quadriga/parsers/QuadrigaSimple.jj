@@ -3116,9 +3116,9 @@ StatementNode Statement():
   |
     statement = TryStatement()
   |
-    statement = ApplyPrototype()
+    statement = ApplyPrototype() ";"
   |
-    statement = CallEvent()
+    statement = CallEvent() ";"
   )
   {
     return statement;  }
@@ -4849,7 +4849,7 @@ StatementNode CallEvent():
   t="@event" [ "[" entity = Expression() "]" ]
   event = Name()
   args = Arguments()
-  [ ":" time = Expression() ]
+  [ ":" time = Expression() ] 
   {
     CodeZone cz = new CodeZoneClass(t,args);
     if(time != null) cz = new CodeZoneClass(cz,time);

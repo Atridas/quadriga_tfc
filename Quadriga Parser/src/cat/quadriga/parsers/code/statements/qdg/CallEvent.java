@@ -1,17 +1,27 @@
 package cat.quadriga.parsers.code.statements.qdg;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.statements.CallToArguments;
+import cat.quadriga.parsers.code.statements.CallToListedArguments;
+import cat.quadriga.parsers.code.statements.CallToNamedArguments;
 import cat.quadriga.parsers.code.statements.StatementNodeClass;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEvent;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.Entity;
+import cat.quadriga.runtime.EventInstance;
+import cat.quadriga.runtime.RuntimeEnvironment;
+import cat.quadriga.runtime.RuntimeEvent;
 
 public class CallEvent extends StatementNodeClass {
   
@@ -104,7 +114,13 @@ public class CallEvent extends StatementNodeClass {
         return null;
       }
       
-      //TODO arguments
+      if(newArgs instanceof CallToListedArguments) {
+        if(((CallToListedArguments)newArgs).arguments.size() > 0) {
+          errorLog.insertError("Arguments must be named", newArgs);
+        }
+      } else {
+        //TODO arguments
+      }
       
       linkedVersion = new CallEvent(newEntity,newEvent,newArgs,newTime,this); 
       linkedVersion.linkedVersion = linkedVersion;
@@ -116,6 +132,38 @@ public class CallEvent extends StatementNodeClass {
   @Override
   public boolean isCorrectlyLinked() {
     return linked;
+  }
+  
+  @Override
+  public void execute(RuntimeEnvironment runtime) {
+    assert isCorrectlyLinked();
+    
+    ComputedValue computedEntity = null;
+    if(entity != null) {
+      computedEntity = entity.compute(runtime);
+    }
+
+    RuntimeEvent re = (RuntimeEvent)event;
+    
+    Map<String,ComputedValue> arguments = new HashMap<String, ComputedValue>();
+    if(args instanceof CallToNamedArguments) {
+      for(Entry<String, ExpressionNode> arg : ((CallToNamedArguments)args).arguments.entrySet()) 
+      {
+        arguments.put(
+            arg.getKey(), 
+            arg.getValue().compute(runtime)
+            );
+      }
+    }
+    
+    EventInstance ei = re.createInstance(arguments, runtime);
+    
+    if(time == null) {
+      runtime.executeEvent(ei, (Entity)computedEntity);
+    } else {
+      runtime.enqueueEvent(ei, (Entity)computedEntity, time.compute(runtime).getAsFloat());
+    }
+    
   }
 
 }

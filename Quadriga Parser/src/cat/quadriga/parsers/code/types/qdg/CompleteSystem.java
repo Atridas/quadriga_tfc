@@ -9,11 +9,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.ParameterClass;
 import cat.quadriga.parsers.code.QuadrigaFunction;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
+import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.statements.BlockCode;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
@@ -370,7 +372,18 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
       } else {
         if("ENTITY".compareToIgnoreCase( param.semantic ) == 0) {
           runtime.putLocalVariable(
-              new LocalVariableSymbol(param.modifiers, param.type, param.name), entity);
+              new LocalVariableSymbol(
+                  param.modifiers, 
+                  param.type, 
+                  param.name), 
+              entity);
+        } else if("DELTA_TIME".compareToIgnoreCase( param.semantic ) == 0) {
+          runtime.putLocalVariable(
+              new LocalVariableSymbol(
+                  param.modifiers, 
+                  param.type, 
+                  param.name), 
+              new LiteralData.FloatLiteral(runtime.dt, CodeZoneClass.runtime));
         } else {
           throw new IllegalArgumentException("Sempantic " + param.semantic + " not suported.");
         }

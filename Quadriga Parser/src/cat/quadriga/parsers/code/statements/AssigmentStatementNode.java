@@ -5,6 +5,7 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.CastExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
+import cat.quadriga.parsers.code.expressions.MathematicOperation;
 import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.WriteAccess;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
@@ -114,7 +115,113 @@ public class AssigmentStatementNode extends StatementNodeClass {
           assert(rightOp != null);
         }
         
-        linkedVersion = new AssigmentStatementNode(operator, leftOp, rightOp);
+        switch(operator) {
+        case ASSIGN:
+          linkedVersion = new AssigmentStatementNode(operator, leftOp, rightOp);
+          break;
+        case PLUSASSIGN:
+          linkedVersion = new AssigmentStatementNode(
+              Operator.ASSIGN,
+              leftOp,
+              new MathematicOperation(
+                  MathematicOperation.Operator.ADD, 
+                  leftOperand, 
+                  rightOp)).getLinkedVersion(symbolTable, errorLog);
+          break;
+        case MINUSASSIGN:
+          linkedVersion = new AssigmentStatementNode(
+              Operator.ASSIGN,
+              leftOp,
+              new MathematicOperation(
+                  MathematicOperation.Operator.SUB, 
+                  leftOperand, 
+                  rightOp)).getLinkedVersion(symbolTable, errorLog);
+          break;
+        case STARASSIGN:
+          linkedVersion = new AssigmentStatementNode(
+              Operator.ASSIGN,
+              leftOp,
+              new MathematicOperation(
+                  MathematicOperation.Operator.MUL, 
+                  leftOperand, 
+                  rightOp)).getLinkedVersion(symbolTable, errorLog);
+          break;
+        case SLASHASSIGN:
+          linkedVersion = new AssigmentStatementNode(
+              Operator.ASSIGN,
+              leftOp,
+              new MathematicOperation(
+                  MathematicOperation.Operator.DIV, 
+                  leftOperand, 
+                  rightOp)).getLinkedVersion(symbolTable, errorLog);
+          break;
+        case ANDASSIGN:
+          linkedVersion = new AssigmentStatementNode(
+              Operator.ASSIGN,
+              leftOp,
+              new MathematicOperation(
+                  MathematicOperation.Operator.BIT_AND, 
+                  leftOperand, 
+                  rightOp)).getLinkedVersion(symbolTable, errorLog);
+          break;
+        case ORASSIGN:
+          linkedVersion = new AssigmentStatementNode(
+              Operator.ASSIGN,
+              leftOp,
+              new MathematicOperation(
+                  MathematicOperation.Operator.BIT_OR, 
+                  leftOperand, 
+                  rightOp)).getLinkedVersion(symbolTable, errorLog);
+          break;
+        case XORASSIGN:
+          linkedVersion = new AssigmentStatementNode(
+              Operator.ASSIGN,
+              leftOp,
+              new MathematicOperation(
+                  MathematicOperation.Operator.BIT_XOR, 
+                  leftOperand, 
+                  rightOp)).getLinkedVersion(symbolTable, errorLog);
+          break;
+        case REMASSIGN:
+          linkedVersion = new AssigmentStatementNode(
+              Operator.ASSIGN,
+              leftOp,
+              new MathematicOperation(
+                  MathematicOperation.Operator.MOD, 
+                  leftOperand, 
+                  rightOp)).getLinkedVersion(symbolTable, errorLog);
+          break;
+        case LSHIFTASSIGN:
+          linkedVersion = new AssigmentStatementNode(
+              Operator.ASSIGN,
+              leftOp,
+              new MathematicOperation(
+                  MathematicOperation.Operator.LEFT_SHIFT, 
+                  leftOperand, 
+                  rightOp)).getLinkedVersion(symbolTable, errorLog);
+          break;
+        case RSIGNEDSHIFTASSIGN:
+          linkedVersion = new AssigmentStatementNode(
+              Operator.ASSIGN,
+              leftOp,
+              new MathematicOperation(
+                  MathematicOperation.Operator.RIGHT_SHIFT, 
+                  leftOperand, 
+                  rightOp)).getLinkedVersion(symbolTable, errorLog);
+          break;
+        case RUNSIGNEDSHIFTASSIGN:
+          linkedVersion = new AssigmentStatementNode(
+              Operator.ASSIGN,
+              leftOp,
+              new MathematicOperation(
+                  MathematicOperation.Operator.RIGHT_UNSIGNED_SHIFT, 
+                  leftOperand, 
+                  rightOp)).getLinkedVersion(symbolTable, errorLog);
+          break;
+        default:
+          errorLog.insertError("Operator " + operator + " unrecognized", this);
+          return null;
+        }
         linkedVersion.linked = true;
         linkedVersion.linkedVersion = linkedVersion;
         

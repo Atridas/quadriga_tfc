@@ -45,7 +45,12 @@ public class DataBaseEntitySystem implements EntitySystem {
   
   private final ThreadLocal<PreparedStatement> 
                         newEntity,
-                        setEntityName;
+                        setEntityName,
+                        findEntity,
+                        addComponent,
+                        getSystemUpdateInfo1,
+                        getSystemUpdateInfo2,
+                        getSystemUpdateInfo3;
   
   private final ThreadLocal<CallableStatement> lastAutoIncrement;
   
@@ -160,6 +165,83 @@ public class DataBaseEntitySystem implements EntitySystem {
           }
         };
         
+        findEntity = 
+          new ThreadLocal < PreparedStatement > () {
+          @Override protected PreparedStatement initialValue() {
+            try{
+              return databaseConnection.get().prepareStatement(
+                  "SELECT id FROM entity_names WHERE parent = ? AND name = ?");
+            } catch (SQLException e) {
+              anyException = e;
+            }
+            return null;
+          }
+        };
+        
+        addComponent = 
+          new ThreadLocal < PreparedStatement > () {
+          @Override protected PreparedStatement initialValue() {
+            try{
+              return databaseConnection.get().prepareStatement(
+                  "INSERT INTO entity_components "
+                  + "(entity_id, component_id, component_data) "
+                  + "VALUES (?, ?, ?)");
+            } catch (SQLException e) {
+              anyException = e;
+            }
+            return null;
+          }
+        };
+        
+        getSystemUpdateInfo1 = 
+          new ThreadLocal < PreparedStatement > () {
+          @Override protected PreparedStatement initialValue() {
+            try{
+              return databaseConnection.get().prepareStatement(
+                  "SELECT COUNT(*) " +
+                  "FROM System_Components SC, Systems S " +
+                  "WHERE S.name = ? " +
+                  "  AND SC.system_id = S.id");
+            } catch (SQLException e) {
+              anyException = e;
+            }
+            return null;
+          }
+        };
+        
+        getSystemUpdateInfo2 = 
+          new ThreadLocal < PreparedStatement > () {
+          @Override protected PreparedStatement initialValue() {
+            try{
+              return databaseConnection.get().prepareStatement(
+                  "SELECT C.entity_id " +
+                  "FROM Entity_Components C, System_Components SC, Systems S " +
+                  "WHERE S.name = ? " +
+                  "  AND SC.system_id = S.id " +
+                  "  AND C.component_id = SC.component_id " +
+                  "ORDER BY C.entity_id");
+            } catch (SQLException e) {
+              anyException = e;
+            }
+            return null;
+          }
+        };
+        
+        getSystemUpdateInfo3 = 
+          new ThreadLocal < PreparedStatement > () {
+          @Override protected PreparedStatement initialValue() {
+            try{
+              return databaseConnection.get().prepareStatement(
+                  "SELECT SLI.entity_id " +
+                  "FROM System_last_iteration SLI, Systems S " +
+                  "WHERE SLI.system_id = S.id AND S.name = ?");
+            } catch (SQLException e) {
+              anyException = e;
+            }
+            return null;
+          }
+        };
+        
         lastAutoIncrement = 
           new ThreadLocal < CallableStatement > () {
           @Override protected CallableStatement initialValue() {
@@ -171,7 +253,6 @@ public class DataBaseEntitySystem implements EntitySystem {
             return null;
           }
         };
-      
       
     } catch (SQLException e) {
       throw new IllegalStateException(e);
@@ -384,7 +465,6 @@ public class DataBaseEntitySystem implements EntitySystem {
       List<Entity> deletedEntities,
       RuntimeEnvironment runtime)
   {
-    String sql;
     ResultSet rs;
     PreparedStatement ps;
     SortedSet<Integer> actualEntities = null;
@@ -392,25 +472,14 @@ public class DataBaseEntitySystem implements EntitySystem {
       actualEntities = new TreeSet<Integer>();
     }
     try {
-      sql = "SELECT COUNT(*) " +
-          "FROM System_Components SC, Systems S " +
-          "WHERE S.name = ? " +
-          "  AND SC.system_id = S.id";
-      ps = databaseConnection.get().prepareStatement(sql);
+      ps = getSystemUpdateInfo1.get();
       ps.setString(1, system.getBinaryName());
       rs = ps.executeQuery();
       rs.next();
       int count = rs.getInt(1);
       
       
-      sql = 
-        "SELECT C.entity_id " +
-        "FROM Entity_Components C, System_Components SC, Systems S " +
-        "WHERE S.name = ? " +
-        "  AND SC.system_id = S.id " +
-        "  AND C.component_id = SC.component_id " +
-        "ORDER BY C.entity_id";
-      ps = databaseConnection.get().prepareStatement(sql);
+      ps = getSystemUpdateInfo2.get();
       ps.setString(1, system.getBinaryName());
       
       rs = ps.executeQuery();
@@ -442,10 +511,7 @@ public class DataBaseEntitySystem implements EntitySystem {
       if(system.hasNewOrDelete()) {
         SortedSet<Integer> prevEntities = new TreeSet<Integer>();
         
-        sql = "SELECT SLI.entity_id " +
-        		  "FROM System_last_iteration SLI, Systems S " +
-        		  "WHERE SLI.system_id = S.id AND S.name = ?";
-        ps = databaseConnection.get().prepareStatement(sql);
+        ps = getSystemUpdateInfo3.get();
         ps.setString(1, system.getBinaryName());
         rs = ps.executeQuery();
         
@@ -503,10 +569,9 @@ public class DataBaseEntitySystem implements EntitySystem {
     } else {
       throw new IllegalArgumentException("Entity of class " + parent.getClass() + " not supported.");
     }
-    String st = "SELECT id FROM entity_names WHERE parent = ? AND name = ?";
     
     try {
-      PreparedStatement ps = databaseConnection.get().prepareStatement(st);
+      PreparedStatement ps = findEntity.get();
       
       ps.setInt(1, parentId);
       ps.setString(2, name);
@@ -561,10 +626,7 @@ public class DataBaseEntitySystem implements EntitySystem {
     
     //TODO cachejar l'statement?
     try {
-      PreparedStatement ps = databaseConnection.get().prepareStatement(
-                                "INSERT INTO entity_components "
-                              + "(entity_id, component_id, component_data) "
-                              + "VALUES (?, ?, ?)");
+      PreparedStatement ps = addComponent.get();
       
       ps.setInt(1, dbEntity.id);
       ps.setInt(2, dbCompInstance.getComponentTypeId());
@@ -1384,7 +1446,7 @@ public class DataBaseEntitySystem implements EntitySystem {
             cv = ent;
           } else {
             cv = new JavaReference( rs.getObject(1) );
-            changedFields.put(field,cv);
+            //changedFields.put(field,cv);
           }
         } catch (SQLException e) {
           throw new IllegalStateException(e);

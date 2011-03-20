@@ -57,9 +57,10 @@ public class StackedSphere {
                                   0,0,radi,0,
                                   0,0,0,   1);
     
-    scale.mul(world);
+    Matrix4f aux = new Matrix4f(world);
+    aux.mul(scale);
     
-    mesh.render(scale, rm);
+    mesh.render(aux, rm);
   }
   
   // xyz, nx, ny, nz, u, v

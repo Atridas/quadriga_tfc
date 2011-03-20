@@ -246,7 +246,8 @@ abstract public class Utils {
     if(origin instanceof UnknownType || destiny instanceof UnknownType) {
       return true;
     }
-    
+    return destiny.isAssignableFrom(origin);
+    /*
     if(origin instanceof PrimitiveTypeRef) {
       PrimitiveTypeRef oPrim = (PrimitiveTypeRef) origin;
       if(destiny instanceof PrimitiveTypeRef) {
@@ -287,6 +288,7 @@ abstract public class Utils {
         return false;
       }
     }
+    */
   }
   
   public static int selectMethod(List<ExpressionNode> calledArgs, Class<?>[][] realArgs) {
