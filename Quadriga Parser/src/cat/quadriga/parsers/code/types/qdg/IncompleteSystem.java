@@ -12,6 +12,7 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.QuadrigaFunction;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
+import cat.quadriga.parsers.code.statements.BlockCode;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.parsers.code.types.UnknownType;
@@ -26,6 +27,7 @@ public class IncompleteSystem extends BaseTypeClass implements QuadrigaSystem {
   public QuadrigaFunction newEntity;
   public QuadrigaFunction removeEntity;
   public QuadrigaFunction changeEntity;
+  public BlockCode init, cleanUp;
   public final Map<QuadrigaEvent, QuadrigaFunction> eventHandlers = new HashMap<QuadrigaEvent, QuadrigaFunction>();
   
   public IncompleteSystem(String binaryName) {

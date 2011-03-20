@@ -14,13 +14,13 @@ import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.parsers.code.types.UnknownType;
 
-public class ProxyComponent extends BaseTypeClass implements QuadrigaComponent {
+public class ProxyEvent extends BaseTypeClass implements QuadrigaEvent {
 
-  public ProxyComponent(String pack, String name) {
+  public ProxyEvent(String pack, String name) {
     super((pack.length()>0)? (pack + "." + name) : name);
   }
 
-  public ProxyComponent(String name) {
+  public ProxyEvent(String name) {
     super(name);
   }
 
@@ -55,16 +55,16 @@ public class ProxyComponent extends BaseTypeClass implements QuadrigaComponent {
   }
 
   @Override
-  public CompleteComponent getValid(SymbolTable symbolTable, ErrorLog errorLog) {
+  public CompleteEvent getValid(SymbolTable symbolTable, ErrorLog errorLog) {
     CodeZone cz = new CodeZoneClass(0,0,0,0,"Linkage");
     
     BaseSymbol symbol = symbolTable.findSymbol(getInstanceableName());
     if(symbol != null) {
       if( symbol instanceof TypeSymbol) {
-        if(((TypeSymbol)symbol).type instanceof CompleteComponent) {
-          return (CompleteComponent)((TypeSymbol)symbol).type;
-        } else if(!(((TypeSymbol)symbol).type instanceof QuadrigaComponent)) {
-          errorLog.insertError("El simbol " + getInstanceableName() + " no és un component",cz);
+        if(((TypeSymbol)symbol).type instanceof CompleteEvent) {
+          return ((CompleteEvent)((TypeSymbol)symbol).type).getValid(symbolTable, errorLog);
+        } else if(!(((TypeSymbol)symbol).type instanceof QuadrigaEvent)) {
+          errorLog.insertError("El simbol " + getInstanceableName() + " no és un event",cz);
           return null;
         }
       } else {
@@ -102,4 +102,5 @@ public class ProxyComponent extends BaseTypeClass implements QuadrigaComponent {
   public Set<QuadrigaComponent> getDependencies() {
     return Collections.emptySet();
   }
+
 }

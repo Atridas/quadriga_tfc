@@ -14,10 +14,8 @@ import javax.vecmath.Matrix4f;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
-import cat.quadriga.render.simple.Box;
-import cat.quadriga.render.simple.QuadExample;
 import cat.quadriga.render.simple.RenderManager;
-import cat.quadriga.render.simple.Sphere;
+import cat.quadriga.render.simple.StackedSphere;
 import cat.quadriga.runtime.RuntimeEnvironment;
 import cat.quadriga.runtime.RuntimeMain;
 import cat.quadriga.runtime.qvm.DataBaseEntitySystem;
@@ -100,24 +98,22 @@ public class Quadriga {
     RenderManager rm = RenderManager.instance;
     RenderManager.initGL(800, 600);
     
-    //Sphere sphere = new Sphere(1, 20);
-    Box box = new Box();
+    StackedSphere sphere = new StackedSphere(1f, 20, 20);
+    //Box box = new Box();
 
     Matrix4f world = new Matrix4f();
-    Matrix4f proj = new Matrix4f();
     world.setIdentity();
     //Matrix4f viewProj = new Matrix4f();
     while(!RenderManager.isCloseRequested()) {
       RenderManager.initRender();
-      //rm.getViewProjectionMatrix(proj);
-      //sphere.render(world, viewProj);
-      box.render(null, world, rm);
+      sphere.render(null, world, rm);
+      //box.render(null, world, rm);
       
       rm.drawAxis(null);
       
       RenderManager.switchBuffers();
     }
-    Sphere.cleanUp();
+    StackedSphere.cleanUp();
     RenderManager.close();
   }
 }

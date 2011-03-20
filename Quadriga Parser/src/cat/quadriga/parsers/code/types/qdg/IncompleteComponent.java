@@ -23,7 +23,7 @@ public class IncompleteComponent extends BaseTypeClass implements QuadrigaCompon
 
   public String description = "";
   public final Set<QuadrigaComponent> dependencies = new HashSet<QuadrigaComponent>();
-  public final Map<String,ComponentField> fields  = new HashMap<String,ComponentField>();
+  public final Map<String,QuadrigaField> fields  = new HashMap<String,QuadrigaField>();
 
   public IncompleteComponent(String pack, String name) {
     super((pack.length()>0)? (pack + "." + name) : name);
@@ -57,7 +57,7 @@ public class IncompleteComponent extends BaseTypeClass implements QuadrigaCompon
     }
   }
   
-  public void addField(ComponentField field, ErrorLog errorLog, CodeZone cz) {
+  public void addField(QuadrigaField field, ErrorLog errorLog, CodeZone cz) {
     if(fields.containsKey(field.name)) {
       errorLog.insertError("Nom " + field.name + " duplicat", cz);
     } else {
@@ -66,7 +66,7 @@ public class IncompleteComponent extends BaseTypeClass implements QuadrigaCompon
   }
 
   @Override
-  public ComponentField getField(String name) {
+  public QuadrigaField getField(String name) {
     return fields.get(name);
   }
 
@@ -95,7 +95,7 @@ public class IncompleteComponent extends BaseTypeClass implements QuadrigaCompon
     String fieldsTree = null;
     String[] aux = new String[fields.size()];
     int i = 0;
-    for(Entry<String,ComponentField> componentField : fields.entrySet()) {
+    for(Entry<String,QuadrigaField> componentField : fields.entrySet()) {
       aux[i] = componentField.getValue().treeStringRepresentation();
       i++;
     }

@@ -15,6 +15,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.Map.Entry;
 
 import cat.quadriga.parsers.code.CodeZone;
@@ -28,6 +30,7 @@ import cat.quadriga.parsers.code.types.JavaType;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaField;
 import cat.quadriga.runtime.ComponentInstance;
 import cat.quadriga.runtime.ComputedValue;
 import cat.quadriga.runtime.Entity;
@@ -35,6 +38,7 @@ import cat.quadriga.runtime.EntitySystem;
 import cat.quadriga.runtime.JavaReference;
 import cat.quadriga.runtime.RuntimeComponent;
 import cat.quadriga.runtime.RuntimeEnvironment;
+import cat.quadriga.runtime.RuntimeSystem;
 
 public class DataBaseEntitySystem implements EntitySystem {
   private final ThreadLocal<Connection> databaseConnection;
@@ -49,8 +53,9 @@ public class DataBaseEntitySystem implements EntitySystem {
   
   
   
-  private Set<String> componentTables = new HashSet<String>();
-  private Map<String,DBComponent> components = new HashMap<String,DBComponent>();
+  private final Set<String> componentTables = new HashSet<String>();
+  private final Map<String,DBComponent> components = new HashMap<String,DBComponent>();
+  private final Map<String, Integer> systemIds = new HashMap<String, Integer>();
   
   public DataBaseEntitySystem() {
     try {
@@ -98,6 +103,29 @@ public class DataBaseEntitySystem implements EntitySystem {
                           + "PRIMARY KEY(entity_id, component_id),"
                           + "FOREIGN KEY(entity_id) REFERENCES entities(id),"
                           + "FOREIGN KEY(component_id) REFERENCES components(id)"
+                          + ")"
+                        );
+      
+      statement.addBatch("CREATE TABLE Systems ("
+                          + "id IDENTITY,"
+                          + "name VARCHAR(500)"
+                          + ")"
+                        );
+      
+      statement.addBatch("CREATE TABLE System_Components ("
+                          + "system_id INTEGER NOT NULL,"
+                          + "component_id INTEGER NOT NULL,"
+                          + "PRIMARY KEY(system_id, component_id),"
+                          + "FOREIGN KEY(system_id) REFERENCES Systems(id),"
+                          + "FOREIGN KEY(component_id) REFERENCES components(id)"
+                          + ")"
+                        );
+      
+      statement.addBatch("CREATE TABLE System_Last_Iteration ("
+                          + "system_id INTEGER NOT NULL,"
+                          + "entity_id INTEGER NOT NULL,"
+                          + "PRIMARY KEY(system_id, entity_id),"
+                          + "FOREIGN KEY(system_id) REFERENCES Systems(id)"
                           + ")"
                         );
       
@@ -313,6 +341,144 @@ public class DataBaseEntitySystem implements EntitySystem {
     return component;
   }
   
+  @Override
+  public void registerSystem(RuntimeSystem system, RuntimeEnvironment runtime) {
+    if(systemIds.containsKey(system.getBinaryName())) return;
+    
+    
+    String sql = "INSERT INTO systems (name) VALUES (\'" + system.getBinaryName() + "\')";
+    
+    try {
+      databaseConnection.get().prepareStatement(sql).execute();
+      
+      int id = lastAutoIncrement();
+      
+      
+      for(QuadrigaComponent c : system.neededComponents()) {
+        DBComponent dbComp = this.components.get(c.getBinaryName());
+        if(dbComp == null) {
+          dbComp = (DBComponent)createComponent((RuntimeComponent)c, null, runtime);
+        }
+        
+        int componentId = dbComp.id;
+        
+        sql = "INSERT INTO system_components (system_id, component_id)"
+            + "VALUES(" + id + ", " + componentId + ")";
+        
+        databaseConnection.get().prepareStatement(sql).execute();
+      }
+      
+      
+      
+    } catch (SQLException e) {
+      throw new IllegalStateException(e);
+    }
+    
+  }
+  
+  @Override
+  public void getSystemUpdateInformation(
+      RuntimeSystem system,
+      List<Entity> update,
+      List<Entity> newEntities,
+      List<Entity> deletedEntities,
+      RuntimeEnvironment runtime)
+  {
+    String sql;
+    ResultSet rs;
+    PreparedStatement ps;
+    SortedSet<Integer> actualEntities = null;
+    if(system.hasNewOrDelete()) {
+      actualEntities = new TreeSet<Integer>();
+    }
+    try {
+      sql = "SELECT COUNT(*) " +
+          "FROM System_Components SC, Systems S " +
+          "WHERE S.name = ? " +
+          "  AND SC.system_id = S.id";
+      ps = databaseConnection.get().prepareStatement(sql);
+      ps.setString(1, system.getBinaryName());
+      rs = ps.executeQuery();
+      rs.next();
+      int count = rs.getInt(1);
+      
+      
+      sql = 
+        "SELECT C.entity_id " +
+        "FROM Entity_Components C, System_Components SC, Systems S " +
+        "WHERE S.name = ? " +
+        "  AND SC.system_id = S.id " +
+        "  AND C.component_id = SC.component_id " +
+        "ORDER BY C.entity_id";
+      ps = databaseConnection.get().prepareStatement(sql);
+      ps.setString(1, system.getBinaryName());
+      
+      rs = ps.executeQuery();
+      
+      int lastId = -1;
+      int it = 0;
+      while(rs.next()) {
+        int id = rs.getInt(1);
+        if(id != lastId) {
+          if(it == count) {
+            DBEntity entity = new DBEntity();
+            entity.id = lastId;
+            update.add(entity);
+            if(system.hasNewOrDelete()) {
+              actualEntities.add(lastId);
+            }
+          }
+          lastId = id;
+          it = 0;
+        }
+        ++it;
+      }
+      if(it == count) {
+        DBEntity entity = new DBEntity();
+        entity.id = lastId;
+        update.add(entity);
+      }
+      
+      if(system.hasNewOrDelete()) {
+        SortedSet<Integer> prevEntities = new TreeSet<Integer>();
+        
+        sql = "SELECT SLI.entity_id " +
+        		  "FROM System_last_iteration SLI, Systems S " +
+        		  "WHERE SLI.system_id = S.id AND S.name = ?";
+        ps = databaseConnection.get().prepareStatement(sql);
+        ps.setString(1, system.getBinaryName());
+        rs = ps.executeQuery();
+        
+        while(rs.next()) {
+          prevEntities.add(rs.getInt(1));
+        }
+        
+
+        Set<Integer> auxSet = new TreeSet<Integer>(actualEntities);
+        auxSet.removeAll(prevEntities);
+        
+        for(int id : auxSet) {
+          DBEntity entity = new DBEntity();
+          entity.id = id;
+          newEntities.add(entity);
+        }
+        
+        auxSet.clear();
+        auxSet.addAll(prevEntities);
+        auxSet.removeAll(actualEntities);
+        
+        for(int id : auxSet) {
+          DBEntity entity = new DBEntity();
+          entity.id = id;
+          deletedEntities.add(entity);
+        }
+      }
+      
+    } catch (SQLException e) {
+      throw new IllegalStateException(e);
+    }
+    
+  }
   
   @Override
   public Entity findEntity(int guid) {
@@ -796,7 +962,7 @@ public class DataBaseEntitySystem implements EntitySystem {
     private int id;
     private String tableName;
     
-    Map<String,ComponentField> fields = new HashMap<String, ComponentField>();
+    Map<String,QuadrigaField> fields = new HashMap<String, QuadrigaField>();
     List<String> fieldList = new ArrayList<String>();
     Set<QuadrigaComponent> dependencies = new HashSet<QuadrigaComponent>();
     
@@ -955,7 +1121,7 @@ public class DataBaseEntitySystem implements EntitySystem {
     }
 
     @Override
-    public ComponentField getField(String name) {
+    public QuadrigaField getField(String name) {
       return fields.get(name);
     }
 

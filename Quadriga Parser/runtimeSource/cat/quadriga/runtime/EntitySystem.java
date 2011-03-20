@@ -19,11 +19,16 @@ public interface EntitySystem {
               Entity entity, 
               ComponentInstance component,
               RuntimeEnvironment runtime);
-  /*
-  ComponentInstance getComponent(
-              Entity entity, 
-              QuadrigaComponent type);
-  */
+  
+  void registerSystem(RuntimeSystem system, RuntimeEnvironment runtime);
+  
+  void getSystemUpdateInformation(
+      RuntimeSystem system,
+      List<Entity> update,
+      List<Entity> newEntities,
+      List<Entity> deletedEntities,
+      RuntimeEnvironment runtime);
+  
   Entity findEntity(int guid);
   Entity findEntity(String name);
   Entity findEntity(String name, Entity parent);

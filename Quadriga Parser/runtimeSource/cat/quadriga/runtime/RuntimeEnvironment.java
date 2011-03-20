@@ -10,6 +10,7 @@ import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 public class RuntimeEnvironment {
   public SymbolTable symbolTable;
   public EntitySystem entitySystem;
+  public boolean keepRunning = true;
   
   
   public Stack<ComputedValue> stack = new Stack<ComputedValue>();

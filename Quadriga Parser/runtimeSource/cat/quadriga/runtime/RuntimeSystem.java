@@ -8,5 +8,14 @@ import cat.quadriga.parsers.code.types.qdg.QuadrigaSystem;
 public interface RuntimeSystem extends QuadrigaSystem {
   Set<QuadrigaComponent> neededComponents();
   boolean hasUpdate();
+  boolean hasNewOrDelete();
+  boolean hasNew();
+  boolean hasDelete();
+  
   void update(Entity entity, RuntimeEnvironment runtime);
+  void newEntity(Entity entity, RuntimeEnvironment runtime);
+  void deleteEntity(Entity entity, RuntimeEnvironment runtime);
+  
+  void executeInit(RuntimeEnvironment runtime);
+  void executeCleanUp(RuntimeEnvironment runtime);
 }

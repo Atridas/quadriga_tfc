@@ -14,6 +14,7 @@ import cat.quadriga.parsers.code.ParameterClass;
 import cat.quadriga.parsers.code.QuadrigaFunction;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
+import cat.quadriga.parsers.code.statements.BlockCode;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
@@ -32,6 +33,7 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
   public final QuadrigaFunction newEntity;
   public final QuadrigaFunction removeEntity;
   public final QuadrigaFunction changeEntity;
+  public final BlockCode init, cleanUp;
   public final Map<QuadrigaEvent, QuadrigaFunction> eventHandlers;
   
   public CompleteSystem(IncompleteSystem original) {
@@ -44,6 +46,8 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     newEntity    = original.newEntity;
     removeEntity = original.removeEntity;
     changeEntity = original.changeEntity;
+    init         = original.init;
+    cleanUp      = original.cleanUp;
     eventHandlers = Collections.unmodifiableMap(new HashMap<QuadrigaEvent, QuadrigaFunction>(original.eventHandlers));
   }
 
@@ -264,6 +268,22 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
         validated = false;
       }
     }
+    if(original.init == null || original.init.isCorrectlyLinked()) {
+      init = original.init;
+    } else {
+      init = original.init.getLinkedVersion(symbolTable, errorLog);
+      if(init == null) {
+        validated = false;
+      }
+    }
+    if(original.cleanUp == null || original.cleanUp.isCorrectlyLinked()) {
+      cleanUp = original.cleanUp;
+    } else {
+      cleanUp = original.cleanUp.getLinkedVersion(symbolTable, errorLog);
+      if(cleanUp == null) {
+        validated = false;
+      }
+    }
     
     
 
@@ -313,18 +333,38 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
   public boolean hasUpdate() {
     return update != null;
   }
+
   @Override
-  public void update(Entity entity, RuntimeEnvironment runtime) {
-    assert isValid();
-    
-    runtime.newLocalContext();
-    
-    
-    
-    //TODO components especials
-    
-    
-    for(ParameterClass param : update.parameters) {
+  public boolean hasNewOrDelete() {
+    return newEntity != null || removeEntity != null;
+  }
+
+  @Override
+  public boolean hasDelete() {
+    return removeEntity != null;
+  }
+
+  @Override
+  public boolean hasNew() {
+    return newEntity != null;
+  }
+  
+  @Override
+  public void executeInit(RuntimeEnvironment runtime) {
+    if(init != null) {
+      init.execute(runtime);
+    }
+  }
+
+  @Override
+  public void executeCleanUp(RuntimeEnvironment runtime) {
+    if(cleanUp != null) {
+      cleanUp.execute(runtime);
+    }
+  }
+  
+  private void prepareParams(Entity entity, List<ParameterClass> params, RuntimeEnvironment runtime) {
+    for(ParameterClass param : params) {
       if(param.semantic == null) {
         throw new IllegalStateException("All update params must have a semantic " + getBinaryName());
       } else {
@@ -336,8 +376,43 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
         }
       }
     }
+  }
+  
+  @Override
+  public void update(Entity entity, RuntimeEnvironment runtime) {
+    assert isValid();
+    
+    runtime.newLocalContext();
+    
+    prepareParams(entity, update.parameters, runtime);
     
     update.code.execute(runtime);
+    
+    runtime.deleteLocalContext();
+  }
+
+  @Override
+  public void deleteEntity(Entity entity, RuntimeEnvironment runtime) {
+    assert isValid();
+    
+    runtime.newLocalContext();
+    
+    prepareParams(entity, removeEntity.parameters, runtime);
+    
+    removeEntity.code.execute(runtime);
+    
+    runtime.deleteLocalContext();
+  }
+
+  @Override
+  public void newEntity(Entity entity, RuntimeEnvironment runtime) {
+    assert isValid();
+    
+    runtime.newLocalContext();
+    
+    prepareParams(entity, newEntity.parameters, runtime);
+    
+    newEntity.code.execute(runtime);
     
     runtime.deleteLocalContext();
   }

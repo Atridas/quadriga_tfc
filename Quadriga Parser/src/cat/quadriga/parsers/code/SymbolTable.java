@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.Map.Entry;
 
+import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.statements.BucleOrSwitchInterface;
 import cat.quadriga.parsers.code.symbols.BaseSymbol;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
@@ -41,6 +42,14 @@ public class SymbolTable implements TreeRepresentable {
   
   public void deleteContext() {
     mapStack.pop();
+  }
+  
+  public BaseSymbol findSymbol(List<Token> name) {
+    String n = name.get(0).image;
+    for(int i = 0; i < name.size(); ++i) {
+      n += "." + name.get(i);
+    }
+    return findSymbol(n);
   }
   
   public BaseSymbol findSymbol(String name) {

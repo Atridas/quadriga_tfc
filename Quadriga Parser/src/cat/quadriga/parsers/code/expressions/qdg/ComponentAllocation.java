@@ -15,6 +15,7 @@ import cat.quadriga.parsers.code.symbols.BaseSymbol;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaField;
 import cat.quadriga.runtime.ComputedValue;
 import cat.quadriga.runtime.RuntimeComponent;
 import cat.quadriga.runtime.RuntimeEnvironment;
@@ -88,7 +89,7 @@ public final class ComponentAllocation extends ExpressionNodeClass {
       }
       
       for(Entry<String,ExpressionNode> namedArg : ctna.arguments.entrySet()) {
-        QuadrigaComponent.ComponentField field = validC.getField(namedArg.getKey());
+        QuadrigaField field = validC.getField(namedArg.getKey());
         if(field == null) {
           errorLog.insertError("Component " + validC.getBinaryName() + " has no " + namedArg.getKey(),namedArg.getValue());
           return null;
