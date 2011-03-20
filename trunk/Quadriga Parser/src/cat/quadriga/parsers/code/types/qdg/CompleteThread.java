@@ -12,12 +12,13 @@ import cat.quadriga.parsers.code.statements.BlockCode;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.parsers.code.types.UnknownType;
+import cat.quadriga.runtime.Clock;
 import cat.quadriga.runtime.Entity;
 import cat.quadriga.runtime.RuntimeEnvironment;
 import cat.quadriga.runtime.RuntimeSystem;
 import cat.quadriga.runtime.RuntimeThread;
 
-public class CompleteThread extends BaseTypeClass implements RuntimeThread {
+public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runnable {
   
   public final List<QuadrigaSystem> systems;
   public final BlockCode init, cleanUp;
@@ -130,6 +131,8 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread {
     return true;
   }
 
+  private Clock clock;
+  
   @Override
   public void init(RuntimeEnvironment runtime) {
     assert isValid();
@@ -138,6 +141,8 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread {
       runtime.entitySystem.registerSystem((RuntimeSystem)qs, runtime);
       ((RuntimeSystem)qs).executeInit(runtime);
     }
+    clock = new Clock();
+    clock.update();
   }
 
   @Override
@@ -152,6 +157,10 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread {
   @Override
   public void execute(RuntimeEnvironment runtime) {
     assert isValid();
+    
+    runtime.dt = clock.update();
+    runtime.timeMilis = clock.getTimeMiliSeconds();
+    
     for(QuadrigaSystem qs : systems) {
       RuntimeSystem system = (RuntimeSystem) qs;
       
@@ -199,5 +208,23 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread {
         }
       }
     }
+  }
+
+  public RuntimeEnvironment runtime;
+  @Override
+  public void run() {
+    RuntimeEnvironment myRuntime = new RuntimeEnvironment();
+    myRuntime.entitySystem = runtime.entitySystem;
+    
+    
+    init(myRuntime);
+    
+    while(runtime.keepRunning && myRuntime.keepRunning) {
+      execute(myRuntime);
+    }
+    
+    runtime.keepRunning = false;
+    
+    cleanUp(myRuntime);
   }
 }

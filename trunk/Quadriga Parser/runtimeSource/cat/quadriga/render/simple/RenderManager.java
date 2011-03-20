@@ -10,14 +10,14 @@ import java.util.Set;
 
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 public class RenderManager {
   private Map<Integer, Node> nodes = new HashMap<Integer, Node>();
-  private Map<Integer, Set<Integer>> parents = new HashMap<Integer, Set<Integer>>();
+  private Map<Integer, Integer> parents = new HashMap<Integer, Integer>();
+  private Map<Integer, Set<Integer>> childs = new HashMap<Integer, Set<Integer>>();
   private Map<Integer, StaticMesh> meshes = new HashMap<Integer, StaticMesh>();
   private Map<Integer, StackedSphere> spheres = new HashMap<Integer, StackedSphere>();
   
@@ -53,16 +53,28 @@ public class RenderManager {
   }
   
   public void setParent(int child, int parent) {
-    Set<Integer> childs = parents.get(parent);
+    
+    //remove old parent, if exists
+    Integer oldParent = this.parents.get(child);
+    if(oldParent != null) {
+      this.childs.get(oldParent).remove(child);
+    }
+    
+    Set<Integer> childs = this.childs.get(parent);
     if(childs == null) {
       childs = new HashSet<Integer>();
-      parents.put(parent, childs);
+      this.childs.put(parent, childs);
     }
     childs.add(child);
+    parents.put(child,parent);
   }
   
   public void setSphere(int position, float radi) {
-    spheres.put(position, new StackedSphere(radi, 10, 10));
+    spheres.put(position, new StackedSphere(radi, 30, 30));
+  }
+  
+  public void changeSphere(int position, float radi) {
+    spheres.get(position).radi = radi;
   }
   
   public void deleteSphere(int position) {
@@ -265,6 +277,37 @@ public class RenderManager {
       initAxis();
     }
     axis.render(world, this);
+  }
+  
+  public void renderGraph() {
+    Matrix4f id = new Matrix4f();
+    id.setIdentity();
+    for(int node : childs.get(-1)) {
+      renderNode(node, id);
+    }
+  }
+  
+  public void renderNode(int node, Matrix4f stackedMatrix) {
+    
+    Node n = nodes.get(node);
+
+    Matrix4f localTransform = new Matrix4f(stackedMatrix);
+    Matrix4f auxTransform = new Matrix4f();
+    n.getLocalTransform(auxTransform);
+    localTransform.mul(auxTransform);
+    
+    //TODO spheres etc...
+    StackedSphere ss = spheres.get(node);
+    if(ss != null) {
+      ss.render(null, localTransform, this);
+    }
+    
+    Set<Integer> childs = this.childs.get(node);
+    if(childs != null) {
+      for(int child : childs) {
+        renderNode(child, localTransform);
+      }
+    }
   }
  
 }

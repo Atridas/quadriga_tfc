@@ -21,7 +21,7 @@ public class Material {
                 worldViewMatrixName,
                 viewProjMatrixName, 
                 worldViewProjMatrixName;
-  
+
   private Matrix4f auxMatrix = new Matrix4f();
   
   public void activate() {
@@ -40,8 +40,9 @@ public class Material {
       shader.setUniform(viewProjMatrixName, auxMatrix);
     }
     if(worldViewProjMatrixName != null) {
-      auxMatrix.set(worldMatrix);
+      auxMatrix.setIdentity();
       rm.getViewProjectionMatrix(auxMatrix);
+      auxMatrix.mul(worldMatrix);
       shader.setUniform(worldViewProjMatrixName, auxMatrix);
     }
     

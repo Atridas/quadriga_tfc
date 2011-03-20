@@ -106,27 +106,53 @@ public class CompleteMain extends BaseTypeClass implements RuntimeMain {
   public boolean isSerializable() {
     return false;
   }
-
+  
+  public static boolean PARALLEL = true;
+  
   @Override
   public void execute(RuntimeEnvironment runtime) {
     init.execute(runtime);
     
-    for(QuadrigaThread qt: threads) {
-      RuntimeThread thread = (RuntimeThread) qt;
-      thread.init(runtime);
-    }
     
-    while(runtime.keepRunning) {
-      //TODO fer el dt i tal
+    if(!PARALLEL) {
       for(QuadrigaThread qt: threads) {
         RuntimeThread thread = (RuntimeThread) qt;
-        thread.execute(runtime);
+        thread.init(runtime);
       }
-    }
-    
-    for(QuadrigaThread qt: threads) {
-      RuntimeThread thread = (RuntimeThread) qt;
-      thread.cleanUp(runtime);
+      
+      while(runtime.keepRunning) {
+        for(QuadrigaThread qt: threads) {
+          RuntimeThread thread = (RuntimeThread) qt;
+          thread.execute(runtime);
+        }
+      }
+      
+      for(QuadrigaThread qt: threads) {
+        RuntimeThread thread = (RuntimeThread) qt;
+        thread.cleanUp(runtime);
+      }
+    } else {
+      //Parallel version
+      Thread[] threads = new Thread[this.threads.size()];
+      
+      int i = 0;
+      for(QuadrigaThread qt: this.threads) {
+        CompleteThread thread = (CompleteThread) qt;
+        thread.runtime = runtime;
+        threads[i] = new Thread(thread);
+        threads[i].start();
+        ++i;
+      }
+      
+      for(Thread t : threads) {
+        try {
+          t.join();
+        } catch (InterruptedException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      }
+      
     }
   }
 
