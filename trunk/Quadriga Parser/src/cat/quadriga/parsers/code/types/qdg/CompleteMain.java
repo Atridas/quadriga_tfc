@@ -116,10 +116,17 @@ public class CompleteMain extends BaseTypeClass implements RuntimeMain {
       thread.init(runtime);
     }
     
-    //TODO fer bucle!!
+    while(runtime.keepRunning) {
+      //TODO fer el dt i tal
+      for(QuadrigaThread qt: threads) {
+        RuntimeThread thread = (RuntimeThread) qt;
+        thread.execute(runtime);
+      }
+    }
+    
     for(QuadrigaThread qt: threads) {
       RuntimeThread thread = (RuntimeThread) qt;
-      thread.execute(runtime);
+      thread.cleanUp(runtime);
     }
   }
 

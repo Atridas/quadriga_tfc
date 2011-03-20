@@ -341,12 +341,14 @@ TOKEN :
   | < AT_EXTERN_INFO:     "@externInfo" >
   | < AT_EVENT:           "@event" >
   | < AT_NEW_ENTITY:      "@newEntity" >
+  | < AT_NEW_COMPONENT:   "@newComponent" >
   | < AT_ERASE_ENTITY:    "@eraseEntity" >
   | < AT_CHANGE:   "@change" >
   | < AT_UPDATE:   "@update" >
   | < AT_QUADRIGA: "@quadriga" >
   | < AT_THREAD:   "@thread" >
   | < AT_INIT:     "@init" >
+  | < AT_CLEANUP:  "@cleanUp" >
   | < AT_SYSTEMS:  "@systems" >
   | < AT_AFFECTED_SYSTEMS: "@affectedSystems" >
   | < AT_CHANGED: "@changed" >
@@ -3115,6 +3117,8 @@ StatementNode Statement():
     statement = TryStatement()
   |
     statement = ApplyPrototype()
+  |
+    statement = CallEvent()
   )
   {
     return statement;  }
@@ -3939,6 +3943,7 @@ void QuadrigaDeclaration():
 {
   JavaImport()
 | ComponentDeclaration()
+| EventDeclaration()
 | PrototypeDeclaration()
 | SystemDeclaration()
 | ThreadDeclaration()
@@ -4006,11 +4011,10 @@ void ComponentDeclaration():
           ) [";"]
           {
             if(type instanceof JavaType) {
-              iComponent.addField(new QuadrigaComponent.ComponentField(
-                                                         (JavaType)type,
-                                                         t.image,
-                                                         initialization
-                                                                ),
+              iComponent.addField(new QuadrigaField((JavaType)type,
+                                                     t.image,
+                                                     initialization
+                                                    ),
                                   errorLog,
                                   new CodeZoneClass(t,file)
                                    );            } else            {
@@ -4057,6 +4061,104 @@ void ComponentDeclaration():
     if(component != null) {
       BaseSymbol symbol = new TypeSymbol(component);
 	  symbolTable.addSymbol(symbol);
+    }
+  }
+}
+
+
+void EventDeclaration():
+{
+  Token t;
+  QuadrigaEvent event = null;
+  List<Token> name;
+  BaseType type;
+  ExpressionNode initialization = null;
+}
+{
+  "@event" 
+  (
+    LOOKAHEAD( 2 ) 
+    t= < IDENTIFIER >
+    {
+      IncompleteEvent iEvent = new IncompleteEvent(currentFile.replace('/','.'), t.image);
+    }
+    "{"
+        [
+            "@description" t = < STRING_LITERAL >
+            {
+              iEvent.description = t.image;
+            }
+        ]
+        ( type = Type()
+          t = < IDENTIFIER >
+          ( "=" initialization = VariableInitializer(type)
+          | { initialization = null; }
+          ) [";"]
+          {
+            if(type instanceof JavaType) {
+              iEvent.addField(new QuadrigaField((JavaType)type,
+                                                 t.image,
+                                                 initialization
+                                                ),
+                                  errorLog,
+                                  new CodeZoneClass(t,file)
+                                   );
+            } else
+            {
+              errorLog.insertError("Type " + type.getBinaryName()
+                                 + " not valid as a event member",
+                                 new CodeZoneClass(t,file));
+            }
+          } 
+        )*
+    "}"
+    {
+      event = new CompleteEvent(iEvent);
+    }
+  |
+    name = Name()
+    {
+      String res = "";
+      String dependency = null;
+      for(int i = 0; i < name.size(); i++) {
+        if(i == name.size() - 1)
+        {
+          dependency = res;
+        }
+        if(i != 0) {
+          res += "." + name.get(i).image;
+        } else {
+          res = name.get(i).image;
+        }
+      }
+      if(name.size() == 1)
+      {
+        event = new ProxyEvent(currentFile.replace('/','.') + '.' + res);
+      } else
+      {
+        BaseSymbol symbol = symbolTable.findSymbol(res);
+        if(symbol != null) {
+          if(symbol instanceof TypeSymbol
+             && ((TypeSymbol)symbol).type instanceof QuadrigaEvent)
+          {
+            event = null; //Ja hi és a la taula de símbols
+          } else
+          {
+            event = new ProxyEvent(res);
+            errorLog.insertError("El símbol " + res + " no és un event",
+                                 new CodeZoneClass(name.get(0),name.get(name.size()-1),file));
+          }
+        } else {
+          event = new ProxyEvent(res);
+          addDependency(dependency);
+        }
+      }
+    }
+  )
+  {
+    if(event != null) {
+      BaseSymbol symbol = new TypeSymbol(event);
+      symbolTable.addSymbol(symbol);
     }
   }
 }
@@ -4209,7 +4311,8 @@ void SystemDeclaration():
   List<Token> name;
   QuadrigaSystem system;
   Token t;
-  QuadrigaFunction fun;}
+  QuadrigaFunction fun;
+  BlockCode block;}
 {
   "@system"
   (
@@ -4241,12 +4344,47 @@ void SystemDeclaration():
                    }                 }
                )+
                "}"         (
-           fun=QuadrigaUpdate()
+           "@init" block = Block()
+           {
+             if(iSystem.init == null)
+             {
+               iSystem.init = block;
+             } else {
+               errorLog.insertError("Més d'un init al sistema " + t.image, block);
+             }           }
+         | "@cleanUp" block = Block()
+           {
+             if(iSystem.cleanUp == null)
+             {
+               iSystem.cleanUp = block;
+             } else {
+               errorLog.insertError("Més d'un init al sistema " + t.image, block);
+             }
+           }
+         | fun=QuadrigaUpdate()
            {
              if(iSystem.update == null)
              {
                iSystem.update = fun;             } else {
                errorLog.insertError("Més d'un update al sistema " + t.image, fun);             }           }
+         | fun = QuadrigaNewEntity()
+           {
+             if(iSystem.newEntity == null)
+             {
+               iSystem.newEntity = fun;
+             } else {
+               errorLog.insertError("Més d'un newEntity al sistema " + t.image, fun);
+             }
+           }
+         | fun = QuadrigaEraseEntity()
+           {
+             if(iSystem.removeEntity == null)
+             {
+               iSystem.removeEntity = fun;
+             } else {
+               errorLog.insertError("Més d'un eraseEntity al sistema " + t.image, fun);
+             }
+           }
            //|AtChange()|AtNew()|AtDelete()|AtEvent()         )*
     "}"
     {
@@ -4304,7 +4442,7 @@ void ThreadDeclaration():
   QuadrigaThread thread;
   List<QuadrigaSystem> systems = new LinkedList<QuadrigaSystem>();
   Set<String> systemNames = new HashSet<String>();
-  BlockCode block = null;}
+  BlockCode init = null, cleanUp = null;}
 {
   "@thread"
   (
@@ -4327,10 +4465,15 @@ void ThreadDeclaration():
               }            } else {
               errorLog.insertError("El símbol " + n + " no és un sistema",
                                    new CodeZoneClass(name.get(0),name.get(name.size()-1),file));            }          }        )+
-        [ "@init" block = Block() ]
+        (           "@init"           {if(init!=null){errorLog.insertError("Més d'un init al thread " + t.image, init);}}
+           init = Block() 
+        |  "@cleanUp"
+           {if(cleanUp!=null){errorLog.insertError("Més d'un cleanUp al thread " + t.image, cleanUp);}}
+           cleanUp = Block() 
+        )*
         {
           thread = new CompleteThread(currentFile.replace('/','.'),t.image,
-                                      systems, block,file);        }
+                                      systems, init, cleanUp ,file);        }
     "}"
   |
     name = Name()
@@ -4569,11 +4712,14 @@ QuadrigaFunction QuadrigaUpdate():
   BlockCode.TmpBlockCode prevBlock = localBlock;
   
   BlockCode code;
-  Token t;}{
+  Token t;
+}
+{
   t="@update"
   { localBlock = new BlockCode.TmpBlockCode(t,file); }
   parameters = FormalParameters()
-  {    for(ParameterClass param : parameters)
+  {
+    for(ParameterClass param : parameters)
     {
       symbolTable.addSymbol(new LocalVariableSymbol(param.modifiers,
                                                     param.type,
@@ -4589,7 +4735,83 @@ QuadrigaFunction QuadrigaUpdate():
     localBlock = prevBlock;
     symbolTable.deleteContext();
 
-    return new QuadrigaFunction(parameters, code, code);  }}
+    return new QuadrigaFunction(parameters, code, code);
+  }
+}
+
+QuadrigaFunction QuadrigaNewEntity():
+{
+  List<ParameterClass > parameters;
+
+  
+  symbolTable.newContext();
+
+  BlockCode.TmpBlockCode prevBlock = localBlock;
+  
+  BlockCode code;
+  Token t;
+}
+{
+  t="@newEntity"
+  { localBlock = new BlockCode.TmpBlockCode(t,file); }
+  parameters = FormalParameters()
+  {
+    for(ParameterClass param : parameters)
+    {
+      symbolTable.addSymbol(new LocalVariableSymbol(param.modifiers,
+                                                    param.type,
+                                                    param.name));
+    }
+  }
+  code = Block()
+
+  {
+    localBlock.addStatement(code);
+    localBlock.setEndCode(code);
+    code = localBlock.transformToBlockCode();
+    localBlock = prevBlock;
+    symbolTable.deleteContext();
+
+    return new QuadrigaFunction(parameters, code, code);
+  }
+}
+
+QuadrigaFunction QuadrigaEraseEntity():
+{
+  List<ParameterClass > parameters;
+
+  
+  symbolTable.newContext();
+
+  BlockCode.TmpBlockCode prevBlock = localBlock;
+  
+  BlockCode code;
+  Token t;
+}
+{
+  t="@eraseEntity"
+  { localBlock = new BlockCode.TmpBlockCode(t,file); }
+  parameters = FormalParameters()
+  {
+    for(ParameterClass param : parameters)
+    {
+      symbolTable.addSymbol(new LocalVariableSymbol(param.modifiers,
+                                                    param.type,
+                                                    param.name));
+    }
+  }
+  code = Block()
+
+  {
+    localBlock.addStatement(code);
+    localBlock.setEndCode(code);
+    code = localBlock.transformToBlockCode();
+    localBlock = prevBlock;
+    symbolTable.deleteContext();
+
+    return new QuadrigaFunction(parameters, code, code);
+  }
+}
 
 ExpressionNode NewEntity():
 {
@@ -4615,6 +4837,40 @@ StatementNode ApplyPrototype():
 {
   "@prototype" xn=Expression() ":" statement=EntityInitialization(xn)
   {    return statement;  }}
+
+StatementNode CallEvent():
+{
+  ExpressionNode entity=null, time=null;
+  List<Token> event;
+  QuadrigaEvent eventType;
+  CallToArguments args;
+  Token t; }
+{
+  t="@event" [ "[" entity = Expression() "]" ]
+  event = Name()
+  args = Arguments()
+  [ ":" time = Expression() ]
+  {
+    CodeZone cz = new CodeZoneClass(t,args);
+    if(time != null) cz = new CodeZoneClass(cz,time);
+
+    String eventName = Utils.getName(event);
+
+    BaseSymbol symbol = symbolTable.findSymbol(eventName);
+    if(symbol != null) {
+      if(symbol instanceof TypeSymbol) {
+        BaseType type = ((TypeSymbol)symbol).type;
+        if(type instanceof QuadrigaEvent) {
+          eventType = (QuadrigaEvent)type;        } else {
+          errorLog.insertError(eventName + " is not a event",cz);
+          eventType = new ProxyEvent(eventName);        }      } else {
+        errorLog.insertError(eventName + " is not a type",cz);
+        eventType = new ProxyEvent(eventName);
+      }     } else {
+      errorLog.insertError(eventName + " not found",cz);
+      eventType = new ProxyEvent(eventName);    }
+    
+    return new CallEvent(entity,eventType,args,time,cz);  }}
 
 ExpressionNode FindEntity():
 {

@@ -18,6 +18,9 @@ import org.lwjgl.opengl.DisplayMode;
 public class RenderManager {
   private Map<Integer, Node> nodes = new HashMap<Integer, Node>();
   private Map<Integer, Set<Integer>> parents = new HashMap<Integer, Set<Integer>>();
+  private Map<Integer, StaticMesh> meshes = new HashMap<Integer, StaticMesh>();
+  private Map<Integer, StackedSphere> spheres = new HashMap<Integer, StackedSphere>();
+  
   private final Matrix4f viewMatrix = new Matrix4f();
   private final Matrix4f projectionMatrix = new Matrix4f();
   private final Vector3f cameraPosition = new Vector3f();
@@ -56,6 +59,14 @@ public class RenderManager {
       parents.put(parent, childs);
     }
     childs.add(child);
+  }
+  
+  public void setSphere(int position, float radi) {
+    spheres.put(position, new StackedSphere(radi, 10, 10));
+  }
+  
+  public void deleteSphere(int position) {
+    spheres.remove(position);
   }
   
   public static MaterialManager getMaterialManager() {
@@ -156,6 +167,7 @@ public class RenderManager {
       Display.create();
       
       glEnable(GL_DEPTH_TEST);
+      glEnable(GL_CULL_FACE);
       
     } catch (LWJGLException e) {
       throw new IllegalStateException(e);
@@ -181,6 +193,7 @@ public class RenderManager {
       axis.cleanUp();
       axis = null;
     }
+    StackedSphere.cleanUp();
     materialManager.cleanUp();
     
     Display.destroy();
@@ -253,5 +266,6 @@ public class RenderManager {
     }
     axis.render(world, this);
   }
+ 
 }
 

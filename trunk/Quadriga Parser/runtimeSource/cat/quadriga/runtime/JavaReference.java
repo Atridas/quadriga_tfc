@@ -33,12 +33,19 @@ public class JavaReference implements ComputedValue {
 
   
   public boolean getAsBool() {
+    if(reference instanceof Boolean) {
+      return ((Boolean)reference).booleanValue();
+    }
     throw new IllegalStateException();
   }
   public char getAsChar() {
+    if(reference instanceof Character) {
+      return ((Character)reference).charValue();
+    }
     throw new IllegalStateException();
   }
-  public byte getAsByte() {
+  
+  public byte getAsByte() { //TODO copiar lo de dalt
     throw new IllegalStateException();
   }
   public short getAsShort() {

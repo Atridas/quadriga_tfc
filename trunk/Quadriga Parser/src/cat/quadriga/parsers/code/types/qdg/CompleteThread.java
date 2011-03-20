@@ -2,6 +2,7 @@ package cat.quadriga.parsers.code.types.qdg;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import cat.quadriga.parsers.code.ErrorLog;
@@ -19,9 +20,9 @@ import cat.quadriga.runtime.RuntimeThread;
 public class CompleteThread extends BaseTypeClass implements RuntimeThread {
   
   public final List<QuadrigaSystem> systems;
-  public final BlockCode init;
+  public final BlockCode init, cleanUp;
 
-  public CompleteThread(String binaryName, List<QuadrigaSystem> systems, BlockCode init, String file) {
+  public CompleteThread(String binaryName, List<QuadrigaSystem> systems, BlockCode init, BlockCode cleanUp, String file) {
     super(binaryName);
     this.systems = Collections.unmodifiableList(new ArrayList<QuadrigaSystem>(systems));
     if(init == null) {
@@ -29,10 +30,15 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread {
     } else {
       this.init = init;
     }
+    if(cleanUp == null) {
+      this.cleanUp = new BlockCode.TmpBlockCode(file).transformToBlockCode();
+    } else {
+      this.cleanUp = cleanUp;
+    }
   }
   
-  public CompleteThread(String pack, String name, List<QuadrigaSystem> systems, BlockCode init, String file) {
-    this((pack.length()>0)? (pack + "." + name) : name, systems, init, file);
+  public CompleteThread(String pack, String name, List<QuadrigaSystem> systems, BlockCode init, BlockCode cleanUp, String file) {
+    this((pack.length()>0)? (pack + "." + name) : name, systems, init, cleanUp, file);
   }
 
   @Override
@@ -83,7 +89,7 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread {
       if(qs.size() != systems.size()) {
         return null;
       }
-      BlockCode bc;
+      BlockCode bc, bc2;
       if(init.isCorrectlyLinked()) {
         bc = init;
       } else {
@@ -92,8 +98,16 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread {
           return null;
         }
       }
+      if(cleanUp.isCorrectlyLinked()) {
+        bc2 = cleanUp;
+      } else {
+        bc2 = cleanUp.getLinkedVersion(symbolTable, errorLog);
+        if(bc2 == null) {
+          return null;
+        }
+      }
       
-      validVersion = new CompleteThread(getBinaryName(), qs, bc, bc.file);
+      validVersion = new CompleteThread(getBinaryName(), qs, bc, bc2, bc.file);
       validVersion.validVersion = validVersion;
       validVersion.valid = true;
     }
@@ -119,9 +133,20 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread {
   @Override
   public void init(RuntimeEnvironment runtime) {
     assert isValid();
+    init.execute(runtime);
     for(QuadrigaSystem qs : systems) {
-      init.execute(runtime);
+      runtime.entitySystem.registerSystem((RuntimeSystem)qs, runtime);
+      ((RuntimeSystem)qs).executeInit(runtime);
     }
+  }
+
+  @Override
+  public void cleanUp(RuntimeEnvironment runtime) {
+    assert isValid();
+    for(QuadrigaSystem qs : systems) {
+      ((RuntimeSystem)qs).executeCleanUp(runtime);
+    }
+    cleanUp.execute(runtime);
   }
 
   @Override
@@ -129,17 +154,50 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread {
     assert isValid();
     for(QuadrigaSystem qs : systems) {
       RuntimeSystem system = (RuntimeSystem) qs;
+      
+      /*
       List<Entity> entities = runtime.entitySystem.getAllEntitiesWithComponents(
                                                   system.neededComponents(),
                                                   runtime);
-
-      for(Entity entity : entities) {
-        system.update(entity, runtime);
-      }
-      for(Entity entity : entities) {
-        entity.commitChanges();
-      }
+      */
+      List<Entity> updates = new LinkedList<Entity>();
+      List<Entity> newEntities = new LinkedList<Entity>();
+      List<Entity> deletedEntities = new LinkedList<Entity>();
       
+      runtime.entitySystem.getSystemUpdateInformation(
+                  system, 
+                  updates, 
+                  newEntities, 
+                  deletedEntities, 
+                  runtime);
+      
+      if(system.hasNewOrDelete()) {
+        if(system.hasDelete()) {
+          for(Entity entity : updates) {
+            system.deleteEntity(entity, runtime);
+          }
+          for(Entity entity : updates) {
+            entity.commitChanges();
+          }
+        }
+        if(system.hasNew()) {
+          for(Entity entity : updates) {
+            system.newEntity(entity, runtime);
+          }
+          for(Entity entity : updates) {
+            entity.commitChanges();
+          }
+        }
+      }
+
+      if(system.hasUpdate()) {
+        for(Entity entity : updates) {
+          system.update(entity, runtime);
+        }
+        for(Entity entity : updates) {
+          entity.commitChanges();
+        }
+      }
     }
   }
 }

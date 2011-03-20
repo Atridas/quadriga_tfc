@@ -1,8 +1,6 @@
 package cat.quadriga.parsers.code.expressions;
 
 import cat.quadriga.parsers.code.CodeZoneClass;
-import cat.quadriga.parsers.code.ErrorLog;
-import cat.quadriga.parsers.code.SymbolTable;
 
 public abstract class BinaryExpressionNode extends ExpressionNodeClass {
 

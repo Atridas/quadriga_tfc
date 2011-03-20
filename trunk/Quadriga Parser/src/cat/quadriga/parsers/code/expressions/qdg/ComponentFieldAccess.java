@@ -15,7 +15,7 @@ import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.parsers.code.types.UnknownType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
-import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent.ComponentField;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaField;
 import cat.quadriga.runtime.ComponentInstance;
 import cat.quadriga.runtime.ComputedValue;
 import cat.quadriga.runtime.RuntimeEnvironment;
@@ -37,7 +37,7 @@ public final class ComponentFieldAccess extends UnaryDataAccess {
   
   @Override
   public String getOperation() {
-    ComponentField cf = component.getField(field);
+    QuadrigaField cf = component.getField(field);
     if(cf == null) {
       return ">> Wrong Component Field: <<";
     }
@@ -53,7 +53,7 @@ public final class ComponentFieldAccess extends UnaryDataAccess {
 
   @Override
   public BaseType getType() {
-    ComponentField cf = component.getField(field);
+    QuadrigaField cf = component.getField(field);
     if(cf == null) {
       return UnknownType.empty;
     }
@@ -112,7 +112,7 @@ public final class ComponentFieldAccess extends UnaryDataAccess {
         }
       }
       
-      QuadrigaComponent.ComponentField field = validC.getField(this.field);
+      QuadrigaField field = validC.getField(this.field);
       if(field == null) {
         errorLog.insertError("Component " + validC.getBinaryName() + " has no " + this.field,this);
         return null;
