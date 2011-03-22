@@ -3,9 +3,10 @@ package cat.quadriga.render.simple;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.*;
 
-import java.awt.Font;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -13,6 +14,8 @@ import java.util.Set;
 
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
+
+import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -24,9 +27,7 @@ public class RenderManager {
   private Map<Integer, StaticMesh> meshes = new HashMap<Integer, StaticMesh>();
   private Map<Integer, StackedSphere> spheres = new HashMap<Integer, StackedSphere>();
   
-  private int lastTexture = 0; //TODO multi-texture
-  
-  private static Texture proves;
+  public final TextureManager textureManager = new TextureManager(this);
   
   private Map<String, Float> perThreadFPSs = new HashMap<String, Float>();
   public boolean renderFPS = true;
@@ -199,14 +200,23 @@ public class RenderManager {
       
       glEnable(GL_DEPTH_TEST);
       glEnable(GL_CULL_FACE);
+      glDisable(GL_BLEND);
       
-      try {
-        proves = new Texture2D("resources/fonts/font0_0.png", instance);
-        //proves = new Texture2D("resources/textures/rednyu.png", instance);
+      /*try {
+        Font f = new Font("resources/fonts/font0.fnt", instance);
+        
+        String helloWorld = "Hello World!";
+        
+        ByteBuffer bb = BufferUtils.createByteBuffer(helloWorld.length() * f.getVertexSize());
+        IntBuffer ib = BufferUtils.createIntBuffer(helloWorld.length() * 6);
+        Texture[] texs = new Texture[f.numTextures()];
+        
+        f.fillBuffers(helloWorld, bb, ib, texs);
+        
       } catch (IOException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
-      }
+      }*/
       
       //fonts.put("Times New Roman", new UnicodeFont(new Font("Times New Roman", Font.BOLD, 24)));
       
@@ -309,8 +319,7 @@ public class RenderManager {
   }
   
   public void renderGraph() {
-    
-    proves.activate();
+    textureManager.getTexture2D("resources/fonts/font0_0.png").activate();
     
     Matrix4f id = new Matrix4f();
     id.setIdentity();

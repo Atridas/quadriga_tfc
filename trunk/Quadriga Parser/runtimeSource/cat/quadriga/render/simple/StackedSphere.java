@@ -70,7 +70,7 @@ public class StackedSphere {
     List<Vertex> vertexBuffer = new ArrayList<Vertex>();
     for (int stackNumber = 0; stackNumber <= stacks; ++stackNumber)
     {
-      for (int sliceNumber = 0; sliceNumber < slices; ++sliceNumber) 
+      for (int sliceNumber = 0; sliceNumber <= slices; ++sliceNumber) 
       {
         float theta = (float)(stackNumber * Math.PI / stacks);
         float phi = (float)(sliceNumber * 2 * Math.PI / slices);
@@ -88,10 +88,13 @@ public class StackedSphere {
                             x, y, z,    //normal
                             Math.abs(x), Math.abs(y), Math.abs(z), 1,  //color
                             (float) sliceNumber / slices, //s   texture
-                            (float) stackNumber / stacks  //t   
+                            1-(float) stackNumber / stacks  //t   
                             ));
       }
     }
+    
+    int slicesMod = slices+1;
+    
     List<Integer> indexBuffer = new ArrayList<Integer>();
     for (int stackNumber = 0; stackNumber < stacks; ++stackNumber)
     {
@@ -100,13 +103,13 @@ public class StackedSphere {
         //indexBuffer.add((stackNumber * slices) + (sliceNumber % slices));
         //indexBuffer.add(((stackNumber + 1) * slices) + (sliceNumber % slices));
         
-        indexBuffer.add((stackNumber * slices) + (sliceNumber % slices));
-        indexBuffer.add(((stackNumber + 1) % stacks * slices) + (sliceNumber % slices));
-        indexBuffer.add(((stackNumber + 1) % stacks * slices) + ((sliceNumber+1) % slices));
+        indexBuffer.add((stackNumber * slicesMod) + (sliceNumber % slicesMod));
+        indexBuffer.add(((stackNumber + 1) % stacks * slicesMod) + (sliceNumber % slicesMod));
+        indexBuffer.add(((stackNumber + 1) % stacks * slicesMod) + ((sliceNumber+1) % slicesMod));
         
-        indexBuffer.add((stackNumber * slices) + (sliceNumber % slices));
-        indexBuffer.add(((stackNumber + 1) % stacks * slices) + ((sliceNumber+1) % slices));
-        indexBuffer.add(((stackNumber) * slices) + ((sliceNumber+1) % slices));
+        indexBuffer.add((stackNumber * slicesMod) + (sliceNumber % slicesMod));
+        indexBuffer.add(((stackNumber + 1) % stacks * slicesMod) + ((sliceNumber+1) % slicesMod));
+        indexBuffer.add(((stackNumber) * slicesMod) + ((sliceNumber+1) % slicesMod));
         
       }
     }
