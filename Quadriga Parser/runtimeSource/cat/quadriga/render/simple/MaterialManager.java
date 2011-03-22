@@ -1,6 +1,7 @@
 package cat.quadriga.render.simple;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -56,18 +57,20 @@ public class MaterialManager {
         throw new Exception("\"vertex_shader\" not found.");
       }
       
+      
+      InputStream is;
       NodeList nl = vsXML.getElementsByTagName("file");
       String vs = "";
       for(int i = 0; i < nl.getLength(); ++i) {
-        f = Utils.findFile( ((Element)nl.item(i)).getTextContent() );
-        vs += Utils.readFile(f);
+        is = Utils.findInputStream( ((Element)nl.item(i)).getTextContent() );
+        vs += Utils.readInputStream(is);
       }
       
       nl = fsXML.getElementsByTagName("file");
       String fs = "";
       for(int i = 0; i < nl.getLength(); ++i) {
-        f = Utils.findFile( ((Element)nl.item(i)).getTextContent() );
-        fs += Utils.readFile(f);
+        is = Utils.findInputStream( ((Element)nl.item(i)).getTextContent() );
+        fs += Utils.readInputStream(is);
       }
       
       
@@ -78,6 +81,9 @@ public class MaterialManager {
         logger.warning("shader without uniforms");
       } else {
         nl = uniformsXML.getChildNodes();
+        
+        int maxUnit = -1;
+        
         for(int i = 0; i < nl.getLength(); ++i) {
           Node node = nl.item(i);
           if(node.getNodeType() == Node.ELEMENT_NODE) {
@@ -99,6 +105,28 @@ public class MaterialManager {
               
             } else if("world_view_projection".compareTo(element.getTagName()) == 0) {
               material.worldViewProjMatrixName = element.getTextContent();
+              
+              
+            } else if("texture".compareTo(element.getTagName()) == 0) {
+              String unit = element.getAttribute("unit");
+              if(unit == null) {
+                maxUnit++;
+                logger.warning(
+                    "texture uniform " + element.getTextContent()
+                    + " has no unit! Setting it to " + maxUnit);
+                material.textures.put(maxUnit, element.getTextContent());
+              } else {
+                try {
+                  int u = Integer.parseInt(unit);
+                  material.textures.put(u, element.getTextContent());
+                } catch(NumberFormatException e) {
+                  maxUnit++;
+                  logger.warning(
+                      "texture uniform " + element.getTextContent()
+                      + " has ill-formated unit! Setting it to " + maxUnit);
+                  material.textures.put(maxUnit, element.getTextContent());
+                }
+              }
             } //TODO else 
           }
         }
@@ -122,11 +150,11 @@ public class MaterialManager {
             } else if("normal".compareTo(element.getTagName()) == 0) {
               material.normalName = element.getTextContent();
               
-            } else if("uv".compareTo(element.getTagName()) == 0) {
-              material.uvName = element.getTextContent();
+            } else if("st".compareTo(element.getTagName()) == 0) {
+              material.stName = element.getTextContent();
               
-            } else if("uv2".compareTo(element.getTagName()) == 0) {
-              material.uv2Name = element.getTextContent();
+            } else if("st2".compareTo(element.getTagName()) == 0) {
+              material.st2Name = element.getTextContent();
               
             } else if("tangent".compareTo(element.getTagName()) == 0) {
               material.tangentName = element.getTextContent();

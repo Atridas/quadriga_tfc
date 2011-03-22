@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
@@ -22,9 +23,27 @@ public abstract class Utils {
     }
   }
   
+  public static InputStream findInputStream(String name) throws FileNotFoundException {
+    try {
+      URL url = Utils.class.getResource(name);
+      return url.openStream();
+    } catch (Exception e) {
+      return new FileInputStream(name);
+    }
+  }
+  
   public static String readFile(File f) {
     try {
-      BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(f),"UTF-8"));
+      return readInputStream(new FileInputStream(f));
+    } catch (FileNotFoundException e) {
+      logger.warning(e.toString());
+      return null;
+    }
+  }
+  
+  public static String readInputStream(InputStream is) {
+    try {
+      BufferedReader reader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
       
       StringBuilder sb = new StringBuilder();
       String aux = reader.readLine();

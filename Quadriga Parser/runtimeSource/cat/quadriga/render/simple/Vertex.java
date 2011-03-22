@@ -161,4 +161,107 @@ public abstract class Vertex {
                      + r + "," + g + "," + b + "," + a + "] }";
     }
   }
+  
+
+  
+  public static final class PositionNormalColorTexture extends Vertex {
+    public float x, y, z;
+    public float nx, ny, nz;
+    public float r, g, b, a;
+    public float s, t;
+    
+    public PositionNormalColorTexture(){};
+    
+    public PositionNormalColorTexture(
+        float  x, float  y, float  z, 
+        float nx, float ny, float nz, 
+        float  r, float  g, float  b, float a,
+        float  s, float  t) {
+      this.x = x;
+      this.y = y;
+      this.z = z;
+      
+      this.nx = nx;
+      this.ny = ny;
+      this.nz = nz;
+      
+      this.r = r;
+      this.g = g;
+      this.b = b;
+      this.a = a;
+      
+      this.s = s;
+      this.t = t;
+    }
+
+    public static final VertexType type = new VertexType () {
+                                            @Override
+                                            public int getVertexSize() {
+                                              return 12 * Float.SIZE / 8;
+                                            }
+                                        
+                                            @Override
+                                            public int getPositionStride() {return 0;}
+                                        
+                                            @Override
+                                            public int getNormalStride()   {return 3  * Float.SIZE / 8;}
+                                        
+                                            @Override
+                                            public int getColorStride()    {return 6  * Float.SIZE / 8;}
+                                        
+                                            @Override
+                                            public int getSTStride()       {return 10 * Float.SIZE / 8;}
+                                          };
+    
+    @Override
+    public VertexType getVertexType() {
+      return type;
+    }
+                                          
+    @Override
+    public void writeToBuffer(ByteBuffer buffer) {
+      buffer.putFloat(x);
+      buffer.putFloat(y);
+      buffer.putFloat(z);
+      
+      buffer.putFloat(nx);
+      buffer.putFloat(ny);
+      buffer.putFloat(nz);
+
+      buffer.putFloat(r);
+      buffer.putFloat(g);
+      buffer.putFloat(b);
+      buffer.putFloat(a);
+      
+      buffer.putFloat(s);
+      buffer.putFloat(t);
+    }
+
+    @Override
+    public void readFromBuffer(ByteBuffer buffer) {
+      x = buffer.getFloat();
+      y = buffer.getFloat();
+      z = buffer.getFloat();
+      
+      nx = buffer.getFloat();
+      ny = buffer.getFloat();
+      nz = buffer.getFloat();
+
+      r = buffer.getFloat();
+      g = buffer.getFloat();
+      b = buffer.getFloat();
+      a = buffer.getFloat();
+      
+      s = buffer.getFloat();
+      t = buffer.getFloat();
+    }
+    
+    @Override
+    public String toString() {
+      return "{ v:[" + x + "," + y + "," + z + "] n:["  
+                     +nx + "," +ny + "," +nz + "] c:["
+                     + r + "," + g + "," + b + "," + a + "] t:["
+                     + s + "," + t + "] }";
+    }
+  }
 }

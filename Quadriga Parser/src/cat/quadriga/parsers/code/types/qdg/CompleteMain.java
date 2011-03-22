@@ -140,6 +140,7 @@ public class CompleteMain extends BaseTypeClass implements RuntimeMain {
         CompleteThread thread = (CompleteThread) qt;
         thread.runtime = runtime;
         threads[i] = new Thread(thread);
+        threads[i].setName(thread.getBinaryName());
         threads[i].start();
         ++i;
       }

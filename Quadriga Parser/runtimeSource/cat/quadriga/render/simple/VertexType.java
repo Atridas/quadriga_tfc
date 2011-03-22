@@ -5,8 +5,8 @@ public abstract class VertexType {
   public int getPositionStride() {return 0;}
   public int getNormalStride()   {return 0;}
   public int getColorStride()    {return 0;}
-  public int getUVStride()       {return 0;}
-  public int getUV2Stride()      {return 0;}
+  public int getSTStride()       {return 0;}
+  public int getST2Stride()      {return 0;}
   public int getTangentStride()  {return 0;}
   public int getBitangentStride(){return 0;}
 

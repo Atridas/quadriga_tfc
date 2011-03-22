@@ -1,7 +1,10 @@
 package cat.quadriga.render.simple;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.*;
 
+import java.awt.Font;
+import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,6 +24,13 @@ public class RenderManager {
   private Map<Integer, StaticMesh> meshes = new HashMap<Integer, StaticMesh>();
   private Map<Integer, StackedSphere> spheres = new HashMap<Integer, StackedSphere>();
   
+  private int lastTexture = 0; //TODO multi-texture
+  
+  private static Texture proves;
+  
+  private Map<String, Float> perThreadFPSs = new HashMap<String, Float>();
+  public boolean renderFPS = true;
+  
   private final Matrix4f viewMatrix = new Matrix4f();
   private final Matrix4f projectionMatrix = new Matrix4f();
   private final Vector3f cameraPosition = new Vector3f();
@@ -29,6 +39,7 @@ public class RenderManager {
   public final static RenderManager instance = new RenderManager();
   private static StaticMesh axis;
   private static final MaterialManager materialManager = new MaterialManager();
+  
   
   public static RenderManager getInstance(String name) {
     RenderManager instance = instances.get(name);
@@ -83,6 +94,14 @@ public class RenderManager {
   
   public static MaterialManager getMaterialManager() {
     return materialManager;
+  }
+  
+  void activateTexture(int target, int texture) {
+    //if(lastTexture != texture) {
+      glActiveTexture(GL_TEXTURE0);
+      glBindTexture(target, texture);
+    //  lastTexture = texture;
+    //}
   }
   
   public void setPerspective(float fovy, float aspect, float zNear, float zFar) {
@@ -180,6 +199,16 @@ public class RenderManager {
       
       glEnable(GL_DEPTH_TEST);
       glEnable(GL_CULL_FACE);
+      
+      try {
+        proves = new Texture2D("resources/fonts/font0_0.png", instance);
+        //proves = new Texture2D("resources/textures/rednyu.png", instance);
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+      
+      //fonts.put("Times New Roman", new UnicodeFont(new Font("Times New Roman", Font.BOLD, 24)));
       
     } catch (LWJGLException e) {
       throw new IllegalStateException(e);
@@ -280,11 +309,28 @@ public class RenderManager {
   }
   
   public void renderGraph() {
+    
+    proves.activate();
+    
     Matrix4f id = new Matrix4f();
     id.setIdentity();
     for(int node : childs.get(-1)) {
       renderNode(node, id);
     }
+    
+    /*
+    GL20.glUseProgram(0);
+    float posy = 30;
+    Color.white.bind();
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, 800, 600, 0, 1, -1);
+    glMatrixMode(GL_MODELVIEW);
+    UnicodeFont ttf = fonts.get("Times New Roman");
+    for(Entry<String, Float> fps : perThreadFPSs.entrySet()) {
+      ttf.drawString(0, posy, fps.getKey() + ": " + fps.getValue(), Color.blue);
+      posy += 25;
+    }*/
   }
   
   public void renderNode(int node, Matrix4f stackedMatrix) {
@@ -308,6 +354,10 @@ public class RenderManager {
         renderNode(child, localTransform);
       }
     }
+  }
+  
+  public void setFPS(String thread, float fps) {
+    perThreadFPSs.put(thread, fps);
   }
  
 }

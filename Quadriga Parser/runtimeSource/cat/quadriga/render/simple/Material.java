@@ -1,5 +1,9 @@
 package cat.quadriga.render.simple;
 
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.Map.Entry;
+
 import javax.vecmath.Matrix4f;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -10,8 +14,8 @@ public class Material {
   public String positionName, 
                 normalName, 
                 colorName,
-                uvName,
-                uv2Name,
+                stName,
+                st2Name,
                 tangentName,
                 bitangentName;
   //uniforms
@@ -21,6 +25,8 @@ public class Material {
                 worldViewMatrixName,
                 viewProjMatrixName, 
                 worldViewProjMatrixName;
+  
+  public final SortedMap<Integer, String> textures = new TreeMap<Integer, String>();
 
   private Matrix4f auxMatrix = new Matrix4f();
   
@@ -44,6 +50,10 @@ public class Material {
       rm.getViewProjectionMatrix(auxMatrix);
       auxMatrix.mul(worldMatrix);
       shader.setUniform(worldViewProjMatrixName, auxMatrix);
+    }
+    
+    for(Entry<Integer, String> texture : textures.entrySet()) {
+      shader.setTextureUniform(texture.getValue(), texture.getKey());
     }
     
     if(positionName != null) {
@@ -74,6 +84,16 @@ public class Material {
           false, 
           vt.getVertexSize(), 
           vt.getColorStride());
+    }
+    
+    if(stName != null) {
+      shader.setAttribBufferedPointer(
+          stName, 
+          2, 
+          GL_FLOAT, 
+          false, 
+          vt.getVertexSize(), 
+          vt.getSTStride());
     }
   }
   
