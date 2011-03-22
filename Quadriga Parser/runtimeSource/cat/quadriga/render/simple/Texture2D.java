@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
+import java.util.logging.Logger;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
@@ -16,23 +17,34 @@ import org.newdawn.slick.opengl.LoadableImageData;
 import cat.quadriga.Utils;
 
 public class Texture2D extends Texture {
+  private static Logger logger = Logger.getLogger(TextureManager.class.getCanonicalName());
+  
   public final int width;
   public final int height;
   
   public final boolean hasAlpha;
 
   public Texture2D(String resourceName, RenderManager rm) throws IOException {
-    this(resourceName, resourceName.substring(resourceName.lastIndexOf('.')+1).toUpperCase(), rm);
+    this(resourceName, resourceName.substring(resourceName.lastIndexOf('.')+1).toUpperCase(), false, rm);
+  }
+
+  public Texture2D(String resourceName, boolean greyscale, RenderManager rm) throws IOException {
+    this(resourceName, resourceName.substring(resourceName.lastIndexOf('.')+1).toUpperCase(), greyscale, rm);
+  }
+
+  public Texture2D(String resourceName, String format, RenderManager rm) throws IOException {
+    this(resourceName, format, false, rm);
   }
   
-  public Texture2D(String resourceName, String format, RenderManager rm) throws IOException {
+  public Texture2D(String resourceName, String format, boolean greyscale, RenderManager rm) throws IOException {
     super(rm);
+    
+    logger.info("Loading texture " + resourceName + " with format " + format);
     
     InputStream is = Utils.findInputStream(resourceName);
     
     LoadableImageData loader = ImageDataFactory.getImageDataFor(format);
     ByteBuffer bb = loader.loadImage(is);
-    
     
     width = loader.getWidth();
     height = loader.getHeight();
@@ -71,6 +83,57 @@ public class Texture2D extends Texture {
     
     
     
+    id = GL11.glGenTextures();
+    
+    
+    activate();
+    
+    if(GLContext.getCapabilities().OpenGL30) {
+      
+      GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 
+          0,               //mipmap level
+          (greyscale)? GL11.GL_LUMINANCE : glFormat, 
+          width, height, 
+          0,               //Border
+          glFormat, 
+          GL11.GL_UNSIGNED_BYTE,            
+          bb);
+      
+      GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
+    } else {
+      GLU.gluBuild2DMipmaps(GL11.GL_TEXTURE_2D, 
+          (greyscale)? GL11.GL_LUMINANCE : glFormat, 
+          width, height, 
+          glFormat, 
+          GL11.GL_UNSIGNED_BYTE,            
+          bb);
+    }
+
+    changeMagFilter(FilterQuality.MID);
+    changeMinFilter(FilterQuality.MID);
+  }
+  
+  public Texture2D(RenderManager rm) {
+    super(rm);
+    
+    ByteBuffer bb = BufferUtils.createByteBuffer(256 * 256 * 3);
+    
+    byte[] baux = new byte[3];
+    for(int i = 0; i < 256; ++i) {
+      for(int j = 0; j < 256; ++j) {
+        baux[0] = (byte)((i     % 16) * 16);
+        baux[1] = (byte)((j     % 16) * 16);
+        baux[2] = (byte)(((i+j) % 16) * 16);
+        bb.put(baux);
+      }
+    }
+    bb.rewind();
+    
+    width = 256;
+    height = 256;
+    hasAlpha = false;
+
+    int glFormat = GL11.GL_RGB;
     id = GL11.glGenTextures();
     
     

@@ -56,6 +56,9 @@ public class MaterialManager {
       if(vsXML == null) {
         throw new Exception("\"vertex_shader\" not found.");
       }
+      if(fsXML == null) {
+        throw new Exception("\"fragment_shader\" not found.");
+      }
       
       
       InputStream is;

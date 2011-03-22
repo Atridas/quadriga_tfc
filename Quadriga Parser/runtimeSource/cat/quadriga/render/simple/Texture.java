@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 import org.lwjgl.opengl.GL11;
 
 public abstract class Texture {
-private static Logger logger = Logger.getLogger(Texture2D.class.getCanonicalName());
+  private static Logger logger = Logger.getLogger(Texture2D.class.getCanonicalName());
   
   protected int id;
   protected final RenderManager rm;
@@ -59,12 +59,14 @@ private static Logger logger = Logger.getLogger(Texture2D.class.getCanonicalName
   }
   
   public void changeMinFilter(FilterQuality quality) {
+    assert !finalized;
     int param = getMinParameter(quality);
     
     GL11.glTexParameteri(getTarget(), GL11.GL_TEXTURE_MIN_FILTER, param);
   }
   
   public void changeMagFilter(FilterQuality quality) {
+    assert !finalized;
     int param = getMagParameter(quality);
     
     GL11.glTexParameteri(getTarget(), GL11.GL_TEXTURE_MAG_FILTER, param);
@@ -83,4 +85,21 @@ private static Logger logger = Logger.getLogger(Texture2D.class.getCanonicalName
     if(!finalized)
       cleanUp();
   }
+  
+  /*public static class TextureProxy extends Texture {
+    
+    private int target;
+    
+    protected TextureProxy(Texture original) {
+      super(original.rm);
+      id = original.id;
+      target = original.getTarget();
+    }
+
+    @Override
+    protected int getTarget() {
+      return target;
+    }
+    
+  }*/
 }
