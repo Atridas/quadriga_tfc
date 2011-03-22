@@ -7,8 +7,10 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -57,7 +59,7 @@ public class RenderManager {
   public Node getNode(int id) {
     Node node = nodes.get(id);
     if(node == null) {
-      node = new Node();
+      node = new Node(id, this);
       setParent(id,-1);
       nodes.put(id, node);
     }
@@ -70,6 +72,7 @@ public class RenderManager {
     Integer oldParent = this.parents.get(child);
     if(oldParent != null) {
       this.childs.get(oldParent).remove(child);
+      if(parent>=0)nodes.get(parent).removeChild(child);
     }
     
     Set<Integer> childs = this.childs.get(parent);
@@ -79,10 +82,14 @@ public class RenderManager {
     }
     childs.add(child);
     parents.put(child,parent);
+    if(parent>=0)nodes.get(parent).childs.add(nodes.get(child));
   }
   
   public void setSphere(int position, float radi) {
-    spheres.put(position, new StackedSphere(radi, 30, 30));
+    StackedSphere sphere = new StackedSphere(radi, 30, 30);
+    spheres.put(position, sphere);
+    
+    nodes.get(position).sphere = sphere;
   }
   
   public void changeSphere(int position, float radi) {
@@ -91,6 +98,7 @@ public class RenderManager {
   
   public void deleteSphere(int position) {
     spheres.remove(position);
+    nodes.get(position).sphere = null;
   }
   
   public static MaterialManager getMaterialManager() {
@@ -321,10 +329,11 @@ public class RenderManager {
   public void renderGraph() {
     textureManager.getTexture2D("resources/fonts/font0_0.png").activate();
     
-    Matrix4f id = new Matrix4f();
-    id.setIdentity();
+    Matrix4f identity = new Matrix4f();
+    identity.setIdentity();
     for(int node : childs.get(-1)) {
-      renderNode(node, id);
+      nodes.get(node).renderNode(identity);
+      //renderNode(node, id);
     }
     
     /*
@@ -368,6 +377,5 @@ public class RenderManager {
   public void setFPS(String thread, float fps) {
     perThreadFPSs.put(thread, fps);
   }
- 
 }
 

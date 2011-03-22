@@ -118,6 +118,18 @@ public final class ShaderObject {
   
   private volatile Set<String> testedNullUniforms = new HashSet<String>();
   
+  public int getUniform(String name) {
+    Integer uniformID = uniforms.get(name);
+    if(uniformID == null) {
+      if(!testedNullUniforms.contains(name)) {
+        testedNullUniforms.add(name);
+        logger.warning("Uniform " + name + " does not exist.");
+      }
+      return -1;
+    }
+    return uniformID;
+  }
+  
   public void setUniform(String name, Matrix4f matrix) {
     Integer uniformID = uniforms.get(name);
     if(uniformID == null) {
@@ -126,10 +138,14 @@ public final class ShaderObject {
         logger.warning("Uniform " + name + " does not exist.");
       }
     } else {
-      FloatBuffer fb = getFloatBuffer(16);
-      RenderManager.matrixToBuffer(matrix, fb);
-      glUniformMatrix4(uniformID, false, fb);
+      setUniform(uniformID, matrix);
     }
+  }
+  
+  public void setUniform(int uniformID, Matrix4f matrix) {
+    FloatBuffer fb = getFloatBuffer(16);
+    RenderManager.matrixToBuffer(matrix, fb);
+    glUniformMatrix4(uniformID, false, fb);
   }
   
   public void setTextureUniform(String name, int unit ) {
