@@ -22,7 +22,10 @@ public class StackedSphere {
     this.slices = slices;
     
     if(defaultMaterial == null) {
-      defaultMaterial = RenderManager.getMaterialManager().getMaterial("resources/materials/color.xml");
+      defaultMaterial = RenderManager.getMaterialManager().getMaterial(
+          //"resources/materials/color.xml"
+          "resources/materials/textured.xml"
+          );
     }
     
     findStaticMesh(stacks, slices);
@@ -63,9 +66,6 @@ public class StackedSphere {
     mesh.render(aux, rm);
   }
   
-  // xyz, nx, ny, nz, u, v
-  public static final int VERTEX_SIZE = 8 * Float.SIZE;
-  
   private static StaticMesh createMesh(int stacks, int slices) {
     List<Vertex> vertexBuffer = new ArrayList<Vertex>();
     for (int stackNumber = 0; stackNumber <= stacks; ++stackNumber)
@@ -83,10 +83,12 @@ public class StackedSphere {
         float y = sinPhi * sinTheta;
         float z = cosTheta;
         
-        vertexBuffer.add(new Vertex.PositionNormalColor(
+        vertexBuffer.add(new Vertex.PositionNormalColorTexture(
                             x, y, z,    //pos
                             x, y, z,    //normal
-                            Math.abs(x), Math.abs(y), Math.abs(z), 1  //color
+                            Math.abs(x), Math.abs(y), Math.abs(z), 1,  //color
+                            (float) sliceNumber / slices, //s   texture
+                            (float) stackNumber / stacks  //t   
                             ));
       }
     }

@@ -12,6 +12,7 @@ import cat.quadriga.parsers.code.statements.BlockCode;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.parsers.code.types.UnknownType;
+import cat.quadriga.render.simple.RenderManager;
 import cat.quadriga.runtime.Clock;
 import cat.quadriga.runtime.Entity;
 import cat.quadriga.runtime.RuntimeEnvironment;
@@ -213,18 +214,26 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
   public RuntimeEnvironment runtime;
   @Override
   public void run() {
+    
     RuntimeEnvironment myRuntime = new RuntimeEnvironment();
     myRuntime.entitySystem = runtime.entitySystem;
     
-    
-    init(myRuntime);
-    
-    while(runtime.keepRunning && myRuntime.keepRunning) {
-      execute(myRuntime);
+    Clock fpsClock = new Clock();
+    fpsClock.update();
+    try {
+      
+      init(myRuntime);
+      
+      while(runtime.keepRunning && myRuntime.keepRunning) {
+        float fps = 1.0f / fpsClock.update();
+        
+        RenderManager.instance.setFPS(getBinaryName(), fps);
+        
+        execute(myRuntime);
+      }
+    } finally {
+      runtime.keepRunning = false;
     }
-    
-    runtime.keepRunning = false;
-    
     cleanUp(myRuntime);
   }
 }

@@ -1,22 +1,28 @@
 package cat.quadriga.render.simple;
 
 import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL13.*;
+import static org.lwjgl.opengl.GL11.*;
 
 import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.logging.Logger;
 
 import javax.vecmath.Matrix4f;
 
 import org.lwjgl.BufferUtils;
 
 public final class ShaderObject {
+  private static Logger logger = Logger.getLogger(ShaderObject.class.getCanonicalName());
+  
   private int vs=-1, fs=-1, program=-1;
   private Map<String, Integer> uniforms = new HashMap<String, Integer>();
   private Map<String, Integer> attributes = new HashMap<String, Integer>();
   private Map<Integer, FloatBuffer> floatBuffers = new HashMap<Integer, FloatBuffer>();
-  private Map<Integer, IntBuffer> intBuffers = new HashMap<Integer, IntBuffer>();
+  //private Map<Integer, IntBuffer> intBuffers = new HashMap<Integer, IntBuffer>();
   
   public ShaderObject(String vertexShader, String fragmentShader) {
     glUseProgram(0);
@@ -100,7 +106,7 @@ public final class ShaderObject {
   }
   
   
-  private IntBuffer getIntBuffer(int size) {
+  /*private IntBuffer getIntBuffer(int size) {
     IntBuffer ib = intBuffers.get(size);
     if(ib == null) {
       ib = BufferUtils.createIntBuffer(size);
@@ -108,13 +114,34 @@ public final class ShaderObject {
     }
     ib.rewind();
     return ib;
-  }
+  }*/
+  
+  private volatile Set<String> testedNullUniforms = new HashSet<String>();
   
   public void setUniform(String name, Matrix4f matrix) {
-    int uniformID = uniforms.get(name);
-    FloatBuffer fb = getFloatBuffer(16);
-    RenderManager.matrixToBuffer(matrix, fb);
-    glUniformMatrix4(uniformID, false, fb);
+    Integer uniformID = uniforms.get(name);
+    if(uniformID == null) {
+      if(!testedNullUniforms.contains(name)) {
+        testedNullUniforms.add(name);
+        logger.warning("Uniform " + name + " does not exist.");
+      }
+    } else {
+      FloatBuffer fb = getFloatBuffer(16);
+      RenderManager.matrixToBuffer(matrix, fb);
+      glUniformMatrix4(uniformID, false, fb);
+    }
+  }
+  
+  public void setTextureUniform(String name, int unit ) {
+    Integer uniformID = uniforms.get(name);
+    if(uniformID == null) {
+      if(!testedNullUniforms.contains(name)) {
+        testedNullUniforms.add(name);
+        logger.warning("Uniform " + name + " does not exist.");
+      }
+    } else {
+      glUniform1i(uniformID, unit);
+    }
   }
   
   public void setAttribBufferedPointer(
