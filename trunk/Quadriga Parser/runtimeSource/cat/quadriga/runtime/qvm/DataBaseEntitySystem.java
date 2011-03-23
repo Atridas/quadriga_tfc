@@ -50,7 +50,9 @@ public class DataBaseEntitySystem implements EntitySystem {
                         addComponent,
                         getSystemUpdateInfo1,
                         getSystemUpdateInfo2,
-                        getSystemUpdateInfo3;
+                        getSystemUpdateInfo3,
+                        getSystemUpdateInfoInsert,
+                        getSystemUpdateInfoDelete;
   
   private final ThreadLocal<CallableStatement> lastAutoIncrement;
   
@@ -198,10 +200,11 @@ public class DataBaseEntitySystem implements EntitySystem {
           @Override protected PreparedStatement initialValue() {
             try{
               return databaseConnection.get().prepareStatement(
-                  "SELECT COUNT(*) " +
+                  "SELECT COUNT(*), S.id " +
                   "FROM System_Components SC, Systems S " +
                   "WHERE S.name = ? " +
-                  "  AND SC.system_id = S.id");
+                  "  AND SC.system_id = S.id " +
+                  "GROUP BY S.id");
             } catch (SQLException e) {
               anyException = e;
             }
@@ -215,9 +218,8 @@ public class DataBaseEntitySystem implements EntitySystem {
             try{
               return databaseConnection.get().prepareStatement(
                   "SELECT C.entity_id " +
-                  "FROM Entity_Components C, System_Components SC, Systems S " +
-                  "WHERE S.name = ? " +
-                  "  AND SC.system_id = S.id " +
+                  "FROM Entity_Components C, System_Components SC " +
+                  "WHERE SC.system_id = ? " +
                   "  AND C.component_id = SC.component_id " +
                   "ORDER BY C.entity_id");
             } catch (SQLException e) {
@@ -232,9 +234,37 @@ public class DataBaseEntitySystem implements EntitySystem {
           @Override protected PreparedStatement initialValue() {
             try{
               return databaseConnection.get().prepareStatement(
-                  "SELECT SLI.entity_id " +
-                  "FROM System_last_iteration SLI, Systems S " +
-                  "WHERE SLI.system_id = S.id AND S.name = ?");
+                  "SELECT entity_id " +
+                  "FROM System_last_iteration " +
+                  "WHERE system_id = ?");
+            } catch (SQLException e) {
+              anyException = e;
+            }
+            return null;
+          }
+        };
+        
+        getSystemUpdateInfoInsert = 
+          new ThreadLocal < PreparedStatement > () {
+          @Override protected PreparedStatement initialValue() {
+            try{
+              return databaseConnection.get().prepareStatement(
+                  "INSERT INTO System_last_iteration (system_id, entity_id)" +
+                  "VALUES (? , ?)");
+            } catch (SQLException e) {
+              anyException = e;
+            }
+            return null;
+          }
+        };
+        
+        getSystemUpdateInfoDelete = 
+          new ThreadLocal < PreparedStatement > () {
+          @Override protected PreparedStatement initialValue() {
+            try{
+              return databaseConnection.get().prepareStatement(
+                  "DELETE FROM System_last_iteration " +
+                  "WHERE system_id = ? AND entity_id = ?");
             } catch (SQLException e) {
               anyException = e;
             }
@@ -478,9 +508,11 @@ public class DataBaseEntitySystem implements EntitySystem {
       rs.next();
       int count = rs.getInt(1);
       
+      int systemId = rs.getInt(2);
+      
       
       ps = getSystemUpdateInfo2.get();
-      ps.setString(1, system.getBinaryName());
+      ps.setInt(1, systemId);
       
       rs = ps.executeQuery();
       
@@ -506,19 +538,24 @@ public class DataBaseEntitySystem implements EntitySystem {
         DBEntity entity = new DBEntity();
         entity.id = lastId;
         update.add(entity);
+        if(system.hasNewOrDelete()) {
+          actualEntities.add(lastId);
+        }
       }
       
       if(system.hasNewOrDelete()) {
         SortedSet<Integer> prevEntities = new TreeSet<Integer>();
         
         ps = getSystemUpdateInfo3.get();
-        ps.setString(1, system.getBinaryName());
+        ps.setInt(1, systemId);
         rs = ps.executeQuery();
         
         while(rs.next()) {
           prevEntities.add(rs.getInt(1));
         }
         
+        
+        ps = getSystemUpdateInfoInsert.get();
 
         Set<Integer> auxSet = new TreeSet<Integer>(actualEntities);
         auxSet.removeAll(prevEntities);
@@ -527,7 +564,14 @@ public class DataBaseEntitySystem implements EntitySystem {
           DBEntity entity = new DBEntity();
           entity.id = id;
           newEntities.add(entity);
+
+          ps.setInt(1, systemId);
+          ps.setInt(2, id);
+          ps.addBatch();
         }
+        
+        if(auxSet.size() > 0) ps.executeBatch();
+        ps = getSystemUpdateInfoDelete.get();
         
         auxSet.clear();
         auxSet.addAll(prevEntities);
@@ -537,7 +581,12 @@ public class DataBaseEntitySystem implements EntitySystem {
           DBEntity entity = new DBEntity();
           entity.id = id;
           deletedEntities.add(entity);
+
+          ps.setInt(1, systemId);
+          ps.setInt(2, id);
+          ps.addBatch();
         }
+        if(auxSet.size() > 0) ps.executeBatch();
       }
       
     } catch (SQLException e) {

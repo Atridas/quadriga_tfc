@@ -1,6 +1,5 @@
 package cat.quadriga.render.simple;
 
-import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;

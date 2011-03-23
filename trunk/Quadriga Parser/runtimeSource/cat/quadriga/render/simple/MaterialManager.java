@@ -2,6 +2,7 @@ package cat.quadriga.render.simple;
 
 import java.io.File;
 import java.io.InputStream;
+import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -19,12 +20,16 @@ import cat.quadriga.Utils;
 public class MaterialManager {
   private static Logger logger = Logger.getLogger(MaterialManager.class.getCanonicalName());
   
-  private final Map<String, Material> materials = new HashMap<String, Material>();
+  private final Map<String, SoftReference<Material>> materials = new HashMap<String, SoftReference<Material>>();
   
   public Material getMaterial(String file) {
-    Material material = materials.get(file);
-    if(material != null) {
-      return material;
+    Material material = null;
+    SoftReference<Material> mat = materials.get(file);
+    if(mat != null) {
+      material = mat.get();
+      if(material != null) {
+        return material;
+      }
     }
     
     try {
@@ -169,9 +174,9 @@ public class MaterialManager {
         }
       }
       
-      materials.put(file, material);
+      materials.put(file, new SoftReference<Material>(material));
       if(alias != null) {
-        materials.put(alias, material);
+        materials.put(alias, new SoftReference<Material>(material));
       }
     } catch(Exception e) {
       logger.warning(e.toString());
@@ -182,8 +187,10 @@ public class MaterialManager {
   }
   
   public void cleanUp() {
-    for(Material material : materials.values()) {
-      material.cleanUp();
+    for(SoftReference<Material> mat : materials.values()) {
+      Material material = mat.get();
+      if(material != null)
+        material.cleanUp();
     }
     materials.clear();
   }

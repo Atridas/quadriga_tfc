@@ -183,18 +183,18 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
       
       if(system.hasNewOrDelete()) {
         if(system.hasDelete()) {
-          for(Entity entity : updates) {
+          for(Entity entity : deletedEntities) {
             system.deleteEntity(entity, runtime);
           }
-          for(Entity entity : updates) {
+          for(Entity entity : deletedEntities) {
             entity.commitChanges();
           }
         }
         if(system.hasNew()) {
-          for(Entity entity : updates) {
+          for(Entity entity : newEntities) {
             system.newEntity(entity, runtime);
           }
-          for(Entity entity : updates) {
+          for(Entity entity : newEntities) {
             entity.commitChanges();
           }
         }
@@ -230,6 +230,13 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
         RenderManager.instance.setFPS(getBinaryName(), fps);
         
         execute(myRuntime);
+        
+        synchronized (this) {
+          try {
+            wait(1);
+          } catch (InterruptedException e) {
+          }
+        }
       }
     } finally {
       runtime.keepRunning = false;

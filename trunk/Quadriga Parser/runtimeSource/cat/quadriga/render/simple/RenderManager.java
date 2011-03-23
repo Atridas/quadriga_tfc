@@ -12,7 +12,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
@@ -22,14 +24,15 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-public class RenderManager {
+public final class RenderManager {
   private Map<Integer, Node> nodes = new HashMap<Integer, Node>();
   private Map<Integer, Integer> parents = new HashMap<Integer, Integer>();
   private Map<Integer, Set<Integer>> childs = new HashMap<Integer, Set<Integer>>();
   private Map<Integer, StaticMesh> meshes = new HashMap<Integer, StaticMesh>();
   private Map<Integer, StackedSphere> spheres = new HashMap<Integer, StackedSphere>();
-  
+
   public final TextureManager textureManager = new TextureManager(this);
+  public final FontManager fontManager = new FontManager(this);
   
   private Map<String, Float> perThreadFPSs = new HashMap<String, Float>();
   public boolean renderFPS = true;
@@ -42,6 +45,7 @@ public class RenderManager {
   public final static RenderManager instance = new RenderManager();
   private static StaticMesh axis;
   private static final MaterialManager materialManager = new MaterialManager();
+  private static int width, height;
   
   
   public static RenderManager getInstance(String name) {
@@ -105,12 +109,16 @@ public class RenderManager {
     return materialManager;
   }
   
-  void activateTexture(int target, int texture) {
+  void activateTexture(int target, int texture, int unit) {
     //if(lastTexture != texture) {
-      glActiveTexture(GL_TEXTURE0);
+      glActiveTexture(GL_TEXTURE0 + unit);
       glBindTexture(target, texture);
     //  lastTexture = texture;
     //}
+  }
+
+  public void setPerspective(float fovy, float zNear, float zFar) {
+    setPerspective(fovy, (float)width / height, zNear, zFar);
   }
   
   public void setPerspective(float fovy, float aspect, float zNear, float zFar) {
@@ -165,6 +173,33 @@ public class RenderManager {
         0.0f);
   }
   
+  public void setOrtho(
+      float left, float right, 
+      float top,  float bottom,
+      float near, float far)
+  {
+    projectionMatrix.setColumn(0, 
+        2 / (right-left),
+        0,
+        0,
+        0);
+    projectionMatrix.setColumn(1, 
+        0,
+        2 / (top-bottom),
+        0,
+        0);
+    projectionMatrix.setColumn(2, 
+        0,
+        0,
+        -2 / (far-near),
+        0);
+    projectionMatrix.setColumn(3, 
+        -(right + left)/ (right-left),
+        -(top + bottom)/ (top-bottom),
+        -(far + near  )/ (far-near  ),
+        1);
+  }
+  
   public void setCamera(Vector3f eye, Vector3f lookAt, Vector3f up) {
     cameraPosition.set(eye);
     
@@ -200,15 +235,17 @@ public class RenderManager {
     projection.mul( projectionMatrix );
   }
   
-  public static void initGL(int width, int height) {
+  public static void initGL(int w, int h) {
+    width = w;
+    height = h;
     try {
       Display.setDisplayMode(new DisplayMode(width,height));
       
       Display.create();
-      
-      glEnable(GL_DEPTH_TEST);
+
       glEnable(GL_CULL_FACE);
-      glDisable(GL_BLEND);
+      
+      glBlendFunc(GL_SRC_ALPHA, GL_ONE);
       
       /*try {
         Font f = new Font("resources/fonts/font0.fnt", instance);
@@ -327,28 +364,36 @@ public class RenderManager {
   }
   
   public void renderGraph() {
-    textureManager.getTexture2D("resources/fonts/font0_0.png").activate();
+    textureManager.getTexture2D("resources/fonts/font0_0.png").activate(0);
     
+
+    glEnable(GL_DEPTH_TEST);
+    glDisable(GL_BLEND);
+
     Matrix4f identity = new Matrix4f();
+    Matrix4f aux = new Matrix4f();
     identity.setIdentity();
     for(int node : childs.get(-1)) {
       nodes.get(node).renderNode(identity);
       //renderNode(node, id);
     }
     
-    /*
-    GL20.glUseProgram(0);
-    float posy = 30;
-    Color.white.bind();
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, 800, 600, 0, 1, -1);
-    glMatrixMode(GL_MODELVIEW);
-    UnicodeFont ttf = fonts.get("Times New Roman");
-    for(Entry<String, Float> fps : perThreadFPSs.entrySet()) {
-      ttf.drawString(0, posy, fps.getKey() + ": " + fps.getValue(), Color.blue);
-      posy += 25;
-    }*/
+    if(renderFPS) {
+      setOrtho(0, width, 0, height, -1, 1);
+      
+      identity.mul(projectionMatrix);
+  
+      glDisable(GL_DEPTH_TEST);
+      glEnable(GL_BLEND);
+      
+      Font font = fontManager.getFont("resources/fonts/font14.fnt");
+      String debugInfo = "";
+      for(Entry<String, Float> fps : perThreadFPSs.entrySet()) {
+        
+        debugInfo += fps.getKey() + ": " + fps.getValue() + "\n";
+      }
+      fontManager.printString(font, debugInfo, identity);
+    }
   }
   
   public void renderNode(int node, Matrix4f stackedMatrix) {

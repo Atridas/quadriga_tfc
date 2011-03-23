@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -21,7 +22,7 @@ import cat.quadriga.Utils;
 public class Font {
   private static Logger logger = Logger.getLogger(Font.class.getCanonicalName());
   
-  private final int width, height, lineHeight, highestChar;
+  public final int width, height, lineHeight, highestChar;
   
   private final Map<Integer, Texture> pages = new HashMap<Integer, Texture>();
   private final Map<Character, Char> chars = new HashMap<Character, Char>();
@@ -102,6 +103,7 @@ public class Font {
         charObj.xadvance = Integer.parseInt( charInfo.getAttribute("xadvance") );
         charObj.page = Integer.parseInt( charInfo.getAttribute("page") );
         charObj.chanel = Integer.parseInt( charInfo.getAttribute("chnl") );
+        if(charObj.chanel == 15) charObj.chanel = 0;
 
         charObj.fwidth  = (float) charObj.width / width;
         charObj.fheight = (float) charObj.height / height;
@@ -129,9 +131,10 @@ public class Font {
     }
   }
   
-  public int getVertexSize() {
-    return 4 * Integer.SIZE / 8  // x, y .. channel, textureId
-         + 2 * Float.SIZE   / 8; // s, t
+  public static int getVertexSize() {
+    return 3 * Integer.SIZE / 8  // x, y .. textureId
+         + 2 * Float.SIZE   / 8  // s, t
+         + 4 * Byte.SIZE    / 8; // channel
   }
   
   public int numTextures() {
@@ -177,42 +180,58 @@ public class Font {
       //vertex 00
       vertexBuffer.putInt(x0Coord); //x
       vertexBuffer.putInt(y0Coord); //y
-
-      vertexBuffer.putInt(charObj.chanel); //channel
+      
       vertexBuffer.putInt(charObj.page);   //page
 
       vertexBuffer.putFloat(s0);
       vertexBuffer.putFloat(t0);
+
+      vertexBuffer.put((byte)(charObj.chanel & 8)); //channel
+      vertexBuffer.put((byte)(charObj.chanel & 4)); //channel
+      vertexBuffer.put((byte)(charObj.chanel & 2)); //channel
+      vertexBuffer.put((byte)(charObj.chanel & 1)); //channel
       
       //vertex 10
       vertexBuffer.putInt(x1Coord); //x
       vertexBuffer.putInt(y0Coord); //y
 
-      vertexBuffer.putInt(charObj.chanel); //channel
       vertexBuffer.putInt(charObj.page);   //page
 
       vertexBuffer.putFloat(s1);
       vertexBuffer.putFloat(t0);
+
+      vertexBuffer.put((byte)(charObj.chanel & 8)); //channel
+      vertexBuffer.put((byte)(charObj.chanel & 4)); //channel
+      vertexBuffer.put((byte)(charObj.chanel & 2)); //channel
+      vertexBuffer.put((byte)(charObj.chanel & 1)); //channel
       
       //vertex 11
       vertexBuffer.putInt(x1Coord); //x
       vertexBuffer.putInt(y1Coord); //y
 
-      vertexBuffer.putInt(charObj.chanel); //channel
       vertexBuffer.putInt(charObj.page);   //page
 
       vertexBuffer.putFloat(s1);
       vertexBuffer.putFloat(t1);
+
+      vertexBuffer.put((byte)(charObj.chanel & 8)); //channel
+      vertexBuffer.put((byte)(charObj.chanel & 4)); //channel
+      vertexBuffer.put((byte)(charObj.chanel & 2)); //channel
+      vertexBuffer.put((byte)(charObj.chanel & 1)); //channel
       
       //vertex 01
       vertexBuffer.putInt(x0Coord); //x
       vertexBuffer.putInt(y1Coord); //y
 
-      vertexBuffer.putInt(charObj.chanel); //channel
       vertexBuffer.putInt(charObj.page);   //page
 
       vertexBuffer.putFloat(s0);
       vertexBuffer.putFloat(t1);
+
+      vertexBuffer.put((byte)(charObj.chanel & 8)); //channel
+      vertexBuffer.put((byte)(charObj.chanel & 4)); //channel
+      vertexBuffer.put((byte)(charObj.chanel & 2)); //channel
+      vertexBuffer.put((byte)(charObj.chanel & 1)); //channel
       
       
       //triangles
@@ -227,6 +246,29 @@ public class Font {
       x += charObj.xadvance;
       lastChar = c;
     }
+  }
+  
+  public static void setAttributes(
+      ShaderObject shader,
+      int position,
+      int texCoord,
+      int channel,
+      int page)
+  {
+    int vsize = getVertexSize();
+    shader.setAttribBufferedPointer(
+        position, 2, GL11.GL_INT, false, vsize, 0);
+
+    shader.setAttribBufferedPointer(
+        page, 1, GL11.GL_INT, false, vsize, Integer.SIZE / 8 * 2);
+
+    shader.setAttribBufferedPointer(
+        texCoord, 2, GL11.GL_FLOAT, false, vsize, Integer.SIZE / 8 * 3);
+
+    shader.setAttribBufferedPointer(
+        channel, 4, GL11.GL_BYTE, false, vsize, Integer.SIZE / 8 * 3
+                                              + Float.SIZE   / 8 * 2);
+    
   }
   
   private static class Char {
@@ -261,4 +303,50 @@ public class Font {
       return true;
     }
   }
+  
+  private Font() {width = height = lineHeight = highestChar = 0;}
+  
+  static final class NullFont extends Font {
+
+    public NullFont() {super();}
+    public void fillBuffers(CharSequence characters, ByteBuffer vertexBuffer, IntBuffer indexBuffer, Texture[] textures) {}
+    
+  }
+  
+
+  public static final String VERTEX_SHADER = 
+    "attribute vec2  a_position;\n"
+  + "attribute vec2  a_texCoord;\n"
+  + "attribute vec4  a_channel;\n"
+  + "attribute float a_page;\n"
+  + "\n"
+  + "varying vec2 v_texCoord;\n"
+  + "varying vec4 v_channel;\n"
+  + "varying float v_page;\n"
+  + "\n"
+  + "uniform mat4 u_WorldViewProj;\n"
+  + "\n"
+  + "void main() {" 
+  + "  gl_Position = u_WorldViewProj * vec4(a_position, 0, 1);\n"
+  + "  v_texCoord  = a_texCoord;\n"
+  + "  v_channel   = a_channel;\n"
+  + "  v_page      = a_page;\n"
+  + "}\n";
+  
+
+  public static final String FRAGMENT_SHADER_1_TEX =
+    "varying vec2 v_texCoord;\n"
+  + "varying vec4 v_channel;\n"
+  + "//varying int  v_page;\n"
+  + "\n"
+  + "uniform sampler2D u_page0;\n"
+  + "\n"
+  + "void main() {" 
+  + "  vec4 pixel = texture2D(u_page0, v_texCoord);\n"
+  + "  float val  = dot(v_channel, pixel);\n"
+  + "  if(val == 0.0) {\n"
+  + "    val = pixel.x;\n"
+  + "  }\n"
+  + "  gl_FragColor = vec4(val,val,val,val);\n"
+  + "}\n";
 }
