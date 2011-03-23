@@ -15,9 +15,9 @@ public abstract class Texture {
   }
 
   
-  public void activate() {
+  public void activate(int unit) {
     assert !finalized;
-    rm.activateTexture(getTarget(), id);
+    rm.activateTexture(getTarget(), id, unit);
   }
   
   public static void noTexture() {

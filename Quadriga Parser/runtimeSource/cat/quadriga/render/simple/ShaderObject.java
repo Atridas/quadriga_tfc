@@ -115,8 +115,9 @@ public final class ShaderObject {
     ib.rewind();
     return ib;
   }*/
-  
+
   private volatile Set<String> testedNullUniforms = new HashSet<String>();
+  private volatile Set<String> testedNullAttributes = new HashSet<String>();
   
   public int getUniform(String name) {
     Integer uniformID = uniforms.get(name);
@@ -128,6 +129,18 @@ public final class ShaderObject {
       return -1;
     }
     return uniformID;
+  }
+  
+  public int getAttrib(String name) {
+    Integer attribID = attributes.get(name);
+    if(attribID == null) {
+      if(!testedNullAttributes.contains(name)) {
+        testedNullAttributes.add(name);
+        logger.warning("Atribute " + name + " does not exist.");
+      }
+      return -1;
+    }
+    return attribID;
   }
   
   public void setUniform(String name, Matrix4f matrix) {
@@ -160,6 +173,10 @@ public final class ShaderObject {
     }
   }
   
+  public void setTextureUniform(int uniformID, int unit ) {
+    glUniform1i(uniformID, unit);
+  }
+  
   public void setAttribBufferedPointer(
       String name, 
       int elementsPerVertex, 
@@ -169,6 +186,24 @@ public final class ShaderObject {
       int offset) 
   {
     int attribID = attributes.get(name);
+    
+    glEnableVertexAttribArray(attribID);
+    glVertexAttribPointer(attribID, 
+                                elementsPerVertex, 
+                                type ,
+                                normalized, 
+                                vertexSize, 
+                                offset);
+  }
+  
+  public void setAttribBufferedPointer(
+      int attribID, 
+      int elementsPerVertex, 
+      int type, 
+      boolean normalized, 
+      int vertexSize, 
+      int offset) 
+  {
     
     glEnableVertexAttribArray(attribID);
     glVertexAttribPointer(attribID, 

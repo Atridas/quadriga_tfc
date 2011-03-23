@@ -86,7 +86,7 @@ public class Texture2D extends Texture {
     id = GL11.glGenTextures();
     
     
-    activate();
+    activate(0);
     
     if(GLContext.getCapabilities().OpenGL30) {
       
@@ -137,7 +137,7 @@ public class Texture2D extends Texture {
     id = GL11.glGenTextures();
     
     
-    activate();
+    activate(0);
     
     if(GLContext.getCapabilities().OpenGL30) {
       
