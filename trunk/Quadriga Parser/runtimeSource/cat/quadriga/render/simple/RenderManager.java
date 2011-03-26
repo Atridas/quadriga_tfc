@@ -30,6 +30,7 @@ public final class RenderManager {
   private Map<Integer, Set<Integer>> childs = new HashMap<Integer, Set<Integer>>();
   private Map<Integer, StaticMesh> meshes = new HashMap<Integer, StaticMesh>();
   private Map<Integer, StackedSphere> spheres = new HashMap<Integer, StackedSphere>();
+  private Map<Integer, Box> boxes = new HashMap<Integer, Box>();
 
   public final TextureManager textureManager = new TextureManager(this);
   public final FontManager fontManager = new FontManager(this);
@@ -103,6 +104,18 @@ public final class RenderManager {
   public void deleteSphere(int position) {
     spheres.remove(position);
     nodes.get(position).sphere = null;
+  }
+  
+  public void setBox(int position) {
+    Box box = new Box();
+    boxes.put(position, box);
+    
+    nodes.get(position).box = box;
+  }
+  
+  public void deleteBox(int position) {
+    boxes.remove(position);
+    nodes.get(position).box = null;
   }
   
   public static MaterialManager getMaterialManager() {

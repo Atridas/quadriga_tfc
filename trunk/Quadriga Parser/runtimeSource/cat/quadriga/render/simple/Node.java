@@ -2,7 +2,6 @@ package cat.quadriga.render.simple;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Quat4f;
@@ -26,6 +25,7 @@ public class Node {
   public final RenderManager rm;
   public StaticMesh staticMesh;
   public StackedSphere sphere;
+  public Box box;
   public final List<Node> childs = new ArrayList<Node>();
   
   public Node(int id, RenderManager rm) {
@@ -85,6 +85,9 @@ public class Node {
     //TODO spheres etc...
     if(sphere != null) {
       sphere.render(null, matrixAux, rm);
+    }
+    if(box != null) {
+      box.render(null, matrixAux, rm);
     }
     
 
