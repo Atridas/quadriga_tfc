@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<material name="color">
+  <vertex_shader>
+    <file>resources/materials/shaders/textured.vs</file>
+  </vertex_shader>
+  <fragment_shader>
+    <file>resources/materials/shaders/textured.fs</file>
+  </fragment_shader>
+  <uniforms>
+    <world_view_projection>u_WorldViewProj</world_view_projection>
+    <texture unit="0">u_Tex</texture>
+  </uniforms>
+  <attributes>
+    <position>_Position</position>
+    <st>_ST</st>
+  </attributes>
+</material>

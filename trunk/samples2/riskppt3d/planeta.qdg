@@ -27,7 +27,7 @@
   Transform()
   DadesComponent(radi: radi)
   //StaticMeshRenderer(mesh: "quadriga.baseassets.staticmeshes.Sphere", materials: { 0 })
-  SphereRenderer(radi: this[DadesComponent].radi, materials: { 0 })
+  SphereRenderer(radi: this[DadesComponent].radi)
   Materials( materials : { new MaterialUnshadedColor( ColorUtils.getHSV(hue, 0.8f, 0.9f) ) } )
 
   @child {
@@ -47,6 +47,8 @@
 @prototype PlanetInfoQuad(Entity entity : ENTITY)
 {
   Transform(position: new Vector3f(0.0f, 0.0f, entity.getParent().getParent()[DadesComponent].radi *  2.0f))
+  
+  BoxRenderer()
   @child {
     "Base":TexturedQuadPrototype([TexturedQuad].texture: "riskppt3d/assets/planetinfo.png")
     

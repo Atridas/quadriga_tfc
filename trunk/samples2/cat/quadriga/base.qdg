@@ -8,6 +8,8 @@
   Quat4f rotation    = new Quat4f(0.0f,0.0f,0.0f,1.0f);
 }
 
+@event Exit {}
+
 
 @component Materials {
   BaseMaterial[] materials = {};
@@ -16,13 +18,15 @@
 @component StaticMeshRenderer {
   * Transform
   String mesh;
-  int[] materials;
 }
 
 @component SphereRenderer {
   * Transform
   float radi = 1.0f;
-  int[] materials;
+}
+
+@component BoxRenderer {
+  * Transform
 }
 
 @component CilynderRenderer {
@@ -30,7 +34,6 @@
   float radi = 1.0f;
   Vector3f pos1 = new Vector3f(0.0f,0.0f,0.0f);
   Vector3f pos2 = new Vector3f(0.0f,0.0f,1.0f);
-  int[] materials;
 }
 
 @component TexturedQuad {
@@ -87,6 +90,15 @@
   @update(Entity<Transform> entity: ENTITY) {
     RenderManager rm = RenderManager.instance;
     Node node = rm.getNode(entity.getGUID());
+    
+    node.setTranslation( entity[Transform].position );
+    node.setRotation( entity[Transform].rotation );
+    node.setScale( entity[Transform].scale );
+  }
+  
+  @newEntity(Entity<Transform> entity: ENTITY) {
+    RenderManager rm = RenderManager.instance;
+    Node node = rm.getNode(entity.getGUID());
     Entity parent = entity.getParent();
     if(parent != null) {
       rm.setParent(entity.getGUID(), parent.getGUID());
@@ -104,6 +116,9 @@
   
   @update(Entity<CameraComponent> entity : ENTITY) {
     RenderManager rm = RenderManager.instance;
+                      
+    rm.setPerspective(45.f, 1.f, 99.f);
+    
     rm.setCamera(entity[CameraComponent].position, entity[CameraComponent].lookAt, entity[CameraComponent].up);
   }
 }
@@ -113,8 +128,35 @@
     SphereRenderer
   }
   
-  @update(Entity<Transform, SphereRenderer> entity : ENTITY) {
+  @newEntity(Entity<SphereRenderer> entity : ENTITY) {
+    RenderManager rm = RenderManager.instance;
+    rm.setSphere(entity.getGUID(), entity[SphereRenderer].radi);
+  }
   
+  @update(Entity<SphereRenderer> entity : ENTITY) {
+    RenderManager rm = RenderManager.instance;
+    rm.changeSphere(entity.getGUID(), entity[SphereRenderer].radi);
+  }
+  
+  @eraseEntity(Entity<SphereRenderer> entity : ENTITY) {
+    RenderManager rm = RenderManager.instance;
+    rm.deleteSphere(entity.getGUID());
+  }
+}
+
+@system SimpleBoxRenderer {
+  @components {
+    BoxRenderer
+  }
+  
+  @newEntity(Entity entity : ENTITY) {
+    RenderManager rm = RenderManager.instance;
+    rm.setBox(entity.getGUID());
+  }
+  
+  @eraseEntity(Entity  entity : ENTITY) {
+    RenderManager rm = RenderManager.instance;
+    rm.deleteBox(entity.getGUID());
   }
 }
 
@@ -132,18 +174,50 @@
 }
 */
 
+@component RendererComponent {}
+
+@prototype RendererPrototype {
+  RendererComponent()
+}
+
+@system EndRender {
+  @components {
+    RendererComponent
+  }
+  
+  @update() {
+    RenderManager.initRender();
+    
+    
+    RenderManager.instance.renderGraph();
+  
+    RenderManager.instance.drawAxis(null);
+  
+    RenderManager.switchBuffers();
+    if(RenderManager.isCloseRequested()) {
+      @event Exit();
+    }
+  }
+}
 
 @thread SimpleRenderThread {
+
   @system SimpleCameraSystem
   @system SimpleNodeSystem
   @system SimpleSphereRenderer
+  @system SimpleBoxRenderer
+  
+  @system EndRender
   
   @init {
+    RenderManager.initGL(800,600);
     RenderManager rm = RenderManager.instance;
-    /*rm.setFrustum(-4.0f, 4.0f,
-                     -3.0f, 3.0f,
-                      1.0f,99.9f);*/
-                      
-    rm.setPerspective(45.f, 800.0f/600.0f, 1.f, 99.f);
+    
+    Entity renderer = @newEntity("qdg_renderer",null);
+    @prototype renderer : RendererPrototype();
+  }
+  
+  @cleanUp {
+    RenderManager.close();
   }
 }
