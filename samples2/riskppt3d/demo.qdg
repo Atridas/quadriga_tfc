@@ -16,12 +16,13 @@
   
   @child {
     "Planeta1" : Planeta( hue: 0.0f,   [Transform].position: new Vector3f(0.0f, 4.5f,  2.0f) )
-    "Planeta2" : Planeta( hue: 0.0f,   [Transform].position: new Vector3f(0.0f, 0.0f,  0.0f) )
+    "Planeta2" : Planeta( hue: 0.0f,   [Transform].position: new Vector3f(0.0f, 0.0f,  0.0f), radi: 3.5f )
     "Planeta3" : Planeta( hue: 0.0f,   [Transform].position: new Vector3f(0.0f, 9.0f, -2.0f) )
     
     "Planeta4" : Planeta( hue: 180.0f, [Transform].position: new Vector3f(6.0f, 0.0f, 0.0f) )
-    "Planeta5" : Planeta( hue: 180.0f, [Transform].position: new Vector3f(2.0f, 6.0f, 2.0f) )
+    "Planeta5" : Planeta( hue: 180.0f, [Transform].position: new Vector3f(2.0f, 6.0f, 2.0f), radi: 0.5f )
     "Planeta6" : Planeta( hue: 180.0f, [Transform].position: new Vector3f(6.0f, 6.0f, 4.0f) )
+    
     
     
     "Aresta1" : Aresta( planeta1: this["Planeta1"], planeta2: this["Planeta2"] )
@@ -34,24 +35,54 @@
 
     "Aresta7" : Aresta( planeta1: this["Planeta2"], planeta2: this["Planeta5"] )
     
-    "Camera" : SimpleCamera( [CameraComponent].position: new Vector3f(1.0f, 1.0f, 2.0f), 
+    
+    
+    "Camera" : SimpleCamera( [CameraComponent].position: new Vector3f(10.0f, 10.0f, 20.0f), 
                              [CameraComponent].lookAt: new Vector3f(0.0f,0.0f,0.0f),
                              [CameraComponent].up: new Vector3f(0.0f,0.0f,1.0f))
   }
   SceneComponent( camera: this["Camera"] )
 }
 
+@component riskppt3d.planeta.DadesComponent
+@component cat.quadriga.base.SphereRenderer
+
+@system IncrementadorPlanetes {
+  @components {
+    CameraComponent
+  }
+  
+  @update (Entity<CameraComponent> entity: ENTITY, float dt : DELTA_TIME) {
+    Vector3f pos = entity[CameraComponent].position;
+    
+    float desp = 0.3f * dt; //0.3 rad/s
+    
+    AxisAngle4f aaRot = new AxisAngle4f(0.0f,0.0f,1.0f,desp);
+    
+    Matrix4f m = new Matrix4f();
+    m.set(aaRot);
+    
+    m.transform(pos);
+    
+    entity[CameraComponent].position = pos;
+  }
+}
+
+@thread Test { @system IncrementadorPlanetes }
+
+@java cat.quadriga.render.simple.RenderManager
+
 @main DemoMain {
   //@quadriga riskppt3d.planeta : interpreted
   //@quadriga riskppt3d.aresta : interpreted
   @thread SimpleRenderThread
+  @thread Test
   
   @init {
     Entity demo = @newEntity("BaseScene",null);
     @prototype demo : SimpleDemo();
     
-    Entity<SceneComponent> demo2 = @find ["BaseScene"];
-    Entity demo3 = @find ["Nobody"];
+    //TODO RenderManager.instance.renderFPS = true;
   }
   
   

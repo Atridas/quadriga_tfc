@@ -5,13 +5,13 @@
    +- "cat.quadriga.base.TexturedQuad" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   |        +- Component Field
+   |        +- Quadriga Field
    |        |  +- Ljavax/vecmath/Vector3f;
    |        |  +- "position"
    |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |        |     +- Ljavax/vecmath/Vector3f;
    |        |     +- St: Zero Arguments <+>
-   |        +- Component Field
+   |        +- Quadriga Field
    |           +- Ljava/lang/String;
    |           +- "texture"
    |           +- Op: Literal {Ljava/lang/String;} <+>
@@ -31,18 +31,18 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |  +- "position"
    |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- F
    |           |  |  |     |  +- "scale"
    |           |  |  |     |  +- Op: Literal {F} <+>
    |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- Ljavax/vecmath/Quat4f;
    |           |  |  |        +- "rotation"
    |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
@@ -82,6 +82,12 @@
    |           |  |                 |     +- Op: Type Access: riskppt3d.planeta.DadesComponent <+>
    |           |  |                 +- Op: Literal {F} <+>
    |           |  |                    +- Float: 2.0
+   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   |           +- St: Add Component <+>
+   |           |  +- Op: Component Allocation {cat.quadriga.base.BoxRenderer} <+>
+   |           |  |  +- Component <+>
+   |           |  |  |  +- fields
+   |           |  |  +- St: Zero Arguments <+>
    |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
    |           +- St: Apply Prototype to Entity <+>
    |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
@@ -346,8 +352,17 @@
    |                       +- color
    |                       +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
    |                          +- cat.quadriga.java.base.ColorUtils -> RED
+   +- "Exit" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   +- "RendererComponent" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
    +- "cat.quadriga.java.base.ColorUtils" : Symbol Type
    |  +- Lcat/quadriga/java/base/ColorUtils;
+   +- "cat.quadriga.base.RendererComponent" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
    +- "cat.quadriga.java.base.MaterialUnshadedColor" : Symbol Type
    |  +- Lcat/quadriga/java/base/MaterialUnshadedColor;
    +- "SimpleNodeSystem" : Symbol Type
@@ -355,6 +370,68 @@
    |     +- needed components
    |     |  +- cat.quadriga.base.Transform
    |     +- Update: 
+   |     |  +- Quadriga function
+   |     |     +- parameters
+   |     |     |  +- parameter
+   |     |     |     +- Lcat/quadriga/runtime/Entity;
+   |     |     |     +- entity
+   |     |     |     +- Semantic: ENTITY
+   |     |     +- St: Block <+>
+   |     |        +- Code:
+   |     |           +- St: Block <+>
+   |     |              +- Local Variables:
+   |     |              |  +- Symbol Var [ rm ] Type [ Lcat/quadriga/render/simple/RenderManager; ]
+   |     |              |  +- Symbol Var [ node ] Type [ Lcat/quadriga/render/simple/Node; ]
+   |     |              +- Code:
+   |     |                 +- St: Statements: <+>
+   |     |                 |  +- St: = <+>
+   |     |                 |     +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |     +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |        +- cat.quadriga.render.simple.RenderManager -> instance
+   |     |                 +- St: Statements: <+>
+   |     |                 |  +- St: = <+>
+   |     |                 |     +- Op: Local variable access: node {Lcat/quadriga/render/simple/Node;} <+>
+   |     |                 |     +- Op: Call {Lcat/quadriga/render/simple/Node;} <+>
+   |     |                 |        +- Op: Method: <+>
+   |     |                 |        |  +- cat.quadriga.render.simple.RenderManager -> getNode
+   |     |                 |        |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |        +- St: Arguments <+>
+   |     |                 |           +- Op: Call {I} <+>
+   |     |                 |              +- Op: Method: <+>
+   |     |                 |              |  +- cat.quadriga.runtime.Entity -> getGUID
+   |     |                 |              |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                 |              +- St: Zero Arguments <+>
+   |     |                 +- St: Statement From Expression : Call <+>
+   |     |                 |  +- Op: Method: <+>
+   |     |                 |  |  +- cat.quadriga.render.simple.Node -> setTranslation
+   |     |                 |  |  +- Op: Local variable access: node {Lcat/quadriga/render/simple/Node;} <+>
+   |     |                 |  +- St: Arguments <+>
+   |     |                 |     +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
+   |     |                 |        +- cat.quadriga.base.Transform -> position
+   |     |                 |        +- Op: Component Access {cat.quadriga.base.Transform} <+>
+   |     |                 |           +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                 |           +- Op: Type Access: cat.quadriga.base.Transform <+>
+   |     |                 +- St: Statement From Expression : Call <+>
+   |     |                 |  +- Op: Method: <+>
+   |     |                 |  |  +- cat.quadriga.render.simple.Node -> setRotation
+   |     |                 |  |  +- Op: Local variable access: node {Lcat/quadriga/render/simple/Node;} <+>
+   |     |                 |  +- St: Arguments <+>
+   |     |                 |     +- Op: Component Field: {Ljavax/vecmath/Quat4f;} <+>
+   |     |                 |        +- cat.quadriga.base.Transform -> rotation
+   |     |                 |        +- Op: Component Access {cat.quadriga.base.Transform} <+>
+   |     |                 |           +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                 |           +- Op: Type Access: cat.quadriga.base.Transform <+>
+   |     |                 +- St: Statement From Expression : Call <+>
+   |     |                    +- Op: Method: <+>
+   |     |                    |  +- cat.quadriga.render.simple.Node -> setScale
+   |     |                    |  +- Op: Local variable access: node {Lcat/quadriga/render/simple/Node;} <+>
+   |     |                    +- St: Arguments <+>
+   |     |                       +- Op: Component Field: {F} <+>
+   |     |                          +- cat.quadriga.base.Transform -> scale
+   |     |                          +- Op: Component Access {cat.quadriga.base.Transform} <+>
+   |     |                             +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                             +- Op: Type Access: cat.quadriga.base.Transform <+>
+   |     +- New Entity: 
    |        +- Quadriga function
    |           +- parameters
    |           |  +- parameter
@@ -448,6 +525,11 @@
    |                                +- Op: Component Access {cat.quadriga.base.Transform} <+>
    |                                   +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
    |                                   +- Op: Type Access: cat.quadriga.base.Transform <+>
+   +- "cat.quadriga.base.BoxRenderer" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   +- "javax.vecmath.Matrix4f" : Symbol Type
+   |  +- Ljavax/vecmath/Matrix4f;
    +- "riskppt3d.planeta.Planeta" : Symbol Type
    |  +- Prototype <+>
    |     +- parameters
@@ -472,18 +554,18 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |  +- "position"
    |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- F
    |           |  |  |     |  +- "scale"
    |           |  |  |     |  +- Op: Literal {F} <+>
    |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- Ljavax/vecmath/Quat4f;
    |           |  |  |        +- "rotation"
    |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
@@ -503,7 +585,7 @@
    |           |  +- Op: Component Allocation {riskppt3d.planeta.DadesComponent} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- F
    |           |  |  |        +- "radi"
    |           |  |  |        +- Op: Literal {F} <+>
@@ -517,24 +599,12 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.SphereRenderer} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
-   |           |  |  |     |  +- [I
-   |           |  |  |     |  +- "materials"
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- F
    |           |  |  |        +- "radi"
    |           |  |  |        +- Op: Literal {F} <+>
    |           |  |  |           +- Float: 1.0
    |           |  |  +- St: Named Arguments <+>
-   |           |  |     +- quadriga argument
-   |           |  |     |  +- materials
-   |           |  |     |  +- Op: Array initialization {[I} <+>
-   |           |  |     |     +- Op: new primitive array {[I} <+>
-   |           |  |     |     |  +- I
-   |           |  |     |     |  +- Op: Literal {I} <+>
-   |           |  |     |     |     +- Integer: 1
-   |           |  |     |     +- Op: Literal {I} <+>
-   |           |  |     |        +- Integer: 0
    |           |  |     +- quadriga argument
    |           |  |        +- radi
    |           |  |        +- Op: Component Field: {F} <+>
@@ -547,7 +617,7 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.Materials} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- [Lcat/quadriga/java/base/BaseMaterial;
    |           |  |  |        +- "materials"
    |           |  |  |        +- Op: Array initialization {[Lcat/quadriga/java/base/BaseMaterial;} <+>
@@ -583,14 +653,47 @@
    |              |     +- String: "Info"
    |              +- riskppt3d.planeta.PlanetaInfo
    |              +- St: Zero Arguments <+>
+   +- "Test" : Symbol Type
+   |  +- thread <+>
+   |     +- riskppt3d.demo.IncrementadorPlanetes
+   +- "cat.quadriga.base.RendererPrototype" : Symbol Type
+   |  +- Prototype <+>
+   |     +- St: Block <+>
+   |        +- Code:
+   |           +- St: Add Component <+>
+   |              +- Op: Component Allocation {cat.quadriga.base.RendererComponent} <+>
+   |              |  +- Component <+>
+   |              |  |  +- fields
+   |              |  +- St: Zero Arguments <+>
+   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
    +- "cat.quadriga.base.SceneComponent" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   |        +- Component Field
+   |        +- Quadriga Field
    |           +- Lcat/quadriga/runtime/Entity;
    |           +- "camera"
    +- "javax.vecmath.Quat4f" : Symbol Type
    |  +- Ljavax/vecmath/Quat4f;
+   +- "DemoMain" : Symbol Type
+   |  +- main
+   |     +- thread: cat.quadriga.base.SimpleRenderThread
+   |     +- thread: riskppt3d.demo.Test
+   |     +- St: Block <+>
+   |        +- Local Variables:
+   |        |  +- Symbol Var [ demo ] Type [ Lcat/quadriga/runtime/Entity; ]
+   |        +- Code:
+   |           +- St: Statements: <+>
+   |           |  +- St: = <+>
+   |           |     +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
+   |           |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
+   |           |        +- Op: Literal {Null type} <+>
+   |           |        |  +- Null
+   |           |        +- Op: Literal {Ljava/lang/String;} <+>
+   |           |           +- String: "BaseScene"
+   |           +- St: Apply Prototype to Entity <+>
+   |              +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
+   |              +- riskppt3d.demo.SimpleDemo
+   |              +- St: Zero Arguments <+>
    +- "SimpleDemo" : Symbol Type
    |  +- Prototype <+>
    |     +- St: Block <+>
@@ -599,18 +702,18 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |  +- "position"
    |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- F
    |           |  |  |     |  +- "scale"
    |           |  |  |     |  +- Op: Literal {F} <+>
    |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- Ljavax/vecmath/Quat4f;
    |           |  |  |        +- "rotation"
    |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
@@ -659,9 +762,13 @@
    |           |  +- riskppt3d.planeta.Planeta
    |           |  +- St: Named Arguments <+>
    |           |  |  +- quadriga argument
-   |           |  |     +- hue
+   |           |  |  |  +- hue
+   |           |  |  |  +- Op: Literal {F} <+>
+   |           |  |  |     +- Float: 0.0
+   |           |  |  +- quadriga argument
+   |           |  |     +- radi
    |           |  |     +- Op: Literal {F} <+>
-   |           |  |        +- Float: 0.0
+   |           |  |        +- Float: 3.5
    |           |  +- Component redefinition
    |           |     +- cat.quadriga.base.Transform
    |           |     +- St: Named Arguments <+>
@@ -734,9 +841,13 @@
    |           |  +- riskppt3d.planeta.Planeta
    |           |  +- St: Named Arguments <+>
    |           |  |  +- quadriga argument
-   |           |  |     +- hue
+   |           |  |  |  +- hue
+   |           |  |  |  +- Op: Literal {F} <+>
+   |           |  |  |     +- Float: 180.0
+   |           |  |  +- quadriga argument
+   |           |  |     +- radi
    |           |  |     +- Op: Literal {F} <+>
-   |           |  |        +- Float: 180.0
+   |           |  |        +- Float: 0.5
    |           |  +- Component redefinition
    |           |     +- cat.quadriga.base.Transform
    |           |     +- St: Named Arguments <+>
@@ -925,11 +1036,11 @@
    |           |        |     +- Ljavax/vecmath/Vector3f;
    |           |        |     +- St: Arguments <+>
    |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 1.0
+   |           |        |        |  +- Float: 10.0
    |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 1.0
+   |           |        |        |  +- Float: 10.0
    |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 2.0
+   |           |        |           +- Float: 20.0
    |           |        +- quadriga argument
    |           |        |  +- lookAt
    |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
@@ -956,7 +1067,7 @@
    |              +- Op: Component Allocation {cat.quadriga.base.SceneComponent} <+>
    |              |  +- Component <+>
    |              |  |  +- fields
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |        +- Lcat/quadriga/runtime/Entity;
    |              |  |        +- "camera"
    |              |  +- St: Named Arguments <+>
@@ -967,45 +1078,73 @@
    |              |           +- Op: Literal {Ljava/lang/String;} <+>
    |              |              +- String: "Camera"
    |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   +- "DemoMain" : Symbol Type
-   |  +- main
-   |     +- thread: cat.quadriga.base.SimpleRenderThread
-   |     +- St: Block <+>
-   |        +- Local Variables:
-   |        |  +- Symbol Var [ demo ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        |  +- Symbol Var [ demo2 ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        |  +- Symbol Var [ demo3 ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        +- Code:
-   |           +- St: Statements: <+>
-   |           |  +- St: = <+>
-   |           |     +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |        +- Op: Literal {Null type} <+>
-   |           |        |  +- Null
-   |           |        +- Op: Literal {Ljava/lang/String;} <+>
-   |           |           +- String: "BaseScene"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  +- riskppt3d.demo.SimpleDemo
-   |           |  +- St: Zero Arguments <+>
-   |           +- St: No Operation <+>
-   |           +- St: Statements: <+>
-   |           |  +- St: = <+>
-   |           |     +- Op: Local variable access: demo2 {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     +- Op: Find Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |        +- Op: Literal {Ljava/lang/String;} <+>
-   |           |           +- String: "BaseScene"
-   |           +- St: Statements: <+>
-   |              +- St: = <+>
-   |                 +- Op: Local variable access: demo3 {Lcat/quadriga/runtime/Entity;} <+>
-   |                 +- Op: Find Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |                    +- Op: Literal {Ljava/lang/String;} <+>
-   |                       +- String: "Nobody"
    +- "cat.quadriga.base.SimpleNodeSystem" : Symbol Type
    |  +- System <+>
    |     +- needed components
    |     |  +- cat.quadriga.base.Transform
    |     +- Update: 
+   |     |  +- Quadriga function
+   |     |     +- parameters
+   |     |     |  +- parameter
+   |     |     |     +- Lcat/quadriga/runtime/Entity;
+   |     |     |     +- entity
+   |     |     |     +- Semantic: ENTITY
+   |     |     +- St: Block <+>
+   |     |        +- Code:
+   |     |           +- St: Block <+>
+   |     |              +- Local Variables:
+   |     |              |  +- Symbol Var [ rm ] Type [ Lcat/quadriga/render/simple/RenderManager; ]
+   |     |              |  +- Symbol Var [ node ] Type [ Lcat/quadriga/render/simple/Node; ]
+   |     |              +- Code:
+   |     |                 +- St: Statements: <+>
+   |     |                 |  +- St: = <+>
+   |     |                 |     +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |     +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |        +- cat.quadriga.render.simple.RenderManager -> instance
+   |     |                 +- St: Statements: <+>
+   |     |                 |  +- St: = <+>
+   |     |                 |     +- Op: Local variable access: node {Lcat/quadriga/render/simple/Node;} <+>
+   |     |                 |     +- Op: Call {Lcat/quadriga/render/simple/Node;} <+>
+   |     |                 |        +- Op: Method: <+>
+   |     |                 |        |  +- cat.quadriga.render.simple.RenderManager -> getNode
+   |     |                 |        |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |        +- St: Arguments <+>
+   |     |                 |           +- Op: Call {I} <+>
+   |     |                 |              +- Op: Method: <+>
+   |     |                 |              |  +- cat.quadriga.runtime.Entity -> getGUID
+   |     |                 |              |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                 |              +- St: Zero Arguments <+>
+   |     |                 +- St: Statement From Expression : Call <+>
+   |     |                 |  +- Op: Method: <+>
+   |     |                 |  |  +- cat.quadriga.render.simple.Node -> setTranslation
+   |     |                 |  |  +- Op: Local variable access: node {Lcat/quadriga/render/simple/Node;} <+>
+   |     |                 |  +- St: Arguments <+>
+   |     |                 |     +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
+   |     |                 |        +- cat.quadriga.base.Transform -> position
+   |     |                 |        +- Op: Component Access {cat.quadriga.base.Transform} <+>
+   |     |                 |           +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                 |           +- Op: Type Access: cat.quadriga.base.Transform <+>
+   |     |                 +- St: Statement From Expression : Call <+>
+   |     |                 |  +- Op: Method: <+>
+   |     |                 |  |  +- cat.quadriga.render.simple.Node -> setRotation
+   |     |                 |  |  +- Op: Local variable access: node {Lcat/quadriga/render/simple/Node;} <+>
+   |     |                 |  +- St: Arguments <+>
+   |     |                 |     +- Op: Component Field: {Ljavax/vecmath/Quat4f;} <+>
+   |     |                 |        +- cat.quadriga.base.Transform -> rotation
+   |     |                 |        +- Op: Component Access {cat.quadriga.base.Transform} <+>
+   |     |                 |           +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                 |           +- Op: Type Access: cat.quadriga.base.Transform <+>
+   |     |                 +- St: Statement From Expression : Call <+>
+   |     |                    +- Op: Method: <+>
+   |     |                    |  +- cat.quadriga.render.simple.Node -> setScale
+   |     |                    |  +- Op: Local variable access: node {Lcat/quadriga/render/simple/Node;} <+>
+   |     |                    +- St: Arguments <+>
+   |     |                       +- Op: Component Field: {F} <+>
+   |     |                          +- cat.quadriga.base.Transform -> scale
+   |     |                          +- Op: Component Access {cat.quadriga.base.Transform} <+>
+   |     |                             +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                             +- Op: Type Access: cat.quadriga.base.Transform <+>
+   |     +- New Entity: 
    |        +- Quadriga function
    |           +- parameters
    |           |  +- parameter
@@ -1117,18 +1256,18 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |  +- "position"
    |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- F
    |           |  |  |     |  +- "scale"
    |           |  |  |     |  +- Op: Literal {F} <+>
    |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- Ljavax/vecmath/Quat4f;
    |           |  |  |        +- "rotation"
    |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
@@ -1148,7 +1287,7 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.CilynderRenderer} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |  +- "pos1"
    |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
@@ -1160,7 +1299,7 @@
    |           |  |  |     |        |  +- Float: 0.0
    |           |  |  |     |        +- Op: Literal {F} <+>
    |           |  |  |     |           +- Float: 0.0
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |  +- "pos2"
    |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
@@ -1172,10 +1311,7 @@
    |           |  |  |     |        |  +- Float: 0.0
    |           |  |  |     |        +- Op: Literal {F} <+>
    |           |  |  |     |           +- Float: 1.0
-   |           |  |  |     +- Component Field
-   |           |  |  |     |  +- [I
-   |           |  |  |     |  +- "materials"
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- F
    |           |  |  |        +- "radi"
    |           |  |  |        +- Op: Literal {F} <+>
@@ -1196,15 +1332,6 @@
    |           |  |     |        +- Op: Local variable access: planeta2 {Lcat/quadriga/runtime/Entity;} <+>
    |           |  |     |        +- Op: Type Access: cat.quadriga.base.Transform <+>
    |           |  |     +- quadriga argument
-   |           |  |     |  +- materials
-   |           |  |     |  +- Op: Array initialization {[I} <+>
-   |           |  |     |     +- Op: new primitive array {[I} <+>
-   |           |  |     |     |  +- I
-   |           |  |     |     |  +- Op: Literal {I} <+>
-   |           |  |     |     |     +- Integer: 1
-   |           |  |     |     +- Op: Literal {I} <+>
-   |           |  |     |        +- Integer: 0
-   |           |  |     +- quadriga argument
    |           |  |        +- radi
    |           |  |        +- Op: Literal {F} <+>
    |           |  |           +- Float: 0.5
@@ -1213,7 +1340,7 @@
    |              +- Op: Component Allocation {cat.quadriga.base.Materials} <+>
    |              |  +- Component <+>
    |              |  |  +- fields
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |        +- [Lcat/quadriga/java/base/BaseMaterial;
    |              |  |        +- "materials"
    |              |  |        +- Op: Array initialization {[Lcat/quadriga/java/base/BaseMaterial;} <+>
@@ -1246,24 +1373,87 @@
    +- "SceneComponent" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   |        +- Component Field
+   |        +- Quadriga Field
    |           +- Lcat/quadriga/runtime/Entity;
    |           +- "camera"
+   +- "cat.quadriga.base.SimpleBoxRenderer" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |     |  +- cat.quadriga.base.BoxRenderer
+   |     +- New Entity: 
+   |     |  +- Quadriga function
+   |     |     +- parameters
+   |     |     |  +- parameter
+   |     |     |     +- Lcat/quadriga/runtime/Entity;
+   |     |     |     +- entity
+   |     |     |     +- Semantic: ENTITY
+   |     |     +- St: Block <+>
+   |     |        +- Code:
+   |     |           +- St: Block <+>
+   |     |              +- Local Variables:
+   |     |              |  +- Symbol Var [ rm ] Type [ Lcat/quadriga/render/simple/RenderManager; ]
+   |     |              +- Code:
+   |     |                 +- St: Statements: <+>
+   |     |                 |  +- St: = <+>
+   |     |                 |     +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |     +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |        +- cat.quadriga.render.simple.RenderManager -> instance
+   |     |                 +- St: Statement From Expression : Call <+>
+   |     |                    +- Op: Method: <+>
+   |     |                    |  +- cat.quadriga.render.simple.RenderManager -> setBox
+   |     |                    |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                    +- St: Arguments <+>
+   |     |                       +- Op: Call {I} <+>
+   |     |                          +- Op: Method: <+>
+   |     |                          |  +- cat.quadriga.runtime.Entity -> getGUID
+   |     |                          |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                          +- St: Zero Arguments <+>
+   |     +- Remove Entity: 
+   |        +- Quadriga function
+   |           +- parameters
+   |           |  +- parameter
+   |           |     +- Lcat/quadriga/runtime/Entity;
+   |           |     +- entity
+   |           |     +- Semantic: ENTITY
+   |           +- St: Block <+>
+   |              +- Code:
+   |                 +- St: Block <+>
+   |                    +- Local Variables:
+   |                    |  +- Symbol Var [ rm ] Type [ Lcat/quadriga/render/simple/RenderManager; ]
+   |                    +- Code:
+   |                       +- St: Statements: <+>
+   |                       |  +- St: = <+>
+   |                       |     +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                       |     +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                       |        +- cat.quadriga.render.simple.RenderManager -> instance
+   |                       +- St: Statement From Expression : Call <+>
+   |                          +- Op: Method: <+>
+   |                          |  +- cat.quadriga.render.simple.RenderManager -> deleteBox
+   |                          |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                          +- St: Arguments <+>
+   |                             +- Op: Call {I} <+>
+   |                                +- Op: Method: <+>
+   |                                |  +- cat.quadriga.runtime.Entity -> getGUID
+   |                                |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |                                +- St: Zero Arguments <+>
+   +- "cat.quadriga.base.Exit" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
    +- "cat.quadriga.base.Transform" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   |        +- Component Field
+   |        +- Quadriga Field
    |        |  +- Ljavax/vecmath/Vector3f;
    |        |  +- "position"
    |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |        |     +- Ljavax/vecmath/Vector3f;
    |        |     +- St: Zero Arguments <+>
-   |        +- Component Field
+   |        +- Quadriga Field
    |        |  +- F
    |        |  +- "scale"
    |        |  +- Op: Literal {F} <+>
    |        |     +- Float: 1.0
-   |        +- Component Field
+   |        +- Quadriga Field
    |           +- Ljavax/vecmath/Quat4f;
    |           +- "rotation"
    |           +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
@@ -1285,18 +1475,18 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |  +- "position"
    |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- F
    |           |  |  |     |  +- "scale"
    |           |  |  |     |  +- Op: Literal {F} <+>
    |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- Ljavax/vecmath/Quat4f;
    |           |  |  |        +- "rotation"
    |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
@@ -1345,9 +1535,13 @@
    |           |  +- riskppt3d.planeta.Planeta
    |           |  +- St: Named Arguments <+>
    |           |  |  +- quadriga argument
-   |           |  |     +- hue
+   |           |  |  |  +- hue
+   |           |  |  |  +- Op: Literal {F} <+>
+   |           |  |  |     +- Float: 0.0
+   |           |  |  +- quadriga argument
+   |           |  |     +- radi
    |           |  |     +- Op: Literal {F} <+>
-   |           |  |        +- Float: 0.0
+   |           |  |        +- Float: 3.5
    |           |  +- Component redefinition
    |           |     +- cat.quadriga.base.Transform
    |           |     +- St: Named Arguments <+>
@@ -1420,9 +1614,13 @@
    |           |  +- riskppt3d.planeta.Planeta
    |           |  +- St: Named Arguments <+>
    |           |  |  +- quadriga argument
-   |           |  |     +- hue
+   |           |  |  |  +- hue
+   |           |  |  |  +- Op: Literal {F} <+>
+   |           |  |  |     +- Float: 180.0
+   |           |  |  +- quadriga argument
+   |           |  |     +- radi
    |           |  |     +- Op: Literal {F} <+>
-   |           |  |        +- Float: 180.0
+   |           |  |        +- Float: 0.5
    |           |  +- Component redefinition
    |           |     +- cat.quadriga.base.Transform
    |           |     +- St: Named Arguments <+>
@@ -1611,11 +1809,11 @@
    |           |        |     +- Ljavax/vecmath/Vector3f;
    |           |        |     +- St: Arguments <+>
    |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 1.0
+   |           |        |        |  +- Float: 10.0
    |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 1.0
+   |           |        |        |  +- Float: 10.0
    |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 2.0
+   |           |        |           +- Float: 20.0
    |           |        +- quadriga argument
    |           |        |  +- lookAt
    |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
@@ -1642,7 +1840,7 @@
    |              +- Op: Component Allocation {cat.quadriga.base.SceneComponent} <+>
    |              |  +- Component <+>
    |              |  |  +- fields
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |        +- Lcat/quadriga/runtime/Entity;
    |              |  |        +- "camera"
    |              |  +- St: Named Arguments <+>
@@ -1653,14 +1851,23 @@
    |              |           +- Op: Literal {Ljava/lang/String;} <+>
    |              |              +- String: "Camera"
    |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   +- "RendererPrototype" : Symbol Type
+   |  +- Prototype <+>
+   |     +- St: Block <+>
+   |        +- Code:
+   |           +- St: Add Component <+>
+   |              +- Op: Component Allocation {cat.quadriga.base.RendererComponent} <+>
+   |              |  +- Component <+>
+   |              |  |  +- fields
+   |              |  +- St: Zero Arguments <+>
+   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
    +- "riskppt3d.demo.DemoMain" : Symbol Type
    |  +- main
    |     +- thread: cat.quadriga.base.SimpleRenderThread
+   |     +- thread: riskppt3d.demo.Test
    |     +- St: Block <+>
    |        +- Local Variables:
    |        |  +- Symbol Var [ demo ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        |  +- Symbol Var [ demo2 ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        |  +- Symbol Var [ demo3 ] Type [ Lcat/quadriga/runtime/Entity; ]
    |        +- Code:
    |           +- St: Statements: <+>
    |           |  +- St: = <+>
@@ -1671,27 +1878,93 @@
    |           |        +- Op: Literal {Ljava/lang/String;} <+>
    |           |           +- String: "BaseScene"
    |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  +- riskppt3d.demo.SimpleDemo
-   |           |  +- St: Zero Arguments <+>
-   |           +- St: No Operation <+>
-   |           +- St: Statements: <+>
-   |           |  +- St: = <+>
-   |           |     +- Op: Local variable access: demo2 {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     +- Op: Find Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |        +- Op: Literal {Ljava/lang/String;} <+>
-   |           |           +- String: "BaseScene"
-   |           +- St: Statements: <+>
-   |              +- St: = <+>
-   |                 +- Op: Local variable access: demo3 {Lcat/quadriga/runtime/Entity;} <+>
-   |                 +- Op: Find Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |                    +- Op: Literal {Ljava/lang/String;} <+>
-   |                       +- String: "Nobody"
+   |              +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
+   |              +- riskppt3d.demo.SimpleDemo
+   |              +- St: Zero Arguments <+>
+   +- "IncrementadorPlanetes" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |     |  +- cat.quadriga.base.CameraComponent
+   |     +- Update: 
+   |        +- Quadriga function
+   |           +- parameters
+   |           |  +- parameter
+   |           |  |  +- Lcat/quadriga/runtime/Entity;
+   |           |  |  +- entity
+   |           |  |  +- Semantic: ENTITY
+   |           |  +- parameter
+   |           |     +- F
+   |           |     +- dt
+   |           |     +- Semantic: DELTA_TIME
+   |           +- St: Block <+>
+   |              +- Code:
+   |                 +- St: Block <+>
+   |                    +- Local Variables:
+   |                    |  +- Symbol Var [ pos ] Type [ Ljavax/vecmath/Vector3f; ]
+   |                    |  +- Symbol Var [ desp ] Type [ F ]
+   |                    |  +- Symbol Var [ aaRot ] Type [ Ljavax/vecmath/AxisAngle4f; ]
+   |                    |  +- Symbol Var [ m ] Type [ Ljavax/vecmath/Matrix4f; ]
+   |                    +- Code:
+   |                       +- St: Statements: <+>
+   |                       |  +- St: = <+>
+   |                       |     +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
+   |                       |     +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
+   |                       |        +- cat.quadriga.base.CameraComponent -> position
+   |                       |        +- Op: Component Access {cat.quadriga.base.CameraComponent} <+>
+   |                       |           +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |                       |           +- Op: Type Access: cat.quadriga.base.CameraComponent <+>
+   |                       +- St: Statements: <+>
+   |                       |  +- St: = <+>
+   |                       |     +- Op: Local variable access: desp {F} <+>
+   |                       |     +- Op: * {F} <+>
+   |                       |        +- Op: Literal {F} <+>
+   |                       |        |  +- Float: 0.3
+   |                       |        +- Op: Local variable access: dt {F} <+>
+   |                       +- St: Statements: <+>
+   |                       |  +- St: = <+>
+   |                       |     +- Op: Local variable access: aaRot {Ljavax/vecmath/AxisAngle4f;} <+>
+   |                       |     +- Op: Constructor {Ljavax/vecmath/AxisAngle4f;} <+>
+   |                       |        +- Ljavax/vecmath/AxisAngle4f;
+   |                       |        +- St: Arguments <+>
+   |                       |           +- Op: Literal {F} <+>
+   |                       |           |  +- Float: 0.0
+   |                       |           +- Op: Literal {F} <+>
+   |                       |           |  +- Float: 0.0
+   |                       |           +- Op: Literal {F} <+>
+   |                       |           |  +- Float: 1.0
+   |                       |           +- Op: Local variable access: desp {F} <+>
+   |                       +- St: Statements: <+>
+   |                       |  +- St: = <+>
+   |                       |     +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
+   |                       |     +- Op: Constructor {Ljavax/vecmath/Matrix4f;} <+>
+   |                       |        +- Ljavax/vecmath/Matrix4f;
+   |                       |        +- St: Zero Arguments <+>
+   |                       +- St: Statement From Expression : Call <+>
+   |                       |  +- Op: Method: <+>
+   |                       |  |  +- javax.vecmath.Matrix4f -> set
+   |                       |  |  +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
+   |                       |  +- St: Arguments <+>
+   |                       |     +- Op: Local variable access: aaRot {Ljavax/vecmath/AxisAngle4f;} <+>
+   |                       +- St: Statement From Expression : Call <+>
+   |                       |  +- Op: Method: <+>
+   |                       |  |  +- javax.vecmath.Matrix4f -> transform
+   |                       |  |  +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
+   |                       |  +- St: Arguments <+>
+   |                       |     +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
+   |                       +- St: = <+>
+   |                          +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
+   |                          |  +- cat.quadriga.base.CameraComponent -> position
+   |                          |  +- Op: Component Access {cat.quadriga.base.CameraComponent} <+>
+   |                          |     +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |     +- Op: Type Access: cat.quadriga.base.CameraComponent <+>
+   |                          +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
    +- "cat.quadriga.base.SimpleRenderThread" : Symbol Type
    |  +- thread <+>
    |     +- cat.quadriga.base.SimpleCameraSystem
    |     +- cat.quadriga.base.SimpleNodeSystem
    |     +- cat.quadriga.base.SimpleSphereRenderer
+   |     +- cat.quadriga.base.SimpleBoxRenderer
+   |     +- cat.quadriga.base.EndRender
    +- "cat.quadriga.base.TexturedQuadPrototype" : Symbol Type
    |  +- Prototype <+>
    |     +- St: Block <+>
@@ -1700,18 +1973,18 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |  +- "position"
    |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- F
    |           |  |  |     |  +- "scale"
    |           |  |  |     |  +- Op: Literal {F} <+>
    |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- Ljavax/vecmath/Quat4f;
    |           |  |  |        +- "rotation"
    |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
@@ -1731,13 +2004,13 @@
    |              +- Op: Component Allocation {cat.quadriga.base.TexturedQuad} <+>
    |              |  +- Component <+>
    |              |  |  +- fields
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |     |  +- Ljavax/vecmath/Vector3f;
    |              |  |     |  +- "position"
    |              |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |              |  |     |     +- Ljavax/vecmath/Vector3f;
    |              |  |     |     +- St: Zero Arguments <+>
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |        +- Ljava/lang/String;
    |              |  |        +- "texture"
    |              |  |        +- Op: Literal {Ljava/lang/String;} <+>
@@ -1747,39 +2020,129 @@
    +- "riskppt3d.planeta.DadesComponent" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   |        +- Component Field
+   |        +- Quadriga Field
    |           +- F
    |           +- "radi"
    |           +- Op: Literal {F} <+>
    |              +- Float: 1.0
+   +- "EndRender" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |     |  +- cat.quadriga.base.RendererComponent
+   |     +- Update: 
+   |        +- Quadriga function
+   |           +- St: Block <+>
+   |              +- Code:
+   |                 +- St: Block <+>
+   |                    +- Code:
+   |                       +- St: Statement From Expression : Call <+>
+   |                       |  +- Op: Static Method: <+>
+   |                       |  |  +- cat.quadriga.render.simple.RenderManager -> initRender
+   |                       |  +- St: Zero Arguments <+>
+   |                       +- St: Statement From Expression : Call <+>
+   |                       |  +- Op: Method: <+>
+   |                       |  |  +- cat.quadriga.render.simple.RenderManager -> renderGraph
+   |                       |  |  +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                       |  |     +- cat.quadriga.render.simple.RenderManager -> instance
+   |                       |  +- St: Zero Arguments <+>
+   |                       +- St: Statement From Expression : Call <+>
+   |                       |  +- Op: Method: <+>
+   |                       |  |  +- cat.quadriga.render.simple.RenderManager -> drawAxis
+   |                       |  |  +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                       |  |     +- cat.quadriga.render.simple.RenderManager -> instance
+   |                       |  +- St: Arguments <+>
+   |                       |     +- Op: Literal {Null type} <+>
+   |                       |        +- Null
+   |                       +- St: Statement From Expression : Call <+>
+   |                       |  +- Op: Static Method: <+>
+   |                       |  |  +- cat.quadriga.render.simple.RenderManager -> switchBuffers
+   |                       |  +- St: Zero Arguments <+>
+   |                       +- St: If Statement: <+>
+   |                          +- Condition:
+   |                          |  +- Op: Call {Z} <+>
+   |                          |     +- Op: Static Method: <+>
+   |                          |     |  +- cat.quadriga.render.simple.RenderManager -> isCloseRequested
+   |                          |     +- St: Zero Arguments <+>
+   |                          +- If Code:
+   |                             +- St: Block <+>
+   |                                +- Code:
+   |                                   +- St: Call to Event cat.quadriga.base.Exit <+>
+   |                                      +- St: Zero Arguments <+>
+   +- "javax.vecmath.AxisAngle4f" : Symbol Type
+   |  +- Ljavax/vecmath/AxisAngle4f;
    +- "cat.quadriga.base.BillboardRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   +- "SimpleRenderThread" : Symbol Type
-   |  +- thread <+>
-   |     +- cat.quadriga.base.SimpleCameraSystem
-   |     +- cat.quadriga.base.SimpleNodeSystem
-   |     +- cat.quadriga.base.SimpleSphereRenderer
    +- "cat.quadriga.base.FontQuad" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   |        +- Component Field
+   |        +- Quadriga Field
    |        |  +- Ljavax/vecmath/Vector3f;
    |        |  +- "position"
    |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |        |     +- Ljavax/vecmath/Vector3f;
    |        |     +- St: Zero Arguments <+>
-   |        +- Component Field
+   |        +- Quadriga Field
    |        |  +- Ljava/lang/String;
    |        |  +- "text"
    |        |  +- Op: Literal {Ljava/lang/String;} <+>
    |        |     +- String: ""
-   |        +- Component Field
+   |        +- Quadriga Field
    |           +- Ljavax/vecmath/Vector4f;
    |           +- "color"
    |           +- Op: Constructor {Ljavax/vecmath/Vector4f;} <+>
    |              +- Ljavax/vecmath/Vector4f;
    |              +- St: Zero Arguments <+>
+   +- "SimpleRenderThread" : Symbol Type
+   |  +- thread <+>
+   |     +- cat.quadriga.base.SimpleCameraSystem
+   |     +- cat.quadriga.base.SimpleNodeSystem
+   |     +- cat.quadriga.base.SimpleSphereRenderer
+   |     +- cat.quadriga.base.SimpleBoxRenderer
+   |     +- cat.quadriga.base.EndRender
+   +- "cat.quadriga.base.EndRender" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |     |  +- cat.quadriga.base.RendererComponent
+   |     +- Update: 
+   |        +- Quadriga function
+   |           +- St: Block <+>
+   |              +- Code:
+   |                 +- St: Block <+>
+   |                    +- Code:
+   |                       +- St: Statement From Expression : Call <+>
+   |                       |  +- Op: Static Method: <+>
+   |                       |  |  +- cat.quadriga.render.simple.RenderManager -> initRender
+   |                       |  +- St: Zero Arguments <+>
+   |                       +- St: Statement From Expression : Call <+>
+   |                       |  +- Op: Method: <+>
+   |                       |  |  +- cat.quadriga.render.simple.RenderManager -> renderGraph
+   |                       |  |  +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                       |  |     +- cat.quadriga.render.simple.RenderManager -> instance
+   |                       |  +- St: Zero Arguments <+>
+   |                       +- St: Statement From Expression : Call <+>
+   |                       |  +- Op: Method: <+>
+   |                       |  |  +- cat.quadriga.render.simple.RenderManager -> drawAxis
+   |                       |  |  +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                       |  |     +- cat.quadriga.render.simple.RenderManager -> instance
+   |                       |  +- St: Arguments <+>
+   |                       |     +- Op: Literal {Null type} <+>
+   |                       |        +- Null
+   |                       +- St: Statement From Expression : Call <+>
+   |                       |  +- Op: Static Method: <+>
+   |                       |  |  +- cat.quadriga.render.simple.RenderManager -> switchBuffers
+   |                       |  +- St: Zero Arguments <+>
+   |                       +- St: If Statement: <+>
+   |                          +- Condition:
+   |                          |  +- Op: Call {Z} <+>
+   |                          |     +- Op: Static Method: <+>
+   |                          |     |  +- cat.quadriga.render.simple.RenderManager -> isCloseRequested
+   |                          |     +- St: Zero Arguments <+>
+   |                          +- If Code:
+   |                             +- St: Block <+>
+   |                                +- Code:
+   |                                   +- St: Call to Event cat.quadriga.base.Exit <+>
+   |                                      +- St: Zero Arguments <+>
    +- "cat.quadriga.render.simple.Node" : Symbol Type
    |  +- Lcat/quadriga/render/simple/Node;
    +- "FontQuadPrototype" : Symbol Type
@@ -1790,18 +2153,18 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |  +- "position"
    |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- F
    |           |  |  |     |  +- "scale"
    |           |  |  |     |  +- Op: Literal {F} <+>
    |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- Ljavax/vecmath/Quat4f;
    |           |  |  |        +- "rotation"
    |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
@@ -1821,18 +2184,18 @@
    |              +- Op: Component Allocation {cat.quadriga.base.FontQuad} <+>
    |              |  +- Component <+>
    |              |  |  +- fields
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |     |  +- Ljavax/vecmath/Vector3f;
    |              |  |     |  +- "position"
    |              |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |              |  |     |     +- Ljavax/vecmath/Vector3f;
    |              |  |     |     +- St: Zero Arguments <+>
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |     |  +- Ljava/lang/String;
    |              |  |     |  +- "text"
    |              |  |     |  +- Op: Literal {Ljava/lang/String;} <+>
    |              |  |     |     +- String: ""
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |        +- Ljavax/vecmath/Vector4f;
    |              |  |        +- "color"
    |              |  |        +- Op: Constructor {Ljavax/vecmath/Vector4f;} <+>
@@ -1840,6 +2203,9 @@
    |              |  |           +- St: Zero Arguments <+>
    |              |  +- St: Zero Arguments <+>
    |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   +- "riskppt3d.demo.Test" : Symbol Type
+   |  +- thread <+>
+   |     +- riskppt3d.demo.IncrementadorPlanetes
    +- "PlanetInfoQuad" : Symbol Type
    |  +- Prototype <+>
    |     +- parameters
@@ -1855,18 +2221,18 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |  +- "position"
    |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- F
    |           |  |  |     |  +- "scale"
    |           |  |  |     |  +- Op: Literal {F} <+>
    |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- Ljavax/vecmath/Quat4f;
    |           |  |  |        +- "rotation"
    |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
@@ -1906,6 +2272,12 @@
    |           |  |                 |     +- Op: Type Access: riskppt3d.planeta.DadesComponent <+>
    |           |  |                 +- Op: Literal {F} <+>
    |           |  |                    +- Float: 2.0
+   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   |           +- St: Add Component <+>
+   |           |  +- Op: Component Allocation {cat.quadriga.base.BoxRenderer} <+>
+   |           |  |  +- Component <+>
+   |           |  |  |  +- fields
+   |           |  |  +- St: Zero Arguments <+>
    |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
    |           +- St: Apply Prototype to Entity <+>
    |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
@@ -2178,18 +2550,18 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |  +- "position"
    |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- F
    |           |  |  |     |  +- "scale"
    |           |  |  |     |  +- Op: Literal {F} <+>
    |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- Ljavax/vecmath/Quat4f;
    |           |  |  |        +- "rotation"
    |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
@@ -2218,58 +2590,6 @@
    |              |     +- String: "Quad"
    |              +- riskppt3d.planeta.PlanetInfoQuad
    |              +- St: Zero Arguments <+>
-   +- "TexturedQuadPrototype" : Symbol Type
-   |  +- Prototype <+>
-   |     +- St: Block <+>
-   |        +- Code:
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "position"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Component Field
-   |           |  |  |     |  +- F
-   |           |  |  |     |  +- "scale"
-   |           |  |  |     |  +- Op: Literal {F} <+>
-   |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Component Field
-   |           |  |  |        +- Ljavax/vecmath/Quat4f;
-   |           |  |  |        +- "rotation"
-   |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
-   |           |  |  |           +- Ljavax/vecmath/Quat4f;
-   |           |  |  |           +- St: Arguments <+>
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |                 +- Float: 1.0
-   |           |  |  +- St: Zero Arguments <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |              +- Op: Component Allocation {cat.quadriga.base.TexturedQuad} <+>
-   |              |  +- Component <+>
-   |              |  |  +- fields
-   |              |  |     +- Component Field
-   |              |  |     |  +- Ljavax/vecmath/Vector3f;
-   |              |  |     |  +- "position"
-   |              |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |              |  |     |     +- Ljavax/vecmath/Vector3f;
-   |              |  |     |     +- St: Zero Arguments <+>
-   |              |  |     +- Component Field
-   |              |  |        +- Ljava/lang/String;
-   |              |  |        +- "texture"
-   |              |  |        +- Op: Literal {Ljava/lang/String;} <+>
-   |              |  |           +- String: ""
-   |              |  +- St: Zero Arguments <+>
-   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
    +- "cat.quadriga.base.FontQuadPrototype" : Symbol Type
    |  +- Prototype <+>
    |     +- St: Block <+>
@@ -2278,18 +2598,18 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |  +- "position"
    |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- F
    |           |  |  |     |  +- "scale"
    |           |  |  |     |  +- Op: Literal {F} <+>
    |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- Ljavax/vecmath/Quat4f;
    |           |  |  |        +- "rotation"
    |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
@@ -2309,23 +2629,75 @@
    |              +- Op: Component Allocation {cat.quadriga.base.FontQuad} <+>
    |              |  +- Component <+>
    |              |  |  +- fields
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |     |  +- Ljavax/vecmath/Vector3f;
    |              |  |     |  +- "position"
    |              |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |              |  |     |     +- Ljavax/vecmath/Vector3f;
    |              |  |     |     +- St: Zero Arguments <+>
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |     |  +- Ljava/lang/String;
    |              |  |     |  +- "text"
    |              |  |     |  +- Op: Literal {Ljava/lang/String;} <+>
    |              |  |     |     +- String: ""
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |        +- Ljavax/vecmath/Vector4f;
    |              |  |        +- "color"
    |              |  |        +- Op: Constructor {Ljavax/vecmath/Vector4f;} <+>
    |              |  |           +- Ljavax/vecmath/Vector4f;
    |              |  |           +- St: Zero Arguments <+>
+   |              |  +- St: Zero Arguments <+>
+   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   +- "TexturedQuadPrototype" : Symbol Type
+   |  +- Prototype <+>
+   |     +- St: Block <+>
+   |        +- Code:
+   |           +- St: Add Component <+>
+   |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
+   |           |  |  +- Component <+>
+   |           |  |  |  +- fields
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
+   |           |  |  |     |  +- "position"
+   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
+   |           |  |  |     |     +- St: Zero Arguments <+>
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- F
+   |           |  |  |     |  +- "scale"
+   |           |  |  |     |  +- Op: Literal {F} <+>
+   |           |  |  |     |     +- Float: 1.0
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |        +- Ljavax/vecmath/Quat4f;
+   |           |  |  |        +- "rotation"
+   |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
+   |           |  |  |           +- Ljavax/vecmath/Quat4f;
+   |           |  |  |           +- St: Arguments <+>
+   |           |  |  |              +- Op: Literal {F} <+>
+   |           |  |  |              |  +- Float: 0.0
+   |           |  |  |              +- Op: Literal {F} <+>
+   |           |  |  |              |  +- Float: 0.0
+   |           |  |  |              +- Op: Literal {F} <+>
+   |           |  |  |              |  +- Float: 0.0
+   |           |  |  |              +- Op: Literal {F} <+>
+   |           |  |  |                 +- Float: 1.0
+   |           |  |  +- St: Zero Arguments <+>
+   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   |           +- St: Add Component <+>
+   |              +- Op: Component Allocation {cat.quadriga.base.TexturedQuad} <+>
+   |              |  +- Component <+>
+   |              |  |  +- fields
+   |              |  |     +- Quadriga Field
+   |              |  |     |  +- Ljavax/vecmath/Vector3f;
+   |              |  |     |  +- "position"
+   |              |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |              |  |     |     +- Ljavax/vecmath/Vector3f;
+   |              |  |     |     +- St: Zero Arguments <+>
+   |              |  |     +- Quadriga Field
+   |              |  |        +- Ljava/lang/String;
+   |              |  |        +- "texture"
+   |              |  |        +- Op: Literal {Ljava/lang/String;} <+>
+   |              |  |           +- String: ""
    |              |  +- St: Zero Arguments <+>
    |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
    +- "SimpleCamera" : Symbol Type
@@ -2336,7 +2708,7 @@
    |              +- Op: Component Allocation {cat.quadriga.base.CameraComponent} <+>
    |              |  +- Component <+>
    |              |  |  +- fields
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |     |  +- Ljavax/vecmath/Vector3f;
    |              |  |     |  +- "position"
    |              |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
@@ -2348,7 +2720,7 @@
    |              |  |     |        |  +- Float: 0.0
    |              |  |     |        +- Op: Literal {F} <+>
    |              |  |     |           +- Float: 0.0
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |     |  +- Ljavax/vecmath/Vector3f;
    |              |  |     |  +- "lookAt"
    |              |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
@@ -2360,7 +2732,7 @@
    |              |  |     |        |  +- Float: 0.0
    |              |  |     |        +- Op: Literal {F} <+>
    |              |  |     |           +- Float: 1.0
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |        +- Ljavax/vecmath/Vector3f;
    |              |  |        +- "up"
    |              |  |        +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
@@ -2377,7 +2749,7 @@
    +- "cat.quadriga.base.CilynderRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   |        +- Component Field
+   |        +- Quadriga Field
    |        |  +- Ljavax/vecmath/Vector3f;
    |        |  +- "pos1"
    |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
@@ -2389,7 +2761,7 @@
    |        |        |  +- Float: 0.0
    |        |        +- Op: Literal {F} <+>
    |        |           +- Float: 0.0
-   |        +- Component Field
+   |        +- Quadriga Field
    |        |  +- Ljavax/vecmath/Vector3f;
    |        |  +- "pos2"
    |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
@@ -2401,10 +2773,7 @@
    |        |        |  +- Float: 0.0
    |        |        +- Op: Literal {F} <+>
    |        |           +- Float: 1.0
-   |        +- Component Field
-   |        |  +- [I
-   |        |  +- "materials"
-   |        +- Component Field
+   |        +- Quadriga Field
    |           +- F
    |           +- "radi"
    |           +- Op: Literal {F} <+>
@@ -2414,6 +2783,72 @@
    |     +- needed components
    |     |  +- cat.quadriga.base.SphereRenderer
    |     +- Update: 
+   |     |  +- Quadriga function
+   |     |     +- parameters
+   |     |     |  +- parameter
+   |     |     |     +- Lcat/quadriga/runtime/Entity;
+   |     |     |     +- entity
+   |     |     |     +- Semantic: ENTITY
+   |     |     +- St: Block <+>
+   |     |        +- Code:
+   |     |           +- St: Block <+>
+   |     |              +- Local Variables:
+   |     |              |  +- Symbol Var [ rm ] Type [ Lcat/quadriga/render/simple/RenderManager; ]
+   |     |              +- Code:
+   |     |                 +- St: Statements: <+>
+   |     |                 |  +- St: = <+>
+   |     |                 |     +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |     +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |        +- cat.quadriga.render.simple.RenderManager -> instance
+   |     |                 +- St: Statement From Expression : Call <+>
+   |     |                    +- Op: Method: <+>
+   |     |                    |  +- cat.quadriga.render.simple.RenderManager -> changeSphere
+   |     |                    |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                    +- St: Arguments <+>
+   |     |                       +- Op: Call {I} <+>
+   |     |                       |  +- Op: Method: <+>
+   |     |                       |  |  +- cat.quadriga.runtime.Entity -> getGUID
+   |     |                       |  |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                       |  +- St: Zero Arguments <+>
+   |     |                       +- Op: Component Field: {F} <+>
+   |     |                          +- cat.quadriga.base.SphereRenderer -> radi
+   |     |                          +- Op: Component Access {cat.quadriga.base.SphereRenderer} <+>
+   |     |                             +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                             +- Op: Type Access: cat.quadriga.base.SphereRenderer <+>
+   |     +- New Entity: 
+   |     |  +- Quadriga function
+   |     |     +- parameters
+   |     |     |  +- parameter
+   |     |     |     +- Lcat/quadriga/runtime/Entity;
+   |     |     |     +- entity
+   |     |     |     +- Semantic: ENTITY
+   |     |     +- St: Block <+>
+   |     |        +- Code:
+   |     |           +- St: Block <+>
+   |     |              +- Local Variables:
+   |     |              |  +- Symbol Var [ rm ] Type [ Lcat/quadriga/render/simple/RenderManager; ]
+   |     |              +- Code:
+   |     |                 +- St: Statements: <+>
+   |     |                 |  +- St: = <+>
+   |     |                 |     +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |     +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |        +- cat.quadriga.render.simple.RenderManager -> instance
+   |     |                 +- St: Statement From Expression : Call <+>
+   |     |                    +- Op: Method: <+>
+   |     |                    |  +- cat.quadriga.render.simple.RenderManager -> setSphere
+   |     |                    |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                    +- St: Arguments <+>
+   |     |                       +- Op: Call {I} <+>
+   |     |                       |  +- Op: Method: <+>
+   |     |                       |  |  +- cat.quadriga.runtime.Entity -> getGUID
+   |     |                       |  |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                       |  +- St: Zero Arguments <+>
+   |     |                       +- Op: Component Field: {F} <+>
+   |     |                          +- cat.quadriga.base.SphereRenderer -> radi
+   |     |                          +- Op: Component Access {cat.quadriga.base.SphereRenderer} <+>
+   |     |                             +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                             +- Op: Type Access: cat.quadriga.base.SphereRenderer <+>
+   |     +- Remove Entity: 
    |        +- Quadriga function
    |           +- parameters
    |           |  +- parameter
@@ -2423,7 +2858,24 @@
    |           +- St: Block <+>
    |              +- Code:
    |                 +- St: Block <+>
+   |                    +- Local Variables:
+   |                    |  +- Symbol Var [ rm ] Type [ Lcat/quadriga/render/simple/RenderManager; ]
    |                    +- Code:
+   |                       +- St: Statements: <+>
+   |                       |  +- St: = <+>
+   |                       |     +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                       |     +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                       |        +- cat.quadriga.render.simple.RenderManager -> instance
+   |                       +- St: Statement From Expression : Call <+>
+   |                          +- Op: Method: <+>
+   |                          |  +- cat.quadriga.render.simple.RenderManager -> deleteSphere
+   |                          |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                          +- St: Arguments <+>
+   |                             +- Op: Call {I} <+>
+   |                                +- Op: Method: <+>
+   |                                |  +- cat.quadriga.runtime.Entity -> getGUID
+   |                                |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |                                +- St: Zero Arguments <+>
    +- "Aresta" : Symbol Type
    |  +- Prototype <+>
    |     +- parameters
@@ -2442,18 +2894,18 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |  +- "position"
    |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- F
    |           |  |  |     |  +- "scale"
    |           |  |  |     |  +- Op: Literal {F} <+>
    |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- Ljavax/vecmath/Quat4f;
    |           |  |  |        +- "rotation"
    |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
@@ -2473,7 +2925,7 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.CilynderRenderer} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |  +- "pos1"
    |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
@@ -2485,7 +2937,7 @@
    |           |  |  |     |        |  +- Float: 0.0
    |           |  |  |     |        +- Op: Literal {F} <+>
    |           |  |  |     |           +- Float: 0.0
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |  +- "pos2"
    |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
@@ -2497,10 +2949,7 @@
    |           |  |  |     |        |  +- Float: 0.0
    |           |  |  |     |        +- Op: Literal {F} <+>
    |           |  |  |     |           +- Float: 1.0
-   |           |  |  |     +- Component Field
-   |           |  |  |     |  +- [I
-   |           |  |  |     |  +- "materials"
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- F
    |           |  |  |        +- "radi"
    |           |  |  |        +- Op: Literal {F} <+>
@@ -2521,15 +2970,6 @@
    |           |  |     |        +- Op: Local variable access: planeta2 {Lcat/quadriga/runtime/Entity;} <+>
    |           |  |     |        +- Op: Type Access: cat.quadriga.base.Transform <+>
    |           |  |     +- quadriga argument
-   |           |  |     |  +- materials
-   |           |  |     |  +- Op: Array initialization {[I} <+>
-   |           |  |     |     +- Op: new primitive array {[I} <+>
-   |           |  |     |     |  +- I
-   |           |  |     |     |  +- Op: Literal {I} <+>
-   |           |  |     |     |     +- Integer: 1
-   |           |  |     |     +- Op: Literal {I} <+>
-   |           |  |     |        +- Integer: 0
-   |           |  |     +- quadriga argument
    |           |  |        +- radi
    |           |  |        +- Op: Literal {F} <+>
    |           |  |           +- Float: 0.5
@@ -2538,7 +2978,7 @@
    |              +- Op: Component Allocation {cat.quadriga.base.Materials} <+>
    |              |  +- Component <+>
    |              |  |  +- fields
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |        +- [Lcat/quadriga/java/base/BaseMaterial;
    |              |  |        +- "materials"
    |              |  |        +- Op: Array initialization {[Lcat/quadriga/java/base/BaseMaterial;} <+>
@@ -2571,16 +3011,13 @@
    +- "StaticMeshRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   |        +- Component Field
-   |        |  +- [I
-   |        |  +- "materials"
-   |        +- Component Field
+   |        +- Quadriga Field
    |           +- Ljava/lang/String;
    |           +- "mesh"
    +- "cat.quadriga.base.CameraComponent" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   |        +- Component Field
+   |        +- Quadriga Field
    |        |  +- Ljavax/vecmath/Vector3f;
    |        |  +- "position"
    |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
@@ -2592,7 +3029,7 @@
    |        |        |  +- Float: 0.0
    |        |        +- Op: Literal {F} <+>
    |        |           +- Float: 0.0
-   |        +- Component Field
+   |        +- Quadriga Field
    |        |  +- Ljavax/vecmath/Vector3f;
    |        |  +- "lookAt"
    |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
@@ -2604,7 +3041,7 @@
    |        |        |  +- Float: 0.0
    |        |        +- Op: Literal {F} <+>
    |        |           +- Float: 1.0
-   |        +- Component Field
+   |        +- Quadriga Field
    |           +- Ljavax/vecmath/Vector3f;
    |           +- "up"
    |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
@@ -2618,17 +3055,6 @@
    |                    +- Float: 0.0
    +- "javax.vecmath.Vector4f" : Symbol Type
    |  +- Ljavax/vecmath/Vector4f;
-   +- "cat.quadriga.base.Materials" : Symbol Type
-   |  +- Component <+>
-   |     +- fields
-   |        +- Component Field
-   |           +- [Lcat/quadriga/java/base/BaseMaterial;
-   |           +- "materials"
-   |           +- Op: Array initialization {[Lcat/quadriga/java/base/BaseMaterial;} <+>
-   |              +- Op: new array {[Lcat/quadriga/java/base/BaseMaterial;} <+>
-   |                 +- Lcat/quadriga/java/base/BaseMaterial;
-   |                 +- Op: Literal {I} <+>
-   |                    +- Integer: 0
    +- "Planeta" : Symbol Type
    |  +- Prototype <+>
    |     +- parameters
@@ -2653,18 +3079,18 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |  +- "position"
    |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- F
    |           |  |  |     |  +- "scale"
    |           |  |  |     |  +- Op: Literal {F} <+>
    |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- Ljavax/vecmath/Quat4f;
    |           |  |  |        +- "rotation"
    |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
@@ -2684,7 +3110,7 @@
    |           |  +- Op: Component Allocation {riskppt3d.planeta.DadesComponent} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- F
    |           |  |  |        +- "radi"
    |           |  |  |        +- Op: Literal {F} <+>
@@ -2698,24 +3124,12 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.SphereRenderer} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
-   |           |  |  |     |  +- [I
-   |           |  |  |     |  +- "materials"
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- F
    |           |  |  |        +- "radi"
    |           |  |  |        +- Op: Literal {F} <+>
    |           |  |  |           +- Float: 1.0
    |           |  |  +- St: Named Arguments <+>
-   |           |  |     +- quadriga argument
-   |           |  |     |  +- materials
-   |           |  |     |  +- Op: Array initialization {[I} <+>
-   |           |  |     |     +- Op: new primitive array {[I} <+>
-   |           |  |     |     |  +- I
-   |           |  |     |     |  +- Op: Literal {I} <+>
-   |           |  |     |     |     +- Integer: 1
-   |           |  |     |     +- Op: Literal {I} <+>
-   |           |  |     |        +- Integer: 0
    |           |  |     +- quadriga argument
    |           |  |        +- radi
    |           |  |        +- Op: Component Field: {F} <+>
@@ -2728,7 +3142,7 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.Materials} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- [Lcat/quadriga/java/base/BaseMaterial;
    |           |  |  |        +- "materials"
    |           |  |  |        +- Op: Array initialization {[Lcat/quadriga/java/base/BaseMaterial;} <+>
@@ -2764,16 +3178,27 @@
    |              |     +- String: "Info"
    |              +- riskppt3d.planeta.PlanetaInfo
    |              +- St: Zero Arguments <+>
+   +- "cat.quadriga.base.Materials" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |           +- [Lcat/quadriga/java/base/BaseMaterial;
+   |           +- "materials"
+   |           +- Op: Array initialization {[Lcat/quadriga/java/base/BaseMaterial;} <+>
+   |              +- Op: new array {[Lcat/quadriga/java/base/BaseMaterial;} <+>
+   |                 +- Lcat/quadriga/java/base/BaseMaterial;
+   |                 +- Op: Literal {I} <+>
+   |                    +- Integer: 0
    +- "TexturedQuad" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   |        +- Component Field
+   |        +- Quadriga Field
    |        |  +- Ljavax/vecmath/Vector3f;
    |        |  +- "position"
    |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |        |     +- Ljavax/vecmath/Vector3f;
    |        |     +- St: Zero Arguments <+>
-   |        +- Component Field
+   |        +- Quadriga Field
    |           +- Ljava/lang/String;
    |           +- "texture"
    |           +- Op: Literal {Ljava/lang/String;} <+>
@@ -2786,18 +3211,18 @@
    |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |  +- "position"
    |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
    |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
    |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |     |  +- F
    |           |  |  |     |  +- "scale"
    |           |  |  |     |  +- Op: Literal {F} <+>
    |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Component Field
+   |           |  |  |     +- Quadriga Field
    |           |  |  |        +- Ljavax/vecmath/Quat4f;
    |           |  |  |        +- "rotation"
    |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
@@ -2849,6 +3274,17 @@
    |                       |     +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
    |                       |        +- cat.quadriga.render.simple.RenderManager -> instance
    |                       +- St: Statement From Expression : Call <+>
+   |                       |  +- Op: Method: <+>
+   |                       |  |  +- cat.quadriga.render.simple.RenderManager -> setPerspective
+   |                       |  |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                       |  +- St: Arguments <+>
+   |                       |     +- Op: Literal {F} <+>
+   |                       |     |  +- Float: 45.0
+   |                       |     +- Op: Literal {F} <+>
+   |                       |     |  +- Float: 1.0
+   |                       |     +- Op: Literal {F} <+>
+   |                       |        +- Float: 99.0
+   |                       +- St: Statement From Expression : Call <+>
    |                          +- Op: Method: <+>
    |                          |  +- cat.quadriga.render.simple.RenderManager -> setCamera
    |                          |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
@@ -2893,6 +3329,17 @@
    |                       |     +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
    |                       |        +- cat.quadriga.render.simple.RenderManager -> instance
    |                       +- St: Statement From Expression : Call <+>
+   |                       |  +- Op: Method: <+>
+   |                       |  |  +- cat.quadriga.render.simple.RenderManager -> setPerspective
+   |                       |  |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                       |  +- St: Arguments <+>
+   |                       |     +- Op: Literal {F} <+>
+   |                       |     |  +- Float: 45.0
+   |                       |     +- Op: Literal {F} <+>
+   |                       |     |  +- Float: 1.0
+   |                       |     +- Op: Literal {F} <+>
+   |                       |        +- Float: 99.0
+   |                       +- St: Statement From Expression : Call <+>
    |                          +- Op: Method: <+>
    |                          |  +- cat.quadriga.render.simple.RenderManager -> setCamera
    |                          |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
@@ -2915,10 +3362,7 @@
    +- "cat.quadriga.base.SphereRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   |        +- Component Field
-   |        |  +- [I
-   |        |  +- "materials"
-   |        +- Component Field
+   |        +- Quadriga Field
    |           +- F
    |           +- "radi"
    |           +- Op: Literal {F} <+>
@@ -2926,19 +3370,42 @@
    +- "cat.quadriga.base.StaticMeshRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   |        +- Component Field
-   |        |  +- [I
-   |        |  +- "materials"
-   |        +- Component Field
+   |        +- Quadriga Field
    |           +- Ljava/lang/String;
    |           +- "mesh"
-   +- "cat.quadriga.render.simple.RenderManager" : Symbol Type
-   |  +- Lcat/quadriga/render/simple/RenderManager;
-   +- "cat.quadriga.base.SimpleSphereRenderer" : Symbol Type
+   +- "SimpleBoxRenderer" : Symbol Type
    |  +- System <+>
    |     +- needed components
-   |     |  +- cat.quadriga.base.SphereRenderer
-   |     +- Update: 
+   |     |  +- cat.quadriga.base.BoxRenderer
+   |     +- New Entity: 
+   |     |  +- Quadriga function
+   |     |     +- parameters
+   |     |     |  +- parameter
+   |     |     |     +- Lcat/quadriga/runtime/Entity;
+   |     |     |     +- entity
+   |     |     |     +- Semantic: ENTITY
+   |     |     +- St: Block <+>
+   |     |        +- Code:
+   |     |           +- St: Block <+>
+   |     |              +- Local Variables:
+   |     |              |  +- Symbol Var [ rm ] Type [ Lcat/quadriga/render/simple/RenderManager; ]
+   |     |              +- Code:
+   |     |                 +- St: Statements: <+>
+   |     |                 |  +- St: = <+>
+   |     |                 |     +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |     +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |        +- cat.quadriga.render.simple.RenderManager -> instance
+   |     |                 +- St: Statement From Expression : Call <+>
+   |     |                    +- Op: Method: <+>
+   |     |                    |  +- cat.quadriga.render.simple.RenderManager -> setBox
+   |     |                    |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                    +- St: Arguments <+>
+   |     |                       +- Op: Call {I} <+>
+   |     |                          +- Op: Method: <+>
+   |     |                          |  +- cat.quadriga.runtime.Entity -> getGUID
+   |     |                          |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                          +- St: Zero Arguments <+>
+   |     +- Remove Entity: 
    |        +- Quadriga function
    |           +- parameters
    |           |  +- parameter
@@ -2948,7 +3415,201 @@
    |           +- St: Block <+>
    |              +- Code:
    |                 +- St: Block <+>
+   |                    +- Local Variables:
+   |                    |  +- Symbol Var [ rm ] Type [ Lcat/quadriga/render/simple/RenderManager; ]
    |                    +- Code:
+   |                       +- St: Statements: <+>
+   |                       |  +- St: = <+>
+   |                       |     +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                       |     +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                       |        +- cat.quadriga.render.simple.RenderManager -> instance
+   |                       +- St: Statement From Expression : Call <+>
+   |                          +- Op: Method: <+>
+   |                          |  +- cat.quadriga.render.simple.RenderManager -> deleteBox
+   |                          |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                          +- St: Arguments <+>
+   |                             +- Op: Call {I} <+>
+   |                                +- Op: Method: <+>
+   |                                |  +- cat.quadriga.runtime.Entity -> getGUID
+   |                                |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |                                +- St: Zero Arguments <+>
+   +- "cat.quadriga.render.simple.RenderManager" : Symbol Type
+   |  +- Lcat/quadriga/render/simple/RenderManager;
+   +- "riskppt3d.demo.IncrementadorPlanetes" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |     |  +- cat.quadriga.base.CameraComponent
+   |     +- Update: 
+   |        +- Quadriga function
+   |           +- parameters
+   |           |  +- parameter
+   |           |  |  +- Lcat/quadriga/runtime/Entity;
+   |           |  |  +- entity
+   |           |  |  +- Semantic: ENTITY
+   |           |  +- parameter
+   |           |     +- F
+   |           |     +- dt
+   |           |     +- Semantic: DELTA_TIME
+   |           +- St: Block <+>
+   |              +- Code:
+   |                 +- St: Block <+>
+   |                    +- Local Variables:
+   |                    |  +- Symbol Var [ pos ] Type [ Ljavax/vecmath/Vector3f; ]
+   |                    |  +- Symbol Var [ desp ] Type [ F ]
+   |                    |  +- Symbol Var [ aaRot ] Type [ Ljavax/vecmath/AxisAngle4f; ]
+   |                    |  +- Symbol Var [ m ] Type [ Ljavax/vecmath/Matrix4f; ]
+   |                    +- Code:
+   |                       +- St: Statements: <+>
+   |                       |  +- St: = <+>
+   |                       |     +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
+   |                       |     +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
+   |                       |        +- cat.quadriga.base.CameraComponent -> position
+   |                       |        +- Op: Component Access {cat.quadriga.base.CameraComponent} <+>
+   |                       |           +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |                       |           +- Op: Type Access: cat.quadriga.base.CameraComponent <+>
+   |                       +- St: Statements: <+>
+   |                       |  +- St: = <+>
+   |                       |     +- Op: Local variable access: desp {F} <+>
+   |                       |     +- Op: * {F} <+>
+   |                       |        +- Op: Literal {F} <+>
+   |                       |        |  +- Float: 0.3
+   |                       |        +- Op: Local variable access: dt {F} <+>
+   |                       +- St: Statements: <+>
+   |                       |  +- St: = <+>
+   |                       |     +- Op: Local variable access: aaRot {Ljavax/vecmath/AxisAngle4f;} <+>
+   |                       |     +- Op: Constructor {Ljavax/vecmath/AxisAngle4f;} <+>
+   |                       |        +- Ljavax/vecmath/AxisAngle4f;
+   |                       |        +- St: Arguments <+>
+   |                       |           +- Op: Literal {F} <+>
+   |                       |           |  +- Float: 0.0
+   |                       |           +- Op: Literal {F} <+>
+   |                       |           |  +- Float: 0.0
+   |                       |           +- Op: Literal {F} <+>
+   |                       |           |  +- Float: 1.0
+   |                       |           +- Op: Local variable access: desp {F} <+>
+   |                       +- St: Statements: <+>
+   |                       |  +- St: = <+>
+   |                       |     +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
+   |                       |     +- Op: Constructor {Ljavax/vecmath/Matrix4f;} <+>
+   |                       |        +- Ljavax/vecmath/Matrix4f;
+   |                       |        +- St: Zero Arguments <+>
+   |                       +- St: Statement From Expression : Call <+>
+   |                       |  +- Op: Method: <+>
+   |                       |  |  +- javax.vecmath.Matrix4f -> set
+   |                       |  |  +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
+   |                       |  +- St: Arguments <+>
+   |                       |     +- Op: Local variable access: aaRot {Ljavax/vecmath/AxisAngle4f;} <+>
+   |                       +- St: Statement From Expression : Call <+>
+   |                       |  +- Op: Method: <+>
+   |                       |  |  +- javax.vecmath.Matrix4f -> transform
+   |                       |  |  +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
+   |                       |  +- St: Arguments <+>
+   |                       |     +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
+   |                       +- St: = <+>
+   |                          +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
+   |                          |  +- cat.quadriga.base.CameraComponent -> position
+   |                          |  +- Op: Component Access {cat.quadriga.base.CameraComponent} <+>
+   |                          |     +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |     +- Op: Type Access: cat.quadriga.base.CameraComponent <+>
+   |                          +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
+   +- "cat.quadriga.base.SimpleSphereRenderer" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |     |  +- cat.quadriga.base.SphereRenderer
+   |     +- Update: 
+   |     |  +- Quadriga function
+   |     |     +- parameters
+   |     |     |  +- parameter
+   |     |     |     +- Lcat/quadriga/runtime/Entity;
+   |     |     |     +- entity
+   |     |     |     +- Semantic: ENTITY
+   |     |     +- St: Block <+>
+   |     |        +- Code:
+   |     |           +- St: Block <+>
+   |     |              +- Local Variables:
+   |     |              |  +- Symbol Var [ rm ] Type [ Lcat/quadriga/render/simple/RenderManager; ]
+   |     |              +- Code:
+   |     |                 +- St: Statements: <+>
+   |     |                 |  +- St: = <+>
+   |     |                 |     +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |     +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |        +- cat.quadriga.render.simple.RenderManager -> instance
+   |     |                 +- St: Statement From Expression : Call <+>
+   |     |                    +- Op: Method: <+>
+   |     |                    |  +- cat.quadriga.render.simple.RenderManager -> changeSphere
+   |     |                    |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                    +- St: Arguments <+>
+   |     |                       +- Op: Call {I} <+>
+   |     |                       |  +- Op: Method: <+>
+   |     |                       |  |  +- cat.quadriga.runtime.Entity -> getGUID
+   |     |                       |  |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                       |  +- St: Zero Arguments <+>
+   |     |                       +- Op: Component Field: {F} <+>
+   |     |                          +- cat.quadriga.base.SphereRenderer -> radi
+   |     |                          +- Op: Component Access {cat.quadriga.base.SphereRenderer} <+>
+   |     |                             +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                             +- Op: Type Access: cat.quadriga.base.SphereRenderer <+>
+   |     +- New Entity: 
+   |     |  +- Quadriga function
+   |     |     +- parameters
+   |     |     |  +- parameter
+   |     |     |     +- Lcat/quadriga/runtime/Entity;
+   |     |     |     +- entity
+   |     |     |     +- Semantic: ENTITY
+   |     |     +- St: Block <+>
+   |     |        +- Code:
+   |     |           +- St: Block <+>
+   |     |              +- Local Variables:
+   |     |              |  +- Symbol Var [ rm ] Type [ Lcat/quadriga/render/simple/RenderManager; ]
+   |     |              +- Code:
+   |     |                 +- St: Statements: <+>
+   |     |                 |  +- St: = <+>
+   |     |                 |     +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |     +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                 |        +- cat.quadriga.render.simple.RenderManager -> instance
+   |     |                 +- St: Statement From Expression : Call <+>
+   |     |                    +- Op: Method: <+>
+   |     |                    |  +- cat.quadriga.render.simple.RenderManager -> setSphere
+   |     |                    |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |     |                    +- St: Arguments <+>
+   |     |                       +- Op: Call {I} <+>
+   |     |                       |  +- Op: Method: <+>
+   |     |                       |  |  +- cat.quadriga.runtime.Entity -> getGUID
+   |     |                       |  |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                       |  +- St: Zero Arguments <+>
+   |     |                       +- Op: Component Field: {F} <+>
+   |     |                          +- cat.quadriga.base.SphereRenderer -> radi
+   |     |                          +- Op: Component Access {cat.quadriga.base.SphereRenderer} <+>
+   |     |                             +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |     |                             +- Op: Type Access: cat.quadriga.base.SphereRenderer <+>
+   |     +- Remove Entity: 
+   |        +- Quadriga function
+   |           +- parameters
+   |           |  +- parameter
+   |           |     +- Lcat/quadriga/runtime/Entity;
+   |           |     +- entity
+   |           |     +- Semantic: ENTITY
+   |           +- St: Block <+>
+   |              +- Code:
+   |                 +- St: Block <+>
+   |                    +- Local Variables:
+   |                    |  +- Symbol Var [ rm ] Type [ Lcat/quadriga/render/simple/RenderManager; ]
+   |                    +- Code:
+   |                       +- St: Statements: <+>
+   |                       |  +- St: = <+>
+   |                       |     +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                       |     +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                       |        +- cat.quadriga.render.simple.RenderManager -> instance
+   |                       +- St: Statement From Expression : Call <+>
+   |                          +- Op: Method: <+>
+   |                          |  +- cat.quadriga.render.simple.RenderManager -> deleteSphere
+   |                          |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                          +- St: Arguments <+>
+   |                             +- Op: Call {I} <+>
+   |                                +- Op: Method: <+>
+   |                                |  +- cat.quadriga.runtime.Entity -> getGUID
+   |                                |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
+   |                                +- St: Zero Arguments <+>
    +- "cat.quadriga.base.SimpleCamera" : Symbol Type
    |  +- Prototype <+>
    |     +- St: Block <+>
@@ -2957,7 +3618,7 @@
    |              +- Op: Component Allocation {cat.quadriga.base.CameraComponent} <+>
    |              |  +- Component <+>
    |              |  |  +- fields
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |     |  +- Ljavax/vecmath/Vector3f;
    |              |  |     |  +- "position"
    |              |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
@@ -2969,7 +3630,7 @@
    |              |  |     |        |  +- Float: 0.0
    |              |  |     |        +- Op: Literal {F} <+>
    |              |  |     |           +- Float: 0.0
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |     |  +- Ljavax/vecmath/Vector3f;
    |              |  |     |  +- "lookAt"
    |              |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
@@ -2981,7 +3642,7 @@
    |              |  |     |        |  +- Float: 0.0
    |              |  |     |        +- Op: Literal {F} <+>
    |              |  |     |           +- Float: 1.0
-   |              |  |     +- Component Field
+   |              |  |     +- Quadriga Field
    |              |  |        +- Ljavax/vecmath/Vector3f;
    |              |  |        +- "up"
    |              |  |        +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
