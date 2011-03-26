@@ -57,4 +57,10 @@ public final class FieldOrMethodAccess extends MemberAccess {
   public LiteralData getCompileTimeConstant() {
     return null;
   }
+
+  @Override
+  public boolean isAssignable() {
+    // TODO Auto-generated method stub
+    return false;
+  }
 }

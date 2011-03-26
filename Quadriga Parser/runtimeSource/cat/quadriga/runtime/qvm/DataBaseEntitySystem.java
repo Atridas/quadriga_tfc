@@ -1778,5 +1778,377 @@ public class DataBaseEntitySystem implements EntitySystem {
       }
     }
     
+    
+
+    
+    
+    private class DBComponentObject2 implements ComponentInstance {
+      
+      int id;
+      private final Map<String,ComputedValue> cachedFields = new HashMap<String, ComputedValue>();
+      private final ThreadLocal<Map<String,ComputedValue>> changedFields = 
+        new ThreadLocal<Map<String,ComputedValue>>() {
+          public Map<String,ComputedValue> initialValue() {
+            return new HashMap<String, ComputedValue>();
+          }
+        };
+
+      private int getComponentTypeId() {
+        return DBComponent.this.id;
+      }
+      
+      @Override
+      public void copy(ComponentInstance other) {
+        cachedFields.clear();
+        changedFields.get().clear();
+        String sql = "UPDATE " + tableName + " SET ";
+        boolean first = true;
+        for(String field: fieldList) {
+          if(first) {
+            sql += field + "=?";
+            first = false;
+          } else {
+            sql += ", " + field + "=?";
+          }
+        }
+        sql += " WHERE data_id = " + id;
+        
+        try {
+          PreparedStatement ps = databaseConnection.get().prepareStatement(sql);
+          
+          int i = 0;
+          for(String field: fieldList) {
+            ++i;
+            JavaType type = getField(field).type;
+            ComputedValue cv = other.getFieldValue(field);
+            if(type instanceof PrimitiveTypeRef) {
+              switch(((PrimitiveTypeRef)type).type) {
+              case BOOLEAN:
+                ps.setBoolean(i,cv.getAsBool());
+                break;
+              case CHAR:
+                ps.setInt(i, cv.getAsChar());
+                break;
+              case BYTE:
+                ps.setByte(i, cv.getAsByte());
+                break;
+              case SHORT:
+                ps.setShort(i, cv.getAsShort());
+                break;
+              case INT:
+                ps.setInt(i, cv.getAsInt());
+                break;
+              case LONG:
+                ps.setLong(i, cv.getAsLong());
+                break;
+              case FLOAT:
+                ps.setFloat(i, cv.getAsFloat());
+                break;
+              case DOUBLE:
+                ps.setDouble(i, cv.getAsDouble());
+                break;
+              default:
+                throw new IllegalArgumentException("Component " + getBinaryName()
+                    + " field " + field + " type not suported.");
+              }
+            } else if(type instanceof QuadrigaEntity) {
+              ps.setInt(i, ((DBEntity)cv).id);
+            } else {
+              ps.setObject(i, cv.getAsObject());
+            }
+          }
+          
+          ps.execute();
+          
+        } catch (SQLException e) {
+          throw new IllegalStateException(e);
+        }
+        
+        testExceptions();
+      }
+
+      @Override
+      public RuntimeComponent getComponent() {
+        return DBComponent.this;
+      }
+
+      @Override
+      public ComputedValue getFieldValue(String field) {
+        ComputedValue cv = changedFields.get().get(field);
+        if(cv != null) return cv;
+        return cachedFields.get(field);
+      }
+
+      @Override
+      public void setFieldValue(String field, ComputedValue value) {
+        assert fields.get(field) != null;
+        //cachedFields.put(field,value);
+        changedFields.get().put(field,value);
+      }
+
+      @Override
+      public void commitChanges() {
+        
+        if(changedFields.get().size() == 0) return;
+        
+        String sql = "UPDATE " + tableName + " SET ";
+        boolean first = true;
+        for(String field: changedFields.get().keySet()) {
+          if(first) {
+            sql += field + "=?";
+            first = false;
+          } else {
+            sql += ", " + field + "=?";
+          }
+        }
+        sql += " WHERE data_id = " + id;
+        
+        try {
+          PreparedStatement ps = databaseConnection.get().prepareStatement(sql);
+          
+          int i = 0;
+          //TODO no m'en fio que segueixi el mateix ordre que abans, s'hauria
+          //de re-mirar.
+          for(Entry<String, ComputedValue> field: changedFields.get().entrySet()) {
+            ++i;
+            JavaType type = getField(field.getKey()).type;
+            ComputedValue cv = field.getValue();
+            if(type instanceof PrimitiveTypeRef) {
+              switch(((PrimitiveTypeRef)type).type) {
+              case BOOLEAN:
+                ps.setBoolean(i,cv.getAsBool());
+                break;
+              case CHAR:
+                ps.setInt(i, cv.getAsChar());
+                break;
+              case BYTE:
+                ps.setByte(i, cv.getAsByte());
+                break;
+              case SHORT:
+                ps.setShort(i, cv.getAsShort());
+                break;
+              case INT:
+                ps.setInt(i, cv.getAsInt());
+                break;
+              case LONG:
+                ps.setLong(i, cv.getAsLong());
+                break;
+              case FLOAT:
+                ps.setFloat(i, cv.getAsFloat());
+                break;
+              case DOUBLE:
+                ps.setDouble(i, cv.getAsDouble());
+                break;
+              default:
+                throw new IllegalArgumentException("Component " + getBinaryName()
+                    + " field " + field + " type not suported.");
+              }
+            } else if(type instanceof QuadrigaEntity) {
+              ps.setInt(i, ((DBEntity)cv).id);
+            } else {
+              ps.setObject(i, cv.getAsObject());
+            }
+          }
+          
+          ps.execute();
+          
+        } catch (SQLException e) {
+          throw new IllegalStateException(e);
+        }
+
+        cachedFields.putAll(changedFields.get());
+        changedFields.get().clear();
+        testExceptions();
+      }
+
+      @Override
+      public Map<String, ComputedValue> getFieldValues() {
+        String sql = "SELECT ";
+        boolean first = true;
+        for(String field: getAllFields()) {
+          if(!cachedFields.containsKey(field)) {
+            if(first) {
+              sql += field;
+              first = false;
+            } else {
+              sql += ", " + field;
+            }
+          }
+        }
+        sql += " FROM " + tableName + " WHERE data_id = " + id;
+
+        try {
+          PreparedStatement ps = databaseConnection.get().prepareStatement(sql);
+        
+          ResultSet rs = ps.executeQuery();
+          
+          rs.next();
+          
+          for(String field: getAllFields()) {
+            if(!cachedFields.containsKey(field)) {
+              JavaType type = getField(field).type;
+              CodeZone cz = CodeZoneClass.runtime;
+              ComputedValue cv;
+              if(type instanceof PrimitiveTypeRef) {
+                switch(((PrimitiveTypeRef)type).type) {
+                case BOOLEAN:
+                  cv = new LiteralData.BooleanLiteral(rs.getBoolean(field), cz);
+                  break;
+                case CHAR:
+                  cv = new LiteralData.CharacterLiteral((char)rs.getInt(field), cz);
+                  break;
+                case BYTE:
+                  cv = new LiteralData.IntegerLiteral(rs.getInt(field), cz);
+                  break;
+                case SHORT:
+                  cv = new LiteralData.IntegerLiteral(rs.getInt(field), cz);
+                  break;
+                case INT:
+                  cv = new LiteralData.IntegerLiteral(rs.getInt(field), cz);
+                  break;
+                case LONG:
+                  cv = new LiteralData.LongLiteral(rs.getLong(field), cz);
+                  break;
+                case FLOAT:
+                  cv = new LiteralData.FloatLiteral(rs.getFloat(field), cz);
+                  break;
+                case DOUBLE:
+                  cv = new LiteralData.DoubleLiteral(rs.getDouble(field), cz);
+                  break;
+                default:
+                  throw new IllegalArgumentException("Component " + getBinaryName()
+                      + " field " + field + " type not suported.");
+                }
+              } else if(type instanceof QuadrigaEntity) {
+                DBEntity entity = new DBEntity();
+                entity.id = rs.getInt(field);
+                cv = entity;
+              } else {
+                cv = new JavaReference( rs.getObject(field) );
+              }
+              cachedFields.put(field, cv);
+            }
+          }
+          
+        } catch (SQLException e) {
+          throw new IllegalStateException(e);
+        }
+        return cachedFields;
+      }
+
+      @Override
+      public boolean getAsBool() {
+        throw new IllegalStateException("Error");
+      }
+
+      @Override
+      public byte getAsByte() {
+        throw new IllegalStateException("Error");
+      }
+
+      @Override
+      public char getAsChar() {
+        throw new IllegalStateException("Error");
+      }
+
+      @Override
+      public double getAsDouble() {
+        throw new IllegalStateException("Error");
+      }
+
+      @Override
+      public float getAsFloat() {
+        throw new IllegalStateException("Error");
+      }
+
+      @Override
+      public int getAsInt() {
+        throw new IllegalStateException("Error");
+      }
+
+      @Override
+      public long getAsLong() {
+        throw new IllegalStateException("Error");
+      }
+
+      @Override
+      public Object getAsObject() {
+        return this;
+      }
+
+      @Override
+      public short getAsShort() {
+        throw new IllegalStateException("Error");
+      }
+
+      @Override
+      public String getStringValue() {
+        return toString();
+      }
+
+      @Override
+      public BaseType getType() {
+        return DBComponent.this;
+      }
+
+      @Override
+      public void set(ComputedValue other) {
+        throw new IllegalStateException("Error");
+      }
+      
+      public List<String> print(Statement st) throws SQLException {
+        ResultSet rs = st.executeQuery(
+            "SELECT * " +
+            "FROM " + tableName +
+            " WHERE data_id = " + id);
+        
+        List<String> aux = new LinkedList<String>();
+        
+        while(rs.next()) {
+          for(String field : getAllFields()) {
+            String f = field + ": ";
+            
+            JavaType type = getField(field).type;
+            if(type instanceof PrimitiveTypeRef) {
+              switch(((PrimitiveTypeRef)type).type) {
+              case BOOLEAN:
+                f += rs.getBoolean(field);
+                break;
+              case CHAR:
+                f += rs.getInt(field);
+                break;
+              case BYTE:
+                f += rs.getByte(field);
+                break;
+              case SHORT:
+                f += rs.getShort(field);
+                break;
+              case INT:
+                f += rs.getInt(field);
+                break;
+              case LONG:
+                f += rs.getLong(field);
+                break;
+              case FLOAT:
+                f += rs.getFloat(field);
+                break;
+              case DOUBLE:
+                f += rs.getDouble(field);
+                break;
+              default:
+                throw new IllegalArgumentException("Component " + getBinaryName()
+                    + " field " + field + " type not suported.");
+              }
+            } else if(type instanceof QuadrigaEntity) {
+              f += "Entity " + rs.getInt(field);
+            } else {
+              f += rs.getObject(field);
+            }
+            aux.add(f);
+          }
+        }
+        return aux;
+      }
+    }
   }
 }

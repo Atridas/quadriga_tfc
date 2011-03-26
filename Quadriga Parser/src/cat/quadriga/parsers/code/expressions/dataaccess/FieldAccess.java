@@ -9,6 +9,7 @@ import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.runtime.ComputedValue;
 import cat.quadriga.runtime.JavaReference;
 import cat.quadriga.runtime.RuntimeEnvironment;
@@ -100,8 +101,21 @@ public final class FieldAccess extends MemberAccess {
   }
 
   @Override
+  public boolean isAssignable() {
+    if(reference.getType() instanceof QuadrigaComponent) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  @Override
   public WriteAccess getWriteVersion(SymbolTable symbolTable) {
-    return new WriteVersion();
+    if(reference.getType() instanceof QuadrigaComponent) {
+      return null;
+    } else {
+      return new WriteVersion();
+    }
   }
 
   @Override

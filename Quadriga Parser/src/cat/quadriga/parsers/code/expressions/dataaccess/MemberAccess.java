@@ -21,11 +21,6 @@ public abstract class MemberAccess extends DirectDataAccess {
   }
 
   @Override
-  public boolean isAssignable() {
-    return true;
-  }
-
-  @Override
   public boolean isReadable() {
     return true;
   }
