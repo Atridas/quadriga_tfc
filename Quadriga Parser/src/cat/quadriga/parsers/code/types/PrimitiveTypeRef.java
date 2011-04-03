@@ -218,6 +218,12 @@ public final class PrimitiveTypeRef extends JavaType {
     }
     
     switch(type) {
+    case BOOLEAN:
+      if(prim.type == Type.BOOLEAN) {
+        return true;
+      } else {
+        return false;
+      }
     case BYTE:
       switch(prim.type) {
       case BYTE:

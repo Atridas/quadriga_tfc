@@ -16,355 +16,15 @@
    |           +- "texture"
    |           +- Op: Literal {Ljava/lang/String;} <+>
    |              +- String: ""
-   +- "riskppt3d.planeta.PlanetInfoQuad" : Symbol Type
-   |  +- Prototype <+>
-   |     +- parameters
-   |     |  +- parameter
-   |     |     +- Lcat/quadriga/runtime/Entity;
-   |     |     +- entity
-   |     |     +- Semantic: ENTITY
-   |     +- St: Block <+>
-   |        +- Local Variables:
-   |        |  +- Symbol Var [ entity ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        +- Code:
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "position"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- F
-   |           |  |  |     |  +- "scale"
-   |           |  |  |     |  +- Op: Literal {F} <+>
-   |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- Ljavax/vecmath/Quat4f;
-   |           |  |  |        +- "rotation"
-   |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
-   |           |  |  |           +- Ljavax/vecmath/Quat4f;
-   |           |  |  |           +- St: Arguments <+>
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |                 +- Float: 1.0
-   |           |  |  +- St: Named Arguments <+>
-   |           |  |     +- quadriga argument
-   |           |  |        +- position
-   |           |  |        +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |           +- Ljavax/vecmath/Vector3f;
-   |           |  |           +- St: Arguments <+>
-   |           |  |              +- Op: Literal {F} <+>
-   |           |  |              |  +- Float: 0.0
-   |           |  |              +- Op: Literal {F} <+>
-   |           |  |              |  +- Float: 0.0
-   |           |  |              +- Op: * {F} <+>
-   |           |  |                 +- Op: Component Field: {F} <+>
-   |           |  |                 |  +- riskppt3d.planeta.DadesComponent -> radi
-   |           |  |                 |  +- Op: Component Access {riskppt3d.planeta.DadesComponent} <+>
-   |           |  |                 |     +- Op: Call {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |                 |     |  +- Op: Method: <+>
-   |           |  |                 |     |  |  +- cat.quadriga.runtime.Entity -> getParent
-   |           |  |                 |     |  |  +- Op: Call {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |                 |     |  |     +- Op: Method: <+>
-   |           |  |                 |     |  |     |  +- cat.quadriga.runtime.Entity -> getParent
-   |           |  |                 |     |  |     |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |                 |     |  |     +- St: Zero Arguments <+>
-   |           |  |                 |     |  +- St: Zero Arguments <+>
-   |           |  |                 |     +- Op: Type Access: riskppt3d.planeta.DadesComponent <+>
-   |           |  |                 +- Op: Literal {F} <+>
-   |           |  |                    +- Float: 2.0
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.BoxRenderer} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  +- St: Zero Arguments <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Base"
-   |           |  +- cat.quadriga.base.TexturedQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.TexturedQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- texture
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "riskppt3d/assets/planetinfo.png"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Edifici1"
-   |           |  +- cat.quadriga.base.TexturedQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.TexturedQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 2.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 2.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |           +- texture
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "riskppt3d/assets/gris.png"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Edifici2"
-   |           |  +- cat.quadriga.base.TexturedQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.TexturedQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 2.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 25.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |           +- texture
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "riskppt3d/assets/gris.png"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Edifici3"
-   |           |  +- cat.quadriga.base.TexturedQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.TexturedQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 2.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 48.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |           +- texture
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "riskppt3d/assets/gris.png"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "NumPedra"
-   |           |  +- cat.quadriga.base.FontQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.FontQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 61.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 2.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |        |  +- text
-   |           |        |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |        |     +- String: ""
-   |           |        +- quadriga argument
-   |           |           +- color
-   |           |           +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |           |              +- cat.quadriga.java.base.ColorUtils -> GREEN
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "NumPaper"
-   |           |  +- cat.quadriga.base.FontQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.FontQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 61.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 25.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |        |  +- text
-   |           |        |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |        |     +- String: ""
-   |           |        +- quadriga argument
-   |           |           +- color
-   |           |           +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |           |              +- cat.quadriga.java.base.ColorUtils -> GREEN
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "NumTisores"
-   |           |  +- cat.quadriga.base.FontQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.FontQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 61.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 48.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |        |  +- text
-   |           |        |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |        |     +- String: ""
-   |           |        +- quadriga argument
-   |           |           +- color
-   |           |           +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |           |              +- cat.quadriga.java.base.ColorUtils -> GREEN
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "NumPedraEnemics"
-   |           |  +- cat.quadriga.base.FontQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.FontQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 111.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 2.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |        |  +- text
-   |           |        |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |        |     +- String: ""
-   |           |        +- quadriga argument
-   |           |           +- color
-   |           |           +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |           |              +- cat.quadriga.java.base.ColorUtils -> RED
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "NumPaperEnemics"
-   |           |  +- cat.quadriga.base.FontQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.FontQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 111.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 25.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |        |  +- text
-   |           |        |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |        |     +- String: ""
-   |           |        +- quadriga argument
-   |           |           +- color
-   |           |           +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |           |              +- cat.quadriga.java.base.ColorUtils -> RED
-   |           +- St: Apply Prototype to Entity <+>
-   |              +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Literal {Ljava/lang/String;} <+>
-   |              |     +- String: "NumTisoresEnemics"
-   |              +- cat.quadriga.base.FontQuadPrototype
-   |              +- St: Zero Arguments <+>
-   |              +- Component redefinition
-   |                 +- cat.quadriga.base.FontQuad
-   |                 +- St: Named Arguments <+>
-   |                    +- quadriga argument
-   |                    |  +- position
-   |                    |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |                    |     +- Ljavax/vecmath/Vector3f;
-   |                    |     +- St: Arguments <+>
-   |                    |        +- Op: Literal {F} <+>
-   |                    |        |  +- Float: 111.0
-   |                    |        +- Op: Literal {F} <+>
-   |                    |        |  +- Float: 48.0
-   |                    |        +- Op: Literal {F} <+>
-   |                    |           +- Float: 0.0
-   |                    +- quadriga argument
-   |                    |  +- text
-   |                    |  +- Op: Literal {Ljava/lang/String;} <+>
-   |                    |     +- String: ""
-   |                    +- quadriga argument
-   |                       +- color
-   |                       +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |                          +- cat.quadriga.java.base.ColorUtils -> RED
    +- "Exit" : Symbol Type
    |  +- Component <+>
    |     +- fields
    +- "RendererComponent" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   +- "cat.quadriga.java.base.ColorUtils" : Symbol Type
-   |  +- Lcat/quadriga/java/base/ColorUtils;
    +- "cat.quadriga.base.RendererComponent" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   +- "cat.quadriga.java.base.MaterialUnshadedColor" : Symbol Type
-   |  +- Lcat/quadriga/java/base/MaterialUnshadedColor;
    +- "SimpleNodeSystem" : Symbol Type
    |  +- System <+>
    |     +- needed components
@@ -525,30 +185,19 @@
    |                                +- Op: Component Access {cat.quadriga.base.Transform} <+>
    |                                   +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
    |                                   +- Op: Type Access: cat.quadriga.base.Transform <+>
-   +- "cat.quadriga.base.BoxRenderer" : Symbol Type
-   |  +- Component <+>
-   |     +- fields
-   +- "javax.vecmath.Matrix4f" : Symbol Type
-   |  +- Ljavax/vecmath/Matrix4f;
-   +- "riskppt3d.planeta.Planeta" : Symbol Type
+   +- "tetris.base.CubDeTaulell" : Symbol Type
    |  +- Prototype <+>
    |     +- parameters
    |     |  +- parameter
-   |     |  |  +- F
-   |     |  |  +- hue
-   |     |  |  +- init
-   |     |  |     +- Op: Literal {F} <+>
-   |     |  |        +- Float: 0.0
+   |     |  |  +- I
+   |     |  |  +- posX
    |     |  +- parameter
-   |     |     +- F
-   |     |     +- radi
-   |     |     +- init
-   |     |        +- Op: Literal {F} <+>
-   |     |           +- Float: 1.0
+   |     |     +- I
+   |     |     +- posY
    |     +- St: Block <+>
    |        +- Local Variables:
-   |        |  +- Symbol Var [ hue ] Type [ F ]
-   |        |  +- Symbol Var [ radi ] Type [ F ]
+   |        |  +- Symbol Var [ posX ] Type [ I ]
+   |        |  +- Symbol Var [ posY ] Type [ I ]
    |        +- Code:
    |           +- St: Add Component <+>
    |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
@@ -579,83 +228,34 @@
    |           |  |  |              |  +- Float: 0.0
    |           |  |  |              +- Op: Literal {F} <+>
    |           |  |  |                 +- Float: 1.0
-   |           |  |  +- St: Zero Arguments <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {riskppt3d.planeta.DadesComponent} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- F
-   |           |  |  |        +- "radi"
-   |           |  |  |        +- Op: Literal {F} <+>
-   |           |  |  |           +- Float: 1.0
    |           |  |  +- St: Named Arguments <+>
    |           |  |     +- quadriga argument
-   |           |  |        +- radi
-   |           |  |        +- Op: Local variable access: radi {F} <+>
+   |           |  |        +- position
+   |           |  |        +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |           |  |           +- Ljavax/vecmath/Vector3f;
+   |           |  |           +- St: Arguments <+>
+   |           |  |              +- Op: Local variable access: posX {I} <+>
+   |           |  |              +- Op: Local variable access: posY {I} <+>
+   |           |  |              +- Op: Literal {I} <+>
+   |           |  |                 +- Integer: 0
    |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
    |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.SphereRenderer} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- F
-   |           |  |  |        +- "radi"
-   |           |  |  |        +- Op: Literal {F} <+>
-   |           |  |  |           +- Float: 1.0
-   |           |  |  +- St: Named Arguments <+>
-   |           |  |     +- quadriga argument
-   |           |  |        +- radi
-   |           |  |        +- Op: Component Field: {F} <+>
-   |           |  |           +- riskppt3d.planeta.DadesComponent -> radi
-   |           |  |           +- Op: Component Access {riskppt3d.planeta.DadesComponent} <+>
-   |           |  |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |              +- Op: Type Access: riskppt3d.planeta.DadesComponent <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.Materials} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- [Lcat/quadriga/java/base/BaseMaterial;
-   |           |  |  |        +- "materials"
-   |           |  |  |        +- Op: Array initialization {[Lcat/quadriga/java/base/BaseMaterial;} <+>
-   |           |  |  |           +- Op: new array {[Lcat/quadriga/java/base/BaseMaterial;} <+>
-   |           |  |  |              +- Lcat/quadriga/java/base/BaseMaterial;
-   |           |  |  |              +- Op: Literal {I} <+>
-   |           |  |  |                 +- Integer: 0
-   |           |  |  +- St: Named Arguments <+>
-   |           |  |     +- quadriga argument
-   |           |  |        +- materials
-   |           |  |        +- Op: Array initialization {[Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |           |  |           +- Op: new array {[Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |           |  |           |  +- Lcat/quadriga/java/base/MaterialUnshadedColor;
-   |           |  |           |  +- Op: Literal {I} <+>
-   |           |  |           |     +- Integer: 1
-   |           |  |           +- Op: Constructor {Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |           |  |              +- Lcat/quadriga/java/base/MaterialUnshadedColor;
-   |           |  |              +- St: Arguments <+>
-   |           |  |                 +- Op: Call {Ljavax/vecmath/Color3f;} <+>
-   |           |  |                    +- Op: Static Method: <+>
-   |           |  |                    |  +- cat.quadriga.java.base.ColorUtils -> getHSV
-   |           |  |                    +- St: Arguments <+>
-   |           |  |                       +- Op: Local variable access: hue {F} <+>
-   |           |  |                       +- Op: Literal {F} <+>
-   |           |  |                       |  +- Float: 0.8
-   |           |  |                       +- Op: Literal {F} <+>
-   |           |  |                          +- Float: 0.9
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |              +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Literal {Ljava/lang/String;} <+>
-   |              |     +- String: "Info"
-   |              +- riskppt3d.planeta.PlanetaInfo
-   |              +- St: Zero Arguments <+>
-   +- "Test" : Symbol Type
+   |              +- Op: Component Allocation {cat.quadriga.base.BoxRenderer} <+>
+   |              |  +- Component <+>
+   |              |  |  +- fields
+   |              |  +- St: Zero Arguments <+>
+   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   +- "cat.quadriga.base.BoxRenderer" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   +- "LlogicaTetris" : Symbol Type
    |  +- thread <+>
-   |     +- riskppt3d.demo.IncrementadorPlanetes
+   |     +- tetris.base.ControladorDelJoc
+   |     +- tetris.base.LlògicaTaulell
+   +- "tetris.base.LlogicaTetris" : Symbol Type
+   |  +- thread <+>
+   |     +- tetris.base.ControladorDelJoc
+   |     +- tetris.base.LlògicaTaulell
    +- "cat.quadriga.base.RendererPrototype" : Symbol Type
    |  +- Prototype <+>
    |     +- St: Block <+>
@@ -674,410 +274,6 @@
    |           +- "camera"
    +- "javax.vecmath.Quat4f" : Symbol Type
    |  +- Ljavax/vecmath/Quat4f;
-   +- "DemoMain" : Symbol Type
-   |  +- main
-   |     +- thread: cat.quadriga.base.SimpleRenderThread
-   |     +- thread: riskppt3d.demo.Test
-   |     +- St: Block <+>
-   |        +- Local Variables:
-   |        |  +- Symbol Var [ demo ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        +- Code:
-   |           +- St: Statements: <+>
-   |           |  +- St: = <+>
-   |           |     +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |        +- Op: Literal {Null type} <+>
-   |           |        |  +- Null
-   |           |        +- Op: Literal {Ljava/lang/String;} <+>
-   |           |           +- String: "BaseScene"
-   |           +- St: Apply Prototype to Entity <+>
-   |              +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
-   |              +- riskppt3d.demo.SimpleDemo
-   |              +- St: Zero Arguments <+>
-   +- "SimpleDemo" : Symbol Type
-   |  +- Prototype <+>
-   |     +- St: Block <+>
-   |        +- Code:
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "position"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- F
-   |           |  |  |     |  +- "scale"
-   |           |  |  |     |  +- Op: Literal {F} <+>
-   |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- Ljavax/vecmath/Quat4f;
-   |           |  |  |        +- "rotation"
-   |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
-   |           |  |  |           +- Ljavax/vecmath/Quat4f;
-   |           |  |  |           +- St: Arguments <+>
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |                 +- Float: 1.0
-   |           |  |  +- St: Zero Arguments <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Planeta1"
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |     +- hue
-   |           |  |     +- Op: Literal {F} <+>
-   |           |  |        +- Float: 0.0
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 0.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 4.5
-   |           |                 +- Op: Literal {F} <+>
-   |           |                    +- Float: 2.0
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Planeta2"
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |  |  +- hue
-   |           |  |  |  +- Op: Literal {F} <+>
-   |           |  |  |     +- Float: 0.0
-   |           |  |  +- quadriga argument
-   |           |  |     +- radi
-   |           |  |     +- Op: Literal {F} <+>
-   |           |  |        +- Float: 3.5
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 0.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 0.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                    +- Float: 0.0
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Planeta3"
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |     +- hue
-   |           |  |     +- Op: Literal {F} <+>
-   |           |  |        +- Float: 0.0
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 0.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 9.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                    +- Float: -2.0
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Planeta4"
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |     +- hue
-   |           |  |     +- Op: Literal {F} <+>
-   |           |  |        +- Float: 180.0
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 6.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 0.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                    +- Float: 0.0
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Planeta5"
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |  |  +- hue
-   |           |  |  |  +- Op: Literal {F} <+>
-   |           |  |  |     +- Float: 180.0
-   |           |  |  +- quadriga argument
-   |           |  |     +- radi
-   |           |  |     +- Op: Literal {F} <+>
-   |           |  |        +- Float: 0.5
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 2.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 6.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                    +- Float: 2.0
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Planeta6"
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |     +- hue
-   |           |  |     +- Op: Literal {F} <+>
-   |           |  |        +- Float: 180.0
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 6.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 6.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                    +- Float: 4.0
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Aresta1"
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal {Ljava/lang/String;} <+>
-   |           |     |        +- String: "Planeta2"
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "Planeta1"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Aresta2"
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal {Ljava/lang/String;} <+>
-   |           |     |        +- String: "Planeta3"
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "Planeta2"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Aresta3"
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal {Ljava/lang/String;} <+>
-   |           |     |        +- String: "Planeta3"
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "Planeta1"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Aresta4"
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal {Ljava/lang/String;} <+>
-   |           |     |        +- String: "Planeta5"
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "Planeta4"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Aresta5"
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal {Ljava/lang/String;} <+>
-   |           |     |        +- String: "Planeta6"
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "Planeta4"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Aresta6"
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal {Ljava/lang/String;} <+>
-   |           |     |        +- String: "Planeta6"
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "Planeta5"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Aresta7"
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal {Ljava/lang/String;} <+>
-   |           |     |        +- String: "Planeta5"
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "Planeta2"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Camera"
-   |           |  +- cat.quadriga.base.SimpleCamera
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.CameraComponent
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 10.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 10.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 20.0
-   |           |        +- quadriga argument
-   |           |        |  +- lookAt
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 0.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 0.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |           +- up
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 0.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 0.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                    +- Float: 1.0
-   |           +- St: Add Component <+>
-   |              +- Op: Component Allocation {cat.quadriga.base.SceneComponent} <+>
-   |              |  +- Component <+>
-   |              |  |  +- fields
-   |              |  |     +- Quadriga Field
-   |              |  |        +- Lcat/quadriga/runtime/Entity;
-   |              |  |        +- "camera"
-   |              |  +- St: Named Arguments <+>
-   |              |     +- quadriga argument
-   |              |        +- camera
-   |              |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |              |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |              |           +- Op: Literal {Ljava/lang/String;} <+>
-   |              |              +- String: "Camera"
-   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
    +- "cat.quadriga.base.SimpleNodeSystem" : Symbol Type
    |  +- System <+>
    |     +- needed components
@@ -1238,138 +434,17 @@
    |                                +- Op: Component Access {cat.quadriga.base.Transform} <+>
    |                                   +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
    |                                   +- Op: Type Access: cat.quadriga.base.Transform <+>
-   +- "riskppt3d.aresta.Aresta" : Symbol Type
-   |  +- Prototype <+>
-   |     +- parameters
-   |     |  +- parameter
-   |     |  |  +- Lcat/quadriga/runtime/Entity;
-   |     |  |  +- planeta1
-   |     |  +- parameter
-   |     |     +- Lcat/quadriga/runtime/Entity;
-   |     |     +- planeta2
-   |     +- St: Block <+>
-   |        +- Local Variables:
-   |        |  +- Symbol Var [ planeta1 ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        |  +- Symbol Var [ planeta2 ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        +- Code:
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "position"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- F
-   |           |  |  |     |  +- "scale"
-   |           |  |  |     |  +- Op: Literal {F} <+>
-   |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- Ljavax/vecmath/Quat4f;
-   |           |  |  |        +- "rotation"
-   |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
-   |           |  |  |           +- Ljavax/vecmath/Quat4f;
-   |           |  |  |           +- St: Arguments <+>
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |                 +- Float: 1.0
-   |           |  |  +- St: Zero Arguments <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.CilynderRenderer} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "pos1"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Arguments <+>
-   |           |  |  |     |        +- Op: Literal {F} <+>
-   |           |  |  |     |        |  +- Float: 0.0
-   |           |  |  |     |        +- Op: Literal {F} <+>
-   |           |  |  |     |        |  +- Float: 0.0
-   |           |  |  |     |        +- Op: Literal {F} <+>
-   |           |  |  |     |           +- Float: 0.0
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "pos2"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Arguments <+>
-   |           |  |  |     |        +- Op: Literal {F} <+>
-   |           |  |  |     |        |  +- Float: 0.0
-   |           |  |  |     |        +- Op: Literal {F} <+>
-   |           |  |  |     |        |  +- Float: 0.0
-   |           |  |  |     |        +- Op: Literal {F} <+>
-   |           |  |  |     |           +- Float: 1.0
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- F
-   |           |  |  |        +- "radi"
-   |           |  |  |        +- Op: Literal {F} <+>
-   |           |  |  |           +- Float: 1.0
-   |           |  |  +- St: Named Arguments <+>
-   |           |  |     +- quadriga argument
-   |           |  |     |  +- pos1
-   |           |  |     |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |     |     +- cat.quadriga.base.Transform -> position
-   |           |  |     |     +- Op: Component Access {cat.quadriga.base.Transform} <+>
-   |           |  |     |        +- Op: Local variable access: planeta1 {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |     |        +- Op: Type Access: cat.quadriga.base.Transform <+>
-   |           |  |     +- quadriga argument
-   |           |  |     |  +- pos2
-   |           |  |     |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |     |     +- cat.quadriga.base.Transform -> position
-   |           |  |     |     +- Op: Component Access {cat.quadriga.base.Transform} <+>
-   |           |  |     |        +- Op: Local variable access: planeta2 {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |     |        +- Op: Type Access: cat.quadriga.base.Transform <+>
-   |           |  |     +- quadriga argument
-   |           |  |        +- radi
-   |           |  |        +- Op: Literal {F} <+>
-   |           |  |           +- Float: 0.5
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |              +- Op: Component Allocation {cat.quadriga.base.Materials} <+>
-   |              |  +- Component <+>
-   |              |  |  +- fields
-   |              |  |     +- Quadriga Field
-   |              |  |        +- [Lcat/quadriga/java/base/BaseMaterial;
-   |              |  |        +- "materials"
-   |              |  |        +- Op: Array initialization {[Lcat/quadriga/java/base/BaseMaterial;} <+>
-   |              |  |           +- Op: new array {[Lcat/quadriga/java/base/BaseMaterial;} <+>
-   |              |  |              +- Lcat/quadriga/java/base/BaseMaterial;
-   |              |  |              +- Op: Literal {I} <+>
-   |              |  |                 +- Integer: 0
-   |              |  +- St: Named Arguments <+>
-   |              |     +- quadriga argument
-   |              |        +- materials
-   |              |        +- Op: Array initialization {[Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |              |           +- Op: new array {[Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |              |           |  +- Lcat/quadriga/java/base/MaterialUnshadedColor;
-   |              |           |  +- Op: Literal {I} <+>
-   |              |           |     +- Integer: 1
-   |              |           +- Op: Constructor {Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |              |              +- Lcat/quadriga/java/base/MaterialUnshadedColor;
-   |              |              +- St: Arguments <+>
-   |              |                 +- Op: Call {Ljavax/vecmath/Color3f;} <+>
-   |              |                    +- Op: Static Method: <+>
-   |              |                    |  +- cat.quadriga.java.base.ColorUtils -> getHSV
-   |              |                    +- St: Arguments <+>
-   |              |                       +- Op: Literal {F} <+>
-   |              |                       |  +- Float: 0.0
-   |              |                       +- Op: Literal {F} <+>
-   |              |                       |  +- Float: 0.0
-   |              |                       +- Op: Literal {F} <+>
-   |              |                          +- Float: 1.0
-   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   +- "tetris.base.LlògicaTaulell" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |        +- tetris.base.Puntuació
+   |        +- tetris.base.Taulell
+   +- "tetris.base.TetrisGameComponent" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |           +- Lcat/quadriga/runtime/Entity;
+   |           +- "taulell"
    +- "SceneComponent" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -1436,6 +511,13 @@
    |                                |  +- cat.quadriga.runtime.Entity -> getGUID
    |                                |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
    |                                +- St: Zero Arguments <+>
+   +- "tetris.base.Main" : Symbol Type
+   |  +- main
+   |     +- thread: tetris.base.LlogicaTetris
+   |     +- thread: cat.quadriga.base.SimpleRenderThread
+   +- "BillboardRenderer" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
    +- "cat.quadriga.base.Exit" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -1467,9 +549,50 @@
    |                 |  +- Float: 0.0
    |                 +- Op: Literal {F} <+>
    |                    +- Float: 1.0
-   +- "riskppt3d.demo.SimpleDemo" : Symbol Type
+   +- "tetris.base.Taulell" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |        |  +- [[Lcat/quadriga/runtime/Entity;
+   |        |  +- "cubs"
+   |        |  +- Op: new array {[[Lcat/quadriga/runtime/Entity;} <+>
+   |        |     +- Lcat/quadriga/runtime/Entity;
+   |        |     +- Op: Literal {I} <+>
+   |        |     |  +- Integer: 10
+   |        |     +- Op: Literal {I} <+>
+   |        |        +- Integer: 18
+   |        +- Quadriga Field
+   |           +- [[I
+   |           +- "taulell"
+   |           +- Op: new primitive array {[[I} <+>
+   |              +- I
+   |              +- Op: Literal {I} <+>
+   |              |  +- Integer: 10
+   |              +- Op: Literal {I} <+>
+   |                 +- Integer: 18
+   +- "RendererPrototype" : Symbol Type
    |  +- Prototype <+>
    |     +- St: Block <+>
+   |        +- Code:
+   |           +- St: Add Component <+>
+   |              +- Op: Component Allocation {cat.quadriga.base.RendererComponent} <+>
+   |              |  +- Component <+>
+   |              |  |  +- fields
+   |              |  +- St: Zero Arguments <+>
+   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   +- "CubDeTaulell" : Symbol Type
+   |  +- Prototype <+>
+   |     +- parameters
+   |     |  +- parameter
+   |     |  |  +- I
+   |     |  |  +- posX
+   |     |  +- parameter
+   |     |     +- I
+   |     |     +- posY
+   |     +- St: Block <+>
+   |        +- Local Variables:
+   |        |  +- Symbol Var [ posX ] Type [ I ]
+   |        |  +- Symbol Var [ posY ] Type [ I ]
    |        +- Code:
    |           +- St: Add Component <+>
    |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
@@ -1500,464 +623,23 @@
    |           |  |  |              |  +- Float: 0.0
    |           |  |  |              +- Op: Literal {F} <+>
    |           |  |  |                 +- Float: 1.0
-   |           |  |  +- St: Zero Arguments <+>
+   |           |  |  +- St: Named Arguments <+>
+   |           |  |     +- quadriga argument
+   |           |  |        +- position
+   |           |  |        +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |           |  |           +- Ljavax/vecmath/Vector3f;
+   |           |  |           +- St: Arguments <+>
+   |           |  |              +- Op: Local variable access: posX {I} <+>
+   |           |  |              +- Op: Local variable access: posY {I} <+>
+   |           |  |              +- Op: Literal {I} <+>
+   |           |  |                 +- Integer: 0
    |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Planeta1"
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |     +- hue
-   |           |  |     +- Op: Literal {F} <+>
-   |           |  |        +- Float: 0.0
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 0.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 4.5
-   |           |                 +- Op: Literal {F} <+>
-   |           |                    +- Float: 2.0
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Planeta2"
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |  |  +- hue
-   |           |  |  |  +- Op: Literal {F} <+>
-   |           |  |  |     +- Float: 0.0
-   |           |  |  +- quadriga argument
-   |           |  |     +- radi
-   |           |  |     +- Op: Literal {F} <+>
-   |           |  |        +- Float: 3.5
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 0.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 0.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                    +- Float: 0.0
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Planeta3"
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |     +- hue
-   |           |  |     +- Op: Literal {F} <+>
-   |           |  |        +- Float: 0.0
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 0.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 9.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                    +- Float: -2.0
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Planeta4"
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |     +- hue
-   |           |  |     +- Op: Literal {F} <+>
-   |           |  |        +- Float: 180.0
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 6.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 0.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                    +- Float: 0.0
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Planeta5"
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |  |  +- hue
-   |           |  |  |  +- Op: Literal {F} <+>
-   |           |  |  |     +- Float: 180.0
-   |           |  |  +- quadriga argument
-   |           |  |     +- radi
-   |           |  |     +- Op: Literal {F} <+>
-   |           |  |        +- Float: 0.5
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 2.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 6.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                    +- Float: 2.0
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Planeta6"
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |     +- hue
-   |           |  |     +- Op: Literal {F} <+>
-   |           |  |        +- Float: 180.0
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 6.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 6.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                    +- Float: 4.0
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Aresta1"
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal {Ljava/lang/String;} <+>
-   |           |     |        +- String: "Planeta2"
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "Planeta1"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Aresta2"
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal {Ljava/lang/String;} <+>
-   |           |     |        +- String: "Planeta3"
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "Planeta2"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Aresta3"
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal {Ljava/lang/String;} <+>
-   |           |     |        +- String: "Planeta3"
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "Planeta1"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Aresta4"
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal {Ljava/lang/String;} <+>
-   |           |     |        +- String: "Planeta5"
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "Planeta4"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Aresta5"
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal {Ljava/lang/String;} <+>
-   |           |     |        +- String: "Planeta6"
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "Planeta4"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Aresta6"
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal {Ljava/lang/String;} <+>
-   |           |     |        +- String: "Planeta6"
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "Planeta5"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Aresta7"
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal {Ljava/lang/String;} <+>
-   |           |     |        +- String: "Planeta5"
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "Planeta2"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Camera"
-   |           |  +- cat.quadriga.base.SimpleCamera
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.CameraComponent
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 10.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 10.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 20.0
-   |           |        +- quadriga argument
-   |           |        |  +- lookAt
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 0.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 0.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |           +- up
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 0.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                 |  +- Float: 0.0
-   |           |                 +- Op: Literal {F} <+>
-   |           |                    +- Float: 1.0
    |           +- St: Add Component <+>
-   |              +- Op: Component Allocation {cat.quadriga.base.SceneComponent} <+>
-   |              |  +- Component <+>
-   |              |  |  +- fields
-   |              |  |     +- Quadriga Field
-   |              |  |        +- Lcat/quadriga/runtime/Entity;
-   |              |  |        +- "camera"
-   |              |  +- St: Named Arguments <+>
-   |              |     +- quadriga argument
-   |              |        +- camera
-   |              |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |              |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |              |           +- Op: Literal {Ljava/lang/String;} <+>
-   |              |              +- String: "Camera"
-   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   +- "RendererPrototype" : Symbol Type
-   |  +- Prototype <+>
-   |     +- St: Block <+>
-   |        +- Code:
-   |           +- St: Add Component <+>
-   |              +- Op: Component Allocation {cat.quadriga.base.RendererComponent} <+>
+   |              +- Op: Component Allocation {cat.quadriga.base.BoxRenderer} <+>
    |              |  +- Component <+>
    |              |  |  +- fields
    |              |  +- St: Zero Arguments <+>
    |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   +- "riskppt3d.demo.DemoMain" : Symbol Type
-   |  +- main
-   |     +- thread: cat.quadriga.base.SimpleRenderThread
-   |     +- thread: riskppt3d.demo.Test
-   |     +- St: Block <+>
-   |        +- Local Variables:
-   |        |  +- Symbol Var [ demo ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        +- Code:
-   |           +- St: Statements: <+>
-   |           |  +- St: = <+>
-   |           |     +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |        +- Op: Literal {Null type} <+>
-   |           |        |  +- Null
-   |           |        +- Op: Literal {Ljava/lang/String;} <+>
-   |           |           +- String: "BaseScene"
-   |           +- St: Apply Prototype to Entity <+>
-   |              +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
-   |              +- riskppt3d.demo.SimpleDemo
-   |              +- St: Zero Arguments <+>
-   +- "IncrementadorPlanetes" : Symbol Type
-   |  +- System <+>
-   |     +- needed components
-   |     |  +- cat.quadriga.base.CameraComponent
-   |     +- Update: 
-   |        +- Quadriga function
-   |           +- parameters
-   |           |  +- parameter
-   |           |  |  +- Lcat/quadriga/runtime/Entity;
-   |           |  |  +- entity
-   |           |  |  +- Semantic: ENTITY
-   |           |  +- parameter
-   |           |     +- F
-   |           |     +- dt
-   |           |     +- Semantic: DELTA_TIME
-   |           +- St: Block <+>
-   |              +- Code:
-   |                 +- St: Block <+>
-   |                    +- Local Variables:
-   |                    |  +- Symbol Var [ pos ] Type [ Ljavax/vecmath/Vector3f; ]
-   |                    |  +- Symbol Var [ desp ] Type [ F ]
-   |                    |  +- Symbol Var [ aaRot ] Type [ Ljavax/vecmath/AxisAngle4f; ]
-   |                    |  +- Symbol Var [ m ] Type [ Ljavax/vecmath/Matrix4f; ]
-   |                    +- Code:
-   |                       +- St: Statements: <+>
-   |                       |  +- St: = <+>
-   |                       |     +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
-   |                       |     +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
-   |                       |        +- cat.quadriga.base.CameraComponent -> position
-   |                       |        +- Op: Component Access {cat.quadriga.base.CameraComponent} <+>
-   |                       |           +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
-   |                       |           +- Op: Type Access: cat.quadriga.base.CameraComponent <+>
-   |                       +- St: Statements: <+>
-   |                       |  +- St: = <+>
-   |                       |     +- Op: Local variable access: desp {F} <+>
-   |                       |     +- Op: * {F} <+>
-   |                       |        +- Op: Literal {F} <+>
-   |                       |        |  +- Float: 0.3
-   |                       |        +- Op: Local variable access: dt {F} <+>
-   |                       +- St: Statements: <+>
-   |                       |  +- St: = <+>
-   |                       |     +- Op: Local variable access: aaRot {Ljavax/vecmath/AxisAngle4f;} <+>
-   |                       |     +- Op: Constructor {Ljavax/vecmath/AxisAngle4f;} <+>
-   |                       |        +- Ljavax/vecmath/AxisAngle4f;
-   |                       |        +- St: Arguments <+>
-   |                       |           +- Op: Literal {F} <+>
-   |                       |           |  +- Float: 0.0
-   |                       |           +- Op: Literal {F} <+>
-   |                       |           |  +- Float: 0.0
-   |                       |           +- Op: Literal {F} <+>
-   |                       |           |  +- Float: 1.0
-   |                       |           +- Op: Local variable access: desp {F} <+>
-   |                       +- St: Statements: <+>
-   |                       |  +- St: = <+>
-   |                       |     +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
-   |                       |     +- Op: Constructor {Ljavax/vecmath/Matrix4f;} <+>
-   |                       |        +- Ljavax/vecmath/Matrix4f;
-   |                       |        +- St: Zero Arguments <+>
-   |                       +- St: Statement From Expression : Call <+>
-   |                       |  +- Op: Method: <+>
-   |                       |  |  +- javax.vecmath.Matrix4f -> set
-   |                       |  |  +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
-   |                       |  +- St: Arguments <+>
-   |                       |     +- Op: Local variable access: aaRot {Ljavax/vecmath/AxisAngle4f;} <+>
-   |                       +- St: Statement From Expression : Call <+>
-   |                       |  +- Op: Method: <+>
-   |                       |  |  +- javax.vecmath.Matrix4f -> transform
-   |                       |  |  +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
-   |                       |  +- St: Arguments <+>
-   |                       |     +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
-   |                       +- St: = <+>
-   |                          +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
-   |                          |  +- cat.quadriga.base.CameraComponent -> position
-   |                          |  +- Op: Component Access {cat.quadriga.base.CameraComponent} <+>
-   |                          |     +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
-   |                          |     +- Op: Type Access: cat.quadriga.base.CameraComponent <+>
-   |                          +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
    +- "cat.quadriga.base.SimpleRenderThread" : Symbol Type
    |  +- thread <+>
    |     +- cat.quadriga.base.SimpleCameraSystem
@@ -2017,14 +699,9 @@
    |              |  |           +- String: ""
    |              |  +- St: Zero Arguments <+>
    |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   +- "riskppt3d.planeta.DadesComponent" : Symbol Type
+   +- "InitTetris" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   |        +- Quadriga Field
-   |           +- F
-   |           +- "radi"
-   |           +- Op: Literal {F} <+>
-   |              +- Float: 1.0
    +- "EndRender" : Symbol Type
    |  +- System <+>
    |     +- needed components
@@ -2068,11 +745,52 @@
    |                                +- Code:
    |                                   +- St: Call to Event cat.quadriga.base.Exit <+>
    |                                      +- St: Zero Arguments <+>
-   +- "javax.vecmath.AxisAngle4f" : Symbol Type
-   |  +- Ljavax/vecmath/AxisAngle4f;
    +- "cat.quadriga.base.BillboardRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields
+   +- "Materials" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |           +- [Lcat/quadriga/java/base/BaseMaterial;
+   |           +- "materials"
+   |           +- Op: Array initialization {[Lcat/quadriga/java/base/BaseMaterial;} <+>
+   |              +- Op: new array {[Lcat/quadriga/java/base/BaseMaterial;} <+>
+   |                 +- Lcat/quadriga/java/base/BaseMaterial;
+   |                 +- Op: Literal {I} <+>
+   |                    +- Integer: 0
+   +- "CilynderRenderer" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |        |  +- Ljavax/vecmath/Vector3f;
+   |        |  +- "pos1"
+   |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |        |     +- Ljavax/vecmath/Vector3f;
+   |        |     +- St: Arguments <+>
+   |        |        +- Op: Literal {F} <+>
+   |        |        |  +- Float: 0.0
+   |        |        +- Op: Literal {F} <+>
+   |        |        |  +- Float: 0.0
+   |        |        +- Op: Literal {F} <+>
+   |        |           +- Float: 0.0
+   |        +- Quadriga Field
+   |        |  +- Ljavax/vecmath/Vector3f;
+   |        |  +- "pos2"
+   |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |        |     +- Ljavax/vecmath/Vector3f;
+   |        |     +- St: Arguments <+>
+   |        |        +- Op: Literal {F} <+>
+   |        |        |  +- Float: 0.0
+   |        |        +- Op: Literal {F} <+>
+   |        |        |  +- Float: 0.0
+   |        |        +- Op: Literal {F} <+>
+   |        |           +- Float: 1.0
+   |        +- Quadriga Field
+   |           +- F
+   |           +- "radi"
+   |           +- Op: Literal {F} <+>
+   |              +- Float: 1.0
    +- "cat.quadriga.base.FontQuad" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -2203,393 +921,24 @@
    |              |  |           +- St: Zero Arguments <+>
    |              |  +- St: Zero Arguments <+>
    |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   +- "riskppt3d.demo.Test" : Symbol Type
-   |  +- thread <+>
-   |     +- riskppt3d.demo.IncrementadorPlanetes
-   +- "PlanetInfoQuad" : Symbol Type
-   |  +- Prototype <+>
-   |     +- parameters
-   |     |  +- parameter
-   |     |     +- Lcat/quadriga/runtime/Entity;
-   |     |     +- entity
-   |     |     +- Semantic: ENTITY
-   |     +- St: Block <+>
-   |        +- Local Variables:
-   |        |  +- Symbol Var [ entity ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        +- Code:
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "position"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- F
-   |           |  |  |     |  +- "scale"
-   |           |  |  |     |  +- Op: Literal {F} <+>
-   |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- Ljavax/vecmath/Quat4f;
-   |           |  |  |        +- "rotation"
-   |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
-   |           |  |  |           +- Ljavax/vecmath/Quat4f;
-   |           |  |  |           +- St: Arguments <+>
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |                 +- Float: 1.0
-   |           |  |  +- St: Named Arguments <+>
-   |           |  |     +- quadriga argument
-   |           |  |        +- position
-   |           |  |        +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |           +- Ljavax/vecmath/Vector3f;
-   |           |  |           +- St: Arguments <+>
-   |           |  |              +- Op: Literal {F} <+>
-   |           |  |              |  +- Float: 0.0
-   |           |  |              +- Op: Literal {F} <+>
-   |           |  |              |  +- Float: 0.0
-   |           |  |              +- Op: * {F} <+>
-   |           |  |                 +- Op: Component Field: {F} <+>
-   |           |  |                 |  +- riskppt3d.planeta.DadesComponent -> radi
-   |           |  |                 |  +- Op: Component Access {riskppt3d.planeta.DadesComponent} <+>
-   |           |  |                 |     +- Op: Call {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |                 |     |  +- Op: Method: <+>
-   |           |  |                 |     |  |  +- cat.quadriga.runtime.Entity -> getParent
-   |           |  |                 |     |  |  +- Op: Call {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |                 |     |  |     +- Op: Method: <+>
-   |           |  |                 |     |  |     |  +- cat.quadriga.runtime.Entity -> getParent
-   |           |  |                 |     |  |     |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |                 |     |  |     +- St: Zero Arguments <+>
-   |           |  |                 |     |  +- St: Zero Arguments <+>
-   |           |  |                 |     +- Op: Type Access: riskppt3d.planeta.DadesComponent <+>
-   |           |  |                 +- Op: Literal {F} <+>
-   |           |  |                    +- Float: 2.0
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.BoxRenderer} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  +- St: Zero Arguments <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Base"
-   |           |  +- cat.quadriga.base.TexturedQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.TexturedQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- texture
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "riskppt3d/assets/planetinfo.png"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Edifici1"
-   |           |  +- cat.quadriga.base.TexturedQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.TexturedQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 2.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 2.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |           +- texture
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "riskppt3d/assets/gris.png"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Edifici2"
-   |           |  +- cat.quadriga.base.TexturedQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.TexturedQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 2.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 25.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |           +- texture
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "riskppt3d/assets/gris.png"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "Edifici3"
-   |           |  +- cat.quadriga.base.TexturedQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.TexturedQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 2.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 48.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |           +- texture
-   |           |           +- Op: Literal {Ljava/lang/String;} <+>
-   |           |              +- String: "riskppt3d/assets/gris.png"
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "NumPedra"
-   |           |  +- cat.quadriga.base.FontQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.FontQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 61.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 2.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |        |  +- text
-   |           |        |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |        |     +- String: ""
-   |           |        +- quadriga argument
-   |           |           +- color
-   |           |           +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |           |              +- cat.quadriga.java.base.ColorUtils -> GREEN
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "NumPaper"
-   |           |  +- cat.quadriga.base.FontQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.FontQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 61.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 25.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |        |  +- text
-   |           |        |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |        |     +- String: ""
-   |           |        +- quadriga argument
-   |           |           +- color
-   |           |           +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |           |              +- cat.quadriga.java.base.ColorUtils -> GREEN
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "NumTisores"
-   |           |  +- cat.quadriga.base.FontQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.FontQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 61.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 48.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |        |  +- text
-   |           |        |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |        |     +- String: ""
-   |           |        +- quadriga argument
-   |           |           +- color
-   |           |           +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |           |              +- cat.quadriga.java.base.ColorUtils -> GREEN
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "NumPedraEnemics"
-   |           |  +- cat.quadriga.base.FontQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.FontQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 111.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 2.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |        |  +- text
-   |           |        |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |        |     +- String: ""
-   |           |        +- quadriga argument
-   |           |           +- color
-   |           |           +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |           |              +- cat.quadriga.java.base.ColorUtils -> RED
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |  |     +- String: "NumPaperEnemics"
-   |           |  +- cat.quadriga.base.FontQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.FontQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 111.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |        |  +- Float: 25.0
-   |           |        |        +- Op: Literal {F} <+>
-   |           |        |           +- Float: 0.0
-   |           |        +- quadriga argument
-   |           |        |  +- text
-   |           |        |  +- Op: Literal {Ljava/lang/String;} <+>
-   |           |        |     +- String: ""
-   |           |        +- quadriga argument
-   |           |           +- color
-   |           |           +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |           |              +- cat.quadriga.java.base.ColorUtils -> RED
-   |           +- St: Apply Prototype to Entity <+>
-   |              +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Literal {Ljava/lang/String;} <+>
-   |              |     +- String: "NumTisoresEnemics"
-   |              +- cat.quadriga.base.FontQuadPrototype
-   |              +- St: Zero Arguments <+>
-   |              +- Component redefinition
-   |                 +- cat.quadriga.base.FontQuad
-   |                 +- St: Named Arguments <+>
-   |                    +- quadriga argument
-   |                    |  +- position
-   |                    |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |                    |     +- Ljavax/vecmath/Vector3f;
-   |                    |     +- St: Arguments <+>
-   |                    |        +- Op: Literal {F} <+>
-   |                    |        |  +- Float: 111.0
-   |                    |        +- Op: Literal {F} <+>
-   |                    |        |  +- Float: 48.0
-   |                    |        +- Op: Literal {F} <+>
-   |                    |           +- Float: 0.0
-   |                    +- quadriga argument
-   |                    |  +- text
-   |                    |  +- Op: Literal {Ljava/lang/String;} <+>
-   |                    |     +- String: ""
-   |                    +- quadriga argument
-   |                       +- color
-   |                       +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |                          +- cat.quadriga.java.base.ColorUtils -> RED
-   +- "PlanetaInfo" : Symbol Type
-   |  +- Prototype <+>
-   |     +- St: Block <+>
-   |        +- Code:
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "position"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- F
-   |           |  |  |     |  +- "scale"
-   |           |  |  |     |  +- Op: Literal {F} <+>
-   |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- Ljavax/vecmath/Quat4f;
-   |           |  |  |        +- "rotation"
-   |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
-   |           |  |  |           +- Ljavax/vecmath/Quat4f;
-   |           |  |  |           +- St: Arguments <+>
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |                 +- Float: 1.0
-   |           |  |  +- St: Zero Arguments <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.BillboardRenderer} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  +- St: Zero Arguments <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |              +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Literal {Ljava/lang/String;} <+>
-   |              |     +- String: "Quad"
-   |              +- riskppt3d.planeta.PlanetInfoQuad
-   |              +- St: Zero Arguments <+>
+   +- "tetris.base.Puntuació" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |        |  +- I
+   |        |  +- "nivell"
+   |        |  +- Op: Literal {I} <+>
+   |        |     +- Integer: 0
+   |        +- Quadriga Field
+   |        |  +- I
+   |        |  +- "punts"
+   |        |  +- Op: Literal {I} <+>
+   |        |     +- Integer: 0
+   |        +- Quadriga Field
+   |           +- I
+   |           +- "línies"
+   |           +- Op: Literal {I} <+>
+   |              +- Integer: 0
    +- "cat.quadriga.base.FontQuadPrototype" : Symbol Type
    |  +- Prototype <+>
    |     +- St: Block <+>
@@ -2778,6 +1127,10 @@
    |           +- "radi"
    |           +- Op: Literal {F} <+>
    |              +- Float: 1.0
+   +- "Main" : Symbol Type
+   |  +- main
+   |     +- thread: tetris.base.LlogicaTetris
+   |     +- thread: cat.quadriga.base.SimpleRenderThread
    +- "SimpleSphereRenderer" : Symbol Type
    |  +- System <+>
    |     +- needed components
@@ -2876,144 +1229,37 @@
    |                                |  +- cat.quadriga.runtime.Entity -> getGUID
    |                                |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
    |                                +- St: Zero Arguments <+>
-   +- "Aresta" : Symbol Type
-   |  +- Prototype <+>
-   |     +- parameters
-   |     |  +- parameter
-   |     |  |  +- Lcat/quadriga/runtime/Entity;
-   |     |  |  +- planeta1
-   |     |  +- parameter
-   |     |     +- Lcat/quadriga/runtime/Entity;
-   |     |     +- planeta2
-   |     +- St: Block <+>
-   |        +- Local Variables:
-   |        |  +- Symbol Var [ planeta1 ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        |  +- Symbol Var [ planeta2 ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        +- Code:
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "position"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- F
-   |           |  |  |     |  +- "scale"
-   |           |  |  |     |  +- Op: Literal {F} <+>
-   |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- Ljavax/vecmath/Quat4f;
-   |           |  |  |        +- "rotation"
-   |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
-   |           |  |  |           +- Ljavax/vecmath/Quat4f;
-   |           |  |  |           +- St: Arguments <+>
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |                 +- Float: 1.0
-   |           |  |  +- St: Zero Arguments <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.CilynderRenderer} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "pos1"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Arguments <+>
-   |           |  |  |     |        +- Op: Literal {F} <+>
-   |           |  |  |     |        |  +- Float: 0.0
-   |           |  |  |     |        +- Op: Literal {F} <+>
-   |           |  |  |     |        |  +- Float: 0.0
-   |           |  |  |     |        +- Op: Literal {F} <+>
-   |           |  |  |     |           +- Float: 0.0
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "pos2"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Arguments <+>
-   |           |  |  |     |        +- Op: Literal {F} <+>
-   |           |  |  |     |        |  +- Float: 0.0
-   |           |  |  |     |        +- Op: Literal {F} <+>
-   |           |  |  |     |        |  +- Float: 0.0
-   |           |  |  |     |        +- Op: Literal {F} <+>
-   |           |  |  |     |           +- Float: 1.0
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- F
-   |           |  |  |        +- "radi"
-   |           |  |  |        +- Op: Literal {F} <+>
-   |           |  |  |           +- Float: 1.0
-   |           |  |  +- St: Named Arguments <+>
-   |           |  |     +- quadriga argument
-   |           |  |     |  +- pos1
-   |           |  |     |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |     |     +- cat.quadriga.base.Transform -> position
-   |           |  |     |     +- Op: Component Access {cat.quadriga.base.Transform} <+>
-   |           |  |     |        +- Op: Local variable access: planeta1 {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |     |        +- Op: Type Access: cat.quadriga.base.Transform <+>
-   |           |  |     +- quadriga argument
-   |           |  |     |  +- pos2
-   |           |  |     |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |     |     +- cat.quadriga.base.Transform -> position
-   |           |  |     |     +- Op: Component Access {cat.quadriga.base.Transform} <+>
-   |           |  |     |        +- Op: Local variable access: planeta2 {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |     |        +- Op: Type Access: cat.quadriga.base.Transform <+>
-   |           |  |     +- quadriga argument
-   |           |  |        +- radi
-   |           |  |        +- Op: Literal {F} <+>
-   |           |  |           +- Float: 0.5
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |              +- Op: Component Allocation {cat.quadriga.base.Materials} <+>
-   |              |  +- Component <+>
-   |              |  |  +- fields
-   |              |  |     +- Quadriga Field
-   |              |  |        +- [Lcat/quadriga/java/base/BaseMaterial;
-   |              |  |        +- "materials"
-   |              |  |        +- Op: Array initialization {[Lcat/quadriga/java/base/BaseMaterial;} <+>
-   |              |  |           +- Op: new array {[Lcat/quadriga/java/base/BaseMaterial;} <+>
-   |              |  |              +- Lcat/quadriga/java/base/BaseMaterial;
-   |              |  |              +- Op: Literal {I} <+>
-   |              |  |                 +- Integer: 0
-   |              |  +- St: Named Arguments <+>
-   |              |     +- quadriga argument
-   |              |        +- materials
-   |              |        +- Op: Array initialization {[Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |              |           +- Op: new array {[Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |              |           |  +- Lcat/quadriga/java/base/MaterialUnshadedColor;
-   |              |           |  +- Op: Literal {I} <+>
-   |              |           |     +- Integer: 1
-   |              |           +- Op: Constructor {Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |              |              +- Lcat/quadriga/java/base/MaterialUnshadedColor;
-   |              |              +- St: Arguments <+>
-   |              |                 +- Op: Call {Ljavax/vecmath/Color3f;} <+>
-   |              |                    +- Op: Static Method: <+>
-   |              |                    |  +- cat.quadriga.java.base.ColorUtils -> getHSV
-   |              |                    +- St: Arguments <+>
-   |              |                       +- Op: Literal {F} <+>
-   |              |                       |  +- Float: 0.0
-   |              |                       +- Op: Literal {F} <+>
-   |              |                       |  +- Float: 0.0
-   |              |                       +- Op: Literal {F} <+>
-   |              |                          +- Float: 1.0
-   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   +- "ControladorDelJoc" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |        +- tetris.base.TetrisGameComponent
+   +- "tetris.base.ControladorDelJoc" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |        +- tetris.base.TetrisGameComponent
+   +- "tetris.base.InsertarPerça" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |        |  +- [I
+   |        |  +- "px"
+   |        +- Quadriga Field
+   |        |  +- [I
+   |        |  +- "py"
+   |        +- Quadriga Field
+   |           +- I
+   |           +- "color"
    +- "StaticMeshRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields
    |        +- Quadriga Field
    |           +- Ljava/lang/String;
    |           +- "mesh"
+   +- "LlògicaTaulell" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |        +- tetris.base.Puntuació
+   |        +- tetris.base.Taulell
    +- "cat.quadriga.base.CameraComponent" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -3053,27 +1299,9 @@
    |                 |  +- Float: 1.0
    |                 +- Op: Literal {F} <+>
    |                    +- Float: 0.0
-   +- "javax.vecmath.Vector4f" : Symbol Type
-   |  +- Ljavax/vecmath/Vector4f;
-   +- "Planeta" : Symbol Type
+   +- "Tetris" : Symbol Type
    |  +- Prototype <+>
-   |     +- parameters
-   |     |  +- parameter
-   |     |  |  +- F
-   |     |  |  +- hue
-   |     |  |  +- init
-   |     |  |     +- Op: Literal {F} <+>
-   |     |  |        +- Float: 0.0
-   |     |  +- parameter
-   |     |     +- F
-   |     |     +- radi
-   |     |     +- init
-   |     |        +- Op: Literal {F} <+>
-   |     |           +- Float: 1.0
    |     +- St: Block <+>
-   |        +- Local Variables:
-   |        |  +- Symbol Var [ hue ] Type [ F ]
-   |        |  +- Symbol Var [ radi ] Type [ F ]
    |        +- Code:
    |           +- St: Add Component <+>
    |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
@@ -3107,77 +1335,56 @@
    |           |  |  +- St: Zero Arguments <+>
    |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
    |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {riskppt3d.planeta.DadesComponent} <+>
+   |           |  +- Op: Component Allocation {tetris.base.Puntuació} <+>
    |           |  |  +- Component <+>
    |           |  |  |  +- fields
    |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- F
-   |           |  |  |        +- "radi"
-   |           |  |  |        +- Op: Literal {F} <+>
-   |           |  |  |           +- Float: 1.0
+   |           |  |  |     |  +- I
+   |           |  |  |     |  +- "nivell"
+   |           |  |  |     |  +- Op: Literal {I} <+>
+   |           |  |  |     |     +- Integer: 0
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- I
+   |           |  |  |     |  +- "punts"
+   |           |  |  |     |  +- Op: Literal {I} <+>
+   |           |  |  |     |     +- Integer: 0
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |        +- I
+   |           |  |  |        +- "línies"
+   |           |  |  |        +- Op: Literal {I} <+>
+   |           |  |  |           +- Integer: 0
    |           |  |  +- St: Named Arguments <+>
    |           |  |     +- quadriga argument
-   |           |  |        +- radi
-   |           |  |        +- Op: Local variable access: radi {F} <+>
+   |           |  |        +- punts
+   |           |  |        +- Op: Literal {I} <+>
+   |           |  |           +- Integer: 0
    |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
    |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.SphereRenderer} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- F
-   |           |  |  |        +- "radi"
-   |           |  |  |        +- Op: Literal {F} <+>
-   |           |  |  |           +- Float: 1.0
-   |           |  |  +- St: Named Arguments <+>
-   |           |  |     +- quadriga argument
-   |           |  |        +- radi
-   |           |  |        +- Op: Component Field: {F} <+>
-   |           |  |           +- riskppt3d.planeta.DadesComponent -> radi
-   |           |  |           +- Op: Component Access {riskppt3d.planeta.DadesComponent} <+>
-   |           |  |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |              +- Op: Type Access: riskppt3d.planeta.DadesComponent <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.Materials} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- [Lcat/quadriga/java/base/BaseMaterial;
-   |           |  |  |        +- "materials"
-   |           |  |  |        +- Op: Array initialization {[Lcat/quadriga/java/base/BaseMaterial;} <+>
-   |           |  |  |           +- Op: new array {[Lcat/quadriga/java/base/BaseMaterial;} <+>
-   |           |  |  |              +- Lcat/quadriga/java/base/BaseMaterial;
-   |           |  |  |              +- Op: Literal {I} <+>
-   |           |  |  |                 +- Integer: 0
-   |           |  |  +- St: Named Arguments <+>
-   |           |  |     +- quadriga argument
-   |           |  |        +- materials
-   |           |  |        +- Op: Array initialization {[Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |           |  |           +- Op: new array {[Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |           |  |           |  +- Lcat/quadriga/java/base/MaterialUnshadedColor;
-   |           |  |           |  +- Op: Literal {I} <+>
-   |           |  |           |     +- Integer: 1
-   |           |  |           +- Op: Constructor {Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |           |  |              +- Lcat/quadriga/java/base/MaterialUnshadedColor;
-   |           |  |              +- St: Arguments <+>
-   |           |  |                 +- Op: Call {Ljavax/vecmath/Color3f;} <+>
-   |           |  |                    +- Op: Static Method: <+>
-   |           |  |                    |  +- cat.quadriga.java.base.ColorUtils -> getHSV
-   |           |  |                    +- St: Arguments <+>
-   |           |  |                       +- Op: Local variable access: hue {F} <+>
-   |           |  |                       +- Op: Literal {F} <+>
-   |           |  |                       |  +- Float: 0.8
-   |           |  |                       +- Op: Literal {F} <+>
-   |           |  |                          +- Float: 0.9
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |              +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Literal {Ljava/lang/String;} <+>
-   |              |     +- String: "Info"
-   |              +- riskppt3d.planeta.PlanetaInfo
-   |              +- St: Zero Arguments <+>
+   |              +- Op: Component Allocation {tetris.base.Taulell} <+>
+   |              |  +- Component <+>
+   |              |  |  +- fields
+   |              |  |     +- Quadriga Field
+   |              |  |     |  +- [[Lcat/quadriga/runtime/Entity;
+   |              |  |     |  +- "cubs"
+   |              |  |     |  +- Op: new array {[[Lcat/quadriga/runtime/Entity;} <+>
+   |              |  |     |     +- Lcat/quadriga/runtime/Entity;
+   |              |  |     |     +- Op: Literal {I} <+>
+   |              |  |     |     |  +- Integer: 10
+   |              |  |     |     +- Op: Literal {I} <+>
+   |              |  |     |        +- Integer: 18
+   |              |  |     +- Quadriga Field
+   |              |  |        +- [[I
+   |              |  |        +- "taulell"
+   |              |  |        +- Op: new primitive array {[[I} <+>
+   |              |  |           +- I
+   |              |  |           +- Op: Literal {I} <+>
+   |              |  |           |  +- Integer: 10
+   |              |  |           +- Op: Literal {I} <+>
+   |              |  |              +- Integer: 18
+   |              |  +- St: Zero Arguments <+>
+   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   +- "javax.vecmath.Vector4f" : Symbol Type
+   |  +- Ljavax/vecmath/Vector4f;
    +- "cat.quadriga.base.Materials" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -3203,54 +1410,6 @@
    |           +- "texture"
    |           +- Op: Literal {Ljava/lang/String;} <+>
    |              +- String: ""
-   +- "riskppt3d.planeta.PlanetaInfo" : Symbol Type
-   |  +- Prototype <+>
-   |     +- St: Block <+>
-   |        +- Code:
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "position"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- F
-   |           |  |  |     |  +- "scale"
-   |           |  |  |     |  +- Op: Literal {F} <+>
-   |           |  |  |     |     +- Float: 1.0
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- Ljavax/vecmath/Quat4f;
-   |           |  |  |        +- "rotation"
-   |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
-   |           |  |  |           +- Ljavax/vecmath/Quat4f;
-   |           |  |  |           +- St: Arguments <+>
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |              |  +- Float: 0.0
-   |           |  |  |              +- Op: Literal {F} <+>
-   |           |  |  |                 +- Float: 1.0
-   |           |  |  +- St: Zero Arguments <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.BillboardRenderer} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  +- St: Zero Arguments <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |              +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Literal {Ljava/lang/String;} <+>
-   |              |     +- String: "Quad"
-   |              +- riskppt3d.planeta.PlanetInfoQuad
-   |              +- St: Zero Arguments <+>
    +- "cat.quadriga.base.SimpleCameraSystem" : Symbol Type
    |  +- System <+>
    |     +- needed components
@@ -3306,6 +1465,38 @@
    |                                   +- Op: Type Access: cat.quadriga.base.CameraComponent <+>
    +- "java.lang.String" : Symbol Type
    |  +- Ljava/lang/String;
+   +- "FontQuad" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |        |  +- Ljavax/vecmath/Vector3f;
+   |        |  +- "position"
+   |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |        |     +- Ljavax/vecmath/Vector3f;
+   |        |     +- St: Zero Arguments <+>
+   |        +- Quadriga Field
+   |        |  +- Ljava/lang/String;
+   |        |  +- "text"
+   |        |  +- Op: Literal {Ljava/lang/String;} <+>
+   |        |     +- String: ""
+   |        +- Quadriga Field
+   |           +- Ljavax/vecmath/Vector4f;
+   |           +- "color"
+   |           +- Op: Constructor {Ljavax/vecmath/Vector4f;} <+>
+   |              +- Ljavax/vecmath/Vector4f;
+   |              +- St: Zero Arguments <+>
+   +- "InsertarPerça" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |        |  +- [I
+   |        |  +- "px"
+   |        +- Quadriga Field
+   |        |  +- [I
+   |        |  +- "py"
+   |        +- Quadriga Field
+   |           +- I
+   |           +- "color"
    +- "SimpleCameraSystem" : Symbol Type
    |  +- System <+>
    |     +- needed components
@@ -3359,6 +1550,90 @@
    |                                +- Op: Component Access {cat.quadriga.base.CameraComponent} <+>
    |                                   +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
    |                                   +- Op: Type Access: cat.quadriga.base.CameraComponent <+>
+   +- "tetris.base.Tetris" : Symbol Type
+   |  +- Prototype <+>
+   |     +- St: Block <+>
+   |        +- Code:
+   |           +- St: Add Component <+>
+   |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
+   |           |  |  +- Component <+>
+   |           |  |  |  +- fields
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
+   |           |  |  |     |  +- "position"
+   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
+   |           |  |  |     |     +- St: Zero Arguments <+>
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- F
+   |           |  |  |     |  +- "scale"
+   |           |  |  |     |  +- Op: Literal {F} <+>
+   |           |  |  |     |     +- Float: 1.0
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |        +- Ljavax/vecmath/Quat4f;
+   |           |  |  |        +- "rotation"
+   |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
+   |           |  |  |           +- Ljavax/vecmath/Quat4f;
+   |           |  |  |           +- St: Arguments <+>
+   |           |  |  |              +- Op: Literal {F} <+>
+   |           |  |  |              |  +- Float: 0.0
+   |           |  |  |              +- Op: Literal {F} <+>
+   |           |  |  |              |  +- Float: 0.0
+   |           |  |  |              +- Op: Literal {F} <+>
+   |           |  |  |              |  +- Float: 0.0
+   |           |  |  |              +- Op: Literal {F} <+>
+   |           |  |  |                 +- Float: 1.0
+   |           |  |  +- St: Zero Arguments <+>
+   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   |           +- St: Add Component <+>
+   |           |  +- Op: Component Allocation {tetris.base.Puntuació} <+>
+   |           |  |  +- Component <+>
+   |           |  |  |  +- fields
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- I
+   |           |  |  |     |  +- "nivell"
+   |           |  |  |     |  +- Op: Literal {I} <+>
+   |           |  |  |     |     +- Integer: 0
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- I
+   |           |  |  |     |  +- "punts"
+   |           |  |  |     |  +- Op: Literal {I} <+>
+   |           |  |  |     |     +- Integer: 0
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |        +- I
+   |           |  |  |        +- "línies"
+   |           |  |  |        +- Op: Literal {I} <+>
+   |           |  |  |           +- Integer: 0
+   |           |  |  +- St: Named Arguments <+>
+   |           |  |     +- quadriga argument
+   |           |  |        +- punts
+   |           |  |        +- Op: Literal {I} <+>
+   |           |  |           +- Integer: 0
+   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   |           +- St: Add Component <+>
+   |              +- Op: Component Allocation {tetris.base.Taulell} <+>
+   |              |  +- Component <+>
+   |              |  |  +- fields
+   |              |  |     +- Quadriga Field
+   |              |  |     |  +- [[Lcat/quadriga/runtime/Entity;
+   |              |  |     |  +- "cubs"
+   |              |  |     |  +- Op: new array {[[Lcat/quadriga/runtime/Entity;} <+>
+   |              |  |     |     +- Lcat/quadriga/runtime/Entity;
+   |              |  |     |     +- Op: Literal {I} <+>
+   |              |  |     |     |  +- Integer: 10
+   |              |  |     |     +- Op: Literal {I} <+>
+   |              |  |     |        +- Integer: 18
+   |              |  |     +- Quadriga Field
+   |              |  |        +- [[I
+   |              |  |        +- "taulell"
+   |              |  |        +- Op: new primitive array {[[I} <+>
+   |              |  |           +- I
+   |              |  |           +- Op: Literal {I} <+>
+   |              |  |           |  +- Integer: 10
+   |              |  |           +- Op: Literal {I} <+>
+   |              |  |              +- Integer: 18
+   |              |  +- St: Zero Arguments <+>
+   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
    +- "cat.quadriga.base.SphereRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -3435,83 +1710,9 @@
    |                                +- St: Zero Arguments <+>
    +- "cat.quadriga.render.simple.RenderManager" : Symbol Type
    |  +- Lcat/quadriga/render/simple/RenderManager;
-   +- "riskppt3d.demo.IncrementadorPlanetes" : Symbol Type
-   |  +- System <+>
-   |     +- needed components
-   |     |  +- cat.quadriga.base.CameraComponent
-   |     +- Update: 
-   |        +- Quadriga function
-   |           +- parameters
-   |           |  +- parameter
-   |           |  |  +- Lcat/quadriga/runtime/Entity;
-   |           |  |  +- entity
-   |           |  |  +- Semantic: ENTITY
-   |           |  +- parameter
-   |           |     +- F
-   |           |     +- dt
-   |           |     +- Semantic: DELTA_TIME
-   |           +- St: Block <+>
-   |              +- Code:
-   |                 +- St: Block <+>
-   |                    +- Local Variables:
-   |                    |  +- Symbol Var [ pos ] Type [ Ljavax/vecmath/Vector3f; ]
-   |                    |  +- Symbol Var [ desp ] Type [ F ]
-   |                    |  +- Symbol Var [ aaRot ] Type [ Ljavax/vecmath/AxisAngle4f; ]
-   |                    |  +- Symbol Var [ m ] Type [ Ljavax/vecmath/Matrix4f; ]
-   |                    +- Code:
-   |                       +- St: Statements: <+>
-   |                       |  +- St: = <+>
-   |                       |     +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
-   |                       |     +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
-   |                       |        +- cat.quadriga.base.CameraComponent -> position
-   |                       |        +- Op: Component Access {cat.quadriga.base.CameraComponent} <+>
-   |                       |           +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
-   |                       |           +- Op: Type Access: cat.quadriga.base.CameraComponent <+>
-   |                       +- St: Statements: <+>
-   |                       |  +- St: = <+>
-   |                       |     +- Op: Local variable access: desp {F} <+>
-   |                       |     +- Op: * {F} <+>
-   |                       |        +- Op: Literal {F} <+>
-   |                       |        |  +- Float: 0.3
-   |                       |        +- Op: Local variable access: dt {F} <+>
-   |                       +- St: Statements: <+>
-   |                       |  +- St: = <+>
-   |                       |     +- Op: Local variable access: aaRot {Ljavax/vecmath/AxisAngle4f;} <+>
-   |                       |     +- Op: Constructor {Ljavax/vecmath/AxisAngle4f;} <+>
-   |                       |        +- Ljavax/vecmath/AxisAngle4f;
-   |                       |        +- St: Arguments <+>
-   |                       |           +- Op: Literal {F} <+>
-   |                       |           |  +- Float: 0.0
-   |                       |           +- Op: Literal {F} <+>
-   |                       |           |  +- Float: 0.0
-   |                       |           +- Op: Literal {F} <+>
-   |                       |           |  +- Float: 1.0
-   |                       |           +- Op: Local variable access: desp {F} <+>
-   |                       +- St: Statements: <+>
-   |                       |  +- St: = <+>
-   |                       |     +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
-   |                       |     +- Op: Constructor {Ljavax/vecmath/Matrix4f;} <+>
-   |                       |        +- Ljavax/vecmath/Matrix4f;
-   |                       |        +- St: Zero Arguments <+>
-   |                       +- St: Statement From Expression : Call <+>
-   |                       |  +- Op: Method: <+>
-   |                       |  |  +- javax.vecmath.Matrix4f -> set
-   |                       |  |  +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
-   |                       |  +- St: Arguments <+>
-   |                       |     +- Op: Local variable access: aaRot {Ljavax/vecmath/AxisAngle4f;} <+>
-   |                       +- St: Statement From Expression : Call <+>
-   |                       |  +- Op: Method: <+>
-   |                       |  |  +- javax.vecmath.Matrix4f -> transform
-   |                       |  |  +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
-   |                       |  +- St: Arguments <+>
-   |                       |     +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
-   |                       +- St: = <+>
-   |                          +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
-   |                          |  +- cat.quadriga.base.CameraComponent -> position
-   |                          |  +- Op: Component Access {cat.quadriga.base.CameraComponent} <+>
-   |                          |     +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
-   |                          |     +- Op: Type Access: cat.quadriga.base.CameraComponent <+>
-   |                          +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
+   +- "tetris.base.InitTetris" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
    +- "cat.quadriga.base.SimpleSphereRenderer" : Symbol Type
    |  +- System <+>
    |     +- needed components

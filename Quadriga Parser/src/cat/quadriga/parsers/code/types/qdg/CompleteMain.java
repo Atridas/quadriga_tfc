@@ -107,11 +107,12 @@ public class CompleteMain extends BaseTypeClass implements RuntimeMain {
     return false;
   }
   
-  public static boolean PARALLEL = true;
+  public static boolean PARALLEL = false;
   
   @Override
   public void execute(RuntimeEnvironment runtime) {
-    init.execute(runtime);
+    if(init != null)
+      init.execute(runtime);
     
     
     if(!PARALLEL) {

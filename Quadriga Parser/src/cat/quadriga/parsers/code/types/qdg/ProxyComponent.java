@@ -66,6 +66,9 @@ public class ProxyComponent extends BaseTypeClass implements QuadrigaComponent {
         } else if(!(((TypeSymbol)symbol).type instanceof QuadrigaComponent)) {
           errorLog.insertError("El simbol " + getInstanceableName() + " no és un component",cz);
           return null;
+        } else {
+          errorLog.insertError("El simbol " + getInstanceableName() + " no està definit",cz);
+          return null;
         }
       } else {
         errorLog.insertError("El simbol " + getInstanceableName() + " no és un tipus",cz);
@@ -75,7 +78,6 @@ public class ProxyComponent extends BaseTypeClass implements QuadrigaComponent {
       errorLog.insertError("No s'ha trobat el simbol " + getInstanceableName(),cz);
       return null;
     }
-    return null;
   }
 
 
