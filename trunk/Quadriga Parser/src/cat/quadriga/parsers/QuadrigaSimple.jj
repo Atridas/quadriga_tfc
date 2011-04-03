@@ -2040,6 +2040,11 @@ BaseType Type():
 {
   (
     t=QuadrigaEntity()
+    ( LOOKAHEAD(2) "[" "]"
+      {
+        t = new ArrayType(t);
+      }
+    )*
   | 
     LOOKAHEAD(2) t = ReferenceType()
   |
@@ -2995,6 +3000,8 @@ ExpressionNode AllocationExpression(ExpressionNode in):
     
     LOOKAHEAD(2)
     t="new" type = PrimitiveType() exp = ArrayDimsAndInits(type, t)
+  | LOOKAHEAD(2)
+    t="new" type = QuadrigaEntity() exp = ArrayDimsAndInits(type, t)
   |
     t="new"
     type = ClassOrInterfaceType()
@@ -3119,6 +3126,10 @@ StatementNode Statement():
     statement = ApplyPrototype() ";"
   |
     statement = CallEvent() ";"
+  |
+    statement = EraseEntity() ";"
+  |
+    statement = AddComponent() ";"
   )
   {
     return statement;  }
@@ -4093,7 +4104,7 @@ void EventDeclaration():
           t = < IDENTIFIER >
           ( "=" initialization = VariableInitializer(type)
           | { initialization = null; }
-          ) [";"]
+          )
           {
             if(type instanceof JavaType) {
               iEvent.addField(new QuadrigaField((JavaType)type,
@@ -4109,7 +4120,29 @@ void EventDeclaration():
                                  + " not valid as a event member",
                                  new CodeZoneClass(t,file));
             }
-          } 
+          }
+          (            ","
+	          t = < IDENTIFIER >
+	          ( "=" initialization = VariableInitializer(type)
+	          | { initialization = null; }
+	          )
+	          {
+	            if(type instanceof JavaType) {
+	              iEvent.addField(new QuadrigaField((JavaType)type,
+	                                                 t.image,
+	                                                 initialization
+	                                                ),
+	                                  errorLog,
+	                                  new CodeZoneClass(t,file)
+	                                   );
+	            } else
+	            {
+	              errorLog.insertError("Type " + type.getBinaryName()
+	                                 + " not valid as a event member",
+	                                 new CodeZoneClass(t,file));
+	            }
+	          }
+	      )* [";"]
         )*
     "}"
     {
@@ -4385,7 +4418,17 @@ void SystemDeclaration():
                errorLog.insertError("Més d'un eraseEntity al sistema " + t.image, fun);
              }
            }
-           //|AtChange()|AtNew()|AtDelete()|AtEvent()         )*
+         | fun = QuadrigaEventFunction()
+           {
+             //if(iSystem.removeEntity == null)
+             //{
+             //  iSystem.removeEntity = fun;
+             //} else {
+             //  errorLog.insertError("Més d'un eraseEntity al sistema " + t.image, fun);
+             //}
+           }
+           //|AtChange()|AtNew()|AtDelete()|AtEvent()
+         )*
     "}"
     {
       system = new CompleteSystem(iSystem);    }  |
@@ -4450,7 +4493,7 @@ void ThreadDeclaration():
     t = < IDENTIFIER >
     "{"
         (
-          "@system" name = Name()
+          "@system" name = Name() [";"]
           {
             String n = Utils.getName(name);
             BaseSymbol symbol = symbolTable.findSymbol(n);
@@ -4813,6 +4856,45 @@ QuadrigaFunction QuadrigaEraseEntity():
   }
 }
 
+QuadrigaFunction QuadrigaEventFunction():
+{
+  List<ParameterClass > parameters;
+  List<Token> name;
+  
+  symbolTable.newContext();
+
+  BlockCode.TmpBlockCode prevBlock = localBlock;
+  
+  BlockCode code;
+  Token t;
+}
+{
+  t="@event"
+  name = Name()
+  { localBlock = new BlockCode.TmpBlockCode(t,file); }
+  parameters = FormalParameters()
+  {
+    for(ParameterClass param : parameters)
+    {
+      symbolTable.addSymbol(new LocalVariableSymbol(param.modifiers,
+                                                    param.type,
+                                                    param.name));
+    }
+  }
+  code = Block()
+
+  {
+    localBlock.addStatement(code);
+    localBlock.setEndCode(code);
+    code = localBlock.transformToBlockCode();
+    localBlock = prevBlock;
+    symbolTable.deleteContext();
+
+    //TODO name...
+    return new QuadrigaFunction(parameters, code, code);
+  }
+}
+
 ExpressionNode NewEntity():
 {
   Token t;
@@ -4838,6 +4920,15 @@ StatementNode ApplyPrototype():
   "@prototype" xn=Expression() ":" statement=EntityInitialization(xn)
   {    return statement;  }}
 
+StatementNode EraseEntity():
+{
+  ExpressionNode xn;
+  Token t;}
+{
+  t="@eraseEntity" xn = Expression()
+  {
+    return new EraseEntity(xn, new CodeZoneClass(t,xn));   }}
+
 StatementNode CallEvent():
 {
   ExpressionNode entity=null, time=null;
@@ -4846,10 +4937,10 @@ StatementNode CallEvent():
   CallToArguments args;
   Token t; }
 {
-  t="@event" [ "[" entity = Expression() "]" ]
+  t="@event" [ "[" time = Expression() "]" ]
   event = Name()
   args = Arguments()
-  [ ":" time = Expression() ] 
+  [ ":" entity = Expression() ] 
   {
     CodeZone cz = new CodeZoneClass(t,args);
     if(time != null) cz = new CodeZoneClass(cz,time);
@@ -4871,6 +4962,15 @@ StatementNode CallEvent():
       eventType = new ProxyEvent(eventName);    }
     
     return new CallEvent(entity,eventType,args,time,cz);  }}
+
+StatementNode AddComponent():
+{
+  ExpressionNode entity, component;
+  Token t;}
+{
+  t="@add" component = ComponentCreator() ":" entity = Expression()
+  {
+    return new AddComponentNode(component, entity, new CodeZoneClass(t,entity));  } }
 
 ExpressionNode FindEntity():
 {

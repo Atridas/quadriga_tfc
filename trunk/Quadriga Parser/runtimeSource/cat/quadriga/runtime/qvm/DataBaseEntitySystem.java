@@ -92,8 +92,11 @@ public class DataBaseEntitySystem implements EntitySystem {
       statement.addBatch("CREATE TABLE entities ("
                           + "id IDENTITY,"
                           + "parent INTEGER NOT NULL,"
-                          + "debug_info VARCHAR(500))"
+                          + "debug_info VARCHAR(500),"
+                          + "FOREIGN KEY(parent) REFERENCES entities(id))"
                         );
+      
+      statement.addBatch("INSERT INTO entities (id,parent) VALUES (-1,-1)");
       
       statement.addBatch("CREATE TABLE entity_names ("
                           + "id INTEGER NOT NULL,"
@@ -593,6 +596,11 @@ public class DataBaseEntitySystem implements EntitySystem {
       throw new IllegalStateException(e);
     }
     
+  }
+
+  @Override
+  public void deleteEntity(Entity e) {
+    //TODO
   }
   
   @Override
@@ -1793,6 +1801,7 @@ public class DataBaseEntitySystem implements EntitySystem {
           }
         };
 
+      @SuppressWarnings("unused")
       private int getComponentTypeId() {
         return DBComponent.this.id;
       }
@@ -2096,6 +2105,7 @@ public class DataBaseEntitySystem implements EntitySystem {
         throw new IllegalStateException("Error");
       }
       
+      @SuppressWarnings("unused")
       public List<String> print(Statement st) throws SQLException {
         ResultSet rs = st.executeQuery(
             "SELECT * " +

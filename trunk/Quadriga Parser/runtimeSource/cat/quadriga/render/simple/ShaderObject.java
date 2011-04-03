@@ -1,9 +1,6 @@
 package cat.quadriga.render.simple;
 
 import static org.lwjgl.opengl.GL20.*;
-import static org.lwjgl.opengl.GL13.*;
-import static org.lwjgl.opengl.GL11.*;
-
 import java.nio.FloatBuffer;
 import java.util.HashMap;
 import java.util.HashSet;

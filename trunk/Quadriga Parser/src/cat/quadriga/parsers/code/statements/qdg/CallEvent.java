@@ -110,7 +110,7 @@ public class CallEvent extends StatementNodeClass {
       }
       
       if(newTime != null && !PrimitiveTypeRef.getFromName("float").isAssignableFrom(newTime.getType())) {
-        errorLog.insertError("Event time must be a number", newEntity);
+        errorLog.insertError("Event time must be a number", newTime);
         return null;
       }
       

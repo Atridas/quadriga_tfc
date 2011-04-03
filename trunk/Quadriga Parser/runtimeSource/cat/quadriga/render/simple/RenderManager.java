@@ -3,23 +3,16 @@ package cat.quadriga.render.simple;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.*;
 
-import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.Map.Entry;
 
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 
-import org.lwjgl.BufferUtils;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -36,7 +29,7 @@ public final class RenderManager {
   public final FontManager fontManager = new FontManager(this);
   
   private Map<String, Float> perThreadFPSs = new HashMap<String, Float>();
-  public boolean renderFPS = true;
+  public boolean renderFPS = false;
   
   private final Matrix4f viewMatrix = new Matrix4f();
   private final Matrix4f projectionMatrix = new Matrix4f();
@@ -384,7 +377,6 @@ public final class RenderManager {
     glDisable(GL_BLEND);
 
     Matrix4f identity = new Matrix4f();
-    Matrix4f aux = new Matrix4f();
     identity.setIdentity();
     for(int node : childs.get(-1)) {
       nodes.get(node).renderNode(identity);

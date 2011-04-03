@@ -126,26 +126,29 @@ public final class FieldAccess extends MemberAccess {
   
   public ComputedValue compute(RuntimeEnvironment runtime) {
     Object result;
+    
+    Object ref;
+    
     if(reference == null) {
-      try {
-        result = field.get(null);
-      } catch (Exception e) {
-        throw new IllegalStateException(e);
-      }
+      ref = null;
     } else {
-      try {
-        result = field.get(reference.compute(runtime).getAsObject());
-      } catch (Exception e) {
-        throw new IllegalStateException(e);
-      }
+      ref = reference.compute(runtime).getAsObject();
     }
     
-    if(result.getClass().isPrimitive()) {
+    if(field.getType().isPrimitive()) {
       throw new IllegalStateException("Not implemented");
-    } else if(result instanceof ComputedValue) {
-      return (ComputedValue) result;
     } else {
-      return new JavaReference(result);
+      try {
+        result = field.get(ref);
+      } catch (Exception e) {
+        throw new IllegalStateException(e);
+      }
+      
+      if(result instanceof ComputedValue) {
+        return (ComputedValue) result;
+      } else {
+        return new JavaReference(result);
+      }
     }
   }
   
@@ -203,7 +206,31 @@ public final class FieldAccess extends MemberAccess {
 
     @Override
     public void setValue(ComputedValue value, RuntimeEnvironment runtime) {
-      throw new IllegalStateException("Not yet implemented " + this.getClass().getCanonicalName());
+      Object ref;
+      if(reference == null) {
+        ref = null;
+      } else {
+        ref = reference.compute(runtime).getAsObject();
+      }
+      
+      if(field.getType().isPrimitive()) {
+        if("boolean".equals(field.getType().getCanonicalName())) {
+          try {
+            field.setBoolean(ref, value.getAsBool());
+          } catch (Exception e) {
+            throw new IllegalStateException(e);
+          }
+        } else {
+          throw new IllegalStateException("Not yet implemented");
+        }
+        
+      } else {
+        try {
+          field.set(ref, value.getAsObject());
+        } catch (Exception e) {
+          throw new IllegalStateException(e);
+        }
+      }
     }
     
   }

@@ -6,6 +6,8 @@ import java.util.Set;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 
 public interface EntitySystem {
+  void deleteEntity(Entity entity);
+  
   Entity createEntity(
               String entityName, 
               String entityDebugInfo, 

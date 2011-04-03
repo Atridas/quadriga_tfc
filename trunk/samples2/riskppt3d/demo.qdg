@@ -1,5 +1,6 @@
 @quadriga riskppt3d.demo
 
+//riskppt3d.demo.DemoMain
 
 @component cat.quadriga.base.Transform
 @thread cat.quadriga.base.SimpleRenderThread
@@ -72,6 +73,7 @@
 
 @java cat.quadriga.render.simple.RenderManager
 
+
 @main DemoMain {
   //@quadriga riskppt3d.planeta : interpreted
   //@quadriga riskppt3d.aresta : interpreted
@@ -82,7 +84,7 @@
     Entity demo = @newEntity("BaseScene",null);
     @prototype demo : SimpleDemo();
     
-    //TODO RenderManager.instance.renderFPS = true;
+    //RenderManager.instance.renderFPS = true;
   }
   
   
