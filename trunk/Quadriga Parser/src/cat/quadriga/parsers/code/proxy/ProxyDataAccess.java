@@ -111,8 +111,12 @@ public final class ProxyDataAccess extends ExpressionNodeClass implements DataAc
         //}
       }
     } else {
-      return Utils.accessToMember(nInd, name, this)
-              .getLinkedVersion(symbolTable, errorLog);
+      DataAccess da = Utils.accessToMember(nInd, name, this);
+      if(da instanceof ProxyDataAccess) {
+        errorLog.insertError("Can not access " + name, this);
+      } else {
+        return da.getLinkedVersion(symbolTable, errorLog);
+      }
     }
     
     return null;

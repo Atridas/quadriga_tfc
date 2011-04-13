@@ -30,6 +30,7 @@ import cat.quadriga.parsers.code.types.JavaType;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaEvent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaField;
 import cat.quadriga.runtime.ComponentInstance;
 import cat.quadriga.runtime.ComputedValue;
@@ -38,6 +39,7 @@ import cat.quadriga.runtime.EntitySystem;
 import cat.quadriga.runtime.JavaReference;
 import cat.quadriga.runtime.RuntimeComponent;
 import cat.quadriga.runtime.RuntimeEnvironment;
+import cat.quadriga.runtime.RuntimeEvent;
 import cat.quadriga.runtime.RuntimeSystem;
 
 public class DataBaseEntitySystem implements EntitySystem {
@@ -48,11 +50,14 @@ public class DataBaseEntitySystem implements EntitySystem {
                         setEntityName,
                         findEntity,
                         addComponent,
+                        isEntityOnSystem,
+                        getSystemUpdateInfo,
                         getSystemUpdateInfo1,
                         getSystemUpdateInfo2,
                         getSystemUpdateInfo3,
                         getSystemUpdateInfoInsert,
-                        getSystemUpdateInfoDelete;
+                        getSystemUpdateInfoDelete,
+                        getSystemsFromEvent;
   
   private final ThreadLocal<CallableStatement> lastAutoIncrement;
   
@@ -63,6 +68,7 @@ public class DataBaseEntitySystem implements EntitySystem {
   private final Set<String> componentTables = new HashSet<String>();
   private final Map<String,DBComponent> components = new HashMap<String,DBComponent>();
   private final Map<String, Integer> systemIds = new HashMap<String, Integer>();
+  private final Map<Integer, RuntimeSystem> systems = new HashMap<Integer, RuntimeSystem>();
   
   public DataBaseEntitySystem() {
     try {
@@ -84,9 +90,13 @@ public class DataBaseEntitySystem implements EntitySystem {
       
       statement.addBatch("CREATE TABLE components ("
                           + "id IDENTITY,"
-                          + "name VARCHAR(500) NOT NULL,"
+                          + "name VARCHAR(500) NOT NULL UNIQUE,"
                           + "description VARCHAR(1000),"
                           + "table_name VARCHAR(50) NOT NULL)"
+                        );
+      
+      statement.addBatch("CREATE UNIQUE INDEX idx_components "
+                          + "ON components(name)"
                         );
       
       statement.addBatch("CREATE TABLE entities ("
@@ -116,10 +126,24 @@ public class DataBaseEntitySystem implements EntitySystem {
                           + ")"
                         );
       
+      statement.addBatch("CREATE TABLE Events ("
+                          + "id IDENTITY,"
+                          + "name VARCHAR(500)"
+                          + ")"
+                        );
+      
+      statement.addBatch("CREATE UNIQUE INDEX idx_events "
+                          + "ON events(name)"
+                        );
+      
       statement.addBatch("CREATE TABLE Systems ("
                           + "id IDENTITY,"
                           + "name VARCHAR(500)"
                           + ")"
+                        );
+      
+      statement.addBatch("CREATE UNIQUE INDEX idx_systems "
+                          + "ON systems(name)"
                         );
       
       statement.addBatch("CREATE TABLE System_Components ("
@@ -128,6 +152,15 @@ public class DataBaseEntitySystem implements EntitySystem {
                           + "PRIMARY KEY(system_id, component_id),"
                           + "FOREIGN KEY(system_id) REFERENCES Systems(id),"
                           + "FOREIGN KEY(component_id) REFERENCES components(id)"
+                          + ")"
+                        );
+      
+      statement.addBatch("CREATE TABLE System_Events ("
+                          + "system_id INTEGER NOT NULL,"
+                          + "event_id INTEGER NOT NULL,"
+                          + "PRIMARY KEY(system_id, event_id),"
+                          + "FOREIGN KEY(system_id) REFERENCES Systems(id),"
+                          + "FOREIGN KEY(event_id) REFERENCES events(id)"
                           + ")"
                         );
       
@@ -215,6 +248,24 @@ public class DataBaseEntitySystem implements EntitySystem {
           }
         };
         
+        getSystemUpdateInfo = 
+          new ThreadLocal < PreparedStatement > () {
+          @Override protected PreparedStatement initialValue() {
+            try{
+              return databaseConnection.get().prepareStatement(
+                  "SELECT EC.entity_id " +
+                  "FROM System_Components SC, Entity_Components EC " +
+                  "WHERE EC.component_id = SC.component_id " +
+                  "  AND SC.system_id = ? " +
+                  "GROUP BY EC.entity_id " +
+                  "HAVING COUNT(EC.component_id) = ?");
+            } catch (SQLException e) {
+              anyException = e;
+            }
+            return null;
+          }
+        };
+        
         getSystemUpdateInfo2 = 
           new ThreadLocal < PreparedStatement > () {
           @Override protected PreparedStatement initialValue() {
@@ -268,6 +319,37 @@ public class DataBaseEntitySystem implements EntitySystem {
               return databaseConnection.get().prepareStatement(
                   "DELETE FROM System_last_iteration " +
                   "WHERE system_id = ? AND entity_id = ?");
+            } catch (SQLException e) {
+              anyException = e;
+            }
+            return null;
+          }
+        };
+        
+        getSystemsFromEvent = 
+          new ThreadLocal < PreparedStatement > () {
+          @Override protected PreparedStatement initialValue() {
+            try{
+              return databaseConnection.get().prepareStatement(
+                  "SELECT SE.system_id " +
+                  "FROM System_Events SE, Events E " +
+                  "WHERE E.name = ? AND SE.event_id = E.id");
+            } catch (SQLException e) {
+              anyException = e;
+            }
+            return null;
+          }
+        };
+        
+        isEntityOnSystem = 
+          new ThreadLocal < PreparedStatement > () {
+          @Override protected PreparedStatement initialValue() {
+            try{
+              return databaseConnection.get().prepareStatement(
+                  "SELECT COUNT(*) " +
+                  "FROM System_Components SC, Entity_Components EC " +
+                  "WHERE EC.component_id = SC.component_id " +
+                  "  AND SC.system_id = ? AND EC.entity_id = ? ");
             } catch (SQLException e) {
               anyException = e;
             }
@@ -466,7 +548,8 @@ public class DataBaseEntitySystem implements EntitySystem {
       databaseConnection.get().prepareStatement(sql).execute();
       
       int id = lastAutoIncrement();
-      
+      systemIds.put(system.getBinaryName(), id);
+      systems.put(id, system);
       
       for(QuadrigaComponent c : system.neededComponents()) {
         DBComponent dbComp = this.components.get(c.getBinaryName());
@@ -480,6 +563,25 @@ public class DataBaseEntitySystem implements EntitySystem {
             + "VALUES(" + id + ", " + componentId + ")";
         
         databaseConnection.get().prepareStatement(sql).execute();
+
+      }
+      
+      for(QuadrigaEvent e : system.receivedEvents()) {
+        sql = "SELECT id FROM events WHERE name = '" + e.getBinaryName() +"'";
+        int eventId;
+        
+        ResultSet rs = databaseConnection.get().createStatement().executeQuery(sql);
+        if(rs.next()) {
+          eventId = rs.getInt(1);
+        } else {
+          sql = "INSERT INTO events (name) VALUES ('" + e.getBinaryName() + "')";
+          databaseConnection.get().createStatement().execute(sql);
+          eventId = lastAutoIncrement();
+        }
+        
+        
+        sql = "INSERT INTO system_events(system_id,event_id) VALUES (" + id + "," + eventId + ")";
+        databaseConnection.get().createStatement().execute(sql);
       }
       
       
@@ -488,6 +590,91 @@ public class DataBaseEntitySystem implements EntitySystem {
       throw new IllegalStateException(e);
     }
     
+  }
+
+  @Override
+  public Set<RuntimeSystem> getSystemsWithEvent(RuntimeEvent event) {
+    try {
+      PreparedStatement ps = getSystemsFromEvent.get();
+      ps.setString(1, event.getBinaryName());
+      ResultSet rs = ps.executeQuery();
+      
+      Set<RuntimeSystem> result = new HashSet<RuntimeSystem>();
+      
+      while(rs.next()) {
+        int id = rs.getInt(1);
+        result.add(systems.get(id));
+      }
+      
+      return result;
+    } catch (SQLException e) {
+      throw new IllegalStateException(e);
+    }
+  }
+
+  @Override
+  public List<Entity> getSystemEntities(RuntimeSystem system) {
+    ResultSet rs;
+    PreparedStatement ps;
+    List<Entity> entities = new ArrayList<Entity>();
+    
+    try {
+      ps = getSystemUpdateInfo1.get();
+      ps.setString(1, system.getBinaryName());
+      rs = ps.executeQuery();
+      rs.next();
+      
+      int count = rs.getInt(1);
+      
+      int systemId = rs.getInt(2);
+      
+      ps = getSystemUpdateInfo.get();
+      ps.setInt(1, systemId);
+      ps.setInt(2, count);
+      
+      rs = ps.executeQuery();
+      while(rs.next()) {
+        int id = rs.getInt(1);
+        DBEntity entity = new DBEntity();
+        entity.id = id;
+        entities.add(entity);
+      }
+      
+      return entities;
+    } catch (SQLException e) {
+      throw new IllegalStateException(e);
+    }
+  }
+
+  @Override
+  public boolean isEntityInSystem(Entity entity, RuntimeSystem system) {
+    ResultSet rs;
+    PreparedStatement ps;
+    
+    int guid = entity.getGUID();
+    
+    try {
+      ps = getSystemUpdateInfo1.get();
+      ps.setString(1, system.getBinaryName());
+      rs = ps.executeQuery();
+      rs.next();
+      
+      int count = rs.getInt(1);
+      
+      int systemId = rs.getInt(2);
+      
+      ps = isEntityOnSystem.get();
+      ps.setInt(1, systemId);
+      ps.setInt(2, guid);
+      
+      rs = ps.executeQuery();
+      rs.next();
+      
+      return count == rs.getInt(1);
+      
+    } catch (SQLException e) {
+      throw new IllegalStateException(e);
+    }
   }
   
   @Override
@@ -505,44 +692,28 @@ public class DataBaseEntitySystem implements EntitySystem {
       actualEntities = new TreeSet<Integer>();
     }
     try {
+      
       ps = getSystemUpdateInfo1.get();
       ps.setString(1, system.getBinaryName());
       rs = ps.executeQuery();
       rs.next();
+      
       int count = rs.getInt(1);
       
       int systemId = rs.getInt(2);
       
-      
-      ps = getSystemUpdateInfo2.get();
+      ps = getSystemUpdateInfo.get();
       ps.setInt(1, systemId);
+      ps.setInt(2, count);
       
       rs = ps.executeQuery();
-      
-      int lastId = -1;
-      int it = 0;
       while(rs.next()) {
         int id = rs.getInt(1);
-        if(id != lastId) {
-          if(it == count) {
-            DBEntity entity = new DBEntity();
-            entity.id = lastId;
-            update.add(entity);
-            if(system.hasNewOrDelete()) {
-              actualEntities.add(lastId);
-            }
-          }
-          lastId = id;
-          it = 0;
-        }
-        ++it;
-      }
-      if(it == count) {
         DBEntity entity = new DBEntity();
-        entity.id = lastId;
+        entity.id = id;
         update.add(entity);
         if(system.hasNewOrDelete()) {
-          actualEntities.add(lastId);
+          actualEntities.add(id);
         }
       }
       
@@ -858,6 +1029,8 @@ public class DataBaseEntitySystem implements EntitySystem {
     return builder.toString();
   }
   
+  
+  private final Set<Integer> printedEntities = new HashSet<Integer>();
   public String printAllEntities() {
     StringBuilder builder = new StringBuilder();
 
@@ -871,6 +1044,8 @@ public class DataBaseEntitySystem implements EntitySystem {
       while(rs.next()) {
         DBEntity ent = new DBEntity();
         ent.id = rs.getInt(1);
+        
+        printedEntities.add(ent.id);
         aux.add(ent.print());
       }
     } catch (SQLException e) {
@@ -979,6 +1154,7 @@ public class DataBaseEntitySystem implements EntitySystem {
     
     
     public String print() throws SQLException {
+      if(id < 0) return "";
       List<String> aux = new LinkedList<String>();
       
       Statement st = databaseConnection.get().createStatement();
@@ -1021,6 +1197,11 @@ public class DataBaseEntitySystem implements EntitySystem {
       while(rs.next()) {
         DBEntity ent = new DBEntity();
         ent.id = rs.getInt(1);
+        
+        if(printedEntities.contains(ent.id)) {
+          throw new IllegalStateException("Graf d'entitats és cíclic!!:" + ent.id);
+        }
+        printedEntities.add(ent.id);
         aux.add(Utils.treeStringRepresentation(
                   "child:", ent.print()));
       }

@@ -4,7 +4,7 @@ import cat.quadriga.parsers.code.CodeZoneClass;
 
 public abstract class BinaryExpressionNode extends ExpressionNodeClass {
 
-  public final ExpressionNode leftOperand, rightOperand;
+  public ExpressionNode leftOperand, rightOperand;
 
   public BinaryExpressionNode(ExpressionNode left, ExpressionNode right) {
     super(new CodeZoneClass(left,right));

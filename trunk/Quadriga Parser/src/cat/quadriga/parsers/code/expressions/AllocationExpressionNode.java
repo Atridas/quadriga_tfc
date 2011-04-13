@@ -22,10 +22,10 @@ import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class AllocationExpressionNode extends ExpressionNodeClass {
   
-  public final ExpressionNode origin;
-  public final BaseType type;
-  public final CallToArguments arguments;
-  public final Constructor<?> constructor;
+  public ExpressionNode origin;
+  public BaseType type;
+  public CallToArguments arguments;
+  public Constructor<?> constructor;
 
   public AllocationExpressionNode(BaseType type, CallToArguments arguments, Token n) {
     this(type, arguments, new CodeZoneClass(n, arguments));
@@ -110,57 +110,55 @@ public final class AllocationExpressionNode extends ExpressionNodeClass {
     return type;
   }
   
-  
-  private AllocationExpressionNode linkedVersion = null;
+  private boolean linked = false;
   @Override
   public AllocationExpressionNode getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
+    if(linked) return this;
+    
+    linked = true;
+    
     //TODO amb més intensitat, sobretot per el tema d'inner classes...
-    if(linkedVersion == null) {
-      ExpressionNode newOrigin;
-      BaseType newType;
-      CallToArguments newArguments;
-      if(origin == null || origin.isCorrectlyLinked()) {
-        newOrigin = origin;
+    if(origin != null && !origin.isCorrectlyLinked()) {
+      ExpressionNode newOrigin = origin.getLinkedVersion(symbolTable, errorLog);
+      if(newOrigin == null) {
+        linked = false;
       } else {
-        newOrigin = origin.getLinkedVersion(symbolTable, errorLog);
-        if(newOrigin == null) {
-          return null;
-        }
+        origin = newOrigin;
       }
-      
-      if(type.isValid()) {
-        newType = type; 
-      } else {
-        newType = type.getValid(symbolTable, errorLog);
-        if(newType == null) {
-          return null;
-        }
-      }
-      if(arguments.isCorrectlyLinked()) {
-        newArguments = arguments;
-      } else {
-        newArguments = arguments.getLinkedVersion(symbolTable, errorLog);
-        if(newArguments == null) {
-          return null;
-        }
-      }
-      
-      if(constructor == null) {
-        if(getConstructor() == null) {
-          errorLog.insertError("Invalid constructor", this);
-        }
-      }
-      
-      linkedVersion = new AllocationExpressionNode(newType, newArguments, this);
-      linkedVersion.linkedVersion = linkedVersion;
     }
-    return linkedVersion;
+    
+    if(!type.isValid()) {
+      BaseType newType = type.getValid(symbolTable, errorLog);
+      if(newType == null) {
+        linked = false;
+      } else {
+        type = newType;
+      }
+    }
+    if(!arguments.isCorrectlyLinked()) {
+      CallToArguments newArguments = arguments.getLinkedVersion(symbolTable, errorLog);
+      if(newArguments == null) {
+        linked = false;
+      } else {
+        arguments = newArguments;
+      }
+    }
+    
+    if(constructor == null) {
+      if(getConstructor() == null) {
+        errorLog.insertError("Invalid constructor", this);
+        linked = false;
+      }
+    }
+    
+    if(linked) return this;
+    else       return null;
   }
 
   @Override
   public boolean isCorrectlyLinked() {
-    return linkedVersion != null;
+    return linked;
   }
 
   @Override

@@ -14,6 +14,7 @@ import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.expressions.dataaccess.LocalVarAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.TypeDataAccess;
 import cat.quadriga.parsers.code.expressions.qdg.ComponentFieldAccess;
+import cat.quadriga.parsers.code.expressions.qdg.EventFieldAccess;
 import cat.quadriga.parsers.code.proxy.ProxyDataAccess;
 import cat.quadriga.parsers.code.symbols.BaseSymbol;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
@@ -27,6 +28,7 @@ import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
 import cat.quadriga.parsers.code.types.UnknownType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaEvent;
 import cat.quadriga.runtime.Entity;
 
 abstract public class Utils {
@@ -154,8 +156,13 @@ abstract public class Utils {
     if(type instanceof ArrayType && member.compareTo("length") == 0) {
       return new ArrayLengthAccess(expression, cz);
     }
+    
     if(type instanceof QuadrigaComponent) {
       return new ComponentFieldAccess(expression, member, cz);
+    }
+    
+    if(type instanceof QuadrigaEvent) {
+      return new EventFieldAccess(expression, member, cz);
     }
     
     if(type instanceof QuadrigaEntity) {

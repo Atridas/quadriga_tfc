@@ -40,7 +40,7 @@
   }
 }
 
-@event InsertarPerça {
+@event InsertarPeça {
   int color;
   int[] px, py;
 }
@@ -51,12 +51,12 @@
     Taulell
   }
   
-  @event InsertarPerça(
-            InsertarPerça event: EVENT, 
+  @event InsertarPeça(
+            InsertarPeça event: EVENT, 
             Entity<Puntuació, Taulell> entitat: ENTITY
             )
   {
-    int linees = 0;
+    int línies = 0;
     int[][] taulell = entitat[Taulell].taulell;
     Entity[][] cubs = entitat[Taulell].cubs;
     for(int peça = 0; peça < 4; ++peça) {
@@ -87,29 +87,29 @@
           for(int j = 0; j < 10; ++j) {
             if(i > línea && cubs[i][j] != null) {
               Transform t = cubs[i][j][Transform];
-              t.translation.y -= 1;
+              t.position.y -= 1;
               cubs[i][j][Transform] = t;
             }
             taulell[i][j] = taulell[i+1][j];
           }
         }
-        ++línees;
+        ++línies;
       }
     }
     
     entitat[Taulell].taulell = taulell;;
     entitat[Taulell].cubs = cubs;
     
-    entitat[Puntuació].línees += línees;//TODO
-    entitat[Puntuació].nivell = entitat[Puntuació].línees / 10;
+    entitat[Puntuació].línies += línies;//TODO
+    entitat[Puntuació].nivell = entitat[Puntuació].línies / 10;
     entitat[Puntuació].punts += 11;
-    if(línees == 1) {
+    if(línies == 1) {
       entitat[Puntuació].punts +=  30;
-    } else if(línees == 2) {
+    } else if(línies == 2) {
       entitat[Puntuació].punts +=  71;
-    } else if(línees == 3) {
+    } else if(línies == 3) {
       entitat[Puntuació].punts += 111;
-    } else if(línees == 4) {
+    } else if(línies == 4) {
       entitat[Puntuació].punts += 160;
     }
   }
@@ -120,11 +120,16 @@
   @system LlògicaTaulell;
   
   @init {
-    Entity aux = @newEntity("tetris",null);
-    @prototype aux : Tetris();
+    Entity tetris = @newEntity("tetris",null);
+    @prototype tetris : Tetris();
     Entity e = @newEntity("principal", null); 
     
-    @add TetrisGameComponent(taulell: aux) : e;
+    @add TetrisGameComponent(taulell: tetris) : e;
+   
+    int px[] = {0,1,2,3};
+    int py[] = {0,0,0,0};
+    
+    @event InsertarPeça(color: 0, px: px, py: py) : tetris;
   }
 }
 

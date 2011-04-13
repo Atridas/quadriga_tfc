@@ -75,7 +75,7 @@ public class CompleteEvent extends BaseTypeClass implements RuntimeEvent {
       linkedStatus = " <+>";
     }
     
-    return Utils.treeStringRepresentation("Component" + linkedStatus, fieldsTree);
+    return Utils.treeStringRepresentation("Event" + linkedStatus, fieldsTree);
   }
 
   private boolean valid = false;

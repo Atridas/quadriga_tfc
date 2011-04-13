@@ -86,5 +86,7 @@ public class Quadriga {
     RuntimeMain rm = (RuntimeMain)((TypeSymbol)symbolTable.findSymbol(args[0])).type;
     
     rm.execute(runtime);
+    
+    System.out.println(runtime.entitySystem.toString());
   }
 }

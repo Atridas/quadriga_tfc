@@ -22,6 +22,7 @@ import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.parsers.code.types.UnknownType;
 import cat.quadriga.runtime.Entity;
+import cat.quadriga.runtime.EventInstance;
 import cat.quadriga.runtime.RuntimeEnvironment;
 import cat.quadriga.runtime.RuntimeSystem;
 
@@ -179,7 +180,6 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
         component = component.getValid(symbolTable, errorLog);
         if(component == null) {
           validated = false;
-          break;
         }
       }
       components.add(component);
@@ -190,7 +190,6 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
         component = component.getValid(symbolTable, errorLog);
         if(component == null) {
           validated = false;
-          break;
         }
       }
       specialComponents.add(component);
@@ -201,7 +200,6 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
         component = component.getValid(symbolTable, errorLog);
         if(component == null) {
           validated = false;
-          break;
         }
       }
       specialExternComponents.add(component);
@@ -212,7 +210,6 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
         system = system.getValid(symbolTable, errorLog);
         if(system == null) {
           validated = false;
-          break;
         }
       }
       systemDependencies.add(system);
@@ -225,14 +222,12 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
         event = event.getValid(symbolTable, errorLog);
         if(event == null) {
           validated = false;
-          break;
         }
       }
       if(!fun.isCorrectlyLinked()) {
         fun = fun.getLinkedVersion(symbolTable, errorLog);
         if(fun == null) {
           validated = false;
-          break;
         }
       }
       eventHandlers.put(event,fun);
@@ -332,6 +327,11 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
   }
 
   @Override
+  public Set<QuadrigaEvent> receivedEvents() {
+    return eventHandlers.keySet();
+  }
+
+  @Override
   public boolean hasUpdate() {
     return update != null;
   }
@@ -365,7 +365,7 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     }
   }
   
-  private void prepareParams(Entity entity, List<ParameterClass> params, RuntimeEnvironment runtime) {
+  private void prepareParams(Entity entity, EventInstance event, List<ParameterClass> params, RuntimeEnvironment runtime) {
     for(ParameterClass param : params) {
       if(param.semantic == null) {
         throw new IllegalStateException("All update params must have a semantic " + getBinaryName());
@@ -384,8 +384,15 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
                   param.type, 
                   param.name), 
               new LiteralData.FloatLiteral(runtime.dt, CodeZoneClass.runtime));
+        } else if("EVENT".compareToIgnoreCase( param.semantic ) == 0) {
+          runtime.putLocalVariable(
+              new LocalVariableSymbol(
+                  param.modifiers, 
+                  param.type, 
+                  param.name), 
+              event);
         } else {
-          throw new IllegalArgumentException("Sempantic " + param.semantic + " not suported.");
+          throw new IllegalArgumentException("Semantic " + param.semantic + " not suported.");
         }
       }
     }
@@ -397,7 +404,7 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     
     runtime.newLocalContext();
     
-    prepareParams(entity, update.parameters, runtime);
+    prepareParams(entity, null, update.parameters, runtime);
     
     update.code.execute(runtime);
     
@@ -410,7 +417,7 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     
     runtime.newLocalContext();
     
-    prepareParams(entity, removeEntity.parameters, runtime);
+    prepareParams(entity, null, removeEntity.parameters, runtime);
     
     removeEntity.code.execute(runtime);
     
@@ -423,9 +430,27 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     
     runtime.newLocalContext();
     
-    prepareParams(entity, newEntity.parameters, runtime);
+    prepareParams(entity, null, newEntity.parameters, runtime);
     
     newEntity.code.execute(runtime);
+    
+    runtime.deleteLocalContext();
+  }
+
+  @Override
+  public void executeEvent(EventInstance event, Entity entity,
+      RuntimeEnvironment runtime) {
+    QuadrigaFunction fun = eventHandlers.get(event.getType());
+    if(fun == null) {
+      throw new IllegalStateException("Event " + event.getType().getBinaryName() + 
+          " is not handled on system " + getBinaryName());
+    }
+    
+    runtime.newLocalContext();
+    
+    prepareParams(entity, event, fun.parameters, runtime);
+    
+    fun.code.execute(runtime);
     
     runtime.deleteLocalContext();
   }

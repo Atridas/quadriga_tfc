@@ -13,9 +13,9 @@ import cat.quadriga.parsers.code.types.BaseType;
 
 public class ClassicFor extends StatementNodeClass implements BucleInterface {
   
-  public final StatementNode init, update, execution;
-  public final ExpressionNode condition;
-  public final List<LocalVariableSymbol> localVariables;
+  public StatementNode init, update, execution;
+  public ExpressionNode condition;
+  public List<LocalVariableSymbol> localVariables;
 
   public ClassicFor(List<LocalVariableSymbol> localVariables, 
                     StatementNode init, 
@@ -64,19 +64,16 @@ public class ClassicFor extends StatementNodeClass implements BucleInterface {
     return "for";
   }
   
-  private ClassicFor(List<LocalVariableSymbol> localVariables, 
-      StatementNode init, 
-      ExpressionNode condition, 
-      StatementNode update, 
-      StatementNode execution, 
-      SymbolTable symbolTable,
-      ErrorLog errorLog,
-      CodeZone cz) 
-  {
-    super(cz);
+  
+  private boolean linked = false;
+  @Override
+  public ClassicFor getLinkedVersion(SymbolTable symbolTable,
+      ErrorLog errorLog) {
+    if(linked) return this;
+
+
     symbolTable.newContext();
     linked = true;
-    linkedVersion = this;
     BucleOrSwitchInterface prev = symbolTable.closestBucleOrSwitch;
     symbolTable.closestBucleOrSwitch = this;
     
@@ -103,62 +100,44 @@ public class ClassicFor extends StatementNodeClass implements BucleInterface {
     
     this.localVariables = Collections.unmodifiableList(newVars);
     
-    if(linked) {
-      if(init.isCorrectlyLinked()) {
-        this.init = init;
+    if(!init.isCorrectlyLinked()) {
+      StatementNode aux = init.getLinkedVersion(symbolTable, errorLog);
+      if(aux == null) {
+        linked = false;
       } else {
-        this.init = init.getLinkedVersion(symbolTable, errorLog);
-        if(this.init == null) {
-          linked = false;
-        }
+        init = aux;
       }
-      if(update.isCorrectlyLinked()) {
-        this.update = update;
+    }
+    if(!update.isCorrectlyLinked()) {
+      StatementNode aux = update.getLinkedVersion(symbolTable, errorLog);
+      if(aux == null) {
+        linked = false;
       } else {
-        this.update = update.getLinkedVersion(symbolTable, errorLog);
-        if(this.update == null) {
-          linked = false;
-        }
+        update = aux;
       }
-      if(execution.isCorrectlyLinked()) {
-        this.execution = execution;
+    }
+    if(!execution.isCorrectlyLinked()) {
+      StatementNode aux = execution.getLinkedVersion(symbolTable, errorLog);
+      if(aux == null) {
+        linked = false;
       } else {
-        this.execution = execution.getLinkedVersion(symbolTable, errorLog);
-        if(this.execution == null) {
-          linked = false;
-        }
+        execution = aux;
       }
-      if(condition.isCorrectlyLinked()) {
-        this.condition = condition;
+    }
+    if(!condition.isCorrectlyLinked()) {
+      ExpressionNode aux = condition.getLinkedVersion(symbolTable, errorLog);
+      if(aux == null) {
+        linked = false;
       } else {
-        this.condition = condition.getLinkedVersion(symbolTable, errorLog);
-        if(this.condition == null) {
-          linked = false;
-        }
+        condition = aux;
       }
-    } else {
-      this.init = this.update = this.execution = null;
-      this.condition = null;
     }
     
     symbolTable.closestBucleOrSwitch = prev;
     symbolTable.deleteContext();
-  }
-  
-  private boolean linked = false;
-  private ClassicFor linkedVersion = null;
-  @Override
-  public ClassicFor getLinkedVersion(SymbolTable symbolTable,
-      ErrorLog errorLog) {
-    if(linked) {
-      return this;
-    } else if(linkedVersion == null) {
-      linkedVersion = new ClassicFor(localVariables, init, condition, update, execution, symbolTable, errorLog, this);
-      if(!linkedVersion.isCorrectlyLinked()) {
-        linkedVersion = null;
-      }
-    }
-    return linkedVersion;
+    
+    if(linked) return this;
+    else       return null;
   }
   @Override
   public boolean isCorrectlyLinked() {

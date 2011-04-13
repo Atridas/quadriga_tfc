@@ -13,7 +13,7 @@ import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class LocalVarAccess extends DirectDataAccess {
   
-  public final LocalVariableSymbol var;
+  public LocalVariableSymbol var;
 
 
   public LocalVarAccess(LocalVariableSymbol variable, CodeZone cz) {
@@ -47,30 +47,31 @@ public final class LocalVarAccess extends DirectDataAccess {
   }
 
   private boolean linked = false;
-  private LocalVarAccess linkedVersion = null;
   @Override
   public LocalVarAccess getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
-    if(linked) {
-      return this;
-    } else if(linkedVersion == null) {
-      LocalVariableSymbol lvs;
-      BaseSymbol symbol = symbolTable.findSymbol(var.name);
-      if(symbol instanceof LocalVariableSymbol) {
-        lvs = (LocalVariableSymbol)symbol;
-        if(!lvs.type.isValid()) {
-          errorLog.insertError("Type " + lvs.type + " not valid",this);
-          return null;
-        }
-      } else {
-        errorLog.insertError("Symbol " + var.name + " not found",this);
-        return null;
+    if(linked) return this;
+    linked = true;
+    
+    BaseSymbol symbol = symbolTable.findSymbol(var.name);
+    if(symbol instanceof LocalVariableSymbol) {
+      LocalVariableSymbol lvs = (LocalVariableSymbol)symbol;
+      if(lvs.type == null) {
+        errorLog.insertError("No type",this);
+        linked = false;
+      } else if(!lvs.type.isValid()) {
+        errorLog.insertError("Type " + lvs.type + " not valid",this);
+        linked = false;
       }
-      linkedVersion = new LocalVarAccess(lvs, this);
-      linkedVersion.linked = true;
-      linkedVersion.linkedVersion = linkedVersion;
+      var = lvs;
+    } else {
+      errorLog.insertError("Symbol " + var.name + " not found",this);
+      linked = false;
     }
-    return linkedVersion;
+    
+    
+    if(linked) return this;
+    else       return null;
   }
 
   @Override

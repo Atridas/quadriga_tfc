@@ -84,7 +84,7 @@
     Entity demo = @newEntity("BaseScene",null);
     @prototype demo : SimpleDemo();
     
-    //RenderManager.instance.renderFPS = true;
+    RenderManager.instance.renderFPS = true;
   }
   
   

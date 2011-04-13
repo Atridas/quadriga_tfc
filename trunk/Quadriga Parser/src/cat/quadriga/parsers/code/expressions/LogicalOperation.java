@@ -9,7 +9,7 @@ import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 
 public final class LogicalOperation extends BinaryExpressionNode {
 
-  public final Operator operator;
+  public Operator operator;
   public LogicalOperation( Operator operator,
                               ExpressionNode operant1, 
                               ExpressionNode operant2) {
@@ -41,18 +41,37 @@ public final class LogicalOperation extends BinaryExpressionNode {
     return PrimitiveTypeRef.getFromType(PrimitiveTypeRef.Type.BOOLEAN);
   }
 
+  private boolean linked = false;
   @Override
   public LogicalOperation getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
-    // TODO Auto-generated method stub
-    errorLog.insertError("Not yet implemented [" + this.getClass().getCanonicalName() + "]", this);
-    return null;
+    if(linked) return this;
+    linked = true;
+
+    if(!leftOperand.isCorrectlyLinked()) {
+      ExpressionNode en = leftOperand.getLinkedVersion(symbolTable, errorLog);
+      if(en == null) {
+        linked = false;
+      } else {
+        leftOperand = en;
+      }
+    }
+    if(!rightOperand.isCorrectlyLinked()) {
+      ExpressionNode en = rightOperand.getLinkedVersion(symbolTable, errorLog);
+      if(en == null) {
+        linked = false;
+      } else {
+        rightOperand = en;
+      }
+    }
+
+    if(linked) return this;
+    else       return null;
   }
 
   @Override
   public boolean isCorrectlyLinked() {
-    // TODO Auto-generated method stub
-    return false;
+    return linked;
   }
 
   @Override

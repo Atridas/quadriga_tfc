@@ -10,7 +10,7 @@ import cat.quadriga.parsers.code.types.NoType;
 
 public final class TypeDataAccess extends DirectDataAccess {
 
-  public final BaseType type;
+  public BaseType type;
 
   public TypeDataAccess(BaseType type, CodeZone cz) {
     super(cz);
@@ -59,7 +59,8 @@ public final class TypeDataAccess extends DirectDataAccess {
             return null;
           }
         }
-        return new TypeDataAccess(t, this);
+        type = t;
+        return this;
       } else {
         errorLog.insertError("El símbol " + type.getInstanceableName() + " no és un tipus.", this);
         return null;
