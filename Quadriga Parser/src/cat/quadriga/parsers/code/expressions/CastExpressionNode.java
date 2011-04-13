@@ -11,7 +11,7 @@ import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 
 public final class CastExpressionNode extends UnaryExpressionNode {
 
-  public final BaseType newType;
+  public BaseType newType;
   
   private final String operation;
 
@@ -39,18 +39,43 @@ public final class CastExpressionNode extends UnaryExpressionNode {
     return newType;
   }
 
+  private boolean linked = false;
   @Override
   public CastExpressionNode getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
-    // TODO Auto-generated method stub
-    errorLog.insertError("Not yet implemented [" + this.getClass().getCanonicalName() + "]", this);
-    return null;
+    if(linked) return this;
+    linked = true;
+    
+    if(!newType.isValid()) {
+      BaseType bt = newType.getValid(symbolTable, errorLog);
+      if(bt == null) {
+        linked = false;
+      } else {
+        newType = bt;
+      }
+    }
+    
+    if(!operand.isCorrectlyLinked()) {
+      ExpressionNode op = operand.getLinkedVersion(symbolTable, errorLog);
+      if(op == null) {
+        linked = false;
+      } else {
+        operand = op;
+      }
+    }
+    
+    if(!newType.isAssignableFrom(operand.getType())) {
+      errorLog.insertError("No es pot fer el cas de " + operand.getType() + " a " + newType, this);
+      linked = false;
+    }
+    
+    if(linked) return this;
+    else       return null;
   }
 
   @Override
   public boolean isCorrectlyLinked() {
-    // TODO Auto-generated method stub
-    return false;
+    return linked;
   }
 
   @Override

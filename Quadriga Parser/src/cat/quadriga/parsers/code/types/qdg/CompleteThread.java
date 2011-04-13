@@ -137,11 +137,17 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
   @Override
   public void init(RuntimeEnvironment runtime) {
     assert isValid();
-    init.execute(runtime);
     for(QuadrigaSystem qs : systems) {
       runtime.entitySystem.registerSystem((RuntimeSystem)qs, runtime);
       ((RuntimeSystem)qs).executeInit(runtime);
     }
+    
+    init.execute(runtime);
+    
+    for(QuadrigaSystem qs : systems) {
+      runtime.entitySystem.registerSystem((RuntimeSystem)qs, runtime);
+    }
+    
     clock = new Clock();
     clock.update();
   }
@@ -226,7 +232,6 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
       
       while(runtime.keepRunning && myRuntime.keepRunning) {
         float fps = 1.0f / fpsClock.update();
-        
         RenderManager.instance.setFPS(getBinaryName(), fps);
         
         execute(myRuntime);

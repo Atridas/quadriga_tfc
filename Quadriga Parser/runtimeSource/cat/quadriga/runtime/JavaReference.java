@@ -66,4 +66,9 @@ public class JavaReference implements ComputedValue {
   public Object getAsObject() {
     return reference;
   }
+  
+  
+  public String toString() {
+    return "Ref { " + reference.toString() + "}";
+  }
 }

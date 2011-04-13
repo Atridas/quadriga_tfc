@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.Vector;
 
 import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.CodeZone;
@@ -17,15 +18,15 @@ import cat.quadriga.runtime.RuntimeEnvironment;
 
 public class BlockCode extends StatementNodeClass {
 
-  public final List<LocalVariableSymbol> localVariables;
-  public final List<StatementNode> statements;
+  public List<LocalVariableSymbol> localVariables;
+  public List<StatementNode> statements;
   
   private BlockCode(List<LocalVariableSymbol> localVariables,
                     List<StatementNode> statements,
                     CodeZone cz) {
     super(cz);
-    this.localVariables = Collections.unmodifiableList(localVariables);
-    this.statements     = Collections.unmodifiableList(statements);
+    this.localVariables = new Vector<LocalVariableSymbol>(localVariables);
+    this.statements     = new Vector<StatementNode>(statements);
   }
 
   @Override
@@ -63,57 +64,49 @@ public class BlockCode extends StatementNodeClass {
   
   
   private boolean linked = false;
-  private BlockCode linkedVersion = null;
   @Override
   public BlockCode getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
-    if(linked) {
-      return this;
-    } if(linkedVersion == null) {
-      TmpBlockCode tmp = new TmpBlockCode(this);
-      symbolTable.newContext();
-      for(LocalVariableSymbol localVariableSymbol : localVariables) {
-        if(localVariableSymbol.type.isValid()) {
-          tmp.addLocalVariable(localVariableSymbol);
-          symbolTable.addSymbol(localVariableSymbol);
+    if(linked) return this;
+    linked = true;
+
+    symbolTable.newContext();
+    for(int i = 0; i < localVariables.size(); ++i) {
+      
+      LocalVariableSymbol localVariableSymbol = localVariables.get(i);
+      
+      if(localVariableSymbol.type.isValid()) {
+        symbolTable.addSymbol(localVariableSymbol);
+      } else {
+        BaseType type = localVariableSymbol.type.getValid(symbolTable, errorLog);
+        if(type == null) {
+          linked = false;
         } else {
-          BaseType type = localVariableSymbol.type.getValid(symbolTable, errorLog);
-          if(type != null) {
-            break;
-          }
-          LocalVariableSymbol lvs = new LocalVariableSymbol(
-              localVariableSymbol.modifiers, 
-              type, 
-              localVariableSymbol.name
-              );
-          tmp.addLocalVariable(lvs);
-          symbolTable.addSymbol(lvs);
+          localVariableSymbol.type = type;
         }
+        symbolTable.addSymbol(localVariableSymbol);
       }
-      
-      if(tmp.localVariables.size() == localVariables.size()) {
-        for(StatementNode stmt : statements) {
-          if(stmt.isCorrectlyLinked()) {
-            tmp.addStatement(stmt);
-          } else {
-            StatementNode newStatement = stmt.getLinkedVersion(symbolTable, errorLog);
-            if(newStatement == null) {
-              break;
-            } else {
-              tmp.addStatement(newStatement);
-            }
-          }
-        }
-        if(tmp.statements.size() == statements.size()) {
-          linkedVersion = tmp.transformToBlockCode();
-          linkedVersion.linkedVersion = linkedVersion;
-          linkedVersion.linked = true;
-        }
-      }
-      
-      symbolTable.deleteContext();
     }
-    return linkedVersion;
+    
+    
+    for(int i = 0; i < statements.size(); ++i) {
+      StatementNode stmt = statements.get(i);
+      
+      if(!stmt.isCorrectlyLinked()) {
+        StatementNode newStatement = stmt.getLinkedVersion(symbolTable, errorLog);
+        if(newStatement == null) {
+          linked = false;
+        } else {
+          statements.set(i, newStatement);
+        }
+      }
+    }
+      
+      
+    symbolTable.deleteContext();
+    
+    if(linked) return this;
+    else       return null;
   }
 
   @Override

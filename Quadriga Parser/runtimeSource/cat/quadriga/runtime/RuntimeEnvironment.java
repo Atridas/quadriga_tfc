@@ -1,7 +1,9 @@
 package cat.quadriga.runtime;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 import cat.quadriga.parsers.code.SymbolTable;
@@ -54,12 +56,6 @@ public class RuntimeEnvironment {
   }
   
   public void executeEvent(EventInstance event, Entity entity) {
-    int guid;
-    if(entity == null) {
-      guid = -1;
-    } else {
-      guid = entity.getGUID();
-    }
     
     String eventName = event.getEvent().getBinaryName();
 
@@ -68,7 +64,23 @@ public class RuntimeEnvironment {
       return;
     }
     //TODO
-    throw new IllegalStateException("Not yet implemented");
+    //throw new IllegalStateException("Not yet implemented");
+    
+    Set<RuntimeSystem> systems = entitySystem.getSystemsWithEvent(event.getEvent());
+    for(RuntimeSystem system : systems) {
+      
+      if(entity != null) {
+        if(entitySystem.isEntityInSystem(entity, system)) {
+          system.executeEvent(event, entity, this);
+        }
+      } else {
+        List<Entity> entities = entitySystem.getSystemEntities(system);
+        for(Entity e : entities) {
+          system.executeEvent(event, e, this);
+        }
+      }
+      
+    }
   }
   
   public void enqueueEvent(EventInstance event, Entity entity, float time) {

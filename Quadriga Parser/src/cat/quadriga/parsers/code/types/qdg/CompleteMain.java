@@ -11,6 +11,8 @@ import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.statements.BlockCode;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
+import cat.quadriga.render.simple.RenderManager;
+import cat.quadriga.runtime.Clock;
 import cat.quadriga.runtime.RuntimeEnvironment;
 import cat.quadriga.runtime.RuntimeMain;
 import cat.quadriga.runtime.RuntimeThread;
@@ -121,7 +123,14 @@ public class CompleteMain extends BaseTypeClass implements RuntimeMain {
         thread.init(runtime);
       }
       
+      Clock fpsClock = new Clock();
+      fpsClock.update();
+      
       while(runtime.keepRunning) {
+        float fps = 1.0f / fpsClock.update();
+        RenderManager.instance.setFPS(getBinaryName(), fps);
+        
+        
         for(QuadrigaThread qt: threads) {
           RuntimeThread thread = (RuntimeThread) qt;
           thread.execute(runtime);

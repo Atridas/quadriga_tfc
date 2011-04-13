@@ -4,8 +4,8 @@ import cat.quadriga.parsers.code.types.BaseType;
 
 public class LocalVariableSymbol extends BaseSymbol {
   
-  public final BaseType type;
-  public final int modifiers;
+  public BaseType type;
+  public int modifiers;
 
   public LocalVariableSymbol(int modifiers, BaseType type, String name) {
     super(name);

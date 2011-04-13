@@ -222,6 +222,11 @@ class VarAndInit{  Token name;
   int modifiers;
 }
 
+class EventAndFun
+{  QuadrigaFunction fun;
+  QuadrigaEvent event;
+}
+
 PARSER_END(QuadrigaSimple)
 
 /* WHITE SPACE */
@@ -4345,7 +4350,8 @@ void SystemDeclaration():
   QuadrigaSystem system;
   Token t;
   QuadrigaFunction fun;
-  BlockCode block;}
+  BlockCode block;
+  EventAndFun eaf;}
 {
   "@system"
   (
@@ -4418,14 +4424,14 @@ void SystemDeclaration():
                errorLog.insertError("Més d'un eraseEntity al sistema " + t.image, fun);
              }
            }
-         | fun = QuadrigaEventFunction()
+         | eaf = QuadrigaEventFunction()
            {
-             //if(iSystem.removeEntity == null)
-             //{
-             //  iSystem.removeEntity = fun;
-             //} else {
-             //  errorLog.insertError("Més d'un eraseEntity al sistema " + t.image, fun);
-             //}
+             if(!iSystem.eventHandlers.containsKey(eaf.event))
+             {
+               iSystem.eventHandlers.put(eaf.event, eaf.fun);
+             } else {
+               errorLog.insertError("Més d'un event igual al sistema " + t.image, eaf.fun);
+             }
            }
            //|AtChange()|AtNew()|AtDelete()|AtEvent()
          )*
@@ -4856,7 +4862,7 @@ QuadrigaFunction QuadrigaEraseEntity():
   }
 }
 
-QuadrigaFunction QuadrigaEventFunction():
+EventAndFun QuadrigaEventFunction():
 {
   List<ParameterClass > parameters;
   List<Token> name;
@@ -4890,8 +4896,36 @@ QuadrigaFunction QuadrigaEventFunction():
     localBlock = prevBlock;
     symbolTable.deleteContext();
 
-    //TODO name...
-    return new QuadrigaFunction(parameters, code, code);
+    EventAndFun eaf = new EventAndFun();
+
+    eaf.fun = new QuadrigaFunction(parameters, code, code);
+
+    
+    String res = "";
+    for(int i = 0; i < name.size(); i++) {
+      if(i != 0) {
+        res += "." + name.get(i).image;
+      } else {
+        res = name.get(i).image;
+      }
+    }
+    BaseSymbol symbol = symbolTable.findSymbol(res);
+    if(symbol != null) {
+      if(symbol instanceof TypeSymbol
+         && ((TypeSymbol)symbol).type instanceof QuadrigaEvent)
+      {
+        eaf.event = (QuadrigaEvent)((TypeSymbol)symbol).type;
+      } else
+      {
+        eaf.event = new ProxyEvent(res);
+        errorLog.insertError("El símbol " + res + " no és un event",
+                             new CodeZoneClass(name.get(0),name.get(name.size()-1),file));
+      }
+    } else {
+      eaf.event = new ProxyEvent(res);
+    }
+
+    return eaf;
   }
 }
 

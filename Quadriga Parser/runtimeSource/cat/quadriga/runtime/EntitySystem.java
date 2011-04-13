@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
+import cat.quadriga.parsers.code.types.qdg.QuadrigaEvent;
 
 public interface EntitySystem {
   void deleteEntity(Entity entity);
@@ -24,6 +25,10 @@ public interface EntitySystem {
   
   void registerSystem(RuntimeSystem system, RuntimeEnvironment runtime);
   
+  Set<RuntimeSystem> getSystemsWithEvent(RuntimeEvent event);
+  
+  List<Entity> getSystemEntities(RuntimeSystem system);
+  
   void getSystemUpdateInformation(
       RuntimeSystem system,
       List<Entity> update,
@@ -38,4 +43,6 @@ public interface EntitySystem {
   List<Entity> getAllEntitiesWithComponents(
               Set<QuadrigaComponent> components,
               RuntimeEnvironment re);
+  
+  boolean isEntityInSystem(Entity entity, RuntimeSystem system);
 }

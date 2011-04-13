@@ -6,7 +6,7 @@ import cat.quadriga.parsers.code.SymbolTable;
 
 public abstract class UnaryExpressionNode extends ExpressionNodeClass {
 
-  public final ExpressionNode operand;
+  public ExpressionNode operand;
 
   public UnaryExpressionNode(ExpressionNode operand, CodeZone cz) {
     super(cz);
