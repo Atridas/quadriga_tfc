@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import cat.quadriga.parsers.code.BreakOrContinueException;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.ParameterClass;
@@ -354,14 +355,22 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
   @Override
   public void executeInit(RuntimeEnvironment runtime) {
     if(init != null) {
-      init.execute(runtime);
+      try {
+        init.execute(runtime);
+      } catch (BreakOrContinueException e) {
+        throw new IllegalStateException(e);
+      }
     }
   }
 
   @Override
   public void executeCleanUp(RuntimeEnvironment runtime) {
     if(cleanUp != null) {
-      cleanUp.execute(runtime);
+      try {
+        cleanUp.execute(runtime);
+      } catch (BreakOrContinueException e) {
+        throw new IllegalStateException(e);
+      }
     }
   }
   
@@ -375,21 +384,24 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
               new LocalVariableSymbol(
                   param.modifiers, 
                   param.type, 
-                  param.name), 
+                  param.name,
+                  param.position), 
               entity);
         } else if("DELTA_TIME".compareToIgnoreCase( param.semantic ) == 0) {
           runtime.putLocalVariable(
               new LocalVariableSymbol(
                   param.modifiers, 
                   param.type, 
-                  param.name), 
+                  param.name,
+                  param.position), 
               new LiteralData.FloatLiteral(runtime.dt, CodeZoneClass.runtime));
         } else if("EVENT".compareToIgnoreCase( param.semantic ) == 0) {
           runtime.putLocalVariable(
               new LocalVariableSymbol(
                   param.modifiers, 
                   param.type, 
-                  param.name), 
+                  param.name,
+                  param.position), 
               event);
         } else {
           throw new IllegalArgumentException("Semantic " + param.semantic + " not suported.");
@@ -406,7 +418,11 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     
     prepareParams(entity, null, update.parameters, runtime);
     
-    update.code.execute(runtime);
+    try {
+      update.code.execute(runtime);
+    } catch (BreakOrContinueException e) {
+      throw new IllegalStateException(e);
+    }
     
     runtime.deleteLocalContext();
   }
@@ -419,7 +435,11 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     
     prepareParams(entity, null, removeEntity.parameters, runtime);
     
-    removeEntity.code.execute(runtime);
+    try {
+      removeEntity.code.execute(runtime);
+    } catch (BreakOrContinueException e) {
+      throw new IllegalStateException(e);
+    }
     
     runtime.deleteLocalContext();
   }
@@ -432,7 +452,11 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     
     prepareParams(entity, null, newEntity.parameters, runtime);
     
-    newEntity.code.execute(runtime);
+    try {
+      newEntity.code.execute(runtime);
+    } catch (BreakOrContinueException e) {
+      throw new IllegalStateException(e);
+    }
     
     runtime.deleteLocalContext();
   }
@@ -450,7 +474,11 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     
     prepareParams(entity, event, fun.parameters, runtime);
     
-    fun.code.execute(runtime);
+    try {
+      fun.code.execute(runtime);
+    } catch (BreakOrContinueException e) {
+      throw new IllegalStateException(e);
+    }
     
     runtime.deleteLocalContext();
   }

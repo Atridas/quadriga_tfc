@@ -11,8 +11,9 @@ public class ParameterClass {
   public final int modifiers;
   public final ExpressionNode init;
   public final String semantic;
+  public final int position;
   
-  public ParameterClass(CodeZone cz, BaseType type, String name, boolean varargs, int modifiers, ExpressionNode init, String semantic) {
+  public ParameterClass(CodeZone cz, BaseType type, String name, boolean varargs, int modifiers, ExpressionNode init, String semantic, int position) {
     this.cz = cz;
     this.type = type;
     this.name = name;
@@ -20,5 +21,6 @@ public class ParameterClass {
     this.modifiers = modifiers;
     this.init = init;
     this.semantic = semantic;
+    this.position = position;
   }
 }

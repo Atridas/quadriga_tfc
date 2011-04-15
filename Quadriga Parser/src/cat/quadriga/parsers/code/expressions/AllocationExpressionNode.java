@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import cat.quadriga.parsers.Token;
+import cat.quadriga.parsers.code.BreakOrContinueException;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
@@ -172,7 +173,11 @@ public final class AllocationExpressionNode extends ExpressionNodeClass {
     assert isCorrectlyLinked();
     
     int stackSize = runtime.stack.size();
-    arguments.execute(runtime);
+    try {
+      arguments.execute(runtime);
+    } catch (BreakOrContinueException e) {
+      throw new IllegalStateException(e);
+    }
     Object[] initargs = new Object[runtime.stack.size() - stackSize];
     for(int i = 1; i <= initargs.length; ++i) {
       initargs[initargs.length-i] = runtime.stack.pop().getAsObject();

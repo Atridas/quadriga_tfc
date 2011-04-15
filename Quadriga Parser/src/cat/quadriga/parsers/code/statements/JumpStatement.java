@@ -1,9 +1,12 @@
 package cat.quadriga.parsers.code.statements;
 
+import cat.quadriga.parsers.code.BreakException;
+import cat.quadriga.parsers.code.BreakOrContinueException;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.symbols.BaseSymbol;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public class JumpStatement extends StatementNodeClass {
 
@@ -115,6 +118,12 @@ public class JumpStatement extends StatementNodeClass {
   @Override
   public boolean isCorrectlyLinked() {
     return linked;
+  }
+  
+
+  @Override
+  public void execute(RuntimeEnvironment runtime) throws BreakOrContinueException {
+    throw new BreakException(direction);
   }
 
 }

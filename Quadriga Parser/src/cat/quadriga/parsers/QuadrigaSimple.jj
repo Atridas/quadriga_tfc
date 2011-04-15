@@ -1667,8 +1667,8 @@ VarAndInit VariableDeclarator(int modifiers, BaseType type):
     vai.modifiers = modifiers;
     if(localBlock != null) //Local var
     {
-      LocalVariableSymbol localVar = new LocalVariableSymbol(modifiers, vai.type, vai.name.image);
-      symbolTable.addSymbol(localVar);
+      LocalVariableSymbol localVar = new LocalVariableSymbol(modifiers, vai.type, vai.name.image,symbolTable.getNumLocalVariables());
+      symbolTable.addLocalVariable(localVar);
       localBlock.addLocalVariable(localVar);
 
       leftHand = new LocalVarAccess(localVar, new CodeZoneClass(vai.name,file));
@@ -1777,7 +1777,7 @@ void MethodDeclaration(int modifiers, List<PrintInfo> out):
   {
     out.add(PrintWhiteSpace.getInstance());
   }
-  MethodDeclarator(out)
+  MethodDeclarator(out, modifiers)
   [ "throws"
     {
       out.add(PrintWhiteSpace.getInstance());
@@ -1800,10 +1800,13 @@ void MethodDeclaration(int modifiers, List<PrintInfo> out):
     symbolTable.deleteContext();  }
 }
 
-void MethodDeclarator(List<PrintInfo> out):
+void MethodDeclarator(List<PrintInfo> out, int modifiers):
 {
   Token t;
   List<ParameterClass> params;
+  boolean esEstatic = (STATIC & modifiers) > 0;
+  int localVars = 1;
+  if(esEstatic) localVars = 0;
 }
 {
   t=<IDENTIFIER>
@@ -1818,13 +1821,16 @@ void MethodDeclarator(List<PrintInfo> out):
     }
   )*
   */
-  params = FormalParameters()
+  params = FormalParameters(localVars)
   {
+    if(!esEstatic) {
+      symbolTable.addLocalVariable(new ThisSymbol());    }
     for(ParameterClass param : params)
     {
-      symbolTable.addSymbol(new LocalVariableSymbol(param.modifiers,
+      symbolTable.addLocalVariable(new LocalVariableSymbol(param.modifiers,
                                                     param.type,
-                                                    param.name));
+                                                    param.name,
+                                                    symbolTable.getNumLocalVariables()));
     }
   }
   {
@@ -1839,20 +1845,22 @@ void MethodDeclarator(List<PrintInfo> out):
   }
 }
 
-List<ParameterClass> FormalParameters():
+List<ParameterClass> FormalParameters(int numLocalVariables):
 {
   List<ParameterClass> params = new LinkedList<ParameterClass>();
   ParameterClass param;
 }
 {
   "("
-  [ param = FormalParameter()
-    {
-      params.add(param);    }
-    ( ","
-    param = FormalParameter()
+  [ param = FormalParameter(numLocalVariables)
     {
       params.add(param);
+      numLocalVariables++;    }
+    ( ","
+    param = FormalParameter(numLocalVariables)
+    {
+      params.add(param);
+      numLocalVariables++;
     }
     )*
   ]
@@ -1862,7 +1870,7 @@ List<ParameterClass> FormalParameters():
   }
 }
 
-ParameterClass FormalParameter():
+ParameterClass FormalParameter(int numLocalVariables):
 {
   int modifiers;
   BaseType type;
@@ -1908,7 +1916,8 @@ ParameterClass FormalParameter():
       varargs,
       modifiers,
       init,
-      semantic);  }
+      semantic,
+      numLocalVariables);  }
 }
 
 void ConstructorDeclaration(List<PrintInfo> out):
@@ -1929,13 +1938,14 @@ void ConstructorDeclaration(List<PrintInfo> out):
   {
     out.add(new PrintString(t.image));
   }
-  params = FormalParameters()
+  params = FormalParameters(1)
   {
     for(ParameterClass param : params)
     {
-      symbolTable.addSymbol(new LocalVariableSymbol(param.modifiers,
+      symbolTable.addLocalVariable(new LocalVariableSymbol(param.modifiers,
                                                     param.type,
-                                                    param.name));
+                                                    param.name,
+                                                    symbolTable.getNumLocalVariables()));
     }
   }
   {
@@ -3461,8 +3471,8 @@ StatementNode ForStatement():
       mods = Modifiers(out) type = Type() t2=<IDENTIFIER> ":"
       iterable = Expression()
       {
-        LocalVariableSymbol it = new LocalVariableSymbol(mods, type, t2.image);
-        symbolTable.addSymbol(it);
+        LocalVariableSymbol it = new LocalVariableSymbol(mods, type, t2.image, symbolTable.getNumLocalVariables());
+        symbolTable.addLocalVariable(it);
         localBlock.addLocalVariable(it);
       }
 
@@ -3642,14 +3652,15 @@ TryStatementNode TryStatement():
   {
     cz = new CodeZoneClass(t, execution);  }
   ( "catch" "("
-    param = FormalParameter()
+    param = FormalParameter(symbolTable.getNumLocalVariables())
     ")"
     {
       LocalVariableSymbol symbol = new LocalVariableSymbol(param.modifiers,
 	                                                       param.type,
-	                                                       param.name);
+	                                                       param.name,
+	                                                       symbolTable.getNumLocalVariables());
       symbolTable.newContext();
-      symbolTable.addSymbol(symbol);
+      symbolTable.addLocalVariable(symbol);
     }
     aux = Block()
     {
@@ -4224,15 +4235,16 @@ void PrototypeDeclaration():
 
       BlockCode.TmpBlockCode prevBlock = localBlock;
       localBlock = new BlockCode.TmpBlockCode(t,file);    }
-    ( parameters=FormalParameters()
+    ( parameters=FormalParameters(0)
       {
         for(ParameterClass param : parameters)
         {
           LocalVariableSymbol localVar =
                                 new LocalVariableSymbol(param.modifiers,
                                                         param.type,
-                                                        param.name);
-          symbolTable.addSymbol(localVar);
+                                                        param.name,
+                                                        symbolTable.getNumLocalVariables());
+          symbolTable.addLocalVariable(localVar);
           localBlock.addLocalVariable(localVar);
         }
         iPrototype.parameters = parameters;
@@ -4766,13 +4778,14 @@ QuadrigaFunction QuadrigaUpdate():
 {
   t="@update"
   { localBlock = new BlockCode.TmpBlockCode(t,file); }
-  parameters = FormalParameters()
+  parameters = FormalParameters(0)
   {
     for(ParameterClass param : parameters)
     {
-      symbolTable.addSymbol(new LocalVariableSymbol(param.modifiers,
+      symbolTable.addLocalVariable(new LocalVariableSymbol(param.modifiers,
                                                     param.type,
-                                                    param.name));
+                                                    param.name,
+                                                    symbolTable.getNumLocalVariables()));
     }
   }
   code = Block()
@@ -4803,13 +4816,14 @@ QuadrigaFunction QuadrigaNewEntity():
 {
   t="@newEntity"
   { localBlock = new BlockCode.TmpBlockCode(t,file); }
-  parameters = FormalParameters()
+  parameters = FormalParameters(0)
   {
     for(ParameterClass param : parameters)
     {
-      symbolTable.addSymbol(new LocalVariableSymbol(param.modifiers,
+      symbolTable.addLocalVariable(new LocalVariableSymbol(param.modifiers,
                                                     param.type,
-                                                    param.name));
+                                                    param.name,
+                                                    symbolTable.getNumLocalVariables()));
     }
   }
   code = Block()
@@ -4840,13 +4854,14 @@ QuadrigaFunction QuadrigaEraseEntity():
 {
   t="@eraseEntity"
   { localBlock = new BlockCode.TmpBlockCode(t,file); }
-  parameters = FormalParameters()
+  parameters = FormalParameters(0)
   {
     for(ParameterClass param : parameters)
     {
-      symbolTable.addSymbol(new LocalVariableSymbol(param.modifiers,
+      symbolTable.addLocalVariable(new LocalVariableSymbol(param.modifiers,
                                                     param.type,
-                                                    param.name));
+                                                    param.name,
+                                                    symbolTable.getNumLocalVariables()));
     }
   }
   code = Block()
@@ -4878,13 +4893,14 @@ EventAndFun QuadrigaEventFunction():
   t="@event"
   name = Name()
   { localBlock = new BlockCode.TmpBlockCode(t,file); }
-  parameters = FormalParameters()
+  parameters = FormalParameters(0)
   {
     for(ParameterClass param : parameters)
     {
-      symbolTable.addSymbol(new LocalVariableSymbol(param.modifiers,
+      symbolTable.addLocalVariable(new LocalVariableSymbol(param.modifiers,
                                                     param.type,
-                                                    param.name));
+                                                    param.name,
+                                                    symbolTable.getNumLocalVariables()));
     }
   }
   code = Block()

@@ -1,5 +1,6 @@
 package cat.quadriga.runtime;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ public class RuntimeEnvironment {
   public Stack<ComputedValue> stack = new Stack<ComputedValue>();
   
   private Stack<Map<LocalVariableSymbol, ComputedValue>> localVariables = new Stack<Map<LocalVariableSymbol, ComputedValue>>();
+  //private ArrayList<ComputedValue> localVariables = new ArrayList<ComputedValue>();
   
   public void newLocalContext() {
     localVariables.push(new HashMap<LocalVariableSymbol, ComputedValue>());
@@ -31,6 +33,7 @@ public class RuntimeEnvironment {
   }
   
   public ComputedValue getLocalVariable(LocalVariableSymbol lvs) {
+    //return localVariables.get(lvs.position);
     Stack<Map<LocalVariableSymbol, ComputedValue>> auxiliarStack = new Stack<Map<LocalVariableSymbol,ComputedValue>>();
     
     ComputedValue cv = null;
@@ -52,6 +55,10 @@ public class RuntimeEnvironment {
   }
   
   public void putLocalVariable(LocalVariableSymbol lvs, ComputedValue cv) {
+    //localVariables.ensureCapacity(lvs.position);
+    
+    //localVariables.add(lvs.position, cv);
+    
     localVariables.peek().put(lvs, cv);
   }
   
@@ -63,8 +70,6 @@ public class RuntimeEnvironment {
       keepRunning = false;
       return;
     }
-    //TODO
-    //throw new IllegalStateException("Not yet implemented");
     
     Set<RuntimeSystem> systems = entitySystem.getSystemsWithEvent(event.getEvent());
     for(RuntimeSystem system : systems) {

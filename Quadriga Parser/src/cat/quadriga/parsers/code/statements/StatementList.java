@@ -2,6 +2,7 @@ package cat.quadriga.parsers.code.statements;
 
 import java.util.Collection;
 
+import cat.quadriga.parsers.code.BreakOrContinueException;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
@@ -89,7 +90,7 @@ public class StatementList extends StatementNodeClass {
   }
   
   @Override
-  public void execute(RuntimeEnvironment runtime) {
+  public void execute(RuntimeEnvironment runtime) throws BreakOrContinueException {
     assert isCorrectlyLinked();
     
     for(StatementNode statement : nodes) {

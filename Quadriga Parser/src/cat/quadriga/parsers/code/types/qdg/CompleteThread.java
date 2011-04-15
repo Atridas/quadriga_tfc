@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import cat.quadriga.parsers.code.BreakOrContinueException;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
@@ -142,7 +143,11 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
       ((RuntimeSystem)qs).executeInit(runtime);
     }
     
-    init.execute(runtime);
+    try {
+      init.execute(runtime);
+    } catch (BreakOrContinueException e) {
+      throw new IllegalStateException(e);
+    }
     
     for(QuadrigaSystem qs : systems) {
       runtime.entitySystem.registerSystem((RuntimeSystem)qs, runtime);
@@ -158,7 +163,11 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
     for(QuadrigaSystem qs : systems) {
       ((RuntimeSystem)qs).executeCleanUp(runtime);
     }
-    cleanUp.execute(runtime);
+    try {
+      cleanUp.execute(runtime);
+    } catch (BreakOrContinueException e) {
+      throw new IllegalStateException(e);
+    }
   }
 
   @Override

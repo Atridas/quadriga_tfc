@@ -7,6 +7,8 @@ import java.util.Set;
 import java.util.Vector;
 
 import cat.quadriga.parsers.Token;
+import cat.quadriga.parsers.code.BreakException;
+import cat.quadriga.parsers.code.BreakOrContinueException;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
@@ -116,11 +118,11 @@ public class BlockCode extends StatementNodeClass {
   
 
   @Override
-  public void execute(RuntimeEnvironment runtime) {
+  public void execute(RuntimeEnvironment runtime) throws BreakOrContinueException {
     execute(runtime, Collections.<LocalVariableSymbol>emptySet());
   }
 
-  public void execute(RuntimeEnvironment runtime, Set<LocalVariableSymbol> varsToSkip) {
+  public void execute(RuntimeEnvironment runtime, Set<LocalVariableSymbol> varsToSkip) throws BreakOrContinueException {
     try {
       assert isCorrectlyLinked();
       
@@ -132,11 +134,20 @@ public class BlockCode extends StatementNodeClass {
         }
       }
       
-      for(StatementNode statement : statements) {
-        statement.execute(runtime);
+      try {
+        for(StatementNode statement : statements) {
+          statement.execute(runtime);
+        }
+      } catch (BreakException e) {
+        if(e.tobreak != this) {
+          runtime.deleteLocalContext();
+          throw e;
+        }
       }
   
       runtime.deleteLocalContext();
+    } catch (BreakOrContinueException e) {
+      throw e;
     } catch (Exception e) {
       throw new RuntimeException("Error in " 
           + beginLine + ":" + beginColumn + " "
