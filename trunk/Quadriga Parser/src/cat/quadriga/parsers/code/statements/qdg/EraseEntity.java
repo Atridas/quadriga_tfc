@@ -6,6 +6,7 @@ import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.statements.StatementNodeClass;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
+import cat.quadriga.runtime.ComputedValue;
 import cat.quadriga.runtime.Entity;
 import cat.quadriga.runtime.RuntimeEnvironment;
 
@@ -68,7 +69,8 @@ public class EraseEntity extends StatementNodeClass {
     try {
       assert isCorrectlyLinked();
   
-      Entity entity = (Entity)this.entity.compute(runtime);
+      ComputedValue cv = this.entity.compute(runtime);
+      Entity entity = (Entity)cv;
       
       runtime.entitySystem.deleteEntity(entity);
     } catch (Exception e) {

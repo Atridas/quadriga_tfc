@@ -3,6 +3,9 @@ package cat.quadriga.parsers.code.statements;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import cat.quadriga.parsers.code.BreakException;
+import cat.quadriga.parsers.code.BreakOrContinueException;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
@@ -10,6 +13,7 @@ import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public class ClassicFor extends StatementNodeClass implements BucleInterface {
   
@@ -70,10 +74,11 @@ public class ClassicFor extends StatementNodeClass implements BucleInterface {
   public ClassicFor getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
     if(linked) return this;
+    linked = true;
 
 
     symbolTable.newContext();
-    linked = true;
+    
     BucleOrSwitchInterface prev = symbolTable.closestBucleOrSwitch;
     symbolTable.closestBucleOrSwitch = this;
     
@@ -91,10 +96,11 @@ public class ClassicFor extends StatementNodeClass implements BucleInterface {
         LocalVariableSymbol lvs = new LocalVariableSymbol(
             localVariableSymbol.modifiers, 
             type, 
-            localVariableSymbol.name
+            localVariableSymbol.name,
+            symbolTable.getNumLocalVariables()
             );
         newVars.add(lvs);
-        symbolTable.addSymbol(lvs);
+        symbolTable.addLocalVariable(lvs);
       }
     }
     
@@ -139,9 +145,44 @@ public class ClassicFor extends StatementNodeClass implements BucleInterface {
     if(linked) return this;
     else       return null;
   }
+  
   @Override
   public boolean isCorrectlyLinked() {
     return linked;
   }
 
+  @Override
+  public void execute(RuntimeEnvironment runtime) throws BreakOrContinueException {
+    try {
+      assert isCorrectlyLinked();
+      
+      runtime.newLocalContext();
+      
+      for(LocalVariableSymbol lvs : localVariables) {
+        runtime.putLocalVariable(lvs, null);
+      }
+      
+      try {
+        init.execute(runtime);
+        while(condition.compute(runtime).getAsBool()) {
+          execution.execute(runtime);
+          
+          update.execute(runtime);
+        }
+      } catch (BreakException e) {
+        if(e.tobreak != this) {
+          runtime.deleteLocalContext();
+          throw e;
+        }
+      }
+      
+      runtime.deleteLocalContext();
+    } catch (BreakOrContinueException e) {
+      throw e;
+    } catch (Exception e) {
+      throw new RuntimeException("Error in " 
+          + beginLine + ":" + beginColumn + " "
+          + endLine + ":" + endColumn + " " + file, e);
+    }
+  }
 }

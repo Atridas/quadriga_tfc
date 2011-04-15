@@ -1,5 +1,6 @@
 package cat.quadriga.parsers.code.statements;
 
+import cat.quadriga.parsers.code.BreakOrContinueException;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.Linkable;
@@ -14,5 +15,5 @@ public interface StatementNode extends TreeRepresentable, CodeZone, Linkable {
   String   getOperation();
   String[] getOperands();
   
-  void execute(RuntimeEnvironment runtime);
+  void execute(RuntimeEnvironment runtime) throws BreakOrContinueException;
 }

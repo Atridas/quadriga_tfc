@@ -6,11 +6,13 @@ public class LocalVariableSymbol extends BaseSymbol {
   
   public BaseType type;
   public int modifiers;
+  public int position;
 
-  public LocalVariableSymbol(int modifiers, BaseType type, String name) {
+  public LocalVariableSymbol(int modifiers, BaseType type, String name, int position) {
     super(name);
     this.type = type;
     this.modifiers = modifiers;
+    this.position = position;
   }
   
   @Override

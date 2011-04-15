@@ -29,11 +29,6 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
   }
 
   @Override
-  public String getOperation() {
-    return "Literal";
-  }
-
-  @Override
   public boolean isAssignable() {
     return false;
   }
@@ -41,6 +36,11 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
   @Override
   public boolean isReadable() {
     return true;
+  }
+  @Override
+  public final String[] getOperands() {
+    String[] aux = {};
+    return aux;
   }
   
   public abstract Object getValue();
@@ -248,9 +248,8 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
       return new Integer(i);
     }
     @Override
-    public String[] getOperands() {
-      String[] aux = {"Integer: " + i};
-      return aux;
+    public String getOperation() {
+      return "Literal: " + i;
     }
     @Override
     public BaseType getType() {
@@ -702,9 +701,8 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
       return new Long(l);
     }
     @Override
-    public String[] getOperands() {
-      String[] aux = {"Long: " + l};
-      return aux;
+    public String getOperation() {
+      return "Literal: " + l;
     }
     @Override
     public BaseType getType() {
@@ -1158,9 +1156,8 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
       return new Float(f);
     }
     @Override
-    public String[] getOperands() {
-      String[] aux = {"Float: " + f};
-      return aux;
+    public String getOperation() {
+      return "Literal: " + f;
     }
     @Override
     public BaseType getType() {
@@ -1577,9 +1574,8 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
       return new Double(d);
     }
     @Override
-    public String[] getOperands() {
-      String[] aux = {"Double: " + d};
-      return aux;
+    public String getOperation() {
+      return "Literal: " + d;
     }
     @Override
     public BaseType getType() {
@@ -2001,25 +1997,19 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
     }
     @Override
     //["n","t","b","r","f",||||||"\\","'","\""]
-    public String[] getOperands() {
+    public String getOperation() {
       if(c == '\n') {
-        String[] aux = {"Character: '\\n'"};
-        return aux;
+        return "Literal: '\\n'";
       } else if(c == '\t') {
-        String[] aux = {"Character: '\\t'"};
-        return aux;
+        return "Literal: '\\t'";
       } else if(c == '\b') {
-        String[] aux = {"Character: '\\b'"};
-        return aux;
+        return "Literal: '\\b'";
       } else if(c == '\r') {
-        String[] aux = {"Character: '\\r'"};
-        return aux;
+        return "Literal: '\\r'";
       } else if(c == '\f') {
-        String[] aux = {"Character: '\\f'"};
-        return aux;
+        return "Literal: '\\f'";
       }
-      String[] aux = {"Character: '" + c + "'"};
-      return aux;
+      return "Literal: '" + c + "'";
     }
     @Override
     public BaseType getType() {
@@ -2471,14 +2461,13 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
       return s;
     }
     @Override
-    public String[] getOperands() {
-      String[] aux = {"String: \"" 
+    public String getOperation() {
+      return "Literal: \"" 
                       +  s.replace("\\", "\\\\")
                           .replace("\n", "\\n").replace("\t", "\t")
                           .replace("\b", "\\b").replace("\r", "\r")
                           .replace("\f", "\\f").replace("\"", "\\\"") 
-                      + "\""};
-      return aux;
+                      + "\"";
     }
     @Override
     public BaseType getType() {
@@ -2552,6 +2541,11 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
     public BooleanLiteral(boolean b, CodeZone cz) {
       super(cz);
       z = b;
+    }
+    
+    @Override
+    public String getOperation() {
+      return "Literal: " + ((z)? "true":"false");
     }
     
     public LiteralData booleanOp(BooleanLiteral other, BooleanOperation.Operator operator) {
@@ -2664,9 +2658,8 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
       return null;
     }
     @Override
-    public String[] getOperands() {
-      String[] aux = {"Null"};
-      return aux;
+    public String getOperation() {
+      return "Literal: Null";
     }
     @Override
     public BaseType getType() {
@@ -2742,9 +2735,8 @@ public abstract class LiteralData extends DirectDataAccess implements ComputedVa
         return null;
     }
     @Override
-    public String[] getOperands() {
-      String[] aux = {type.getBinaryName()};
-      return aux;
+    public String getOperation() {
+      return "Literal: " + type.getBinaryName();
     }
     @Override
     public BaseType getType() {

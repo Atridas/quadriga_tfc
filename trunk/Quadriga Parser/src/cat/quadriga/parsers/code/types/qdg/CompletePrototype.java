@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import cat.quadriga.parsers.code.BreakOrContinueException;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.ParameterClass;
 import cat.quadriga.parsers.code.SymbolTable;
@@ -114,10 +115,11 @@ public class CompletePrototype extends BaseTypeClass implements RuntimePrototype
           parameter.varargs, 
           parameter.modifiers, 
           nInit, 
-          parameter.semantic);
+          parameter.semantic,
+          symbolTable.getNumLocalVariables());
       params.add(param);
-      LocalVariableSymbol lvs = new LocalVariableSymbol(parameter.modifiers, nType, parameter.name);
-      symbolTable.addSymbol(lvs);
+      LocalVariableSymbol lvs = new LocalVariableSymbol(parameter.modifiers, nType, parameter.name, param.position);
+      symbolTable.addLocalVariable(lvs);
     }
     symbolTable.addSymbol(new ThisSymbol(QuadrigaEntity.baseEntity));
     if(original.initializations.isCorrectlyLinked()) {
@@ -207,7 +209,11 @@ public class CompletePrototype extends BaseTypeClass implements RuntimePrototype
     
     runtime.putLocalVariable(new ThisSymbol(QuadrigaEntity.baseEntity),entity);
     
-    initializations.execute(runtime,symbolsToSkip);
+    try {
+      initializations.execute(runtime,symbolsToSkip);
+    } catch (BreakOrContinueException e) {
+      throw new IllegalStateException(e);
+    }
     
     runtime.deleteLocalContext();
     

@@ -28,10 +28,7 @@ public final class BooleanOperation extends BinaryExpressionNode {
                               boolean linked) {
     super(operant1,  operant2);
     this.operator = operator;
-    this.linked = true;
-    if(linked) {
-      linkedVersion = this;
-    }
+    this.linked = linked;
   }
   
   @Override
@@ -61,76 +58,74 @@ public final class BooleanOperation extends BinaryExpressionNode {
   }
   
   private boolean linked = false;
-  private ExpressionNode linkedVersion = null;
   @Override
   public ExpressionNode getLinkedVersion(SymbolTable symbolTable,
       ErrorLog errorLog) {
-    if(linked) {
-      return this;
-    } else if(linkedVersion == null) {
-      ExpressionNode left, right;
-      if(leftOperand.isCorrectlyLinked()) {
-        left = leftOperand;
+    if(linked) return this;
+    linked = true;
+    
+    ExpressionNode aux;
+    if(!leftOperand.isCorrectlyLinked()) {
+      aux = leftOperand.getLinkedVersion(symbolTable, errorLog);
+      if(aux == null) {
+        linked = false;
       } else {
-        left = leftOperand.getLinkedVersion(symbolTable, errorLog);
-        if(left == null) {
-          return null;
-        }
+        leftOperand = aux;
       }
-      if(rightOperand.isCorrectlyLinked()) {
-        right = rightOperand;
-      } else {
-        right = rightOperand.getLinkedVersion(symbolTable, errorLog);
-        if(right == null) {
-          return null;
-        }
-      }
-      switch(operator) {
-      case INSTANCEOF:
-        if(!(left.getType() instanceof ClassOrInterfaceTypeRef)) {
-          errorLog.insertError("Left hand is not a Class",this);
-          return null;
-        } else if(right instanceof TypeDataAccess) {
-          errorLog.insertError("Right hand is not a Type",this);
-          return null;
-        }
-        break;
-      case EQ:
-        if(left instanceof LiteralData.NullLiteral) {
-          linkedVersion = new UnaryOperation(UnaryOperation.Operator.IS_NULL,right,this).getLinkedVersion(symbolTable, errorLog);
-          return linkedVersion;
-        } else if(right instanceof LiteralData.NullLiteral) {
-          linkedVersion = new UnaryOperation(UnaryOperation.Operator.IS_NULL,left,this).getLinkedVersion(symbolTable, errorLog);
-          return linkedVersion;
-        }
-      case NEQ:
-        if(left instanceof LiteralData.NullLiteral) {
-          linkedVersion = new UnaryOperation(UnaryOperation.Operator.IS_NULL,right,this);
-          linkedVersion = new UnaryOperation(UnaryOperation.Operator.NOT,linkedVersion,this).getLinkedVersion(symbolTable, errorLog);
-          return linkedVersion;
-        } else if(right instanceof LiteralData.NullLiteral) {
-          linkedVersion = new UnaryOperation(UnaryOperation.Operator.IS_NULL,left,this);
-          linkedVersion = new UnaryOperation(UnaryOperation.Operator.NOT,linkedVersion,this).getLinkedVersion(symbolTable, errorLog);
-          return linkedVersion;
-        }
-        if(left.getType() instanceof ReferenceTypeRef && right.getType() instanceof ReferenceTypeRef) {
-          break;
-        }
-      case LT:
-      case GT:
-      case LE:
-      case GE:
-        if(!left.getType().isMathematicallyOperable()) {
-          errorLog.insertError("Left hand is not comparable",this);
-          return null;
-        } else if(!right.getType().isMathematicallyOperable()) {
-          errorLog.insertError("Right hand is not comparable",this);
-          return null;
-        }
-      }
-      linkedVersion = new BooleanOperation(operator, left, right);
     }
-    return linkedVersion;
+    if(!rightOperand.isCorrectlyLinked()) {
+      aux = rightOperand.getLinkedVersion(symbolTable, errorLog);
+      if(aux == null) {
+        linked = false;
+      } else {
+        rightOperand = aux;
+      }
+    }
+    
+    
+    switch(operator) {
+    case INSTANCEOF:
+      if(!(leftOperand.getType() instanceof ClassOrInterfaceTypeRef)) {
+        errorLog.insertError("Left hand is not a Class",this);
+        linked = false;
+      } else if(rightOperand instanceof TypeDataAccess) {
+        errorLog.insertError("Right hand is not a Type",this);
+        linked = false;
+      }
+      break;
+    case EQ:
+      if(leftOperand instanceof LiteralData.NullLiteral) {
+        return new UnaryOperation(UnaryOperation.Operator.IS_NULL,rightOperand,this).getLinkedVersion(symbolTable, errorLog);
+      } else if(rightOperand instanceof LiteralData.NullLiteral) {
+        return new UnaryOperation(UnaryOperation.Operator.IS_NULL,leftOperand,this).getLinkedVersion(symbolTable, errorLog);
+      }
+    case NEQ:
+      if(leftOperand instanceof LiteralData.NullLiteral) {
+        aux = new UnaryOperation(UnaryOperation.Operator.IS_NULL,rightOperand,this);
+        return new UnaryOperation(UnaryOperation.Operator.NOT,aux,this).getLinkedVersion(symbolTable, errorLog);
+      } else if(rightOperand instanceof LiteralData.NullLiteral) {
+        aux = new UnaryOperation(UnaryOperation.Operator.IS_NULL,leftOperand,this);
+        return new UnaryOperation(UnaryOperation.Operator.NOT,aux,this).getLinkedVersion(symbolTable, errorLog);
+      }
+      if(leftOperand.getType() instanceof ReferenceTypeRef && rightOperand.getType() instanceof ReferenceTypeRef) {
+        break;
+      }
+    case LT:
+    case GT:
+    case LE:
+    case GE:
+      if(!leftOperand.getType().isMathematicallyOperable()) {
+        errorLog.insertError("Left hand is not comparable",this);
+        linked = false;
+      } else if(!rightOperand.getType().isMathematicallyOperable()) {
+        errorLog.insertError("Right hand is not comparable",this);
+        linked = false;
+      }
+    }
+    //linkedVersion = new BooleanOperation(operator, left, right);
+    
+    if(linked) return this;
+    else       return null;
   }
 
   @Override

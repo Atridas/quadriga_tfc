@@ -5,6 +5,7 @@ import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
+import cat.quadriga.parsers.code.expressions.dataaccess.DataAccess;
 import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
@@ -136,12 +137,30 @@ public final class UnaryOperation extends UnaryExpressionNode {
         }
         break;
       case NEGATE:
+        if(!bt.isMathematicallyOperable()) {
+          errorLog.insertError("Operator '" + operator.representation + "' not valid", this);
+          return null;
+        }
+        break;
       case PRE_INC:
       case PRE_DEC:
       case POST_INC:
       case POST_DEC:
         if(!bt.isMathematicallyOperable()) {
           errorLog.insertError("Operator '" + operator.representation + "' not valid", this);
+          return null;
+        }
+        if(operand instanceof DataAccess) {
+          DataAccess da = (DataAccess)operand;
+          if(da.isAssignable()) {
+            operand = da.getWriteVersion(symbolTable);
+            assert(operand != null);
+          } else {
+            errorLog.insertError("A l'operand no s'hi pot escriure",operand);
+            return null;
+          }
+        } else {
+          errorLog.insertError("A l'operand no és un accés a dades",operand);
           return null;
         }
         break;
@@ -181,6 +200,8 @@ public final class UnaryOperation extends UnaryExpressionNode {
   public ComputedValue compute(RuntimeEnvironment runtime) {
     try {
       ComputedValue cv = operand.compute(runtime);
+      DataAccess da;
+      LiteralData lit;
       switch(operator) {
       case NOT:
         return new LiteralData.BooleanLiteral(
@@ -192,12 +213,32 @@ public final class UnaryOperation extends UnaryExpressionNode {
           return new LiteralData.BooleanLiteral(
               cv.getAsObject() == null, this);
         }
+      case PRE_INC:
+        da = (DataAccess)operand;
+        lit = (LiteralData) cv;
+        lit = lit.executeMathematicalOp(new LiteralData.IntegerLiteral(1), MathematicOperation.Operator.ADD);
+        da.getWriteVersion(runtime.symbolTable).setValue(lit, runtime);
+        return lit;
+      case PRE_DEC:
+        da = (DataAccess)operand;
+        lit = (LiteralData) cv;
+        lit = lit.executeMathematicalOp(new LiteralData.IntegerLiteral(1), MathematicOperation.Operator.SUB);
+        da.getWriteVersion(runtime.symbolTable).setValue(lit, runtime);
+        return lit;
+      case POST_INC:
+        da = (DataAccess)operand;
+        lit = (LiteralData) cv;
+        lit = lit.executeMathematicalOp(new LiteralData.IntegerLiteral(1), MathematicOperation.Operator.ADD);
+        da.getWriteVersion(runtime.symbolTable).setValue(lit, runtime);
+        return cv;
+      case POST_DEC:
+        da = (DataAccess)operand;
+        lit = (LiteralData) cv;
+        lit = lit.executeMathematicalOp(new LiteralData.IntegerLiteral(1), MathematicOperation.Operator.SUB);
+        da.getWriteVersion(runtime.symbolTable).setValue(lit, runtime);
+        return cv;
       case BIT_COMP:
       case NEGATE:
-      case PRE_INC:
-      case PRE_DEC:
-      case POST_INC:
-      case POST_DEC:
       default:
         throw new RuntimeException("Not yet implemented");
       }

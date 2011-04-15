@@ -70,9 +70,10 @@ public class IterableFor extends StatementNodeClass implements BucleInterface {
       iterator = new LocalVariableSymbol(
           original.iterator.modifiers, 
           type, 
-          original.iterator.name
+          original.iterator.name,
+          symbolTable.getNumLocalVariables()
           );
-      symbolTable.addSymbol(iterator);
+      symbolTable.addLocalVariable(iterator);
     }
     
     if(original.execution.isCorrectlyLinked()) {

@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import cat.quadriga.parsers.Token;
 import cat.quadriga.parsers.code.statements.BucleOrSwitchInterface;
 import cat.quadriga.parsers.code.symbols.BaseSymbol;
+import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
@@ -25,6 +26,9 @@ public class SymbolTable implements TreeRepresentable {
 
   public final Set<QuadrigaComponent> accesses = new HashSet<QuadrigaComponent>();
   public final Set<QuadrigaComponent> writes = new HashSet<QuadrigaComponent>();
+
+  private int numLocalVariables = 0;
+  private final Stack<Integer> stackNumLocalVars = new Stack<Integer>();
   
   public BucleOrSwitchInterface closestBucleOrSwitch = null;
   {
@@ -38,10 +42,13 @@ public class SymbolTable implements TreeRepresentable {
   
   public void newContext() {
     mapStack.push(new HashMap<String, BaseSymbol>());
+    stackNumLocalVars.push(0);
   }
   
   public void deleteContext() {
     mapStack.pop();
+    int i = stackNumLocalVars.pop();
+    numLocalVariables -= i;
   }
   
   public BaseSymbol findSymbol(List<Token> name) {
@@ -130,6 +137,17 @@ public class SymbolTable implements TreeRepresentable {
         map.put(alias, new SymbolRef( symbol ));
       //}
     }
+  }
+  
+  public void addLocalVariable(LocalVariableSymbol lvs) {
+    int i = stackNumLocalVars.pop();
+    stackNumLocalVars.push(i + 1);
+    numLocalVariables++;
+    addSymbol(lvs);
+  }
+  
+  public int getNumLocalVariables() {
+    return numLocalVariables;
   }
   
   public void addGlobalSymbol(BaseSymbol symbol) {

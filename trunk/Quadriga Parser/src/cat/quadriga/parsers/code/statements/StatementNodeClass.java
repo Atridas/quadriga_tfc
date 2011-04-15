@@ -1,5 +1,6 @@
 package cat.quadriga.parsers.code.statements;
 
+import cat.quadriga.parsers.code.BreakOrContinueException;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
@@ -45,7 +46,7 @@ public abstract class StatementNodeClass extends CodeZoneClass implements Statem
       ErrorLog errorLog);
   
   @Override
-  public void execute(RuntimeEnvironment runtime) {
+  public void execute(RuntimeEnvironment runtime) throws BreakOrContinueException {
     assert isCorrectlyLinked();
     throw new IllegalStateException("Not yet implemented " + this.getClass().getCanonicalName());
   }

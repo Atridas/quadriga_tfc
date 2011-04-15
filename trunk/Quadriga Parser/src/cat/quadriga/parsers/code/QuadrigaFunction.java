@@ -79,10 +79,11 @@ public class QuadrigaFunction extends CodeZoneClass implements TreeRepresentable
           parameter.varargs, 
           parameter.modifiers, 
           nInit, 
-          parameter.semantic);
+          parameter.semantic,
+          symbolTable.getNumLocalVariables());
       params.add(param);
-      LocalVariableSymbol lvs = new LocalVariableSymbol(parameter.modifiers, nType, parameter.name);
-      symbolTable.addSymbol(lvs);
+      LocalVariableSymbol lvs = new LocalVariableSymbol(parameter.modifiers, nType, parameter.name, param.position);
+      symbolTable.addLocalVariable(lvs);
     }
     //TODO hi ha d'haver "this"?
     //symbolTable.addSymbol(new ThisSymbol(QuadrigaEntity.baseEntity));

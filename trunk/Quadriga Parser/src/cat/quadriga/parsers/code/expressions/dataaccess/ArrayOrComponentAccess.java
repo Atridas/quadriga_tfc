@@ -157,26 +157,28 @@ public final class ArrayOrComponentAccess extends ExpressionNodeClass implements
       if(type instanceof PrimitiveTypeRef) {
         switch(((PrimitiveTypeRef)type).type) {
         case BOOLEAN:
-          return new LiteralData.BooleanLiteral( Array.getBoolean(arrayObj, index), cz);
+          return new LiteralData.BooleanLiteral  ( Array.getBoolean(arrayObj, index), cz);
         case BYTE:
-          return new LiteralData.IntegerLiteral( Array.getByte(arrayObj, index), cz);
+          return new LiteralData.IntegerLiteral  ( Array.getByte(arrayObj, index), cz);
         case CHAR:
           return new LiteralData.CharacterLiteral( Array.getChar(arrayObj, index), cz);
         case DOUBLE:
-          return new LiteralData.DoubleLiteral( Array.getDouble(arrayObj, index), cz);
+          return new LiteralData.DoubleLiteral   ( Array.getDouble(arrayObj, index), cz);
         case FLOAT:
-          return new LiteralData.FloatLiteral( Array.getFloat(arrayObj, index), cz);
+          return new LiteralData.FloatLiteral    ( Array.getFloat(arrayObj, index), cz);
         case INT:
-          return new LiteralData.IntegerLiteral( Array.getInt(arrayObj, index), cz);
+          return new LiteralData.IntegerLiteral  ( Array.getInt(arrayObj, index), cz);
         case LONG:
-          return new LiteralData.LongLiteral( Array.getLong(arrayObj, index), cz);
+          return new LiteralData.LongLiteral     ( Array.getLong(arrayObj, index), cz);
         case SHORT:
-          return new LiteralData.IntegerLiteral( Array.getShort(arrayObj, index), cz);
+          return new LiteralData.IntegerLiteral  ( Array.getShort(arrayObj, index), cz);
         default :
           throw new IllegalStateException();
         }
       } else {
-        return new JavaReference(Array.get(arrayObj, index));
+        Object obj = Array.get(arrayObj, index);
+        if(obj instanceof ComputedValue) return (ComputedValue) obj;
+        return new JavaReference(obj);
       }
       
     }
@@ -254,7 +256,51 @@ public final class ArrayOrComponentAccess extends ExpressionNodeClass implements
 
     @Override
     public void setValue(ComputedValue value, RuntimeEnvironment runtime) {
-      throw new IllegalStateException("Not yet implemented " + this.getClass().getCanonicalName());
+      if(array.getType() instanceof ArrayType) {
+        Object arrayObj = array.compute(runtime).getAsObject();
+        int index       = access.compute(runtime).getAsInt();
+        
+        BaseType type = ((ArrayType)array.getType()).base;
+        
+        if(type instanceof PrimitiveTypeRef) {
+          switch(((PrimitiveTypeRef)type).type) {
+          case BOOLEAN:
+            Array.setBoolean(arrayObj, index, value.getAsBool() );
+            return;
+          case BYTE:
+            Array.setByte(arrayObj, index, value.getAsByte() );
+            return;
+          case CHAR:
+            Array.setChar(arrayObj, index, value.getAsChar() );
+            return;
+          case DOUBLE:
+            Array.setDouble(arrayObj, index, value.getAsDouble() );
+            return;
+          case FLOAT:
+            Array.setFloat(arrayObj, index, value.getAsFloat() );
+            return;
+          case INT:
+            Array.setInt(arrayObj, index, value.getAsInt() );
+            return;
+          case LONG:
+            Array.setLong(arrayObj, index, value.getAsLong() );
+            return;
+          case SHORT:
+            Array.setShort(arrayObj, index, value.getAsShort() );
+            return;
+          default :
+            throw new IllegalStateException();
+          }
+        } else {
+          Array.set(arrayObj, index, value.getAsObject() );
+          return;
+        }
+        
+      }
+      if(array.getType() instanceof QuadrigaEntity) {
+        throw new IllegalStateException("Not yet implemented");
+      }
+      throw new IllegalStateException();
     }
     
   }

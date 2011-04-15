@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import cat.quadriga.parsers.code.BreakOrContinueException;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
@@ -113,8 +114,13 @@ public class CompleteMain extends BaseTypeClass implements RuntimeMain {
   
   @Override
   public void execute(RuntimeEnvironment runtime) {
-    if(init != null)
-      init.execute(runtime);
+    if(init != null) {
+      try {
+        init.execute(runtime);
+      } catch(BreakOrContinueException e) {
+        throw new IllegalStateException(e);
+      }
+    }
     
     
     if(!PARALLEL) {

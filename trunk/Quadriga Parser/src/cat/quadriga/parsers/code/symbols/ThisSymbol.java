@@ -6,11 +6,11 @@ import cat.quadriga.parsers.code.types.UnknownType;
 public class ThisSymbol extends LocalVariableSymbol {
 
   public ThisSymbol(BaseType type) {
-    super(0, type, "this");
+    super(0, type, "this", 0);
   }
 
   public ThisSymbol() {
-    super(0, UnknownType.empty, "this");
+    super(0, UnknownType.empty, "this", 0);
   }
   
   @Override

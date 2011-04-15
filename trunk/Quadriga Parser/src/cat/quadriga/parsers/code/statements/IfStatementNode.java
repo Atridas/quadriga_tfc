@@ -1,6 +1,7 @@
 package cat.quadriga.parsers.code.statements;
 
 import cat.quadriga.parsers.Token;
+import cat.quadriga.parsers.code.BreakOrContinueException;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
@@ -109,7 +110,7 @@ public class IfStatementNode extends StatementNodeClass {
 
   
   @Override
-  public void execute(RuntimeEnvironment runtime) {
+  public void execute(RuntimeEnvironment runtime) throws BreakOrContinueException {
     assert isCorrectlyLinked();
     
     try {
@@ -119,6 +120,8 @@ public class IfStatementNode extends StatementNodeClass {
       } else if(elseCode != null) {
         elseCode.execute(runtime);
       }
+    } catch (BreakOrContinueException e) {
+      throw e;
     } catch (Exception e) {
       throw new RuntimeException("Error in " 
           + beginLine + ":" + beginColumn + " "

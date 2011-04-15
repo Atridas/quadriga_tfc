@@ -19,6 +19,7 @@ import cat.quadriga.parsers.code.types.qdg.QuadrigaEvent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaField;
 import cat.quadriga.runtime.ComponentInstance;
 import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.EventInstance;
 import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class EventFieldAccess extends UnaryDataAccess {
@@ -100,7 +101,7 @@ public final class EventFieldAccess extends UnaryDataAccess {
         return null;
       }
     }
-    if(operand.isCorrectlyLinked()) {
+    if(!operand.isCorrectlyLinked()) {
       ExpressionNode op = operand.getLinkedVersion(symbolTable, errorLog);
       if(op == null) {
         linked = false;
@@ -138,9 +139,9 @@ public final class EventFieldAccess extends UnaryDataAccess {
   @Override
   public ComputedValue compute(RuntimeEnvironment runtime) {
     
-    ComponentInstance ci = (ComponentInstance) operand.compute(runtime);
+    EventInstance ei = (EventInstance) operand.compute(runtime);
     
-    return ci.getFieldValue(field);
+    return ei.getFieldValue(field);
   }
 
 }
