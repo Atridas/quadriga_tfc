@@ -1667,7 +1667,12 @@ VarAndInit VariableDeclarator(int modifiers, BaseType type):
     vai.modifiers = modifiers;
     if(localBlock != null) //Local var
     {
-      LocalVariableSymbol localVar = new LocalVariableSymbol(modifiers, vai.type, vai.name.image,symbolTable.getNumLocalVariables());
+      LocalVariableSymbol localVar = new LocalVariableSymbol(
+                                                    modifiers,
+                                                    vai.type,
+                                                    vai.name.image,
+                                                    symbolTable.getNumLocalVariables(),
+                                                    new CodeZoneClass(vai.name,file));
       symbolTable.addLocalVariable(localVar);
       localBlock.addLocalVariable(localVar);
 
@@ -1830,7 +1835,10 @@ void MethodDeclarator(List<PrintInfo> out, int modifiers):
       symbolTable.addLocalVariable(new LocalVariableSymbol(param.modifiers,
                                                     param.type,
                                                     param.name,
-                                                    symbolTable.getNumLocalVariables()));
+                                                    symbolTable.getNumLocalVariables(),
+                                                    new CodeZoneClass(t,file)
+                                                          )
+                                  );
     }
   }
   {
@@ -1945,7 +1953,9 @@ void ConstructorDeclaration(List<PrintInfo> out):
       symbolTable.addLocalVariable(new LocalVariableSymbol(param.modifiers,
                                                     param.type,
                                                     param.name,
-                                                    symbolTable.getNumLocalVariables()));
+                                                    symbolTable.getNumLocalVariables(),
+                                                    new CodeZoneClass(t,file)
+                                                    ));
     }
   }
   {
@@ -3471,7 +3481,12 @@ StatementNode ForStatement():
       mods = Modifiers(out) type = Type() t2=<IDENTIFIER> ":"
       iterable = Expression()
       {
-        LocalVariableSymbol it = new LocalVariableSymbol(mods, type, t2.image, symbolTable.getNumLocalVariables());
+        LocalVariableSymbol it = new LocalVariableSymbol(
+                                        mods,
+                                        type,
+                                        t2.image,
+                                        symbolTable.getNumLocalVariables(),
+                                        new CodeZoneClass(t,file));
         symbolTable.addLocalVariable(it);
         localBlock.addLocalVariable(it);
       }
@@ -3651,14 +3666,15 @@ TryStatementNode TryStatement():
   execution = Block()
   {
     cz = new CodeZoneClass(t, execution);  }
-  ( "catch" "("
+  ( t="catch" "("
     param = FormalParameter(symbolTable.getNumLocalVariables())
     ")"
     {
       LocalVariableSymbol symbol = new LocalVariableSymbol(param.modifiers,
 	                                                       param.type,
 	                                                       param.name,
-	                                                       symbolTable.getNumLocalVariables());
+	                                                       symbolTable.getNumLocalVariables(),
+	                                                       new CodeZoneClass(t,file));
       symbolTable.newContext();
       symbolTable.addLocalVariable(symbol);
     }
@@ -4230,9 +4246,11 @@ void PrototypeDeclaration():
     t= < IDENTIFIER >
     {
       IncompletePrototype iPrototype = new IncompletePrototype(currentFile.replace('/','.'), t.image);
+      
+      symbolTable.resetLocalVariables();
       symbolTable.newContext();
-      symbolTable.resetMaxLocalVariables();
-      symbolTable.addSymbol(new ThisSymbol(iPrototype));
+      
+      symbolTable.addLocalVariable(new ThisSymbol(iPrototype, new CodeZoneClass(t,file)));
 
       BlockCode.TmpBlockCode prevBlock = localBlock;
       localBlock = new BlockCode.TmpBlockCode(t,file);    }
@@ -4244,7 +4262,8 @@ void PrototypeDeclaration():
                                 new LocalVariableSymbol(param.modifiers,
                                                         param.type,
                                                         param.name,
-                                                        symbolTable.getNumLocalVariables());
+                                                        symbolTable.getNumLocalVariables(),
+                                                        new CodeZoneClass(t,file));
           symbolTable.addLocalVariable(localVar);
           localBlock.addLocalVariable(localVar);
         }
@@ -4308,9 +4327,13 @@ void PrototypeDeclaration():
     {
       localBlock.setEndToken(t);
       iPrototype.initializations = localBlock.transformToBlockCode();
-      localBlock = prevBlock;      symbolTable.deleteContext();
+      localBlock = prevBlock;
 
       iPrototype.numLocalVariables = symbolTable.getMaxLocalVariables();
+      iPrototype.localVariables    = symbolTable.getLocalVariables();
+      
+      symbolTable.deleteContext();
+      symbolTable.closeLocalVariables();
       
       prototype = new CompletePrototype(iPrototype);    }
   |
@@ -4401,28 +4424,30 @@ void SystemDeclaration():
                "}"         (
            {
              params = new LinkedList<ParameterClass>();
-             symbolTable.resetMaxLocalVariables();           }
+             symbolTable.resetLocalVariables();           }
            "@init" block = Block()
            {
              if(iSystem.init == null)
              {
-               iSystem.init = new QuadrigaFunction(params, block, symbolTable.getMaxLocalVariables(), block);
+               iSystem.init = new QuadrigaFunction(params, block, symbolTable.getMaxLocalVariables(), symbolTable.getLocalVariables(), block);
              } else {
                errorLog.insertError("Més d'un init al sistema " + t.image, block);
-             }           }
+             }
+             symbolTable.closeLocalVariables();           }
          | 
            {
              params = new LinkedList<ParameterClass>();
-             symbolTable.resetMaxLocalVariables();
+             symbolTable.resetLocalVariables();
            }
            "@cleanUp" block = Block()
            {
              if(iSystem.cleanUp == null)
              {
-               iSystem.cleanUp  = new QuadrigaFunction(params, block, symbolTable.getMaxLocalVariables(), block);
+               iSystem.cleanUp  = new QuadrigaFunction(params, block, symbolTable.getMaxLocalVariables(), symbolTable.getLocalVariables(),block);
              } else {
                errorLog.insertError("Més d'un cleanUp al sistema " + t.image, block);
              }
+             symbolTable.closeLocalVariables();
            }
          | fun=QuadrigaUpdate()
            {
@@ -4544,23 +4569,25 @@ void ThreadDeclaration():
              if(init!=null) {
                errorLog.insertError("Més d'un init al thread " + t.image, init);
              }
-             symbolTable.resetMaxLocalVariables();
+             symbolTable.resetLocalVariables();
            }
            block = Block()
            {             params = new LinkedList<ParameterClass>();
-             init = new QuadrigaFunction(params, block, symbolTable.getMaxLocalVariables(), block);
+             init = new QuadrigaFunction(params, block, symbolTable.getMaxLocalVariables(), symbolTable.getLocalVariables(),block);
+             symbolTable.closeLocalVariables();
            }
         |  "@cleanUp"
            {
              if(cleanUp!=null) {
                errorLog.insertError("Més d'un cleanUp al thread " + t.image, cleanUp);
              }
-             symbolTable.resetMaxLocalVariables();
+             symbolTable.resetLocalVariables();
            }
            block = Block() 
            {
              params = new LinkedList<ParameterClass>();
-             cleanUp = new QuadrigaFunction(params, block, symbolTable.getMaxLocalVariables(), block);
+             cleanUp = new QuadrigaFunction(params, block, symbolTable.getMaxLocalVariables(), symbolTable.getLocalVariables(),block);
+             symbolTable.closeLocalVariables();
            }
         )*
         {
@@ -4650,11 +4677,12 @@ void MainDeclaration():
       )+      [
        {         List<ParameterClass > parameters = new LinkedList<ParameterClass>();
          BlockCode block;
-         symbolTable.resetMaxLocalVariables();
+         symbolTable.resetLocalVariables();
        }
        "@init" block=Block()
        {
-         init = new QuadrigaFunction(parameters, block, symbolTable.getMaxLocalVariables(), block);       }
+         init = new QuadrigaFunction(parameters, block, symbolTable.getMaxLocalVariables(), symbolTable.getLocalVariables(), block);
+         symbolTable.closeLocalVariables();       }
       ]
       {
         main = new CompleteMain(currentFile.replace('/','.'),t.image,
@@ -4807,8 +4835,8 @@ QuadrigaFunction QuadrigaUpdate():
   List<ParameterClass > parameters;
 
   
+  symbolTable.resetLocalVariables();
   symbolTable.newContext();
-  symbolTable.resetMaxLocalVariables();
 
   BlockCode.TmpBlockCode prevBlock = localBlock;
   
@@ -4825,7 +4853,8 @@ QuadrigaFunction QuadrigaUpdate():
       symbolTable.addLocalVariable(new LocalVariableSymbol(param.modifiers,
                                                     param.type,
                                                     param.name,
-                                                    symbolTable.getNumLocalVariables()));
+                                                    symbolTable.getNumLocalVariables(),
+                                                    new CodeZoneClass(t,file)));
     }
   }
   code = Block()
@@ -4835,9 +4864,14 @@ QuadrigaFunction QuadrigaUpdate():
     localBlock.setEndCode(code);
     code = localBlock.transformToBlockCode();
     localBlock = prevBlock;
-    symbolTable.deleteContext();
 
-    return new QuadrigaFunction(parameters, code, symbolTable.getMaxLocalVariables(), code);
+    QuadrigaFunction fun = new QuadrigaFunction(parameters, code, symbolTable.getMaxLocalVariables(), symbolTable.getLocalVariables(), code);
+    
+    symbolTable.deleteContext();
+    symbolTable.closeLocalVariables();
+
+    return fun;
+    
   }
 }
 
@@ -4846,8 +4880,8 @@ QuadrigaFunction QuadrigaNewEntity():
   List<ParameterClass > parameters;
 
   
+  symbolTable.resetLocalVariables();
   symbolTable.newContext();
-  symbolTable.resetMaxLocalVariables();
 
   BlockCode.TmpBlockCode prevBlock = localBlock;
   
@@ -4864,7 +4898,8 @@ QuadrigaFunction QuadrigaNewEntity():
       symbolTable.addLocalVariable(new LocalVariableSymbol(param.modifiers,
                                                     param.type,
                                                     param.name,
-                                                    symbolTable.getNumLocalVariables()));
+                                                    symbolTable.getNumLocalVariables(),
+                                                    new CodeZoneClass(t,file)));
     }
   }
   code = Block()
@@ -4874,9 +4909,14 @@ QuadrigaFunction QuadrigaNewEntity():
     localBlock.setEndCode(code);
     code = localBlock.transformToBlockCode();
     localBlock = prevBlock;
+    
+    QuadrigaFunction fun = new QuadrigaFunction(parameters, code, symbolTable.getMaxLocalVariables(), symbolTable.getLocalVariables(), code);
+    
     symbolTable.deleteContext();
+    symbolTable.closeLocalVariables();
 
-    return new QuadrigaFunction(parameters, code, symbolTable.getMaxLocalVariables(), code);
+    return fun;
+    
   }
 }
 
@@ -4885,8 +4925,8 @@ QuadrigaFunction QuadrigaEraseEntity():
   List<ParameterClass > parameters;
 
   
+  symbolTable.resetLocalVariables();
   symbolTable.newContext();
-  symbolTable.resetMaxLocalVariables();
 
   BlockCode.TmpBlockCode prevBlock = localBlock;
   
@@ -4903,7 +4943,8 @@ QuadrigaFunction QuadrigaEraseEntity():
       symbolTable.addLocalVariable(new LocalVariableSymbol(param.modifiers,
                                                     param.type,
                                                     param.name,
-                                                    symbolTable.getNumLocalVariables()));
+                                                    symbolTable.getNumLocalVariables(),
+                                                    new CodeZoneClass(t,file)));
     }
   }
   code = Block()
@@ -4913,9 +4954,14 @@ QuadrigaFunction QuadrigaEraseEntity():
     localBlock.setEndCode(code);
     code = localBlock.transformToBlockCode();
     localBlock = prevBlock;
+    
+    QuadrigaFunction fun = new QuadrigaFunction(parameters, code, symbolTable.getMaxLocalVariables(), symbolTable.getLocalVariables(), code);
+    
     symbolTable.deleteContext();
+    symbolTable.closeLocalVariables();
 
-    return new QuadrigaFunction(parameters, code, symbolTable.getMaxLocalVariables(), code);
+    return fun;
+    
   }
 }
 
@@ -4924,8 +4970,8 @@ EventAndFun QuadrigaEventFunction():
   List<ParameterClass > parameters;
   List<Token> name;
   
+  symbolTable.resetLocalVariables();
   symbolTable.newContext();
-  symbolTable.resetMaxLocalVariables();
 
   BlockCode.TmpBlockCode prevBlock = localBlock;
   
@@ -4943,7 +4989,8 @@ EventAndFun QuadrigaEventFunction():
       symbolTable.addLocalVariable(new LocalVariableSymbol(param.modifiers,
                                                     param.type,
                                                     param.name,
-                                                    symbolTable.getNumLocalVariables()));
+                                                    symbolTable.getNumLocalVariables(),
+                                                    new CodeZoneClass(t,file)));
     }
   }
   code = Block()
@@ -4953,12 +5000,14 @@ EventAndFun QuadrigaEventFunction():
     localBlock.setEndCode(code);
     code = localBlock.transformToBlockCode();
     localBlock = prevBlock;
-    symbolTable.deleteContext();
-
+    
     EventAndFun eaf = new EventAndFun();
 
-    eaf.fun = new QuadrigaFunction(parameters, code, symbolTable.getMaxLocalVariables(), code);
+    eaf.fun = new QuadrigaFunction(parameters, code, symbolTable.getMaxLocalVariables(), symbolTable.getLocalVariables(), code);
 
+    
+    symbolTable.deleteContext();
+    symbolTable.closeLocalVariables();
     
     String res = "";
     for(int i = 0; i < name.size(); i++) {

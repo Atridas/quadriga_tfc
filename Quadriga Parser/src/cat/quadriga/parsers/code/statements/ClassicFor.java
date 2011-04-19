@@ -97,7 +97,8 @@ public class ClassicFor extends StatementNodeClass implements BucleInterface {
             localVariableSymbol.modifiers, 
             type, 
             localVariableSymbol.name,
-            symbolTable.getNumLocalVariables()
+            symbolTable.getNumLocalVariables(),
+            this
             );
         newVars.add(lvs);
         symbolTable.addLocalVariable(lvs);

@@ -3,6 +3,7 @@ package cat.quadriga.parsers.code.expressions.dataaccess;
 import java.lang.reflect.Array;
 
 import cat.quadriga.parsers.Token;
+import cat.quadriga.parsers.code.BreakOrContinueException;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
@@ -147,57 +148,63 @@ public final class ArrayOrComponentAccess extends ExpressionNodeClass implements
   
   @Override
   public ComputedValue compute(RuntimeEnvironment runtime) {
-    CodeZoneClass cz = CodeZoneClass.runtime;
-    if(array.getType() instanceof ArrayType) {
-      Object arrayObj = array.compute(runtime).getAsObject();
-      int index       = access.compute(runtime).getAsInt();
-      
-      BaseType type = ((ArrayType)array.getType()).base;
-      
-      if(type instanceof PrimitiveTypeRef) {
-        switch(((PrimitiveTypeRef)type).type) {
-        case BOOLEAN:
-          return new LiteralData.BooleanLiteral  ( Array.getBoolean(arrayObj, index), cz);
-        case BYTE:
-          return new LiteralData.IntegerLiteral  ( Array.getByte(arrayObj, index), cz);
-        case CHAR:
-          return new LiteralData.CharacterLiteral( Array.getChar(arrayObj, index), cz);
-        case DOUBLE:
-          return new LiteralData.DoubleLiteral   ( Array.getDouble(arrayObj, index), cz);
-        case FLOAT:
-          return new LiteralData.FloatLiteral    ( Array.getFloat(arrayObj, index), cz);
-        case INT:
-          return new LiteralData.IntegerLiteral  ( Array.getInt(arrayObj, index), cz);
-        case LONG:
-          return new LiteralData.LongLiteral     ( Array.getLong(arrayObj, index), cz);
-        case SHORT:
-          return new LiteralData.IntegerLiteral  ( Array.getShort(arrayObj, index), cz);
-        default :
-          throw new IllegalStateException();
+    try {
+      CodeZoneClass cz = CodeZoneClass.runtime;
+      if(array.getType() instanceof ArrayType) {
+        Object arrayObj = array.compute(runtime).getAsObject();
+        int index       = access.compute(runtime).getAsInt();
+        
+        BaseType type = ((ArrayType)array.getType()).base;
+        
+        if(type instanceof PrimitiveTypeRef) {
+          switch(((PrimitiveTypeRef)type).type) {
+          case BOOLEAN:
+            return new LiteralData.BooleanLiteral  ( Array.getBoolean(arrayObj, index), cz);
+          case BYTE:
+            return new LiteralData.IntegerLiteral  ( Array.getByte(arrayObj, index), cz);
+          case CHAR:
+            return new LiteralData.CharacterLiteral( Array.getChar(arrayObj, index), cz);
+          case DOUBLE:
+            return new LiteralData.DoubleLiteral   ( Array.getDouble(arrayObj, index), cz);
+          case FLOAT:
+            return new LiteralData.FloatLiteral    ( Array.getFloat(arrayObj, index), cz);
+          case INT:
+            return new LiteralData.IntegerLiteral  ( Array.getInt(arrayObj, index), cz);
+          case LONG:
+            return new LiteralData.LongLiteral     ( Array.getLong(arrayObj, index), cz);
+          case SHORT:
+            return new LiteralData.IntegerLiteral  ( Array.getShort(arrayObj, index), cz);
+          default :
+            throw new IllegalStateException();
+          }
+        } else {
+          Object obj = Array.get(arrayObj, index);
+          if(obj instanceof ComputedValue) return (ComputedValue) obj;
+          return new JavaReference(obj);
         }
-      } else {
-        Object obj = Array.get(arrayObj, index);
-        if(obj instanceof ComputedValue) return (ComputedValue) obj;
-        return new JavaReference(obj);
+        
       }
-      
-    }
-    if(array.getType() instanceof QuadrigaEntity) {
-      ComputedValue cv = array.compute(runtime);
-      Entity entity = (Entity) cv;
-      
-      if(access.getType() == ClassOrInterfaceTypeRef.getFromClass(String.class)) {
-        return runtime.entitySystem.findEntity(
-                          access.compute(runtime).getStringValue(), 
-                          entity);
-      } else {
-        if(access instanceof TypeDataAccess) {
-          TypeDataAccess tda = (TypeDataAccess) access;
-          
-          
-          return entity.getComponent((QuadrigaComponent)tda.type);
+      if(array.getType() instanceof QuadrigaEntity) {
+        ComputedValue cv = array.compute(runtime);
+        Entity entity = (Entity) cv;
+        
+        if(access.getType() == ClassOrInterfaceTypeRef.getFromClass(String.class)) {
+          return runtime.entitySystem.findEntity(
+                            access.compute(runtime).getStringValue(), 
+                            entity);
+        } else {
+          if(access instanceof TypeDataAccess) {
+            TypeDataAccess tda = (TypeDataAccess) access;
+            
+            
+            return entity.getComponent((QuadrigaComponent)tda.type);
+          }
         }
       }
+    } catch (Exception e) {
+      throw new RuntimeException("Error in " 
+          + beginLine + ":" + beginColumn + " "
+          + endLine + ":" + endColumn + " " + file, e);
     }
     throw new IllegalStateException();
   }

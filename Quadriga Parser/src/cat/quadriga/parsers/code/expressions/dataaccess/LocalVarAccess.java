@@ -18,6 +18,7 @@ public final class LocalVarAccess extends DirectDataAccess {
 
   public LocalVarAccess(LocalVariableSymbol variable, CodeZone cz) {
     super(cz);
+    variable.updateCodeZone(cz);
     var = variable;
   }
 

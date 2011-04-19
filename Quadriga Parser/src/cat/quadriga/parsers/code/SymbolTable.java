@@ -1,5 +1,7 @@
 package cat.quadriga.parsers.code;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -28,9 +30,11 @@ public class SymbolTable implements TreeRepresentable {
   public final Set<QuadrigaComponent> accesses = new HashSet<QuadrigaComponent>();
   public final Set<QuadrigaComponent> writes = new HashSet<QuadrigaComponent>();
 
-  private int numLocalVariables = 0;
-  private int maxLocalVariables = 0;
+  private final Stack<Integer> numLocalVariables = new Stack<Integer>();
+  private final Stack<Integer> maxLocalVariables = new Stack<Integer>();
   private final Stack<Integer> stackNumLocalVars = new Stack<Integer>();
+  
+  private final List<LocalVariableSymbol> localVariables = new ArrayList<LocalVariableSymbol>();
   
   public BucleOrSwitchInterface closestBucleOrSwitch = null;
   {
@@ -42,12 +46,23 @@ public class SymbolTable implements TreeRepresentable {
     addPackage("java.lang");
   }
   
-  public void resetMaxLocalVariables() {
-    maxLocalVariables = 0;
+  public void resetLocalVariables() {
+    maxLocalVariables.push(0);
+    numLocalVariables.push(0);
+    localVariables.clear();
+  }
+  
+  public void closeLocalVariables() {
+    maxLocalVariables.pop();
+    numLocalVariables.pop();
   }
   
   public int getMaxLocalVariables() {
-    return maxLocalVariables;
+    return maxLocalVariables.peek();
+  }
+  
+  public List<LocalVariableSymbol> getLocalVariables() {
+    return Collections.unmodifiableList(new ArrayList<LocalVariableSymbol>( localVariables));
   }
   
   public void newContext() {
@@ -58,7 +73,7 @@ public class SymbolTable implements TreeRepresentable {
   public void deleteContext() {
     mapStack.pop();
     int i = stackNumLocalVars.pop();
-    numLocalVariables -= i;
+    numLocalVariables.push(numLocalVariables.pop() - i);
   }
   
   public BaseSymbol findSymbol(List<Token> name) {
@@ -156,19 +171,24 @@ public class SymbolTable implements TreeRepresentable {
          || ((PrimitiveTypeRef)lvs.type).type == PrimitiveTypeRef.Type.LONG))
     {
       stackNumLocalVars.push(i + 2);
-      numLocalVariables += 2;
+      numLocalVariables.push(numLocalVariables.pop() + 2);
     } else {
       stackNumLocalVars.push(i + 1);
-      ++numLocalVariables;
+      numLocalVariables.push(numLocalVariables.pop() + 1);
     }
-    if(numLocalVariables > maxLocalVariables) {
-      maxLocalVariables = numLocalVariables;
+    if(numLocalVariables.peek() > maxLocalVariables.peek()) {
+      maxLocalVariables.pop();
+      maxLocalVariables.push( numLocalVariables.peek() );
     }
+    
+    localVariables.add(lvs);
+    
+    
     addSymbol(lvs);
   }
   
   public int getNumLocalVariables() {
-    return numLocalVariables;
+    return numLocalVariables.peek();
   }
   
   public void addGlobalSymbol(BaseSymbol symbol) {

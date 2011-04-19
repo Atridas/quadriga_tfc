@@ -14,12 +14,14 @@ public class QuadrigaFunction extends CodeZoneClass implements TreeRepresentable
   public final List<ParameterClass> parameters;
   public final BlockCode code;
   public final int numLocalVariables;
+  public final List<LocalVariableSymbol> localVariables;
   
-  public QuadrigaFunction(List<ParameterClass> parameters, BlockCode code, int numLocalVariables, CodeZone cd) {
+  public QuadrigaFunction(List<ParameterClass> parameters, BlockCode code, int numLocalVariables, List<LocalVariableSymbol> localVariables, CodeZone cd) {
     super(cd);
     this.parameters = Collections.unmodifiableList(new ArrayList<ParameterClass>(parameters));
     this.code = code;
     this.numLocalVariables = numLocalVariables;
+    this.localVariables = Collections.unmodifiableList(new ArrayList<LocalVariableSymbol>(localVariables));
   }
 
   @Override
@@ -49,6 +51,7 @@ public class QuadrigaFunction extends CodeZoneClass implements TreeRepresentable
     linked = true;
     
     this.numLocalVariables = original.numLocalVariables;
+    this.localVariables = original.localVariables;
     symbolTable.newContext();
     
     List<ParameterClass> params = new ArrayList<ParameterClass>();
@@ -84,7 +87,7 @@ public class QuadrigaFunction extends CodeZoneClass implements TreeRepresentable
           parameter.semantic,
           symbolTable.getNumLocalVariables());
       params.add(param);
-      LocalVariableSymbol lvs = new LocalVariableSymbol(parameter.modifiers, nType, parameter.name, param.position);
+      LocalVariableSymbol lvs = new LocalVariableSymbol(parameter.modifiers, nType, parameter.name, param.position, original.code);
       symbolTable.addLocalVariable(lvs);
     }
     //TODO hi ha d'haver "this"?

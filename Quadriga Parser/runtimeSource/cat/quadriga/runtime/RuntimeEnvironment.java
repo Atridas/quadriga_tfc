@@ -21,47 +21,6 @@ public class RuntimeEnvironment {
   
   public Stack<ComputedValue> stack = new Stack<ComputedValue>();
   
-  private Stack<Map<LocalVariableSymbol, ComputedValue>> localVariables = new Stack<Map<LocalVariableSymbol, ComputedValue>>();
-  //private ArrayList<ComputedValue> localVariables = new ArrayList<ComputedValue>();
-  
-  public void newLocalContext() {
-    localVariables.push(new HashMap<LocalVariableSymbol, ComputedValue>());
-  }
-  
-  public void deleteLocalContext() {
-    localVariables.pop();
-  }
-  
-  public ComputedValue getLocalVariable(LocalVariableSymbol lvs) {
-    //return localVariables.get(lvs.position);
-    Stack<Map<LocalVariableSymbol, ComputedValue>> auxiliarStack = new Stack<Map<LocalVariableSymbol,ComputedValue>>();
-    
-    ComputedValue cv = null;
-    while(localVariables.size() > 0) {
-      Map<LocalVariableSymbol, ComputedValue> map = localVariables.pop();
-      auxiliarStack.push(map);
-      cv = map.get(lvs);
-      if(cv != null) {
-        break;
-      }
-    }
-    
-    while(auxiliarStack.size() > 0) {
-      Map<LocalVariableSymbol, ComputedValue> map = auxiliarStack.pop();
-      localVariables.push(map);
-    }
-    
-    return cv;
-  }
-  
-  public void putLocalVariable(LocalVariableSymbol lvs, ComputedValue cv) {
-    //localVariables.ensureCapacity(lvs.position);
-    
-    //localVariables.add(lvs.position, cv);
-    
-    localVariables.peek().put(lvs, cv);
-  }
-  
   public void executeEvent(EventInstance event, Entity entity) {
     
     String eventName = event.getEvent().getBinaryName();
@@ -91,4 +50,115 @@ public class RuntimeEnvironment {
   public void enqueueEvent(EventInstance event, Entity entity, float time) {
     throw new IllegalStateException("Not yet implemented");
   }
+  
+  
+
+  ///////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////
+  
+  private Stack<ArrayList<ComputedValue>> localVariables = new Stack<ArrayList<ComputedValue>>();
+  
+  //private int dent = -1;
+  
+  public void enterFunction(int numLocalVariables) {
+    /*dent++;
+    for(int i=0;i<dent;i++)System.out.print(' ');
+    System.out.println("+ " + numLocalVariables);*/
+    
+    
+    ArrayList<ComputedValue> aux = new ArrayList<ComputedValue>(numLocalVariables);
+    for(int i = 0; i < numLocalVariables; ++i) aux.add(null);
+    localVariables.push(aux);
+  }
+  
+  public void exitFunction() {
+    localVariables.pop();
+    /*for(int i=0;i<dent;i++)System.out.print(' ');
+    System.out.println("-");
+    dent--;*/
+  }
+  
+  public void newLocalContext() {
+  }
+  
+  public void deleteLocalContext() {
+  }
+  
+  public ComputedValue getLocalVariable(LocalVariableSymbol lvs) {
+    ArrayList<ComputedValue> aux = localVariables.peek(); 
+    
+    try{
+      //for(int i=0;i<dent;i++)System.out.print(' ');
+      //System.out.println("< " + lvs.position);
+      return aux.get(lvs.position);
+    } catch(RuntimeException e) {
+      throw e;
+    }
+  }
+  
+  public void putLocalVariable(LocalVariableSymbol lvs, ComputedValue cv) {
+    ArrayList<ComputedValue> al = localVariables.peek();
+    
+    //for(int i=0;i<dent;i++)System.out.print(' ');
+    //System.out.println("> " + lvs.position);
+    al.set(lvs.position, cv);
+  }
+  
+
+  ///////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////
+  /*
+  private Stack<Map<LocalVariableSymbol, ComputedValue>> localVariables = new Stack<Map<LocalVariableSymbol, ComputedValue>>();
+  
+  
+  public void enterFunction(int numLocalVariables) {
+  }
+  
+  public void exitFunction() {
+  }
+  
+  public void newLocalContext() {
+    localVariables.push(new HashMap<LocalVariableSymbol, ComputedValue>());
+  }
+  
+  public void deleteLocalContext() {
+    localVariables.pop();
+  }
+  
+  public ComputedValue getLocalVariable(LocalVariableSymbol lvs) {
+    Stack<Map<LocalVariableSymbol, ComputedValue>> auxiliarStack = new Stack<Map<LocalVariableSymbol,ComputedValue>>();
+    
+    ComputedValue cv = null;
+    while(localVariables.size() > 0) {
+      Map<LocalVariableSymbol, ComputedValue> map = localVariables.pop();
+      auxiliarStack.push(map);
+      if(map.containsKey(lvs)) {
+        cv = map.get(lvs);
+        break;
+      }
+    }
+    
+    while(auxiliarStack.size() > 0) {
+      Map<LocalVariableSymbol, ComputedValue> map = auxiliarStack.pop();
+      localVariables.push(map);
+    }
+    
+    return cv;
+  }
+  
+  public void putLocalVariable(LocalVariableSymbol lvs, ComputedValue cv) {
+    localVariables.peek().put(lvs, cv);
+  }
+  
+  */
+
+  ///////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////
+  
 }

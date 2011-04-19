@@ -13,6 +13,7 @@ import cat.quadriga.parsers.code.QuadrigaFunction;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.statements.BlockCode;
+import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.parsers.code.types.UnknownType;
@@ -36,6 +37,7 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
           new LinkedList<ParameterClass>(),
           new BlockCode.TmpBlockCode(file).transformToBlockCode(),
           0,
+          Collections.<LocalVariableSymbol>emptyList(),
           new CodeZoneClass(0,0,0,0,file));
     } else {
       this.init = init;
@@ -45,6 +47,7 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
           new LinkedList<ParameterClass>(),
           new BlockCode.TmpBlockCode(file).transformToBlockCode(),
           0,
+          Collections.<LocalVariableSymbol>emptyList(),
           new CodeZoneClass(0,0,0,0,file));
     } else {
       this.cleanUp = cleanUp;
@@ -107,7 +110,9 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
       if(init.isCorrectlyLinked()) {
         bc = init;
       } else {
+        symbolTable.resetLocalVariables();
         bc = init.getLinkedVersion(symbolTable, errorLog);
+        symbolTable.closeLocalVariables();
         if(bc == null) {
           return null;
         }
@@ -115,7 +120,9 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
       if(cleanUp.isCorrectlyLinked()) {
         bc2 = cleanUp;
       } else {
+        symbolTable.resetLocalVariables();
         bc2 = cleanUp.getLinkedVersion(symbolTable, errorLog);
+        symbolTable.closeLocalVariables();
         if(bc2 == null) {
           return null;
         }
@@ -155,8 +162,9 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
     }
     
     try {
-      //TODO
+      runtime.enterFunction(init.numLocalVariables);
       init.code.execute(runtime);
+      runtime.exitFunction();
     } catch (BreakOrContinueException e) {
       throw new IllegalStateException(e);
     }
@@ -176,8 +184,9 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
       ((RuntimeSystem)qs).executeCleanUp(runtime);
     }
     try {
-      //TODO
+      runtime.enterFunction(cleanUp.numLocalVariables);
       cleanUp.code.execute(runtime);
+      runtime.exitFunction();
     } catch (BreakOrContinueException e) {
       throw new IllegalStateException(e);
     }

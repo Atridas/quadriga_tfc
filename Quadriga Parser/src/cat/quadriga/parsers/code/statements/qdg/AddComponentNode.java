@@ -1,5 +1,6 @@
 package cat.quadriga.parsers.code.statements.qdg;
 
+import cat.quadriga.parsers.code.BreakOrContinueException;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
@@ -91,7 +92,9 @@ public class AddComponentNode extends StatementNodeClass {
       
       runtime.entitySystem.addComponent(entity, component, runtime);
     } catch (Exception e) {
-      throw new RuntimeException("Error in line " + beginLine + " column " + beginColumn + " file " + file, e);
+      throw new RuntimeException("Error in " 
+          + beginLine + ":" + beginColumn + " "
+          + endLine + ":" + endColumn + " " + file, e);
     }
   }
 }

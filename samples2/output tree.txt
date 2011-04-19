@@ -15,300 +15,15 @@
    |           +- Ljava/lang/String;
    |           +- "texture"
    |           +- Op: Literal: "" {Ljava/lang/String;} <+>
-   +- "riskppt3d.planeta.PlanetInfoQuad" : Symbol Type
-   |  +- Prototype <+>
-   |     +- parameters
-   |     |  +- parameter
-   |     |     +- Lcat/quadriga/runtime/Entity;
-   |     |     +- entity
-   |     |     +- Semantic: ENTITY
-   |     +- St: Block <+>
-   |        +- Local Variables:
-   |        |  +- Symbol Var [ entity ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        +- Code:
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "position"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- F
-   |           |  |  |     |  +- "scale"
-   |           |  |  |     |  +- Op: Literal: 1.0 {F} <+>
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- Ljavax/vecmath/Quat4f;
-   |           |  |  |        +- "rotation"
-   |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
-   |           |  |  |           +- Ljavax/vecmath/Quat4f;
-   |           |  |  |           +- St: Arguments <+>
-   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
-   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
-   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
-   |           |  |  |              +- Op: Literal: 1.0 {F} <+>
-   |           |  |  +- St: Named Arguments <+>
-   |           |  |     +- quadriga argument
-   |           |  |        +- position
-   |           |  |        +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |           +- Ljavax/vecmath/Vector3f;
-   |           |  |           +- St: Arguments <+>
-   |           |  |              +- Op: Literal: 0.0 {F} <+>
-   |           |  |              +- Op: Literal: 0.0 {F} <+>
-   |           |  |              +- Op: * {F} <+>
-   |           |  |                 +- Op: Component Field: {F} <+>
-   |           |  |                 |  +- riskppt3d.planeta.DadesComponent -> radi
-   |           |  |                 |  +- Op: Component Access {riskppt3d.planeta.DadesComponent} <+>
-   |           |  |                 |     +- Op: Call {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |                 |     |  +- Op: Method: <+>
-   |           |  |                 |     |  |  +- cat.quadriga.runtime.Entity -> getParent
-   |           |  |                 |     |  |  +- Op: Call {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |                 |     |  |     +- Op: Method: <+>
-   |           |  |                 |     |  |     |  +- cat.quadriga.runtime.Entity -> getParent
-   |           |  |                 |     |  |     |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |                 |     |  |     +- St: Zero Arguments <+>
-   |           |  |                 |     |  +- St: Zero Arguments <+>
-   |           |  |                 |     +- Op: Type Access: riskppt3d.planeta.DadesComponent <+>
-   |           |  |                 +- Op: Literal: 2.0 {F} <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.BoxRenderer} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  +- St: Zero Arguments <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Base" {Ljava/lang/String;} <+>
-   |           |  +- cat.quadriga.base.TexturedQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.TexturedQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- texture
-   |           |           +- Op: Literal: "riskppt3d/assets/planetinfo.png" {Ljava/lang/String;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Edifici1" {Ljava/lang/String;} <+>
-   |           |  +- cat.quadriga.base.TexturedQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.TexturedQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal: 2.0 {F} <+>
-   |           |        |        +- Op: Literal: 2.0 {F} <+>
-   |           |        |        +- Op: Literal: 0.0 {F} <+>
-   |           |        +- quadriga argument
-   |           |           +- texture
-   |           |           +- Op: Literal: "riskppt3d/assets/gris.png" {Ljava/lang/String;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Edifici2" {Ljava/lang/String;} <+>
-   |           |  +- cat.quadriga.base.TexturedQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.TexturedQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal: 2.0 {F} <+>
-   |           |        |        +- Op: Literal: 25.0 {F} <+>
-   |           |        |        +- Op: Literal: 0.0 {F} <+>
-   |           |        +- quadriga argument
-   |           |           +- texture
-   |           |           +- Op: Literal: "riskppt3d/assets/gris.png" {Ljava/lang/String;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Edifici3" {Ljava/lang/String;} <+>
-   |           |  +- cat.quadriga.base.TexturedQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.TexturedQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal: 2.0 {F} <+>
-   |           |        |        +- Op: Literal: 48.0 {F} <+>
-   |           |        |        +- Op: Literal: 0.0 {F} <+>
-   |           |        +- quadriga argument
-   |           |           +- texture
-   |           |           +- Op: Literal: "riskppt3d/assets/gris.png" {Ljava/lang/String;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "NumPedra" {Ljava/lang/String;} <+>
-   |           |  +- cat.quadriga.base.FontQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.FontQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal: 61.0 {F} <+>
-   |           |        |        +- Op: Literal: 2.0 {F} <+>
-   |           |        |        +- Op: Literal: 0.0 {F} <+>
-   |           |        +- quadriga argument
-   |           |        |  +- text
-   |           |        |  +- Op: Literal: "" {Ljava/lang/String;} <+>
-   |           |        +- quadriga argument
-   |           |           +- color
-   |           |           +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |           |              +- cat.quadriga.java.base.ColorUtils -> GREEN
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "NumPaper" {Ljava/lang/String;} <+>
-   |           |  +- cat.quadriga.base.FontQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.FontQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal: 61.0 {F} <+>
-   |           |        |        +- Op: Literal: 25.0 {F} <+>
-   |           |        |        +- Op: Literal: 0.0 {F} <+>
-   |           |        +- quadriga argument
-   |           |        |  +- text
-   |           |        |  +- Op: Literal: "" {Ljava/lang/String;} <+>
-   |           |        +- quadriga argument
-   |           |           +- color
-   |           |           +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |           |              +- cat.quadriga.java.base.ColorUtils -> GREEN
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "NumTisores" {Ljava/lang/String;} <+>
-   |           |  +- cat.quadriga.base.FontQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.FontQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal: 61.0 {F} <+>
-   |           |        |        +- Op: Literal: 48.0 {F} <+>
-   |           |        |        +- Op: Literal: 0.0 {F} <+>
-   |           |        +- quadriga argument
-   |           |        |  +- text
-   |           |        |  +- Op: Literal: "" {Ljava/lang/String;} <+>
-   |           |        +- quadriga argument
-   |           |           +- color
-   |           |           +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |           |              +- cat.quadriga.java.base.ColorUtils -> GREEN
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "NumPedraEnemics" {Ljava/lang/String;} <+>
-   |           |  +- cat.quadriga.base.FontQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.FontQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal: 111.0 {F} <+>
-   |           |        |        +- Op: Literal: 2.0 {F} <+>
-   |           |        |        +- Op: Literal: 0.0 {F} <+>
-   |           |        +- quadriga argument
-   |           |        |  +- text
-   |           |        |  +- Op: Literal: "" {Ljava/lang/String;} <+>
-   |           |        +- quadriga argument
-   |           |           +- color
-   |           |           +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |           |              +- cat.quadriga.java.base.ColorUtils -> RED
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "NumPaperEnemics" {Ljava/lang/String;} <+>
-   |           |  +- cat.quadriga.base.FontQuadPrototype
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.FontQuad
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal: 111.0 {F} <+>
-   |           |        |        +- Op: Literal: 25.0 {F} <+>
-   |           |        |        +- Op: Literal: 0.0 {F} <+>
-   |           |        +- quadriga argument
-   |           |        |  +- text
-   |           |        |  +- Op: Literal: "" {Ljava/lang/String;} <+>
-   |           |        +- quadriga argument
-   |           |           +- color
-   |           |           +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |           |              +- cat.quadriga.java.base.ColorUtils -> RED
-   |           +- St: Apply Prototype to Entity <+>
-   |              +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Literal: "NumTisoresEnemics" {Ljava/lang/String;} <+>
-   |              +- cat.quadriga.base.FontQuadPrototype
-   |              +- St: Zero Arguments <+>
-   |              +- Component redefinition
-   |                 +- cat.quadriga.base.FontQuad
-   |                 +- St: Named Arguments <+>
-   |                    +- quadriga argument
-   |                    |  +- position
-   |                    |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |                    |     +- Ljavax/vecmath/Vector3f;
-   |                    |     +- St: Arguments <+>
-   |                    |        +- Op: Literal: 111.0 {F} <+>
-   |                    |        +- Op: Literal: 48.0 {F} <+>
-   |                    |        +- Op: Literal: 0.0 {F} <+>
-   |                    +- quadriga argument
-   |                    |  +- text
-   |                    |  +- Op: Literal: "" {Ljava/lang/String;} <+>
-   |                    +- quadriga argument
-   |                       +- color
-   |                       +- Op: Static Field: {Ljavax/vecmath/Color3f;} <+>
-   |                          +- cat.quadriga.java.base.ColorUtils -> RED
    +- "Exit" : Symbol Type
    |  +- Event <+>
    |     +- fields
    +- "RendererComponent" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   +- "cat.quadriga.java.base.ColorUtils" : Symbol Type
-   |  +- Lcat/quadriga/java/base/ColorUtils;
    +- "cat.quadriga.base.RendererComponent" : Symbol Type
    |  +- Component <+>
    |     +- fields
-   +- "cat.quadriga.java.base.MaterialUnshadedColor" : Symbol Type
-   |  +- Lcat/quadriga/java/base/MaterialUnshadedColor;
    +- "SimpleNodeSystem" : Symbol Type
    |  +- System <+>
    |     +- needed components
@@ -469,28 +184,19 @@
    |                                +- Op: Component Access {cat.quadriga.base.Transform} <+>
    |                                   +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
    |                                   +- Op: Type Access: cat.quadriga.base.Transform <+>
-   +- "cat.quadriga.base.BoxRenderer" : Symbol Type
-   |  +- Component <+>
-   |     +- fields
-   +- "javax.vecmath.Matrix4f" : Symbol Type
-   |  +- Ljavax/vecmath/Matrix4f;
-   +- "riskppt3d.planeta.Planeta" : Symbol Type
+   +- "tetris.base.CubDeTaulell" : Symbol Type
    |  +- Prototype <+>
    |     +- parameters
    |     |  +- parameter
-   |     |  |  +- F
-   |     |  |  +- hue
-   |     |  |  +- init
-   |     |  |     +- Op: Literal: 0.0 {F} <+>
+   |     |  |  +- I
+   |     |  |  +- posX
    |     |  +- parameter
-   |     |     +- F
-   |     |     +- radi
-   |     |     +- init
-   |     |        +- Op: Literal: 1.0 {F} <+>
+   |     |     +- I
+   |     |     +- posY
    |     +- St: Block <+>
    |        +- Local Variables:
-   |        |  +- Symbol Var [ hue ] Type [ F ]
-   |        |  +- Symbol Var [ radi ] Type [ F ]
+   |        |  +- Symbol Var [ posX ] Type [ I ]
+   |        |  +- Symbol Var [ posY ] Type [ I ]
    |        +- Code:
    |           +- St: Add Component <+>
    |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
@@ -516,76 +222,33 @@
    |           |  |  |              +- Op: Literal: 0.0 {F} <+>
    |           |  |  |              +- Op: Literal: 0.0 {F} <+>
    |           |  |  |              +- Op: Literal: 1.0 {F} <+>
-   |           |  |  +- St: Zero Arguments <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {riskppt3d.planeta.DadesComponent} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- F
-   |           |  |  |        +- "radi"
-   |           |  |  |        +- Op: Literal: 1.0 {F} <+>
    |           |  |  +- St: Named Arguments <+>
    |           |  |     +- quadriga argument
-   |           |  |        +- radi
-   |           |  |        +- Op: Local variable access: radi {F} <+>
+   |           |  |        +- position
+   |           |  |        +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |           |  |           +- Ljavax/vecmath/Vector3f;
+   |           |  |           +- St: Arguments <+>
+   |           |  |              +- Op: Local variable access: posX {I} <+>
+   |           |  |              +- Op: Local variable access: posY {I} <+>
+   |           |  |              +- Op: Literal: 0 {I} <+>
    |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
    |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.SphereRenderer} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- F
-   |           |  |  |        +- "radi"
-   |           |  |  |        +- Op: Literal: 1.0 {F} <+>
-   |           |  |  +- St: Named Arguments <+>
-   |           |  |     +- quadriga argument
-   |           |  |        +- radi
-   |           |  |        +- Op: Component Field: {F} <+>
-   |           |  |           +- riskppt3d.planeta.DadesComponent -> radi
-   |           |  |           +- Op: Component Access {riskppt3d.planeta.DadesComponent} <+>
-   |           |  |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |              +- Op: Type Access: riskppt3d.planeta.DadesComponent <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.Materials} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- [Lcat/quadriga/java/base/BaseMaterial;
-   |           |  |  |        +- "materials"
-   |           |  |  |        +- Op: Array initialization {[Lcat/quadriga/java/base/BaseMaterial;} <+>
-   |           |  |  |           +- Op: new array {[Lcat/quadriga/java/base/BaseMaterial;} <+>
-   |           |  |  |              +- Lcat/quadriga/java/base/BaseMaterial;
-   |           |  |  |              +- Op: Literal: 0 {I} <+>
-   |           |  |  +- St: Named Arguments <+>
-   |           |  |     +- quadriga argument
-   |           |  |        +- materials
-   |           |  |        +- Op: Array initialization {[Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |           |  |           +- Op: new array {[Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |           |  |           |  +- Lcat/quadriga/java/base/MaterialUnshadedColor;
-   |           |  |           |  +- Op: Literal: 1 {I} <+>
-   |           |  |           +- Op: Constructor {Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |           |  |              +- Lcat/quadriga/java/base/MaterialUnshadedColor;
-   |           |  |              +- St: Arguments <+>
-   |           |  |                 +- Op: Call {Ljavax/vecmath/Color3f;} <+>
-   |           |  |                    +- Op: Static Method: <+>
-   |           |  |                    |  +- cat.quadriga.java.base.ColorUtils -> getHSV
-   |           |  |                    +- St: Arguments <+>
-   |           |  |                       +- Op: Local variable access: hue {F} <+>
-   |           |  |                       +- Op: Literal: 0.8 {F} <+>
-   |           |  |                       +- Op: Literal: 0.9 {F} <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |              +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Literal: "Info" {Ljava/lang/String;} <+>
-   |              +- riskppt3d.planeta.PlanetaInfo
-   |              +- St: Zero Arguments <+>
-   +- "Test" : Symbol Type
+   |              +- Op: Component Allocation {cat.quadriga.base.BoxRenderer} <+>
+   |              |  +- Component <+>
+   |              |  |  +- fields
+   |              |  +- St: Zero Arguments <+>
+   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   +- "cat.quadriga.base.BoxRenderer" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   +- "LlogicaTetris" : Symbol Type
    |  +- thread <+>
-   |     +- riskppt3d.demo.IncrementadorPlanetes
+   |     +- tetris.base.ControladorDelJoc
+   |     +- tetris.base.LlògicaTaulell
+   +- "tetris.base.LlogicaTetris" : Symbol Type
+   |  +- thread <+>
+   |     +- tetris.base.ControladorDelJoc
+   |     +- tetris.base.LlògicaTaulell
    +- "cat.quadriga.base.RendererPrototype" : Symbol Type
    |  +- Prototype <+>
    |     +- St: Block <+>
@@ -604,31 +267,6 @@
    |           +- "camera"
    +- "javax.vecmath.Quat4f" : Symbol Type
    |  +- Ljavax/vecmath/Quat4f;
-   +- "DemoMain" : Symbol Type
-   |  +- main
-   |     +- thread: cat.quadriga.base.SimpleRenderThread
-   |     +- thread: riskppt3d.demo.Test
-   |     +- Quadriga function
-   |        +- St: Block <+>
-   |           +- Local Variables:
-   |           |  +- Symbol Var [ demo ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |           +- Code:
-   |              +- St: Statements: <+>
-   |              |  +- St: = <+>
-   |              |     +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
-   |              |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |              |        +- Op: Literal: Null {Null type} <+>
-   |              |        +- Op: Literal: "BaseScene" {Ljava/lang/String;} <+>
-   |              +- St: Apply Prototype to Entity <+>
-   |              |  +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- riskppt3d.demo.SimpleDemo
-   |              |  +- St: Zero Arguments <+>
-   |              +- St: = <+>
-   |                 +- Op: Field: {Z} <+>
-   |                 |  +- cat.quadriga.render.simple.RenderManager -> renderFPS
-   |                 |  +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
-   |                 |     +- cat.quadriga.render.simple.RenderManager -> instance
-   |                 +- Op: Literal: true {Z} <+>
    +- "cat.quadriga.base.SimpleNodeSystem" : Symbol Type
    |  +- System <+>
    |     +- needed components
@@ -789,120 +427,470 @@
    |                                +- Op: Component Access {cat.quadriga.base.Transform} <+>
    |                                   +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
    |                                   +- Op: Type Access: cat.quadriga.base.Transform <+>
-   +- "riskppt3d.aresta.Aresta" : Symbol Type
-   |  +- Prototype <+>
-   |     +- parameters
-   |     |  +- parameter
-   |     |  |  +- Lcat/quadriga/runtime/Entity;
-   |     |  |  +- planeta1
-   |     |  +- parameter
-   |     |     +- Lcat/quadriga/runtime/Entity;
-   |     |     +- planeta2
-   |     +- St: Block <+>
-   |        +- Local Variables:
-   |        |  +- Symbol Var [ planeta1 ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        |  +- Symbol Var [ planeta2 ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        +- Code:
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "position"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- F
-   |           |  |  |     |  +- "scale"
-   |           |  |  |     |  +- Op: Literal: 1.0 {F} <+>
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- Ljavax/vecmath/Quat4f;
-   |           |  |  |        +- "rotation"
-   |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
-   |           |  |  |           +- Ljavax/vecmath/Quat4f;
-   |           |  |  |           +- St: Arguments <+>
-   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
-   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
-   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
-   |           |  |  |              +- Op: Literal: 1.0 {F} <+>
-   |           |  |  +- St: Zero Arguments <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.CilynderRenderer} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "pos1"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Arguments <+>
-   |           |  |  |     |        +- Op: Literal: 0.0 {F} <+>
-   |           |  |  |     |        +- Op: Literal: 0.0 {F} <+>
-   |           |  |  |     |        +- Op: Literal: 0.0 {F} <+>
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "pos2"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Arguments <+>
-   |           |  |  |     |        +- Op: Literal: 0.0 {F} <+>
-   |           |  |  |     |        +- Op: Literal: 0.0 {F} <+>
-   |           |  |  |     |        +- Op: Literal: 1.0 {F} <+>
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- F
-   |           |  |  |        +- "radi"
-   |           |  |  |        +- Op: Literal: 1.0 {F} <+>
-   |           |  |  +- St: Named Arguments <+>
-   |           |  |     +- quadriga argument
-   |           |  |     |  +- pos1
-   |           |  |     |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |     |     +- cat.quadriga.base.Transform -> position
-   |           |  |     |     +- Op: Component Access {cat.quadriga.base.Transform} <+>
-   |           |  |     |        +- Op: Local variable access: planeta1 {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |     |        +- Op: Type Access: cat.quadriga.base.Transform <+>
-   |           |  |     +- quadriga argument
-   |           |  |     |  +- pos2
-   |           |  |     |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |     |     +- cat.quadriga.base.Transform -> position
-   |           |  |     |     +- Op: Component Access {cat.quadriga.base.Transform} <+>
-   |           |  |     |        +- Op: Local variable access: planeta2 {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |     |        +- Op: Type Access: cat.quadriga.base.Transform <+>
-   |           |  |     +- quadriga argument
-   |           |  |        +- radi
-   |           |  |        +- Op: Literal: 0.5 {F} <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |              +- Op: Component Allocation {cat.quadriga.base.Materials} <+>
-   |              |  +- Component <+>
-   |              |  |  +- fields
-   |              |  |     +- Quadriga Field
-   |              |  |        +- [Lcat/quadriga/java/base/BaseMaterial;
-   |              |  |        +- "materials"
-   |              |  |        +- Op: Array initialization {[Lcat/quadriga/java/base/BaseMaterial;} <+>
-   |              |  |           +- Op: new array {[Lcat/quadriga/java/base/BaseMaterial;} <+>
-   |              |  |              +- Lcat/quadriga/java/base/BaseMaterial;
-   |              |  |              +- Op: Literal: 0 {I} <+>
-   |              |  +- St: Named Arguments <+>
-   |              |     +- quadriga argument
-   |              |        +- materials
-   |              |        +- Op: Array initialization {[Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |              |           +- Op: new array {[Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |              |           |  +- Lcat/quadriga/java/base/MaterialUnshadedColor;
-   |              |           |  +- Op: Literal: 1 {I} <+>
-   |              |           +- Op: Constructor {Lcat/quadriga/java/base/MaterialUnshadedColor;} <+>
-   |              |              +- Lcat/quadriga/java/base/MaterialUnshadedColor;
-   |              |              +- St: Arguments <+>
-   |              |                 +- Op: Call {Ljavax/vecmath/Color3f;} <+>
-   |              |                    +- Op: Static Method: <+>
-   |              |                    |  +- cat.quadriga.java.base.ColorUtils -> getHSV
-   |              |                    +- St: Arguments <+>
-   |              |                       +- Op: Literal: 0.0 {F} <+>
-   |              |                       +- Op: Literal: 0.0 {F} <+>
-   |              |                       +- Op: Literal: 1.0 {F} <+>
-   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   +- "tetris.base.LlògicaTaulell" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |     |  +- tetris.base.Puntuació
+   |     |  +- tetris.base.Taulell
+   |     +- EventHandlers
+   |        +- tetris.base.InsertarPeça
+   |           +- Quadriga function
+   |              +- parameters
+   |              |  +- parameter
+   |              |  |  +- tetris.base.InsertarPeça
+   |              |  |  +- event
+   |              |  |  +- Semantic: EVENT
+   |              |  +- parameter
+   |              |     +- Lcat/quadriga/runtime/Entity;
+   |              |     +- entitat
+   |              |     +- Semantic: ENTITY
+   |              +- St: Block <+>
+   |                 +- Code:
+   |                    +- St: Block <+>
+   |                       +- Local Variables:
+   |                       |  +- Symbol Var [ línies ] Type [ I ]
+   |                       |  +- Symbol Var [ taulell ] Type [ [[I ]
+   |                       |  +- Symbol Var [ cubs ] Type [ [[Lcat/quadriga/runtime/Entity; ]
+   |                       +- Code:
+   |                          +- St: Statements: <+>
+   |                          |  +- St: = <+>
+   |                          |     +- Op: Local variable access: línies {I} <+>
+   |                          |     +- Op: Literal: 0 {I} <+>
+   |                          +- St: Statements: <+>
+   |                          |  +- St: = <+>
+   |                          |     +- Op: Local variable access: taulell {[[I} <+>
+   |                          |     +- Op: Component Field: {[[I} <+>
+   |                          |        +- tetris.base.Taulell -> taulell
+   |                          |        +- Op: Component Access {tetris.base.Taulell} <+>
+   |                          |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |           +- Op: Type Access: tetris.base.Taulell <+>
+   |                          +- St: Statements: <+>
+   |                          |  +- St: = <+>
+   |                          |     +- Op: Local variable access: cubs {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |     +- Op: Component Field: {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        +- tetris.base.Taulell -> cubs
+   |                          |        +- Op: Component Access {tetris.base.Taulell} <+>
+   |                          |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |           +- Op: Type Access: tetris.base.Taulell <+>
+   |                          +- St: for <+>
+   |                          |  +- Local Variables:
+   |                          |  |  +- Symbol Var [ peça ] Type [ I ]
+   |                          |  +- St: Statements: <+>
+   |                          |  |  +- St: = <+>
+   |                          |  |     +- Op: Local variable access: peça {I} <+>
+   |                          |  |     +- Op: Literal: 0 {I} <+>
+   |                          |  +- Op: < {Z} <+>
+   |                          |  |  +- Op: Local variable access: peça {I} <+>
+   |                          |  |  +- Op: Literal: 4 {I} <+>
+   |                          |  +- St: Statements: <+>
+   |                          |  |  +- St: Statement From Expression : ++X <+>
+   |                          |  |     +- Op: Local variable access: peça {I} <+>
+   |                          |  +- St: Block <+>
+   |                          |     +- Local Variables:
+   |                          |     |  +- Symbol Var [ línea ] Type [ I ]
+   |                          |     |  +- Symbol Var [ nouCub ] Type [ Lcat/quadriga/runtime/Entity; ]
+   |                          |     |  +- Symbol Var [ netejarLinea ] Type [ Z ]
+   |                          |     +- Code:
+   |                          |        +- St: Statements: <+>
+   |                          |        |  +- St: = <+>
+   |                          |        |     +- Op: Local variable access: línea {I} <+>
+   |                          |        |     +- Op: Array Access {I} <+>
+   |                          |        |        +- Op: Event Field: {[I} <+>
+   |                          |        |        |  +- tetris.base.InsertarPeça -> py
+   |                          |        |        |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        |        +- Op: Local variable access: peça {I} <+>
+   |                          |        +- St: = <+>
+   |                          |        |  +- Op: Array Access {I} <+>
+   |                          |        |  |  +- Op: Array Access {[I} <+>
+   |                          |        |  |  |  +- Op: Local variable access: taulell {[[I} <+>
+   |                          |        |  |  |  +- Op: Array Access {I} <+>
+   |                          |        |  |  |     +- Op: Event Field: {[I} <+>
+   |                          |        |  |  |     |  +- tetris.base.InsertarPeça -> px
+   |                          |        |  |  |     |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        |  |  |     +- Op: Local variable access: peça {I} <+>
+   |                          |        |  |  +- Op: Array Access {I} <+>
+   |                          |        |  |     +- Op: Event Field: {[I} <+>
+   |                          |        |  |     |  +- tetris.base.InsertarPeça -> py
+   |                          |        |  |     |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        |  |     +- Op: Local variable access: peça {I} <+>
+   |                          |        |  +- Op: Event Field: {I} <+>
+   |                          |        |     +- tetris.base.InsertarPeça -> color
+   |                          |        |     +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        +- St: Statements: <+>
+   |                          |        |  +- St: = <+>
+   |                          |        |     +- Op: Local variable access: nouCub {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        |        +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        |        +- Op: Literal: Null {Null type} <+>
+   |                          |        +- St: Apply Prototype to Entity <+>
+   |                          |        |  +- Op: Local variable access: nouCub {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        |  +- tetris.base.CubDeTaulell
+   |                          |        |  +- St: Named Arguments <+>
+   |                          |        |     +- quadriga argument
+   |                          |        |     |  +- posY
+   |                          |        |     |  +- Op: Array Access {I} <+>
+   |                          |        |     |     +- Op: Event Field: {[I} <+>
+   |                          |        |     |     |  +- tetris.base.InsertarPeça -> py
+   |                          |        |     |     |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        |     |     +- Op: Local variable access: peça {I} <+>
+   |                          |        |     +- quadriga argument
+   |                          |        |        +- posX
+   |                          |        |        +- Op: Array Access {I} <+>
+   |                          |        |           +- Op: Event Field: {[I} <+>
+   |                          |        |           |  +- tetris.base.InsertarPeça -> px
+   |                          |        |           |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        |           +- Op: Local variable access: peça {I} <+>
+   |                          |        +- St: = <+>
+   |                          |        |  +- Op: Array Access {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        |  |  +- Op: Array Access {[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        |  |  |  +- Op: Local variable access: cubs {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        |  |  |  +- Op: Array Access {I} <+>
+   |                          |        |  |  |     +- Op: Event Field: {[I} <+>
+   |                          |        |  |  |     |  +- tetris.base.InsertarPeça -> px
+   |                          |        |  |  |     |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        |  |  |     +- Op: Local variable access: peça {I} <+>
+   |                          |        |  |  +- Op: Array Access {I} <+>
+   |                          |        |  |     +- Op: Event Field: {[I} <+>
+   |                          |        |  |     |  +- tetris.base.InsertarPeça -> py
+   |                          |        |  |     |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        |  |     +- Op: Local variable access: peça {I} <+>
+   |                          |        |  +- Op: Local variable access: nouCub {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        +- St: Statements: <+>
+   |                          |        |  +- St: = <+>
+   |                          |        |     +- Op: Local variable access: netejarLinea {Z} <+>
+   |                          |        |     +- Op: Literal: true {Z} <+>
+   |                          |        +- St: for <+>
+   |                          |        |  +- Local Variables:
+   |                          |        |  |  +- Symbol Var [ i ] Type [ I ]
+   |                          |        |  +- St: Statements: <+>
+   |                          |        |  |  +- St: = <+>
+   |                          |        |  |     +- Op: Local variable access: i {I} <+>
+   |                          |        |  |     +- Op: Literal: 0 {I} <+>
+   |                          |        |  +- Op: < {Z} <+>
+   |                          |        |  |  +- Op: Local variable access: i {I} <+>
+   |                          |        |  |  +- Op: Literal: 10 {I} <+>
+   |                          |        |  +- St: Statements: <+>
+   |                          |        |  |  +- St: Statement From Expression : ++X <+>
+   |                          |        |  |     +- Op: Local variable access: i {I} <+>
+   |                          |        |  +- St: Block <+>
+   |                          |        |     +- Code:
+   |                          |        |        +- St: If Statement: <+>
+   |                          |        |           +- Condition:
+   |                          |        |           |  +- Op: == {Z} <+>
+   |                          |        |           |     +- Op: Array Access {I} <+>
+   |                          |        |           |     |  +- Op: Array Access {[I} <+>
+   |                          |        |           |     |  |  +- Op: Component Field: {[[I} <+>
+   |                          |        |           |     |  |  |  +- tetris.base.Taulell -> taulell
+   |                          |        |           |     |  |  |  +- Op: Component Access {tetris.base.Taulell} <+>
+   |                          |        |           |     |  |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        |           |     |  |  |     +- Op: Type Access: tetris.base.Taulell <+>
+   |                          |        |           |     |  |  +- Op: Local variable access: i {I} <+>
+   |                          |        |           |     |  +- Op: Array Access {I} <+>
+   |                          |        |           |     |     +- Op: Event Field: {[I} <+>
+   |                          |        |           |     |     |  +- tetris.base.InsertarPeça -> py
+   |                          |        |           |     |     |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        |           |     |     +- Op: Local variable access: peça {I} <+>
+   |                          |        |           |     +- Op: Literal: 0 {I} <+>
+   |                          |        |           +- If Code:
+   |                          |        |              +- St: Block <+>
+   |                          |        |                 +- Code:
+   |                          |        |                    +- St: = <+>
+   |                          |        |                    |  +- Op: Local variable access: netejarLinea {Z} <+>
+   |                          |        |                    |  +- Op: Literal: false {Z} <+>
+   |                          |        |                    +- St: break <+>
+   |                          |        +- St: If Statement: <+>
+   |                          |           +- Condition:
+   |                          |           |  +- Op: Local variable access: netejarLinea {Z} <+>
+   |                          |           +- If Code:
+   |                          |              +- St: Block <+>
+   |                          |                 +- Code:
+   |                          |                    +- St: for <+>
+   |                          |                    |  +- Local Variables:
+   |                          |                    |  |  +- Symbol Var [ i ] Type [ I ]
+   |                          |                    |  +- St: Statements: <+>
+   |                          |                    |  |  +- St: = <+>
+   |                          |                    |  |     +- Op: Local variable access: i {I} <+>
+   |                          |                    |  |     +- Op: + {I} <+>
+   |                          |                    |  |        +- Op: Local variable access: peça {I} <+>
+   |                          |                    |  |        +- Op: Literal: 1 {I} <+>
+   |                          |                    |  +- Op: < {Z} <+>
+   |                          |                    |  |  +- Op: Local variable access: i {I} <+>
+   |                          |                    |  |  +- Op: Literal: 4 {I} <+>
+   |                          |                    |  +- St: Statements: <+>
+   |                          |                    |  |  +- St: Statement From Expression : ++X <+>
+   |                          |                    |  |     +- Op: Local variable access: i {I} <+>
+   |                          |                    |  +- St: Block <+>
+   |                          |                    |     +- Code:
+   |                          |                    |        +- St: Statement From Expression : --X <+>
+   |                          |                    |           +- Op: Array Access {I} <+>
+   |                          |                    |              +- Op: Event Field: {[I} <+>
+   |                          |                    |              |  +- tetris.base.InsertarPeça -> py
+   |                          |                    |              |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |                    |              +- Op: Local variable access: i {I} <+>
+   |                          |                    +- St: for <+>
+   |                          |                    |  +- Local Variables:
+   |                          |                    |  |  +- Symbol Var [ i ] Type [ I ]
+   |                          |                    |  +- St: Statements: <+>
+   |                          |                    |  |  +- St: = <+>
+   |                          |                    |  |     +- Op: Local variable access: i {I} <+>
+   |                          |                    |  |     +- Op: Literal: 0 {I} <+>
+   |                          |                    |  +- Op: < {Z} <+>
+   |                          |                    |  |  +- Op: Local variable access: i {I} <+>
+   |                          |                    |  |  +- Op: Literal: 10 {I} <+>
+   |                          |                    |  +- St: Statements: <+>
+   |                          |                    |  |  +- St: Statement From Expression : ++X <+>
+   |                          |                    |  |     +- Op: Local variable access: i {I} <+>
+   |                          |                    |  +- St: Block <+>
+   |                          |                    |     +- Code:
+   |                          |                    |        +- St: Erase Entity <+>
+   |                          |                    |           +- Op: Array Access {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |              +- Op: Array Access {[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |              |  +- Op: Local variable access: cubs {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |              |  +- Op: Local variable access: línea {I} <+>
+   |                          |                    |              +- Op: Local variable access: i {I} <+>
+   |                          |                    +- St: for <+>
+   |                          |                    |  +- Local Variables:
+   |                          |                    |  |  +- Symbol Var [ i ] Type [ I ]
+   |                          |                    |  +- St: Statements: <+>
+   |                          |                    |  |  +- St: = <+>
+   |                          |                    |  |     +- Op: Local variable access: i {I} <+>
+   |                          |                    |  |     +- Op: Local variable access: línea {I} <+>
+   |                          |                    |  +- Op: < {Z} <+>
+   |                          |                    |  |  +- Op: Local variable access: i {I} <+>
+   |                          |                    |  |  +- Op: Literal: 17 {I} <+>
+   |                          |                    |  +- St: Statements: <+>
+   |                          |                    |  |  +- St: Statement From Expression : ++X <+>
+   |                          |                    |  |     +- Op: Local variable access: i {I} <+>
+   |                          |                    |  +- St: Block <+>
+   |                          |                    |     +- Code:
+   |                          |                    |        +- St: for <+>
+   |                          |                    |           +- Local Variables:
+   |                          |                    |           |  +- Symbol Var [ j ] Type [ I ]
+   |                          |                    |           +- St: Statements: <+>
+   |                          |                    |           |  +- St: = <+>
+   |                          |                    |           |     +- Op: Local variable access: j {I} <+>
+   |                          |                    |           |     +- Op: Literal: 0 {I} <+>
+   |                          |                    |           +- Op: < {Z} <+>
+   |                          |                    |           |  +- Op: Local variable access: j {I} <+>
+   |                          |                    |           |  +- Op: Literal: 10 {I} <+>
+   |                          |                    |           +- St: Statements: <+>
+   |                          |                    |           |  +- St: Statement From Expression : ++X <+>
+   |                          |                    |           |     +- Op: Local variable access: j {I} <+>
+   |                          |                    |           +- St: Block <+>
+   |                          |                    |              +- Code:
+   |                          |                    |                 +- St: If Statement: <+>
+   |                          |                    |                 |  +- Condition:
+   |                          |                    |                 |  |  +- Op: && {Z} <+>
+   |                          |                    |                 |  |     +- Op: > {Z} <+>
+   |                          |                    |                 |  |     |  +- Op: Local variable access: i {I} <+>
+   |                          |                    |                 |  |     |  +- Op: Local variable access: línea {I} <+>
+   |                          |                    |                 |  |     +- Op: ! {Z} <+>
+   |                          |                    |                 |  |        +- Op: isnull {Z} <+>
+   |                          |                    |                 |  |           +- Op: Array Access {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |  |              +- Op: Array Access {[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |  |              |  +- Op: Local variable access: cubs {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |  |              |  +- Op: Local variable access: i {I} <+>
+   |                          |                    |                 |  |              +- Op: Local variable access: j {I} <+>
+   |                          |                    |                 |  +- If Code:
+   |                          |                    |                 |     +- St: Block <+>
+   |                          |                    |                 |        +- Local Variables:
+   |                          |                    |                 |        |  +- Symbol Var [ t ] Type [ cat.quadriga.base.Transform ]
+   |                          |                    |                 |        +- Code:
+   |                          |                    |                 |           +- St: Statements: <+>
+   |                          |                    |                 |           |  +- St: = <+>
+   |                          |                    |                 |           |     +- Op: Local variable access: t {cat.quadriga.base.Transform} <+>
+   |                          |                    |                 |           |     +- Op: Component Access {cat.quadriga.base.Transform} <+>
+   |                          |                    |                 |           |        +- Op: Array Access {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |           |        |  +- Op: Array Access {[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |           |        |  |  +- Op: Local variable access: cubs {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |           |        |  |  +- Op: Local variable access: i {I} <+>
+   |                          |                    |                 |           |        |  +- Op: Local variable access: j {I} <+>
+   |                          |                    |                 |           |        +- Op: Type Access: cat.quadriga.base.Transform <+>
+   |                          |                    |                 |           +- St: = <+>
+   |                          |                    |                 |           |  +- Op: Field: {F} <+>
+   |                          |                    |                 |           |  |  +- javax.vecmath.Tuple3f -> y
+   |                          |                    |                 |           |  |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
+   |                          |                    |                 |           |  |     +- cat.quadriga.base.Transform -> position
+   |                          |                    |                 |           |  |     +- Op: Local variable access: t {cat.quadriga.base.Transform} <+>
+   |                          |                    |                 |           |  +- Op: - {F} <+>
+   |                          |                    |                 |           |     +- Op: Field: {F} <+>
+   |                          |                    |                 |           |     |  +- javax.vecmath.Tuple3f -> y
+   |                          |                    |                 |           |     |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
+   |                          |                    |                 |           |     |     +- cat.quadriga.base.Transform -> position
+   |                          |                    |                 |           |     |     +- Op: Local variable access: t {cat.quadriga.base.Transform} <+>
+   |                          |                    |                 |           |     +- Op: cast F {F} <+>
+   |                          |                    |                 |           |        +- Op: Literal: 1 {I} <+>
+   |                          |                    |                 |           +- St: = <+>
+   |                          |                    |                 |              +- Op: Component Access {cat.quadriga.base.Transform} <+>
+   |                          |                    |                 |              |  +- Op: Array Access {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |              |  |  +- Op: Array Access {[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |              |  |  |  +- Op: Local variable access: cubs {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |              |  |  |  +- Op: Local variable access: i {I} <+>
+   |                          |                    |                 |              |  |  +- Op: Local variable access: j {I} <+>
+   |                          |                    |                 |              |  +- Op: Type Access: cat.quadriga.base.Transform <+>
+   |                          |                    |                 |              +- Op: Local variable access: t {cat.quadriga.base.Transform} <+>
+   |                          |                    |                 +- St: = <+>
+   |                          |                    |                    +- Op: Array Access {I} <+>
+   |                          |                    |                    |  +- Op: Array Access {[I} <+>
+   |                          |                    |                    |  |  +- Op: Local variable access: taulell {[[I} <+>
+   |                          |                    |                    |  |  +- Op: Local variable access: i {I} <+>
+   |                          |                    |                    |  +- Op: Local variable access: j {I} <+>
+   |                          |                    |                    +- Op: Array Access {I} <+>
+   |                          |                    |                       +- Op: Array Access {[I} <+>
+   |                          |                    |                       |  +- Op: Local variable access: taulell {[[I} <+>
+   |                          |                    |                       |  +- Op: + {I} <+>
+   |                          |                    |                       |     +- Op: Local variable access: i {I} <+>
+   |                          |                    |                       |     +- Op: Literal: 1 {I} <+>
+   |                          |                    |                       +- Op: Local variable access: j {I} <+>
+   |                          |                    +- St: Statement From Expression : ++X <+>
+   |                          |                       +- Op: Local variable access: línies {I} <+>
+   |                          +- St: = <+>
+   |                          |  +- Op: Component Field: {[[I} <+>
+   |                          |  |  +- tetris.base.Taulell -> taulell
+   |                          |  |  +- Op: Component Access {tetris.base.Taulell} <+>
+   |                          |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |  |     +- Op: Type Access: tetris.base.Taulell <+>
+   |                          |  +- Op: Local variable access: taulell {[[I} <+>
+   |                          +- St: No Operation <+>
+   |                          +- St: = <+>
+   |                          |  +- Op: Component Field: {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |  |  +- tetris.base.Taulell -> cubs
+   |                          |  |  +- Op: Component Access {tetris.base.Taulell} <+>
+   |                          |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |  |     +- Op: Type Access: tetris.base.Taulell <+>
+   |                          |  +- Op: Local variable access: cubs {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          +- St: = <+>
+   |                          |  +- Op: Component Field: {I} <+>
+   |                          |  |  +- tetris.base.Puntuació -> línies
+   |                          |  |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                          |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |  |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                          |  +- Op: + {I} <+>
+   |                          |     +- Op: Component Field: {I} <+>
+   |                          |     |  +- tetris.base.Puntuació -> línies
+   |                          |     |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                          |     |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |     |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                          |     +- Op: Local variable access: línies {I} <+>
+   |                          +- St: = <+>
+   |                          |  +- Op: Component Field: {I} <+>
+   |                          |  |  +- tetris.base.Puntuació -> nivell
+   |                          |  |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                          |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |  |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                          |  +- Op: / {I} <+>
+   |                          |     +- Op: Component Field: {I} <+>
+   |                          |     |  +- tetris.base.Puntuació -> línies
+   |                          |     |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                          |     |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |     |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                          |     +- Op: Literal: 10 {I} <+>
+   |                          +- St: = <+>
+   |                          |  +- Op: Component Field: {I} <+>
+   |                          |  |  +- tetris.base.Puntuació -> punts
+   |                          |  |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                          |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |  |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                          |  +- Op: + {I} <+>
+   |                          |     +- Op: Component Field: {I} <+>
+   |                          |     |  +- tetris.base.Puntuació -> punts
+   |                          |     |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                          |     |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |     |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                          |     +- Op: Literal: 11 {I} <+>
+   |                          +- St: If Statement: <+>
+   |                             +- Condition:
+   |                             |  +- Op: == {Z} <+>
+   |                             |     +- Op: Local variable access: línies {I} <+>
+   |                             |     +- Op: Literal: 1 {I} <+>
+   |                             +- If Code:
+   |                             |  +- St: Block <+>
+   |                             |     +- Code:
+   |                             |        +- St: = <+>
+   |                             |           +- Op: Component Field: {I} <+>
+   |                             |           |  +- tetris.base.Puntuació -> punts
+   |                             |           |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                             |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                             |           |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                             |           +- Op: + {I} <+>
+   |                             |              +- Op: Component Field: {I} <+>
+   |                             |              |  +- tetris.base.Puntuació -> punts
+   |                             |              |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                             |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                             |              |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                             |              +- Op: Literal: 30 {I} <+>
+   |                             +- Else Code:
+   |                                +- St: If Statement: <+>
+   |                                   +- Condition:
+   |                                   |  +- Op: == {Z} <+>
+   |                                   |     +- Op: Local variable access: línies {I} <+>
+   |                                   |     +- Op: Literal: 2 {I} <+>
+   |                                   +- If Code:
+   |                                   |  +- St: Block <+>
+   |                                   |     +- Code:
+   |                                   |        +- St: = <+>
+   |                                   |           +- Op: Component Field: {I} <+>
+   |                                   |           |  +- tetris.base.Puntuació -> punts
+   |                                   |           |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                                   |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                                   |           |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                                   |           +- Op: + {I} <+>
+   |                                   |              +- Op: Component Field: {I} <+>
+   |                                   |              |  +- tetris.base.Puntuació -> punts
+   |                                   |              |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                                   |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                                   |              |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                                   |              +- Op: Literal: 71 {I} <+>
+   |                                   +- Else Code:
+   |                                      +- St: If Statement: <+>
+   |                                         +- Condition:
+   |                                         |  +- Op: == {Z} <+>
+   |                                         |     +- Op: Local variable access: línies {I} <+>
+   |                                         |     +- Op: Literal: 3 {I} <+>
+   |                                         +- If Code:
+   |                                         |  +- St: Block <+>
+   |                                         |     +- Code:
+   |                                         |        +- St: = <+>
+   |                                         |           +- Op: Component Field: {I} <+>
+   |                                         |           |  +- tetris.base.Puntuació -> punts
+   |                                         |           |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                                         |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                                         |           |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                                         |           +- Op: + {I} <+>
+   |                                         |              +- Op: Component Field: {I} <+>
+   |                                         |              |  +- tetris.base.Puntuació -> punts
+   |                                         |              |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                                         |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                                         |              |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                                         |              +- Op: Literal: 111 {I} <+>
+   |                                         +- Else Code:
+   |                                            +- St: If Statement: <+>
+   |                                               +- Condition:
+   |                                               |  +- Op: == {Z} <+>
+   |                                               |     +- Op: Local variable access: línies {I} <+>
+   |                                               |     +- Op: Literal: 4 {I} <+>
+   |                                               +- If Code:
+   |                                                  +- St: Block <+>
+   |                                                     +- Code:
+   |                                                        +- St: = <+>
+   |                                                           +- Op: Component Field: {I} <+>
+   |                                                           |  +- tetris.base.Puntuació -> punts
+   |                                                           |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                                                           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                                                           |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                                                           +- Op: + {I} <+>
+   |                                                              +- Op: Component Field: {I} <+>
+   |                                                              |  +- tetris.base.Puntuació -> punts
+   |                                                              |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                                                              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                                                              |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                                                              +- Op: Literal: 160 {I} <+>
+   +- "tetris.base.TetrisGameComponent" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |           +- Lcat/quadriga/runtime/Entity;
+   |           +- "taulell"
    +- "SceneComponent" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -969,6 +957,25 @@
    |                                |  +- cat.quadriga.runtime.Entity -> getGUID
    |                                |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
    |                                +- St: Zero Arguments <+>
+   +- "tetris.base.Main" : Symbol Type
+   |  +- main
+   |     +- thread: tetris.base.LlogicaTetris
+   |     +- thread: cat.quadriga.base.SimpleRenderThread
+   +- "tetris.base.InsertarPeça" : Symbol Type
+   |  +- Event <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |        |  +- [I
+   |        |  +- "px"
+   |        +- Quadriga Field
+   |        |  +- [I
+   |        |  +- "py"
+   |        +- Quadriga Field
+   |           +- I
+   |           +- "color"
+   +- "BillboardRenderer" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
    +- "cat.quadriga.base.Exit" : Symbol Type
    |  +- Event <+>
    |     +- fields
@@ -995,419 +1002,23 @@
    |                 +- Op: Literal: 0.0 {F} <+>
    |                 +- Op: Literal: 0.0 {F} <+>
    |                 +- Op: Literal: 1.0 {F} <+>
-   +- "riskppt3d.demo.SimpleDemo" : Symbol Type
-   |  +- Prototype <+>
-   |     +- St: Block <+>
-   |        +- Code:
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "position"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- F
-   |           |  |  |     |  +- "scale"
-   |           |  |  |     |  +- Op: Literal: 1.0 {F} <+>
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- Ljavax/vecmath/Quat4f;
-   |           |  |  |        +- "rotation"
-   |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
-   |           |  |  |           +- Ljavax/vecmath/Quat4f;
-   |           |  |  |           +- St: Arguments <+>
-   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
-   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
-   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
-   |           |  |  |              +- Op: Literal: 1.0 {F} <+>
-   |           |  |  +- St: Zero Arguments <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Planeta1" {Ljava/lang/String;} <+>
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |     +- hue
-   |           |  |     +- Op: Literal: 0.0 {F} <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal: 0.0 {F} <+>
-   |           |                 +- Op: Literal: 4.5 {F} <+>
-   |           |                 +- Op: Literal: 2.0 {F} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Planeta2" {Ljava/lang/String;} <+>
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |  |  +- hue
-   |           |  |  |  +- Op: Literal: 0.0 {F} <+>
-   |           |  |  +- quadriga argument
-   |           |  |     +- radi
-   |           |  |     +- Op: Literal: 3.5 {F} <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal: 0.0 {F} <+>
-   |           |                 +- Op: Literal: 0.0 {F} <+>
-   |           |                 +- Op: Literal: 0.0 {F} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Planeta3" {Ljava/lang/String;} <+>
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |     +- hue
-   |           |  |     +- Op: Literal: 0.0 {F} <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal: 0.0 {F} <+>
-   |           |                 +- Op: Literal: 9.0 {F} <+>
-   |           |                 +- Op: Literal: -2.0 {F} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Planeta4" {Ljava/lang/String;} <+>
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |     +- hue
-   |           |  |     +- Op: Literal: 180.0 {F} <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal: 6.0 {F} <+>
-   |           |                 +- Op: Literal: 0.0 {F} <+>
-   |           |                 +- Op: Literal: 0.0 {F} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Planeta5" {Ljava/lang/String;} <+>
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |  |  +- hue
-   |           |  |  |  +- Op: Literal: 180.0 {F} <+>
-   |           |  |  +- quadriga argument
-   |           |  |     +- radi
-   |           |  |     +- Op: Literal: 0.5 {F} <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal: 2.0 {F} <+>
-   |           |                 +- Op: Literal: 6.0 {F} <+>
-   |           |                 +- Op: Literal: 2.0 {F} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Planeta6" {Ljava/lang/String;} <+>
-   |           |  +- riskppt3d.planeta.Planeta
-   |           |  +- St: Named Arguments <+>
-   |           |  |  +- quadriga argument
-   |           |  |     +- hue
-   |           |  |     +- Op: Literal: 180.0 {F} <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.Transform
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |           +- position
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal: 6.0 {F} <+>
-   |           |                 +- Op: Literal: 6.0 {F} <+>
-   |           |                 +- Op: Literal: 4.0 {F} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Aresta1" {Ljava/lang/String;} <+>
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal: "Planeta2" {Ljava/lang/String;} <+>
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal: "Planeta1" {Ljava/lang/String;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Aresta2" {Ljava/lang/String;} <+>
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal: "Planeta3" {Ljava/lang/String;} <+>
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal: "Planeta2" {Ljava/lang/String;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Aresta3" {Ljava/lang/String;} <+>
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal: "Planeta3" {Ljava/lang/String;} <+>
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal: "Planeta1" {Ljava/lang/String;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Aresta4" {Ljava/lang/String;} <+>
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal: "Planeta5" {Ljava/lang/String;} <+>
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal: "Planeta4" {Ljava/lang/String;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Aresta5" {Ljava/lang/String;} <+>
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal: "Planeta6" {Ljava/lang/String;} <+>
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal: "Planeta4" {Ljava/lang/String;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Aresta6" {Ljava/lang/String;} <+>
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal: "Planeta6" {Ljava/lang/String;} <+>
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal: "Planeta5" {Ljava/lang/String;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Aresta7" {Ljava/lang/String;} <+>
-   |           |  +- riskppt3d.aresta.Aresta
-   |           |  +- St: Named Arguments <+>
-   |           |     +- quadriga argument
-   |           |     |  +- planeta2
-   |           |     |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     |     +- Op: Literal: "Planeta5" {Ljava/lang/String;} <+>
-   |           |     +- quadriga argument
-   |           |        +- planeta1
-   |           |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |           +- Op: Literal: "Planeta2" {Ljava/lang/String;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  |  +- Op: Literal: "Camera" {Ljava/lang/String;} <+>
-   |           |  +- cat.quadriga.base.SimpleCamera
-   |           |  +- St: Zero Arguments <+>
-   |           |  +- Component redefinition
-   |           |     +- cat.quadriga.base.CameraComponent
-   |           |     +- St: Named Arguments <+>
-   |           |        +- quadriga argument
-   |           |        |  +- position
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal: 10.0 {F} <+>
-   |           |        |        +- Op: Literal: 10.0 {F} <+>
-   |           |        |        +- Op: Literal: 20.0 {F} <+>
-   |           |        +- quadriga argument
-   |           |        |  +- lookAt
-   |           |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |        |     +- Ljavax/vecmath/Vector3f;
-   |           |        |     +- St: Arguments <+>
-   |           |        |        +- Op: Literal: 0.0 {F} <+>
-   |           |        |        +- Op: Literal: 0.0 {F} <+>
-   |           |        |        +- Op: Literal: 0.0 {F} <+>
-   |           |        +- quadriga argument
-   |           |           +- up
-   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |              +- Ljavax/vecmath/Vector3f;
-   |           |              +- St: Arguments <+>
-   |           |                 +- Op: Literal: 0.0 {F} <+>
-   |           |                 +- Op: Literal: 0.0 {F} <+>
-   |           |                 +- Op: Literal: 1.0 {F} <+>
-   |           +- St: Add Component <+>
-   |              +- Op: Component Allocation {cat.quadriga.base.SceneComponent} <+>
-   |              |  +- Component <+>
-   |              |  |  +- fields
-   |              |  |     +- Quadriga Field
-   |              |  |        +- Lcat/quadriga/runtime/Entity;
-   |              |  |        +- "camera"
-   |              |  +- St: Named Arguments <+>
-   |              |     +- quadriga argument
-   |              |        +- camera
-   |              |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;} <+>
-   |              |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |              |           +- Op: Literal: "Camera" {Ljava/lang/String;} <+>
-   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   +- "riskppt3d.demo.DemoMain" : Symbol Type
-   |  +- main
-   |     +- thread: cat.quadriga.base.SimpleRenderThread
-   |     +- thread: riskppt3d.demo.Test
-   |     +- Quadriga function
-   |        +- St: Block <+>
-   |           +- Local Variables:
-   |           |  +- Symbol Var [ demo ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |           +- Code:
-   |              +- St: Statements: <+>
-   |              |  +- St: = <+>
-   |              |     +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
-   |              |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |              |        +- Op: Literal: Null {Null type} <+>
-   |              |        +- Op: Literal: "BaseScene" {Ljava/lang/String;} <+>
-   |              +- St: Apply Prototype to Entity <+>
-   |              |  +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- riskppt3d.demo.SimpleDemo
-   |              |  +- St: Zero Arguments <+>
-   |              +- St: = <+>
-   |                 +- Op: Field: {Z} <+>
-   |                 |  +- cat.quadriga.render.simple.RenderManager -> renderFPS
-   |                 |  +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
-   |                 |     +- cat.quadriga.render.simple.RenderManager -> instance
-   |                 +- Op: Literal: true {Z} <+>
-   +- "IncrementadorPlanetes" : Symbol Type
-   |  +- System <+>
-   |     +- needed components
-   |     |  +- cat.quadriga.base.CameraComponent
-   |     +- Update: 
-   |        +- Quadriga function
-   |           +- parameters
-   |           |  +- parameter
-   |           |  |  +- Lcat/quadriga/runtime/Entity;
-   |           |  |  +- entity
-   |           |  |  +- Semantic: ENTITY
-   |           |  +- parameter
-   |           |     +- F
-   |           |     +- dt
-   |           |     +- Semantic: DELTA_TIME
-   |           +- St: Block <+>
-   |              +- Code:
-   |                 +- St: Block <+>
-   |                    +- Local Variables:
-   |                    |  +- Symbol Var [ pos ] Type [ Ljavax/vecmath/Vector3f; ]
-   |                    |  +- Symbol Var [ desp ] Type [ F ]
-   |                    |  +- Symbol Var [ aaRot ] Type [ Ljavax/vecmath/AxisAngle4f; ]
-   |                    |  +- Symbol Var [ m ] Type [ Ljavax/vecmath/Matrix4f; ]
-   |                    +- Code:
-   |                       +- St: Statements: <+>
-   |                       |  +- St: = <+>
-   |                       |     +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
-   |                       |     +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
-   |                       |        +- cat.quadriga.base.CameraComponent -> position
-   |                       |        +- Op: Component Access {cat.quadriga.base.CameraComponent} <+>
-   |                       |           +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
-   |                       |           +- Op: Type Access: cat.quadriga.base.CameraComponent <+>
-   |                       +- St: Statements: <+>
-   |                       |  +- St: = <+>
-   |                       |     +- Op: Local variable access: desp {F} <+>
-   |                       |     +- Op: * {F} <+>
-   |                       |        +- Op: Literal: 0.3 {F} <+>
-   |                       |        +- Op: Local variable access: dt {F} <+>
-   |                       +- St: Statements: <+>
-   |                       |  +- St: = <+>
-   |                       |     +- Op: Local variable access: aaRot {Ljavax/vecmath/AxisAngle4f;} <+>
-   |                       |     +- Op: Constructor {Ljavax/vecmath/AxisAngle4f;} <+>
-   |                       |        +- Ljavax/vecmath/AxisAngle4f;
-   |                       |        +- St: Arguments <+>
-   |                       |           +- Op: Literal: 0.0 {F} <+>
-   |                       |           +- Op: Literal: 0.0 {F} <+>
-   |                       |           +- Op: Literal: 1.0 {F} <+>
-   |                       |           +- Op: Local variable access: desp {F} <+>
-   |                       +- St: Statements: <+>
-   |                       |  +- St: = <+>
-   |                       |     +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
-   |                       |     +- Op: Constructor {Ljavax/vecmath/Matrix4f;} <+>
-   |                       |        +- Ljavax/vecmath/Matrix4f;
-   |                       |        +- St: Zero Arguments <+>
-   |                       +- St: Statement From Expression : Call <+>
-   |                       |  +- Op: Method: <+>
-   |                       |  |  +- javax.vecmath.Matrix4f -> set
-   |                       |  |  +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
-   |                       |  +- St: Arguments <+>
-   |                       |     +- Op: Local variable access: aaRot {Ljavax/vecmath/AxisAngle4f;} <+>
-   |                       +- St: Statement From Expression : Call <+>
-   |                       |  +- Op: Method: <+>
-   |                       |  |  +- javax.vecmath.Matrix4f -> transform
-   |                       |  |  +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
-   |                       |  +- St: Arguments <+>
-   |                       |     +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
-   |                       +- St: = <+>
-   |                          +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
-   |                          |  +- cat.quadriga.base.CameraComponent -> position
-   |                          |  +- Op: Component Access {cat.quadriga.base.CameraComponent} <+>
-   |                          |     +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
-   |                          |     +- Op: Type Access: cat.quadriga.base.CameraComponent <+>
-   |                          +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
+   +- "tetris.base.Taulell" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |        |  +- [[Lcat/quadriga/runtime/Entity;
+   |        |  +- "cubs"
+   |        |  +- Op: new array {[[Lcat/quadriga/runtime/Entity;} <+>
+   |        |     +- Lcat/quadriga/runtime/Entity;
+   |        |     +- Op: Literal: 10 {I} <+>
+   |        |     +- Op: Literal: 18 {I} <+>
+   |        +- Quadriga Field
+   |           +- [[I
+   |           +- "taulell"
+   |           +- Op: new primitive array {[[I} <+>
+   |              +- I
+   |              +- Op: Literal: 10 {I} <+>
+   |              +- Op: Literal: 18 {I} <+>
    +- "cat.quadriga.base.SimpleRenderThread" : Symbol Type
    |  +- thread <+>
    |     +- cat.quadriga.base.SimpleCameraSystem
@@ -1461,13 +1072,9 @@
    |              |  |        +- Op: Literal: "" {Ljava/lang/String;} <+>
    |              |  +- St: Zero Arguments <+>
    |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   +- "riskppt3d.planeta.DadesComponent" : Symbol Type
-   |  +- Component <+>
+   +- "InitTetris" : Symbol Type
+   |  +- Event <+>
    |     +- fields
-   |        +- Quadriga Field
-   |           +- F
-   |           +- "radi"
-   |           +- Op: Literal: 1.0 {F} <+>
    +- "EndRender" : Symbol Type
    |  +- System <+>
    |     +- needed components
@@ -1510,11 +1117,44 @@
    |                                +- Code:
    |                                   +- St: Call to Event cat.quadriga.base.Exit <+>
    |                                      +- St: Zero Arguments <+>
-   +- "javax.vecmath.AxisAngle4f" : Symbol Type
-   |  +- Ljavax/vecmath/AxisAngle4f;
    +- "cat.quadriga.base.BillboardRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields
+   +- "Materials" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |           +- [Lcat/quadriga/java/base/BaseMaterial;
+   |           +- "materials"
+   |           +- Op: Array initialization {[Lcat/quadriga/java/base/BaseMaterial;} <+>
+   |              +- Op: new array {[Lcat/quadriga/java/base/BaseMaterial;} <+>
+   |                 +- Lcat/quadriga/java/base/BaseMaterial;
+   |                 +- Op: Literal: 0 {I} <+>
+   +- "CilynderRenderer" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |        |  +- Ljavax/vecmath/Vector3f;
+   |        |  +- "pos1"
+   |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |        |     +- Ljavax/vecmath/Vector3f;
+   |        |     +- St: Arguments <+>
+   |        |        +- Op: Literal: 0.0 {F} <+>
+   |        |        +- Op: Literal: 0.0 {F} <+>
+   |        |        +- Op: Literal: 0.0 {F} <+>
+   |        +- Quadriga Field
+   |        |  +- Ljavax/vecmath/Vector3f;
+   |        |  +- "pos2"
+   |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |        |     +- Ljavax/vecmath/Vector3f;
+   |        |     +- St: Arguments <+>
+   |        |        +- Op: Literal: 0.0 {F} <+>
+   |        |        +- Op: Literal: 0.0 {F} <+>
+   |        |        +- Op: Literal: 1.0 {F} <+>
+   |        +- Quadriga Field
+   |           +- F
+   |           +- "radi"
+   |           +- Op: Literal: 1.0 {F} <+>
    +- "cat.quadriga.base.FontQuad" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -1585,9 +1225,73 @@
    |                                      +- St: Zero Arguments <+>
    +- "cat.quadriga.render.simple.Node" : Symbol Type
    |  +- Lcat/quadriga/render/simple/Node;
-   +- "riskppt3d.demo.Test" : Symbol Type
-   |  +- thread <+>
-   |     +- riskppt3d.demo.IncrementadorPlanetes
+   +- "FontQuadPrototype" : Symbol Type
+   |  +- Prototype <+>
+   |     +- St: Block <+>
+   |        +- Code:
+   |           +- St: Add Component <+>
+   |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
+   |           |  |  +- Component <+>
+   |           |  |  |  +- fields
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
+   |           |  |  |     |  +- "position"
+   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
+   |           |  |  |     |     +- St: Zero Arguments <+>
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- F
+   |           |  |  |     |  +- "scale"
+   |           |  |  |     |  +- Op: Literal: 1.0 {F} <+>
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |        +- Ljavax/vecmath/Quat4f;
+   |           |  |  |        +- "rotation"
+   |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
+   |           |  |  |           +- Ljavax/vecmath/Quat4f;
+   |           |  |  |           +- St: Arguments <+>
+   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
+   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
+   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
+   |           |  |  |              +- Op: Literal: 1.0 {F} <+>
+   |           |  |  +- St: Zero Arguments <+>
+   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   |           +- St: Add Component <+>
+   |              +- Op: Component Allocation {cat.quadriga.base.FontQuad} <+>
+   |              |  +- Component <+>
+   |              |  |  +- fields
+   |              |  |     +- Quadriga Field
+   |              |  |     |  +- Ljavax/vecmath/Vector3f;
+   |              |  |     |  +- "position"
+   |              |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |              |  |     |     +- Ljavax/vecmath/Vector3f;
+   |              |  |     |     +- St: Zero Arguments <+>
+   |              |  |     +- Quadriga Field
+   |              |  |     |  +- Ljava/lang/String;
+   |              |  |     |  +- "text"
+   |              |  |     |  +- Op: Literal: "" {Ljava/lang/String;} <+>
+   |              |  |     +- Quadriga Field
+   |              |  |        +- Ljavax/vecmath/Vector4f;
+   |              |  |        +- "color"
+   |              |  |        +- Op: Constructor {Ljavax/vecmath/Vector4f;} <+>
+   |              |  |           +- Ljavax/vecmath/Vector4f;
+   |              |  |           +- St: Zero Arguments <+>
+   |              |  +- St: Zero Arguments <+>
+   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   +- "tetris.base.Puntuació" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |        |  +- I
+   |        |  +- "nivell"
+   |        |  +- Op: Literal: 0 {I} <+>
+   |        +- Quadriga Field
+   |        |  +- I
+   |        |  +- "punts"
+   |        |  +- Op: Literal: 0 {I} <+>
+   |        +- Quadriga Field
+   |           +- I
+   |           +- "línies"
+   |           +- Op: Literal: 0 {I} <+>
    +- "cat.quadriga.base.FontQuadPrototype" : Symbol Type
    |  +- Prototype <+>
    |     +- St: Block <+>
@@ -1640,6 +1344,43 @@
    |              |  |           +- St: Zero Arguments <+>
    |              |  +- St: Zero Arguments <+>
    |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   +- "SimpleCamera" : Symbol Type
+   |  +- Prototype <+>
+   |     +- St: Block <+>
+   |        +- Code:
+   |           +- St: Add Component <+>
+   |              +- Op: Component Allocation {cat.quadriga.base.CameraComponent} <+>
+   |              |  +- Component <+>
+   |              |  |  +- fields
+   |              |  |     +- Quadriga Field
+   |              |  |     |  +- Ljavax/vecmath/Vector3f;
+   |              |  |     |  +- "position"
+   |              |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |              |  |     |     +- Ljavax/vecmath/Vector3f;
+   |              |  |     |     +- St: Arguments <+>
+   |              |  |     |        +- Op: Literal: 0.0 {F} <+>
+   |              |  |     |        +- Op: Literal: 0.0 {F} <+>
+   |              |  |     |        +- Op: Literal: 0.0 {F} <+>
+   |              |  |     +- Quadriga Field
+   |              |  |     |  +- Ljavax/vecmath/Vector3f;
+   |              |  |     |  +- "lookAt"
+   |              |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |              |  |     |     +- Ljavax/vecmath/Vector3f;
+   |              |  |     |     +- St: Arguments <+>
+   |              |  |     |        +- Op: Literal: 0.0 {F} <+>
+   |              |  |     |        +- Op: Literal: 0.0 {F} <+>
+   |              |  |     |        +- Op: Literal: 1.0 {F} <+>
+   |              |  |     +- Quadriga Field
+   |              |  |        +- Ljavax/vecmath/Vector3f;
+   |              |  |        +- "up"
+   |              |  |        +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |              |  |           +- Ljavax/vecmath/Vector3f;
+   |              |  |           +- St: Arguments <+>
+   |              |  |              +- Op: Literal: 0.0 {F} <+>
+   |              |  |              +- Op: Literal: 1.0 {F} <+>
+   |              |  |              +- Op: Literal: 0.0 {F} <+>
+   |              |  +- St: Zero Arguments <+>
+   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
    +- "cat.quadriga.base.CilynderRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -1665,6 +1406,10 @@
    |           +- F
    |           +- "radi"
    |           +- Op: Literal: 1.0 {F} <+>
+   +- "Main" : Symbol Type
+   |  +- main
+   |     +- thread: tetris.base.LlogicaTetris
+   |     +- thread: cat.quadriga.base.SimpleRenderThread
    +- "SimpleSphereRenderer" : Symbol Type
    |  +- System <+>
    |     +- needed components
@@ -1763,12 +1508,478 @@
    |                                |  +- cat.quadriga.runtime.Entity -> getGUID
    |                                |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
    |                                +- St: Zero Arguments <+>
+   +- "ControladorDelJoc" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |        +- tetris.base.TetrisGameComponent
+   +- "tetris.base.ControladorDelJoc" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |        +- tetris.base.TetrisGameComponent
    +- "StaticMeshRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields
    |        +- Quadriga Field
    |           +- Ljava/lang/String;
    |           +- "mesh"
+   +- "LlògicaTaulell" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |     |  +- tetris.base.Puntuació
+   |     |  +- tetris.base.Taulell
+   |     +- EventHandlers
+   |        +- tetris.base.InsertarPeça
+   |           +- Quadriga function
+   |              +- parameters
+   |              |  +- parameter
+   |              |  |  +- tetris.base.InsertarPeça
+   |              |  |  +- event
+   |              |  |  +- Semantic: EVENT
+   |              |  +- parameter
+   |              |     +- Lcat/quadriga/runtime/Entity;
+   |              |     +- entitat
+   |              |     +- Semantic: ENTITY
+   |              +- St: Block <+>
+   |                 +- Code:
+   |                    +- St: Block <+>
+   |                       +- Local Variables:
+   |                       |  +- Symbol Var [ línies ] Type [ I ]
+   |                       |  +- Symbol Var [ taulell ] Type [ [[I ]
+   |                       |  +- Symbol Var [ cubs ] Type [ [[Lcat/quadriga/runtime/Entity; ]
+   |                       +- Code:
+   |                          +- St: Statements: <+>
+   |                          |  +- St: = <+>
+   |                          |     +- Op: Local variable access: línies {I} <+>
+   |                          |     +- Op: Literal: 0 {I} <+>
+   |                          +- St: Statements: <+>
+   |                          |  +- St: = <+>
+   |                          |     +- Op: Local variable access: taulell {[[I} <+>
+   |                          |     +- Op: Component Field: {[[I} <+>
+   |                          |        +- tetris.base.Taulell -> taulell
+   |                          |        +- Op: Component Access {tetris.base.Taulell} <+>
+   |                          |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |           +- Op: Type Access: tetris.base.Taulell <+>
+   |                          +- St: Statements: <+>
+   |                          |  +- St: = <+>
+   |                          |     +- Op: Local variable access: cubs {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |     +- Op: Component Field: {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        +- tetris.base.Taulell -> cubs
+   |                          |        +- Op: Component Access {tetris.base.Taulell} <+>
+   |                          |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |           +- Op: Type Access: tetris.base.Taulell <+>
+   |                          +- St: for <+>
+   |                          |  +- Local Variables:
+   |                          |  |  +- Symbol Var [ peça ] Type [ I ]
+   |                          |  +- St: Statements: <+>
+   |                          |  |  +- St: = <+>
+   |                          |  |     +- Op: Local variable access: peça {I} <+>
+   |                          |  |     +- Op: Literal: 0 {I} <+>
+   |                          |  +- Op: < {Z} <+>
+   |                          |  |  +- Op: Local variable access: peça {I} <+>
+   |                          |  |  +- Op: Literal: 4 {I} <+>
+   |                          |  +- St: Statements: <+>
+   |                          |  |  +- St: Statement From Expression : ++X <+>
+   |                          |  |     +- Op: Local variable access: peça {I} <+>
+   |                          |  +- St: Block <+>
+   |                          |     +- Local Variables:
+   |                          |     |  +- Symbol Var [ línea ] Type [ I ]
+   |                          |     |  +- Symbol Var [ nouCub ] Type [ Lcat/quadriga/runtime/Entity; ]
+   |                          |     |  +- Symbol Var [ netejarLinea ] Type [ Z ]
+   |                          |     +- Code:
+   |                          |        +- St: Statements: <+>
+   |                          |        |  +- St: = <+>
+   |                          |        |     +- Op: Local variable access: línea {I} <+>
+   |                          |        |     +- Op: Array Access {I} <+>
+   |                          |        |        +- Op: Event Field: {[I} <+>
+   |                          |        |        |  +- tetris.base.InsertarPeça -> py
+   |                          |        |        |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        |        +- Op: Local variable access: peça {I} <+>
+   |                          |        +- St: = <+>
+   |                          |        |  +- Op: Array Access {I} <+>
+   |                          |        |  |  +- Op: Array Access {[I} <+>
+   |                          |        |  |  |  +- Op: Local variable access: taulell {[[I} <+>
+   |                          |        |  |  |  +- Op: Array Access {I} <+>
+   |                          |        |  |  |     +- Op: Event Field: {[I} <+>
+   |                          |        |  |  |     |  +- tetris.base.InsertarPeça -> px
+   |                          |        |  |  |     |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        |  |  |     +- Op: Local variable access: peça {I} <+>
+   |                          |        |  |  +- Op: Array Access {I} <+>
+   |                          |        |  |     +- Op: Event Field: {[I} <+>
+   |                          |        |  |     |  +- tetris.base.InsertarPeça -> py
+   |                          |        |  |     |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        |  |     +- Op: Local variable access: peça {I} <+>
+   |                          |        |  +- Op: Event Field: {I} <+>
+   |                          |        |     +- tetris.base.InsertarPeça -> color
+   |                          |        |     +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        +- St: Statements: <+>
+   |                          |        |  +- St: = <+>
+   |                          |        |     +- Op: Local variable access: nouCub {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        |        +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        |        +- Op: Literal: Null {Null type} <+>
+   |                          |        +- St: Apply Prototype to Entity <+>
+   |                          |        |  +- Op: Local variable access: nouCub {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        |  +- tetris.base.CubDeTaulell
+   |                          |        |  +- St: Named Arguments <+>
+   |                          |        |     +- quadriga argument
+   |                          |        |     |  +- posY
+   |                          |        |     |  +- Op: Array Access {I} <+>
+   |                          |        |     |     +- Op: Event Field: {[I} <+>
+   |                          |        |     |     |  +- tetris.base.InsertarPeça -> py
+   |                          |        |     |     |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        |     |     +- Op: Local variable access: peça {I} <+>
+   |                          |        |     +- quadriga argument
+   |                          |        |        +- posX
+   |                          |        |        +- Op: Array Access {I} <+>
+   |                          |        |           +- Op: Event Field: {[I} <+>
+   |                          |        |           |  +- tetris.base.InsertarPeça -> px
+   |                          |        |           |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        |           +- Op: Local variable access: peça {I} <+>
+   |                          |        +- St: = <+>
+   |                          |        |  +- Op: Array Access {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        |  |  +- Op: Array Access {[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        |  |  |  +- Op: Local variable access: cubs {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        |  |  |  +- Op: Array Access {I} <+>
+   |                          |        |  |  |     +- Op: Event Field: {[I} <+>
+   |                          |        |  |  |     |  +- tetris.base.InsertarPeça -> px
+   |                          |        |  |  |     |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        |  |  |     +- Op: Local variable access: peça {I} <+>
+   |                          |        |  |  +- Op: Array Access {I} <+>
+   |                          |        |  |     +- Op: Event Field: {[I} <+>
+   |                          |        |  |     |  +- tetris.base.InsertarPeça -> py
+   |                          |        |  |     |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        |  |     +- Op: Local variable access: peça {I} <+>
+   |                          |        |  +- Op: Local variable access: nouCub {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        +- St: Statements: <+>
+   |                          |        |  +- St: = <+>
+   |                          |        |     +- Op: Local variable access: netejarLinea {Z} <+>
+   |                          |        |     +- Op: Literal: true {Z} <+>
+   |                          |        +- St: for <+>
+   |                          |        |  +- Local Variables:
+   |                          |        |  |  +- Symbol Var [ i ] Type [ I ]
+   |                          |        |  +- St: Statements: <+>
+   |                          |        |  |  +- St: = <+>
+   |                          |        |  |     +- Op: Local variable access: i {I} <+>
+   |                          |        |  |     +- Op: Literal: 0 {I} <+>
+   |                          |        |  +- Op: < {Z} <+>
+   |                          |        |  |  +- Op: Local variable access: i {I} <+>
+   |                          |        |  |  +- Op: Literal: 10 {I} <+>
+   |                          |        |  +- St: Statements: <+>
+   |                          |        |  |  +- St: Statement From Expression : ++X <+>
+   |                          |        |  |     +- Op: Local variable access: i {I} <+>
+   |                          |        |  +- St: Block <+>
+   |                          |        |     +- Code:
+   |                          |        |        +- St: If Statement: <+>
+   |                          |        |           +- Condition:
+   |                          |        |           |  +- Op: == {Z} <+>
+   |                          |        |           |     +- Op: Array Access {I} <+>
+   |                          |        |           |     |  +- Op: Array Access {[I} <+>
+   |                          |        |           |     |  |  +- Op: Component Field: {[[I} <+>
+   |                          |        |           |     |  |  |  +- tetris.base.Taulell -> taulell
+   |                          |        |           |     |  |  |  +- Op: Component Access {tetris.base.Taulell} <+>
+   |                          |        |           |     |  |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |        |           |     |  |  |     +- Op: Type Access: tetris.base.Taulell <+>
+   |                          |        |           |     |  |  +- Op: Local variable access: i {I} <+>
+   |                          |        |           |     |  +- Op: Array Access {I} <+>
+   |                          |        |           |     |     +- Op: Event Field: {[I} <+>
+   |                          |        |           |     |     |  +- tetris.base.InsertarPeça -> py
+   |                          |        |           |     |     |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |        |           |     |     +- Op: Local variable access: peça {I} <+>
+   |                          |        |           |     +- Op: Literal: 0 {I} <+>
+   |                          |        |           +- If Code:
+   |                          |        |              +- St: Block <+>
+   |                          |        |                 +- Code:
+   |                          |        |                    +- St: = <+>
+   |                          |        |                    |  +- Op: Local variable access: netejarLinea {Z} <+>
+   |                          |        |                    |  +- Op: Literal: false {Z} <+>
+   |                          |        |                    +- St: break <+>
+   |                          |        +- St: If Statement: <+>
+   |                          |           +- Condition:
+   |                          |           |  +- Op: Local variable access: netejarLinea {Z} <+>
+   |                          |           +- If Code:
+   |                          |              +- St: Block <+>
+   |                          |                 +- Code:
+   |                          |                    +- St: for <+>
+   |                          |                    |  +- Local Variables:
+   |                          |                    |  |  +- Symbol Var [ i ] Type [ I ]
+   |                          |                    |  +- St: Statements: <+>
+   |                          |                    |  |  +- St: = <+>
+   |                          |                    |  |     +- Op: Local variable access: i {I} <+>
+   |                          |                    |  |     +- Op: + {I} <+>
+   |                          |                    |  |        +- Op: Local variable access: peça {I} <+>
+   |                          |                    |  |        +- Op: Literal: 1 {I} <+>
+   |                          |                    |  +- Op: < {Z} <+>
+   |                          |                    |  |  +- Op: Local variable access: i {I} <+>
+   |                          |                    |  |  +- Op: Literal: 4 {I} <+>
+   |                          |                    |  +- St: Statements: <+>
+   |                          |                    |  |  +- St: Statement From Expression : ++X <+>
+   |                          |                    |  |     +- Op: Local variable access: i {I} <+>
+   |                          |                    |  +- St: Block <+>
+   |                          |                    |     +- Code:
+   |                          |                    |        +- St: Statement From Expression : --X <+>
+   |                          |                    |           +- Op: Array Access {I} <+>
+   |                          |                    |              +- Op: Event Field: {[I} <+>
+   |                          |                    |              |  +- tetris.base.InsertarPeça -> py
+   |                          |                    |              |  +- Op: Local variable access: event {tetris.base.InsertarPeça} <+>
+   |                          |                    |              +- Op: Local variable access: i {I} <+>
+   |                          |                    +- St: for <+>
+   |                          |                    |  +- Local Variables:
+   |                          |                    |  |  +- Symbol Var [ i ] Type [ I ]
+   |                          |                    |  +- St: Statements: <+>
+   |                          |                    |  |  +- St: = <+>
+   |                          |                    |  |     +- Op: Local variable access: i {I} <+>
+   |                          |                    |  |     +- Op: Literal: 0 {I} <+>
+   |                          |                    |  +- Op: < {Z} <+>
+   |                          |                    |  |  +- Op: Local variable access: i {I} <+>
+   |                          |                    |  |  +- Op: Literal: 10 {I} <+>
+   |                          |                    |  +- St: Statements: <+>
+   |                          |                    |  |  +- St: Statement From Expression : ++X <+>
+   |                          |                    |  |     +- Op: Local variable access: i {I} <+>
+   |                          |                    |  +- St: Block <+>
+   |                          |                    |     +- Code:
+   |                          |                    |        +- St: Erase Entity <+>
+   |                          |                    |           +- Op: Array Access {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |              +- Op: Array Access {[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |              |  +- Op: Local variable access: cubs {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |              |  +- Op: Local variable access: línea {I} <+>
+   |                          |                    |              +- Op: Local variable access: i {I} <+>
+   |                          |                    +- St: for <+>
+   |                          |                    |  +- Local Variables:
+   |                          |                    |  |  +- Symbol Var [ i ] Type [ I ]
+   |                          |                    |  +- St: Statements: <+>
+   |                          |                    |  |  +- St: = <+>
+   |                          |                    |  |     +- Op: Local variable access: i {I} <+>
+   |                          |                    |  |     +- Op: Local variable access: línea {I} <+>
+   |                          |                    |  +- Op: < {Z} <+>
+   |                          |                    |  |  +- Op: Local variable access: i {I} <+>
+   |                          |                    |  |  +- Op: Literal: 17 {I} <+>
+   |                          |                    |  +- St: Statements: <+>
+   |                          |                    |  |  +- St: Statement From Expression : ++X <+>
+   |                          |                    |  |     +- Op: Local variable access: i {I} <+>
+   |                          |                    |  +- St: Block <+>
+   |                          |                    |     +- Code:
+   |                          |                    |        +- St: for <+>
+   |                          |                    |           +- Local Variables:
+   |                          |                    |           |  +- Symbol Var [ j ] Type [ I ]
+   |                          |                    |           +- St: Statements: <+>
+   |                          |                    |           |  +- St: = <+>
+   |                          |                    |           |     +- Op: Local variable access: j {I} <+>
+   |                          |                    |           |     +- Op: Literal: 0 {I} <+>
+   |                          |                    |           +- Op: < {Z} <+>
+   |                          |                    |           |  +- Op: Local variable access: j {I} <+>
+   |                          |                    |           |  +- Op: Literal: 10 {I} <+>
+   |                          |                    |           +- St: Statements: <+>
+   |                          |                    |           |  +- St: Statement From Expression : ++X <+>
+   |                          |                    |           |     +- Op: Local variable access: j {I} <+>
+   |                          |                    |           +- St: Block <+>
+   |                          |                    |              +- Code:
+   |                          |                    |                 +- St: If Statement: <+>
+   |                          |                    |                 |  +- Condition:
+   |                          |                    |                 |  |  +- Op: && {Z} <+>
+   |                          |                    |                 |  |     +- Op: > {Z} <+>
+   |                          |                    |                 |  |     |  +- Op: Local variable access: i {I} <+>
+   |                          |                    |                 |  |     |  +- Op: Local variable access: línea {I} <+>
+   |                          |                    |                 |  |     +- Op: ! {Z} <+>
+   |                          |                    |                 |  |        +- Op: isnull {Z} <+>
+   |                          |                    |                 |  |           +- Op: Array Access {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |  |              +- Op: Array Access {[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |  |              |  +- Op: Local variable access: cubs {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |  |              |  +- Op: Local variable access: i {I} <+>
+   |                          |                    |                 |  |              +- Op: Local variable access: j {I} <+>
+   |                          |                    |                 |  +- If Code:
+   |                          |                    |                 |     +- St: Block <+>
+   |                          |                    |                 |        +- Local Variables:
+   |                          |                    |                 |        |  +- Symbol Var [ t ] Type [ cat.quadriga.base.Transform ]
+   |                          |                    |                 |        +- Code:
+   |                          |                    |                 |           +- St: Statements: <+>
+   |                          |                    |                 |           |  +- St: = <+>
+   |                          |                    |                 |           |     +- Op: Local variable access: t {cat.quadriga.base.Transform} <+>
+   |                          |                    |                 |           |     +- Op: Component Access {cat.quadriga.base.Transform} <+>
+   |                          |                    |                 |           |        +- Op: Array Access {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |           |        |  +- Op: Array Access {[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |           |        |  |  +- Op: Local variable access: cubs {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |           |        |  |  +- Op: Local variable access: i {I} <+>
+   |                          |                    |                 |           |        |  +- Op: Local variable access: j {I} <+>
+   |                          |                    |                 |           |        +- Op: Type Access: cat.quadriga.base.Transform <+>
+   |                          |                    |                 |           +- St: = <+>
+   |                          |                    |                 |           |  +- Op: Field: {F} <+>
+   |                          |                    |                 |           |  |  +- javax.vecmath.Tuple3f -> y
+   |                          |                    |                 |           |  |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
+   |                          |                    |                 |           |  |     +- cat.quadriga.base.Transform -> position
+   |                          |                    |                 |           |  |     +- Op: Local variable access: t {cat.quadriga.base.Transform} <+>
+   |                          |                    |                 |           |  +- Op: - {F} <+>
+   |                          |                    |                 |           |     +- Op: Field: {F} <+>
+   |                          |                    |                 |           |     |  +- javax.vecmath.Tuple3f -> y
+   |                          |                    |                 |           |     |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
+   |                          |                    |                 |           |     |     +- cat.quadriga.base.Transform -> position
+   |                          |                    |                 |           |     |     +- Op: Local variable access: t {cat.quadriga.base.Transform} <+>
+   |                          |                    |                 |           |     +- Op: cast F {F} <+>
+   |                          |                    |                 |           |        +- Op: Literal: 1 {I} <+>
+   |                          |                    |                 |           +- St: = <+>
+   |                          |                    |                 |              +- Op: Component Access {cat.quadriga.base.Transform} <+>
+   |                          |                    |                 |              |  +- Op: Array Access {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |              |  |  +- Op: Array Access {[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |              |  |  |  +- Op: Local variable access: cubs {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |                    |                 |              |  |  |  +- Op: Local variable access: i {I} <+>
+   |                          |                    |                 |              |  |  +- Op: Local variable access: j {I} <+>
+   |                          |                    |                 |              |  +- Op: Type Access: cat.quadriga.base.Transform <+>
+   |                          |                    |                 |              +- Op: Local variable access: t {cat.quadriga.base.Transform} <+>
+   |                          |                    |                 +- St: = <+>
+   |                          |                    |                    +- Op: Array Access {I} <+>
+   |                          |                    |                    |  +- Op: Array Access {[I} <+>
+   |                          |                    |                    |  |  +- Op: Local variable access: taulell {[[I} <+>
+   |                          |                    |                    |  |  +- Op: Local variable access: i {I} <+>
+   |                          |                    |                    |  +- Op: Local variable access: j {I} <+>
+   |                          |                    |                    +- Op: Array Access {I} <+>
+   |                          |                    |                       +- Op: Array Access {[I} <+>
+   |                          |                    |                       |  +- Op: Local variable access: taulell {[[I} <+>
+   |                          |                    |                       |  +- Op: + {I} <+>
+   |                          |                    |                       |     +- Op: Local variable access: i {I} <+>
+   |                          |                    |                       |     +- Op: Literal: 1 {I} <+>
+   |                          |                    |                       +- Op: Local variable access: j {I} <+>
+   |                          |                    +- St: Statement From Expression : ++X <+>
+   |                          |                       +- Op: Local variable access: línies {I} <+>
+   |                          +- St: = <+>
+   |                          |  +- Op: Component Field: {[[I} <+>
+   |                          |  |  +- tetris.base.Taulell -> taulell
+   |                          |  |  +- Op: Component Access {tetris.base.Taulell} <+>
+   |                          |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |  |     +- Op: Type Access: tetris.base.Taulell <+>
+   |                          |  +- Op: Local variable access: taulell {[[I} <+>
+   |                          +- St: No Operation <+>
+   |                          +- St: = <+>
+   |                          |  +- Op: Component Field: {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          |  |  +- tetris.base.Taulell -> cubs
+   |                          |  |  +- Op: Component Access {tetris.base.Taulell} <+>
+   |                          |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |  |     +- Op: Type Access: tetris.base.Taulell <+>
+   |                          |  +- Op: Local variable access: cubs {[[Lcat/quadriga/runtime/Entity;} <+>
+   |                          +- St: = <+>
+   |                          |  +- Op: Component Field: {I} <+>
+   |                          |  |  +- tetris.base.Puntuació -> línies
+   |                          |  |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                          |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |  |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                          |  +- Op: + {I} <+>
+   |                          |     +- Op: Component Field: {I} <+>
+   |                          |     |  +- tetris.base.Puntuació -> línies
+   |                          |     |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                          |     |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |     |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                          |     +- Op: Local variable access: línies {I} <+>
+   |                          +- St: = <+>
+   |                          |  +- Op: Component Field: {I} <+>
+   |                          |  |  +- tetris.base.Puntuació -> nivell
+   |                          |  |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                          |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |  |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                          |  +- Op: / {I} <+>
+   |                          |     +- Op: Component Field: {I} <+>
+   |                          |     |  +- tetris.base.Puntuació -> línies
+   |                          |     |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                          |     |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |     |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                          |     +- Op: Literal: 10 {I} <+>
+   |                          +- St: = <+>
+   |                          |  +- Op: Component Field: {I} <+>
+   |                          |  |  +- tetris.base.Puntuació -> punts
+   |                          |  |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                          |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |  |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                          |  +- Op: + {I} <+>
+   |                          |     +- Op: Component Field: {I} <+>
+   |                          |     |  +- tetris.base.Puntuació -> punts
+   |                          |     |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                          |     |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                          |     |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                          |     +- Op: Literal: 11 {I} <+>
+   |                          +- St: If Statement: <+>
+   |                             +- Condition:
+   |                             |  +- Op: == {Z} <+>
+   |                             |     +- Op: Local variable access: línies {I} <+>
+   |                             |     +- Op: Literal: 1 {I} <+>
+   |                             +- If Code:
+   |                             |  +- St: Block <+>
+   |                             |     +- Code:
+   |                             |        +- St: = <+>
+   |                             |           +- Op: Component Field: {I} <+>
+   |                             |           |  +- tetris.base.Puntuació -> punts
+   |                             |           |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                             |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                             |           |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                             |           +- Op: + {I} <+>
+   |                             |              +- Op: Component Field: {I} <+>
+   |                             |              |  +- tetris.base.Puntuació -> punts
+   |                             |              |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                             |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                             |              |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                             |              +- Op: Literal: 30 {I} <+>
+   |                             +- Else Code:
+   |                                +- St: If Statement: <+>
+   |                                   +- Condition:
+   |                                   |  +- Op: == {Z} <+>
+   |                                   |     +- Op: Local variable access: línies {I} <+>
+   |                                   |     +- Op: Literal: 2 {I} <+>
+   |                                   +- If Code:
+   |                                   |  +- St: Block <+>
+   |                                   |     +- Code:
+   |                                   |        +- St: = <+>
+   |                                   |           +- Op: Component Field: {I} <+>
+   |                                   |           |  +- tetris.base.Puntuació -> punts
+   |                                   |           |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                                   |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                                   |           |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                                   |           +- Op: + {I} <+>
+   |                                   |              +- Op: Component Field: {I} <+>
+   |                                   |              |  +- tetris.base.Puntuació -> punts
+   |                                   |              |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                                   |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                                   |              |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                                   |              +- Op: Literal: 71 {I} <+>
+   |                                   +- Else Code:
+   |                                      +- St: If Statement: <+>
+   |                                         +- Condition:
+   |                                         |  +- Op: == {Z} <+>
+   |                                         |     +- Op: Local variable access: línies {I} <+>
+   |                                         |     +- Op: Literal: 3 {I} <+>
+   |                                         +- If Code:
+   |                                         |  +- St: Block <+>
+   |                                         |     +- Code:
+   |                                         |        +- St: = <+>
+   |                                         |           +- Op: Component Field: {I} <+>
+   |                                         |           |  +- tetris.base.Puntuació -> punts
+   |                                         |           |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                                         |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                                         |           |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                                         |           +- Op: + {I} <+>
+   |                                         |              +- Op: Component Field: {I} <+>
+   |                                         |              |  +- tetris.base.Puntuació -> punts
+   |                                         |              |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                                         |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                                         |              |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                                         |              +- Op: Literal: 111 {I} <+>
+   |                                         +- Else Code:
+   |                                            +- St: If Statement: <+>
+   |                                               +- Condition:
+   |                                               |  +- Op: == {Z} <+>
+   |                                               |     +- Op: Local variable access: línies {I} <+>
+   |                                               |     +- Op: Literal: 4 {I} <+>
+   |                                               +- If Code:
+   |                                                  +- St: Block <+>
+   |                                                     +- Code:
+   |                                                        +- St: = <+>
+   |                                                           +- Op: Component Field: {I} <+>
+   |                                                           |  +- tetris.base.Puntuació -> punts
+   |                                                           |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                                                           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                                                           |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                                                           +- Op: + {I} <+>
+   |                                                              +- Op: Component Field: {I} <+>
+   |                                                              |  +- tetris.base.Puntuació -> punts
+   |                                                              |  +- Op: Component Access {tetris.base.Puntuació} <+>
+   |                                                              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;} <+>
+   |                                                              |     +- Op: Type Access: tetris.base.Puntuació <+>
+   |                                                              +- Op: Literal: 160 {I} <+>
    +- "cat.quadriga.base.CameraComponent" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -1824,48 +2035,6 @@
    |           +- Ljava/lang/String;
    |           +- "texture"
    |           +- Op: Literal: "" {Ljava/lang/String;} <+>
-   +- "riskppt3d.planeta.PlanetaInfo" : Symbol Type
-   |  +- Prototype <+>
-   |     +- St: Block <+>
-   |        +- Code:
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |  +- "position"
-   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
-   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
-   |           |  |  |     |     +- St: Zero Arguments <+>
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |     |  +- F
-   |           |  |  |     |  +- "scale"
-   |           |  |  |     |  +- Op: Literal: 1.0 {F} <+>
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- Ljavax/vecmath/Quat4f;
-   |           |  |  |        +- "rotation"
-   |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
-   |           |  |  |           +- Ljavax/vecmath/Quat4f;
-   |           |  |  |           +- St: Arguments <+>
-   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
-   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
-   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
-   |           |  |  |              +- Op: Literal: 1.0 {F} <+>
-   |           |  |  +- St: Zero Arguments <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Add Component <+>
-   |           |  +- Op: Component Allocation {cat.quadriga.base.BillboardRenderer} <+>
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  +- St: Zero Arguments <+>
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |              +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
-   |              |  +- Op: Literal: "Quad" {Ljava/lang/String;} <+>
-   |              +- riskppt3d.planeta.PlanetInfoQuad
-   |              +- St: Zero Arguments <+>
    +- "cat.quadriga.base.SimpleCameraSystem" : Symbol Type
    |  +- System <+>
    |     +- needed components
@@ -1918,6 +2087,25 @@
    |                                   +- Op: Type Access: cat.quadriga.base.CameraComponent <+>
    +- "java.lang.String" : Symbol Type
    |  +- Ljava/lang/String;
+   +- "FontQuad" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |        |  +- Ljavax/vecmath/Vector3f;
+   |        |  +- "position"
+   |        |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |        |     +- Ljavax/vecmath/Vector3f;
+   |        |     +- St: Zero Arguments <+>
+   |        +- Quadriga Field
+   |        |  +- Ljava/lang/String;
+   |        |  +- "text"
+   |        |  +- Op: Literal: "" {Ljava/lang/String;} <+>
+   |        +- Quadriga Field
+   |           +- Ljavax/vecmath/Vector4f;
+   |           +- "color"
+   |           +- Op: Constructor {Ljavax/vecmath/Vector4f;} <+>
+   |              +- Ljavax/vecmath/Vector4f;
+   |              +- St: Zero Arguments <+>
    +- "SimpleCameraSystem" : Symbol Type
    |  +- System <+>
    |     +- needed components
@@ -1968,6 +2156,77 @@
    |                                +- Op: Component Access {cat.quadriga.base.CameraComponent} <+>
    |                                   +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
    |                                   +- Op: Type Access: cat.quadriga.base.CameraComponent <+>
+   +- "tetris.base.Tetris" : Symbol Type
+   |  +- Prototype <+>
+   |     +- St: Block <+>
+   |        +- Code:
+   |           +- St: Add Component <+>
+   |           |  +- Op: Component Allocation {cat.quadriga.base.Transform} <+>
+   |           |  |  +- Component <+>
+   |           |  |  |  +- fields
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
+   |           |  |  |     |  +- "position"
+   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;} <+>
+   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
+   |           |  |  |     |     +- St: Zero Arguments <+>
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- F
+   |           |  |  |     |  +- "scale"
+   |           |  |  |     |  +- Op: Literal: 1.0 {F} <+>
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |        +- Ljavax/vecmath/Quat4f;
+   |           |  |  |        +- "rotation"
+   |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;} <+>
+   |           |  |  |           +- Ljavax/vecmath/Quat4f;
+   |           |  |  |           +- St: Arguments <+>
+   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
+   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
+   |           |  |  |              +- Op: Literal: 0.0 {F} <+>
+   |           |  |  |              +- Op: Literal: 1.0 {F} <+>
+   |           |  |  +- St: Zero Arguments <+>
+   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   |           +- St: Add Component <+>
+   |           |  +- Op: Component Allocation {tetris.base.Puntuació} <+>
+   |           |  |  +- Component <+>
+   |           |  |  |  +- fields
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- I
+   |           |  |  |     |  +- "nivell"
+   |           |  |  |     |  +- Op: Literal: 0 {I} <+>
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- I
+   |           |  |  |     |  +- "punts"
+   |           |  |  |     |  +- Op: Literal: 0 {I} <+>
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |        +- I
+   |           |  |  |        +- "línies"
+   |           |  |  |        +- Op: Literal: 0 {I} <+>
+   |           |  |  +- St: Named Arguments <+>
+   |           |  |     +- quadriga argument
+   |           |  |        +- punts
+   |           |  |        +- Op: Literal: 0 {I} <+>
+   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
+   |           +- St: Add Component <+>
+   |              +- Op: Component Allocation {tetris.base.Taulell} <+>
+   |              |  +- Component <+>
+   |              |  |  +- fields
+   |              |  |     +- Quadriga Field
+   |              |  |     |  +- [[Lcat/quadriga/runtime/Entity;
+   |              |  |     |  +- "cubs"
+   |              |  |     |  +- Op: new array {[[Lcat/quadriga/runtime/Entity;} <+>
+   |              |  |     |     +- Lcat/quadriga/runtime/Entity;
+   |              |  |     |     +- Op: Literal: 10 {I} <+>
+   |              |  |     |     +- Op: Literal: 18 {I} <+>
+   |              |  |     +- Quadriga Field
+   |              |  |        +- [[I
+   |              |  |        +- "taulell"
+   |              |  |        +- Op: new primitive array {[[I} <+>
+   |              |  |           +- I
+   |              |  |           +- Op: Literal: 10 {I} <+>
+   |              |  |           +- Op: Literal: 18 {I} <+>
+   |              |  +- St: Zero Arguments <+>
+   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;} <+>
    +- "cat.quadriga.base.SphereRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -2043,79 +2302,9 @@
    |                                +- St: Zero Arguments <+>
    +- "cat.quadriga.render.simple.RenderManager" : Symbol Type
    |  +- Lcat/quadriga/render/simple/RenderManager;
-   +- "riskppt3d.demo.IncrementadorPlanetes" : Symbol Type
-   |  +- System <+>
-   |     +- needed components
-   |     |  +- cat.quadriga.base.CameraComponent
-   |     +- Update: 
-   |        +- Quadriga function
-   |           +- parameters
-   |           |  +- parameter
-   |           |  |  +- Lcat/quadriga/runtime/Entity;
-   |           |  |  +- entity
-   |           |  |  +- Semantic: ENTITY
-   |           |  +- parameter
-   |           |     +- F
-   |           |     +- dt
-   |           |     +- Semantic: DELTA_TIME
-   |           +- St: Block <+>
-   |              +- Code:
-   |                 +- St: Block <+>
-   |                    +- Local Variables:
-   |                    |  +- Symbol Var [ pos ] Type [ Ljavax/vecmath/Vector3f; ]
-   |                    |  +- Symbol Var [ desp ] Type [ F ]
-   |                    |  +- Symbol Var [ aaRot ] Type [ Ljavax/vecmath/AxisAngle4f; ]
-   |                    |  +- Symbol Var [ m ] Type [ Ljavax/vecmath/Matrix4f; ]
-   |                    +- Code:
-   |                       +- St: Statements: <+>
-   |                       |  +- St: = <+>
-   |                       |     +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
-   |                       |     +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
-   |                       |        +- cat.quadriga.base.CameraComponent -> position
-   |                       |        +- Op: Component Access {cat.quadriga.base.CameraComponent} <+>
-   |                       |           +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
-   |                       |           +- Op: Type Access: cat.quadriga.base.CameraComponent <+>
-   |                       +- St: Statements: <+>
-   |                       |  +- St: = <+>
-   |                       |     +- Op: Local variable access: desp {F} <+>
-   |                       |     +- Op: * {F} <+>
-   |                       |        +- Op: Literal: 0.3 {F} <+>
-   |                       |        +- Op: Local variable access: dt {F} <+>
-   |                       +- St: Statements: <+>
-   |                       |  +- St: = <+>
-   |                       |     +- Op: Local variable access: aaRot {Ljavax/vecmath/AxisAngle4f;} <+>
-   |                       |     +- Op: Constructor {Ljavax/vecmath/AxisAngle4f;} <+>
-   |                       |        +- Ljavax/vecmath/AxisAngle4f;
-   |                       |        +- St: Arguments <+>
-   |                       |           +- Op: Literal: 0.0 {F} <+>
-   |                       |           +- Op: Literal: 0.0 {F} <+>
-   |                       |           +- Op: Literal: 1.0 {F} <+>
-   |                       |           +- Op: Local variable access: desp {F} <+>
-   |                       +- St: Statements: <+>
-   |                       |  +- St: = <+>
-   |                       |     +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
-   |                       |     +- Op: Constructor {Ljavax/vecmath/Matrix4f;} <+>
-   |                       |        +- Ljavax/vecmath/Matrix4f;
-   |                       |        +- St: Zero Arguments <+>
-   |                       +- St: Statement From Expression : Call <+>
-   |                       |  +- Op: Method: <+>
-   |                       |  |  +- javax.vecmath.Matrix4f -> set
-   |                       |  |  +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
-   |                       |  +- St: Arguments <+>
-   |                       |     +- Op: Local variable access: aaRot {Ljavax/vecmath/AxisAngle4f;} <+>
-   |                       +- St: Statement From Expression : Call <+>
-   |                       |  +- Op: Method: <+>
-   |                       |  |  +- javax.vecmath.Matrix4f -> transform
-   |                       |  |  +- Op: Local variable access: m {Ljavax/vecmath/Matrix4f;} <+>
-   |                       |  +- St: Arguments <+>
-   |                       |     +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
-   |                       +- St: = <+>
-   |                          +- Op: Component Field: {Ljavax/vecmath/Vector3f;} <+>
-   |                          |  +- cat.quadriga.base.CameraComponent -> position
-   |                          |  +- Op: Component Access {cat.quadriga.base.CameraComponent} <+>
-   |                          |     +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;} <+>
-   |                          |     +- Op: Type Access: cat.quadriga.base.CameraComponent <+>
-   |                          +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;} <+>
+   +- "tetris.base.InitTetris" : Symbol Type
+   |  +- Event <+>
+   |     +- fields
    +- "cat.quadriga.base.SimpleSphereRenderer" : Symbol Type
    |  +- System <+>
    |     +- needed components

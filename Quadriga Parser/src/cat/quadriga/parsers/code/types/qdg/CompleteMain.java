@@ -74,7 +74,9 @@ public class CompleteMain extends BaseTypeClass implements RuntimeMain {
       if(init == null || init.isCorrectlyLinked()) {
         nBlock = init;
       } else {
+        symbolTable.resetLocalVariables();
         nBlock = init.getLinkedVersion(symbolTable, errorLog);
+        symbolTable.closeLocalVariables();
         if(nBlock == null) {
           return null;
         }
@@ -117,8 +119,10 @@ public class CompleteMain extends BaseTypeClass implements RuntimeMain {
   public void execute(RuntimeEnvironment runtime) {
     if(init != null) {
       try {
-        //TODO
+        runtime.enterFunction(init.numLocalVariables);
         init.code.execute(runtime);
+        runtime.exitFunction();
+        
       } catch(BreakOrContinueException e) {
         throw new IllegalStateException(e);
       }

@@ -1,5 +1,6 @@
 package cat.quadriga.parsers.code.types.qdg;
 
+import java.util.Collections;
 import java.util.List;
 
 import cat.quadriga.parsers.code.ErrorLog;
@@ -7,6 +8,7 @@ import cat.quadriga.parsers.code.ParameterClass;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.statements.BlockCode;
+import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
 import cat.quadriga.parsers.code.types.UnknownType;
@@ -16,6 +18,7 @@ public class IncompletePrototype extends BaseTypeClass implements QuadrigaProtot
   public List<ParameterClass> parameters;
   public BlockCode initializations;
   public int numLocalVariables;
+  public List<LocalVariableSymbol> localVariables;
   
   public IncompletePrototype(String name) {
     super(name);

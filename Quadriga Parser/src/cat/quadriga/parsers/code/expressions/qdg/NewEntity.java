@@ -7,6 +7,7 @@ import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.NullType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
 import cat.quadriga.runtime.ComputedValue;
 import cat.quadriga.runtime.Entity;
@@ -89,7 +90,7 @@ public final class NewEntity extends ExpressionNodeClass {
   public ComputedValue compute(RuntimeEnvironment runtime) {
     
     String entityName = null;
-    if(name != null) {
+    if(name != null && !(name.getType() instanceof NullType)) {
       entityName = name.compute(runtime).getStringValue();
     }
     ComputedValue entityParent = parent.compute(runtime);
