@@ -14,7 +14,8 @@ import cat.quadriga.parsers.code.types.UnknownType;
 public class IncompletePrototype extends BaseTypeClass implements QuadrigaPrototype {
 
   public List<ParameterClass> parameters;
-  public BlockCode initializations; 
+  public BlockCode initializations;
+  public int numLocalVariables;
   
   public IncompletePrototype(String name) {
     super(name);

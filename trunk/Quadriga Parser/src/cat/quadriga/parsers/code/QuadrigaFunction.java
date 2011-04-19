@@ -13,11 +13,13 @@ public class QuadrigaFunction extends CodeZoneClass implements TreeRepresentable
 
   public final List<ParameterClass> parameters;
   public final BlockCode code;
+  public final int numLocalVariables;
   
-  public QuadrigaFunction(List<ParameterClass> parameters, BlockCode code, CodeZone cd) {
+  public QuadrigaFunction(List<ParameterClass> parameters, BlockCode code, int numLocalVariables, CodeZone cd) {
     super(cd);
     this.parameters = Collections.unmodifiableList(new ArrayList<ParameterClass>(parameters));
     this.code = code;
+    this.numLocalVariables = numLocalVariables;
   }
 
   @Override
@@ -46,7 +48,7 @@ public class QuadrigaFunction extends CodeZoneClass implements TreeRepresentable
     aux.aux = this;
     linked = true;
     
-    
+    this.numLocalVariables = original.numLocalVariables;
     symbolTable.newContext();
     
     List<ParameterClass> params = new ArrayList<ParameterClass>();

@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import cat.quadriga.parsers.code.BreakOrContinueException;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.ParameterClass;
+import cat.quadriga.parsers.code.QuadrigaFunction;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
@@ -29,13 +30,15 @@ import cat.quadriga.runtime.RuntimePrototype;
 
 public class CompletePrototype extends BaseTypeClass implements RuntimePrototype {
 
-  public final List<ParameterClass> parameters;
-  public final BlockCode initializations; 
+  //public final List<ParameterClass> parameters;
+  //public final BlockCode initializations;
+  public final QuadrigaFunction init;
   
   public CompletePrototype(IncompletePrototype original) {
     super(original.getBinaryName());
-    initializations = original.initializations;
-    parameters = Collections.unmodifiableList(new ArrayList<ParameterClass>(original.parameters));
+    BlockCode initializations = original.initializations;
+    List<ParameterClass> parameters = Collections.unmodifiableList(new ArrayList<ParameterClass>(original.parameters));
+    init = new QuadrigaFunction(parameters, initializations, original.numLocalVariables, initializations);
   }
   
   @Override
@@ -57,83 +60,31 @@ public class CompletePrototype extends BaseTypeClass implements RuntimePrototype
       linkedStatus = " <+>";
     }
     return Utils.treeStringRepresentation("Prototype" + linkedStatus, 
-        (parameters == null || parameters.size() == 0)? null : Utils.parametersRepresentation(parameters),
-        initializations.treeStringRepresentation());
+        (init.parameters == null || init.parameters.size() == 0)? null : Utils.parametersRepresentation(init.parameters),
+        init.code.treeStringRepresentation());
   }
 
   private boolean validated = false;
   @Override
   public boolean isValid() {
     if(validated) return true;
-    for(ParameterClass parameter: parameters) {
-      if(!parameter.type.isValid()) {
-        return false;
-      }
-      if(parameter.init != null && !parameter.init.isCorrectlyLinked()) {
-        return false;
-      }
-    }
-    return initializations.isCorrectlyLinked();
+    return init.isCorrectlyLinked();
   }
 
   private CompletePrototype(CompletePrototype original, Aux aux, SymbolTable symbolTable, ErrorLog errorLog) {
     super(original.getBinaryName());
     aux.aux = this;
     validated = true;
-    
-    
+    //TODO comprovar que els parametres estiguin ben "adaptats"
     symbolTable.newContext();
-    
-    List<ParameterClass> params = new ArrayList<ParameterClass>();
-    for(ParameterClass parameter: original.parameters) {
-      BaseType nType;
-      ExpressionNode nInit = null;
-      if(parameter.type.isValid()) {
-        nType = parameter.type;
-      } else {
-        nType = parameter.type.getValid(symbolTable, errorLog);
-        if(nType == null) {
-          break;
-        }
-      }
-      if(parameter.init != null) {
-        if(parameter.init.isCorrectlyLinked()) {
-          nInit = parameter.init;
-        } else {
-          nInit = parameter.init.getLinkedVersion(symbolTable, errorLog);
-          if(nInit == null) {
-            break;
-          }
-        }
-      }
-      //TODO comprovar que els parametres estiguin ben "adaptats"
-      ParameterClass param =
-             new ParameterClass(
-          parameter.cz, 
-          nType, 
-          parameter.name, 
-          parameter.varargs, 
-          parameter.modifiers, 
-          nInit, 
-          parameter.semantic,
-          symbolTable.getNumLocalVariables());
-      params.add(param);
-      LocalVariableSymbol lvs = new LocalVariableSymbol(parameter.modifiers, nType, parameter.name, param.position);
-      symbolTable.addLocalVariable(lvs);
-    }
     symbolTable.addSymbol(new ThisSymbol(QuadrigaEntity.baseEntity));
-    if(original.initializations.isCorrectlyLinked()) {
-      initializations = original.initializations;
-    } else {
-      initializations = original.initializations.getLinkedVersion(symbolTable, errorLog);
-    }
-    if(initializations == null) {
-      validated = false;
-    } else if(params.size() != original.parameters.size()) {
-      validated = false;
-    }
-    parameters = Collections.unmodifiableList(params);
+    
+    init = original.init.getLinkedVersion(symbolTable, errorLog);
+    
     symbolTable.deleteContext();
+    if(init == null) {
+      validated = false;
+    }
   }
   
   private Aux aux = new Aux();
@@ -170,14 +121,15 @@ public class CompletePrototype extends BaseTypeClass implements RuntimePrototype
       RuntimeEnvironment runtime) {
     
     //TODO comprovar parametres?
+    //TODO coses de parametres
     
     Map<String, ParameterClass> params = new HashMap<String, ParameterClass>();
-    for(ParameterClass param : parameters) {
+    for(ParameterClass param : init.parameters) {
       params.put(param.name, param);
     }
     
     Map<String, LocalVariableSymbol> locals = new HashMap<String, LocalVariableSymbol>();
-    for(LocalVariableSymbol local : initializations.localVariables) {
+    for(LocalVariableSymbol local : init.code.localVariables) {
       locals.put(local.name, local);
     }
     
@@ -210,7 +162,7 @@ public class CompletePrototype extends BaseTypeClass implements RuntimePrototype
     runtime.putLocalVariable(new ThisSymbol(QuadrigaEntity.baseEntity),entity);
     
     try {
-      initializations.execute(runtime,symbolsToSkip);
+      init.code.execute(runtime,symbolsToSkip);
     } catch (BreakOrContinueException e) {
       throw new IllegalStateException(e);
     }

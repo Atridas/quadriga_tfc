@@ -6,7 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import cat.quadriga.parsers.code.BreakOrContinueException;
+import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.ParameterClass;
+import cat.quadriga.parsers.code.QuadrigaFunction;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.statements.BlockCode;
@@ -23,24 +26,32 @@ import cat.quadriga.runtime.RuntimeThread;
 public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runnable {
   
   public final List<QuadrigaSystem> systems;
-  public final BlockCode init, cleanUp;
+  public final QuadrigaFunction init, cleanUp;
 
-  public CompleteThread(String binaryName, List<QuadrigaSystem> systems, BlockCode init, BlockCode cleanUp, String file) {
+  public CompleteThread(String binaryName, List<QuadrigaSystem> systems, QuadrigaFunction init, QuadrigaFunction cleanUp, String file) {
     super(binaryName);
     this.systems = Collections.unmodifiableList(new ArrayList<QuadrigaSystem>(systems));
     if(init == null) {
-      this.init = new BlockCode.TmpBlockCode(file).transformToBlockCode();
+      this.init = new QuadrigaFunction(
+          new LinkedList<ParameterClass>(),
+          new BlockCode.TmpBlockCode(file).transformToBlockCode(),
+          0,
+          new CodeZoneClass(0,0,0,0,file));
     } else {
       this.init = init;
     }
     if(cleanUp == null) {
-      this.cleanUp = new BlockCode.TmpBlockCode(file).transformToBlockCode();
+      this.cleanUp = new QuadrigaFunction(
+          new LinkedList<ParameterClass>(),
+          new BlockCode.TmpBlockCode(file).transformToBlockCode(),
+          0,
+          new CodeZoneClass(0,0,0,0,file));
     } else {
       this.cleanUp = cleanUp;
     }
   }
   
-  public CompleteThread(String pack, String name, List<QuadrigaSystem> systems, BlockCode init, BlockCode cleanUp, String file) {
+  public CompleteThread(String pack, String name, List<QuadrigaSystem> systems, QuadrigaFunction init, QuadrigaFunction cleanUp, String file) {
     this((pack.length()>0)? (pack + "." + name) : name, systems, init, cleanUp, file);
   }
 
@@ -92,7 +103,7 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
       if(qs.size() != systems.size()) {
         return null;
       }
-      BlockCode bc, bc2;
+      QuadrigaFunction bc, bc2;
       if(init.isCorrectlyLinked()) {
         bc = init;
       } else {
@@ -144,7 +155,8 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
     }
     
     try {
-      init.execute(runtime);
+      //TODO
+      init.code.execute(runtime);
     } catch (BreakOrContinueException e) {
       throw new IllegalStateException(e);
     }
@@ -164,7 +176,8 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
       ((RuntimeSystem)qs).executeCleanUp(runtime);
     }
     try {
-      cleanUp.execute(runtime);
+      //TODO
+      cleanUp.code.execute(runtime);
     } catch (BreakOrContinueException e) {
       throw new IllegalStateException(e);
     }

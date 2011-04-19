@@ -7,6 +7,7 @@ import java.util.List;
 
 import cat.quadriga.parsers.code.BreakOrContinueException;
 import cat.quadriga.parsers.code.ErrorLog;
+import cat.quadriga.parsers.code.QuadrigaFunction;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.statements.BlockCode;
@@ -21,16 +22,16 @@ import cat.quadriga.runtime.RuntimeThread;
 public class CompleteMain extends BaseTypeClass implements RuntimeMain {
   
   public final List<QuadrigaThread> threads;
-  public final BlockCode init;
+  public final QuadrigaFunction init;
 
-  public CompleteMain(String binaryName, List<QuadrigaThread> threads, BlockCode block) {
+  public CompleteMain(String binaryName, List<QuadrigaThread> threads, QuadrigaFunction init) {
     super(binaryName);
     this.threads = Collections.unmodifiableList(new ArrayList<QuadrigaThread>(threads));
-    this.init = block;
+    this.init = init;
   }
 
-  public CompleteMain(String pack, String binaryName, List<QuadrigaThread> threads, BlockCode block) {
-    this((pack.length()>0)? (pack + "." + binaryName) : binaryName, threads, block);
+  public CompleteMain(String pack, String binaryName, List<QuadrigaThread> threads, QuadrigaFunction init) {
+    this((pack.length()>0)? (pack + "." + binaryName) : binaryName, threads, init);
   }
 
   @Override
@@ -69,7 +70,7 @@ public class CompleteMain extends BaseTypeClass implements RuntimeMain {
         }
       }
       
-      BlockCode nBlock;
+      QuadrigaFunction nBlock;
       if(init == null || init.isCorrectlyLinked()) {
         nBlock = init;
       } else {
@@ -116,7 +117,8 @@ public class CompleteMain extends BaseTypeClass implements RuntimeMain {
   public void execute(RuntimeEnvironment runtime) {
     if(init != null) {
       try {
-        init.execute(runtime);
+        //TODO
+        init.code.execute(runtime);
       } catch(BreakOrContinueException e) {
         throw new IllegalStateException(e);
       }
