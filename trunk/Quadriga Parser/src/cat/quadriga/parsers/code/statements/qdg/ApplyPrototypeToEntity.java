@@ -141,8 +141,10 @@ public class ApplyPrototypeToEntity extends StatementNodeClass {
       Entity entity = (Entity)this.entity.compute(runtime);
       
       ((RuntimePrototype)base).apply(entity, arguments, componentArguments, runtime);
-    } catch (Exception e) {
-      throw new RuntimeException("Error in line " + beginLine + " column " + beginColumn + " file " + file, e);
+    } catch(Exception e) {
+      throw new RuntimeException("Error in " 
+          + beginLine + ":" + beginColumn + " "
+          + endLine + ":" + endColumn + " " + file, e);
     }
   }
   

@@ -17,7 +17,6 @@ import cat.quadriga.parsers.code.QuadrigaFunction;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
-import cat.quadriga.parsers.code.statements.BlockCode;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.BaseTypeClass;
@@ -226,10 +225,12 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
         }
       }
       if(!fun.isCorrectlyLinked()) {
+        symbolTable.resetLocalVariables();
         fun = fun.getLinkedVersion(symbolTable, errorLog);
         if(fun == null) {
           validated = false;
         }
+        symbolTable.closeLocalVariables();
       }
       eventHandlers.put(event,fun);
     }
@@ -237,50 +238,62 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     if(original.update == null || original.update.isCorrectlyLinked()) {
       update = original.update;
     } else {
+      symbolTable.resetLocalVariables();
       update = original.update.getLinkedVersion(symbolTable, errorLog);
       if(update == null) {
         validated = false;
       }
+      symbolTable.closeLocalVariables();
     }
     if(original.changeEntity == null || original.changeEntity.isCorrectlyLinked()) {
       changeEntity = original.changeEntity;
     } else {
+      symbolTable.resetLocalVariables();
       changeEntity = original.changeEntity.getLinkedVersion(symbolTable, errorLog);
       if(changeEntity == null) {
         validated = false;
       }
+      symbolTable.closeLocalVariables();
     }
     if(original.newEntity == null || original.newEntity.isCorrectlyLinked()) {
       newEntity = original.newEntity;
     } else {
+      symbolTable.resetLocalVariables();
       newEntity = original.newEntity.getLinkedVersion(symbolTable, errorLog);
       if(newEntity == null) {
         validated = false;
       }
+      symbolTable.closeLocalVariables();
     }
     if(original.removeEntity == null || original.removeEntity.isCorrectlyLinked()) {
       removeEntity = original.removeEntity;
     } else {
+      symbolTable.resetLocalVariables();
       removeEntity = original.removeEntity.getLinkedVersion(symbolTable, errorLog);
       if(removeEntity == null) {
         validated = false;
       }
+      symbolTable.closeLocalVariables();
     }
     if(original.init == null || original.init.isCorrectlyLinked()) {
       init = original.init;
     } else {
+      symbolTable.resetLocalVariables();
       init = original.init.getLinkedVersion(symbolTable, errorLog);
       if(init == null) {
         validated = false;
       }
+      symbolTable.closeLocalVariables();
     }
     if(original.cleanUp == null || original.cleanUp.isCorrectlyLinked()) {
       cleanUp = original.cleanUp;
     } else {
+      symbolTable.resetLocalVariables();
       cleanUp = original.cleanUp.getLinkedVersion(symbolTable, errorLog);
       if(cleanUp == null) {
         validated = false;
       }
+      symbolTable.closeLocalVariables();
     }
     
     
@@ -356,10 +369,12 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
   public void executeInit(RuntimeEnvironment runtime) {
     if(init != null) {
       try {
-        //TODO
+        runtime.enterFunction(init.numLocalVariables);
         init.code.execute(runtime);
       } catch (BreakOrContinueException e) {
         throw new IllegalStateException(e);
+      } finally {
+        runtime.exitFunction();
       }
     }
   }
@@ -368,10 +383,12 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
   public void executeCleanUp(RuntimeEnvironment runtime) {
     if(cleanUp != null) {
       try {
-        //TODO
+        runtime.enterFunction(cleanUp.numLocalVariables);
         cleanUp.code.execute(runtime);
       } catch (BreakOrContinueException e) {
         throw new IllegalStateException(e);
+      } finally {
+        runtime.exitFunction();
       }
     }
   }
@@ -387,7 +404,8 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
                   param.modifiers, 
                   param.type, 
                   param.name,
-                  param.position), 
+                  param.position,
+                  param.cz), 
               entity);
         } else if("DELTA_TIME".compareToIgnoreCase( param.semantic ) == 0) {
           runtime.putLocalVariable(
@@ -395,7 +413,8 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
                   param.modifiers, 
                   param.type, 
                   param.name,
-                  param.position), 
+                  param.position,
+                  param.cz), 
               new LiteralData.FloatLiteral(runtime.dt, CodeZoneClass.runtime));
         } else if("EVENT".compareToIgnoreCase( param.semantic ) == 0) {
           runtime.putLocalVariable(
@@ -403,7 +422,8 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
                   param.modifiers, 
                   param.type, 
                   param.name,
-                  param.position), 
+                  param.position,
+                  param.cz), 
               event);
         } else {
           throw new IllegalArgumentException("Semantic " + param.semantic + " not suported.");
@@ -417,6 +437,7 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     assert isValid();
     
     runtime.newLocalContext();
+    runtime.enterFunction(update.numLocalVariables);
     
     prepareParams(entity, null, update.parameters, runtime);
     
@@ -424,9 +445,10 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
       update.code.execute(runtime);
     } catch (BreakOrContinueException e) {
       throw new IllegalStateException(e);
+    } finally {
+      runtime.exitFunction();
+      runtime.deleteLocalContext();
     }
-    
-    runtime.deleteLocalContext();
   }
 
   @Override
@@ -434,6 +456,7 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     assert isValid();
     
     runtime.newLocalContext();
+    runtime.enterFunction(removeEntity.numLocalVariables);
     
     prepareParams(entity, null, removeEntity.parameters, runtime);
     
@@ -441,9 +464,10 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
       removeEntity.code.execute(runtime);
     } catch (BreakOrContinueException e) {
       throw new IllegalStateException(e);
+    } finally {
+      runtime.exitFunction();
+      runtime.deleteLocalContext();
     }
-    
-    runtime.deleteLocalContext();
   }
 
   @Override
@@ -451,6 +475,7 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     assert isValid();
     
     runtime.newLocalContext();
+    runtime.enterFunction(newEntity.numLocalVariables);
     
     prepareParams(entity, null, newEntity.parameters, runtime);
     
@@ -458,9 +483,10 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
       newEntity.code.execute(runtime);
     } catch (BreakOrContinueException e) {
       throw new IllegalStateException(e);
+    } finally {
+      runtime.exitFunction();
+      runtime.deleteLocalContext();
     }
-    
-    runtime.deleteLocalContext();
   }
 
   @Override
@@ -473,6 +499,7 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     }
     
     runtime.newLocalContext();
+    runtime.enterFunction(fun.numLocalVariables);
     
     prepareParams(entity, event, fun.parameters, runtime);
     
@@ -480,8 +507,9 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
       fun.code.execute(runtime);
     } catch (BreakOrContinueException e) {
       throw new IllegalStateException(e);
+    } finally {
+      runtime.exitFunction();
+      runtime.deleteLocalContext();
     }
-    
-    runtime.deleteLocalContext();
   }
 }

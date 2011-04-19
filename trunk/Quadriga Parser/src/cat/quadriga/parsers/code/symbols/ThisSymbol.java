@@ -1,16 +1,18 @@
 package cat.quadriga.parsers.code.symbols;
 
+import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.UnknownType;
 
 public class ThisSymbol extends LocalVariableSymbol {
 
-  public ThisSymbol(BaseType type) {
-    super(0, type, "this", 0);
+  public ThisSymbol(BaseType type, CodeZone cz) {
+    super(0, type, "this", 0, cz);
   }
 
   public ThisSymbol() {
-    super(0, UnknownType.empty, "this", 0);
+    super(0, UnknownType.empty, "this", 0, CodeZoneClass.linking);
   }
   
   @Override
