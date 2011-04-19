@@ -37,7 +37,7 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
   public final QuadrigaFunction newEntity;
   public final QuadrigaFunction removeEntity;
   public final QuadrigaFunction changeEntity;
-  public final BlockCode init, cleanUp;
+  public final QuadrigaFunction init, cleanUp;
   public final Map<QuadrigaEvent, QuadrigaFunction> eventHandlers;
   
   public CompleteSystem(IncompleteSystem original) {
@@ -356,7 +356,8 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
   public void executeInit(RuntimeEnvironment runtime) {
     if(init != null) {
       try {
-        init.execute(runtime);
+        //TODO
+        init.code.execute(runtime);
       } catch (BreakOrContinueException e) {
         throw new IllegalStateException(e);
       }
@@ -367,7 +368,8 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
   public void executeCleanUp(RuntimeEnvironment runtime) {
     if(cleanUp != null) {
       try {
-        cleanUp.execute(runtime);
+        //TODO
+        cleanUp.code.execute(runtime);
       } catch (BreakOrContinueException e) {
         throw new IllegalStateException(e);
       }

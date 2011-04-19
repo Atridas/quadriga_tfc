@@ -4231,6 +4231,7 @@ void PrototypeDeclaration():
     {
       IncompletePrototype iPrototype = new IncompletePrototype(currentFile.replace('/','.'), t.image);
       symbolTable.newContext();
+      symbolTable.resetMaxLocalVariables();
       symbolTable.addSymbol(new ThisSymbol(iPrototype));
 
       BlockCode.TmpBlockCode prevBlock = localBlock;
@@ -4308,6 +4309,8 @@ void PrototypeDeclaration():
       localBlock.setEndToken(t);
       iPrototype.initializations = localBlock.transformToBlockCode();
       localBlock = prevBlock;      symbolTable.deleteContext();
+
+      iPrototype.numLocalVariables = symbolTable.getMaxLocalVariables();
       
       prototype = new CompletePrototype(iPrototype);    }
   |
@@ -4363,7 +4366,8 @@ void SystemDeclaration():
   Token t;
   QuadrigaFunction fun;
   BlockCode block;
-  EventAndFun eaf;}
+  EventAndFun eaf;
+  List<ParameterClass> params;}
 {
   "@system"
   (
@@ -4395,21 +4399,29 @@ void SystemDeclaration():
                    }                 }
                )+
                "}"         (
+           {
+             params = new LinkedList<ParameterClass>();
+             symbolTable.resetMaxLocalVariables();           }
            "@init" block = Block()
            {
              if(iSystem.init == null)
              {
-               iSystem.init = block;
+               iSystem.init = new QuadrigaFunction(params, block, symbolTable.getMaxLocalVariables(), block);
              } else {
                errorLog.insertError("Més d'un init al sistema " + t.image, block);
              }           }
-         | "@cleanUp" block = Block()
+         | 
+           {
+             params = new LinkedList<ParameterClass>();
+             symbolTable.resetMaxLocalVariables();
+           }
+           "@cleanUp" block = Block()
            {
              if(iSystem.cleanUp == null)
              {
-               iSystem.cleanUp = block;
+               iSystem.cleanUp  = new QuadrigaFunction(params, block, symbolTable.getMaxLocalVariables(), block);
              } else {
-               errorLog.insertError("Més d'un init al sistema " + t.image, block);
+               errorLog.insertError("Més d'un cleanUp al sistema " + t.image, block);
              }
            }
          | fun=QuadrigaUpdate()
@@ -4503,7 +4515,9 @@ void ThreadDeclaration():
   QuadrigaThread thread;
   List<QuadrigaSystem> systems = new LinkedList<QuadrigaSystem>();
   Set<String> systemNames = new HashSet<String>();
-  BlockCode init = null, cleanUp = null;}
+  QuadrigaFunction init = null, cleanUp = null;
+  BlockCode block;
+  List<ParameterClass> params;}
 {
   "@thread"
   (
@@ -4526,11 +4540,28 @@ void ThreadDeclaration():
               }            } else {
               errorLog.insertError("El símbol " + n + " no és un sistema",
                                    new CodeZoneClass(name.get(0),name.get(name.size()-1),file));            }          }        )+
-        (           "@init"           {if(init!=null){errorLog.insertError("Més d'un init al thread " + t.image, init);}}
-           init = Block() 
+        (           "@init"           {
+             if(init!=null) {
+               errorLog.insertError("Més d'un init al thread " + t.image, init);
+             }
+             symbolTable.resetMaxLocalVariables();
+           }
+           block = Block()
+           {             params = new LinkedList<ParameterClass>();
+             init = new QuadrigaFunction(params, block, symbolTable.getMaxLocalVariables(), block);
+           }
         |  "@cleanUp"
-           {if(cleanUp!=null){errorLog.insertError("Més d'un cleanUp al thread " + t.image, cleanUp);}}
-           cleanUp = Block() 
+           {
+             if(cleanUp!=null) {
+               errorLog.insertError("Més d'un cleanUp al thread " + t.image, cleanUp);
+             }
+             symbolTable.resetMaxLocalVariables();
+           }
+           block = Block() 
+           {
+             params = new LinkedList<ParameterClass>();
+             cleanUp = new QuadrigaFunction(params, block, symbolTable.getMaxLocalVariables(), block);
+           }
         )*
         {
           thread = new CompleteThread(currentFile.replace('/','.'),t.image,
@@ -4588,7 +4619,7 @@ void MainDeclaration():
   Token t;
   List<QuadrigaThread> threads = new LinkedList<QuadrigaThread>();
   Set<String> threadNames = new HashSet<String>();
-  BlockCode block = null;}
+  QuadrigaFunction init = null;}
 {
   "@main"
   (
@@ -4616,10 +4647,18 @@ void MainDeclaration():
             }
           }
 
-      )+      [ "@init" block=Block() ]
+      )+      [
+       {         List<ParameterClass > parameters = new LinkedList<ParameterClass>();
+         BlockCode block;
+         symbolTable.resetMaxLocalVariables();
+       }
+       "@init" block=Block()
+       {
+         init = new QuadrigaFunction(parameters, block, symbolTable.getMaxLocalVariables(), block);       }
+      ]
       {
         main = new CompleteMain(currentFile.replace('/','.'),t.image,
-                                threads, block);      }
+                                threads, init);      }
     "}"
   |
     name = Name()
@@ -4769,6 +4808,7 @@ QuadrigaFunction QuadrigaUpdate():
 
   
   symbolTable.newContext();
+  symbolTable.resetMaxLocalVariables();
 
   BlockCode.TmpBlockCode prevBlock = localBlock;
   
@@ -4797,7 +4837,7 @@ QuadrigaFunction QuadrigaUpdate():
     localBlock = prevBlock;
     symbolTable.deleteContext();
 
-    return new QuadrigaFunction(parameters, code, code);
+    return new QuadrigaFunction(parameters, code, symbolTable.getMaxLocalVariables(), code);
   }
 }
 
@@ -4807,6 +4847,7 @@ QuadrigaFunction QuadrigaNewEntity():
 
   
   symbolTable.newContext();
+  symbolTable.resetMaxLocalVariables();
 
   BlockCode.TmpBlockCode prevBlock = localBlock;
   
@@ -4835,7 +4876,7 @@ QuadrigaFunction QuadrigaNewEntity():
     localBlock = prevBlock;
     symbolTable.deleteContext();
 
-    return new QuadrigaFunction(parameters, code, code);
+    return new QuadrigaFunction(parameters, code, symbolTable.getMaxLocalVariables(), code);
   }
 }
 
@@ -4845,6 +4886,7 @@ QuadrigaFunction QuadrigaEraseEntity():
 
   
   symbolTable.newContext();
+  symbolTable.resetMaxLocalVariables();
 
   BlockCode.TmpBlockCode prevBlock = localBlock;
   
@@ -4873,7 +4915,7 @@ QuadrigaFunction QuadrigaEraseEntity():
     localBlock = prevBlock;
     symbolTable.deleteContext();
 
-    return new QuadrigaFunction(parameters, code, code);
+    return new QuadrigaFunction(parameters, code, symbolTable.getMaxLocalVariables(), code);
   }
 }
 
@@ -4883,6 +4925,7 @@ EventAndFun QuadrigaEventFunction():
   List<Token> name;
   
   symbolTable.newContext();
+  symbolTable.resetMaxLocalVariables();
 
   BlockCode.TmpBlockCode prevBlock = localBlock;
   
@@ -4914,7 +4957,7 @@ EventAndFun QuadrigaEventFunction():
 
     EventAndFun eaf = new EventAndFun();
 
-    eaf.fun = new QuadrigaFunction(parameters, code, code);
+    eaf.fun = new QuadrigaFunction(parameters, code, symbolTable.getMaxLocalVariables(), code);
 
     
     String res = "";

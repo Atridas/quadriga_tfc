@@ -27,7 +27,7 @@ public class IncompleteSystem extends BaseTypeClass implements QuadrigaSystem {
   public QuadrigaFunction newEntity;
   public QuadrigaFunction removeEntity;
   public QuadrigaFunction changeEntity;
-  public BlockCode init, cleanUp;
+  public QuadrigaFunction init, cleanUp;
   public final Map<QuadrigaEvent, QuadrigaFunction> eventHandlers = new HashMap<QuadrigaEvent, QuadrigaFunction>();
   
   public IncompleteSystem(String binaryName) {

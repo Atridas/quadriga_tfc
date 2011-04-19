@@ -608,26 +608,27 @@
    |  +- main
    |     +- thread: cat.quadriga.base.SimpleRenderThread
    |     +- thread: riskppt3d.demo.Test
-   |     +- St: Block <+>
-   |        +- Local Variables:
-   |        |  +- Symbol Var [ demo ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        +- Code:
-   |           +- St: Statements: <+>
-   |           |  +- St: = <+>
-   |           |     +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |        +- Op: Literal: Null {Null type} <+>
-   |           |        +- Op: Literal: "BaseScene" {Ljava/lang/String;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  +- riskppt3d.demo.SimpleDemo
-   |           |  +- St: Zero Arguments <+>
-   |           +- St: = <+>
-   |              +- Op: Field: {Z} <+>
-   |              |  +- cat.quadriga.render.simple.RenderManager -> renderFPS
-   |              |  +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
-   |              |     +- cat.quadriga.render.simple.RenderManager -> instance
-   |              +- Op: Literal: true {Z} <+>
+   |     +- Quadriga function
+   |        +- St: Block <+>
+   |           +- Local Variables:
+   |           |  +- Symbol Var [ demo ] Type [ Lcat/quadriga/runtime/Entity; ]
+   |           +- Code:
+   |              +- St: Statements: <+>
+   |              |  +- St: = <+>
+   |              |     +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
+   |              |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
+   |              |        +- Op: Literal: Null {Null type} <+>
+   |              |        +- Op: Literal: "BaseScene" {Ljava/lang/String;} <+>
+   |              +- St: Apply Prototype to Entity <+>
+   |              |  +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
+   |              |  +- riskppt3d.demo.SimpleDemo
+   |              |  +- St: Zero Arguments <+>
+   |              +- St: = <+>
+   |                 +- Op: Field: {Z} <+>
+   |                 |  +- cat.quadriga.render.simple.RenderManager -> renderFPS
+   |                 |  +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                 |     +- cat.quadriga.render.simple.RenderManager -> instance
+   |                 +- Op: Literal: true {Z} <+>
    +- "cat.quadriga.base.SimpleNodeSystem" : Symbol Type
    |  +- System <+>
    |     +- needed components
@@ -1313,26 +1314,27 @@
    |  +- main
    |     +- thread: cat.quadriga.base.SimpleRenderThread
    |     +- thread: riskppt3d.demo.Test
-   |     +- St: Block <+>
-   |        +- Local Variables:
-   |        |  +- Symbol Var [ demo ] Type [ Lcat/quadriga/runtime/Entity; ]
-   |        +- Code:
-   |           +- St: Statements: <+>
-   |           |  +- St: = <+>
-   |           |     +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
-   |           |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
-   |           |        +- Op: Literal: Null {Null type} <+>
-   |           |        +- Op: Literal: "BaseScene" {Ljava/lang/String;} <+>
-   |           +- St: Apply Prototype to Entity <+>
-   |           |  +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
-   |           |  +- riskppt3d.demo.SimpleDemo
-   |           |  +- St: Zero Arguments <+>
-   |           +- St: = <+>
-   |              +- Op: Field: {Z} <+>
-   |              |  +- cat.quadriga.render.simple.RenderManager -> renderFPS
-   |              |  +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
-   |              |     +- cat.quadriga.render.simple.RenderManager -> instance
-   |              +- Op: Literal: true {Z} <+>
+   |     +- Quadriga function
+   |        +- St: Block <+>
+   |           +- Local Variables:
+   |           |  +- Symbol Var [ demo ] Type [ Lcat/quadriga/runtime/Entity; ]
+   |           +- Code:
+   |              +- St: Statements: <+>
+   |              |  +- St: = <+>
+   |              |     +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
+   |              |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;} <+>
+   |              |        +- Op: Literal: Null {Null type} <+>
+   |              |        +- Op: Literal: "BaseScene" {Ljava/lang/String;} <+>
+   |              +- St: Apply Prototype to Entity <+>
+   |              |  +- Op: Local variable access: demo {Lcat/quadriga/runtime/Entity;} <+>
+   |              |  +- riskppt3d.demo.SimpleDemo
+   |              |  +- St: Zero Arguments <+>
+   |              +- St: = <+>
+   |                 +- Op: Field: {Z} <+>
+   |                 |  +- cat.quadriga.render.simple.RenderManager -> renderFPS
+   |                 |  +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;} <+>
+   |                 |     +- cat.quadriga.render.simple.RenderManager -> instance
+   |                 +- Op: Literal: true {Z} <+>
    +- "IncrementadorPlanetes" : Symbol Type
    |  +- System <+>
    |     +- needed components

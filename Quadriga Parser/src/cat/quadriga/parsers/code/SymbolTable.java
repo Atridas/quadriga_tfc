@@ -16,6 +16,7 @@ import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
 import cat.quadriga.parsers.code.symbols.TypeSymbol;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.ClassOrInterfaceTypeRef;
+import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 
 public class SymbolTable implements TreeRepresentable {
@@ -28,6 +29,7 @@ public class SymbolTable implements TreeRepresentable {
   public final Set<QuadrigaComponent> writes = new HashSet<QuadrigaComponent>();
 
   private int numLocalVariables = 0;
+  private int maxLocalVariables = 0;
   private final Stack<Integer> stackNumLocalVars = new Stack<Integer>();
   
   public BucleOrSwitchInterface closestBucleOrSwitch = null;
@@ -38,6 +40,14 @@ public class SymbolTable implements TreeRepresentable {
   private final List<String> includedPackages = new LinkedList<String>();
   {
     addPackage("java.lang");
+  }
+  
+  public void resetMaxLocalVariables() {
+    maxLocalVariables = 0;
+  }
+  
+  public int getMaxLocalVariables() {
+    return maxLocalVariables;
   }
   
   public void newContext() {
@@ -141,8 +151,19 @@ public class SymbolTable implements TreeRepresentable {
   
   public void addLocalVariable(LocalVariableSymbol lvs) {
     int i = stackNumLocalVars.pop();
-    stackNumLocalVars.push(i + 1);
-    numLocalVariables++;
+    if(lvs.type instanceof PrimitiveTypeRef 
+        && (((PrimitiveTypeRef)lvs.type).type == PrimitiveTypeRef.Type.DOUBLE
+         || ((PrimitiveTypeRef)lvs.type).type == PrimitiveTypeRef.Type.LONG))
+    {
+      stackNumLocalVars.push(i + 2);
+      numLocalVariables += 2;
+    } else {
+      stackNumLocalVars.push(i + 1);
+      ++numLocalVariables;
+    }
+    if(numLocalVariables > maxLocalVariables) {
+      maxLocalVariables = numLocalVariables;
+    }
     addSymbol(lvs);
   }
   
