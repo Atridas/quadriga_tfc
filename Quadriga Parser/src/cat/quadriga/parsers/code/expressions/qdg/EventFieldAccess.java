@@ -19,6 +19,7 @@ import cat.quadriga.parsers.code.types.qdg.QuadrigaEvent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaField;
 import cat.quadriga.runtime.ComponentInstance;
 import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.Entity;
 import cat.quadriga.runtime.EventInstance;
 import cat.quadriga.runtime.RuntimeEnvironment;
 
@@ -140,8 +141,14 @@ public final class EventFieldAccess extends UnaryDataAccess {
   public ComputedValue compute(RuntimeEnvironment runtime) {
     
     EventInstance ei = (EventInstance) operand.compute(runtime);
+
+    ComputedValue cv = ei.getFieldValue(field);
     
-    return ei.getFieldValue(field);
+    if(cv instanceof Entity) {
+      cv = runtime.addToCache((Entity)cv);
+    }
+    
+    return cv;
   }
 
 }

@@ -1,5 +1,6 @@
 package cat.quadriga.runtime.qvm;
 
+import java.lang.reflect.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,9 +26,11 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
+import cat.quadriga.parsers.code.types.ArrayType;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.JavaType;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
+import cat.quadriga.parsers.code.types.ReferenceTypeRef;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEvent;
@@ -1065,7 +1068,7 @@ public class DataBaseEntitySystem implements EntitySystem {
      */
     private static final long serialVersionUID = 5442595694189819152L;
     int id;
-    private Map<String,DBComponent.DBComponentObject> cachedComponents = new HashMap<String,DBComponent.DBComponentObject>();
+    private transient Map<String,DBComponent.DBComponentObject> cachedComponents = new HashMap<String,DBComponent.DBComponentObject>();
 
     @Override
     public Entity getParent() {
@@ -1165,7 +1168,10 @@ public class DataBaseEntitySystem implements EntitySystem {
                       "WHERE id = " + id);
       
       rs.next();
-      aux.add("debug_info: " + rs.getString(1));
+      String debugInfo = rs.getString(1);
+      if(debugInfo != null) {
+        aux.add("debug_info: " + debugInfo);
+      }
       
       rs = st.executeQuery(
           "SELECT name " +
@@ -1254,6 +1260,11 @@ public class DataBaseEntitySystem implements EntitySystem {
     @Override
     public int getGUID() {
       return id;
+    }
+
+    @Override
+    public int compareTo(Entity other) {
+      return id - other.getGUID();
     }
   }
   
@@ -1363,6 +1374,19 @@ public class DataBaseEntitySystem implements EntitySystem {
             }
           } else if(type instanceof QuadrigaEntity) {
             createObject.setInt(i, ((DBEntity)cv).id);
+          } else if(type instanceof ArrayType) {
+            BaseType baseT = type;
+            int levels = 0;
+            while(baseT instanceof ArrayType) {
+              baseT = (JavaType)((ArrayType)baseT).base;
+              ++levels;
+            }
+            
+            if(baseT instanceof QuadrigaEntity) {
+              createObject.setObject(i, fromEntityArrayToIntArray( cv.getAsObject(), (ArrayType)type, levels));
+            } else {
+              createObject.setObject(i, cv.getAsObject());
+            }
           } else {
             createObject.setObject(i, cv.getAsObject());
           }
@@ -1610,6 +1634,19 @@ public class DataBaseEntitySystem implements EntitySystem {
               }
             } else if(type instanceof QuadrigaEntity) {
               ps.setInt(i, ((DBEntity)cv).id);
+            } else if(type instanceof ArrayType) {
+              BaseType base = type;
+              int levels = 0;
+              while(base instanceof ArrayType) {
+                base = (JavaType)((ArrayType)base).base;
+                ++levels;
+              }
+              
+              if(base instanceof QuadrigaEntity) {
+                ps.setObject(i, fromEntityArrayToIntArray( cv.getAsObject(), (ArrayType)type, levels));
+              } else {
+                ps.setObject(i, cv.getAsObject());
+              }
             } else {
               ps.setObject(i, cv.getAsObject());
             }
@@ -1682,9 +1719,21 @@ public class DataBaseEntitySystem implements EntitySystem {
             DBEntity ent = new DBEntity();
             ent.id = rs.getInt(1);
             cv = ent;
+          } else if(type instanceof ArrayType) {
+            BaseType base = type;
+            int levels = 0;
+            while(base instanceof ArrayType) {
+              base = (JavaType)((ArrayType)base).base;
+              ++levels;
+            }
+            
+            if(base instanceof QuadrigaEntity) {
+              cv = new JavaReference( fromIntArrayToEntityArray(rs.getObject(1), (ArrayType)type, levels) );
+            } else {
+              cv = new JavaReference( rs.getObject(1) );
+            }
           } else {
             cv = new JavaReference( rs.getObject(1) );
-            //changedFields.put(field,cv);
           }
         } catch (SQLException e) {
           throw new IllegalStateException(e);
@@ -1761,6 +1810,19 @@ public class DataBaseEntitySystem implements EntitySystem {
               }
             } else if(type instanceof QuadrigaEntity) {
               ps.setInt(i, ((DBEntity)cv).id);
+            } else if(type instanceof ArrayType) {
+              BaseType base = type;
+              int levels = 0;
+              while(base instanceof ArrayType) {
+                base = (JavaType)((ArrayType)base).base;
+                ++levels;
+              }
+              
+              if(base instanceof QuadrigaEntity) {
+                ps.setObject(i, fromEntityArrayToIntArray( cv.getAsObject(), (ArrayType)type, levels));
+              } else {
+                ps.setObject(i, cv.getAsObject());
+              }
             } else {
               ps.setObject(i, cv.getAsObject());
             }
@@ -1957,6 +2019,8 @@ public class DataBaseEntitySystem implements EntitySystem {
               }
             } else if(type instanceof QuadrigaEntity) {
               f += "Entity " + rs.getInt(field);
+            } else if(type instanceof ArrayType){
+              f += printArray( rs.getObject(field), ((ArrayType)type).base);
             } else {
               f += rs.getObject(field);
             }
@@ -1967,7 +2031,49 @@ public class DataBaseEntitySystem implements EntitySystem {
       }
     }
     
-    
+    private String printArray(Object array, BaseType baseType) {
+      String saux = "[ ";
+      for(int i = 0; i < Array.getLength(array); ++i) {
+        if(i != 0) saux += ", ";
+        if(baseType instanceof PrimitiveTypeRef) {
+          switch(((PrimitiveTypeRef)baseType).type) {
+          case BOOLEAN:
+            saux += Array.getBoolean(array, i);
+            break;
+          case BYTE:
+            saux += Array.getByte(array, i);
+            break;
+          case CHAR:
+            saux += Array.getChar(array, i);
+            break;
+          case DOUBLE:
+            saux += Array.getDouble(array, i);
+            break;
+          case FLOAT:
+            saux += Array.getFloat(array, i);
+            break;
+          case INT:
+            saux += Array.getInt(array, i);
+            break;
+          case LONG:
+            saux += Array.getLong(array, i);
+            break;
+          case SHORT:
+            saux += Array.getShort(array, i);
+            break;
+          default :
+            throw new IllegalStateException();
+          }
+        } else if(baseType instanceof QuadrigaEntity) {
+          saux += "Entity " + Array.get(array, i);
+        } else if(baseType instanceof ArrayType){
+          saux += printArray( Array.get(array, i), ((ArrayType)baseType).base);
+        } else {
+          saux += Array.get(array, i);
+        }
+      }
+      return saux + " ]";
+    }
 
     
     
@@ -2341,5 +2447,87 @@ public class DataBaseEntitySystem implements EntitySystem {
         return aux;
       }
     }
+  }
+
+  private final static List<Class<?>> intNestedArrays = new ArrayList<Class<?>>();
+  private final static List<Class<?>> entityNestedArrays = new ArrayList<Class<?>>();
+  
+  private static Class<?> getIntArrayClass(int levels) {
+    --levels;
+    if(intNestedArrays.size() > levels) {
+      return intNestedArrays.get(levels);
+    } else if(levels == 0) {
+      Class<?> aux = Array.newInstance(int.class, 0).getClass();
+      intNestedArrays.add(aux);
+      return aux;
+    } else {
+      Class<?> aux = getIntArrayClass(levels);
+      aux = Array.newInstance(aux, 0).getClass();
+      intNestedArrays.add(aux);
+      return aux;
+    }
+  }
+  
+  private static Class<?> getEntityArrayClass(int levels) {
+    --levels;
+    if(entityNestedArrays.size() > levels) {
+      return entityNestedArrays.get(levels);
+    } else if(levels == 0) {
+      Class<?> aux = Array.newInstance(Entity.class, 0).getClass();
+      entityNestedArrays.add(aux);
+      return aux;
+    } else {
+      Class<?> aux = getIntArrayClass(levels);
+      aux = Array.newInstance(aux, 0).getClass();
+      entityNestedArrays.add(aux);
+      return aux;
+    }
+  }
+  
+  private Object fromIntArrayToEntityArray(Object cv, ArrayType type, int levels) {
+    Object result;
+    if(levels > 1) {
+      result = Array.newInstance(getEntityArrayClass(levels-1), Array.getLength(cv));
+      for(int i = 0; i < Array.getLength(cv); ++i) {
+        Array.set(result, i, fromIntArrayToEntityArray(Array.get(cv, i),(ArrayType)type.base, levels - 1));
+      }
+    } else {
+      result = Array.newInstance(Entity.class, Array.getLength(cv));
+      for(int i = 0; i < Array.getLength(cv); ++i) {
+        DBEntity entity = new DBEntity();
+        entity.id = Array.getInt(cv, i);
+        if(entity.id == -1) {
+          Array.set(result, i, null);
+        } else {
+          Array.set(result, i, entity);
+        }
+      }
+    }
+    
+    return result;
+  }
+  
+  private static Object fromEntityArrayToIntArray(Object cv, ArrayType type, int levels) {
+    Object result;
+    if(levels > 1) {
+      result = Array.newInstance(getIntArrayClass(levels-1), Array.getLength(cv));
+      for(int i = 0; i < Array.getLength(cv); ++i) {
+        Object aux = Array.get(cv, i);
+        
+        Array.set(result, i, fromEntityArrayToIntArray(aux,(ArrayType)type.base, levels-1));
+      }
+    } else {
+      result = Array.newInstance(int.class, Array.getLength(cv));
+      for(int i = 0; i < Array.getLength(cv); ++i) {
+        Entity entity = (Entity) Array.get(cv, i);
+        if(entity == null) {
+          Array.setInt(result, i, -1);
+        } else {
+          Array.setInt(result, i, entity.getGUID());
+        }
+      }
+    }
+    
+    return result;
   }
 }

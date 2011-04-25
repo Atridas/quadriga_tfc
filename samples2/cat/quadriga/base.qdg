@@ -191,7 +191,7 @@
     
     RenderManager.instance.renderGraph();
   
-    RenderManager.instance.drawAxis(null);
+    //RenderManager.instance.drawAxis(null);
   
     RenderManager.switchBuffers();
     if(RenderManager.isCloseRequested()) {

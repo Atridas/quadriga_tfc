@@ -220,6 +220,12 @@ public final class FieldAccess extends MemberAccess {
           } catch (Exception e) {
             throw new IllegalStateException(e);
           }
+        } else if("float".equals(field.getType().getCanonicalName())) {
+          try {
+            field.setFloat(ref, value.getAsFloat());
+          } catch (Exception e) {
+            throw new IllegalStateException(e);
+          }
         } else {
           throw new IllegalStateException("Not yet implemented");
         }

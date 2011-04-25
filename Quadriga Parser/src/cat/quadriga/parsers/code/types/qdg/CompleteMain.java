@@ -123,6 +123,8 @@ public class CompleteMain extends BaseTypeClass implements RuntimeMain {
         init.code.execute(runtime);
         runtime.exitFunction();
         
+        runtime.commitEntities();
+        
       } catch(BreakOrContinueException e) {
         throw new IllegalStateException(e);
       }

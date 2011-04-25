@@ -18,6 +18,7 @@ import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaField;
 import cat.quadriga.runtime.ComponentInstance;
 import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.Entity;
 import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class ComponentFieldAccess extends UnaryDataAccess {
@@ -151,7 +152,13 @@ public final class ComponentFieldAccess extends UnaryDataAccess {
     
     ComponentInstance ci = (ComponentInstance) operand.compute(runtime);
     
-    return ci.getFieldValue(field);
+    ComputedValue cv = ci.getFieldValue(field);
+    
+    if(cv instanceof Entity) {
+      runtime.addToCache((Entity)cv);
+    }
+    
+    return cv;
   }
   
   private class WriteVersion extends ExpressionNodeClass implements WriteAccess {

@@ -36,6 +36,11 @@ public class SymbolTable implements TreeRepresentable {
   
   private final List<LocalVariableSymbol> localVariables = new ArrayList<LocalVariableSymbol>();
   
+  {
+    maxLocalVariables.push(0);
+    numLocalVariables.push(0);
+  }
+  
   public BucleOrSwitchInterface closestBucleOrSwitch = null;
   {
     mapStack.push(globalNamespace);

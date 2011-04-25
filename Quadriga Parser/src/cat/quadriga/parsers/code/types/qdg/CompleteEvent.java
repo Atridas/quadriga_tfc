@@ -148,7 +148,7 @@ public class CompleteEvent extends BaseTypeClass implements RuntimeEvent {
   public EventInstance createInstance(Map<String, ComputedValue> arguments, RuntimeEnvironment runtime) {
     assert isValid();
     Set<String> usedArguments = new HashSet<String>();
-    VirtualEvent newComponent = new VirtualEvent(this);
+    VirtualEvent newEvent = new VirtualEvent(this);
     
     for(Entry<String, QuadrigaField> field: fields.entrySet()) {
       QuadrigaField cf = field.getValue();
@@ -164,7 +164,7 @@ public class CompleteEvent extends BaseTypeClass implements RuntimeEvent {
       } else {
         usedArguments.add(fieldName);
       }
-      newComponent.values.put(fieldName, value);
+      newEvent.values.put(fieldName, value);
     }
     
     if(usedArguments.size() != arguments.size()) {
@@ -184,7 +184,7 @@ public class CompleteEvent extends BaseTypeClass implements RuntimeEvent {
       throw new IllegalArgumentException(aux);
     }
     
-    return newComponent;
+    return newEvent;
   }
 
   @Override

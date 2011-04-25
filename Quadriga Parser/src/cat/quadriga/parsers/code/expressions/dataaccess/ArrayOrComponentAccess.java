@@ -189,7 +189,7 @@ public final class ArrayOrComponentAccess extends ExpressionNodeClass implements
         Entity entity = (Entity) cv;
         
         if(access.getType() == ClassOrInterfaceTypeRef.getFromClass(String.class)) {
-          return runtime.entitySystem.findEntity(
+          return runtime.findEntity(
                             access.compute(runtime).getStringValue(), 
                             entity);
         } else {

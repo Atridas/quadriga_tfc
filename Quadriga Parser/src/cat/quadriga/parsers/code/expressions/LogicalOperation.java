@@ -6,6 +6,9 @@ import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData.BooleanLiteral;
 import cat.quadriga.parsers.code.types.BaseType;
 import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
+import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.JavaReference;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public final class LogicalOperation extends BinaryExpressionNode {
 
@@ -93,6 +96,28 @@ public final class LogicalOperation extends BinaryExpressionNode {
       } else {
         return rightOperand.getCompileTimeConstant();
       }
+    }
+  }
+  
+
+  @Override
+  public ComputedValue compute(RuntimeEnvironment runtime) {
+    ComputedValue left = leftOperand.compute(runtime);
+    switch(operator) {
+    case OR:
+      if(left.getAsBool()) {
+        return left;
+      } else {
+        return rightOperand.compute(runtime);
+      }
+    case AND:
+      if(!left.getAsBool()) {
+        return left;
+      } else {
+        return rightOperand.compute(runtime);
+      }
+    default:
+      throw new IllegalStateException();
     }
   }
 }
