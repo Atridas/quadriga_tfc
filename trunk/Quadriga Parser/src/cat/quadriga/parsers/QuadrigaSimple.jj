@@ -365,6 +365,7 @@ TOKEN :
   | < ENTITY:     "Entity" >
   | < DESCRIPTION:"@description" >
   | < FIND:       "@find" >
+  | < RANDOM:     "@rnd" >
 
 }   
 
@@ -2775,6 +2776,8 @@ ExpressionNode PrimaryPrefix():
   |
     result = FindEntity()
   |
+    result = QuadrigaRandom()
+  |
     LOOKAHEAD( ( <IDENTIFIER> "." )* "this" )
     ( t=<IDENTIFIER> "."
       {
@@ -4051,7 +4054,7 @@ void ComponentDeclaration():
           t = < IDENTIFIER >
           ( "=" initialization = VariableInitializer(type)
           | { initialization = null; }
-          ) [";"]
+          ) 
           {
             if(type instanceof JavaType) {
               iComponent.addField(new QuadrigaField((JavaType)type,
@@ -4064,7 +4067,30 @@ void ComponentDeclaration():
               errorLog.insertError("Type " + type.getBinaryName()
                                  + " not valid as a component member",
                                  new CodeZoneClass(t,file));            }
-          }         )*
+          }
+          (
+            ","            t = < IDENTIFIER >
+            ( "=" initialization = VariableInitializer(type)
+            | { initialization = null; }
+            ) 
+            {
+              if(type instanceof JavaType) {
+                iComponent.addField(new QuadrigaField((JavaType)type,
+                                                       t.image,
+                                                       initialization
+                                                      ),
+                                    errorLog,
+                                    new CodeZoneClass(t,file)
+                                     );
+              } else
+              {
+                errorLog.insertError("Type " + type.getBinaryName()
+                                   + " not valid as a component member",
+                                   new CodeZoneClass(t,file));
+              }
+            }
+          )*
+          [";"]         )*
     "}"
     {
       component = new CompleteComponent(iComponent);    }
@@ -5117,8 +5143,23 @@ StatementNode AddComponent():
 ExpressionNode FindEntity():
 {
   ExpressionNode xn;
-  Token t, t2;}
+  Token t, t2;
+}
 {
   t="@find" "[" xn = Expression() t2="]"
   {
-    return new FindEntity(xn, new CodeZoneClass(t,t2,file));  }}
+    return new FindEntity(xn, new CodeZoneClass(t,t2,file));
+  }
+}
+
+ExpressionNode QuadrigaRandom():
+{
+  ExpressionNode xn;
+  Token t, t2;
+}
+{
+  t="@rnd"
+  {
+    return new QuadrigaRandom(new CodeZoneClass(t,t,file));
+  }
+}

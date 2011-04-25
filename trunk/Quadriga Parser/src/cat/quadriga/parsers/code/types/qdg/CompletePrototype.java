@@ -206,5 +206,6 @@ public class CompletePrototype extends BaseTypeClass implements RuntimePrototype
       }
       
     } runtime.exitFunction();
+    //runtime.commitEntities();
   }
 }

@@ -15,6 +15,7 @@ import cat.quadriga.parsers.code.proxy.ProxyDataAccess;
 import cat.quadriga.parsers.code.statements.CallToArguments;
 import cat.quadriga.parsers.code.statements.CallToListedArguments;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.parsers.code.types.UnknownType;
 import cat.quadriga.runtime.ComputedValue;
 import cat.quadriga.runtime.JavaReference;
@@ -165,8 +166,17 @@ public final class CallToMethod extends ExpressionNodeClass {
         
         if(ret == null) {
           return new JavaReference(null);
-        } else if(ret.getClass().isPrimitive()) {
-          throw new IllegalStateException("Not implemented");
+        //} else if(ret.getClass().isPrimitive()) {
+        } else if(getType() instanceof PrimitiveTypeRef) {
+          switch(((PrimitiveTypeRef)getType()).type)
+          {
+          case INT:
+            return new LiteralData.IntegerLiteral((Integer)ret,CodeZoneClass.runtime);
+          case BOOLEAN:
+            return new LiteralData.BooleanLiteral((Boolean)ret,CodeZoneClass.runtime);
+          default:
+            throw new IllegalStateException("Not implemented");
+          }
         } else if(ret instanceof ComputedValue) {
           return (ComputedValue) ret;
         } else {

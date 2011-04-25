@@ -1,5 +1,6 @@
 package cat.quadriga.parsers.code;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -29,7 +30,9 @@ import cat.quadriga.parsers.code.types.UnknownType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEvent;
+import cat.quadriga.runtime.ComputedValue;
 import cat.quadriga.runtime.Entity;
+import cat.quadriga.runtime.JavaReference;
 
 abstract public class Utils {
   public static final String treeStringRepresentation( String operation, String... operands) {

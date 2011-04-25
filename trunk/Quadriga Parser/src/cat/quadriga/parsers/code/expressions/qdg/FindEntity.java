@@ -78,7 +78,7 @@ public class FindEntity extends ExpressionNodeClass {
   
   @Override
   public ComputedValue compute(RuntimeEnvironment runtime) {
-    return runtime.entitySystem.findEntity(name.compute(runtime).getStringValue());
+    return runtime.findEntity(name.compute(runtime).getStringValue());
   }
 
 }

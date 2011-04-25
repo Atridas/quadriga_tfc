@@ -29,12 +29,12 @@ public abstract class StatementNodeClass extends CodeZoneClass implements Statem
     if(!isCorrectlyLinked()) {
       StatementNodeClass enc = getLinkedVersion(symbolTable, errorLog);
       if(enc != null) {
-        linkedStatus += " <+>";
+        //linkedStatus += " <+>";
       } else {
         linkedStatus += " <->";
       }
     } else {
-      linkedStatus += " <+>";
+      //linkedStatus += " <+>";
     }
     
     return "St: " + Utils.treeStringRepresentation(operation + linkedStatus, operands);

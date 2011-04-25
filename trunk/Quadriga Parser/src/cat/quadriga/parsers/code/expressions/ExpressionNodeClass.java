@@ -38,12 +38,12 @@ public abstract class ExpressionNodeClass extends CodeZoneClass implements Expre
     if(!isCorrectlyLinked()) {
       ExpressionNode enc = getLinkedVersion(symbolTable, errorLog);
       if(enc != null) {
-        typeName += " <+>";
+        //typeName += " <+>";
       } else {
         typeName += " <->";
       }
     } else {
-      typeName += " <+>";
+      //typeName += " <+>";
     }
     
     treeStringRepresentation = "Op: " + Utils.treeStringRepresentation(operation + typeName, operands);

@@ -29,11 +29,11 @@ public class Quadriga {
     ErrorLog errorLog = quadrigaSimple.errorLog;
     errorLog.writeClasses = true;
     try {
-      System.out.println("Parsing " + args[0]);
+      System.out.println("Parsing " + firstFile);
       quadrigaSimple.QuadrigaUnit();
       
       Set<String> parsedPackages = new HashSet<String>();
-      parsedPackages.add(args[0]);
+      parsedPackages.add(firstFile);
       Set<String> dependencies = quadrigaSimple.dependencies;
       dependencies.removeAll(parsedPackages);
       
@@ -41,7 +41,7 @@ public class Quadriga {
         String parse = dependencies.iterator().next();
         parsedPackages.add(parse);
         
-        System.out.println("Parsing " + parse);
+        System.out.println("Parsing " + parse.replace('.', '/'));
         quadrigaSimple = new QuadrigaSimple(parse.replace('.', '/') + ".qdg");
         quadrigaSimple.symbolTable.copyGlobals(symbolTable);
         quadrigaSimple.errorLog = errorLog;
@@ -82,6 +82,8 @@ public class Quadriga {
     RuntimeEnvironment runtime = new RuntimeEnvironment();
     runtime.entitySystem = ces;
     runtime.symbolTable  = symbolTable;
+    
+    System.out.println("Executing: " + args[0]);
     
     RuntimeMain rm = (RuntimeMain)((TypeSymbol)symbolTable.findSymbol(args[0])).type;
     

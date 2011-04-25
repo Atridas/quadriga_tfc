@@ -375,6 +375,7 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
         throw new IllegalStateException(e);
       } finally {
         runtime.exitFunction();
+        runtime.commitEntities();
       }
     }
   }
@@ -389,6 +390,7 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
         throw new IllegalStateException(e);
       } finally {
         runtime.exitFunction();
+        runtime.commitEntities();
       }
     }
   }
@@ -448,6 +450,7 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     } finally {
       runtime.exitFunction();
       runtime.deleteLocalContext();
+      runtime.commitEntities();
     }
   }
 
@@ -467,6 +470,7 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     } finally {
       runtime.exitFunction();
       runtime.deleteLocalContext();
+      runtime.commitEntities();
     }
   }
 
@@ -486,6 +490,7 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     } finally {
       runtime.exitFunction();
       runtime.deleteLocalContext();
+      runtime.commitEntities();
     }
   }
 
@@ -497,6 +502,8 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
       throw new IllegalStateException("Event " + event.getType().getBinaryName() + 
           " is not handled on system " + getBinaryName());
     }
+    
+    entity = runtime.addToCache(entity);
     
     runtime.newLocalContext();
     runtime.enterFunction(fun.numLocalVariables);
@@ -510,6 +517,7 @@ public class CompleteSystem extends BaseTypeClass implements RuntimeSystem {
     } finally {
       runtime.exitFunction();
       runtime.deleteLocalContext();
+      runtime.commitEntities();
     }
   }
 }

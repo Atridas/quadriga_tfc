@@ -1,0 +1,374 @@
+@quadriga tetris.tetris
+
+//tetris.base.Main
+
+@component cat.quadriga.base.Transform;
+@component cat.quadriga.base.BoxRenderer;
+@component cat.quadriga.base.CameraComponent
+@prototype cat.quadriga.base.SimpleCamera
+@component cat.quadriga.base.SceneComponent
+
+@component Puntuació {
+  int punts  = 0;
+  int línies = 0;
+  int nivell = 0;
+}
+
+@java java.util.Random;
+
+@component Taulell {
+  int[][] taulell = new int[10][18];
+  Entity[][] cubs = new Entity[10][18];
+}
+
+@prototype CubDeMarc(int posX, int posY)
+{
+  Transform(position: new Vector3f(posX*2,0, posY*2))
+  BoxRenderer()
+}
+
+@component CPeça
+{
+  int tipus = 1;
+  int[] px = new int[4], py = new int[4];
+  float t = 0;
+  Entity<Puntuació, Taulell> taulell;
+}
+
+@prototype tetris.tetris.CubDeTaulell
+
+@prototype PPeça(Entity<Puntuació> taulell)
+{
+  Transform()
+  CPeça(taulell: taulell)
+  @child {
+    "cub1" : CubDeTaulell(posX:0, posY:0)
+    "cub2" : CubDeTaulell(posX:0, posY:0)
+    "cub3" : CubDeTaulell(posX:0, posY:0)
+    "cub4" : CubDeTaulell(posX:0, posY:0)
+  }
+}
+
+@prototype Tetris {
+  Transform()
+  Puntuació(punts: 0)
+  Taulell()
+  
+  @child {
+    "Camera" : SimpleCamera( [CameraComponent].position: new Vector3f(0.0f, 50.0f, 18.0f), 
+                             [CameraComponent].lookAt: new Vector3f(0.0f,0.0f,18.0f),
+                             [CameraComponent].up: new Vector3f(0.0f,0.0f,1.0f))
+                             
+    "Peça" : PPeça(taulell: this)
+                             
+    CubDeMarc(posX:-1,posY:-1)CubDeMarc(posX: 0,posY:-1)CubDeMarc(posX: 1,posY:-1)
+    CubDeMarc(posX: 2,posY:-1)CubDeMarc(posX: 3,posY:-1)CubDeMarc(posX: 4,posY:-1) 
+    CubDeMarc(posX: 5,posY:-1)CubDeMarc(posX: 6,posY:-1)CubDeMarc(posX: 7,posY:-1)
+    CubDeMarc(posX: 8,posY:-1)CubDeMarc(posX: 9,posY:-1)CubDeMarc(posX:10,posY:-1)  
+                             
+    CubDeMarc(posX:-1,posY:19)CubDeMarc(posX: 0,posY:19)CubDeMarc(posX: 1,posY:19)
+    CubDeMarc(posX: 2,posY:19)CubDeMarc(posX: 3,posY:19)CubDeMarc(posX: 4,posY:19) 
+    CubDeMarc(posX: 5,posY:19)CubDeMarc(posX: 6,posY:19)CubDeMarc(posX: 7,posY:19)
+    CubDeMarc(posX: 8,posY:19)CubDeMarc(posX: 9,posY:19)CubDeMarc(posX:10,posY:19)  
+                             
+    CubDeMarc(posX:-1,posY: 0)CubDeMarc(posX:-1,posY: 1)CubDeMarc(posX:-1,posY: 2)
+    CubDeMarc(posX:-1,posY: 3)CubDeMarc(posX:-1,posY: 4)CubDeMarc(posX:-1,posY: 5) 
+    CubDeMarc(posX:-1,posY: 6)CubDeMarc(posX:-1,posY: 7)CubDeMarc(posX:-1,posY: 8)
+    CubDeMarc(posX:-1,posY: 9)CubDeMarc(posX:-1,posY:10)CubDeMarc(posX:-1,posY:11)  
+    CubDeMarc(posX:-1,posY:12)CubDeMarc(posX:-1,posY:13)CubDeMarc(posX:-1,posY:14)
+    CubDeMarc(posX:-1,posY:15)CubDeMarc(posX:-1,posY:16)CubDeMarc(posX:-1,posY:17) 
+    CubDeMarc(posX:-1,posY:18)
+                             
+    CubDeMarc(posX:10,posY: 0)CubDeMarc(posX:10,posY: 1)CubDeMarc(posX:10,posY: 2)
+    CubDeMarc(posX:10,posY: 3)CubDeMarc(posX:10,posY: 4)CubDeMarc(posX:10,posY: 5) 
+    CubDeMarc(posX:10,posY: 6)CubDeMarc(posX:10,posY: 7)CubDeMarc(posX:10,posY: 8)
+    CubDeMarc(posX:10,posY: 9)CubDeMarc(posX:10,posY:10)CubDeMarc(posX:10,posY:11)  
+    CubDeMarc(posX:10,posY:12)CubDeMarc(posX:10,posY:13)CubDeMarc(posX:10,posY:14)
+    CubDeMarc(posX:10,posY:15)CubDeMarc(posX:10,posY:16)CubDeMarc(posX:10,posY:17) 
+    CubDeMarc(posX:10,posY:18)
+
+    
+  }
+  SceneComponent( camera: this["Camera"] )
+}
+
+@prototype CubDeTaulell(int posX, int posY)
+{
+  Transform(position: new Vector3f(posX*2,0, posY*2))
+  BoxRenderer()
+}
+
+@event InitTetris {}
+
+@component TetrisGameComponent {
+  Entity<Puntuació, Taulell> taulell;
+}
+
+@system ControladorDelJoc {
+  @components {
+    TetrisGameComponent
+  }
+}
+
+@event InsertarPeça {
+  int color;
+  int[] px = new int[4], py = new int[4];
+}
+
+@event NovaPeça {
+  int tipus;
+}
+
+@system LlògicaPeça {
+  @components {
+    CPeça
+  }
+  
+  @event NovaPeça(
+                  NovaPeça event: EVENT, 
+                  Entity<CPeça> entitat: ENTITY
+                  )
+  {
+    entitat[CPeça].tipus = event.tipus;
+    int[] px = entitat[CPeça].px;
+    int[] py = entitat[CPeça].py;
+    switch(event.tipus)
+    {
+    case 1: 
+      px[0] = 3;
+      px[1] = 4;
+      px[2] = 5;
+      px[3] = 6;
+      py[0] = py[1] = py[2] = py[3] = 18;
+      break;
+    case 2: 
+      px[0] = 3;
+      px[1] = 4;
+      px[2] = 4;
+      px[3] = 5;
+      py[0] = py[1] = 17;
+      py[2] = py[3] = 18;
+      break;
+    case 3: 
+      px[0] = 4;
+      px[1] = 5;
+      px[2] = 5;
+      px[3] = 6;
+      py[0] = py[1] = 18;
+      py[2] = py[3] = 17;
+      break;
+    case 4: 
+      px[0] = 4;
+      px[1] = 5;
+      px[2] = 4;
+      px[3] = 5;
+      py[0] = py[1] = 18;
+      py[2] = py[3] = 17;
+      break;
+    case 5: 
+      px[0] = 3;
+      px[1] = 4;
+      px[2] = 5;
+      px[3] = 5;
+      py[0] = py[1] = py[2] = 18;
+      py[3] = 17;
+      break;
+    case 6: 
+      px[0] = 4;
+      px[1] = 5;
+      px[2] = 6;
+      px[3] = 4;
+      py[0] = py[1] = py[2] = 18;
+      py[3] = 17;
+      break;
+    case 7: 
+      px[0] = 3;
+      px[1] = 4;
+      px[2] = 5;
+      px[3] = 4;
+      py[0] = py[1] = py[2] = 18;
+      py[3] = 17;
+      break;
+    }
+    
+    entitat[CPeça].px = px;
+    entitat[CPeça].py = py;
+    
+    Vector3f pos;
+    
+    pos = entitat["cub1"][Transform].position;
+    pos.x = px[0] * 2.f;
+    pos.z = py[0] * 2.f;
+    entitat["cub1"][Transform].position = pos;
+    
+    pos = entitat["cub2"][Transform].position;
+    pos.x = px[1] * 2.f;
+    pos.z = py[1] * 2.f;
+    entitat["cub2"][Transform].position = pos;
+    
+    pos = entitat["cub3"][Transform].position;
+    pos.x = px[2] * 2.f;
+    pos.z = py[2] * 2.f;
+    entitat["cub3"][Transform].position = pos;
+    
+    pos = entitat["cub4"][Transform].position;
+    pos.x = px[3] * 2.f;
+    pos.z = py[3] * 2.f;
+    entitat["cub4"][Transform].position = pos;
+  }
+  
+  @update(Entity<CPeça> entitat: ENTITY, float dt : DELTA_TIME) {
+    float t = entitat[CPeça].t + dt;
+    float llindar = 20.f / (10.f + entitat[CPeça].taulell[Puntuació].nivell);
+    
+    if(t > llindar) {
+      entitat[CPeça].t = t % llindar;
+      
+      int[] px = entitat[CPeça].px;
+      int[] py = entitat[CPeça].py;
+      
+      --py[0];--py[1];--py[2];--py[3];
+      
+      
+      entitat[CPeça].py = py;
+      Vector3f pos;
+    
+      pos = entitat["cub1"][Transform].position;
+      pos.z = py[0] * 2.f;
+      entitat["cub1"][Transform].position = pos;
+      
+      pos = entitat["cub2"][Transform].position;
+      pos.z = py[1] * 2.f;
+      entitat["cub2"][Transform].position = pos;
+      
+      pos = entitat["cub3"][Transform].position;
+      pos.z = py[2] * 2.f;
+      entitat["cub3"][Transform].position = pos;
+      
+      pos = entitat["cub4"][Transform].position;
+      pos.z = py[3] * 2.f;
+      entitat["cub4"][Transform].position = pos;
+      
+      
+      for(int i = 0; i < 4; ++i) {
+        if(py[i] < 0 || entitat[CPeça].taulell[Taulell].taulell[px[i]][py[i]] != 0) {
+          int tipus = @rnd.nextInt(7) + 1;
+          ++py[0];++py[1];++py[2];++py[3];
+          @event InsertarPeça(color: entitat[CPeça].tipus, px: px, py: py) : entitat[CPeça].taulell;
+          @event NovaPeça(tipus: tipus) : entitat;
+          break;
+        }
+      }
+      
+    } else {
+      entitat[CPeça].t = t;
+    }
+    
+  }
+}
+
+@system LlògicaTaulell {
+  @components {
+    Taulell
+  }
+  
+  @newEntity(Entity<Taulell> entitat: ENTITY) {
+    int tipus = @rnd.nextInt(7) + 1;
+    @event NovaPeça(tipus: tipus) : entitat["Peça"];
+  }
+  
+  @event InsertarPeça(
+            InsertarPeça event: EVENT, 
+            Entity<Puntuació, Taulell> entitat: ENTITY
+            )
+  {
+    int línies = 0;
+    int[][] taulell = entitat[Taulell].taulell;
+    Entity[][] cubs = entitat[Taulell].cubs;
+    for(int peça = 0; peça < 4; ++peça) {
+    
+      int línea = event.py[peça];
+      taulell[event.px[peça]][event.py[peça]] = event.color;
+      Entity nouCub = @newEntity(null,entitat);
+      @prototype nouCub : CubDeTaulell(
+                              posX: event.px[peça], 
+                              posY: event.py[peça]);
+      cubs[event.px[peça]][event.py[peça]] = nouCub;
+      
+      boolean netejarLinea = true;
+      for(int i = 0; i < 10; ++i) {
+        if(entitat[Taulell].taulell[i][event.py[peça]] == 0) {
+          netejarLinea = false;
+          break;
+        }
+      }
+      if(netejarLinea) {
+        for(int i = peça+1; i < 4; ++i) {
+          --event.py[i];
+        }
+        for(int i = 0; i < 10; ++i) {
+          @eraseEntity cubs[línea][i];
+        }
+        for(int i = línea; i < 17; ++i) {
+          for(int j = 0; j < 10; ++j) {
+            if(i > línea && cubs[i][j] != null) {
+              Transform t = cubs[i][j][Transform];
+              t.position.y -= 1;
+              cubs[i][j][Transform] = t;
+            }
+            taulell[i][j] = taulell[i+1][j];
+          }
+        }
+        ++línies;
+      }
+    }
+    
+    entitat[Taulell].taulell = taulell;
+    entitat[Taulell].cubs = cubs;
+    
+    entitat[Puntuació].línies += línies;//TODO
+    entitat[Puntuació].nivell = entitat[Puntuació].línies / 10;
+    entitat[Puntuació].punts += 11;
+    if(línies == 1) {
+      entitat[Puntuació].punts +=  30;
+    } else if(línies == 2) {
+      entitat[Puntuació].punts +=  71;
+    } else if(línies == 3) {
+      entitat[Puntuació].punts += 111;
+    } else if(línies == 4) {
+      entitat[Puntuació].punts += 160;
+    }
+  }
+}
+
+@thread LlogicaTetris {
+  @system ControladorDelJoc;
+  @system LlògicaTaulell;
+  @system LlògicaPeça;
+  
+  @init {
+    Entity tetris = @newEntity("tetris",null);
+    @prototype tetris : Tetris();
+    Entity e = @newEntity("principal", null); 
+    
+    @add TetrisGameComponent(taulell: tetris) : e;
+   
+    //int px[] = {0,1,2,3};
+    //int py[] = {0,0,0,0};
+    
+    //@event InsertarPeça(color: 1, px: px, py: py) : tetris;
+  }
+}
+
+@thread cat.quadriga.base.SimpleRenderThread
+@java cat.quadriga.render.simple.RenderManager
+
+@main Main {
+  @thread LlogicaTetris
+  @thread SimpleRenderThread
+  
+  @init {
+    RenderManager.instance.setPerspective(90.0f, 800.0f/600.0f, 10, 1000);
+    RenderManager.instance.renderFPS = true;
+  }
+}

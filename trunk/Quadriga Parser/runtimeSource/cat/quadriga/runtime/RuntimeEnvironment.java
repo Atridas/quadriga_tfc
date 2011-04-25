@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.Stack;
+import java.util.TreeMap;
 
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
@@ -18,6 +20,7 @@ public class RuntimeEnvironment {
   public long timeMilis;
   public float dt;
   
+  public final ThreadLocal<Random> rnd = new ThreadLocal<Random> () { @Override protected Random initialValue() { return new Random(); } };
   
   public Stack<ComputedValue> stack = new Stack<ComputedValue>();
   
@@ -51,7 +54,82 @@ public class RuntimeEnvironment {
     throw new IllegalStateException("Not yet implemented");
   }
   
+
+  private final ThreadLocal<Map<Integer,Entity>> guidEntities = new ThreadLocal<Map<Integer,Entity>> () { @Override protected Map<Integer,Entity> initialValue() { return new TreeMap<Integer,Entity>(); } };
+  private final ThreadLocal<Map<String,Entity>> namedEntities = new ThreadLocal<Map<String,Entity>> () { @Override protected Map<String,Entity> initialValue() { return new HashMap<String,Entity>(); } };
+  private final ThreadLocal<Map<Integer,Map<String,Entity>>> parentEntities = new ThreadLocal<Map<Integer,Map<String,Entity>>> () { @Override protected Map<Integer,Map<String,Entity>> initialValue() { return new TreeMap<Integer,Map<String,Entity>>(); } };
+
+  public Entity addToCache(Entity entity) {
+    Map<Integer,Entity> entities = guidEntities.get();
+    
+    if(entities.containsKey(entity.getGUID())) {
+      return entities.get(entity.getGUID());
+    } else {
+      entities.put(entity.getGUID(), entity);
+    }
+    return entity;
+  }
   
+  public Entity findEntity(int guid) {
+    Entity entity = guidEntities.get().get(guid);
+    if(entity == null) {
+      entity = entitySystem.findEntity(guid);
+      if(entity == null) return null;
+      guidEntities.get().put(guid, entity);
+    }
+    
+    return entity;
+  }
+  
+  public Entity findEntity(String name) {
+    Entity entity = namedEntities.get().get(name);
+    if(entity == null) {
+      entity = entitySystem.findEntity(name);
+      if(entity == null) return null;
+      namedEntities.get().put(name, entity);
+      Entity entity2 = guidEntities.get().get(entity.getGUID());
+      if(entity2 == null) {
+        guidEntities.get().put(entity.getGUID(), entity);
+      } else {
+        entity = entity2;
+      }
+    }
+    
+    return entity;
+  }
+  
+  public Entity findEntity(String name, Entity parent) {
+    Map<String,Entity> mapChilds = parentEntities.get().get(parent.getGUID());
+    if(mapChilds == null) {
+      mapChilds = new HashMap<String, Entity>();
+      parentEntities.get().put(parent.getGUID(), mapChilds);
+    }
+    
+    Entity entity = mapChilds.get(name);
+    if(entity == null) {
+      entity = entitySystem.findEntity(name, parent);
+      if(entity == null) return null;
+      mapChilds.put(name, entity);
+      Entity entity2 = guidEntities.get().get(entity.getGUID());
+      if(entity2 == null) {
+        guidEntities.get().put(entity.getGUID(), entity);
+      } else {
+        entity = entity2;
+      }
+    }
+    
+    return entity;
+  }
+  
+  public void commitEntities() {
+    Map<Integer,Entity> entities = guidEntities.get();
+    for(Entity entity : entities.values()) {
+      entity.commitChanges();
+    }
+    guidEntities.get().clear();
+    namedEntities.get().clear();
+    parentEntities.get().clear();
+  }
 
   ///////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////

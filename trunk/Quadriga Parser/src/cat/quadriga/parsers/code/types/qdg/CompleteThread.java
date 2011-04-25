@@ -165,6 +165,7 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
       runtime.enterFunction(init.numLocalVariables);
       init.code.execute(runtime);
       runtime.exitFunction();
+      runtime.commitEntities();
     } catch (BreakOrContinueException e) {
       throw new IllegalStateException(e);
     }
@@ -187,6 +188,7 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
       runtime.enterFunction(cleanUp.numLocalVariables);
       cleanUp.code.execute(runtime);
       runtime.exitFunction();
+      runtime.commitEntities();
     } catch (BreakOrContinueException e) {
       throw new IllegalStateException(e);
     }
@@ -226,6 +228,7 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
           for(Entity entity : deletedEntities) {
             entity.commitChanges();
           }
+          runtime.commitEntities();
         }
         if(system.hasNew()) {
           for(Entity entity : newEntities) {
@@ -234,6 +237,7 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
           for(Entity entity : newEntities) {
             entity.commitChanges();
           }
+          runtime.commitEntities();
         }
       }
 
@@ -244,6 +248,7 @@ public class CompleteThread extends BaseTypeClass implements RuntimeThread, Runn
         for(Entity entity : updates) {
           entity.commitChanges();
         }
+        runtime.commitEntities();
       }
     }
   }
