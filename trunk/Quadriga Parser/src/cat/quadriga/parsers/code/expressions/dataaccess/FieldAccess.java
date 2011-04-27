@@ -9,6 +9,7 @@ import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.runtime.ComputedValue;
 import cat.quadriga.runtime.JavaReference;
@@ -134,21 +135,32 @@ public final class FieldAccess extends MemberAccess {
     } else {
       ref = reference.compute(runtime).getAsObject();
     }
-    
-    if(field.getType().isPrimitive()) {
-      throw new IllegalStateException("Not implemented");
-    } else {
-      try {
-        result = field.get(ref);
-      } catch (Exception e) {
-        throw new IllegalStateException(e);
-      }
-      
-      if(result instanceof ComputedValue) {
-        return (ComputedValue) result;
+
+    try {
+      if(type instanceof PrimitiveTypeRef) {
+      //if(field.getType().isPrimitive()) {
+        switch(((PrimitiveTypeRef)type).type)
+        {
+        case INT:
+          result = new LiteralData.IntegerLiteral( field.getInt(ref) );
+          break;
+        default:
+          throw new IllegalStateException("Not implemented");
+        }
+        
       } else {
-        return new JavaReference(result);
+        result = field.get(ref);
       }
+    } catch (IllegalStateException e) {
+      throw e;
+    } catch (Exception e) {
+      throw new IllegalStateException(e);
+    }
+
+    if(result instanceof ComputedValue) {
+      return (ComputedValue) result;
+    } else {
+      return new JavaReference(result);
     }
   }
   

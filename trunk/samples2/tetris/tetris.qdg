@@ -119,6 +119,15 @@
   int tipus;
 }
 
+
+@event tetris.input.ELeft
+@event tetris.input.ERight
+@event tetris.input.EUp
+@event tetris.input.EDown
+
+@event tetris.input.ETurnL
+@event tetris.input.ETurnR
+
 @system LlògicaPeça {
   @components {
     CPeça
@@ -265,7 +274,86 @@
     }
     
   }
+  
+  @event ELeft(Entity<CPeça> entitat: ENTITY, ELeft event: EVENT) {
+    int[] px = entitat[CPeça].px;
+    int[] py = entitat[CPeça].py;
+    
+    ++px[0];++px[1];++px[2];++px[3];
+    
+    
+    
+    
+    for(int i = 0; i < 4; ++i) {
+      if(px[i] > 9 || entitat[CPeça].taulell[Taulell].taulell[px[i]][py[i]] != 0) {
+        --px[0];--px[1];--px[2];--px[3];
+        break;
+      }
+    }
+    
+    //entitat[CPeça].py = py;
+    entitat[CPeça].px = px;
+    Vector3f pos;
+  
+    pos = entitat["cub1"][Transform].position;
+    pos.x = px[0] * 2.f;
+    entitat["cub1"][Transform].position = pos;
+    
+    pos = entitat["cub2"][Transform].position;
+    pos.x = px[1] * 2.f;
+    entitat["cub2"][Transform].position = pos;
+    
+    pos = entitat["cub3"][Transform].position;
+    pos.x = px[2] * 2.f;
+    entitat["cub3"][Transform].position = pos;
+    
+    pos = entitat["cub4"][Transform].position;
+    pos.x = px[3] * 2.f;
+    entitat["cub4"][Transform].position = pos;
+    
+  }
+  
+  @event ERight(Entity<CPeça> entitat: ENTITY, ELeft event: EVENT) {
+    int[] px = entitat[CPeça].px;
+    int[] py = entitat[CPeça].py;
+    
+    --px[0];--px[1];--px[2];--px[3];
+    
+    
+    
+    
+    for(int i = 0; i < 4; ++i) {
+      if(px[i] < 0 || entitat[CPeça].taulell[Taulell].taulell[px[i]][py[i]] != 0) {
+        ++px[0];++px[1];++px[2];++px[3];
+        break;
+      }
+    }
+    
+    //entitat[CPeça].py = py;
+    entitat[CPeça].px = px;
+    Vector3f pos;
+  
+    pos = entitat["cub1"][Transform].position;
+    pos.x = px[0] * 2.f;
+    entitat["cub1"][Transform].position = pos;
+    
+    pos = entitat["cub2"][Transform].position;
+    pos.x = px[1] * 2.f;
+    entitat["cub2"][Transform].position = pos;
+    
+    pos = entitat["cub3"][Transform].position;
+    pos.x = px[2] * 2.f;
+    entitat["cub3"][Transform].position = pos;
+    
+    pos = entitat["cub4"][Transform].position;
+    pos.x = px[3] * 2.f;
+    entitat["cub4"][Transform].position = pos;
+    
+  }
 }
+
+@event tetris.input.EEscape;
+@event cat.quadriga.base.Exit;
 
 @system LlògicaTaulell {
   @components {
@@ -339,9 +427,16 @@
       entitat[Puntuació].punts += 160;
     }
   }
+  
+  @event EEscape() {
+    @event Exit();
+  }
 }
 
+@system tetris.input.InputManager
+
 @thread LlogicaTetris {
+  @system InputManager;
   @system ControladorDelJoc;
   @system LlògicaTaulell;
   @system LlògicaPeça;
@@ -364,8 +459,8 @@
 @java cat.quadriga.render.simple.RenderManager
 
 @main Main {
-  @thread LlogicaTetris
   @thread SimpleRenderThread
+  @thread LlogicaTetris
   
   @init {
     RenderManager.instance.setPerspective(90.0f, 800.0f/600.0f, 10, 1000);

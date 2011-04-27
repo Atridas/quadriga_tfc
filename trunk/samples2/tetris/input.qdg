@@ -1,0 +1,47 @@
+@quadriga tetris.input
+
+@event ELeft {}
+@event ERight {}
+@event EUp {}
+@event EDown {}
+
+@event ETurnL {}
+@event ETurnR {}
+
+@event EEscape {}
+
+@component CInputManager {}
+
+@java org.lwjgl.input.Keyboard;
+
+@system InputManager {
+  @components {
+    CInputManager
+  }
+
+  @init {
+    Entity IM = @newEntity("tetris_InputManager",null);
+    @add CInputManager() : IM;
+    Keyboard.create();
+  }
+  
+  @update() {
+    while(Keyboard.next()) {
+      int key = Keyboard.getEventKey();
+      
+      if(key == Keyboard.KEY_LEFT) {
+        if(Keyboard.getEventKeyState()) {
+          @event ELeft();
+        }
+      } else if(key == Keyboard.KEY_RIGHT) {
+        if(Keyboard.getEventKeyState()) {
+          @event ERight();
+        }
+      } else if(key == Keyboard.KEY_ESCAPE) {
+        if(Keyboard.getEventKeyState()) {
+          @event EEscape();
+        }
+      }
+    }
+  }
+}
