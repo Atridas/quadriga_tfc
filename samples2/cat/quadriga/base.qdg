@@ -211,13 +211,15 @@
   
   @init {
     RenderManager.initGL(800,600);
-    RenderManager rm = RenderManager.instance;
+    //Keyboard.create();
+    //RenderManager rm = RenderManager.instance;
     
     Entity renderer = @newEntity("qdg_renderer",null);
     @prototype renderer : RendererPrototype();
   }
   
   @cleanUp {
+    //Keyboard.destroy();
     RenderManager.close();
   }
 }

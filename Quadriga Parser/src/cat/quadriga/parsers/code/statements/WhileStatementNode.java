@@ -1,9 +1,13 @@
 package cat.quadriga.parsers.code.statements;
 
+import cat.quadriga.parsers.code.BreakException;
+import cat.quadriga.parsers.code.BreakOrContinueException;
 import cat.quadriga.parsers.code.CodeZone;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
+import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
+import cat.quadriga.runtime.RuntimeEnvironment;
 
 public class WhileStatementNode extends StatementNodeClass implements BucleInterface {
 
@@ -69,6 +73,34 @@ public class WhileStatementNode extends StatementNodeClass implements BucleInter
   @Override
   public boolean isCorrectlyLinked() {
     return linked;
+  }
+
+  @Override
+  public void execute(RuntimeEnvironment runtime) throws BreakOrContinueException {
+    try {
+      assert isCorrectlyLinked();
+      
+      runtime.newLocalContext();
+      
+      try {
+        while(condition.compute(runtime).getAsBool()) {
+          execution.execute(runtime);
+        }
+      } catch (BreakException e) {
+        if(e.tobreak != this) {
+          runtime.deleteLocalContext();
+          throw e;
+        }
+      }
+      
+      runtime.deleteLocalContext();
+    } catch (BreakOrContinueException e) {
+      throw e;
+    } catch (Exception e) {
+      throw new RuntimeException("Error in " 
+          + beginLine + ":" + beginColumn + " "
+          + endLine + ":" + endColumn + " " + file, e);
+    }
   }
 
 }
