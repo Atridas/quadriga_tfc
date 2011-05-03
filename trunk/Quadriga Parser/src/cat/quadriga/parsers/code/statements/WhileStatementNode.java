@@ -7,6 +7,7 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.symbols.LocalVariableSymbol;
+import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.runtime.RuntimeEnvironment;
 
 public class WhileStatementNode extends StatementNodeClass implements BucleInterface {
@@ -47,6 +48,16 @@ public class WhileStatementNode extends StatementNodeClass implements BucleInter
         newCondition = condition;
       } else {
         newCondition = condition.getLinkedVersion(symbolTable, errorLog);
+        if(newCondition == null) {
+          return null;
+        }
+      }
+
+
+      if(!PrimitiveTypeRef.getFromType(PrimitiveTypeRef.Type.BOOLEAN).isAssignableFrom( 
+          newCondition.getType())) {
+        errorLog.insertError("If condition must be boolean", newCondition);
+        return null;
       }
       
       BucleOrSwitchInterface prev = symbolTable.closestBucleOrSwitch;
@@ -57,6 +68,9 @@ public class WhileStatementNode extends StatementNodeClass implements BucleInter
         newExecution = execution;
       } else {
         newExecution = execution.getLinkedVersion(symbolTable, errorLog);
+        if(newExecution == null) {
+          return null;
+        }
       }
 
       symbolTable.closestBucleOrSwitch = prev;

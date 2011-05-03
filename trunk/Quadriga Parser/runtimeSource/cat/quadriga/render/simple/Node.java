@@ -26,6 +26,8 @@ public class Node {
   public StaticMesh staticMesh;
   public StackedSphere sphere;
   public Box box;
+  public Font font;
+  public String text;
   public final List<Node> childs = new ArrayList<Node>();
   
   public Node(int id, RenderManager rm) {
@@ -88,6 +90,9 @@ public class Node {
     }
     if(box != null) {
       box.render(null, matrixAux, rm);
+    }
+    if(font != null && text != null) {
+      rm.fontManager.printString(font, text, matrixAux);
     }
     
 

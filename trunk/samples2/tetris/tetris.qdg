@@ -36,6 +36,7 @@
 }
 
 @prototype tetris.tetris.CubDeTaulell
+@prototype cat.quadriga.base.TextRendererPrototype
 
 @prototype PPeça(Entity<Puntuació> taulell)
 {
@@ -59,6 +60,9 @@
                              [CameraComponent].lookAt: new Vector3f(0.0f,0.0f,18.0f),
                              [CameraComponent].up: new Vector3f(0.0f,0.0f,1.0f))
                              
+    TextRendererPrototype(text: "0" /*+ this[Puntuació].punts*/, font: "resources/fonts/font14.fnt",
+                                    [Transform].position: new Vector3f(-10.0f, 0.0f, 18.0f))
+                             
     "Peça" : PPeça(taulell: this)
                              
     CubDeMarc(posX:-1,posY:-1)CubDeMarc(posX: 0,posY:-1)CubDeMarc(posX: 1,posY:-1)
@@ -66,10 +70,10 @@
     CubDeMarc(posX: 5,posY:-1)CubDeMarc(posX: 6,posY:-1)CubDeMarc(posX: 7,posY:-1)
     CubDeMarc(posX: 8,posY:-1)CubDeMarc(posX: 9,posY:-1)CubDeMarc(posX:10,posY:-1)  
                              
-    CubDeMarc(posX:-1,posY:19)CubDeMarc(posX: 0,posY:19)CubDeMarc(posX: 1,posY:19)
-    CubDeMarc(posX: 2,posY:19)CubDeMarc(posX: 3,posY:19)CubDeMarc(posX: 4,posY:19) 
-    CubDeMarc(posX: 5,posY:19)CubDeMarc(posX: 6,posY:19)CubDeMarc(posX: 7,posY:19)
-    CubDeMarc(posX: 8,posY:19)CubDeMarc(posX: 9,posY:19)CubDeMarc(posX:10,posY:19)  
+    CubDeMarc(posX:-1,posY:18)CubDeMarc(posX: 0,posY:18)CubDeMarc(posX: 1,posY:18)
+    CubDeMarc(posX: 2,posY:18)CubDeMarc(posX: 3,posY:18)CubDeMarc(posX: 4,posY:18) 
+    CubDeMarc(posX: 5,posY:18)CubDeMarc(posX: 6,posY:18)CubDeMarc(posX: 7,posY:18)
+    CubDeMarc(posX: 8,posY:18)CubDeMarc(posX: 9,posY:18)CubDeMarc(posX:10,posY:18)  
                              
     CubDeMarc(posX:-1,posY: 0)CubDeMarc(posX:-1,posY: 1)CubDeMarc(posX:-1,posY: 2)
     CubDeMarc(posX:-1,posY: 3)CubDeMarc(posX:-1,posY: 4)CubDeMarc(posX:-1,posY: 5) 
@@ -77,7 +81,6 @@
     CubDeMarc(posX:-1,posY: 9)CubDeMarc(posX:-1,posY:10)CubDeMarc(posX:-1,posY:11)  
     CubDeMarc(posX:-1,posY:12)CubDeMarc(posX:-1,posY:13)CubDeMarc(posX:-1,posY:14)
     CubDeMarc(posX:-1,posY:15)CubDeMarc(posX:-1,posY:16)CubDeMarc(posX:-1,posY:17) 
-    CubDeMarc(posX:-1,posY:18)
                              
     CubDeMarc(posX:10,posY: 0)CubDeMarc(posX:10,posY: 1)CubDeMarc(posX:10,posY: 2)
     CubDeMarc(posX:10,posY: 3)CubDeMarc(posX:10,posY: 4)CubDeMarc(posX:10,posY: 5) 
@@ -85,7 +88,6 @@
     CubDeMarc(posX:10,posY: 9)CubDeMarc(posX:10,posY:10)CubDeMarc(posX:10,posY:11)  
     CubDeMarc(posX:10,posY:12)CubDeMarc(posX:10,posY:13)CubDeMarc(posX:10,posY:14)
     CubDeMarc(posX:10,posY:15)CubDeMarc(posX:10,posY:16)CubDeMarc(posX:10,posY:17) 
-    CubDeMarc(posX:10,posY:18)
 
     
   }
@@ -148,55 +150,55 @@
       px[1] = 4;
       px[2] = 5;
       px[3] = 6;
-      py[0] = py[1] = py[2] = py[3] = 18;
+      py[0] = py[1] = py[2] = py[3] = 17;
       break;
     case 2: 
       px[0] = 3;
       px[1] = 4;
       px[2] = 4;
       px[3] = 5;
-      py[0] = py[1] = 17;
-      py[2] = py[3] = 18;
+      py[0] = py[1] = 16;
+      py[2] = py[3] = 17;
       break;
     case 3: 
       px[0] = 4;
       px[1] = 5;
       px[2] = 5;
       px[3] = 6;
-      py[0] = py[1] = 18;
-      py[2] = py[3] = 17;
+      py[0] = py[1] = 17;
+      py[2] = py[3] = 16;
       break;
     case 4: 
       px[0] = 4;
       px[1] = 5;
       px[2] = 4;
       px[3] = 5;
-      py[0] = py[1] = 18;
-      py[2] = py[3] = 17;
+      py[0] = py[1] = 17;
+      py[2] = py[3] = 16;
       break;
     case 5: 
       px[0] = 3;
       px[1] = 4;
       px[2] = 5;
       px[3] = 5;
-      py[0] = py[1] = py[2] = 18;
-      py[3] = 17;
+      py[0] = py[1] = py[2] = 17;
+      py[3] = 16;
       break;
     case 6: 
       px[0] = 4;
       px[1] = 5;
       px[2] = 6;
       px[3] = 4;
-      py[0] = py[1] = py[2] = 18;
-      py[3] = 17;
+      py[0] = py[1] = py[2] = 17;
+      py[3] = 16;
       break;
     case 7: 
       px[0] = 3;
       px[1] = 4;
       px[2] = 5;
       px[3] = 4;
-      py[0] = py[1] = py[2] = 18;
-      py[3] = 17;
+      py[0] = py[1] = py[2] = 17;
+      py[3] = 16;
       break;
     }
     
@@ -275,7 +277,7 @@
     
   }
   
-  @event ELeft(Entity<CPeça> entitat: ENTITY, ELeft event: EVENT) {
+  @event ELeft(Entity<CPeça> entitat: ENTITY) {
     int[] px = entitat[CPeça].px;
     int[] py = entitat[CPeça].py;
     
@@ -313,7 +315,7 @@
     
   }
   
-  @event ERight(Entity<CPeça> entitat: ENTITY, ELeft event: EVENT) {
+  @event ERight(Entity<CPeça> entitat: ENTITY) {
     int[] px = entitat[CPeça].px;
     int[] py = entitat[CPeça].py;
     
@@ -350,6 +352,231 @@
     entitat["cub4"][Transform].position = pos;
     
   }
+  
+  
+  
+  @event EDown(Entity<CPeça> entitat: ENTITY) {
+    int[] px = entitat[CPeça].px;
+    int[] py = entitat[CPeça].py;
+    
+    --py[0];--py[1];--py[2];--py[3];
+    
+    
+    entitat[CPeça].py = py;
+    Vector3f pos;
+  
+    pos = entitat["cub1"][Transform].position;
+    pos.z = py[0] * 2.f;
+    entitat["cub1"][Transform].position = pos;
+    
+    pos = entitat["cub2"][Transform].position;
+    pos.z = py[1] * 2.f;
+    entitat["cub2"][Transform].position = pos;
+    
+    pos = entitat["cub3"][Transform].position;
+    pos.z = py[2] * 2.f;
+    entitat["cub3"][Transform].position = pos;
+    
+    pos = entitat["cub4"][Transform].position;
+    pos.z = py[3] * 2.f;
+    entitat["cub4"][Transform].position = pos;
+    
+    
+    for(int i = 0; i < 4; ++i) {
+      if(py[i] < 0 || entitat[CPeça].taulell[Taulell].taulell[px[i]][py[i]] != 0) {
+        int tipus = @rnd.nextInt(7) + 1;
+        ++py[0];++py[1];++py[2];++py[3];
+        @event InsertarPeça(color: entitat[CPeça].tipus, px: px, py: py) : entitat[CPeça].taulell;
+        @event NovaPeça(tipus: tipus) : entitat;
+        break;
+      }
+    }
+  }
+  
+  
+  @event ETurnL(Entity<CPeça> entitat: ENTITY) {
+    int[] px = entitat[CPeça].px;
+    int[] py = entitat[CPeça].py;
+    
+    for(int i = 0; i < 4; ++i) {
+      int x = px[1] - px[i];
+      int y = py[1] - py[i];
+      
+      px[i] = px[1] + y;
+      py[i] = py[1] - x;
+    }
+    
+    boolean stop = false;
+    //GRAN_BUCLE: 
+    while(!stop) {
+      stop = true;
+      
+      //Comprovar els bordes
+      for(int i = 0; i < 4; ++i) {
+        if(px[i] < 0) {
+          ++px[0];++px[1];++px[2];++px[3];
+          stop = false;
+          break;
+        }
+        if(px[i] >= 10) {
+          --px[0];--px[1];--px[2];--px[3];
+          stop = false;
+          break;
+        }
+        if(py[i] < 0) {
+          ++py[0];++py[1];++py[2];++py[3];
+          stop = false;
+          break;
+        }
+        if(py[i] >= 18) {
+          --py[0];--py[1];--py[2];--py[3];
+          stop = false;
+          break;
+        }
+        
+        if(entitat[CPeça].taulell[Taulell].taulell[px[i]][py[i]] != 0) {
+          for(int j = 0; j < 4; ++j) {
+            if(py[j] == 17) {
+              boolean gotoLeft = true;
+              for(int k = 0; k < 4; ++k) {
+                if(px[k] == 0) {
+                  gotoLeft = false;
+                  ++px[0];++px[1];++px[2];++px[3];
+                  break;
+                }
+              }
+              if(gotoLeft) {
+                --px[0];--px[1];--px[2];--px[3];
+              }
+              --py[0];--py[1];--py[2];--py[3];
+            }
+          }
+          
+          ++py[0];++py[1];++py[2];++py[3];
+          stop = false;
+          break;
+        }
+      }
+      
+    }
+    
+    
+    entitat[CPeça].px = px;
+    entitat[CPeça].py = py;
+    Vector3f pos;
+  
+    pos = entitat["cub1"][Transform].position;
+    pos.x = px[0] * 2.f;
+    pos.z = py[0] * 2.f;
+    entitat["cub1"][Transform].position = pos;
+    
+    pos = entitat["cub2"][Transform].position;
+    pos.x = px[1] * 2.f;
+    pos.z = py[1] * 2.f;
+    entitat["cub2"][Transform].position = pos;
+    
+    pos = entitat["cub3"][Transform].position;
+    pos.x = px[2] * 2.f;
+    pos.z = py[2] * 2.f;
+    entitat["cub3"][Transform].position = pos;
+    
+    pos = entitat["cub4"][Transform].position;
+    pos.x = px[3] * 2.f;
+    pos.z = py[3] * 2.f;
+    entitat["cub4"][Transform].position = pos;
+  }
+  
+  
+  @event ETurnR(Entity<CPeça> entitat: ENTITY) {
+    int[] px = entitat[CPeça].px;
+    int[] py = entitat[CPeça].py;
+    
+    for(int i = 0; i < 4; ++i) {
+      int x = px[1] - px[i];
+      int y = py[1] - py[i];
+      
+      px[i] = px[1] - y;
+      py[i] = py[1] + x;
+    }
+    
+    boolean stop = false;
+    //GRAN_BUCLE: 
+    while(!stop) {
+      stop = true;
+      
+      //Comprovar els bordes
+      for(int i = 0; i < 4; ++i) {
+        if(px[i] < 0) {
+          ++px[0];++px[1];++px[2];++px[3];
+          stop = false;
+          break;
+        }
+        if(px[i] >= 10) {
+          --px[0];--px[1];--px[2];--px[3];
+          stop = false;
+          break;
+        }
+        if(py[i] < 0) {
+          ++py[0];++py[1];++py[2];++py[3];
+          stop = false;
+          break;
+        }
+        if(py[i] >= 18) {
+          --py[0];--py[1];--py[2];--py[3];
+          stop = false;
+          break;
+        }
+        
+        if(entitat[CPeça].taulell[Taulell].taulell[px[i]][py[i]] != 0) {
+          for(int j = 0; j < 4; ++j) {
+            if(py[j] == 17) {
+              boolean gotoLeft = true;
+              for(int k = 0; k < 4; ++k) {
+                if(px[k] == 0) {
+                  gotoLeft = false;
+                  ++px[0];++px[1];++px[2];++px[3];
+                  break;
+                }
+              }
+              if(gotoLeft) {
+                --px[0];--px[1];--px[2];--px[3];
+              }
+              --py[0];--py[1];--py[2];--py[3];
+            }
+          }
+          ++py[0];++py[1];++py[2];++py[3];
+          stop = false;
+          break;
+        }
+      }
+      
+    }
+    
+    
+    entitat[CPeça].px = px;
+    entitat[CPeça].py = py;
+    Vector3f pos;
+  
+    pos = entitat["cub1"][Transform].position;
+    pos.x = px[0] * 2.f;
+    pos.z = py[0] * 2.f;
+    entitat["cub1"][Transform].position = pos;
+    
+    pos = entitat["cub2"][Transform].position;
+    pos.x = px[1] * 2.f;
+    pos.z = py[1] * 2.f;
+    entitat["cub2"][Transform].position = pos;
+    
+    pos = entitat["cub3"][Transform].position;
+    pos.x = px[2] * 2.f;
+    pos.z = py[2] * 2.f;
+    entitat["cub3"][Transform].position = pos;
+    
+    pos = entitat["cub4"][Transform].position;
+    pos.x = px[3] * 2.f;
+    pos.z = py[3] * 2.f;
+    entitat["cub4"][Transform].position = pos;
+  }
 }
 
 @event tetris.input.EEscape;
@@ -382,31 +609,38 @@
                               posX: event.px[peça], 
                               posY: event.py[peça]);
       cubs[event.px[peça]][event.py[peça]] = nouCub;
-      
+    }
+
+    for(int línea = 0; línea < 18; ++línea) {
       boolean netejarLinea = true;
       for(int i = 0; i < 10; ++i) {
-        if(entitat[Taulell].taulell[i][event.py[peça]] == 0) {
+        if(entitat[Taulell].taulell[i][línea] == 0) {
           netejarLinea = false;
           break;
         }
       }
       if(netejarLinea) {
-        for(int i = peça+1; i < 4; ++i) {
-          --event.py[i];
-        }
         for(int i = 0; i < 10; ++i) {
-          @eraseEntity cubs[línea][i];
+          @eraseEntity cubs[i][línea];
+          cubs[i][línea] = null;
         }
-        for(int i = línea; i < 17; ++i) {
-          for(int j = 0; j < 10; ++j) {
-            if(i > línea && cubs[i][j] != null) {
-              Transform t = cubs[i][j][Transform];
-              t.position.y -= 1;
-              cubs[i][j][Transform] = t;
+        for(int x = 0; x < 10; ++x) {
+          for(int y = línea; y < 17; ++y) {
+            Entity cub = cubs[x][y+1];
+            if(cub != null) {
+              @eraseEntity cub;
+              Entity nouCub = @newEntity(null,entitat);
+              @prototype nouCub : CubDeTaulell(
+                              posX: x, 
+                              posY: y);
+              cubs[x][y] = nouCub;
+              cubs[x][y+1] = null;
             }
-            taulell[i][j] = taulell[i+1][j];
+            taulell[x][y] = taulell[x][y+1];
           }
+          taulell[x][17] = 0;
         }
+        --línea;
         ++línies;
       }
     }

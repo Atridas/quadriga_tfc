@@ -3,6 +3,7 @@ package cat.quadriga.parsers.code.expressions.dataaccess;
 import java.lang.reflect.Field;
 
 import cat.quadriga.parsers.code.CodeZone;
+import cat.quadriga.parsers.code.CodeZoneClass;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
@@ -143,6 +144,9 @@ public final class FieldAccess extends MemberAccess {
         {
         case INT:
           result = new LiteralData.IntegerLiteral( field.getInt(ref) );
+          break;
+        case FLOAT:
+          result = new LiteralData.FloatLiteral( field.getFloat(ref), CodeZoneClass.runtime );
           break;
         default:
           throw new IllegalStateException("Not implemented");

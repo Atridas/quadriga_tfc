@@ -41,10 +41,11 @@
   Vector3f position = new Vector3f();
 }
 
-@component FontQuad {
+@component TextRenderer {
   String text       = "";
-  Vector3f position = new Vector3f();
-  Vector4f color    = new Vector4f();
+  String font;
+  //Vector3f position = new Vector3f();
+  //Vector4f color    = new Vector4f();
 }
 
 @component BillboardRenderer {
@@ -56,9 +57,9 @@
   TexturedQuad()
 }
 
-@prototype FontQuadPrototype {
+@prototype TextRendererPrototype(String text, String font) {
   Transform()
-  FontQuad()
+  TextRenderer(text: text, font: font)
 }
 
 
@@ -160,6 +161,22 @@
   }
 }
 
+@system SimpleTextRenderer {
+  @components {
+    TextRenderer
+  }
+  
+  @newEntity(Entity<TextRenderer> entity : ENTITY) {
+    RenderManager rm = RenderManager.instance;
+    rm.setText(entity.getGUID(), entity[TextRenderer].font, entity[TextRenderer].text);
+  }
+  
+  @eraseEntity(Entity<TextRenderer> entity : ENTITY) {
+    RenderManager rm = RenderManager.instance;
+    rm.deleteText(entity.getGUID());
+  }
+}
+
 /*
 @system SimpleStaticMeshRenderer {
   @components {
@@ -206,6 +223,7 @@
   @system SimpleNodeSystem
   @system SimpleSphereRenderer
   @system SimpleBoxRenderer
+  @system SimpleTextRenderer
   
   @system EndRender
   
