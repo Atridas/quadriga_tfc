@@ -17,6 +17,7 @@ import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.parsers.code.types.UnknownType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaComponent;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
+import cat.quadriga.runtime.ComponentInstance;
 import cat.quadriga.runtime.ComputedValue;
 import cat.quadriga.runtime.Entity;
 import cat.quadriga.runtime.JavaReference;
@@ -305,7 +306,23 @@ public final class ArrayOrComponentAccess extends ExpressionNodeClass implements
         
       }
       if(array.getType() instanceof QuadrigaEntity) {
-        throw new IllegalStateException("Not yet implemented");
+        ComputedValue cv = array.compute(runtime);
+        Entity entity = (Entity) cv;
+        
+        //if(access.getType() == ClassOrInterfaceTypeRef.getFromClass(String.class)) {
+        //  throw new IllegalStateException("Not yet implemented");
+        //  return runtime.findEntity(
+        //                    access.compute(runtime).getStringValue(), 
+        //                    entity);
+        //} else {
+        //  if(access instanceof TypeDataAccess) {
+            //TypeDataAccess tda = (TypeDataAccess) access;
+            
+            runtime.entitySystem.addComponent(entity, (ComponentInstance)value, runtime);
+            //return entity.getComponent((QuadrigaComponent)tda.type);
+          //}
+          throw new IllegalStateException("Not yet implemented");
+        //}
       }
       throw new IllegalStateException();
     }

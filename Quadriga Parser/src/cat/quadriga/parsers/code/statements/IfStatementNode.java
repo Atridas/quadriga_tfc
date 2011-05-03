@@ -8,6 +8,7 @@ import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.Utils;
 import cat.quadriga.parsers.code.expressions.ExpressionNode;
+import cat.quadriga.parsers.code.types.PrimitiveTypeRef;
 import cat.quadriga.runtime.RuntimeEnvironment;
 
 public class IfStatementNode extends StatementNodeClass {
@@ -91,9 +92,15 @@ public class IfStatementNode extends StatementNodeClass {
         newElse = elseCode;
       } else {
         newElse = elseCode.getLinkedVersion(symbolTable, errorLog);
-        if(newIf == null) {
+        if(newElse == null) {
           return null;
         }
+      }
+      
+      if(!PrimitiveTypeRef.getFromType(PrimitiveTypeRef.Type.BOOLEAN).isAssignableFrom( 
+          newCondition.getType())) {
+        errorLog.insertError("If condition must be boolean", newCondition);
+        return null;
       }
       
       linkedVersion = new IfStatementNode(newCondition, newIf, newElse, this);

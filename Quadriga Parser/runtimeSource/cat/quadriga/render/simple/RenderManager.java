@@ -111,6 +111,21 @@ public final class RenderManager {
     nodes.get(position).box = null;
   }
   
+  public void setText(int position, String fontFile, String text) {
+    Font font = fontManager.getFont(fontFile);
+
+    Node n = nodes.get(position);
+    n.font = font;
+    n.text = text;
+  }
+  
+  public void deleteText(int position) {
+
+    Node n = nodes.get(position);
+    n.font = null;
+    n.text = null;
+  }
+  
   public static MaterialManager getMaterialManager() {
     return materialManager;
   }

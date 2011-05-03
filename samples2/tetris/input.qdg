@@ -23,6 +23,7 @@
     Entity IM = @newEntity("tetris_InputManager",null);
     @add CInputManager() : IM;
     Keyboard.create();
+    Keyboard.enableRepeatEvents(true); 
   }
   
   @update() {
@@ -36,6 +37,22 @@
       } else if(key == Keyboard.KEY_RIGHT) {
         if(Keyboard.getEventKeyState()) {
           @event ERight();
+        }
+      } else if(key == Keyboard.KEY_UP) {
+        if(Keyboard.getEventKeyState()) {
+          @event EUp();
+        }
+      } else if(key == Keyboard.KEY_DOWN) {
+        if(Keyboard.getEventKeyState()) {
+          @event EDown();
+        }
+      } else if(key == Keyboard.KEY_A) {
+        if(Keyboard.getEventKeyState()) {
+          @event ETurnL();
+        }
+      } else if(key == Keyboard.KEY_D) {
+        if(Keyboard.getEventKeyState()) {
+          @event ETurnR();
         }
       } else if(key == Keyboard.KEY_ESCAPE) {
         if(Keyboard.getEventKeyState()) {

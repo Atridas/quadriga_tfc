@@ -56,11 +56,12 @@ public class DataBaseEntitySystem implements EntitySystem {
                         isEntityOnSystem,
                         getSystemUpdateInfo,
                         getSystemUpdateInfo1,
-                        getSystemUpdateInfo2,
+                        //getSystemUpdateInfo2,
                         getSystemUpdateInfo3,
                         getSystemUpdateInfoInsert,
                         getSystemUpdateInfoDelete,
-                        getSystemsFromEvent;
+                        getSystemsFromEvent,
+                        removeEntity;
   
   private final ThreadLocal<CallableStatement> lastAutoIncrement;
   
@@ -106,7 +107,7 @@ public class DataBaseEntitySystem implements EntitySystem {
                           + "id IDENTITY,"
                           + "parent INTEGER NOT NULL,"
                           + "debug_info VARCHAR(500),"
-                          + "FOREIGN KEY(parent) REFERENCES entities(id))"
+                          + "FOREIGN KEY(parent) REFERENCES entities(id) ON DELETE CASCADE)"
                         );
       
       statement.addBatch("INSERT INTO entities (id,parent) VALUES (-1,-1)");
@@ -116,7 +117,7 @@ public class DataBaseEntitySystem implements EntitySystem {
                           + "parent INTEGER NOT NULL,"
                           + "name VARCHAR(500),"
                           + "PRIMARY KEY(parent,name),"
-                          + "FOREIGN KEY(id) REFERENCES entities(id))"
+                          + "FOREIGN KEY(id) REFERENCES entities(id) ON DELETE CASCADE)"
                         );
       
       statement.addBatch("CREATE TABLE entity_components ("
@@ -124,7 +125,7 @@ public class DataBaseEntitySystem implements EntitySystem {
                           + "component_id INTEGER NOT NULL,"
                           + "component_data INTEGER NOT NULL,"
                           + "PRIMARY KEY(entity_id, component_id),"
-                          + "FOREIGN KEY(entity_id) REFERENCES entities(id),"
+                          + "FOREIGN KEY(entity_id) REFERENCES entities(id) ON DELETE CASCADE,"
                           + "FOREIGN KEY(component_id) REFERENCES components(id)"
                           + ")"
                         );
@@ -269,7 +270,7 @@ public class DataBaseEntitySystem implements EntitySystem {
           }
         };
         
-        getSystemUpdateInfo2 = 
+        /*getSystemUpdateInfo2 = 
           new ThreadLocal < PreparedStatement > () {
           @Override protected PreparedStatement initialValue() {
             try{
@@ -284,7 +285,7 @@ public class DataBaseEntitySystem implements EntitySystem {
             }
             return null;
           }
-        };
+        };*/
         
         getSystemUpdateInfo3 = 
           new ThreadLocal < PreparedStatement > () {
@@ -353,6 +354,20 @@ public class DataBaseEntitySystem implements EntitySystem {
                   "FROM System_Components SC, Entity_Components EC " +
                   "WHERE EC.component_id = SC.component_id " +
                   "  AND SC.system_id = ? AND EC.entity_id = ? ");
+            } catch (SQLException e) {
+              anyException = e;
+            }
+            return null;
+          }
+        };
+        
+        removeEntity = 
+          new ThreadLocal < PreparedStatement > () {
+          @Override protected PreparedStatement initialValue() {
+            try{
+              return databaseConnection.get().prepareStatement("" +
+              		"DELETE FROM entities " +
+              		"WHERE id = ?");
             } catch (SQLException e) {
               anyException = e;
             }
@@ -523,7 +538,7 @@ public class DataBaseEntitySystem implements EntitySystem {
       for(String entityRef : entityRefs) {
         createTableStatement += 
                       ", FOREIGN KEY (" + entityRef + 
-                      ") REFERENCES entities(id)";
+                      ") REFERENCES entities(id) ON DELETE CASCADE";
       }
       
       createTableStatement += " )";
@@ -773,8 +788,17 @@ public class DataBaseEntitySystem implements EntitySystem {
   }
 
   @Override
-  public void deleteEntity(Entity e) {
-    //TODO
+  public void deleteEntity(Entity entity) {
+    try {
+      PreparedStatement ps = removeEntity.get();
+      
+      ps.setInt(1, entity.getGUID());
+      
+      ps.execute();
+      
+    } catch (SQLException e) {
+      throw new IllegalStateException(e);
+    }
   }
   
   @Override

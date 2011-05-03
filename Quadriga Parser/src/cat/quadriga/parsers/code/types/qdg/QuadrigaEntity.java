@@ -9,6 +9,7 @@ import java.util.Set;
 import cat.quadriga.parsers.code.ErrorLog;
 import cat.quadriga.parsers.code.SymbolTable;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.NullType;
 import cat.quadriga.parsers.code.types.ReferenceTypeRef;
 import cat.quadriga.parsers.code.types.UnknownType;
 import cat.quadriga.runtime.ComputedValue;
@@ -88,7 +89,11 @@ public class QuadrigaEntity extends ReferenceTypeRef {
 
   @Override
   public boolean isAssignableFrom(BaseType rightOperand) {
-    return getBinaryName().compareTo(rightOperand.getBinaryName()) == 0;
+    if( getBinaryName().compareTo(rightOperand.getBinaryName()) == 0)
+    {
+      return true;
+    }
+    return rightOperand instanceof NullType;
   }
 
   @Override
