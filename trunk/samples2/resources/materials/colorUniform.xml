@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<material name="color">
+  <vertex_shader>
+    <file>resources/materials/shaders/simple.vs</file>
+  </vertex_shader>
+  <fragment_shader>
+    <file>resources/materials/shaders/colorUniform.fs</file>
+  </fragment_shader>
+  <uniforms>
+    <world_view_projection>u_WorldViewProj</world_view_projection>
+    <vector3f name="Color">u_Color</vector3f>
+  </uniforms>
+  <attributes>
+    <position>_Position</position>
+  </attributes>
+</material>

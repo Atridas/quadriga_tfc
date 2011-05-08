@@ -17,7 +17,7 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-import cat.quadriga.render.simple.materials.Material;
+import cat.quadriga.render.simple.materials.BaseMaterial;
 import cat.quadriga.render.simple.materials.MaterialManager;
 
 public final class RenderManager {
@@ -42,6 +42,7 @@ public final class RenderManager {
   public final static RenderManager instance = new RenderManager();
   private static StaticMesh axis;
   private static final MaterialManager materialManager = new MaterialManager();
+  private static final ShaderManager shaderManager = new ShaderManager();
   private static int width, height;
   
   
@@ -129,8 +130,22 @@ public final class RenderManager {
     n.text = null;
   }
   
+  public void setMaterial(int position, BaseMaterial material) {
+    Node n = nodes.get(position);
+    n.material = material;
+  }
+  
+  public BaseMaterial getMaterial(int position) {
+    Node n = nodes.get(position);
+    return n.material;
+  }
+  
   public static MaterialManager getMaterialManager() {
     return materialManager;
+  }
+  
+  public static ShaderManager getShaderManager() {
+    return shaderManager;
   }
   
   void activateTexture(int target, int texture, int unit) {
@@ -331,7 +346,7 @@ public final class RenderManager {
   
   private static void initAxis() {
     
-    Material axisMaterial = materialManager.getMaterial("resources/materials/color.xml");
+    BaseMaterial axisMaterial = materialManager.getMaterial("resources/materials/color.xml");
     
     /*String fragmentShader = 
       "varying vec4 v_Color;\n" +

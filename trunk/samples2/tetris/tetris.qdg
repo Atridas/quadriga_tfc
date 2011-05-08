@@ -43,10 +43,10 @@
   Transform()
   CPeça(taulell: taulell)
   @child {
-    "cub1" : CubDeTaulell(posX:0, posY:0)
-    "cub2" : CubDeTaulell(posX:0, posY:0)
-    "cub3" : CubDeTaulell(posX:0, posY:0)
-    "cub4" : CubDeTaulell(posX:0, posY:0)
+    "cub1" : CubDeTaulell(posX:0, posY:0, color: 1)
+    "cub2" : CubDeTaulell(posX:0, posY:0, color: 1)
+    "cub3" : CubDeTaulell(posX:0, posY:0, color: 1)
+    "cub4" : CubDeTaulell(posX:0, posY:0, color: 1)
   }
 }
 
@@ -106,10 +106,43 @@
   }
 }
 
-@prototype CubDeTaulell(int posX, int posY)
+@component cat.quadriga.base.ColoredMaterial;
+
+@component ColorCub {
+  int color;
+}
+
+@prototype CubDeTaulell(int posX, int posY, int color)
 {
   Transform(position: new Vector3f(posX*2,0, posY*2))
   BoxRenderer()
+  ColorCub(color: color)
+  
+  @init {
+    switch(color) {
+    case 1:
+      @add ColoredMaterial(color: new Vector3f(1.f, .0f, .0f)) : this;
+      break;
+    case 2:
+      @add ColoredMaterial(color: new Vector3f(0.f, 1.f, .0f)) : this;
+      break;
+    case 3:
+      @add ColoredMaterial(color: new Vector3f(0.f, .0f, 1.f)) : this;
+      break;
+    case 4:
+      @add ColoredMaterial(color: new Vector3f(1.f, 1.f, .0f)) : this;
+      break;
+    case 5:
+      @add ColoredMaterial(color: new Vector3f(1.f, .0f, 1.f)) : this;
+      break;
+    case 6:
+      @add ColoredMaterial(color: new Vector3f(.0f, 1.f, 1.f)) : this;
+      break;
+    case 7:
+      @add ColoredMaterial(color: new Vector3f(1.f, 1.f, 1.f)) : this;
+      break;
+    }
+  }
 }
 
 @event InitTetris {}
@@ -155,6 +188,7 @@
     entitat[CPeça].tipus = event.tipus;
     int[] px = entitat[CPeça].px;
     int[] py = entitat[CPeça].py;
+    Vector3f color;
     switch(event.tipus)
     {
     case 1: 
@@ -163,6 +197,7 @@
       px[2] = 5;
       px[3] = 6;
       py[0] = py[1] = py[2] = py[3] = 17;
+      color = new Vector3f(1.f, .0f, .0f);
       break;
     case 2: 
       px[0] = 3;
@@ -171,6 +206,7 @@
       px[3] = 5;
       py[0] = py[1] = 16;
       py[2] = py[3] = 17;
+      color = new Vector3f(0.f, 1.f, .0f);
       break;
     case 3: 
       px[0] = 4;
@@ -179,6 +215,7 @@
       px[3] = 6;
       py[0] = py[1] = 17;
       py[2] = py[3] = 16;
+      color = new Vector3f(.0f, .0f, 1.f);
       break;
     case 4: 
       px[0] = 4;
@@ -187,6 +224,7 @@
       px[3] = 5;
       py[0] = py[1] = 17;
       py[2] = py[3] = 16;
+      color = new Vector3f(1.f, 1.f, .0f);
       break;
     case 5: 
       px[0] = 3;
@@ -195,6 +233,7 @@
       px[3] = 5;
       py[0] = py[1] = py[2] = 17;
       py[3] = 16;
+      color = new Vector3f(1.f, .0f, 1.f);
       break;
     case 6: 
       px[0] = 4;
@@ -203,6 +242,7 @@
       px[3] = 4;
       py[0] = py[1] = py[2] = 17;
       py[3] = 16;
+      color = new Vector3f(.0f, 1.f, 1.f);
       break;
     case 7: 
       px[0] = 3;
@@ -211,6 +251,7 @@
       px[3] = 4;
       py[0] = py[1] = py[2] = 17;
       py[3] = 16;
+      color = new Vector3f(1.f, 1.f, 1.f);
       break;
     }
     
@@ -223,26 +264,30 @@
     pos.x = px[0] * 2.f;
     pos.z = py[0] * 2.f;
     entitat["cub1"][Transform].position = pos;
+    entitat["cub1"][ColoredMaterial].color = color;
     
     pos = entitat["cub2"][Transform].position;
     pos.x = px[1] * 2.f;
     pos.z = py[1] * 2.f;
     entitat["cub2"][Transform].position = pos;
+    entitat["cub2"][ColoredMaterial].color = color;
     
     pos = entitat["cub3"][Transform].position;
     pos.x = px[2] * 2.f;
     pos.z = py[2] * 2.f;
     entitat["cub3"][Transform].position = pos;
+    entitat["cub3"][ColoredMaterial].color = color;
     
     pos = entitat["cub4"][Transform].position;
     pos.x = px[3] * 2.f;
     pos.z = py[3] * 2.f;
     entitat["cub4"][Transform].position = pos;
+    entitat["cub4"][ColoredMaterial].color = color;
   }
   
   @update(Entity<CPeça> entitat: ENTITY, float dt : DELTA_TIME) {
     float t = entitat[CPeça].t + dt;
-    float llindar = 20.f / (10.f + entitat[CPeça].taulell[Puntuació].nivell);
+    float llindar = 10.f / (10.f + entitat[CPeça].taulell[Puntuació].nivell);
     
     if(t > llindar) {
       entitat[CPeça].t = t % llindar;
@@ -635,7 +680,8 @@
       Entity nouCub = @newEntity(null,entitat);
       @prototype nouCub : CubDeTaulell(
                               posX: event.px[peça], 
-                              posY: event.py[peça]);
+                              posY: event.py[peça],
+                              color:event.color);
       cubs[event.px[peça]][event.py[peça]] = nouCub;
     }
 
@@ -656,13 +702,14 @@
           for(int y = línea; y < 17; ++y) {
             Entity cub = cubs[x][y+1];
             if(cub != null) {
-              @eraseEntity cub;
               Entity nouCub = @newEntity(null,entitat);
               @prototype nouCub : CubDeTaulell(
-                              posX: x, 
-                              posY: y);
+                              posX:  x, 
+                              posY:  y,
+                              color: cub[ColorCub].color);
               cubs[x][y] = nouCub;
               cubs[x][y+1] = null;
+              @eraseEntity cub;
             }
             taulell[x][y] = taulell[x][y+1];
           }
@@ -677,7 +724,7 @@
     entitat[Taulell].cubs = cubs;
     
     entitat[Puntuació].línies += línies;//TODO
-    entitat[Puntuació].nivell = entitat[Puntuació].línies / 10;
+    entitat[Puntuació].nivell = entitat[Puntuació].línies / 5;
     entitat[Puntuació].punts += 11;
     if(línies == 1) {
       entitat[Puntuació].punts +=  30;

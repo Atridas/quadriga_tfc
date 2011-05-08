@@ -15,6 +15,10 @@
   BaseMaterial[] materials = {};
 }
 
+@component ColoredMaterial {
+  Vector3f color;
+}
+
 @component StaticMeshRenderer {
   * Transform
   String mesh;
@@ -182,6 +186,32 @@
   }
 }
 
+@java cat.quadriga.render.simple.materials.BaseMaterial;
+
+@system ColoredMaterialRenderer {
+  @components {
+    ColoredMaterial
+  }
+  
+  @newEntity(Entity<TextRenderer> entity : ENTITY) {
+    RenderManager rm = RenderManager.instance;
+    BaseMaterial material = RenderManager.getMaterialManager().getMaterial("resources/materials/colorUniform.xml");
+    material.setParameter("Color", entity[ColoredMaterial].color);
+    rm.setMaterial(entity.getGUID(), material);
+  }
+  
+  @update(Entity<TextRenderer> entity : ENTITY) {
+    RenderManager rm = RenderManager.instance;
+    BaseMaterial material = rm.getMaterial(entity.getGUID());
+    material.setParameter("Color", entity[ColoredMaterial].color);
+  }
+  
+  @eraseEntity(Entity<ColoredMaterial> entity : ENTITY) {
+    RenderManager rm = RenderManager.instance;
+    rm.setMaterial(entity.getGUID(), null);
+  }
+}
+
 /*
 @system SimpleStaticMeshRenderer {
   @components {
@@ -229,6 +259,7 @@
   @system SimpleSphereRenderer
   @system SimpleBoxRenderer
   @system SimpleTextRenderer
+  @system ColoredMaterialRenderer
   
   @system EndRender
   

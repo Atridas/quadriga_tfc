@@ -10,20 +10,20 @@ import javax.vecmath.Matrix4f;
 
 import org.lwjgl.BufferUtils;
 
-import cat.quadriga.render.simple.materials.Material;
+import cat.quadriga.render.simple.materials.BaseMaterial;
 
 public final class StaticMesh {
-  private Material material;
+  private BaseMaterial material;
   private final VertexType vt;
   private final int vb, ib;
   private final int numIndexes;
   private final int drawMode;
   
-  public StaticMesh(Material material, Vertex[] vertexArray, int[] indexes) {
+  public StaticMesh(BaseMaterial material, Vertex[] vertexArray, int[] indexes) {
     this(material, vertexArray, indexes, GL_TRIANGLES);
   }
   
-  public StaticMesh(Material material, Vertex[] vertexArray, int[] indexes, int drawMode) {
+  public StaticMesh(BaseMaterial material, Vertex[] vertexArray, int[] indexes, int drawMode) {
     IntBuffer bufferObjects = BufferUtils.createIntBuffer(2);
     glGenBuffers(bufferObjects);
     vb = bufferObjects.get(0);
@@ -53,7 +53,7 @@ public final class StaticMesh {
     this.drawMode = drawMode;
   }
   
-  public void setMaterial(Material material) {
+  public void setMaterial(BaseMaterial material) {
     this.material = material;
   }
   

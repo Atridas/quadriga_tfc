@@ -1,18 +1,17 @@
 package cat.quadriga.render.simple.materials;
 
-import static org.lwjgl.opengl.GL11.GL_FLOAT;
-import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
+import static org.lwjgl.opengl.GL20.glUniform1i;
 
 import javax.vecmath.Matrix4f;
 
 import cat.quadriga.render.simple.RenderManager;
 import cat.quadriga.render.simple.VertexType;
 
-public class TextureCoordsMaterial extends MaterialDecorator {
-  public int tex;
+public class TextureUnitMaterial extends MaterialDecorator {
+  public int textureUnit;
+  public int textureUniform;
 
-  public TextureCoordsMaterial(BaseMaterial base) {
+  public TextureUnitMaterial(BaseMaterial base) {
     super(base);
   }
   
@@ -38,16 +37,8 @@ public class TextureCoordsMaterial extends MaterialDecorator {
 
   @Override
   public void preRender(VertexType vt, Matrix4f worldMatrix, RenderManager rm) {
-    glEnableVertexAttribArray(tex);
-    glVertexAttribPointer(
-        tex, 
-        2, 
-        GL_FLOAT, 
-        false, 
-        vt.getVertexSize(), 
-        vt.getSTStride());
+    glUniform1i(textureUniform, textureUnit);
     
     preRenderShortcut.preRender(vt, worldMatrix, rm);
   }
-
 }

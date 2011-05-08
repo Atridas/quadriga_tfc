@@ -7,6 +7,8 @@ import javax.vecmath.Matrix4f;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
 
+import cat.quadriga.render.simple.materials.BaseMaterial;
+
 public class Node {
   private Vector3f translation = new Vector3f();
   private Quat4f rotation = new Quat4f(0, 0, 0, 1);
@@ -29,6 +31,7 @@ public class Node {
   public Font font;
   public String text;
   public final List<Node> childs = new ArrayList<Node>();
+  public BaseMaterial material = null;
   
   public Node(int id, RenderManager rm) {
     this.id = id;
@@ -90,10 +93,14 @@ public class Node {
     
     //TODO spheres etc...
     if(sphere != null) {
-      sphere.render(null, matrixAux, rm);
+      sphere.render(material, matrixAux, rm);
     }
     if(box != null) {
-      box.render(null, matrixAux, rm);
+      box.render(material, matrixAux, rm);
+    }
+    if(staticMesh != null) {
+      staticMesh.setMaterial(material);
+      staticMesh.render(matrixAux, rm);
     }
     if(font != null && text != null) {
       //rm.fontManager.printString(font, text, matrixAux);

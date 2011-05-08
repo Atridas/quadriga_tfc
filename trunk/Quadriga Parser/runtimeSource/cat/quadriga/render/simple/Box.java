@@ -3,12 +3,13 @@ package cat.quadriga.render.simple;
 
 import javax.vecmath.Matrix4f;
 
+import cat.quadriga.render.simple.materials.BaseMaterial;
 import cat.quadriga.render.simple.materials.Material;
 
 public class Box {
   private static boolean initialized;
   
-  private static Material defaultMaterial;
+  private static BaseMaterial defaultMaterial;
   private static StaticMesh mesh;
   
   public Box() {
@@ -50,7 +51,7 @@ public class Box {
     }
   }
   
-  public void render(Material material, Matrix4f world, RenderManager rm) {
+  public void render(BaseMaterial material, Matrix4f world, RenderManager rm) {
     if(material == null) {
       mesh.setMaterial(defaultMaterial);
     } else {
