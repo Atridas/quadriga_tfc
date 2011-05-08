@@ -10,6 +10,8 @@ import javax.vecmath.Matrix4f;
 
 import org.lwjgl.BufferUtils;
 
+import cat.quadriga.render.simple.materials.Material;
+
 public final class StaticMesh {
   private Material material;
   private final VertexType vt;

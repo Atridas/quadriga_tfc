@@ -60,8 +60,14 @@
                              [CameraComponent].lookAt: new Vector3f(0.0f,0.0f,18.0f),
                              [CameraComponent].up: new Vector3f(0.0f,0.0f,1.0f))
                              
-    TextRendererPrototype(text: "0" /*+ this[Puntuació].punts*/, font: "resources/fonts/font14.fnt",
-                                    [Transform].position: new Vector3f(-10.0f, 0.0f, 18.0f))
+    "Nivell": TextRendererPrototype(text: "Nivell\n" + this[Puntuació].nivell, font: "resources/fonts/comic32.fnt",
+                                    [Transform].position: new Vector3f(600.0f, 200.0f, 0.0f))
+                             
+    "Línees": TextRendererPrototype(text: "Línees\n" + this[Puntuació].línies, font: "resources/fonts/comic32.fnt",
+                                    [Transform].position: new Vector3f(600.0f, 300.0f, 0.0f))
+                             
+    "Punts": TextRendererPrototype(text: "Punts\n" + this[Puntuació].punts, font: "resources/fonts/comic32.fnt",
+                                    [Transform].position: new Vector3f(600.0f, 400.0f, 0.0f))
                              
     "Peça" : PPeça(taulell: this)
                              
@@ -92,6 +98,12 @@
     
   }
   SceneComponent( camera: this["Camera"] )
+  
+  @init {
+    Quat4f q = this["Punts"][Transform].rotation;
+    q.set(new AxisAngle4f(1.0f, 0.0f, 0.0f, -1.570796327f));
+    this["Punts"][Transform].rotation = q;
+  }
 }
 
 @prototype CubDeTaulell(int posX, int posY)
@@ -582,6 +594,22 @@
 @event tetris.input.EEscape;
 @event cat.quadriga.base.Exit;
 
+@component CGameOverScreen {boolean delay = true;}
+
+@system SGameOverScreen {
+  @components {
+    CGameOverScreen
+  }
+  
+  @event EEscape(Entity<CGameOverScreen> entitat: ENTITY) {
+    if(entitat[CGameOverScreen].delay) {
+      entitat[CGameOverScreen].delay = false;
+    } else {
+      @event Exit();
+    }
+  }
+}
+
 @system LlògicaTaulell {
   @components {
     Taulell
@@ -660,16 +688,50 @@
     } else if(línies == 4) {
       entitat[Puntuació].punts += 160;
     }
+    
+    entitat["Punts"][TextRenderer].text = "Punts\n" + entitat[Puntuació].punts;
+    entitat["Línees"][TextRenderer].text = "Línees\n" + entitat[Puntuació].línies;
+    entitat["Nivell"][TextRenderer].text = "Nivell\n" + entitat[Puntuació].nivell;
+    
+    boolean gameover = false;
+    for(int i = 0; i < 4; ++i) {
+      if(event.px[i] > 2 && event.px[i] < 7 && event.py[i] > 15) {
+        gameover = true;
+      }
+    }
+    
+    if(gameover) {
+      Entity gameOverScreen = @newEntity(null,null);
+      @prototype gameOverScreen : TextRendererPrototype(
+                                    text: "Game Over\n\nPunts\n" + entitat[Puntuació].punts
+                                        + "\n\nLínees\n" + entitat[Puntuació].línies
+                                        + "\n\nNivell\n" + entitat[Puntuació].nivell, 
+                                    font: "resources/fonts/comic32.fnt",
+                                    [Transform].position: new Vector3f(300.0f, 100.0f, 0.0f));
+      @add CGameOverScreen(delay: false) : gameOverScreen;
+      
+      @eraseEntity entitat;
+    }
   }
   
-  @event EEscape() {
-    @event Exit();
+  @event EEscape(Entity<Taulell> entitat: ENTITY) {
+    Entity gameOverScreen = @newEntity(null,null);
+    @prototype gameOverScreen : TextRendererPrototype(
+                                  text: "Game Over\n\nPunts\n" + entitat[Puntuació].punts
+                                      + "\n\nLínees\n" + entitat[Puntuació].línies
+                                      + "\n\nNivell\n" + entitat[Puntuació].nivell, 
+                                  font: "resources/fonts/comic32.fnt",
+                                  [Transform].position: new Vector3f(300.0f, 100.0f, 0.0f));
+    @add CGameOverScreen() : gameOverScreen;
+                                  
+    @eraseEntity entitat;
   }
 }
 
 @system tetris.input.InputManager
 
 @thread LlogicaTetris {
+  @system SGameOverScreen;
   @system InputManager;
   @system ControladorDelJoc;
   @system LlògicaTaulell;

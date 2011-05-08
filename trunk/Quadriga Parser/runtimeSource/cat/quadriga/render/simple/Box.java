@@ -3,6 +3,8 @@ package cat.quadriga.render.simple;
 
 import javax.vecmath.Matrix4f;
 
+import cat.quadriga.render.simple.materials.Material;
+
 public class Box {
   private static boolean initialized;
   

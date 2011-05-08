@@ -65,9 +65,9 @@ public class Font {
       if(charsXML == null) {
         throw new Exception("\"chars\" not found.");
       }
-      if(kerningsXML == null) {
+      /*if(kerningsXML == null) {
         throw new Exception("\"kernings\" not found.");
-      }
+      }*/
 
       width = Integer.parseInt( commonXML.getAttribute("scaleW") );
       height = Integer.parseInt( commonXML.getAttribute("scaleH") );
@@ -112,19 +112,19 @@ public class Font {
       }
       highestChar = charMax;
       
-
-      nl = kerningsXML.getElementsByTagName("kerning");
-      for(int i = 0; i < nl.getLength(); ++i) {
-        Element kerningInfo = ((Element)nl.item(i));
-        Kerning kerning = new Kerning();
-        kerning.first = (char)Integer.parseInt( kerningInfo.getAttribute("first") );
-        kerning.second = (char)Integer.parseInt( kerningInfo.getAttribute("second") );
-        
-        int amount = Integer.parseInt( kerningInfo.getAttribute("amount") );
-        
-        kernings.put(kerning, amount);
+      if(kerningsXML != null) {
+        nl = kerningsXML.getElementsByTagName("kerning");
+        for(int i = 0; i < nl.getLength(); ++i) {
+          Element kerningInfo = ((Element)nl.item(i));
+          Kerning kerning = new Kerning();
+          kerning.first = (char)Integer.parseInt( kerningInfo.getAttribute("first") );
+          kerning.second = (char)Integer.parseInt( kerningInfo.getAttribute("second") );
+          
+          int amount = Integer.parseInt( kerningInfo.getAttribute("amount") );
+          
+          kernings.put(kerning, amount);
+        }
       }
-      
     } catch (Exception e) {
       logger.severe("Problem loading font " + e.toString());
       throw new IllegalArgumentException(e);

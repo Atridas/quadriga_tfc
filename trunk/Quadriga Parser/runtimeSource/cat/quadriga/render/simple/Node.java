@@ -50,6 +50,10 @@ public class Node {
     matrixUpdated = false;
   }
   
+  public void getLocalTranslation(Vector3f translation) {
+    translation.set( this.translation );
+  }
+  
   public void getLocalTransform(Matrix4f out) {
     if(!matrixUpdated) {
       localTransform.setIdentity();
@@ -92,7 +96,7 @@ public class Node {
       box.render(null, matrixAux, rm);
     }
     if(font != null && text != null) {
-      rm.fontManager.printString(font, text, matrixAux);
+      //rm.fontManager.printString(font, text, matrixAux);
     }
     
 

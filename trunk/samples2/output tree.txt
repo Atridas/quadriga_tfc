@@ -2713,6 +2713,7 @@
    |           +- "font"
    +- "LlogicaTetris" : Symbol Type
    |  +- thread <+>
+   |     +- tetris.tetris.SGameOverScreen
    |     +- tetris.input.InputManager
    |     +- tetris.tetris.ControladorDelJoc
    |     +- tetris.tetris.LlògicaTaulell
@@ -5573,6 +5574,8 @@
    +- "InitTetris" : Symbol Type
    |  +- Event <+>
    |     +- fields
+   +- "javax.vecmath.AxisAngle4f" : Symbol Type
+   |  +- Ljavax/vecmath/AxisAngle4f;
    +- "tetris.tetris.CPeça" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -5599,9 +5602,6 @@
    |        +- Quadriga Field
    |           +- Lcat/quadriga/runtime/Entity;
    |           +- "taulell"
-   +- "cat.quadriga.base.BillboardRenderer" : Symbol Type
-   |  +- Component <+>
-   |     +- fields
    +- "CilynderRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -5627,6 +5627,9 @@
    |           +- F
    |           +- "radi"
    |           +- Op: Literal: 1.0 {F}
+   +- "cat.quadriga.base.BillboardRenderer" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
    +- "SimpleRenderThread" : Symbol Type
    |  +- thread <+>
    |     +- cat.quadriga.base.SimpleCameraSystem
@@ -5853,6 +5856,8 @@
    +- "tetris.input.ETurnL" : Symbol Type
    |  +- Event <+>
    |     +- fields
+   +- "org.lwjgl.input.Keyboard" : Symbol Type
+   |  +- Lorg/lwjgl/input/Keyboard;
    +- "TexturedQuadPrototype" : Symbol Type
    |  +- Prototype <+>
    |     +- St: Block
@@ -5899,8 +5904,6 @@
    |              |  |        +- Op: Literal: "" {Ljava/lang/String;}
    |              |  +- St: Zero Arguments
    |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
-   +- "org.lwjgl.input.Keyboard" : Symbol Type
-   |  +- Lorg/lwjgl/input/Keyboard;
    +- "tetris.tetris.Tetris" : Symbol Type
    |  +- Prototype <+>
    |     +- St: Block
@@ -6008,14 +6011,21 @@
    |           +- St: Apply Prototype to Entity
    |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
    |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |           |  |  +- Op: Literal: "Nivell" {Ljava/lang/String;}
    |           |  +- cat.quadriga.base.TextRendererPrototype
    |           |  +- St: Named Arguments
    |           |  |  +- quadriga argument
    |           |  |  |  +- text
-   |           |  |  |  +- Op: Literal: "0" {Ljava/lang/String;}
+   |           |  |  |  +- Op: + {Ljava/lang/String;}
+   |           |  |  |     +- Op: Literal: "Nivell\n" {Ljava/lang/String;}
+   |           |  |  |     +- Op: Component Field: {I}
+   |           |  |  |        +- tetris.tetris.Puntuació -> nivell
+   |           |  |  |        +- Op: Component Access {tetris.tetris.Puntuació}
+   |           |  |  |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |           |  |  |           +- Op: Type Access: tetris.tetris.Puntuació
    |           |  |  +- quadriga argument
    |           |  |     +- font
-   |           |  |     +- Op: Literal: "resources/fonts/font14.fnt" {Ljava/lang/String;}
+   |           |  |     +- Op: Literal: "resources/fonts/comic32.fnt" {Ljava/lang/String;}
    |           |  +- Component redefinition
    |           |     +- cat.quadriga.base.Transform
    |           |     +- St: Named Arguments
@@ -6024,9 +6034,67 @@
    |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;}
    |           |              +- Ljavax/vecmath/Vector3f;
    |           |              +- St: Arguments
-   |           |                 +- Op: Literal: -10.0 {F}
+   |           |                 +- Op: Literal: 600.0 {F}
+   |           |                 +- Op: Literal: 200.0 {F}
    |           |                 +- Op: Literal: 0.0 {F}
-   |           |                 +- Op: Literal: 18.0 {F}
+   |           +- St: Apply Prototype to Entity
+   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
+   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |           |  |  +- Op: Literal: "Línees" {Ljava/lang/String;}
+   |           |  +- cat.quadriga.base.TextRendererPrototype
+   |           |  +- St: Named Arguments
+   |           |  |  +- quadriga argument
+   |           |  |  |  +- text
+   |           |  |  |  +- Op: + {Ljava/lang/String;}
+   |           |  |  |     +- Op: Literal: "Línees\n" {Ljava/lang/String;}
+   |           |  |  |     +- Op: Component Field: {I}
+   |           |  |  |        +- tetris.tetris.Puntuació -> línies
+   |           |  |  |        +- Op: Component Access {tetris.tetris.Puntuació}
+   |           |  |  |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |           |  |  |           +- Op: Type Access: tetris.tetris.Puntuació
+   |           |  |  +- quadriga argument
+   |           |  |     +- font
+   |           |  |     +- Op: Literal: "resources/fonts/comic32.fnt" {Ljava/lang/String;}
+   |           |  +- Component redefinition
+   |           |     +- cat.quadriga.base.Transform
+   |           |     +- St: Named Arguments
+   |           |        +- quadriga argument
+   |           |           +- position
+   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |           |              +- Ljavax/vecmath/Vector3f;
+   |           |              +- St: Arguments
+   |           |                 +- Op: Literal: 600.0 {F}
+   |           |                 +- Op: Literal: 300.0 {F}
+   |           |                 +- Op: Literal: 0.0 {F}
+   |           +- St: Apply Prototype to Entity
+   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
+   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |           |  |  +- Op: Literal: "Punts" {Ljava/lang/String;}
+   |           |  +- cat.quadriga.base.TextRendererPrototype
+   |           |  +- St: Named Arguments
+   |           |  |  +- quadriga argument
+   |           |  |  |  +- text
+   |           |  |  |  +- Op: + {Ljava/lang/String;}
+   |           |  |  |     +- Op: Literal: "Punts\n" {Ljava/lang/String;}
+   |           |  |  |     +- Op: Component Field: {I}
+   |           |  |  |        +- tetris.tetris.Puntuació -> punts
+   |           |  |  |        +- Op: Component Access {tetris.tetris.Puntuació}
+   |           |  |  |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |           |  |  |           +- Op: Type Access: tetris.tetris.Puntuació
+   |           |  |  +- quadriga argument
+   |           |  |     +- font
+   |           |  |     +- Op: Literal: "resources/fonts/comic32.fnt" {Ljava/lang/String;}
+   |           |  +- Component redefinition
+   |           |     +- cat.quadriga.base.Transform
+   |           |     +- St: Named Arguments
+   |           |        +- quadriga argument
+   |           |           +- position
+   |           |           +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |           |              +- Ljavax/vecmath/Vector3f;
+   |           |              +- St: Arguments
+   |           |                 +- Op: Literal: 600.0 {F}
+   |           |                 +- Op: Literal: 400.0 {F}
+   |           |                 +- Op: Literal: 0.0 {F}
    |           +- St: Apply Prototype to Entity
    |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
    |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
@@ -6697,19 +6765,54 @@
    |           |        +- posX
    |           |        +- Op: Literal: 10 {I}
    |           +- St: Add Component
-   |              +- Op: Component Allocation {cat.quadriga.base.SceneComponent}
-   |              |  +- Component <+>
-   |              |  |  +- fields
-   |              |  |     +- Quadriga Field
-   |              |  |        +- Lcat/quadriga/runtime/Entity;
-   |              |  |        +- "camera"
-   |              |  +- St: Named Arguments
-   |              |     +- quadriga argument
-   |              |        +- camera
-   |              |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
-   |              |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
-   |              |           +- Op: Literal: "Camera" {Ljava/lang/String;}
-   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |           |  +- Op: Component Allocation {cat.quadriga.base.SceneComponent}
+   |           |  |  +- Component <+>
+   |           |  |  |  +- fields
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |        +- Lcat/quadriga/runtime/Entity;
+   |           |  |  |        +- "camera"
+   |           |  |  +- St: Named Arguments
+   |           |  |     +- quadriga argument
+   |           |  |        +- camera
+   |           |  |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |           |  |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |           |  |           +- Op: Literal: "Camera" {Ljava/lang/String;}
+   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |           +- St: Block
+   |              +- Local Variables:
+   |              |  +- Symbol Var [ q ] Type [ Ljavax/vecmath/Quat4f; ]
+   |              +- Code:
+   |                 +- St: Statements:
+   |                 |  +- St: =
+   |                 |     +- Op: Local variable access: q {Ljavax/vecmath/Quat4f;}
+   |                 |     +- Op: Component Field: {Ljavax/vecmath/Quat4f;}
+   |                 |        +- cat.quadriga.base.Transform -> rotation
+   |                 |        +- Op: Component Access {cat.quadriga.base.Transform}
+   |                 |           +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                 |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |                 |           |  +- Op: Literal: "Punts" {Ljava/lang/String;}
+   |                 |           +- Op: Type Access: cat.quadriga.base.Transform
+   |                 +- St: Statement From Expression : Call
+   |                 |  +- Op: Method:
+   |                 |  |  +- javax.vecmath.Quat4f -> set
+   |                 |  |  +- Op: Local variable access: q {Ljavax/vecmath/Quat4f;}
+   |                 |  +- St: Arguments
+   |                 |     +- Op: Constructor {Ljavax/vecmath/AxisAngle4f;}
+   |                 |        +- Ljavax/vecmath/AxisAngle4f;
+   |                 |        +- St: Arguments
+   |                 |           +- Op: Literal: 1.0 {F}
+   |                 |           +- Op: Literal: 0.0 {F}
+   |                 |           +- Op: Literal: 0.0 {F}
+   |                 |           +- Op: Literal: -1.5707964 {F}
+   |                 +- St: =
+   |                    +- Op: Component Field: {Ljavax/vecmath/Quat4f;}
+   |                    |  +- cat.quadriga.base.Transform -> rotation
+   |                    |  +- Op: Component Access {cat.quadriga.base.Transform}
+   |                    |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                    |     |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |                    |     |  +- Op: Literal: "Punts" {Ljava/lang/String;}
+   |                    |     +- Op: Type Access: cat.quadriga.base.Transform
+   |                    +- Op: Local variable access: q {Ljavax/vecmath/Quat4f;}
    +- "ControladorDelJoc" : Symbol Type
    |  +- System <+>
    |     +- needed components
@@ -6834,6 +6937,44 @@
    |  +- System <+>
    |     +- needed components
    |     |  +- cat.quadriga.base.TextRenderer
+   |     +- Update: 
+   |     |  +- Quadriga function
+   |     |     +- parameters
+   |     |     |  +- parameter
+   |     |     |     +- Lcat/quadriga/runtime/Entity;
+   |     |     |     +- entity
+   |     |     |     +- Semantic: ENTITY
+   |     |     +- St: Block
+   |     |        +- Code:
+   |     |           +- St: Block
+   |     |              +- Local Variables:
+   |     |              |  +- Symbol Var [ rm ] Type [ Lcat/quadriga/render/simple/RenderManager; ]
+   |     |              +- Code:
+   |     |                 +- St: Statements:
+   |     |                 |  +- St: =
+   |     |                 |     +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;}
+   |     |                 |     +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;}
+   |     |                 |        +- cat.quadriga.render.simple.RenderManager -> instance
+   |     |                 +- St: Statement From Expression : Call
+   |     |                    +- Op: Method:
+   |     |                    |  +- cat.quadriga.render.simple.RenderManager -> setText
+   |     |                    |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;}
+   |     |                    +- St: Arguments
+   |     |                       +- Op: Call {I}
+   |     |                       |  +- Op: Method:
+   |     |                       |  |  +- cat.quadriga.runtime.Entity -> getGUID
+   |     |                       |  |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;}
+   |     |                       |  +- St: Zero Arguments
+   |     |                       +- Op: Component Field: {Ljava/lang/String;}
+   |     |                       |  +- cat.quadriga.base.TextRenderer -> font
+   |     |                       |  +- Op: Component Access {cat.quadriga.base.TextRenderer}
+   |     |                       |     +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;}
+   |     |                       |     +- Op: Type Access: cat.quadriga.base.TextRenderer
+   |     |                       +- Op: Component Field: {Ljava/lang/String;}
+   |     |                          +- cat.quadriga.base.TextRenderer -> text
+   |     |                          +- Op: Component Access {cat.quadriga.base.TextRenderer}
+   |     |                             +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;}
+   |     |                             +- Op: Type Access: cat.quadriga.base.TextRenderer
    |     +- New Entity: 
    |     |  +- Quadriga function
    |     |     +- parameters
@@ -7398,6 +7539,44 @@
    |        +- Quadriga Field
    |           +- Lcat/quadriga/runtime/Entity;
    |           +- "camera"
+   +- "SGameOverScreen" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |     |  +- tetris.tetris.CGameOverScreen
+   |     +- EventHandlers
+   |        +- tetris.input.EEscape
+   |           +- Quadriga function
+   |              +- parameters
+   |              |  +- parameter
+   |              |     +- Lcat/quadriga/runtime/Entity;
+   |              |     +- entitat
+   |              |     +- Semantic: ENTITY
+   |              +- St: Block
+   |                 +- Code:
+   |                    +- St: Block
+   |                       +- Code:
+   |                          +- St: If Statement:
+   |                             +- Condition:
+   |                             |  +- Op: Component Field: {Z}
+   |                             |     +- tetris.tetris.CGameOverScreen -> delay
+   |                             |     +- Op: Component Access {tetris.tetris.CGameOverScreen}
+   |                             |        +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                             |        +- Op: Type Access: tetris.tetris.CGameOverScreen
+   |                             +- If Code:
+   |                             |  +- St: Block
+   |                             |     +- Code:
+   |                             |        +- St: =
+   |                             |           +- Op: Component Field: {Z}
+   |                             |           |  +- tetris.tetris.CGameOverScreen -> delay
+   |                             |           |  +- Op: Component Access {tetris.tetris.CGameOverScreen}
+   |                             |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                             |           |     +- Op: Type Access: tetris.tetris.CGameOverScreen
+   |                             |           +- Op: Literal: false {Z}
+   |                             +- Else Code:
+   |                                +- St: Block
+   |                                   +- Code:
+   |                                      +- St: Call to Event cat.quadriga.base.Exit
+   |                                         +- St: Zero Arguments
    +- "tetris.input.ERight" : Symbol Type
    |  +- Event <+>
    |     +- fields
@@ -7556,6 +7735,44 @@
    |                                +- Code:
    |                                   +- St: Call to Event cat.quadriga.base.Exit
    |                                      +- St: Zero Arguments
+   +- "tetris.tetris.SGameOverScreen" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |     |  +- tetris.tetris.CGameOverScreen
+   |     +- EventHandlers
+   |        +- tetris.input.EEscape
+   |           +- Quadriga function
+   |              +- parameters
+   |              |  +- parameter
+   |              |     +- Lcat/quadriga/runtime/Entity;
+   |              |     +- entitat
+   |              |     +- Semantic: ENTITY
+   |              +- St: Block
+   |                 +- Code:
+   |                    +- St: Block
+   |                       +- Code:
+   |                          +- St: If Statement:
+   |                             +- Condition:
+   |                             |  +- Op: Component Field: {Z}
+   |                             |     +- tetris.tetris.CGameOverScreen -> delay
+   |                             |     +- Op: Component Access {tetris.tetris.CGameOverScreen}
+   |                             |        +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                             |        +- Op: Type Access: tetris.tetris.CGameOverScreen
+   |                             +- If Code:
+   |                             |  +- St: Block
+   |                             |     +- Code:
+   |                             |        +- St: =
+   |                             |           +- Op: Component Field: {Z}
+   |                             |           |  +- tetris.tetris.CGameOverScreen -> delay
+   |                             |           |  +- Op: Component Access {tetris.tetris.CGameOverScreen}
+   |                             |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                             |           |     +- Op: Type Access: tetris.tetris.CGameOverScreen
+   |                             |           +- Op: Literal: false {Z}
+   |                             +- Else Code:
+   |                                +- St: Block
+   |                                   +- Code:
+   |                                      +- St: Call to Event cat.quadriga.base.Exit
+   |                                         +- St: Zero Arguments
    +- "Materials" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -7802,6 +8019,44 @@
    |  +- System <+>
    |     +- needed components
    |     |  +- cat.quadriga.base.TextRenderer
+   |     +- Update: 
+   |     |  +- Quadriga function
+   |     |     +- parameters
+   |     |     |  +- parameter
+   |     |     |     +- Lcat/quadriga/runtime/Entity;
+   |     |     |     +- entity
+   |     |     |     +- Semantic: ENTITY
+   |     |     +- St: Block
+   |     |        +- Code:
+   |     |           +- St: Block
+   |     |              +- Local Variables:
+   |     |              |  +- Symbol Var [ rm ] Type [ Lcat/quadriga/render/simple/RenderManager; ]
+   |     |              +- Code:
+   |     |                 +- St: Statements:
+   |     |                 |  +- St: =
+   |     |                 |     +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;}
+   |     |                 |     +- Op: Static Field: {Lcat/quadriga/render/simple/RenderManager;}
+   |     |                 |        +- cat.quadriga.render.simple.RenderManager -> instance
+   |     |                 +- St: Statement From Expression : Call
+   |     |                    +- Op: Method:
+   |     |                    |  +- cat.quadriga.render.simple.RenderManager -> setText
+   |     |                    |  +- Op: Local variable access: rm {Lcat/quadriga/render/simple/RenderManager;}
+   |     |                    +- St: Arguments
+   |     |                       +- Op: Call {I}
+   |     |                       |  +- Op: Method:
+   |     |                       |  |  +- cat.quadriga.runtime.Entity -> getGUID
+   |     |                       |  |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;}
+   |     |                       |  +- St: Zero Arguments
+   |     |                       +- Op: Component Field: {Ljava/lang/String;}
+   |     |                       |  +- cat.quadriga.base.TextRenderer -> font
+   |     |                       |  +- Op: Component Access {cat.quadriga.base.TextRenderer}
+   |     |                       |     +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;}
+   |     |                       |     +- Op: Type Access: cat.quadriga.base.TextRenderer
+   |     |                       +- Op: Component Field: {Ljava/lang/String;}
+   |     |                          +- cat.quadriga.base.TextRenderer -> text
+   |     |                          +- Op: Component Access {cat.quadriga.base.TextRenderer}
+   |     |                             +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;}
+   |     |                             +- Op: Type Access: cat.quadriga.base.TextRenderer
    |     +- New Entity: 
    |     |  +- Quadriga function
    |     |     +- parameters
@@ -7868,6 +8123,13 @@
    |                                |  +- cat.quadriga.runtime.Entity -> getGUID
    |                                |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;}
    |                                +- St: Zero Arguments
+   +- "tetris.tetris.CGameOverScreen" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |           +- Z
+   |           +- "delay"
+   |           +- Op: Literal: true {Z}
    +- "LlògicaTaulell" : Symbol Type
    |  +- System <+>
    |     +- needed components
@@ -7907,12 +8169,78 @@
    |     +- EventHandlers
    |        +- tetris.input.EEscape
    |        |  +- Quadriga function
+   |        |     +- parameters
+   |        |     |  +- parameter
+   |        |     |     +- Lcat/quadriga/runtime/Entity;
+   |        |     |     +- entitat
+   |        |     |     +- Semantic: ENTITY
    |        |     +- St: Block
    |        |        +- Code:
    |        |           +- St: Block
+   |        |              +- Local Variables:
+   |        |              |  +- Symbol Var [ gameOverScreen ] Type [ Lcat/quadriga/runtime/Entity; ]
    |        |              +- Code:
-   |        |                 +- St: Call to Event cat.quadriga.base.Exit
-   |        |                    +- St: Zero Arguments
+   |        |                 +- St: Statements:
+   |        |                 |  +- St: =
+   |        |                 |     +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
+   |        |                 |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
+   |        |                 |        +- Op: Literal: Null {Null type}
+   |        |                 |        +- Op: Literal: Null {Null type}
+   |        |                 +- St: Apply Prototype to Entity
+   |        |                 |  +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
+   |        |                 |  +- cat.quadriga.base.TextRendererPrototype
+   |        |                 |  +- St: Named Arguments
+   |        |                 |  |  +- quadriga argument
+   |        |                 |  |  |  +- text
+   |        |                 |  |  |  +- Op: + {Ljava/lang/String;}
+   |        |                 |  |  |     +- Op: + {Ljava/lang/String;}
+   |        |                 |  |  |     |  +- Op: + {Ljava/lang/String;}
+   |        |                 |  |  |     |  |  +- Op: + {Ljava/lang/String;}
+   |        |                 |  |  |     |  |  |  +- Op: + {Ljava/lang/String;}
+   |        |                 |  |  |     |  |  |  |  +- Op: Literal: "Game Over\n\nPunts\n" {Ljava/lang/String;}
+   |        |                 |  |  |     |  |  |  |  +- Op: Component Field: {I}
+   |        |                 |  |  |     |  |  |  |     +- tetris.tetris.Puntuació -> punts
+   |        |                 |  |  |     |  |  |  |     +- Op: Component Access {tetris.tetris.Puntuació}
+   |        |                 |  |  |     |  |  |  |        +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |        |                 |  |  |     |  |  |  |        +- Op: Type Access: tetris.tetris.Puntuació
+   |        |                 |  |  |     |  |  |  +- Op: Literal: "\n\nLínees\n" {Ljava/lang/String;}
+   |        |                 |  |  |     |  |  +- Op: Component Field: {I}
+   |        |                 |  |  |     |  |     +- tetris.tetris.Puntuació -> línies
+   |        |                 |  |  |     |  |     +- Op: Component Access {tetris.tetris.Puntuació}
+   |        |                 |  |  |     |  |        +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |        |                 |  |  |     |  |        +- Op: Type Access: tetris.tetris.Puntuació
+   |        |                 |  |  |     |  +- Op: Literal: "\n\nNivell\n" {Ljava/lang/String;}
+   |        |                 |  |  |     +- Op: Component Field: {I}
+   |        |                 |  |  |        +- tetris.tetris.Puntuació -> nivell
+   |        |                 |  |  |        +- Op: Component Access {tetris.tetris.Puntuació}
+   |        |                 |  |  |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |        |                 |  |  |           +- Op: Type Access: tetris.tetris.Puntuació
+   |        |                 |  |  +- quadriga argument
+   |        |                 |  |     +- font
+   |        |                 |  |     +- Op: Literal: "resources/fonts/comic32.fnt" {Ljava/lang/String;}
+   |        |                 |  +- Component redefinition
+   |        |                 |     +- cat.quadriga.base.Transform
+   |        |                 |     +- St: Named Arguments
+   |        |                 |        +- quadriga argument
+   |        |                 |           +- position
+   |        |                 |           +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |        |                 |              +- Ljavax/vecmath/Vector3f;
+   |        |                 |              +- St: Arguments
+   |        |                 |                 +- Op: Literal: 300.0 {F}
+   |        |                 |                 +- Op: Literal: 100.0 {F}
+   |        |                 |                 +- Op: Literal: 0.0 {F}
+   |        |                 +- St: Add Component
+   |        |                 |  +- Op: Component Allocation {tetris.tetris.CGameOverScreen}
+   |        |                 |  |  +- Component <+>
+   |        |                 |  |  |  +- fields
+   |        |                 |  |  |     +- Quadriga Field
+   |        |                 |  |  |        +- Z
+   |        |                 |  |  |        +- "delay"
+   |        |                 |  |  |        +- Op: Literal: true {Z}
+   |        |                 |  |  +- St: Zero Arguments
+   |        |                 |  +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
+   |        |                 +- St: Erase Entity
+   |        |                    +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
    |        +- tetris.tetris.InsertarPeça
    |           +- Quadriga function
    |              +- parameters
@@ -7931,6 +8259,7 @@
    |                       |  +- Symbol Var [ línies ] Type [ I ]
    |                       |  +- Symbol Var [ taulell ] Type [ [[I ]
    |                       |  +- Symbol Var [ cubs ] Type [ [[Lcat/quadriga/runtime/Entity; ]
+   |                       |  +- Symbol Var [ gameover ] Type [ Z ]
    |                       +- Code:
    |                          +- St: Statements:
    |                          |  +- St: =
@@ -8288,92 +8617,259 @@
    |                          |     |     +- Op: Type Access: tetris.tetris.Puntuació
    |                          |     +- Op: Literal: 11 {I}
    |                          +- St: If Statement:
+   |                          |  +- Condition:
+   |                          |  |  +- Op: == {Z}
+   |                          |  |     +- Op: Local variable access: línies {I}
+   |                          |  |     +- Op: Literal: 1 {I}
+   |                          |  +- If Code:
+   |                          |  |  +- St: Block
+   |                          |  |     +- Code:
+   |                          |  |        +- St: =
+   |                          |  |           +- Op: Component Field: {I}
+   |                          |  |           |  +- tetris.tetris.Puntuació -> punts
+   |                          |  |           |  +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |  |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |           |     +- Op: Type Access: tetris.tetris.Puntuació
+   |                          |  |           +- Op: + {I}
+   |                          |  |              +- Op: Component Field: {I}
+   |                          |  |              |  +- tetris.tetris.Puntuació -> punts
+   |                          |  |              |  +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |  |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |              |     +- Op: Type Access: tetris.tetris.Puntuació
+   |                          |  |              +- Op: Literal: 30 {I}
+   |                          |  +- Else Code:
+   |                          |     +- St: If Statement:
+   |                          |        +- Condition:
+   |                          |        |  +- Op: == {Z}
+   |                          |        |     +- Op: Local variable access: línies {I}
+   |                          |        |     +- Op: Literal: 2 {I}
+   |                          |        +- If Code:
+   |                          |        |  +- St: Block
+   |                          |        |     +- Code:
+   |                          |        |        +- St: =
+   |                          |        |           +- Op: Component Field: {I}
+   |                          |        |           |  +- tetris.tetris.Puntuació -> punts
+   |                          |        |           |  +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |        |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |        |           |     +- Op: Type Access: tetris.tetris.Puntuació
+   |                          |        |           +- Op: + {I}
+   |                          |        |              +- Op: Component Field: {I}
+   |                          |        |              |  +- tetris.tetris.Puntuació -> punts
+   |                          |        |              |  +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |        |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |        |              |     +- Op: Type Access: tetris.tetris.Puntuació
+   |                          |        |              +- Op: Literal: 71 {I}
+   |                          |        +- Else Code:
+   |                          |           +- St: If Statement:
+   |                          |              +- Condition:
+   |                          |              |  +- Op: == {Z}
+   |                          |              |     +- Op: Local variable access: línies {I}
+   |                          |              |     +- Op: Literal: 3 {I}
+   |                          |              +- If Code:
+   |                          |              |  +- St: Block
+   |                          |              |     +- Code:
+   |                          |              |        +- St: =
+   |                          |              |           +- Op: Component Field: {I}
+   |                          |              |           |  +- tetris.tetris.Puntuació -> punts
+   |                          |              |           |  +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |              |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |              |           |     +- Op: Type Access: tetris.tetris.Puntuació
+   |                          |              |           +- Op: + {I}
+   |                          |              |              +- Op: Component Field: {I}
+   |                          |              |              |  +- tetris.tetris.Puntuació -> punts
+   |                          |              |              |  +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |              |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |              |              |     +- Op: Type Access: tetris.tetris.Puntuació
+   |                          |              |              +- Op: Literal: 111 {I}
+   |                          |              +- Else Code:
+   |                          |                 +- St: If Statement:
+   |                          |                    +- Condition:
+   |                          |                    |  +- Op: == {Z}
+   |                          |                    |     +- Op: Local variable access: línies {I}
+   |                          |                    |     +- Op: Literal: 4 {I}
+   |                          |                    +- If Code:
+   |                          |                       +- St: Block
+   |                          |                          +- Code:
+   |                          |                             +- St: =
+   |                          |                                +- Op: Component Field: {I}
+   |                          |                                |  +- tetris.tetris.Puntuació -> punts
+   |                          |                                |  +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |                                |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |                                |     +- Op: Type Access: tetris.tetris.Puntuació
+   |                          |                                +- Op: + {I}
+   |                          |                                   +- Op: Component Field: {I}
+   |                          |                                   |  +- tetris.tetris.Puntuació -> punts
+   |                          |                                   |  +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |                                   |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |                                   |     +- Op: Type Access: tetris.tetris.Puntuació
+   |                          |                                   +- Op: Literal: 160 {I}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljava/lang/String;}
+   |                          |  |  +- cat.quadriga.base.TextRenderer -> text
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.TextRenderer}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "Punts" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.TextRenderer
+   |                          |  +- Op: + {Ljava/lang/String;}
+   |                          |     +- Op: Literal: "Punts\n" {Ljava/lang/String;}
+   |                          |     +- Op: Component Field: {I}
+   |                          |        +- tetris.tetris.Puntuació -> punts
+   |                          |        +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |           +- Op: Type Access: tetris.tetris.Puntuació
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljava/lang/String;}
+   |                          |  |  +- cat.quadriga.base.TextRenderer -> text
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.TextRenderer}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "Línees" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.TextRenderer
+   |                          |  +- Op: + {Ljava/lang/String;}
+   |                          |     +- Op: Literal: "Línees\n" {Ljava/lang/String;}
+   |                          |     +- Op: Component Field: {I}
+   |                          |        +- tetris.tetris.Puntuació -> línies
+   |                          |        +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |           +- Op: Type Access: tetris.tetris.Puntuació
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljava/lang/String;}
+   |                          |  |  +- cat.quadriga.base.TextRenderer -> text
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.TextRenderer}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "Nivell" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.TextRenderer
+   |                          |  +- Op: + {Ljava/lang/String;}
+   |                          |     +- Op: Literal: "Nivell\n" {Ljava/lang/String;}
+   |                          |     +- Op: Component Field: {I}
+   |                          |        +- tetris.tetris.Puntuació -> nivell
+   |                          |        +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |           +- Op: Type Access: tetris.tetris.Puntuació
+   |                          +- St: Statements:
+   |                          |  +- St: =
+   |                          |     +- Op: Local variable access: gameover {Z}
+   |                          |     +- Op: Literal: false {Z}
+   |                          +- St: for
+   |                          |  +- Local Variables:
+   |                          |  |  +- Symbol Var [ i ] Type [ I ]
+   |                          |  +- St: Statements:
+   |                          |  |  +- St: =
+   |                          |  |     +- Op: Local variable access: i {I}
+   |                          |  |     +- Op: Literal: 0 {I}
+   |                          |  +- Op: < {Z}
+   |                          |  |  +- Op: Local variable access: i {I}
+   |                          |  |  +- Op: Literal: 4 {I}
+   |                          |  +- St: Statements:
+   |                          |  |  +- St: Statement From Expression : ++X
+   |                          |  |     +- Op: Local variable access: i {I}
+   |                          |  +- St: Block
+   |                          |     +- Code:
+   |                          |        +- St: If Statement:
+   |                          |           +- Condition:
+   |                          |           |  +- Op: && {Z}
+   |                          |           |     +- Op: && {Z}
+   |                          |           |     |  +- Op: > {Z}
+   |                          |           |     |  |  +- Op: Array Access {I}
+   |                          |           |     |  |  |  +- Op: Event Field: {[I}
+   |                          |           |     |  |  |  |  +- tetris.tetris.InsertarPeça -> px
+   |                          |           |     |  |  |  |  +- Op: Local variable access: event {tetris.tetris.InsertarPeça}
+   |                          |           |     |  |  |  +- Op: Local variable access: i {I}
+   |                          |           |     |  |  +- Op: Literal: 2 {I}
+   |                          |           |     |  +- Op: < {Z}
+   |                          |           |     |     +- Op: Array Access {I}
+   |                          |           |     |     |  +- Op: Event Field: {[I}
+   |                          |           |     |     |  |  +- tetris.tetris.InsertarPeça -> px
+   |                          |           |     |     |  |  +- Op: Local variable access: event {tetris.tetris.InsertarPeça}
+   |                          |           |     |     |  +- Op: Local variable access: i {I}
+   |                          |           |     |     +- Op: Literal: 7 {I}
+   |                          |           |     +- Op: > {Z}
+   |                          |           |        +- Op: Array Access {I}
+   |                          |           |        |  +- Op: Event Field: {[I}
+   |                          |           |        |  |  +- tetris.tetris.InsertarPeça -> py
+   |                          |           |        |  |  +- Op: Local variable access: event {tetris.tetris.InsertarPeça}
+   |                          |           |        |  +- Op: Local variable access: i {I}
+   |                          |           |        +- Op: Literal: 15 {I}
+   |                          |           +- If Code:
+   |                          |              +- St: Block
+   |                          |                 +- Code:
+   |                          |                    +- St: =
+   |                          |                       +- Op: Local variable access: gameover {Z}
+   |                          |                       +- Op: Literal: true {Z}
+   |                          +- St: If Statement:
    |                             +- Condition:
-   |                             |  +- Op: == {Z}
-   |                             |     +- Op: Local variable access: línies {I}
-   |                             |     +- Op: Literal: 1 {I}
+   |                             |  +- Op: Local variable access: gameover {Z}
    |                             +- If Code:
-   |                             |  +- St: Block
-   |                             |     +- Code:
-   |                             |        +- St: =
-   |                             |           +- Op: Component Field: {I}
-   |                             |           |  +- tetris.tetris.Puntuació -> punts
-   |                             |           |  +- Op: Component Access {tetris.tetris.Puntuació}
-   |                             |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                             |           |     +- Op: Type Access: tetris.tetris.Puntuació
-   |                             |           +- Op: + {I}
-   |                             |              +- Op: Component Field: {I}
-   |                             |              |  +- tetris.tetris.Puntuació -> punts
-   |                             |              |  +- Op: Component Access {tetris.tetris.Puntuació}
-   |                             |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                             |              |     +- Op: Type Access: tetris.tetris.Puntuació
-   |                             |              +- Op: Literal: 30 {I}
-   |                             +- Else Code:
-   |                                +- St: If Statement:
-   |                                   +- Condition:
-   |                                   |  +- Op: == {Z}
-   |                                   |     +- Op: Local variable access: línies {I}
-   |                                   |     +- Op: Literal: 2 {I}
-   |                                   +- If Code:
-   |                                   |  +- St: Block
-   |                                   |     +- Code:
-   |                                   |        +- St: =
-   |                                   |           +- Op: Component Field: {I}
-   |                                   |           |  +- tetris.tetris.Puntuació -> punts
-   |                                   |           |  +- Op: Component Access {tetris.tetris.Puntuació}
-   |                                   |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                                   |           |     +- Op: Type Access: tetris.tetris.Puntuació
-   |                                   |           +- Op: + {I}
-   |                                   |              +- Op: Component Field: {I}
-   |                                   |              |  +- tetris.tetris.Puntuació -> punts
-   |                                   |              |  +- Op: Component Access {tetris.tetris.Puntuació}
-   |                                   |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                                   |              |     +- Op: Type Access: tetris.tetris.Puntuació
-   |                                   |              +- Op: Literal: 71 {I}
-   |                                   +- Else Code:
-   |                                      +- St: If Statement:
-   |                                         +- Condition:
-   |                                         |  +- Op: == {Z}
-   |                                         |     +- Op: Local variable access: línies {I}
-   |                                         |     +- Op: Literal: 3 {I}
-   |                                         +- If Code:
-   |                                         |  +- St: Block
-   |                                         |     +- Code:
-   |                                         |        +- St: =
-   |                                         |           +- Op: Component Field: {I}
-   |                                         |           |  +- tetris.tetris.Puntuació -> punts
-   |                                         |           |  +- Op: Component Access {tetris.tetris.Puntuació}
-   |                                         |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                                         |           |     +- Op: Type Access: tetris.tetris.Puntuació
-   |                                         |           +- Op: + {I}
-   |                                         |              +- Op: Component Field: {I}
-   |                                         |              |  +- tetris.tetris.Puntuació -> punts
-   |                                         |              |  +- Op: Component Access {tetris.tetris.Puntuació}
-   |                                         |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                                         |              |     +- Op: Type Access: tetris.tetris.Puntuació
-   |                                         |              +- Op: Literal: 111 {I}
-   |                                         +- Else Code:
-   |                                            +- St: If Statement:
-   |                                               +- Condition:
-   |                                               |  +- Op: == {Z}
-   |                                               |     +- Op: Local variable access: línies {I}
-   |                                               |     +- Op: Literal: 4 {I}
-   |                                               +- If Code:
-   |                                                  +- St: Block
-   |                                                     +- Code:
-   |                                                        +- St: =
-   |                                                           +- Op: Component Field: {I}
-   |                                                           |  +- tetris.tetris.Puntuació -> punts
-   |                                                           |  +- Op: Component Access {tetris.tetris.Puntuació}
-   |                                                           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                                                           |     +- Op: Type Access: tetris.tetris.Puntuació
-   |                                                           +- Op: + {I}
-   |                                                              +- Op: Component Field: {I}
-   |                                                              |  +- tetris.tetris.Puntuació -> punts
-   |                                                              |  +- Op: Component Access {tetris.tetris.Puntuació}
-   |                                                              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                                                              |     +- Op: Type Access: tetris.tetris.Puntuació
-   |                                                              +- Op: Literal: 160 {I}
+   |                                +- St: Block
+   |                                   +- Local Variables:
+   |                                   |  +- Symbol Var [ gameOverScreen ] Type [ Lcat/quadriga/runtime/Entity; ]
+   |                                   +- Code:
+   |                                      +- St: Statements:
+   |                                      |  +- St: =
+   |                                      |     +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
+   |                                      |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
+   |                                      |        +- Op: Literal: Null {Null type}
+   |                                      |        +- Op: Literal: Null {Null type}
+   |                                      +- St: Apply Prototype to Entity
+   |                                      |  +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
+   |                                      |  +- cat.quadriga.base.TextRendererPrototype
+   |                                      |  +- St: Named Arguments
+   |                                      |  |  +- quadriga argument
+   |                                      |  |  |  +- text
+   |                                      |  |  |  +- Op: + {Ljava/lang/String;}
+   |                                      |  |  |     +- Op: + {Ljava/lang/String;}
+   |                                      |  |  |     |  +- Op: + {Ljava/lang/String;}
+   |                                      |  |  |     |  |  +- Op: + {Ljava/lang/String;}
+   |                                      |  |  |     |  |  |  +- Op: + {Ljava/lang/String;}
+   |                                      |  |  |     |  |  |  |  +- Op: Literal: "Game Over\n\nPunts\n" {Ljava/lang/String;}
+   |                                      |  |  |     |  |  |  |  +- Op: Component Field: {I}
+   |                                      |  |  |     |  |  |  |     +- tetris.tetris.Puntuació -> punts
+   |                                      |  |  |     |  |  |  |     +- Op: Component Access {tetris.tetris.Puntuació}
+   |                                      |  |  |     |  |  |  |        +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                                      |  |  |     |  |  |  |        +- Op: Type Access: tetris.tetris.Puntuació
+   |                                      |  |  |     |  |  |  +- Op: Literal: "\n\nLínees\n" {Ljava/lang/String;}
+   |                                      |  |  |     |  |  +- Op: Component Field: {I}
+   |                                      |  |  |     |  |     +- tetris.tetris.Puntuació -> línies
+   |                                      |  |  |     |  |     +- Op: Component Access {tetris.tetris.Puntuació}
+   |                                      |  |  |     |  |        +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                                      |  |  |     |  |        +- Op: Type Access: tetris.tetris.Puntuació
+   |                                      |  |  |     |  +- Op: Literal: "\n\nNivell\n" {Ljava/lang/String;}
+   |                                      |  |  |     +- Op: Component Field: {I}
+   |                                      |  |  |        +- tetris.tetris.Puntuació -> nivell
+   |                                      |  |  |        +- Op: Component Access {tetris.tetris.Puntuació}
+   |                                      |  |  |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                                      |  |  |           +- Op: Type Access: tetris.tetris.Puntuació
+   |                                      |  |  +- quadriga argument
+   |                                      |  |     +- font
+   |                                      |  |     +- Op: Literal: "resources/fonts/comic32.fnt" {Ljava/lang/String;}
+   |                                      |  +- Component redefinition
+   |                                      |     +- cat.quadriga.base.Transform
+   |                                      |     +- St: Named Arguments
+   |                                      |        +- quadriga argument
+   |                                      |           +- position
+   |                                      |           +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |                                      |              +- Ljavax/vecmath/Vector3f;
+   |                                      |              +- St: Arguments
+   |                                      |                 +- Op: Literal: 300.0 {F}
+   |                                      |                 +- Op: Literal: 100.0 {F}
+   |                                      |                 +- Op: Literal: 0.0 {F}
+   |                                      +- St: Add Component
+   |                                      |  +- Op: Component Allocation {tetris.tetris.CGameOverScreen}
+   |                                      |  |  +- Component <+>
+   |                                      |  |  |  +- fields
+   |                                      |  |  |     +- Quadriga Field
+   |                                      |  |  |        +- Z
+   |                                      |  |  |        +- "delay"
+   |                                      |  |  |        +- Op: Literal: true {Z}
+   |                                      |  |  +- St: Named Arguments
+   |                                      |  |     +- quadriga argument
+   |                                      |  |        +- delay
+   |                                      |  |        +- Op: Literal: false {Z}
+   |                                      |  +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
+   |                                      +- St: Erase Entity
+   |                                         +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
    +- "cat.quadriga.base.CameraComponent" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -8581,6 +9077,7 @@
    |           +- "mesh"
    +- "tetris.tetris.LlogicaTetris" : Symbol Type
    |  +- thread <+>
+   |     +- tetris.tetris.SGameOverScreen
    |     +- tetris.input.InputManager
    |     +- tetris.tetris.ControladorDelJoc
    |     +- tetris.tetris.LlògicaTaulell
@@ -8624,12 +9121,78 @@
    |     +- EventHandlers
    |        +- tetris.input.EEscape
    |        |  +- Quadriga function
+   |        |     +- parameters
+   |        |     |  +- parameter
+   |        |     |     +- Lcat/quadriga/runtime/Entity;
+   |        |     |     +- entitat
+   |        |     |     +- Semantic: ENTITY
    |        |     +- St: Block
    |        |        +- Code:
    |        |           +- St: Block
+   |        |              +- Local Variables:
+   |        |              |  +- Symbol Var [ gameOverScreen ] Type [ Lcat/quadriga/runtime/Entity; ]
    |        |              +- Code:
-   |        |                 +- St: Call to Event cat.quadriga.base.Exit
-   |        |                    +- St: Zero Arguments
+   |        |                 +- St: Statements:
+   |        |                 |  +- St: =
+   |        |                 |     +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
+   |        |                 |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
+   |        |                 |        +- Op: Literal: Null {Null type}
+   |        |                 |        +- Op: Literal: Null {Null type}
+   |        |                 +- St: Apply Prototype to Entity
+   |        |                 |  +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
+   |        |                 |  +- cat.quadriga.base.TextRendererPrototype
+   |        |                 |  +- St: Named Arguments
+   |        |                 |  |  +- quadriga argument
+   |        |                 |  |  |  +- text
+   |        |                 |  |  |  +- Op: + {Ljava/lang/String;}
+   |        |                 |  |  |     +- Op: + {Ljava/lang/String;}
+   |        |                 |  |  |     |  +- Op: + {Ljava/lang/String;}
+   |        |                 |  |  |     |  |  +- Op: + {Ljava/lang/String;}
+   |        |                 |  |  |     |  |  |  +- Op: + {Ljava/lang/String;}
+   |        |                 |  |  |     |  |  |  |  +- Op: Literal: "Game Over\n\nPunts\n" {Ljava/lang/String;}
+   |        |                 |  |  |     |  |  |  |  +- Op: Component Field: {I}
+   |        |                 |  |  |     |  |  |  |     +- tetris.tetris.Puntuació -> punts
+   |        |                 |  |  |     |  |  |  |     +- Op: Component Access {tetris.tetris.Puntuació}
+   |        |                 |  |  |     |  |  |  |        +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |        |                 |  |  |     |  |  |  |        +- Op: Type Access: tetris.tetris.Puntuació
+   |        |                 |  |  |     |  |  |  +- Op: Literal: "\n\nLínees\n" {Ljava/lang/String;}
+   |        |                 |  |  |     |  |  +- Op: Component Field: {I}
+   |        |                 |  |  |     |  |     +- tetris.tetris.Puntuació -> línies
+   |        |                 |  |  |     |  |     +- Op: Component Access {tetris.tetris.Puntuació}
+   |        |                 |  |  |     |  |        +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |        |                 |  |  |     |  |        +- Op: Type Access: tetris.tetris.Puntuació
+   |        |                 |  |  |     |  +- Op: Literal: "\n\nNivell\n" {Ljava/lang/String;}
+   |        |                 |  |  |     +- Op: Component Field: {I}
+   |        |                 |  |  |        +- tetris.tetris.Puntuació -> nivell
+   |        |                 |  |  |        +- Op: Component Access {tetris.tetris.Puntuació}
+   |        |                 |  |  |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |        |                 |  |  |           +- Op: Type Access: tetris.tetris.Puntuació
+   |        |                 |  |  +- quadriga argument
+   |        |                 |  |     +- font
+   |        |                 |  |     +- Op: Literal: "resources/fonts/comic32.fnt" {Ljava/lang/String;}
+   |        |                 |  +- Component redefinition
+   |        |                 |     +- cat.quadriga.base.Transform
+   |        |                 |     +- St: Named Arguments
+   |        |                 |        +- quadriga argument
+   |        |                 |           +- position
+   |        |                 |           +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |        |                 |              +- Ljavax/vecmath/Vector3f;
+   |        |                 |              +- St: Arguments
+   |        |                 |                 +- Op: Literal: 300.0 {F}
+   |        |                 |                 +- Op: Literal: 100.0 {F}
+   |        |                 |                 +- Op: Literal: 0.0 {F}
+   |        |                 +- St: Add Component
+   |        |                 |  +- Op: Component Allocation {tetris.tetris.CGameOverScreen}
+   |        |                 |  |  +- Component <+>
+   |        |                 |  |  |  +- fields
+   |        |                 |  |  |     +- Quadriga Field
+   |        |                 |  |  |        +- Z
+   |        |                 |  |  |        +- "delay"
+   |        |                 |  |  |        +- Op: Literal: true {Z}
+   |        |                 |  |  +- St: Zero Arguments
+   |        |                 |  +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
+   |        |                 +- St: Erase Entity
+   |        |                    +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
    |        +- tetris.tetris.InsertarPeça
    |           +- Quadriga function
    |              +- parameters
@@ -8648,6 +9211,7 @@
    |                       |  +- Symbol Var [ línies ] Type [ I ]
    |                       |  +- Symbol Var [ taulell ] Type [ [[I ]
    |                       |  +- Symbol Var [ cubs ] Type [ [[Lcat/quadriga/runtime/Entity; ]
+   |                       |  +- Symbol Var [ gameover ] Type [ Z ]
    |                       +- Code:
    |                          +- St: Statements:
    |                          |  +- St: =
@@ -9005,92 +9569,259 @@
    |                          |     |     +- Op: Type Access: tetris.tetris.Puntuació
    |                          |     +- Op: Literal: 11 {I}
    |                          +- St: If Statement:
+   |                          |  +- Condition:
+   |                          |  |  +- Op: == {Z}
+   |                          |  |     +- Op: Local variable access: línies {I}
+   |                          |  |     +- Op: Literal: 1 {I}
+   |                          |  +- If Code:
+   |                          |  |  +- St: Block
+   |                          |  |     +- Code:
+   |                          |  |        +- St: =
+   |                          |  |           +- Op: Component Field: {I}
+   |                          |  |           |  +- tetris.tetris.Puntuació -> punts
+   |                          |  |           |  +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |  |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |           |     +- Op: Type Access: tetris.tetris.Puntuació
+   |                          |  |           +- Op: + {I}
+   |                          |  |              +- Op: Component Field: {I}
+   |                          |  |              |  +- tetris.tetris.Puntuació -> punts
+   |                          |  |              |  +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |  |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |              |     +- Op: Type Access: tetris.tetris.Puntuació
+   |                          |  |              +- Op: Literal: 30 {I}
+   |                          |  +- Else Code:
+   |                          |     +- St: If Statement:
+   |                          |        +- Condition:
+   |                          |        |  +- Op: == {Z}
+   |                          |        |     +- Op: Local variable access: línies {I}
+   |                          |        |     +- Op: Literal: 2 {I}
+   |                          |        +- If Code:
+   |                          |        |  +- St: Block
+   |                          |        |     +- Code:
+   |                          |        |        +- St: =
+   |                          |        |           +- Op: Component Field: {I}
+   |                          |        |           |  +- tetris.tetris.Puntuació -> punts
+   |                          |        |           |  +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |        |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |        |           |     +- Op: Type Access: tetris.tetris.Puntuació
+   |                          |        |           +- Op: + {I}
+   |                          |        |              +- Op: Component Field: {I}
+   |                          |        |              |  +- tetris.tetris.Puntuació -> punts
+   |                          |        |              |  +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |        |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |        |              |     +- Op: Type Access: tetris.tetris.Puntuació
+   |                          |        |              +- Op: Literal: 71 {I}
+   |                          |        +- Else Code:
+   |                          |           +- St: If Statement:
+   |                          |              +- Condition:
+   |                          |              |  +- Op: == {Z}
+   |                          |              |     +- Op: Local variable access: línies {I}
+   |                          |              |     +- Op: Literal: 3 {I}
+   |                          |              +- If Code:
+   |                          |              |  +- St: Block
+   |                          |              |     +- Code:
+   |                          |              |        +- St: =
+   |                          |              |           +- Op: Component Field: {I}
+   |                          |              |           |  +- tetris.tetris.Puntuació -> punts
+   |                          |              |           |  +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |              |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |              |           |     +- Op: Type Access: tetris.tetris.Puntuació
+   |                          |              |           +- Op: + {I}
+   |                          |              |              +- Op: Component Field: {I}
+   |                          |              |              |  +- tetris.tetris.Puntuació -> punts
+   |                          |              |              |  +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |              |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |              |              |     +- Op: Type Access: tetris.tetris.Puntuació
+   |                          |              |              +- Op: Literal: 111 {I}
+   |                          |              +- Else Code:
+   |                          |                 +- St: If Statement:
+   |                          |                    +- Condition:
+   |                          |                    |  +- Op: == {Z}
+   |                          |                    |     +- Op: Local variable access: línies {I}
+   |                          |                    |     +- Op: Literal: 4 {I}
+   |                          |                    +- If Code:
+   |                          |                       +- St: Block
+   |                          |                          +- Code:
+   |                          |                             +- St: =
+   |                          |                                +- Op: Component Field: {I}
+   |                          |                                |  +- tetris.tetris.Puntuació -> punts
+   |                          |                                |  +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |                                |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |                                |     +- Op: Type Access: tetris.tetris.Puntuació
+   |                          |                                +- Op: + {I}
+   |                          |                                   +- Op: Component Field: {I}
+   |                          |                                   |  +- tetris.tetris.Puntuació -> punts
+   |                          |                                   |  +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |                                   |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |                                   |     +- Op: Type Access: tetris.tetris.Puntuació
+   |                          |                                   +- Op: Literal: 160 {I}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljava/lang/String;}
+   |                          |  |  +- cat.quadriga.base.TextRenderer -> text
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.TextRenderer}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "Punts" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.TextRenderer
+   |                          |  +- Op: + {Ljava/lang/String;}
+   |                          |     +- Op: Literal: "Punts\n" {Ljava/lang/String;}
+   |                          |     +- Op: Component Field: {I}
+   |                          |        +- tetris.tetris.Puntuació -> punts
+   |                          |        +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |           +- Op: Type Access: tetris.tetris.Puntuació
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljava/lang/String;}
+   |                          |  |  +- cat.quadriga.base.TextRenderer -> text
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.TextRenderer}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "Línees" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.TextRenderer
+   |                          |  +- Op: + {Ljava/lang/String;}
+   |                          |     +- Op: Literal: "Línees\n" {Ljava/lang/String;}
+   |                          |     +- Op: Component Field: {I}
+   |                          |        +- tetris.tetris.Puntuació -> línies
+   |                          |        +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |           +- Op: Type Access: tetris.tetris.Puntuació
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljava/lang/String;}
+   |                          |  |  +- cat.quadriga.base.TextRenderer -> text
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.TextRenderer}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "Nivell" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.TextRenderer
+   |                          |  +- Op: + {Ljava/lang/String;}
+   |                          |     +- Op: Literal: "Nivell\n" {Ljava/lang/String;}
+   |                          |     +- Op: Component Field: {I}
+   |                          |        +- tetris.tetris.Puntuació -> nivell
+   |                          |        +- Op: Component Access {tetris.tetris.Puntuació}
+   |                          |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |           +- Op: Type Access: tetris.tetris.Puntuació
+   |                          +- St: Statements:
+   |                          |  +- St: =
+   |                          |     +- Op: Local variable access: gameover {Z}
+   |                          |     +- Op: Literal: false {Z}
+   |                          +- St: for
+   |                          |  +- Local Variables:
+   |                          |  |  +- Symbol Var [ i ] Type [ I ]
+   |                          |  +- St: Statements:
+   |                          |  |  +- St: =
+   |                          |  |     +- Op: Local variable access: i {I}
+   |                          |  |     +- Op: Literal: 0 {I}
+   |                          |  +- Op: < {Z}
+   |                          |  |  +- Op: Local variable access: i {I}
+   |                          |  |  +- Op: Literal: 4 {I}
+   |                          |  +- St: Statements:
+   |                          |  |  +- St: Statement From Expression : ++X
+   |                          |  |     +- Op: Local variable access: i {I}
+   |                          |  +- St: Block
+   |                          |     +- Code:
+   |                          |        +- St: If Statement:
+   |                          |           +- Condition:
+   |                          |           |  +- Op: && {Z}
+   |                          |           |     +- Op: && {Z}
+   |                          |           |     |  +- Op: > {Z}
+   |                          |           |     |  |  +- Op: Array Access {I}
+   |                          |           |     |  |  |  +- Op: Event Field: {[I}
+   |                          |           |     |  |  |  |  +- tetris.tetris.InsertarPeça -> px
+   |                          |           |     |  |  |  |  +- Op: Local variable access: event {tetris.tetris.InsertarPeça}
+   |                          |           |     |  |  |  +- Op: Local variable access: i {I}
+   |                          |           |     |  |  +- Op: Literal: 2 {I}
+   |                          |           |     |  +- Op: < {Z}
+   |                          |           |     |     +- Op: Array Access {I}
+   |                          |           |     |     |  +- Op: Event Field: {[I}
+   |                          |           |     |     |  |  +- tetris.tetris.InsertarPeça -> px
+   |                          |           |     |     |  |  +- Op: Local variable access: event {tetris.tetris.InsertarPeça}
+   |                          |           |     |     |  +- Op: Local variable access: i {I}
+   |                          |           |     |     +- Op: Literal: 7 {I}
+   |                          |           |     +- Op: > {Z}
+   |                          |           |        +- Op: Array Access {I}
+   |                          |           |        |  +- Op: Event Field: {[I}
+   |                          |           |        |  |  +- tetris.tetris.InsertarPeça -> py
+   |                          |           |        |  |  +- Op: Local variable access: event {tetris.tetris.InsertarPeça}
+   |                          |           |        |  +- Op: Local variable access: i {I}
+   |                          |           |        +- Op: Literal: 15 {I}
+   |                          |           +- If Code:
+   |                          |              +- St: Block
+   |                          |                 +- Code:
+   |                          |                    +- St: =
+   |                          |                       +- Op: Local variable access: gameover {Z}
+   |                          |                       +- Op: Literal: true {Z}
+   |                          +- St: If Statement:
    |                             +- Condition:
-   |                             |  +- Op: == {Z}
-   |                             |     +- Op: Local variable access: línies {I}
-   |                             |     +- Op: Literal: 1 {I}
+   |                             |  +- Op: Local variable access: gameover {Z}
    |                             +- If Code:
-   |                             |  +- St: Block
-   |                             |     +- Code:
-   |                             |        +- St: =
-   |                             |           +- Op: Component Field: {I}
-   |                             |           |  +- tetris.tetris.Puntuació -> punts
-   |                             |           |  +- Op: Component Access {tetris.tetris.Puntuació}
-   |                             |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                             |           |     +- Op: Type Access: tetris.tetris.Puntuació
-   |                             |           +- Op: + {I}
-   |                             |              +- Op: Component Field: {I}
-   |                             |              |  +- tetris.tetris.Puntuació -> punts
-   |                             |              |  +- Op: Component Access {tetris.tetris.Puntuació}
-   |                             |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                             |              |     +- Op: Type Access: tetris.tetris.Puntuació
-   |                             |              +- Op: Literal: 30 {I}
-   |                             +- Else Code:
-   |                                +- St: If Statement:
-   |                                   +- Condition:
-   |                                   |  +- Op: == {Z}
-   |                                   |     +- Op: Local variable access: línies {I}
-   |                                   |     +- Op: Literal: 2 {I}
-   |                                   +- If Code:
-   |                                   |  +- St: Block
-   |                                   |     +- Code:
-   |                                   |        +- St: =
-   |                                   |           +- Op: Component Field: {I}
-   |                                   |           |  +- tetris.tetris.Puntuació -> punts
-   |                                   |           |  +- Op: Component Access {tetris.tetris.Puntuació}
-   |                                   |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                                   |           |     +- Op: Type Access: tetris.tetris.Puntuació
-   |                                   |           +- Op: + {I}
-   |                                   |              +- Op: Component Field: {I}
-   |                                   |              |  +- tetris.tetris.Puntuació -> punts
-   |                                   |              |  +- Op: Component Access {tetris.tetris.Puntuació}
-   |                                   |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                                   |              |     +- Op: Type Access: tetris.tetris.Puntuació
-   |                                   |              +- Op: Literal: 71 {I}
-   |                                   +- Else Code:
-   |                                      +- St: If Statement:
-   |                                         +- Condition:
-   |                                         |  +- Op: == {Z}
-   |                                         |     +- Op: Local variable access: línies {I}
-   |                                         |     +- Op: Literal: 3 {I}
-   |                                         +- If Code:
-   |                                         |  +- St: Block
-   |                                         |     +- Code:
-   |                                         |        +- St: =
-   |                                         |           +- Op: Component Field: {I}
-   |                                         |           |  +- tetris.tetris.Puntuació -> punts
-   |                                         |           |  +- Op: Component Access {tetris.tetris.Puntuació}
-   |                                         |           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                                         |           |     +- Op: Type Access: tetris.tetris.Puntuació
-   |                                         |           +- Op: + {I}
-   |                                         |              +- Op: Component Field: {I}
-   |                                         |              |  +- tetris.tetris.Puntuació -> punts
-   |                                         |              |  +- Op: Component Access {tetris.tetris.Puntuació}
-   |                                         |              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                                         |              |     +- Op: Type Access: tetris.tetris.Puntuació
-   |                                         |              +- Op: Literal: 111 {I}
-   |                                         +- Else Code:
-   |                                            +- St: If Statement:
-   |                                               +- Condition:
-   |                                               |  +- Op: == {Z}
-   |                                               |     +- Op: Local variable access: línies {I}
-   |                                               |     +- Op: Literal: 4 {I}
-   |                                               +- If Code:
-   |                                                  +- St: Block
-   |                                                     +- Code:
-   |                                                        +- St: =
-   |                                                           +- Op: Component Field: {I}
-   |                                                           |  +- tetris.tetris.Puntuació -> punts
-   |                                                           |  +- Op: Component Access {tetris.tetris.Puntuació}
-   |                                                           |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                                                           |     +- Op: Type Access: tetris.tetris.Puntuació
-   |                                                           +- Op: + {I}
-   |                                                              +- Op: Component Field: {I}
-   |                                                              |  +- tetris.tetris.Puntuació -> punts
-   |                                                              |  +- Op: Component Access {tetris.tetris.Puntuació}
-   |                                                              |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                                                              |     +- Op: Type Access: tetris.tetris.Puntuació
-   |                                                              +- Op: Literal: 160 {I}
+   |                                +- St: Block
+   |                                   +- Local Variables:
+   |                                   |  +- Symbol Var [ gameOverScreen ] Type [ Lcat/quadriga/runtime/Entity; ]
+   |                                   +- Code:
+   |                                      +- St: Statements:
+   |                                      |  +- St: =
+   |                                      |     +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
+   |                                      |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
+   |                                      |        +- Op: Literal: Null {Null type}
+   |                                      |        +- Op: Literal: Null {Null type}
+   |                                      +- St: Apply Prototype to Entity
+   |                                      |  +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
+   |                                      |  +- cat.quadriga.base.TextRendererPrototype
+   |                                      |  +- St: Named Arguments
+   |                                      |  |  +- quadriga argument
+   |                                      |  |  |  +- text
+   |                                      |  |  |  +- Op: + {Ljava/lang/String;}
+   |                                      |  |  |     +- Op: + {Ljava/lang/String;}
+   |                                      |  |  |     |  +- Op: + {Ljava/lang/String;}
+   |                                      |  |  |     |  |  +- Op: + {Ljava/lang/String;}
+   |                                      |  |  |     |  |  |  +- Op: + {Ljava/lang/String;}
+   |                                      |  |  |     |  |  |  |  +- Op: Literal: "Game Over\n\nPunts\n" {Ljava/lang/String;}
+   |                                      |  |  |     |  |  |  |  +- Op: Component Field: {I}
+   |                                      |  |  |     |  |  |  |     +- tetris.tetris.Puntuació -> punts
+   |                                      |  |  |     |  |  |  |     +- Op: Component Access {tetris.tetris.Puntuació}
+   |                                      |  |  |     |  |  |  |        +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                                      |  |  |     |  |  |  |        +- Op: Type Access: tetris.tetris.Puntuació
+   |                                      |  |  |     |  |  |  +- Op: Literal: "\n\nLínees\n" {Ljava/lang/String;}
+   |                                      |  |  |     |  |  +- Op: Component Field: {I}
+   |                                      |  |  |     |  |     +- tetris.tetris.Puntuació -> línies
+   |                                      |  |  |     |  |     +- Op: Component Access {tetris.tetris.Puntuació}
+   |                                      |  |  |     |  |        +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                                      |  |  |     |  |        +- Op: Type Access: tetris.tetris.Puntuació
+   |                                      |  |  |     |  +- Op: Literal: "\n\nNivell\n" {Ljava/lang/String;}
+   |                                      |  |  |     +- Op: Component Field: {I}
+   |                                      |  |  |        +- tetris.tetris.Puntuació -> nivell
+   |                                      |  |  |        +- Op: Component Access {tetris.tetris.Puntuació}
+   |                                      |  |  |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                                      |  |  |           +- Op: Type Access: tetris.tetris.Puntuació
+   |                                      |  |  +- quadriga argument
+   |                                      |  |     +- font
+   |                                      |  |     +- Op: Literal: "resources/fonts/comic32.fnt" {Ljava/lang/String;}
+   |                                      |  +- Component redefinition
+   |                                      |     +- cat.quadriga.base.Transform
+   |                                      |     +- St: Named Arguments
+   |                                      |        +- quadriga argument
+   |                                      |           +- position
+   |                                      |           +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |                                      |              +- Ljavax/vecmath/Vector3f;
+   |                                      |              +- St: Arguments
+   |                                      |                 +- Op: Literal: 300.0 {F}
+   |                                      |                 +- Op: Literal: 100.0 {F}
+   |                                      |                 +- Op: Literal: 0.0 {F}
+   |                                      +- St: Add Component
+   |                                      |  +- Op: Component Allocation {tetris.tetris.CGameOverScreen}
+   |                                      |  |  +- Component <+>
+   |                                      |  |  |  +- fields
+   |                                      |  |  |     +- Quadriga Field
+   |                                      |  |  |        +- Z
+   |                                      |  |  |        +- "delay"
+   |                                      |  |  |        +- Op: Literal: true {Z}
+   |                                      |  |  +- St: Named Arguments
+   |                                      |  |     +- quadriga argument
+   |                                      |  |        +- delay
+   |                                      |  |        +- Op: Literal: false {Z}
+   |                                      |  +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
+   |                                      +- St: Erase Entity
+   |                                         +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
    +- "cat.quadriga.render.simple.RenderManager" : Symbol Type
    |  +- Lcat/quadriga/render/simple/RenderManager;
    +- "tetris.tetris.CubDeMarc" : Symbol Type

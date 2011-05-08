@@ -171,6 +171,11 @@
     rm.setText(entity.getGUID(), entity[TextRenderer].font, entity[TextRenderer].text);
   }
   
+  @update(Entity<TextRenderer> entity : ENTITY) {
+    RenderManager rm = RenderManager.instance;
+    rm.setText(entity.getGUID(), entity[TextRenderer].font, entity[TextRenderer].text);
+  }
+  
   @eraseEntity(Entity<TextRenderer> entity : ENTITY) {
     RenderManager rm = RenderManager.instance;
     rm.deleteText(entity.getGUID());

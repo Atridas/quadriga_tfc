@@ -52,9 +52,11 @@ public final class MathematicOperation extends BinaryExpressionNode {
     case RIGHT_UNSIGNED_SHIFT:
       return PrimitiveTypeRef.getFromType(PrimitiveTypeRef.Type.INT);
     case ADD: 
-      if("Ljava.lang.String;".compareTo(leftOperand.getType().getBinaryName()) == 0) {
+      String leftName  = leftOperand .getType().getBinaryName();
+      String rightName = rightOperand.getType().getBinaryName();
+      if("Ljava/lang/String;".compareTo(leftName) == 0) {
         return leftOperand.getType();
-      } else if("Ljava.lang.String;".compareTo(rightOperand.getType().getBinaryName()) == 0) {
+      } else if("Ljava/lang/String;".compareTo(rightName) == 0) {
         return rightOperand.getType();
       }
     case SUB: 
@@ -145,12 +147,23 @@ public final class MathematicOperation extends BinaryExpressionNode {
       }
         
     case ADD: 
-      if("Ljava.lang.String;".compareTo(leftOperand.getType().getBinaryName()) == 0
-       ||"Ljava.lang.String;".compareTo(rightOperand.getType().getBinaryName()) == 0) {
-        return new JavaReference(
-               leftOperand.compute(runtime).getStringValue() + 
-               rightOperand.compute(runtime).getStringValue()
-                                );
+      if("Ljava/lang/String;".compareTo(leftOperand.getType().getBinaryName()) == 0) {
+        StringBuilder sb = new StringBuilder((String)leftOperand.compute(runtime).getAsObject());
+        if("Ljava/lang/String;".compareTo(rightOperand.getType().getBinaryName()) == 0) {
+          sb.append((String)rightOperand.compute(runtime).getAsObject());
+        } else {
+          sb.append(rightOperand.compute(runtime).getStringValue());
+        }
+        return new JavaReference(sb.toString());
+      } else if("Ljava/lang/String;".compareTo(rightOperand.getType().getBinaryName()) == 0) {
+        StringBuilder sb;
+        if("Ljava/lang/String;".compareTo(leftOperand.getType().getBinaryName()) == 0) {
+          sb = new StringBuilder((String)leftOperand.compute(runtime).getAsObject());
+        } else {
+          sb = new StringBuilder(leftOperand.compute(runtime).getStringValue());
+        }
+        sb.append((String)rightOperand.compute(runtime).getAsObject());
+        return new JavaReference(sb.toString());
       }
     case SUB: 
     case MUL: 
