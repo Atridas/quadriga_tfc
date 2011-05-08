@@ -1,4 +1,4 @@
-package cat.quadriga.render.simple;
+package cat.quadriga.render.simple.materials;
 
 import java.io.File;
 import java.io.InputStream;
@@ -16,6 +16,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import cat.quadriga.Utils;
+import cat.quadriga.render.simple.ShaderObject;
 
 public class MaterialManager {
   private static Logger logger = Logger.getLogger(MaterialManager.class.getCanonicalName());

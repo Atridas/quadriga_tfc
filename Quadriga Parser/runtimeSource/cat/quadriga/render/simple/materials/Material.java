@@ -1,10 +1,14 @@
-package cat.quadriga.render.simple;
+package cat.quadriga.render.simple.materials;
 
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import javax.vecmath.Matrix4f;
+
+import cat.quadriga.render.simple.RenderManager;
+import cat.quadriga.render.simple.ShaderObject;
+import cat.quadriga.render.simple.VertexType;
 
 import static org.lwjgl.opengl.GL11.*;
 

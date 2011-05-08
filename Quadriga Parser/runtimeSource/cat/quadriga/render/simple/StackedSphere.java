@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.vecmath.Matrix4f;
 
+import cat.quadriga.render.simple.materials.Material;
+
 public class StackedSphere {
   public float radi;
   public int stacks;

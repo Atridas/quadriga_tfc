@@ -89,12 +89,12 @@ abstract public class Utils {
   
   public static final String convertImageToString(String image) {
     image = image.substring(1, image.length() - 1);
-    String aux[] = image.replaceAll("\\\\", "\\ ").split("\\\\");
+    String aux[] = image.split("\\\\");
     String result = aux[0];
     for(int i = 1; i < aux.length; i++) {
-      result += convertFirstScapeChar(aux[i].substring(1));
+      result += convertFirstScapeChar(aux[i]);
     }
-    return image;
+    return result;
   }
   
 //["n","t","b","r","f","\\","'","\""]

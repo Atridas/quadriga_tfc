@@ -17,6 +17,9 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import cat.quadriga.render.simple.materials.Material;
+import cat.quadriga.render.simple.materials.MaterialManager;
+
 public final class RenderManager {
   private Map<Integer, Node> nodes = new HashMap<Integer, Node>();
   private Map<Integer, Integer> parents = new HashMap<Integer, Integer>();
@@ -397,14 +400,15 @@ public final class RenderManager {
       nodes.get(node).renderNode(identity);
       //renderNode(node, id);
     }
+
+
+    setOrtho(0, width, 0, height, -1, 1);
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
     
     if(renderFPS) {
-      setOrtho(0, width, 0, height, -1, 1);
       
       identity.mul(projectionMatrix);
-  
-      glDisable(GL_DEPTH_TEST);
-      glEnable(GL_BLEND);
       
       Font font = fontManager.getFont("resources/fonts/font14.fnt");
       String debugInfo = "";
@@ -414,7 +418,28 @@ public final class RenderManager {
       }
       fontManager.printString(font, debugInfo, identity);
     }
+    renderTexts();
   }
+  
+  private void renderTexts() {
+    Matrix4f matrix = new Matrix4f();
+    Vector3f translation = new Vector3f();
+    
+    for(Node node: nodes.values())
+    {
+      if(node.font != null && node.text != null) {
+        matrix.setIdentity();
+        node.getLocalTranslation(translation);
+        matrix.setTranslation(translation);
+        
+        matrix.mul(projectionMatrix, matrix);
+        
+        fontManager.printString(node.font, node.text, matrix);
+      }
+      
+    }
+  }
+  
   
   public void renderNode(int node, Matrix4f stackedMatrix) {
     
