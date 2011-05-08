@@ -15,46 +15,14 @@ import org.lwjgl.BufferUtils;
 public final class ShaderObject {
   private static Logger logger = Logger.getLogger(ShaderObject.class.getCanonicalName());
   
-  private int vs=-1, fs=-1, program=-1;
+  private int program=-1;
   private Map<String, Integer> uniforms = new HashMap<String, Integer>();
   private Map<String, Integer> attributes = new HashMap<String, Integer>();
   private Map<Integer, FloatBuffer> floatBuffers = new HashMap<Integer, FloatBuffer>();
-  //private Map<Integer, IntBuffer> intBuffers = new HashMap<Integer, IntBuffer>();
   
-  public ShaderObject(String vertexShader, String fragmentShader) {
-    glUseProgram(0);
-    
-    vs = glCreateShader(GL_VERTEX_SHADER);
-    
-    glShaderSource(vs, vertexShader);
-    glCompileShader( vs );
-    
-    int result;
-    result = glGetShader(vs, GL_COMPILE_STATUS);
-    
-    if(result == 0) {
-      int len = glGetShader(vs, GL_INFO_LOG_LENGTH);
-      String info = glGetShaderInfoLog(vs, len);
-      throw new IllegalArgumentException("Error in vertex shader: " + info + "\nSource:\n" + vertexShader);
-    }
-    
-    //Fragment!
-    fs = glCreateShader(GL_FRAGMENT_SHADER);
-    
-    glShaderSource(fs, fragmentShader);
-    glCompileShader( fs );
-    
-    //IntBuffer result = BufferUtils.createIntBuffer(1);
-    result = glGetShader(fs, GL_COMPILE_STATUS);
-    
-    if(result == 0) {
-      int len = glGetShader(fs, GL_INFO_LOG_LENGTH);
-      String info = glGetShaderInfoLog(fs, len);
-      throw new IllegalArgumentException("Error in fragment shader: " + info + "\nSource:\n" + fragmentShader);
-    }
-    
-    
-    //Program
+  private boolean cleaned = false;
+  
+  public ShaderObject(int vs, int fs) {
     program = glCreateProgram();
 
     glAttachShader(program, vs);
@@ -62,14 +30,12 @@ public final class ShaderObject {
     
     glLinkProgram(program);
 
-    result = glGetProgram(program, GL_LINK_STATUS);
+    int result = glGetProgram(program, GL_LINK_STATUS);
     
     if(result == 0) {
       int len = glGetProgram(program, GL_INFO_LOG_LENGTH);
       String info = glGetProgramInfoLog(program, len);
-      throw new IllegalArgumentException("Error linking shader: " + info 
-          + "\nVertex:\n" + vertexShader
-          + "\nFragment:\n" + fragmentShader);
+      throw new IllegalArgumentException("Error linking shader: " + info);
     }
 
     
@@ -117,6 +83,7 @@ public final class ShaderObject {
   private volatile Set<String> testedNullAttributes = new HashSet<String>();
   
   public int getUniform(String name) {
+    assert !cleaned;
     Integer uniformID = uniforms.get(name);
     if(uniformID == null) {
       if(!testedNullUniforms.contains(name)) {
@@ -129,6 +96,7 @@ public final class ShaderObject {
   }
   
   public int getAttrib(String name) {
+    assert !cleaned;
     Integer attribID = attributes.get(name);
     if(attribID == null) {
       if(!testedNullAttributes.contains(name)) {
@@ -141,6 +109,7 @@ public final class ShaderObject {
   }
   
   public void setUniform(String name, Matrix4f matrix) {
+    assert !cleaned;
     Integer uniformID = uniforms.get(name);
     if(uniformID == null) {
       if(!testedNullUniforms.contains(name)) {
@@ -153,12 +122,14 @@ public final class ShaderObject {
   }
   
   public void setUniform(int uniformID, Matrix4f matrix) {
+    assert !cleaned;
     FloatBuffer fb = getFloatBuffer(16);
     RenderManager.matrixToBuffer(matrix, fb);
     glUniformMatrix4(uniformID, false, fb);
   }
   
   public void setTextureUniform(String name, int unit ) {
+    assert !cleaned;
     Integer uniformID = uniforms.get(name);
     if(uniformID == null) {
       if(!testedNullUniforms.contains(name)) {
@@ -171,6 +142,7 @@ public final class ShaderObject {
   }
   
   public void setTextureUniform(int uniformID, int unit ) {
+    assert !cleaned;
     glUniform1i(uniformID, unit);
   }
   
@@ -182,6 +154,7 @@ public final class ShaderObject {
       int vertexSize, 
       int offset) 
   {
+    assert !cleaned;
     int attribID = attributes.get(name);
     
     glEnableVertexAttribArray(attribID);
@@ -201,6 +174,7 @@ public final class ShaderObject {
       int vertexSize, 
       int offset) 
   {
+    assert !cleaned;
     
     glEnableVertexAttribArray(attribID);
     glVertexAttribPointer(attribID, 
@@ -212,18 +186,18 @@ public final class ShaderObject {
   }
   
   public void activate() {
+    assert !cleaned;
     glUseProgram(program);
   }
   
   public void cleanUp() {
-    if(program >= 0)
-      glDeleteProgram(program);
-    if(vs >= 0)
-      glDeleteShader(vs);
-    if(fs >= 0)
-      glDeleteShader(fs);
-    
-    fs = vs = program = -1;
+    if(!cleaned) {
+      if(program >= 0)
+        glDeleteProgram(program);
+      
+      program = -1;
+      cleaned = false;
+    }
   }
   
   @Override

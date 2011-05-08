@@ -4,5 +4,5 @@ uniform mat4 u_WorldViewProj;
 
 void main()
 {
-  gl_Position = u_WorldViewProj * _Position;
+  gl_Position = u_WorldViewProj * vec4(_Position,1.0);
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.vecmath.Matrix4f;
 
+import cat.quadriga.render.simple.materials.BaseMaterial;
 import cat.quadriga.render.simple.materials.Material;
 
 public class StackedSphere {
@@ -16,7 +17,7 @@ public class StackedSphere {
 
   private static Map<Integer, Map<Integer, StaticMesh>> meshes = new HashMap<Integer, Map<Integer, StaticMesh>>();
   
-  private static Material defaultMaterial = null;
+  private static BaseMaterial defaultMaterial = null;
   
   public StackedSphere(float radi, int stacks, int slices) {
     this.radi = radi;
@@ -48,7 +49,7 @@ public class StackedSphere {
     return mesh;
   }
   
-  public void render(Material material, Matrix4f world, RenderManager rm) {
+  public void render(BaseMaterial material, Matrix4f world, RenderManager rm) {
     StaticMesh mesh = findStaticMesh(stacks, slices);
     
     if(material == null) {

@@ -1,18 +1,22 @@
 package cat.quadriga.render.simple.materials;
 
-import static org.lwjgl.opengl.GL11.GL_FLOAT;
-import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
+import static org.lwjgl.opengl.GL20.glUniformMatrix4;
+
+import java.nio.FloatBuffer;
 
 import javax.vecmath.Matrix4f;
+
+import org.lwjgl.BufferUtils;
 
 import cat.quadriga.render.simple.RenderManager;
 import cat.quadriga.render.simple.VertexType;
 
-public class TextureCoordsMaterial extends MaterialDecorator {
-  public int tex;
+public class WorldViewMatrixMaterial extends MaterialDecorator {
+  public int worldView;
+  private Matrix4f auxMatrix = new Matrix4f();
+  private FloatBuffer fb = BufferUtils.createFloatBuffer(16);
 
-  public TextureCoordsMaterial(BaseMaterial base) {
+  public WorldViewMatrixMaterial(BaseMaterial base) {
     super(base);
   }
   
@@ -38,14 +42,12 @@ public class TextureCoordsMaterial extends MaterialDecorator {
 
   @Override
   public void preRender(VertexType vt, Matrix4f worldMatrix, RenderManager rm) {
-    glEnableVertexAttribArray(tex);
-    glVertexAttribPointer(
-        tex, 
-        2, 
-        GL_FLOAT, 
-        false, 
-        vt.getVertexSize(), 
-        vt.getSTStride());
+    auxMatrix.setIdentity();
+    rm.getProjectionMatrix(auxMatrix);
+    auxMatrix.mul(worldMatrix);
+    RenderManager.matrixToBuffer(auxMatrix, fb);
+    RenderManager.matrixToBuffer(auxMatrix, fb);
+    glUniformMatrix4(worldView, false, fb);
     
     preRenderShortcut.preRender(vt, worldMatrix, rm);
   }

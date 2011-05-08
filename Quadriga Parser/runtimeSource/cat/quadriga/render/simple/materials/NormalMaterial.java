@@ -20,6 +20,16 @@ public class NormalMaterial extends MaterialDecorator {
   public BaseMaterial activateShortcut() {
     return activateShortcut;
   }
+  
+  @Override
+  public BaseMaterial cleanUpShortcut() {
+    return cleanUpShortcut;
+  }
+
+  @Override
+  public void cleanUp() {
+    cleanUpShortcut.activate();
+  }
 
   @Override
   public void activate() {

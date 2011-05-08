@@ -107,7 +107,10 @@ public class FontManager {
     
     
     if(shader == null) {
-      shader = new ShaderObject(Font.VERTEX_SHADER, Font.FRAGMENT_SHADER_1_TEX);
+      //shader = new ShaderObject(Font.VERTEX_SHADER, Font.FRAGMENT_SHADER_1_TEX);
+      shader = RenderManager.getShaderManager().getShader(
+                      Font.VERTEX_SHADER, 
+                      Font.FRAGMENT_SHADER_1_TEX);
       u_WVPmatrix = shader.getUniform("u_WorldViewProj");
       u_tex0      = shader.getUniform("u_page0");
       a_position  = shader.getAttrib("a_position");

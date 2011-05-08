@@ -15,6 +15,18 @@ public final class ShaderMaterial extends BaseMaterial {
   }
 
   @Override
+  public void cleanUp() {
+    shader.cleanUp();
+  }
+
+  @Override
+  public void setParameter(String parameterName, Object param) { }
+
+  @Override
   public void preRender(VertexType vt, Matrix4f worldMatrix, RenderManager rm) {}
 
+  @Override
+  public boolean hasParameters() {
+    return false;
+  }
 }
