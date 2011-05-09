@@ -2809,7 +2809,6 @@
    |  +- thread <+>
    |     +- tetris.tetris.SGameOverScreen
    |     +- tetris.input.InputManager
-   |     +- tetris.tetris.ControladorDelJoc
    |     +- tetris.tetris.LlògicaTaulell
    |     +- tetris.tetris.LlògicaPeça
    +- "LlògicaPeça" : Symbol Type
@@ -5762,8 +5761,6 @@
    +- "InitTetris" : Symbol Type
    |  +- Event <+>
    |     +- fields
-   +- "javax.vecmath.AxisAngle4f" : Symbol Type
-   |  +- Ljavax/vecmath/AxisAngle4f;
    +- "tetris.tetris.CPeça" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -5790,6 +5787,9 @@
    |        +- Quadriga Field
    |           +- Lcat/quadriga/runtime/Entity;
    |           +- "taulell"
+   +- "cat.quadriga.base.BillboardRenderer" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
    +- "CilynderRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -5815,9 +5815,6 @@
    |           +- F
    |           +- "radi"
    |           +- Op: Literal: 1.0 {F}
-   +- "cat.quadriga.base.BillboardRenderer" : Symbol Type
-   |  +- Component <+>
-   |     +- fields
    +- "SimpleRenderThread" : Symbol Type
    |  +- thread <+>
    |     +- cat.quadriga.base.SimpleCameraSystem
@@ -6954,58 +6951,19 @@
    |           |        +- posX
    |           |        +- Op: Literal: 10 {I}
    |           +- St: Add Component
-   |           |  +- Op: Component Allocation {cat.quadriga.base.SceneComponent}
-   |           |  |  +- Component <+>
-   |           |  |  |  +- fields
-   |           |  |  |     +- Quadriga Field
-   |           |  |  |        +- Lcat/quadriga/runtime/Entity;
-   |           |  |  |        +- "camera"
-   |           |  |  +- St: Named Arguments
-   |           |  |     +- quadriga argument
-   |           |  |        +- camera
-   |           |  |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
-   |           |  |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
-   |           |  |           +- Op: Literal: "Camera" {Ljava/lang/String;}
-   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
-   |           +- St: Block
-   |              +- Local Variables:
-   |              |  +- Symbol Var [ q ] Type [ Ljavax/vecmath/Quat4f; ]
-   |              +- Code:
-   |                 +- St: Statements:
-   |                 |  +- St: =
-   |                 |     +- Op: Local variable access: q {Ljavax/vecmath/Quat4f;}
-   |                 |     +- Op: Component Field: {Ljavax/vecmath/Quat4f;}
-   |                 |        +- cat.quadriga.base.Transform -> rotation
-   |                 |        +- Op: Component Access {cat.quadriga.base.Transform}
-   |                 |           +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
-   |                 |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
-   |                 |           |  +- Op: Literal: "Punts" {Ljava/lang/String;}
-   |                 |           +- Op: Type Access: cat.quadriga.base.Transform
-   |                 +- St: Statement From Expression : Call
-   |                 |  +- Op: Method:
-   |                 |  |  +- javax.vecmath.Quat4f -> set
-   |                 |  |  +- Op: Local variable access: q {Ljavax/vecmath/Quat4f;}
-   |                 |  +- St: Arguments
-   |                 |     +- Op: Constructor {Ljavax/vecmath/AxisAngle4f;}
-   |                 |        +- Ljavax/vecmath/AxisAngle4f;
-   |                 |        +- St: Arguments
-   |                 |           +- Op: Literal: 1.0 {F}
-   |                 |           +- Op: Literal: 0.0 {F}
-   |                 |           +- Op: Literal: 0.0 {F}
-   |                 |           +- Op: Literal: -1.5707964 {F}
-   |                 +- St: =
-   |                    +- Op: Component Field: {Ljavax/vecmath/Quat4f;}
-   |                    |  +- cat.quadriga.base.Transform -> rotation
-   |                    |  +- Op: Component Access {cat.quadriga.base.Transform}
-   |                    |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
-   |                    |     |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
-   |                    |     |  +- Op: Literal: "Punts" {Ljava/lang/String;}
-   |                    |     +- Op: Type Access: cat.quadriga.base.Transform
-   |                    +- Op: Local variable access: q {Ljavax/vecmath/Quat4f;}
-   +- "ControladorDelJoc" : Symbol Type
-   |  +- System <+>
-   |     +- needed components
-   |        +- tetris.tetris.TetrisGameComponent
+   |              +- Op: Component Allocation {cat.quadriga.base.SceneComponent}
+   |              |  +- Component <+>
+   |              |  |  +- fields
+   |              |  |     +- Quadriga Field
+   |              |  |        +- Lcat/quadriga/runtime/Entity;
+   |              |  |        +- "camera"
+   |              |  +- St: Named Arguments
+   |              |     +- quadriga argument
+   |              |        +- camera
+   |              |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |              |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |              |           +- Op: Literal: "Camera" {Ljava/lang/String;}
+   |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
    +- "StaticMeshRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -7484,10 +7442,6 @@
    |              |  |              +- Op: Literal: 0.0 {F}
    |              |  +- St: Zero Arguments
    |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
-   +- "tetris.tetris.ControladorDelJoc" : Symbol Type
-   |  +- System <+>
-   |     +- needed components
-   |        +- tetris.tetris.TetrisGameComponent
    +- "cat.quadriga.base.TexturedQuad" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -7507,12 +7461,6 @@
    +- "EEscape" : Symbol Type
    |  +- Event <+>
    |     +- fields
-   +- "tetris.tetris.TetrisGameComponent" : Symbol Type
-   |  +- Component <+>
-   |     +- fields
-   |        +- Quadriga Field
-   |           +- Lcat/quadriga/runtime/Entity;
-   |           +- "taulell"
    +- "tetris.input.CInputManager" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -9725,7 +9673,6 @@
    |  +- thread <+>
    |     +- tetris.tetris.SGameOverScreen
    |     +- tetris.input.InputManager
-   |     +- tetris.tetris.ControladorDelJoc
    |     +- tetris.tetris.LlògicaTaulell
    |     +- tetris.tetris.LlògicaPeça
    +- "tetris.tetris.LlògicaTaulell" : Symbol Type

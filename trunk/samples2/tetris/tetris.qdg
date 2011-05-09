@@ -98,12 +98,6 @@
     
   }
   SceneComponent( camera: this["Camera"] )
-  
-  @init {
-    Quat4f q = this["Punts"][Transform].rotation;
-    q.set(new AxisAngle4f(1.0f, 0.0f, 0.0f, -1.570796327f));
-    this["Punts"][Transform].rotation = q;
-  }
 }
 
 @component cat.quadriga.base.ColoredMaterial;
@@ -146,7 +140,7 @@
 }
 
 @event InitTetris {}
-
+/*
 @component TetrisGameComponent {
   Entity<Puntuació, Taulell> taulell;
 }
@@ -155,7 +149,7 @@
   @components {
     TetrisGameComponent
   }
-}
+}*/
 
 @event InsertarPeça {
   int color;
@@ -780,16 +774,16 @@
 @thread LlogicaTetris {
   @system SGameOverScreen;
   @system InputManager;
-  @system ControladorDelJoc;
+  //@system ControladorDelJoc;
   @system LlògicaTaulell;
   @system LlògicaPeça;
   
   @init {
     Entity tetris = @newEntity("tetris",null);
     @prototype tetris : Tetris();
-    Entity e = @newEntity("principal", null); 
+    //Entity e = @newEntity("principal", null); 
     
-    @add TetrisGameComponent(taulell: tetris) : e;
+    //@add TetrisGameComponent(taulell: tetris) : e;
    
     //int px[] = {0,1,2,3};
     //int py[] = {0,0,0,0};
