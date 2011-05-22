@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass{book}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -9,37 +9,34 @@
 
 \usepackage[pdftex]{graphicx}
 
-% \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+% \setcounter{tocdepth}{2}
 
 \begin{document}
 
 \input{./titol}
+\newpage
 \input{./certificatDireccio}
+\newpage
 \input{./agraiments}
 
-\newpage
 \tableofcontents
 
 \input{./introduccio}
 
-\newpage
-\section{Desenvolupament del Projecte}
+\chapter{Desenvolupament del Projecte}
 
-\newpage
-\section{Resultats}
+\chapter{Resultats}
 
-\newpage
-\section{Conclusions i Millores}
+\chapter{Conclusions i Millores}
 
-\newpage
 % \section{Bibliografia}
-\addcontentsline{toc}{section}{Referències}
 % \input{./bibliography}
 \bibliographystyle{plainnat}
 \bibliography{referencies}
+\addcontentsline{toc}{chapter}{Bibliografia}
 
 \appendix
 \newpage
-\section{El llenguatge Quadriga}
+\chapter{El llenguatge Quadriga}
 
 \end{document}

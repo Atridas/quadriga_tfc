@@ -1,63 +1,87 @@
-\newpage
-\section{Introducció}
+\chapter{Introducció}
 
-Des de l'aparició dels primers videojocs, la seva evolució ha estat sempre emparellada amb una evolució tecnològica constant i, en certs punts, accelerada. Aquesta evolució tecnológica no només consta de millores en el rendiment i qualitat de cada joc sinó que, a més, s'ha aconseguit generelitzar solucions i aplicar tecnologia d'un videojoc a altres i fins hi tot crear eines que permeten el desenvolupament de jocs a partir d'elles.
+Des de l'aparició dels primers videojocs, la seva evolució ha estat sempre emparellada amb una evolució tecnològica constant i, en certs punts, accelerada. Aquesta evolució tecnològica no només consta de millores en el rendiment i qualitat de cada joc sinó que, a més, s'ha aconseguit generalitzar solucions i aplicar tecnologia d'un videojoc a altres i fins hi tot crear eines que permeten el desenvolupament de jocs a partir d'elles.
 
-Si mirem aquesta evolució des de més a prop, veiem com al principi els videojocs eren evolucions d'altres jocs típics de bar, màquines escurabutxaques com el pinball seriren d'inspiració per a crear els primers videojocs comercials, amb un model de negoci molt semblant. Posteriorment, la necessitat de crear grans quantitats de jocs va obligar als desenvolupadors a crear màquines que poguéssin executar més d'un joc i així abaratir costos i finalment, amb l'arribada dels ordinadors personals i les consoles de sobretaula, es comença a desenvolupar un mercat per a jocs sobre plataformes genèriques.
+Si mirem aquesta evolució des de més a prop, veiem com al principi els videojocs eren evolucions d'altres jocs típics de bar, màquines escurabutxaques com el pinball serviren d'inspiració per a crear els primers videojocs comercials, amb un model de negoci molt semblant. Posteriorment, la necessitat de crear grans quantitats de jocs va obligar als desenvolupadors a crear màquines que poguessin executar més d'un joc i així abaratir costos i finalment, amb l'arribada dels ordinadors personals i les consoles de sobretaula, es comença a desenvolupar un mercat per a jocs sobre plataformes genèriques.
 \\
 
-Poc a poc van apareixent els motors gràfics - programes o móduls encarregats del renderitzat d'un joc o d'un programa amb gràfics 2D o 3D - o fins hi tot motors de joc -una plataforma per desenvolupar-hi un joc a sobre -. En un principi aquests motors s'utilitzaven dintre de la mateixa companyia que el creava. Per exemple LucarArts creà {SCUMM} ({Script Creation Utility for Manic Mansion}) a l'hora que creava la seva aventura gràfica de "Point \& Click" Manic Mansion. Aquest mateix programa fou utilitzat després en altres jocs com Indiana Jones i l'Última Creuada, LOOM, El Dia del Tentacle i tres jocs de la saga Monkey Island.
+Poc a poc van apareixent els motors gràfics - programes o mòduls encarregats del renderitzat d'un joc o d'un programa amb gràfics 2D o 3D - o fins hi tot motors de joc -una plataforma per desenvolupar-hi un joc a sobre -. En un principi aquests motors s'utilitzaven dintre de la mateixa companyia que el creava. Per exemple LucarArts creà {SCUMM} ({Script Creation Utility for Manic Mansion}) a l'hora que creava la seva aventura gràfica de "Point \& Click" Manic Mansion. Aquest mateix programa fou utilitzat després en altres jocs com Indiana Jones i l'Última Creuada, LOOM, El Dia del Tentacle i tres jocs de la saga Monkey Island.
 
-Un pas més endavant el va dur Id Software amb el seu id Tech. Aquest motor - i les seves evolucions - no només es feu servir per fer jocs com Doom i Doom II d'Id Software, sinó que es va vendre a altres companyies per a fer altres jocs, tot i que aquests jocs serien molt semblants al Doom original. Posteriorment fins hi tot hi va haver companyies que basaven el seu negoci no en vendre jocs, sinó en vendre motors a altres companyies que els féssin servir; és doncs l'aparició definitiva dels motors com a Middleware.
+Un pas més endavant el va dur Id Software amb el seu id Tech. Aquest motor - i les seves evolucions - no només es feu servir per fer jocs com Doom i Doom II d'Id Software, sinó que es va vendre a altres companyies per a fer altres jocs, tot i que aquests jocs serien molt semblants al Doom original. Posteriorment fins hi tot hi va haver companyies que basaven el seu negoci no en vendre jocs, sinó en vendre motors a altres companyies que els fessin servir; és doncs l'aparició definitiva dels motors com a Middleware.
 \\
 
-\subsection{Els sistemes d'entitats}
+\section{Els sistemes d'entitats}
 
-Paral·lelament a l'evolució tecnológica ja esmentada, la metodologia de desenvolupament i els mateixos llenguatges de programació han anat evolucionant. L'evolució més important fou quan es va passar de programar bàsicament en {\bf C} a {\bf C++}. El canvi de paradigma, però, s'ha demostrat difícil i, tot i que l'ús de la metodologia orientada a objectes és predominant a quasi totes les àrees d'un motor, encara n'hi ha alguna on porta problemes.
+Paral·lelament a l'evolució tecnològica ja esmentada, la metodologia de desenvolupament i els mateixos llenguatges de programació han anat evolucionant. L'evolució més important fou quan es va passar de programar bàsicament en {\bf C} a {\bf C++}. El canvi de paradigma, però, s'ha demostrat difícil i, tot i que l'ús de la metodologia orientada a objectes és predominant a quasi totes les àrees d'un motor, encara n'hi ha alguna on porta problemes.
 \\
 
-El cas més important, i el que en aquest treball ens centrarem és en la definició de la llògica d'un joc.
+El cas més important, i el que en aquest treball ens centrarem és en la definició de la lògica d'un joc.
 
-\subsubsection{L'aproximació clàssica}
+\subsection{L'aproximació clàssica}
 
-Quan un programador de {C++} o qualsevol llenguatge orientat a objectes s'asseu davant el desafiament de programar la llògica d'un joc, trenca els diferents objectes que el poblen i els distribueix en diferents grups i subgrups, després en programa les funcionalitats comunes i acaba creant una jerarquia de classes que defineixen tots els objectes i les seves interrelacions. 
+Quan un programador de {C++} o qualsevol llenguatge orientat a objectes s'asseu davant el desafiament de programar la lògica d'un joc, trenca els diferents objectes que el poblen i els distribueix en diferents grups i subgrups, després en programa les funcionalitats comunes i acaba creant una jerarquia de classes que defineixen tots els objectes i les seves interrelacions. 
 
-Aquesta aproximació sembla senzilla, però acaba comportant diversos problemes. Com s'explica a \citep[p.~719]{Gregory09}, les gerarquies massa grans d'objectes pateixen dels següents inconvenients:
+Aquesta aproximació sembla senzilla, però acaba comportant diversos problemes. Com s'explica a \citep[p.~719]{Gregory09}, les jerarquies massa grans d'objectes pateixen dels següents inconvenients:
 
 \begin{description}
   \item[Manteniment] \hfill \\
-    A més profunda és una classe dintre d'una gerarquia, més costa d'entendre, mantenir i modificar; ja que s'ha d'entendre tant ella com totes les seves classes superiors. Així com modificar una classe mare pot comportar problemes  a classes derivades molt difícils de detectar i arreclar.
+    A més profunda és una classe dintre d'una jerarquia, més costa d'entendre, mantenir i modificar; ja que s'ha d'entendre tant ella com totes les seves classes superiors. Així com modificar una classe mare pot comportar problemes  a classes derivades molt difícils de detectar i arreglar.
     
-  \item[Impossibilitat de descriure taxonomies multidimensionals] \hfill \\
-    Crear classes en forma d'arbre és molt pràctic i sobretot intuitiu, especialment on a cada nivell es fan separacions respecte un criteri per cada nivell. El problema seriós vé quan ens trobem amb classificacions que no haviem previst inicialment. Per exemple podríem haver classificat 2 tipus de vehicles: vehicles terrestres i marítims, per posteriorment haver d'afegir vehicles amfibis, repte que ens porta als 2 següents punts.
+  \item[Impossibilitat de descriure taxonomies multi-dimensionals] \hfill \\
+    Crear classes en forma d'arbre és molt pràctic i sobretot intuïtiu, especialment on a cada nivell es fan separacions respecte un criteri per cada nivell. El problema seriós arriba quan ens trobem amb classificacions que no havíem previst inicialment. Per exemple podríem haver classificat 2 tipus de vehicles: vehicles terrestres i marítims, per posteriorment haver d'afegir vehicles amfibis, repte que ens porta als 2 següents punts.
     
   \item[Herència múltiple. El diamant de la mort] \hfill \\
-    La solució naif del problema anterior seria crear la classe {\em VehicleAmfibi} hereva tant de {\em VehicleTerrestre} com de {\em VehicleMarítim}, cosa que ens porta directament a l'herència múltiple. Com s'explica a \cite[p.~2]{Martin97}, l'herència múltiple causa diversos problemes, moltes vegades més grans que aquells que soluciona. En aquest cas veuríem que la classe {\em VehicleAmfibi} heredaria dues vegades {\em Vehicle}, amb els problemes d'ambigüetat que això duria.
+    La solució naïf del problema anterior seria crear la classe {\em VehicleAmfibi} hereva tant de {\em VehicleTerrestre} com de {\em VehicleMarítim}, cosa que ens porta directament a l'herència múltiple. Com s'explica a \cite[p.~2]{Martin97}, l'herència múltiple causa diversos problemes, moltes vegades més grans que aquells que soluciona. En aquest cas veuríem que la classe {\em VehicleAmfibi} heretaria dues vegades {\em Vehicle}, amb els problemes d'ambigüitat que això duria.
     
   \item[Classes Mix-in] \hfill \\
-    Una altra solució és crear un seguit de classes que aportin funcionalitat a diversos llocs de la gerarquia. Aquestes classes, per funcionar bé, cal que siguin heretades només per les fulles i que cap d'elles tingui una classe mare. Per tant diríem que una classe només pot tenir un "avi" en qualsevol cas. Aquesta solució comporta, sobretot, molta disciplina i acava resultant una solució molt semblant a "agragar" funcionalitat en comptes de heretar-la.
+    Una altra solució és crear un seguit de classes que aportin funcionalitat a diversos llocs de la jerarquia. Aquestes classes, per funcionar bé, cal que siguin heretades només per les fulles i que cap d'elles tingui una classe mare. Per tant diríem que una classe només pot tenir un "avi" en qualsevol cas. Aquesta solució comporta, sobretot, molta disciplina i acaba resultant una solució molt semblant a "agregar" funcionalitat en comptes de heretar-la.
     
   \item[Efecte bombolla] \hfill \\
-    A l'inici del disseny, les classes arrels - les més pròximes a l'inici de la gerarquia - són dissenyades minimalísticament i amb poca funcionalitat. A mesura que avança el progecte, i davant del desig de compartir codi i, sobretot, no duplicar-lo, molta funcionalitat va pujant a la gerarquia fins que troba el "comú denominador". A poc a poc, les classes arrels es van fent pesades fins que contenen la major part de funcionalitat, que les seves filles s'han d'encarregar d'activar correctament. Colateralment això fa que moltes classes acavin tenint funcionalitat i variables que realment no necessiten, fent que el programa usi més memòria de la necessària, un problema especialment greu en jocs de consola, on la memòria és un bé molt escàs.
+    A l'inici del disseny, les classes arrels - les més pròximes a l'inici de la jerarquia - són dissenyades inicialment amb poca funcionalitat. A mesura que avança el projecte, i davant del desig de compartir codi i, sobretot, no duplicar-lo, molta funcionalitat va pujant a la jerarquia fins que troba el "comú denominador". A poc a poc, les classes arrels es van fent pesades fins que contenen la major part de funcionalitat, que les seves filles s'han d'encarregar d'activar correctament. Col·lateralment això fa que moltes classes acabin tenint funcionalitat i variables que realment no necessiten, fent que el programa usi més memòria de la necessària, un problema especialment greu en jocs de consola, on la memòria és un bé molt escàs.
     
 \end{description}
 
-\subsubsection{De l'{\em és-un} al {\em conté-un}}
+\subsection{De l'{\em és-un} al {\em conté-un}}
 
-La primera millora, o petit canvi, que es proposa respecte l'aproximació anterior és agregar la funcionalitat en comptes de heredar-la. Si volem crear un objecte amb moviment, que es renderitzi, que colisioni i que s'animi - un enemic, per exemple -, abans heredariem d'una gerarquia on, més amunt o més avall, estigui implementada tota aquesta funcionalitat. Ara, però, el que hauriem de fer és simplement crear un seguit de propietats a la classe {\em Enemic} que apuntin a instàncies d'altres classes que ens aportin cada una la funcionalitat que busquem.
+La primera millora, o petit canvi, que es proposa respecte l'aproximació anterior és agregar la funcionalitat en comptes de heretar-la. Si volem crear un objecte amb moviment, que es renderitzi, que col·lisioni i que s'animi - un enemic, per exemple -, abans heretaríem d'una jerarquia on, més amunt o més avall, estigui implementada tota aquesta funcionalitat. Ara, però, el que hauríem de fer és simplement crear un seguit de propietats a la classe {\em Enemic} que apuntin a instàncies d'altres classes que ens aportin cada una la funcionalitat que busquem.
 
 Dintre d'aquest esquema, les classes que aporten funcionalitat són moltes vegades anomenades {\em Components} o {\em objectes-servidors}, ja que són les que componen els objectes finals.
 \\
 
-Aquesta aproximació millora en certs aspectes l'anterior, però encara té alguns inconvenients. Es tendeix a tenir una classe {\em GameObject} amb un punter a cada tipus de component, al qual se li afegeixen o treuen els components segons convingui - un {\em Enemic} contindrà el component {\em ObjecteAnimat} mentre que una {\em Habitació} no -; cosa que comporta primer el problema de qui s'ha d'encarregar de destruir els components - evident fins que arribes al punt que vols substituir un component en temps d'execució - i després la pérdua d'eficiència que comporta haver de comprovar constantment si una instància conté o no cada component per fer-ne operacions.
+Aquesta aproximació millora en certs aspectes l'anterior, però encara té alguns inconvenients. Es tendeix a tenir una classe {\em GameObject} amb un punter a cada tipus de component, al qual se li afegeixen o treuen els components segons convingui - un {\em Enemic} contindrà el component {\em ObjecteAnimat} mentre que una {\em Habitació} no -; cosa que comporta primer el problema de qui s'ha d'encarregar de destruir els components - evident fins que arribes al punt que vols substituir un component en temps d'execució - i després la pèrdua d'eficiència que comporta haver de comprovar constantment si una instància conté o no cada component per fer-ne operacions.
 \\
 
-Un pas més enllà es troba l'aproximació on cata tipus de {\em Component} implementa una interfície comuna molt bàsica i després el {\em GameObject} simplement conté un array dinàmic que els conté tots, i crida les seves funcions ordenadament. Aquesta aproximació comporta sovint el problema de que els components cal ordenar-los, ja que moltes vegades la seva funcionalitat no és conmutativa.
+Un pas més enllà es troba l'aproximació on cada tipus de {\em Component} implementa una interfície comuna molt bàsica i després el {\em GameObject} simplement conté un array dinàmic que els conté tots, i crida les seves funcions ordenadament. Aquesta aproximació comporta sovint el problema de que els components cal ordenar-los, ja que moltes vegades la seva funcionalitat no és commutativa.
 \\
 
-Un últim pas en aquesta línea és eliminar per complet el {\em GameObject} i tenir arrays de components i lligar-los simplement per l'índex - Arrays o una implementació menys costosa en memòria com Taules Hash -. Aquesta aproximació sovint anomenada com a {\em Model de Components Pur} guanya sobretot en coherència de caché. Normalment tots els components d'un tipus s'actualitzen alhora, al estar tots en un array seguits, els {\em misses} de caché són mínims.
+Un últim pas en aquesta línia és eliminar per complet el {\em GameObject} i tenir arrays de components i lligar-los simplement per l'índex - Arrays o una implementació menys costosa en memòria com Taules Hash -. Aquesta aproximació sovint anomenada com a {\em Model de Components Pur} guanya sobretot en coherència de caché. Normalment tots els components d'un tipus s'actualitzen alhora, al estar tots en un array seguits, els {\em misses} de caché són mínims.
 \\
 
 Finalment, un gran avantatge d'un sistema d'aquest tipus és, com s'explica a \cite{Leonard99}, la possibilitat de, un cop definits els tipus de components i les seves propietats, crear un "editor del joc" que permeti, amb l'ajuda d'una interfície gràfica, crear, manipular, modificar, afegir, treure, etc... objectes i components del món de forma molt senzilla. Una eina d'aquestes característiques disminueix la dependència que hi ha entre dissenyadors i programadors i permet que cada un d'ells pugui fer la seva feina en paral·lel de la forma més eficient possible.
 
-\subsubsection{De centrar-nos en els objectes, a centrar-nos en les propietats}
+\subsection{De centrar-nos en els objectes, a centrar-nos en les propietats}
+
+L'últim pas, que abstracta totes les idees anteriorment exposades, és trencar totalment l'esquema orientat a objectes. La clau aquí és oblidar que un objecte està format per un seguit de propietats i mètodes, i quedar-se només amb les propietats. D'aquesta manera podem crear una taula per cada tipus de component que un objecte del joc pot tenir, i fer-ne una columna per cada propietat i una fila per cada objecte que el contingui, tenint cada objecte del joc, el que abans coneixíem com un {\em GameObject}, un identificador únic.
+
+Aquesta aproximació no està pas mancada de defectes, i cal tenir-los en compte. El primer d'ells és la dificultat que hi ha d'establir relacions entre les {\em entitats} del joc, ja que no existeix una implementació en sí, d'aquesta entitat. Relacionat amb això hi ha el problema d'inicialitzar aquestes {\em entitats}, que s'ha de fer d'una forma més o menys aliena al mateix sistema. Finalment, el dilema més gran, és decidir on es programa el comportament de les entitats, i hi ha bàsicament 2 solucions, amb les seves variants:
+
+\begin{description}
+  \item[Dintre els mateixos components] \hfill \\
+    Cada propietat porta incorporada - possiblement - la seva funcionalitat d'alguna manera. Sigui directament dintre del mateix components, via mètodes en aquest - cosa que retorna a la metodologia orientada a objectes - o via els anomenats {\em sistemes}. Aquests s'encarreguen de recollir aquelles {\em entitats} que reuneixen unes condicions - normalment, tenir un o més components - i actualitzar-los.
+    
+  \item[Via components especials] \hfill \\
+    En aquesta variant normalment es defineix un tipus especials que simplement conté un apuntador - o referència equivalent - a un script que implementi una interfície coneguda i que defineixi el comportament d'aquesta Entitat.
+    
+\end{description}
+
+
+
+\section{Implementacions Prèvies}
+
+\subsection{Jocs Concrets}
+
+\subsection{Motors de jocs}
+
+\subsection{El nostre tret diferencial}
+
+\section{Estructura de la memòria}
