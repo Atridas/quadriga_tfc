@@ -13,11 +13,51 @@ Un pas més endavant el va dur Id Software amb el seu id Tech. Aquest motor - i 
 
 \subsection{Els sistemes d'entitats}
 
-Paral·lelament a l'evolució tecnológica ja esmentada, la metodologia de desenvolupament i els mateixos llenguatges de programació han anat evolucionant. L'evolució més important fou quan es va passar de programar bàsicament en {\bf C} a {\em C++}. El canvi de paradigma, però, s'ha demostrat difícil i, tot i que l'ús de la metodologia orientada a objectes és predominant a quasi totes les àrees d'un motor, encara n'hi ha alguna on porta problemes.
+Paral·lelament a l'evolució tecnológica ja esmentada, la metodologia de desenvolupament i els mateixos llenguatges de programació han anat evolucionant. L'evolució més important fou quan es va passar de programar bàsicament en {\bf C} a {\bf C++}. El canvi de paradigma, però, s'ha demostrat difícil i, tot i que l'ús de la metodologia orientada a objectes és predominant a quasi totes les àrees d'un motor, encara n'hi ha alguna on porta problemes.
 \\
 
 El cas més important, i el que en aquest treball ens centrarem és en la definició de la llògica d'un joc.
 
-Quan un programador de {C++} o qualsevol llenguatge orientat a objectes s'asseu davant el desafiament de programar la llògica d'un joc, trenca els diferents objectes que el poblen i els distribueix en diferents grups i subgrups, després en programa les funcionalitats comunes i acaba creant una jerarquia de classes que defineixen tots els objectes i les seves interrelacions. 
-Aquesta aproximació sembla senzilla, però acaba comportant diversos problemes; per exemple, a vegades el trencament en grups no sembla evident. Posem per exemple que volem tenir en el nostre joc vehicles, i que n'hi ha de terrestres (Cotxe, Tanc) i de marítims (Lanxa, Moto d'aigua). La nostra primera aproximació ens crearà una gerarquia de tres nivells, amb els Vehicles agrupant-ho tot, on després distingim entre terrestres i marítims i finalment tenim cada tipus concret de vehicle. Mesos dintre de la producció del joc se'ns demana que afegim un nou vehicle amfibi, on el col·loquem? \citep{Gregory09} \citep{Leonard99}
+\subsubsection{L'aproximació clàssica}
 
+Quan un programador de {C++} o qualsevol llenguatge orientat a objectes s'asseu davant el desafiament de programar la llògica d'un joc, trenca els diferents objectes que el poblen i els distribueix en diferents grups i subgrups, després en programa les funcionalitats comunes i acaba creant una jerarquia de classes que defineixen tots els objectes i les seves interrelacions. 
+
+Aquesta aproximació sembla senzilla, però acaba comportant diversos problemes. Com s'explica a \citep[p.~719]{Gregory09}, les gerarquies massa grans d'objectes pateixen dels següents inconvenients:
+
+\begin{description}
+  \item[Manteniment] \hfill \\
+    A més profunda és una classe dintre d'una gerarquia, més costa d'entendre, mantenir i modificar; ja que s'ha d'entendre tant ella com totes les seves classes superiors. Així com modificar una classe mare pot comportar problemes  a classes derivades molt difícils de detectar i arreclar.
+    
+  \item[Impossibilitat de descriure taxonomies multidimensionals] \hfill \\
+    Crear classes en forma d'arbre és molt pràctic i sobretot intuitiu, especialment on a cada nivell es fan separacions respecte un criteri per cada nivell. El problema seriós vé quan ens trobem amb classificacions que no haviem previst inicialment. Per exemple podríem haver classificat 2 tipus de vehicles: vehicles terrestres i marítims, per posteriorment haver d'afegir vehicles amfibis, repte que ens porta als 2 següents punts.
+    
+  \item[Herència múltiple. El diamant de la mort] \hfill \\
+    La solució naif del problema anterior seria crear la classe {\em VehicleAmfibi} hereva tant de {\em VehicleTerrestre} com de {\em VehicleMarítim}, cosa que ens porta directament a l'herència múltiple. Com s'explica a \cite[p.~2]{Martin97}, l'herència múltiple causa diversos problemes, moltes vegades més grans que aquells que soluciona. En aquest cas veuríem que la classe {\em VehicleAmfibi} heredaria dues vegades {\em Vehicle}, amb els problemes d'ambigüetat que això duria.
+    
+  \item[Classes Mix-in] \hfill \\
+    Una altra solució és crear un seguit de classes que aportin funcionalitat a diversos llocs de la gerarquia. Aquestes classes, per funcionar bé, cal que siguin heretades només per les fulles i que cap d'elles tingui una classe mare. Per tant diríem que una classe només pot tenir un "avi" en qualsevol cas. Aquesta solució comporta, sobretot, molta disciplina i acava resultant una solució molt semblant a "agragar" funcionalitat en comptes de heretar-la.
+    
+  \item[Efecte bombolla] \hfill \\
+    A l'inici del disseny, les classes arrels - les més pròximes a l'inici de la gerarquia - són dissenyades minimalísticament i amb poca funcionalitat. A mesura que avança el progecte, i davant del desig de compartir codi i, sobretot, no duplicar-lo, molta funcionalitat va pujant a la gerarquia fins que troba el "comú denominador". A poc a poc, les classes arrels es van fent pesades fins que contenen la major part de funcionalitat, que les seves filles s'han d'encarregar d'activar correctament. Colateralment això fa que moltes classes acavin tenint funcionalitat i variables que realment no necessiten, fent que el programa usi més memòria de la necessària, un problema especialment greu en jocs de consola, on la memòria és un bé molt escàs.
+    
+\end{description}
+
+\subsubsection{De l'{\em és-un} al {\em conté-un}}
+
+La primera millora, o petit canvi, que es proposa respecte l'aproximació anterior és agregar la funcionalitat en comptes de heredar-la. Si volem crear un objecte amb moviment, que es renderitzi, que colisioni i que s'animi - un enemic, per exemple -, abans heredariem d'una gerarquia on, més amunt o més avall, estigui implementada tota aquesta funcionalitat. Ara, però, el que hauriem de fer és simplement crear un seguit de propietats a la classe {\em Enemic} que apuntin a instàncies d'altres classes que ens aportin cada una la funcionalitat que busquem.
+
+Dintre d'aquest esquema, les classes que aporten funcionalitat són moltes vegades anomenades {\em Components} o {\em objectes-servidors}, ja que són les que componen els objectes finals.
+\\
+
+Aquesta aproximació millora en certs aspectes l'anterior, però encara té alguns inconvenients. Es tendeix a tenir una classe {\em GameObject} amb un punter a cada tipus de component, al qual se li afegeixen o treuen els components segons convingui - un {\em Enemic} contindrà el component {\em ObjecteAnimat} mentre que una {\em Habitació} no -; cosa que comporta primer el problema de qui s'ha d'encarregar de destruir els components - evident fins que arribes al punt que vols substituir un component en temps d'execució - i després la pérdua d'eficiència que comporta haver de comprovar constantment si una instància conté o no cada component per fer-ne operacions.
+\\
+
+Un pas més enllà es troba l'aproximació on cata tipus de {\em Component} implementa una interfície comuna molt bàsica i després el {\em GameObject} simplement conté un array dinàmic que els conté tots, i crida les seves funcions ordenadament. Aquesta aproximació comporta sovint el problema de que els components cal ordenar-los, ja que moltes vegades la seva funcionalitat no és conmutativa.
+\\
+
+Un últim pas en aquesta línea és eliminar per complet el {\em GameObject} i tenir arrays de components i lligar-los simplement per l'índex - Arrays o una implementació menys costosa en memòria com Taules Hash -. Aquesta aproximació sovint anomenada com a {\em Model de Components Pur} guanya sobretot en coherència de caché. Normalment tots els components d'un tipus s'actualitzen alhora, al estar tots en un array seguits, els {\em misses} de caché són mínims.
+\\
+
+Finalment, un gran avantatge d'un sistema d'aquest tipus és, com s'explica a \cite{Leonard99}, la possibilitat de, un cop definits els tipus de components i les seves propietats, crear un "editor del joc" que permeti, amb l'ajuda d'una interfície gràfica, crear, manipular, modificar, afegir, treure, etc... objectes i components del món de forma molt senzilla. Una eina d'aquestes característiques disminueix la dependència que hi ha entre dissenyadors i programadors i permet que cada un d'ells pugui fer la seva feina en paral·lel de la forma més eficient possible.
+
+\subsubsection{De centrar-nos en els objectes, a centrar-nos en les propietats}
