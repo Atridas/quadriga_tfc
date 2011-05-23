@@ -1,13 +1,13 @@
 \chapter{Introducció}
 
-Des de l'aparició dels primers videojocs, la seva evolució ha estat sempre emparellada amb una evolució tecnològica constant i, en certs punts, accelerada. Aquesta evolució tecnològica no només consta de millores en el rendiment i qualitat de cada joc sinó que, a més, s'ha aconseguit generalitzar solucions i aplicar tecnologia d'un videojoc a altres i fins hi tot crear eines que permeten el desenvolupament de jocs a partir d'elles.
+Des de l'aparició dels primers videojocs, la seva evolució ha estat sempre emparellada amb una evolució tecnològica constant i, en certs punts, accelerada. Aquesta evolució tecnològica no només consta de millores en el rendiment i qualitat de cada joc sinó que, a més, s'ha aconseguit generalitzar solucions i aplicar tecnologia d'un videojoc a altres i fins i tot crear eines que permeten el desenvolupament de jocs a partir d'elles.
 
 Si mirem aquesta evolució des de més a prop, veiem com al principi els videojocs eren evolucions d'altres jocs típics de bar, màquines escurabutxaques com el pinball serviren d'inspiració per a crear els primers videojocs comercials, amb un model de negoci molt semblant. Posteriorment, la necessitat de crear grans quantitats de jocs va obligar als desenvolupadors a crear màquines que poguessin executar més d'un joc i així abaratir costos i finalment, amb l'arribada dels ordinadors personals i les consoles de sobretaula, es comença a desenvolupar un mercat per a jocs sobre plataformes genèriques.
 \\
 
-Poc a poc van apareixent els motors gràfics - programes o mòduls encarregats del renderitzat d'un joc o d'un programa amb gràfics 2D o 3D - o fins hi tot motors de joc -una plataforma per desenvolupar-hi un joc a sobre -. En un principi aquests motors s'utilitzaven dintre de la mateixa companyia que el creava. Per exemple LucarArts creà {SCUMM} ({Script Creation Utility for Manic Mansion}) a l'hora que creava la seva aventura gràfica de "Point \& Click" Manic Mansion. Aquest mateix programa fou utilitzat després en altres jocs com Indiana Jones i l'Última Creuada, LOOM, El Dia del Tentacle i tres jocs de la saga Monkey Island.
+Poc a poc van apareixent els motors gràfics - programes o mòduls encarregats del renderitzat d'un joc o d'un programa amb gràfics 2D o 3D - o fins i tot motors de joc -una plataforma per desenvolupar-hi un joc a sobre -. En un principi aquests motors s'utilitzaven dintre de la mateixa companyia que el creava. Per exemple LucarArts creà {SCUMM} ({Script Creation Utility for Manic Mansion}) a l'hora que creava la seva aventura gràfica de "Point \& Click" Manic Mansion. Aquest mateix programa fou utilitzat després en altres jocs com Indiana Jones i l'Última Creuada, LOOM, El Dia del Tentacle i tres jocs de la saga Monkey Island.
 
-Un pas més endavant el va dur Id Software amb el seu id Tech. Aquest motor - i les seves evolucions - no només es feu servir per fer jocs com Doom i Doom II d'Id Software, sinó que es va vendre a altres companyies per a fer altres jocs, tot i que aquests jocs serien molt semblants al Doom original. Posteriorment fins hi tot hi va haver companyies que basaven el seu negoci no en vendre jocs, sinó en vendre motors a altres companyies que els fessin servir; és doncs l'aparició definitiva dels motors com a Middleware.
+Un pas més endavant el va dur Id Software amb el seu id Tech. Aquest motor - i les seves evolucions - no només es feu servir per fer jocs com Doom i Doom II d'Id Software, sinó que es va vendre a altres companyies per a fer altres jocs, tot i que aquests jocs serien molt semblants al Doom original. Posteriorment fins i tot hi va haver companyies que basaven el seu negoci no en vendre jocs, sinó en vendre motors a altres companyies que els fessin servir; és doncs l'aparició definitiva dels motors com a Middleware.
 \\
 
 \section{Els sistemes d'entitats}
@@ -40,6 +40,8 @@ Aquesta aproximació sembla senzilla, però acaba comportant diversos problemes.
     A l'inici del disseny, les classes arrels - les més pròximes a l'inici de la jerarquia - són dissenyades inicialment amb poca funcionalitat. A mesura que avança el projecte, i davant del desig de compartir codi i, sobretot, no duplicar-lo, molta funcionalitat va pujant a la jerarquia fins que troba el "comú denominador". A poc a poc, les classes arrels es van fent pesades fins que contenen la major part de funcionalitat, que les seves filles s'han d'encarregar d'activar correctament. Col·lateralment això fa que moltes classes acabin tenint funcionalitat i variables que realment no necessiten, fent que el programa usi més memòria de la necessària, un problema especialment greu en jocs de consola, on la memòria és un bé molt escàs.
     
 \end{description}
+
+Per a més informació sobre els defectes d'aquesta estructura, consultar \cite{Wilson02}.
 
 \subsection{De l'{\em és-un} al {\em conté-un}}
 
@@ -76,12 +78,56 @@ Aquesta aproximació no està pas mancada de defectes, i cal tenir-los en compte
 
 
 
-\section{Implementacions Prèvies}
+\section{Implementacions}
+
+En aquesta secció farem un repàs de diverses implementacions que s'han fet anteriorment, analitzarem les seves característiques i els avantatges i inconvenients d'alguns.
 
 \subsection{Jocs Concrets}
 
+És difícil de rastrejar quins jocs tenien aquesta aproximació, ja que moltes vegades no es fa pública la implementació d'aquestos. Però gràcies als anomenats {\em post-mortemps} en tenim accés a alguns.
+
+\begin{description}
+  \item[Thief] \citep{Leonard99} \hfill \\
+    Potser un dels exemples més antics, encara que segurament no el més antic, ja que el sistema és sempre una evolució d'algun motor usat anteriorment. Basa la seva força en facilitat d'edició mitjançant GUIs i una alta versatilitat, desenvolupant 2 jocs en paral·lel bona part del temps ({\em Thief} i {\em System Shock 2}). Es destaca que en aquests jocs no hi ha cap jerarquia d'objectes en el codi, sinó que tota es crea a partir de dades.
+    
+  \item[Tony Hawk's Pro Skater 3] \citep{West07} \hfill \\
+    En aquest exemple veiem la necessitat d'una companyia de treure jocs amb una alta freqüència (un a l'any) i com, a poc a poc evolucionant cap a un sistema d'entitats fetes amb agregació de components. El canvi de jerarquies en el codi a objectes creats via dades fou lent i al principi contraproduent, però 2 anys després de començar el canvi els resultats es feren evidents, on el joc va guanyar en velocitat d'execució i els creadors en temps de producció.
+    
+  \item[Dungeon Siege] \citep{Bilas02} \hfill \\
+    Potser dels més coneguts, sinó el més referenciat, Dungeon Siege anava equipat amb un sistema de components que permetia crear aquests components tant en {\em C++} com amb {\em Skirt}, un llenguatge propi del joc. Aquesta flexibilitat, i una aproximació a les dades molt similar a una Base de Dades Relacional va cridar molt la atenció a la GDC de San José, potser quan els sistemes d'entitats van començar a agafar nom a la indústria.
+    
+\end{description}
+
+
 \subsection{Motors de jocs}
 
+Diversos motors de jocs han seguit aquesta filosofia, tant comercials, oberts o híbrids. En repassarem alguns.
+
+\begin{description}
+  \item[Unity] \url{http://unity3d.com/} \hfill \\
+    Probablement el motor més ambiciós disponible sota aquesta filosofia. Seguint un model de negoci híbrid, ja que pots fer servir una versió limitada de forma gratuïta i accedir a diverses millores pagant, Unity aporta sobretot un editor molt potent, que permet fer gairebé qualsevol cosa que necessites des del mateix editor i veure com queda al joc quasi en temps real. Aquesta aproximació redueix moltíssim els temps de producció i facilita la feina sobretot als dissenyadors, per la facilitat que dóna a prototipar dissenys.
+    
+  \item[Frostbite Engine] \url{http://en.wikipedia.org/wiki/Frostbite_Engine} \hfill \\
+    Motor comercial creat per EA DICE, sucursal sueca d'Electronic Arts, i usat principalment a la saga Battlefield des del 2008.
+    
+  \item[DtEntity, Ember, Grease] \citep{EntityWiki} \hfill \\
+    Projectes OpenSource fets en C++, Flash i Python, respectivament. El seu desenvolupament encara no es pot considerar acabat, però contenen força característiques similars, com el desig de ser multi-plataforma i tenir un editor.
+    
+  \item[TyphonRT] \url{http://www.typhon4android.org/} \hfill \\
+    En principi un Sistema d'Entitats similar al que aquí desenvoluparem, però a data de finalitzar aquest projecte encara no s'ha fet públic i s'espera el llançament per al tercer trimestre del 2011. Entre les seves característiques hi ha la programació via Java, compatibilitat amb Android 1.5+, render via OpenGL/ES.
+  
+\end{description}
+
 \subsection{El nostre tret diferencial}
+
+Havent mirat quines alternatives hi havia fins ara, ens hem marcat un seguit d'objectius que es troben en altres productes, però no de forma conjunta. Aquests són:
+
+\begin{itemize}
+  \item Open Source.
+  \item El sistema d'entitats ha de ser independent dels altres components d'un motor, i transportable d'un motor a un altre.
+  \item Ha de ser multi-plataforma de forma nativa.
+  \item Ha de permetre un desenvolupament ràpid un cop estiguin fets els components bàsics.
+  \item Ha de ser fàcilment paral·lelitzable.
+\end{itemize}
 
 \section{Estructura de la memòria}
