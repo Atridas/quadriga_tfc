@@ -82,7 +82,27 @@ Com es veu a la figura \ref{fig:DiagramaDeModuls}, el programa consta d'un {\em 
 Com ja s'ha comentat, un sistema d'entitats acava sent molt semblant a una Base de Dades relacional, on cada tipus de component equival a una taula, cada entitat a un identificador i en cada fila d'aquestes taules hi ha les dades corresponents. A més, aquesta base de dades ha de complir un seguit d'especificacions:
 
 \begin{itemize}
-  \item aaa
+  \item Els sistemes d'entitats consten de 4 elements bàsics: Entitats, Components, Sistemes i Events.
+  
+  \item Cada Entitat és únicai té un identificador. A més, pot tenir informació de Debug.
+    \begin{itemize}
+      \item Cada entitat pot tenir una entitat Pare associada, de manera que es pugui fer un graf amb les entitats (que sempre tindrà forma d'arbre.
+      \item Cada entitat pot tenir un nom associat.
+      \item Cada parella pare-nom equivaldrà a una única entitat.
+    \end{itemize}
+  \item Cada Component tindrà el seu nom i un identificador únic.
+  
+  \item Cada Sistema tindrà el seu nom i un identificador únic.
+  
+  \item Cada Event tindrà el seu nom i un identificador únic.
+  
+  \item Cada sistema s'ha d'associar amb els Components i Events als quals afecta.
+  
+  \item Cada sistema haurà de guardar un registre de totes les entitats a les que ha afectat en la darrera iteració del joc.
+  
+  \item Quan un Component s'associa a una Entitat, es crea una instància d'aquest component i se'n guarden les dades.
+  
+  \item Cada tipus de component té unes dades associades diferents que es programen mitjançant el llenguatge Quadriga.
 \end{itemize}
 
 L'esquema Entiat-Relació resultant es mostra a la figura \ref{fig:EntitatRelacio}. I la base de dades relacional tindria la forma mostrada a la figura \ref{fig:BBDDRelacional}.
