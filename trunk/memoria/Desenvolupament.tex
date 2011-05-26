@@ -48,11 +48,11 @@ Un component és un conjunt de dades que defineixen l'estat d'una entitat. Hi ha
 \subsubsection{Sistema}
 
 Un Sistema és un Objecte opac que s'encarrega d'una part de la funcionalitat del joc, per exemple:
-\begin{description}
-  \item[Physics System] s'activa cada 17ms i itera sobre totes les entitas amb física i fa un frame de simulació.
-  \item[Rendering System] itera sobre totes les entitas amb representació 2D/3D i les renderitza per pantalla.
-  \item[Script System] itera sobre totes les entitats que tenen un script associat i crida aquest script.
-\end{description}
+\begin{itemize}
+  \item{\bf Physics System} s'activa cada 17ms i itera sobre totes les entitas amb física i fa un frame de simulació.
+  \item{\bf Rendering System} itera sobre totes les entitas amb representació 2D/3D i les renderitza per pantalla.
+  \item{\bf Script System} itera sobre totes les entitats que tenen un script associat i crida aquest script.
+\end{itemize}
 
 Un sistema sap sobre quines entitats ha d'iterar gràcies a saber quins components té associat.
 

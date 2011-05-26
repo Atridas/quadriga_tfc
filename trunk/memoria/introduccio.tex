@@ -5,9 +5,9 @@ Des de l'aparició dels primers videojocs, la seva evolució ha estat sempre emp
 Si mirem aquesta evolució des de més a prop, veiem com al principi els videojocs eren evolucions d'altres jocs típics de bar, màquines escurabutxaques com el pinball serviren d'inspiració per a crear els primers videojocs comercials, amb un model de negoci molt semblant. Posteriorment, la necessitat de crear grans quantitats de jocs va obligar als desenvolupadors a crear màquines que poguessin executar més d'un joc i així abaratir costos i finalment, amb l'arribada dels ordinadors personals i les consoles de sobretaula, es comença a desenvolupar un mercat per a jocs sobre plataformes genèriques.
 \\
 
-Poc a poc van apareixent els motors gràfics - programes o mòduls encarregats del renderitzat d'un joc o d'un programa amb gràfics 2D o 3D - o fins i tot motors de joc -una plataforma per desenvolupar-hi un joc a sobre -. En un principi aquests motors s'utilitzaven dintre de la mateixa companyia que el creava. Per exemple LucarArts creà {SCUMM} ({Script Creation Utility for Manic Mansion}) a l'hora que creava la seva aventura gràfica de "Point \& Click" Manic Mansion. Aquest mateix programa fou utilitzat després en altres jocs com Indiana Jones i l'Última Creuada, LOOM, El Dia del Tentacle i tres jocs de la saga Monkey Island.
+Poc a poc van apareixent els motors gràfics - programes o mòduls encarregats del renderitzat d'un joc o d'un programa amb gràfics 2D o 3D - o fins i tot motors de joc - una plataforma per desenvolupar-hi un joc a sobre -. En un principi aquests motors s'utilitzaven dintre de la mateixa companyia que el creava. Per exemple LucarArts creà {SCUMM} ({Script Creation Utility for Manic Mansion}) a l'hora que creava la seva aventura gràfica de "Point \& Click" Manic Mansion (1987). Aquest mateix programa fou utilitzat després en altres jocs com Indiana Jones i l'Última Creuada, LOOM, El Dia del Tentacle i tres jocs de la saga Monkey Island (fins al 1998).
 
-Un pas més endavant el va dur Id Software amb el seu id Tech. Aquest motor - i les seves evolucions - no només es feu servir per fer jocs com Doom i Doom II d'Id Software, sinó que es va vendre a altres companyies per a fer altres jocs, tot i que aquests jocs serien molt semblants al Doom original. Posteriorment fins i tot hi va haver companyies que basaven el seu negoci no en vendre jocs, sinó en vendre motors a altres companyies que els fessin servir; és doncs l'aparició definitiva dels motors com a Middleware.
+Un pas més endavant el va dur Id Software amb el seu {\em id Tech}. Aquest motor - i les seves evolucions - no només es feu servir per fer jocs com Doom (1993) i Doom II (1994) d'Id Software, sinó que es va vendre a altres companyies per a fer altres jocs, tot i que aquests jocs serien molt semblants al Doom original, com serà el Half-Life(1998) basat en el Quaque engine, una evolució de l'{\em id Tech}. Posteriorment fins i tot hi va haver companyies que basaven el seu negoci no en vendre jocs, sinó en vendre motors a altres companyies que els fessin servir; és doncs l'aparició definitiva dels motors com a Middleware.
 \\
 
 \section{Els sistemes d'entitats}
@@ -23,19 +23,27 @@ Quan un programador de {C++} o qualsevol llenguatge orientat a objectes s'asseu 
 
 Aquesta aproximació sembla senzilla, però acaba comportant diversos problemes. Com s'explica a \citep[p.~719]{Gregory09}, les jerarquies massa grans d'objectes pateixen dels següents inconvenients:
 
+
+\begin{wrapfigure}{L}{0.6\textwidth}
+  \centering
+  \includegraphics[width=0.58\linewidth]{./img/RombeMort.png}
+  \caption{Diamant de la mort \label{fig:RombeMort}}
+\end{wrapfigure}
+
 \begin{description}
   \item[Manteniment] \hfill \\
     A més profunda és una classe dintre d'una jerarquia, més costa d'entendre, mantenir i modificar; ja que s'ha d'entendre tant ella com totes les seves classes superiors. Així com modificar una classe mare pot comportar problemes  a classes derivades molt difícils de detectar i arreglar.
     
   \item[Impossibilitat de descriure taxonomies multi-dimensionals] \hfill \\
     Crear classes en forma d'arbre és molt pràctic i sobretot intuïtiu, especialment on a cada nivell es fan separacions respecte un criteri per cada nivell. El problema seriós arriba quan ens trobem amb classificacions que no havíem previst inicialment. Per exemple podríem haver classificat 2 tipus de vehicles: vehicles terrestres i marítims, per posteriorment haver d'afegir vehicles amfibis, repte que ens porta als 2 següents punts.
-    
-  \item[Herència múltiple. El diamant de la mort] \hfill \\
-    La solució naïf del problema anterior seria crear la classe {\em VehicleAmfibi} hereva tant de {\em VehicleTerrestre} com de {\em VehicleMarítim}, cosa que ens porta directament a l'herència múltiple. Com s'explica a \cite[p.~2]{Martin97}, l'herència múltiple causa diversos problemes, moltes vegades més grans que aquells que soluciona. En aquest cas veuríem que la classe {\em VehicleAmfibi} heretaria dues vegades {\em Vehicle}, amb els problemes d'ambigüitat que això duria.
-    
-  \item[Classes Mix-in] \hfill \\
-    Una altra solució és crear un seguit de classes que aportin funcionalitat a diversos llocs de la jerarquia. Aquestes classes, per funcionar bé, cal que siguin heretades només per les fulles i que cap d'elles tingui una classe mare. Per tant diríem que una classe només pot tenir un "avi" en qualsevol cas. Aquesta solució comporta, sobretot, molta disciplina i acaba resultant una solució molt semblant a "agregar" funcionalitat en comptes de heretar-la.
-    
+    \begin{description}
+      \item[Herència múltiple. El diamant de la mort] \hfill \\
+        La solució naïf del problema anterior seria crear la classe {\em VehicleAmfibi} hereva tant de {\em VehicleTerrestre} com de {\em VehicleMarítim}, cosa que ens porta directament a l'herència múltiple. Com s'explica a \cite[p.~2]{Martin97}, l'herència múltiple causa diversos problemes, moltes vegades més grans que aquells que soluciona. En aquest cas veuríem que la classe {\em VehicleAmfibi} heretaria dues vegades {\em Vehicle}, amb els problemes d'ambigüitat que això duria \ref{fig:RombeMort}.
+        
+      \item[Classes Mix-in] \hfill \\
+        Una altra solució per crear taxonomies multi-dimensionals és crear un seguit de classes que aportin funcionalitat a diversos llocs de la jerarquia. Aquestes classes, per funcionar bé, cal que siguin heretades només per les fulles i que cap d'elles tingui una classe mare. Per tant diríem que una classe només pot tenir un "avi" en qualsevol cas. Aquesta solució comporta, sobretot, molta disciplina i acaba resultant una solució molt semblant a "agregar" funcionalitat en comptes de heretar-la.
+        
+    \end{description}
   \item[Efecte bombolla] \hfill \\
     A l'inici del disseny, les classes arrels - les més pròximes a l'inici de la jerarquia - són dissenyades inicialment amb poca funcionalitat. A mesura que avança el projecte, i davant del desig de compartir codi i, sobretot, no duplicar-lo, molta funcionalitat va pujant a la jerarquia fins que troba el "comú denominador". A poc a poc, les classes arrels es van fent pesades fins que contenen la major part de funcionalitat, que les seves filles s'han d'encarregar d'activar correctament. Col·lateralment això fa que moltes classes acabin tenint funcionalitat i variables que realment no necessiten, fent que el programa usi més memòria de la necessària, un problema especialment greu en jocs de consola, on la memòria és un bé molt escàs.
     
@@ -45,7 +53,15 @@ Per a més informació sobre els defectes d'aquesta estructura, consultar \cite{
 
 \subsection{De l'{\em és-un} al {\em conté-un}}
 
-La primera millora, o petit canvi, que es proposa respecte l'aproximació anterior és agregar la funcionalitat en comptes de heretar-la. Si volem crear un objecte amb moviment, que es renderitzi, que col·lisioni i que s'animi - un enemic, per exemple -, abans heretaríem d'una jerarquia on, més amunt o més avall, estigui implementada tota aquesta funcionalitat. Ara, però, el que hauríem de fer és simplement crear un seguit de propietats a la classe {\em Enemic} que apuntin a instàncies d'altres classes que ens aportin cada una la funcionalitat que busquem.
+
+La primera millora, o petit canvi, que es proposa respecte l'aproximació anterior és agregar la funcionalitat en comptes de heretar-la. Si volem crear un objecte amb moviment, que es renderitzi, que col·lisioni i que s'animi - un enemic, per exemple -, abans heretaríem d'una jerarquia on, més amunt o més avall, estigui implementada tota aquesta funcionalitat \ref{fig:EnemicHerencia}. Ara, però, el que hauríem de fer és simplement crear un seguit de propietats a la classe {\em Enemic} que apuntin a instàncies d'altres classes que ens aportin cada una la funcionalitat que busquem \ref{fig:EnemicAgregacio}.
+
+\begin{wrapfigure}{L}{0.6\textwidth}
+  \centering
+  \subfloat[Estructura per herència]{\label{fig:EnemicHerencia}\includegraphics[width=0.23\textwidth]{./img/EnemicHerencia.png}}
+  \hspace{0.08\textwidth}
+  \subfloat[Estructura per composició]{\label{fig:EnemicAgregacio}\includegraphics[width=0.27\textwidth]{./img/EnemicAgregacio.png}}
+\end{wrapfigure}
 
 Dintre d'aquest esquema, les classes que aporten funcionalitat són moltes vegades anomenades {\em Components} o {\em objectes-servidors}, ja que són les que componen els objectes finals.
 \\
@@ -86,7 +102,7 @@ En aquesta secció farem un repàs de diverses implementacions que s'han fet ant
 
 \subsection{Jocs Concrets}
 
-És difícil de rastrejar quins jocs tenien aquesta aproximació, ja que moltes vegades no es fa pública la implementació d'aquestos. Però gràcies als anomenats {\em post-mortemps} en tenim accés a alguns.
+És difícil de rastrejar quins jocs tenen una estructura d'agregació en comptes d'herència, ja que moltes vegades no es fa pública la implementació d'aquestos. Però gràcies als anomenats {\em post-mortemps} en tenim accés a alguns.
 
 \begin{description}
   \item[Thief] \citep{Leonard99} \hfill \\
