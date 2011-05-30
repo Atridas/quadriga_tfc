@@ -27,9 +27,9 @@ Ja s'ha dit en la introducció quins punts de disseny seguirà el llenguatge, qu
 
 \subsection{Definicions pròpies del llenguatge Quadriga}
 
-Aqui explicaré les definicions bàsiques de conceptes pròpis del Sistema d'entitats Quadriga. Per a més informació consultar \cite{EntityWikiB} o \cite{Martin07}, llocs d'on he tret la inspiració bàsica per crear aquest sistema.
+Aquí explicaré les definicions bàsiques de conceptes propis del Sistema d'entitats Quadriga. Per a més informació consultar \cite{EntityWikiB} o \cite{Martin07}, llocs d'on he tret la inspiració bàsica per crear aquest sistema.
 
-Esencialment es tracta de crear una API idèntica a una Base de Dades relacional on:
+Essencialment es tracta de crear una API idèntica a una Base de Dades relacional on:
 
 \begin{itemize}
   \item Les claus primàries són les "Entitats"
@@ -39,18 +39,18 @@ Esencialment es tracta de crear una API idèntica a una Base de Dades relacional
 
 \subsubsection{Entitat}
 
-En un nivell molt concret, una entitat és simplement un enter, o identificador, únic. A nivell més abstracte, una entitat és tot aquell objecte que apareix d'alguna manera en un joc. Pot ser des de l'avatar del jugador, als items que recull, passant per elements d'una GUI, o escenaris estàtics.
+En un nivell molt concret, una entitat és simplement un enter, o identificador, únic. A nivell més abstracte, una entitat és tot aquell objecte que apareix d'alguna manera en un joc. Pot ser des de l'avatar del jugador, als ítems que recull, passant per elements d'una GUI, o escenaris estàtics.
 
 \subsubsection{Component}
 
-Un component és un conjunt de dades que defineixen l'estat d'una entitat. Hi ha diferents tipus de components i cada un aporta diferentes dades. Cada component també du associada certa funcionalitat, però aquesta mai es troba dintre del mateix component, sinó en un sistema (tenint sempre una separació de "codi" i "dades".
+Un component és un conjunt de dades que defineixen l'estat d'una entitat. Hi ha diferents tipus de components i cada un aporta diferents dades. Cada component també du associada certa funcionalitat, però aquesta mai es troba dintre del mateix component, sinó en un sistema (tenint sempre una separació de "codi" i "dades".
 
 \subsubsection{Sistema}
 
 Un Sistema és un Objecte opac que s'encarrega d'una part de la funcionalitat del joc, per exemple:
 \begin{itemize}
-  \item{\bf Physics System} s'activa cada 17ms i itera sobre totes les entitas amb física i fa un frame de simulació.
-  \item{\bf Rendering System} itera sobre totes les entitas amb representació 2D/3D i les renderitza per pantalla.
+  \item{\bf Physics System} s'activa cada 17ms i itera sobre totes les entitats amb física i fa un frame de simulació.
+  \item{\bf Rendering System} itera sobre totes les entitats amb representació 2D/3D i les renderitza per pantalla.
   \item{\bf Script System} itera sobre totes les entitats que tenen un script associat i crida aquest script.
 \end{itemize}
 
@@ -62,7 +62,7 @@ Un Thread és una agrupació de sistemes que s'han d'executar en un ordre establ
 
 \subsubsection{Prototip}
 
-Un prototip és una eina que ajuda a crear entitats. Conceptualment és semblant a una funció que inserta els components necessaris amb els parametres que toquen per crear-la. És, com el seu nom indica, el prototip de un tipus d'entitats.
+Un prototip és una eina que ajuda a crear entitats. Conceptualment és semblant a una funció que insereix els components necessaris amb els paràmetres que toquen per crear-la. És, com el seu nom indica, el prototip de un tipus d'entitats.
 
 \subsubsection{Main}
 
@@ -79,12 +79,12 @@ Com es veu a la figura \ref{fig:DiagramaDeModuls}, el programa consta d'un {\em 
 
 \section{Model de Dades}
 
-Com ja s'ha comentat, un sistema d'entitats acava sent molt semblant a una Base de Dades relacional, on cada tipus de component equival a una taula, cada entitat a un identificador i en cada fila d'aquestes taules hi ha les dades corresponents. A més, aquesta base de dades ha de complir un seguit d'especificacions:
+Com ja s'ha comentat, un sistema d'entitats acaba sent molt semblant a una Base de Dades relacional, on cada tipus de component equival a una taula, cada entitat a un identificador i en cada fila d'aquestes taules hi ha les dades corresponents. A més, aquesta base de dades ha de complir un seguit d'especificacions:
 
 \begin{itemize}
   \item Els sistemes d'entitats consten de 4 elements bàsics: Entitats, Components, Sistemes i Events.
   
-  \item Cada Entitat és únicai té un identificador. A més, pot tenir informació de Debug.
+  \item Cada Entitat és única i té un identificador. A més, pot tenir informació de Debug.
     \begin{itemize}
       \item Cada entitat pot tenir una entitat Pare associada, de manera que es pugui fer un graf amb les entitats (que sempre tindrà forma d'arbre.
       \item Cada entitat pot tenir un nom associat.
