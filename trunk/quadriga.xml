@@ -11,9 +11,9 @@
             <Keywords name="Folder-"></Keywords>
             <Keywords name="Operators">- ! ( ) , . : ; [ ] { | } + &lt; = &gt;</Keywords>
             <Keywords name="Comment">1/* 2*/ 0//</Keywords>
-            <Keywords name="Words1">package abstract public static class throw if else new for do while break continue extends implements delete switch case return @remove @add @system @struct @component @prototype @const @components @additionalInfo @ @externInfo @event @newEntity @eraseEntity @change @update @quadriga @thread @init @systems @affectedSystems @changed @discard @old @child @java @main @cleanUp @find @newComponent</Keywords>
+            <Keywords name="Words1">package abstract public static class throw if else new for do while break continue extends implements delete switch case return @remove @add @system @struct @component @prototype @const @components @additionalInfo @ @externInfo @event @newEntity @eraseEntity @change @update @quadriga @thread @init @systems @affectedSystems @changed @discard @old @child @java @main @cleanUp @find @newComponent @rnd</Keywords>
             <Keywords name="Words2">String float int float bool Entity Color boolean Matrix4f Matrix3f Matrix2f Quat4f Vector2f Vector3f Vector4f void Integer</Keywords>
-            <Keywords name="Words3">rnd rndi true false null this</Keywords>
+            <Keywords name="Words3">true false null this</Keywords>
             <Keywords name="Words4">EVENT ENTITY DELTA_TIME</Keywords>
         </KeywordLists>
         <Styles>

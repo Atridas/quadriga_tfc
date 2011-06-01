@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +17,7 @@ import cat.quadriga.runtime.qvm.DataBaseEntitySystem;
 
 public class Quadriga {
 
-  public static void main(String[] args) throws SQLException {
+  public static void main(String[] args) {
     DataBaseEntitySystem ces = new DataBaseEntitySystem();
     
     String firstFile = args[0].substring(0,args[0].lastIndexOf('.')).replace('.', '/') + ".qdg";

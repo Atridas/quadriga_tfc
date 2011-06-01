@@ -1,0 +1,33 @@
+\chapter{Conclusions i Millores}
+
+S'ha dissenyat i implementat un {\bf compilador} i un {\bf entorn d'execució} per al prototipatge i/o programació de videojocs. Algunes conclusions del projecte són:
+
+\begin{itemize}
+  \item S'ha dissenyat un llenguatge de programació que segueix el paradigma dels {\em Sistemes d'Entitats}.
+  \item S'ha creat un subratllador de sintaxi per facilitar la seva programació.
+  \item S'ha implementat un joc d'exemple basat en el clàssic {\bf Tetris}.
+  \item S'ha desenvolupat una petita llibreria bàsica per a renderitzar textos i alguns formes geomètriques simples.
+\end{itemize}
+
+Com a {\bf incidències} importants cal destacar:
+
+\begin{itemize}
+  \item Degut a limitacions de temps, no s'ha pogut implementar un compilador complert, sinó que es fa servir un intèrpret. En principi només cal implementar el pas final a bytecode per a que tot funcioni correctament i a una velocitat molt més alta i amb un consum de memòria menor (el intèrpret actual usa memòria de forma massa intensiva).
+  \item La idea d'usar una base de dades {\em SQL} no ha donat resultats massa bons, ja que consumeix molts recursos. Tot i això, es pot fer servir amb poques modificacions per tal de guardar l'estat del joc (funcionalitat de partida guardada) i carregar-lo de forma molt simple.
+  \item Degut als dos punts anteriors, no s'ha pogut fer un anàlisi del rendiment de la plataforma correcte, ja que les dues coses consumeixen molts recursos i es fa molt difícil de trobar colls d'ampolla fora dels dos punts anteriors, o fins hi tot distingir quin dels dos és més problemàtic.
+\end{itemize}
+
+Com a possibles {\bf millores} que aportar al projecte:
+
+\begin{itemize}
+  \item Solucionar les dues incidències principals esmentades anteriorment.
+  \item Ampliar la llibreria estàndard per incloure la següent funcionalitat:
+  \begin{itemize}
+    \item Renderitzar formes geomètriques arbitràries (actualment només se suporten cubs, esferes i textos).
+    \item Crear una manera de renderitzar models animats per esquelet.
+    \item Ampliar els materials per a tenir efectes més complexos.
+    \item Afegir funcionalitat de so.
+    \item Afegir funcionalitat de joc en xarxa.
+  \end{itemize}
+  \item Crear un plug-in de la {\bf IDE} {\em Eclipse} per a desenvolupar i debugar més fàcilment.
+\end{itemize}

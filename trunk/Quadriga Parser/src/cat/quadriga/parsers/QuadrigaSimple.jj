@@ -175,7 +175,7 @@ public class QuadrigaSimple
    public QuadrigaSimple(String fileName)
    {
       this(System.in);
-      try { ReInit(new FileInputStream(new File(fileName))); }
+      try { ReInit(new FileInputStream(new File(fileName)), "UTF-8"); }
       catch(Exception e) { e.printStackTrace(); }
       file = fileName;
    }
