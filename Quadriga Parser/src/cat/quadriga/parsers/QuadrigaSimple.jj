@@ -4508,7 +4508,7 @@ void SystemDeclaration():
                errorLog.insertError("Més d'un event igual al sistema " + t.image, eaf.fun);
              }
            }
-           //|AtChange()|AtNew()|AtDelete()|AtEvent()
+           //|AtChange()
          )*
     "}"
     {
