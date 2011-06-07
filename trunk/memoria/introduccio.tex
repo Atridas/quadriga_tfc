@@ -38,7 +38,7 @@ Aquesta aproximació sembla senzilla, però acaba comportant diversos problemes.
     Crear classes en forma d'arbre és molt pràctic i sobretot intuïtiu, especialment on a cada nivell es fan separacions respecte un criteri per cada nivell. El problema seriós arriba quan ens trobem amb classificacions que no havíem previst inicialment. Per exemple podríem haver classificat 2 tipus de vehicles: vehicles terrestres i marítims, per posteriorment haver d'afegir vehicles amfibis, repte que ens porta als 2 següents punts.
     \begin{description}
       \item[Herència múltiple. El diamant de la mort] \hfill \\
-        La solució naïf del problema anterior seria crear la classe {\em VehicleAmfibi} hereva tant de {\em VehicleTerrestre} com de {\em VehicleMarítim}, cosa que ens porta directament a l'herència múltiple. Com s'explica a \cite[p.~2]{Martin97}, l'herència múltiple causa diversos problemes, moltes vegades més grans que aquells que soluciona. En aquest cas veuríem que la classe {\em VehicleAmfibi} heretaria dues vegades {\em Vehicle}, amb els problemes d'ambigüitat que això duria \ref{fig:RombeMort}.
+        La solució naïf del problema anterior seria crear la classe {\em VehicleAmfibi} hereva tant de {\em VehicleTerrestre} com de {\em VehicleMarítim}, cosa que ens porta directament a l'herència múltiple. Com s'explica a \cite[p.~2]{Martin97}, l'herència múltiple causa diversos problemes, moltes vegades més grans que aquells que soluciona. En aquest cas veuríem que la classe {\em VehicleAmfibi} heretaria dues vegades {\em Vehicle}, amb els problemes d'ambigüitat que això duria (figura \ref{fig:RombeMort}).
         
       \item[Classes Mix-in] \hfill \\
         Una altra solució per crear taxonomies multi-dimensionals és crear un seguit de classes que aportin funcionalitat a diversos llocs de la jerarquia. Aquestes classes, per funcionar bé, cal que siguin heretades només per les fulles i que cap d'elles tingui una classe mare. Per tant diríem que una classe només pot tenir un "avi" en qualsevol cas. Aquesta solució comporta, sobretot, molta disciplina i acaba resultant una solució molt semblant a "agregar" funcionalitat en comptes d'heretar-la.
@@ -54,13 +54,14 @@ Per a més informació sobre els defectes d'aquesta estructura, consultar \cite{
 \subsection{De l'{\em és-un} al {\em conté-un}}
 
 
-La primera millora, o petit canvi, que es proposa respecte l'aproximació anterior és agregar la funcionalitat en comptes d'heretar-la. Si volem crear un objecte amb moviment, que es renderitzi, que col·lisioni i que s'animi - un enemic, per exemple -, abans heretaríem d'una jerarquia on, més amunt o més avall, estigui implementada tota aquesta funcionalitat \ref{fig:EnemicHerencia}. Ara, però, el que hauríem de fer és simplement crear un seguit de propietats a la classe {\em Enemic} que apuntin a instàncies d'altres classes que ens aportin cada una la funcionalitat que busquem \ref{fig:EnemicAgregacio}.
+La primera millora, o petit canvi, que es proposa respecte l'aproximació anterior és agregar la funcionalitat en comptes d'heretar-la. Si volem crear un objecte amb moviment, que es renderitzi, que col·lisioni i que s'animi - un enemic, per exemple -, abans heretaríem d'una jerarquia on, més amunt o més avall, estigui implementada tota aquesta funcionalitat (figura \ref{fig:EnemicHerencia}). Ara, però, el que hauríem de fer és simplement crear un seguit de propietats a la classe {\em Enemic} que apuntin a instàncies d'altres classes que ens aportin cada una la funcionalitat que busquem (figura \ref{fig:EnemicAgregacio}).
 
 \begin{figure}
   \centering
   \subfloat[Estructura per herència]{\label{fig:EnemicHerencia}\includegraphics[width=0.23\textwidth]{./img/EnemicHerencia.png}}
   \hspace{0.08\textwidth}
   \subfloat[Estructura per composició]{\label{fig:EnemicAgregacio}\includegraphics[width=0.27\textwidth]{./img/EnemicAgregacio.png}}
+  \caption{Comparació d'herència i composició. \label{fig:HerenciaAgregacio}}
 \end{figure}
 
 Dintre d'aquest esquema, les classes que aporten funcionalitat són moltes vegades anomenades {\em Components} o {\em objectes-servidors}, ja que són les que componen els objectes finals.
@@ -135,18 +136,6 @@ Diversos motors de jocs han seguit aquesta filosofia, tant comercials, oberts o 
     En principi un Sistema d'Entitats similar al que aquí desenvoluparem, però a data de finalitzar aquest projecte encara no s'ha fet públic i s'espera el llançament per al tercer trimestre del 2011. Entre les seves característiques hi ha la programació via Java, compatibilitat amb Android 1.5+, render via OpenGL/ES.
   
 \end{description}
-
-\subsection{El nostre tret diferencial}
-
-Havent mirat quines alternatives hi havia fins ara, ens hem marcat un seguit d'objectius que es troben en altres productes, però no de forma conjunta. Aquests són:
-
-\begin{itemize}
-  \item Open Source.
-  \item El sistema d'entitats ha de ser independent dels altres components d'un motor, i transportable d'un motor a un altre.
-  \item Ha de ser multi-plataforma de forma nativa.
-  \item Ha de permetre un desenvolupament ràpid un cop estiguin fets els components bàsics.
-  \item Ha de ser fàcilment paral·lelitzable.
-\end{itemize}
 
 \section{Estructura de la memòria}
 

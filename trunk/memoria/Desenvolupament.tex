@@ -6,24 +6,24 @@ En una segona secció, explicaré quins són els mòduls del programa resultant 
 
 \section{Disseny}
 
-Ja s'ha dit en la introducció quins punts de disseny seguirà el llenguatge, que s'anomena Quadriga en honor a un dels esports amb més renom disputats als Jocs Olímpics Clàssics, aquí parlarem de com s'ha tractat cada punt per, posteriorment, fer un resum de la seva estructura.
+A la introducció, s'han descrit diferents aproximacions als sistemes d'entitats. Aqui hem decidit remarcar 5 principis de disseny per a definir el nostre, tal que tingui algun tret diferencial respecte als anteriors. El llenguatge, que s'anomena Quadriga en honor a un dels esports amb més renom disputats als Jocs Olímpics Clàssics, tindrà les següents característiques:
 
-\begin{description}
-  \item[Open Source] \hfill \\
+\begin{itemize}
+  \item {\bf Open Source} \hfill \\
     El codi del projecte s'ha penjat públicament a GoogleCode sota una llicència LGPL, que permet usar-la lliurement amb la única restricció d'haver de publicar els canvis fets sobre la mateixa llibreria sota la mateixa llicència. També s'ha optat per fer servir només llibreries OpenSource com l'analitzador de sintaxi {\em JavaCC}, la llibreria gràfica {\em LWJGL} i la base de dades {\em HSQLDB}.
     
-  \item[El sistema d'entitats ha de ser independent] \hfill \\
+  \item {\bf El sistema d'entitats ha de ser independent} \hfill \\
     S'ha optat per separar les {\em dades} de la funcionalitat, podent crear implementacions diferents per les mateixes dades, fent així que que fins hi tot puguem substituir totes les classes encarregades de renderitzar l'escena sense haver de tocar una línia de la definició de les entitats.
     
-  \item[Ha de ser multi-plataforma de forma nativa] \hfill \\
+  \item {\bf Ha de ser multi-plataforma de forma nativa} \hfill \\
     S'ha optat per programar sobre Java, i usar únicament llibreries escrites totalment amb Java o, en cas necessari, amb codi natiu multi-plataforma. S'intenta el màxim possible que no s'hagi de fer codi dependent de la plataforma.
     
-  \item[Ha de permetre un desenvolupament ràpid un cop estiguin fets els components bàsics] \hfill \\
+  \item {\bf Ha de permetre un desenvolupament ràpid un cop estiguin fets els components bàsics} \hfill \\
     S'ha intentat que la creació d'entitats i la seva interacció sigui el més senzilla possible.
     
-  \item[Ha de ser fàcilment paral·lelitzable] \hfill \\
+  \item {\bf Ha de ser fàcilment paral·lelitzable} \hfill \\
     S'han afegit expressament comportaments indefinits del programa, especialment en l'àmbit de l'ordre d'execució de certs elements, per exemple, d'ordre en que un sistema actualitza les entitats, o l'ordre en que 2 sistemes no relacionats s'actualitzen. D'aquesta manera es permet que el llenguatge mateix crei diferents fils d'execució i els balancegi de forma òptima.
-\end{description}
+\end{itemize}
 
 \subsection{Definicions pròpies del llenguatge Quadriga}
 
@@ -32,9 +32,9 @@ Aquí explicaré les definicions bàsiques de conceptes propis del Sistema d'ent
 Essencialment es tracta de crear una API idèntica a una Base de Dades relacional on:
 
 \begin{itemize}
-  \item Les claus primàries són les "Entitats"
-  \item Cada fila és un array de dades, anomenat "Component"
-  \item Cada taula està associada a un "Component"
+  \item Les claus primàries són les \"{}Entitats\"{}
+  \item Cada fila és un array de dades, anomenat \"{}Component\"{}
+  \item Cada taula està associada a un \"{}Component\"{}
 \end{itemize}
 
 \subsubsection{Entitat}
@@ -55,6 +55,10 @@ Un Sistema és un Objecte opac que s'encarrega d'una part de la funcionalitat de
 \end{itemize}
 
 Un sistema sap sobre quines entitats ha d'iterar gràcies a saber quins components té associat.
+
+\subsubsection{Event}
+
+Un event, o esdeveniment és un objecte que serveix per a passar missatges entre entitats. Aquests events són llençats quan succeeix alguna cosa (un event de input, o un sistema que en llença un) i pot ser tractat per un o més sistemes. Els events es poden llençar a una entitat concreta o fer un broatcast a totes les entitats.
 
 \subsubsection{Thread}
 
