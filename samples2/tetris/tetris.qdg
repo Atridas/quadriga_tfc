@@ -63,7 +63,7 @@
     "Nivell": TextRendererPrototype(text: "Nivell\n" + this[Puntuació].nivell, font: "resources/fonts/comic32.fnt",
                                     [Transform].position: new Vector3f(600.0f, 200.0f, 0.0f))
                              
-    "Línees": TextRendererPrototype(text: "Línees\n" + this[Puntuació].línies, font: "resources/fonts/comic32.fnt",
+    "Línies": TextRendererPrototype(text: "Línies\n" + this[Puntuació].línies, font: "resources/fonts/comic32.fnt",
                                     [Transform].position: new Vector3f(600.0f, 300.0f, 0.0f))
                              
     "Punts": TextRendererPrototype(text: "Punts\n" + this[Puntuació].punts, font: "resources/fonts/comic32.fnt",
@@ -731,7 +731,7 @@
     }
     
     entitat["Punts"][TextRenderer].text = "Punts\n" + entitat[Puntuació].punts;
-    entitat["Línees"][TextRenderer].text = "Línees\n" + entitat[Puntuació].línies;
+    entitat["Línies"][TextRenderer].text = "Línies\n" + entitat[Puntuació].línies;
     entitat["Nivell"][TextRenderer].text = "Nivell\n" + entitat[Puntuació].nivell;
     
     boolean gameover = false;
@@ -745,7 +745,7 @@
       Entity gameOverScreen = @newEntity(null,null);
       @prototype gameOverScreen : TextRendererPrototype(
                                     text: "Game Over\n\nPunts\n" + entitat[Puntuació].punts
-                                        + "\n\nLínees\n" + entitat[Puntuació].línies
+                                        + "\n\nLínies\n" + entitat[Puntuació].línies
                                         + "\n\nNivell\n" + entitat[Puntuació].nivell, 
                                     font: "resources/fonts/comic32.fnt",
                                     [Transform].position: new Vector3f(300.0f, 100.0f, 0.0f));
@@ -759,7 +759,7 @@
     Entity gameOverScreen = @newEntity(null,null);
     @prototype gameOverScreen : TextRendererPrototype(
                                   text: "Game Over\n\nPunts\n" + entitat[Puntuació].punts
-                                      + "\n\nLínees\n" + entitat[Puntuació].línies
+                                      + "\n\nLínies\n" + entitat[Puntuació].línies
                                       + "\n\nNivell\n" + entitat[Puntuació].nivell, 
                                   font: "resources/fonts/comic32.fnt",
                                   [Transform].position: new Vector3f(300.0f, 100.0f, 0.0f));
