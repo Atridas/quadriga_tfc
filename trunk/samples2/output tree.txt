@@ -6226,13 +6226,13 @@
    |           +- St: Apply Prototype to Entity
    |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
    |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
-   |           |  |  +- Op: Literal: "Línees" {Ljava/lang/String;}
+   |           |  |  +- Op: Literal: "Línies" {Ljava/lang/String;}
    |           |  +- cat.quadriga.base.TextRendererPrototype
    |           |  +- St: Named Arguments
    |           |  |  +- quadriga argument
    |           |  |  |  +- text
    |           |  |  |  +- Op: + {Ljava/lang/String;}
-   |           |  |  |     +- Op: Literal: "Línees\n" {Ljava/lang/String;}
+   |           |  |  |     +- Op: Literal: "Línies\n" {Ljava/lang/String;}
    |           |  |  |     +- Op: Component Field: {I}
    |           |  |  |        +- tetris.tetris.Puntuació -> línies
    |           |  |  |        +- Op: Component Access {tetris.tetris.Puntuació}
@@ -8773,7 +8773,7 @@
    |        |                 |  |  |     |  |  |  |     +- Op: Component Access {tetris.tetris.Puntuació}
    |        |                 |  |  |     |  |  |  |        +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
    |        |                 |  |  |     |  |  |  |        +- Op: Type Access: tetris.tetris.Puntuació
-   |        |                 |  |  |     |  |  |  +- Op: Literal: "\n\nLínees\n" {Ljava/lang/String;}
+   |        |                 |  |  |     |  |  |  +- Op: Literal: "\n\nLínies\n" {Ljava/lang/String;}
    |        |                 |  |  |     |  |  +- Op: Component Field: {I}
    |        |                 |  |  |     |  |     +- tetris.tetris.Puntuació -> línies
    |        |                 |  |  |     |  |     +- Op: Component Access {tetris.tetris.Puntuació}
@@ -9306,10 +9306,10 @@
    |                          |  |  +- Op: Component Access {cat.quadriga.base.TextRenderer}
    |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
    |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                          |  |     |  +- Op: Literal: "Línees" {Ljava/lang/String;}
+   |                          |  |     |  +- Op: Literal: "Línies" {Ljava/lang/String;}
    |                          |  |     +- Op: Type Access: cat.quadriga.base.TextRenderer
    |                          |  +- Op: + {Ljava/lang/String;}
-   |                          |     +- Op: Literal: "Línees\n" {Ljava/lang/String;}
+   |                          |     +- Op: Literal: "Línies\n" {Ljava/lang/String;}
    |                          |     +- Op: Component Field: {I}
    |                          |        +- tetris.tetris.Puntuació -> línies
    |                          |        +- Op: Component Access {tetris.tetris.Puntuació}
@@ -9411,7 +9411,7 @@
    |                                      |  |  |     |  |  |  |     +- Op: Component Access {tetris.tetris.Puntuació}
    |                                      |  |  |     |  |  |  |        +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
    |                                      |  |  |     |  |  |  |        +- Op: Type Access: tetris.tetris.Puntuació
-   |                                      |  |  |     |  |  |  +- Op: Literal: "\n\nLínees\n" {Ljava/lang/String;}
+   |                                      |  |  |     |  |  |  +- Op: Literal: "\n\nLínies\n" {Ljava/lang/String;}
    |                                      |  |  |     |  |  +- Op: Component Field: {I}
    |                                      |  |  |     |  |     +- tetris.tetris.Puntuació -> línies
    |                                      |  |  |     |  |     +- Op: Component Access {tetris.tetris.Puntuació}
@@ -9748,7 +9748,7 @@
    |        |                 |  |  |     |  |  |  |     +- Op: Component Access {tetris.tetris.Puntuació}
    |        |                 |  |  |     |  |  |  |        +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
    |        |                 |  |  |     |  |  |  |        +- Op: Type Access: tetris.tetris.Puntuació
-   |        |                 |  |  |     |  |  |  +- Op: Literal: "\n\nLínees\n" {Ljava/lang/String;}
+   |        |                 |  |  |     |  |  |  +- Op: Literal: "\n\nLínies\n" {Ljava/lang/String;}
    |        |                 |  |  |     |  |  +- Op: Component Field: {I}
    |        |                 |  |  |     |  |     +- tetris.tetris.Puntuació -> línies
    |        |                 |  |  |     |  |     +- Op: Component Access {tetris.tetris.Puntuació}
@@ -10281,10 +10281,10 @@
    |                          |  |  +- Op: Component Access {cat.quadriga.base.TextRenderer}
    |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
    |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |                          |  |     |  +- Op: Literal: "Línees" {Ljava/lang/String;}
+   |                          |  |     |  +- Op: Literal: "Línies" {Ljava/lang/String;}
    |                          |  |     +- Op: Type Access: cat.quadriga.base.TextRenderer
    |                          |  +- Op: + {Ljava/lang/String;}
-   |                          |     +- Op: Literal: "Línees\n" {Ljava/lang/String;}
+   |                          |     +- Op: Literal: "Línies\n" {Ljava/lang/String;}
    |                          |     +- Op: Component Field: {I}
    |                          |        +- tetris.tetris.Puntuació -> línies
    |                          |        +- Op: Component Access {tetris.tetris.Puntuació}
@@ -10386,7 +10386,7 @@
    |                                      |  |  |     |  |  |  |     +- Op: Component Access {tetris.tetris.Puntuació}
    |                                      |  |  |     |  |  |  |        +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
    |                                      |  |  |     |  |  |  |        +- Op: Type Access: tetris.tetris.Puntuació
-   |                                      |  |  |     |  |  |  +- Op: Literal: "\n\nLínees\n" {Ljava/lang/String;}
+   |                                      |  |  |     |  |  |  +- Op: Literal: "\n\nLínies\n" {Ljava/lang/String;}
    |                                      |  |  |     |  |  +- Op: Component Field: {I}
    |                                      |  |  |     |  |     +- tetris.tetris.Puntuació -> línies
    |                                      |  |  |     |  |     +- Op: Component Access {tetris.tetris.Puntuació}
