@@ -141,38 +141,41 @@ Començarem amb un anàlisi d'alguns jocs que han seguit aquesta aproximació, s
 Diversos motors de jocs han seguit aquesta filosofia, tant comercials, oberts o híbrids. En repassarem alguns.
 
 \begin{description}
-  \item[Unity] \url{http://unity3d.com/} \hfill \\
+  \item[Unity] (\url{http://unity3d.com/}) \hfill \\
     Probablement el motor més ambiciós disponible sota aquesta filosofia. Seguint un model de negoci híbrid, ja que pots fer servir una versió limitada de forma gratuïta i accedir a diverses millores pagant, Unity aporta sobretot un editor molt potent, que permet fer gairebé qualsevol cosa que necessites des del mateix editor i veure com queda al joc quasi en temps real. Aquesta aproximació redueix moltíssim els temps de producció i facilita la feina sobretot als dissenyadors, per la facilitat que dóna a prototipar dissenys.
     
-  \item[Frostbite Engine] \url{http://en.wikipedia.org/wiki/Frostbite_Engine} \hfill \\
+  \item[Frostbite Engine] (\url{http://en.wikipedia.org/wiki/Frostbite_Engine}) \hfill \\
     Motor comercial creat per EA DICE, sucursal sueca d'Electronic Arts, i usat principalment a la saga Battlefield des del 2008.
     
   \item[DtEntity, Ember, Grease] \citep{EntityWiki} \hfill \\
     Projectes OpenSource fets en C++, Flash i Python, respectivament. El seu desenvolupament encara no es pot considerar acabat, però contenen força característiques similars, com el desig de ser multi-plataforma i tenir un editor.
     
-  \item[TyphonRT] \url{http://www.typhon4android.org/} \hfill \\
+  \item[TyphonRT] (\url{http://www.typhon4android.org/}) \hfill \\
     En principi un Sistema d'Entitats similar al que aquí desenvoluparem, però a data de finalitzar aquest projecte encara no s'ha fet públic i s'espera el llançament per al tercer trimestre del 2011. Entre les seves característiques hi ha la programació via Java, compatibilitat amb Android 1.5+, render via OpenGL/ES.
   
 \end{description}
 
+\subsection{Objectius del projecte}
+
+Tenint en compte quines aproximacions teòriques hi ha, i quines se n'han fet fins ara, s'ha decidit marcar un seguit d'objectius a l'hora de desenvolupar un nou projecte d'aquestes característiques, tal que el facin semblant als anteriors però aportant alguna cosa nova:
+
+\begin{itemize}
+  \item {\bf Open Source} \hfill \\
+    S'ha decidit que aquest projecte ha de poder servir de base a qualsevol altre i ser el màxim d'obert possible. L'objectiu final és, doncs, fer una eina que qualsevol pugui fer servir.
+    
+  \item {\bf Independent} \hfill \\
+    Un joc està format per molts móduls, i el sistema d'entitats ha de poder utilitzar aquests móduls, però no dependre d'ells.
+    
+  \item {\bf Multi-plataforma de forma nativa} \hfill \\
+    Intentar que un programa desenvolupat usant aquest projecte sobre una plataforma, per exemple Windows, funcioni a qualsevol altre, per exemple GNU/Linux sense fer grans ajustaments.
+    
+  \item {\bf Permetre un desenvolupament ràpid un cop estiguin fets els components bàsics} \hfill \\
+    L'objectiu és que sigui fàcil prototipar i iterar. El projecte ha de permetre crear peces de forma molt complerta i després usar-les de forma molt senzilla.
+    
+  \item {\bf Fàcilment paral·lelitzable} \hfill \\
+    Veient la evolució actual dels processadors, sembla evident que els futurs programes per aprofitar les capacitats d'aquests han de poder executar tasques en paral·lel. Un dels objectius és minimitzar l'esforç que l'usuari dediqui a aquesta tasca donant el màxim d'elements ja fets.
+\end{itemize}
+
 \section{Estructura de la memòria}
 
-Aquesta memòria consta de 5 parts.
-
-\begin{description}
-  \item[Introducció] \hfill \\
-    Aquesta secció, on s'ha introduït el model dels sistemes d'entitats, la seva història i la necessitat de fer-los servir. També s'ha tractat els trets del nostre.
-    
-  \item[Desenvolupament del Projecte] \hfill \\
-    Aquesta secció tractarà del disseny del llenguatge Quadriga, que ens permetrà definir {\em Components} i {\em Sistemes} així com executar un programa usant-los. També es parlarà de com és l'execució d'un programa així i com està construït tant el compilador com l'intèrpret.
-    
-  \item[Resultats] \hfill \\
-    En aquesta secció veurem l'exemple d'un joc creat a partir de Quadriga i n'analitzarem el rendiment en diversos sentits.
-    
-  \item[Conclusions i Millores] \hfill \\
-    Revisarem el funcionament respecte al disseny inicial i proposarem millores que s'hi podrien afegir.
-  
-  \item[Annexos] \hfill \\
-    En els annexos hi haurà informació sobre com crear un programa sobre Quadriga, d'on obtenir-ne el codi i fins hi tot com col·laborar en la seva millora.
-    
-\end{description}
+Aquesta memòria consta de 5 parts. Aquesta secció, on s'ha introduït el model dels sistemes d'entitats, la seva història i la necessitat de fer-los servir. També s'han tractat els objectius del nostre projecte. A continuació vindrà el {\bf Desenvolupament}, on es tractarà del disseny del llenguatge Quadriga, que ens permetrà definir {\em Components} i {\em Sistemes} així com executar un programa usant-los. També es parlarà de com és l'execució d'un programa així i com està construït tant el compilador com l'intèrpret. Seguidament es veurà l'exemple d'un joc creat a partir de Quadriga i s'analitzarà el rendiment en diversos sentits. Finalment es revisarà el funcionament respecte al disseny inicial i es proposaran millores que s'hi podrien afegir; i els annexos hi haurà informació sobre com crear un programa sobre Quadriga, d'on obtenir-ne el codi i fins hi tot com col·laborar en la seva millora.
