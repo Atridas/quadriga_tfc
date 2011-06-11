@@ -68,11 +68,29 @@ En aquest capítol es parlarà primer del disseny del llenguatge en trets genera
   \begin{itemize}
     \item{\bf Entitat}
 
-      En un nivell molt concret, una entitat és simplement un enter, o identificador, únic. A nivell més abstracte, una entitat és tot aquell objecte que apareix d'alguna manera en un joc. Pot ser des de l'avatar del jugador, als ítems que recull, passant per elements d'una GUI, o escenaris estàtics.
+      En un nivell molt concret, una entitat és simplement un enter, o identificador, únic. A nivell més abstracte, una entitat és tot aquell objecte que apareix d'alguna manera en un joc.
+      
+      En general, qualsevol element del joc pot ser una entitat. Des de l'escenari, o parts de l'escenari, a l'avatar del jugador, cada enemic o PNJ (personatge no jugador), ítems, etc... Fins hi tot poden haver entitats més abstractes, que creïn els programadors, com una entitat que representi un nivell, o la GUI (Graphical User Interface), o fins hi tot un diàleg.
 
+      Quadriga no permet definir un tipus de dades \"{}Entitat\"{} en si, sinó ja la té definida com a tipus bàsic i permet d'instanciar-ne de noves, eliminar-les, afegir i treure components i aplicar-li prototips (explicats més endavant).
+      
+      També és important introduir la idea de que les entitats formen una jerarquia en forma d'arbre. Per exemple podem crear un personatge capaç de dur diverses armes. Sabem que les armes sempre s'hauran de veure a la mà d'aquest personatge, per tal de fer-ho, indiquem que l'arma duta per el personatge és filla d'aquest a la jerarquia.
+      
     \item{\bf Component}
 
       Un component és un conjunt de dades que defineixen l'estat d'una entitat. Hi ha diferents tipus de components i cada un aporta diferents dades. Cada component també du associada certa funcionalitat, però aquesta mai es troba dintre del mateix component, sinó en un sistema (tenint sempre una separació de codi i dades, molt semblant l'esquema Model-View-Controller).
+      
+      Com a exemples tindríem: Transformació de l'objecte (la translació i rotació que un objecte té respecte l'origen del món), Objecte animat (component que indica quin model s'ha d'utilitzar per a renderitzar l'entitat, a més pot contenir informació de quines animacions té, etc...), Component de IA que indicaria quines coses sap l'entitat tal que el sistema o mòdul de IA pot fer servir per a prendre decisions, etc\ldots
+      
+      Per a definir un component, Quadriga permet d'assignar-li un identificador i la llista de dades que contindrà. Addicionalment es permet de llistar requisits, o sigui, altres components que prèviament una entitat necessita tenir per tal de poder tenir aquest.
+      
+    \item{\bf Event}
+
+      Un event, o esdeveniment és un objecte que serveix per a passar missatges entre entitats. Aquests events són llençats quan succeeix alguna cosa (un event de input, o un sistema que en llença un) i pot ser tractat per un o més sistemes. Els events es poden llençar a una entitat concreta o fer un broatcast a totes les entitats.
+      
+      Exemples en tindríem: cada possible ordre que el jugador dóna al joc; com moure cap a endavant, disparar, activar un ordinador\ldots També podríem tenir events per indicar-li a una entitat que ha estat impactada per una bala, o que li diguessin que ha mort, de tal manera que es pugui activa la animació corresponent, etc\ldots
+
+      Un event es declara a Quadriga de forma molt similar a un Component. Només cal indicar-ne el nom i quina informació aportarà.
 
     \item{\bf Sistema}
 
@@ -85,23 +103,40 @@ En aquest capítol es parlarà primer del disseny del llenguatge en trets genera
 
       Un sistema sap sobre quines entitats ha d'iterar al saber quins components té associada cada entitat. Per exemple el sistema de física iterarà sobre totes aquelles entitats que tinguin algun component que descrigui informació física, i no tocarà cap altre entitat.
 
-    \item{\bf Event}
-
-      Un event, o esdeveniment és un objecte que serveix per a passar missatges entre entitats. Aquests events són llençats quan succeeix alguna cosa (un event de input, o un sistema que en llença un) i pot ser tractat per un o més sistemes. Els events es poden llençar a una entitat concreta o fer un broatcast a totes les entitats.
-
+      La creació d'un sistema en Quadriga és la més complexa: cal especificar-li un identificador i sobre quin tipus d'entitats actua, o sigui, quins components han de tenir entitats. Després permet declarar un seguit de funcions que entren en quatre categories bàsiques:
+      
+      \begin{enumerate}
+        \item {\bf Creació i destrucció d'entitats} Es cridaran cada cop que una entitat aparegui per primera o última vegada, respectivament, entre les entitats afectades per aquest sistema.
+        \item {\bf Actualització d'entitats} Es cridarà cada tick del joc.
+        \item {\bf Events} Permet especificar una funció per cada tipus d'Event, que es cridarà cada vegada que una entitat pertanyent al sistema sigui afectada per aquest event.
+        \item {\bf Inicialització i neteja del sistema} Es cridaran una vegada a l'inici i final de l'execució del programa.
+      \end{enumerate}
+      
     \item{\bf Thread}
 
       Un Thread és una agrupació de sistemes que s'han d'executar en un ordre establert, seguint així unes garanties.
+      
+      Normalment agrupen els sistemes de formes temàtiques: Thread de IA, Thread de física, Thread de renderitzar, Thread de lógica, etc\ldots
+      
+      Per especificar un Thread en Quadriga cal indicar-ne el nom, quins sistemes contindrà (l'ordre és important) i a més permet crear mètodes d'inicialització i finalització que es cridaran a l'inici i final de l'execució del programa.
 
     \item{\bf Prototip}
 
       Un prototip és una eina que ajuda a crear entitats. Conceptualment és semblant a una funció que insereix els components necessaris amb els paràmetres que toquen per crear-la. És, com el seu nom indica, el prototip de un tipus d'entitats.
+      
+      Un exemple força típic és tenir un prototip per a cada tipus d'enemic del joc, i a l'hora de crear els enemics d'un nivell s'indica de quin tipus són i s'afegeix informació concreta de cada instància: com la posició, el grup al qual pertanyen, etc\ldots És molt important remarcar que els prototips només serveixen per crear entitats i aquestes no recorden quin prototip les ha instanciat.
+      
+      La creació d'un prototip en Quadriga és similar a la d'una funció, on s'especifiquen component a component com es construeix una entitat. A més permet de crear altres entitats \"{}filles\"{}, tal que es pugui crear un subarbre d'entitats cridant un sol prototip.
 
     \item{\bf Main}
 
       L'Objecte Main defineix quins threads executa l'aplicació i una funció d'inicialització de la mateixa. Quan s'executa un programa Quadriga, s'ha d'especificar el nom d'un objecte tipus Main per a executar.
     
+      Un Main es declara a Quadriga indicant quins Threads ha de crear, i afegint funcions d'inicialització i finalització.
+    
   \end{itemize}
+  
+  Per a més informació sobre el llenguatge en sí, consultar l'apèndix \ref{chap:llenguatgeQ}.
 
 \section{Model de Dades}
 
