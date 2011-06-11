@@ -14,7 +14,7 @@ El cas més important, i el que en aquest treball ens centrarem és en la defini
 
 \section{Evolució en les mecàniques dels jocs}
 
-La lògica dels jocs, també conegudes com a mecàniques, són les normes que defineixen els jocs. Aquestes normes estan compostes per diversos elements, que interactuen entre ells de forma més o menys complexa. En aquesta secció explicarem l'evolució que han anat prenen els métodes que tenen els desenvolupadors per a definir aquestes normes; des d'una aproximació geràrquica i intuitiva, agrupant els elements per característiques comunes, fins a una de menys intuitiva, però més flexible, on cada comportament es defineix de forma independent i cada element agafa aquells comportaments que li interessen.
+La lògica dels jocs, també conegudes com a mecàniques, són les normes que defineixen els jocs. Aquestes normes estan compostes per diversos elements, que interactuen entre ells de forma més o menys complexa. En aquesta secció explicarem l'evolució que han anat prenen els mètodes que tenen els desenvolupadors per a definir aquestes normes; des d'una aproximació jeràrquica i intuïtiva, agrupant els elements per característiques comunes, fins a una de menys intuïtiva, però més flexible, on cada comportament es defineix de forma independent i cada element agafa aquells comportaments que li interessen.
 
 \subsection{L'aproximació clàssica}
 
@@ -117,11 +117,11 @@ Finalment diríem que un sistema d'entitats és aquell {\bf sistema} que regeix 
 
 En aquesta secció farem un repàs de diverses implementacions de sistemes d'entitats que s'han fet anteriorment, analitzarem les seves característiques i els avantatges i inconvenients d'alguns.
 
-Començarem amb un anàlisi d'alguns jocs que han seguit aquesta aproximació, seguidament parlarem de motors de jocs i finalment parlarem del nostre motor, i quines característiques tindrà que el diferenciin dels anteriors.
+Començarem amb un anàlisi d'alguns jocs que han seguit aquesta aproximació, seguidament parlarem de motors de jocs i finalment parlarem del nostre motor, i quines característiques tindrà que el diferenciïn dels anteriors.
 
 \subsection{Jocs Concrets}
 
-És difícil de rastrejar quins jocs tenen una estructura d'agregació en comptes d'herència, ja que moltes vegades no es fa pública la implementació d'aquestos. Però gràcies als anomenats {\em post-mortemps} en tenim accés a alguns.
+És difícil de rastrejar quins jocs tenen una estructura d'agregació en comptes d'herència, ja que moltes vegades no es fa pública la implementació d'aquestos. Però gràcies als anomenats {\em post-mortemps} (Documents que s'escriuen un cop finalitzat un joc, on se n'analitza el desenvolupament, es busca quines coses han anat bé i quines no i s'intenta fer auto-crítica de cara a millorar el desenvolupament dels següents projectes) en tenim accés a alguns.
 
 \begin{description}
   \item[Thief] \citep{Leonard99} \hfill \\
@@ -164,7 +164,7 @@ Tenint en compte quines aproximacions teòriques hi ha, i quines se n'han fet fi
     S'ha decidit que aquest projecte ha de poder servir de base a qualsevol altre i ser el màxim d'obert possible. L'objectiu final és, doncs, fer una eina que qualsevol pugui fer servir.
     
   \item {\bf Independent} \hfill \\
-    Un joc està format per molts móduls, i el sistema d'entitats ha de poder utilitzar aquests móduls, però no dependre d'ells.
+    Un joc està format per molts mòduls, i el sistema d'entitats ha de poder utilitzar aquests mòduls, però no dependre d'ells.
     
   \item {\bf Multi-plataforma de forma nativa} \hfill \\
     Intentar que un programa desenvolupat usant aquest projecte sobre una plataforma, per exemple Windows, funcioni a qualsevol altre, per exemple GNU/Linux sense fer grans ajustaments.

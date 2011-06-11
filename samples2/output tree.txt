@@ -324,6 +324,7 @@
    |     |                    |                       +- St: Block
    |     |                    |                          +- Local Variables:
    |     |                    |                          |  +- Symbol Var [ tipus ] Type [ I ]
+   |     |                    |                          |  +- Symbol Var [ peçaSegüent ] Type [ Lcat/quadriga/runtime/Entity; ]
    |     |                    |                          +- Code:
    |     |                    |                             +- St: Statements:
    |     |                    |                             |  +- St: =
@@ -352,6 +353,16 @@
    |     |                    |                             |  +- Op: Array Access {I}
    |     |                    |                             |     +- Op: Local variable access: py {[I}
    |     |                    |                             |     +- Op: Literal: 3 {I}
+   |     |                    |                             +- St: Statements:
+   |     |                    |                             |  +- St: =
+   |     |                    |                             |     +- Op: Local variable access: peçaSegüent {Lcat/quadriga/runtime/Entity;}
+   |     |                    |                             |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |     |                    |                             |        +- Op: Component Field: {Lcat/quadriga/runtime/Entity;}
+   |     |                    |                             |        |  +- tetris.tetris.CPeça -> taulell
+   |     |                    |                             |        |  +- Op: Component Access {tetris.tetris.CPeça}
+   |     |                    |                             |        |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |     |                    |                             |        |     +- Op: Type Access: tetris.tetris.CPeça
+   |     |                    |                             |        +- Op: Literal: "PeçaSegüent" {Ljava/lang/String;}
    |     |                    |                             +- St: Call to Event tetris.tetris.InsertarPeça
    |     |                    |                             |  +- Op: Component Field: {Lcat/quadriga/runtime/Entity;}
    |     |                    |                             |  |  +- tetris.tetris.CPeça -> taulell
@@ -374,6 +385,16 @@
    |     |                    |                             |        +- Op: Local variable access: py {[I}
    |     |                    |                             +- St: Call to Event tetris.tetris.NovaPeça
    |     |                    |                             |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |     |                    |                             |  +- St: Named Arguments
+   |     |                    |                             |     +- quadriga argument
+   |     |                    |                             |        +- tipus
+   |     |                    |                             |        +- Op: Component Field: {I}
+   |     |                    |                             |           +- tetris.tetris.CPeçaSegüent -> tipus
+   |     |                    |                             |           +- Op: Component Access {tetris.tetris.CPeçaSegüent}
+   |     |                    |                             |              +- Op: Local variable access: peçaSegüent {Lcat/quadriga/runtime/Entity;}
+   |     |                    |                             |              +- Op: Type Access: tetris.tetris.CPeçaSegüent
+   |     |                    |                             +- St: Call to Event tetris.tetris.NovaPeçaSegüent
+   |     |                    |                             |  +- Op: Local variable access: peçaSegüent {Lcat/quadriga/runtime/Entity;}
    |     |                    |                             |  +- St: Named Arguments
    |     |                    |                             |     +- quadriga argument
    |     |                    |                             |        +- tipus
@@ -2188,6 +2209,7 @@
    |        |                                +- St: Block
    |        |                                   +- Local Variables:
    |        |                                   |  +- Symbol Var [ tipus ] Type [ I ]
+   |        |                                   |  +- Symbol Var [ peçaSegüent ] Type [ Lcat/quadriga/runtime/Entity; ]
    |        |                                   +- Code:
    |        |                                      +- St: Statements:
    |        |                                      |  +- St: =
@@ -2216,6 +2238,16 @@
    |        |                                      |  +- Op: Array Access {I}
    |        |                                      |     +- Op: Local variable access: py {[I}
    |        |                                      |     +- Op: Literal: 3 {I}
+   |        |                                      +- St: Statements:
+   |        |                                      |  +- St: =
+   |        |                                      |     +- Op: Local variable access: peçaSegüent {Lcat/quadriga/runtime/Entity;}
+   |        |                                      |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |        |                                      |        +- Op: Component Field: {Lcat/quadriga/runtime/Entity;}
+   |        |                                      |        |  +- tetris.tetris.CPeça -> taulell
+   |        |                                      |        |  +- Op: Component Access {tetris.tetris.CPeça}
+   |        |                                      |        |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |        |                                      |        |     +- Op: Type Access: tetris.tetris.CPeça
+   |        |                                      |        +- Op: Literal: "PeçaSegüent" {Ljava/lang/String;}
    |        |                                      +- St: Call to Event tetris.tetris.InsertarPeça
    |        |                                      |  +- Op: Component Field: {Lcat/quadriga/runtime/Entity;}
    |        |                                      |  |  +- tetris.tetris.CPeça -> taulell
@@ -2238,6 +2270,16 @@
    |        |                                      |        +- Op: Local variable access: py {[I}
    |        |                                      +- St: Call to Event tetris.tetris.NovaPeça
    |        |                                      |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |        |                                      |  +- St: Named Arguments
+   |        |                                      |     +- quadriga argument
+   |        |                                      |        +- tipus
+   |        |                                      |        +- Op: Component Field: {I}
+   |        |                                      |           +- tetris.tetris.CPeçaSegüent -> tipus
+   |        |                                      |           +- Op: Component Access {tetris.tetris.CPeçaSegüent}
+   |        |                                      |              +- Op: Local variable access: peçaSegüent {Lcat/quadriga/runtime/Entity;}
+   |        |                                      |              +- Op: Type Access: tetris.tetris.CPeçaSegüent
+   |        |                                      +- St: Call to Event tetris.tetris.NovaPeçaSegüent
+   |        |                                      |  +- Op: Local variable access: peçaSegüent {Lcat/quadriga/runtime/Entity;}
    |        |                                      |  +- St: Named Arguments
    |        |                                      |     +- quadriga argument
    |        |                                      |        +- tipus
@@ -2811,6 +2853,7 @@
    |     +- tetris.input.InputManager
    |     +- tetris.tetris.LlògicaTaulell
    |     +- tetris.tetris.LlògicaPeça
+   |     +- tetris.tetris.LlògicaPeçaSegüent
    +- "LlògicaPeça" : Symbol Type
    |  +- System <+>
    |     +- needed components
@@ -3074,6 +3117,7 @@
    |     |                    |                       +- St: Block
    |     |                    |                          +- Local Variables:
    |     |                    |                          |  +- Symbol Var [ tipus ] Type [ I ]
+   |     |                    |                          |  +- Symbol Var [ peçaSegüent ] Type [ Lcat/quadriga/runtime/Entity; ]
    |     |                    |                          +- Code:
    |     |                    |                             +- St: Statements:
    |     |                    |                             |  +- St: =
@@ -3102,6 +3146,16 @@
    |     |                    |                             |  +- Op: Array Access {I}
    |     |                    |                             |     +- Op: Local variable access: py {[I}
    |     |                    |                             |     +- Op: Literal: 3 {I}
+   |     |                    |                             +- St: Statements:
+   |     |                    |                             |  +- St: =
+   |     |                    |                             |     +- Op: Local variable access: peçaSegüent {Lcat/quadriga/runtime/Entity;}
+   |     |                    |                             |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |     |                    |                             |        +- Op: Component Field: {Lcat/quadriga/runtime/Entity;}
+   |     |                    |                             |        |  +- tetris.tetris.CPeça -> taulell
+   |     |                    |                             |        |  +- Op: Component Access {tetris.tetris.CPeça}
+   |     |                    |                             |        |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |     |                    |                             |        |     +- Op: Type Access: tetris.tetris.CPeça
+   |     |                    |                             |        +- Op: Literal: "PeçaSegüent" {Ljava/lang/String;}
    |     |                    |                             +- St: Call to Event tetris.tetris.InsertarPeça
    |     |                    |                             |  +- Op: Component Field: {Lcat/quadriga/runtime/Entity;}
    |     |                    |                             |  |  +- tetris.tetris.CPeça -> taulell
@@ -3124,6 +3178,16 @@
    |     |                    |                             |        +- Op: Local variable access: py {[I}
    |     |                    |                             +- St: Call to Event tetris.tetris.NovaPeça
    |     |                    |                             |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |     |                    |                             |  +- St: Named Arguments
+   |     |                    |                             |     +- quadriga argument
+   |     |                    |                             |        +- tipus
+   |     |                    |                             |        +- Op: Component Field: {I}
+   |     |                    |                             |           +- tetris.tetris.CPeçaSegüent -> tipus
+   |     |                    |                             |           +- Op: Component Access {tetris.tetris.CPeçaSegüent}
+   |     |                    |                             |              +- Op: Local variable access: peçaSegüent {Lcat/quadriga/runtime/Entity;}
+   |     |                    |                             |              +- Op: Type Access: tetris.tetris.CPeçaSegüent
+   |     |                    |                             +- St: Call to Event tetris.tetris.NovaPeçaSegüent
+   |     |                    |                             |  +- Op: Local variable access: peçaSegüent {Lcat/quadriga/runtime/Entity;}
    |     |                    |                             |  +- St: Named Arguments
    |     |                    |                             |     +- quadriga argument
    |     |                    |                             |        +- tipus
@@ -4938,6 +5002,7 @@
    |        |                                +- St: Block
    |        |                                   +- Local Variables:
    |        |                                   |  +- Symbol Var [ tipus ] Type [ I ]
+   |        |                                   |  +- Symbol Var [ peçaSegüent ] Type [ Lcat/quadriga/runtime/Entity; ]
    |        |                                   +- Code:
    |        |                                      +- St: Statements:
    |        |                                      |  +- St: =
@@ -4966,6 +5031,16 @@
    |        |                                      |  +- Op: Array Access {I}
    |        |                                      |     +- Op: Local variable access: py {[I}
    |        |                                      |     +- Op: Literal: 3 {I}
+   |        |                                      +- St: Statements:
+   |        |                                      |  +- St: =
+   |        |                                      |     +- Op: Local variable access: peçaSegüent {Lcat/quadriga/runtime/Entity;}
+   |        |                                      |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |        |                                      |        +- Op: Component Field: {Lcat/quadriga/runtime/Entity;}
+   |        |                                      |        |  +- tetris.tetris.CPeça -> taulell
+   |        |                                      |        |  +- Op: Component Access {tetris.tetris.CPeça}
+   |        |                                      |        |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |        |                                      |        |     +- Op: Type Access: tetris.tetris.CPeça
+   |        |                                      |        +- Op: Literal: "PeçaSegüent" {Ljava/lang/String;}
    |        |                                      +- St: Call to Event tetris.tetris.InsertarPeça
    |        |                                      |  +- Op: Component Field: {Lcat/quadriga/runtime/Entity;}
    |        |                                      |  |  +- tetris.tetris.CPeça -> taulell
@@ -4988,6 +5063,16 @@
    |        |                                      |        +- Op: Local variable access: py {[I}
    |        |                                      +- St: Call to Event tetris.tetris.NovaPeça
    |        |                                      |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |        |                                      |  +- St: Named Arguments
+   |        |                                      |     +- quadriga argument
+   |        |                                      |        +- tipus
+   |        |                                      |        +- Op: Component Field: {I}
+   |        |                                      |           +- tetris.tetris.CPeçaSegüent -> tipus
+   |        |                                      |           +- Op: Component Access {tetris.tetris.CPeçaSegüent}
+   |        |                                      |              +- Op: Local variable access: peçaSegüent {Lcat/quadriga/runtime/Entity;}
+   |        |                                      |              +- Op: Type Access: tetris.tetris.CPeçaSegüent
+   |        |                                      +- St: Call to Event tetris.tetris.NovaPeçaSegüent
+   |        |                                      |  +- Op: Local variable access: peçaSegüent {Lcat/quadriga/runtime/Entity;}
    |        |                                      |  +- St: Named Arguments
    |        |                                      |     +- quadriga argument
    |        |                                      |        +- tipus
@@ -5545,6 +5630,622 @@
    |                             |     |  +- Op: Literal: "cub4" {Ljava/lang/String;}
    |                             |     +- Op: Type Access: cat.quadriga.base.Transform
    |                             +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   +- "tetris.tetris.LlògicaPeçaSegüent" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |     |  +- tetris.tetris.CPeçaSegüent
+   |     +- EventHandlers
+   |        +- tetris.tetris.NovaPeçaSegüent
+   |           +- Quadriga function
+   |              +- parameters
+   |              |  +- parameter
+   |              |  |  +- tetris.tetris.NovaPeçaSegüent
+   |              |  |  +- event
+   |              |  |  +- Semantic: EVENT
+   |              |  +- parameter
+   |              |     +- Lcat/quadriga/runtime/Entity;
+   |              |     +- entitat
+   |              |     +- Semantic: ENTITY
+   |              +- St: Block
+   |                 +- Code:
+   |                    +- St: Block
+   |                       +- Local Variables:
+   |                       |  +- Symbol Var [ px ] Type [ [I ]
+   |                       |  +- Symbol Var [ py ] Type [ [I ]
+   |                       |  +- Symbol Var [ color ] Type [ Ljavax/vecmath/Vector3f; ]
+   |                       |  +- Symbol Var [ pos ] Type [ Ljavax/vecmath/Vector3f; ]
+   |                       +- Code:
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {I}
+   |                          |  |  +- tetris.tetris.CPeçaSegüent -> tipus
+   |                          |  |  +- Op: Component Access {tetris.tetris.CPeçaSegüent}
+   |                          |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     +- Op: Type Access: tetris.tetris.CPeçaSegüent
+   |                          |  +- Op: Event Field: {I}
+   |                          |     +- tetris.tetris.NovaPeçaSegüent -> tipus
+   |                          |     +- Op: Local variable access: event {tetris.tetris.NovaPeçaSegüent}
+   |                          +- St: Statements:
+   |                          |  +- St: =
+   |                          |     +- Op: Local variable access: px {[I}
+   |                          |     +- Op: Component Field: {[I}
+   |                          |        +- tetris.tetris.CPeçaSegüent -> px
+   |                          |        +- Op: Component Access {tetris.tetris.CPeçaSegüent}
+   |                          |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |           +- Op: Type Access: tetris.tetris.CPeçaSegüent
+   |                          +- St: Statements:
+   |                          |  +- St: =
+   |                          |     +- Op: Local variable access: py {[I}
+   |                          |     +- Op: Component Field: {[I}
+   |                          |        +- tetris.tetris.CPeçaSegüent -> py
+   |                          |        +- Op: Component Access {tetris.tetris.CPeçaSegüent}
+   |                          |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |           +- Op: Type Access: tetris.tetris.CPeçaSegüent
+   |                          +- St: Statements:
+   |                          +- St: switch
+   |                          |  +- Op: Event Field: {I}
+   |                          |  |  +- tetris.tetris.NovaPeçaSegüent -> tipus
+   |                          |  |  +- Op: Local variable access: event {tetris.tetris.NovaPeçaSegüent}
+   |                          |  +- case
+   |                          |  |  +- Op: Literal: 1 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 1 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  |  +- Op: Literal: 6 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 1 {I}
+   |                          |  |  |     +- Op: = {I}
+   |                          |  |  |        +- Op: Array Access {I}
+   |                          |  |  |        |  +- Op: Local variable access: py {[I}
+   |                          |  |  |        |  +- Op: Literal: 2 {I}
+   |                          |  |  |        +- Op: = {I}
+   |                          |  |  |           +- Op: Array Access {I}
+   |                          |  |  |           |  +- Op: Local variable access: py {[I}
+   |                          |  |  |           |  +- Op: Literal: 3 {I}
+   |                          |  |  |           +- Op: Literal: 17 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |  +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |     +- Ljavax/vecmath/Vector3f;
+   |                          |  |  |     +- St: Arguments
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  +- St: break
+   |                          |  +- case
+   |                          |  |  +- Op: Literal: 2 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 1 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 1 {I}
+   |                          |  |  |     +- Op: Literal: 16 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 3 {I}
+   |                          |  |  |     +- Op: Literal: 17 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |  +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |     +- Ljavax/vecmath/Vector3f;
+   |                          |  |  |     +- St: Arguments
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  +- St: break
+   |                          |  +- case
+   |                          |  |  +- Op: Literal: 3 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 1 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  |  +- Op: Literal: 6 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 1 {I}
+   |                          |  |  |     +- Op: Literal: 17 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 3 {I}
+   |                          |  |  |     +- Op: Literal: 16 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |  +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |     +- Ljavax/vecmath/Vector3f;
+   |                          |  |  |     +- St: Arguments
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  +- St: break
+   |                          |  +- case
+   |                          |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 1 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 1 {I}
+   |                          |  |  |     +- Op: Literal: 17 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 3 {I}
+   |                          |  |  |     +- Op: Literal: 16 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |  +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |     +- Ljavax/vecmath/Vector3f;
+   |                          |  |  |     +- St: Arguments
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  +- St: break
+   |                          |  +- case
+   |                          |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 1 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 1 {I}
+   |                          |  |  |     +- Op: = {I}
+   |                          |  |  |        +- Op: Array Access {I}
+   |                          |  |  |        |  +- Op: Local variable access: py {[I}
+   |                          |  |  |        |  +- Op: Literal: 2 {I}
+   |                          |  |  |        +- Op: Literal: 17 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  |  +- Op: Literal: 16 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |  +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |     +- Ljavax/vecmath/Vector3f;
+   |                          |  |  |     +- St: Arguments
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  +- St: break
+   |                          |  +- case
+   |                          |  |  +- Op: Literal: 6 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 1 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: Literal: 6 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 1 {I}
+   |                          |  |  |     +- Op: = {I}
+   |                          |  |  |        +- Op: Array Access {I}
+   |                          |  |  |        |  +- Op: Local variable access: py {[I}
+   |                          |  |  |        |  +- Op: Literal: 2 {I}
+   |                          |  |  |        +- Op: Literal: 17 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  |  +- Op: Literal: 16 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |  +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |     +- Ljavax/vecmath/Vector3f;
+   |                          |  |  |     +- St: Arguments
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  +- St: break
+   |                          |  +- case
+   |                          |     +- Op: Literal: 7 {I}
+   |                          |     +- St: =
+   |                          |     |  +- Op: Array Access {I}
+   |                          |     |  |  +- Op: Local variable access: px {[I}
+   |                          |     |  |  +- Op: Literal: 0 {I}
+   |                          |     |  +- Op: Literal: 3 {I}
+   |                          |     +- St: =
+   |                          |     |  +- Op: Array Access {I}
+   |                          |     |  |  +- Op: Local variable access: px {[I}
+   |                          |     |  |  +- Op: Literal: 1 {I}
+   |                          |     |  +- Op: Literal: 4 {I}
+   |                          |     +- St: =
+   |                          |     |  +- Op: Array Access {I}
+   |                          |     |  |  +- Op: Local variable access: px {[I}
+   |                          |     |  |  +- Op: Literal: 2 {I}
+   |                          |     |  +- Op: Literal: 5 {I}
+   |                          |     +- St: =
+   |                          |     |  +- Op: Array Access {I}
+   |                          |     |  |  +- Op: Local variable access: px {[I}
+   |                          |     |  |  +- Op: Literal: 3 {I}
+   |                          |     |  +- Op: Literal: 4 {I}
+   |                          |     +- St: =
+   |                          |     |  +- Op: Array Access {I}
+   |                          |     |  |  +- Op: Local variable access: py {[I}
+   |                          |     |  |  +- Op: Literal: 0 {I}
+   |                          |     |  +- Op: = {I}
+   |                          |     |     +- Op: Array Access {I}
+   |                          |     |     |  +- Op: Local variable access: py {[I}
+   |                          |     |     |  +- Op: Literal: 1 {I}
+   |                          |     |     +- Op: = {I}
+   |                          |     |        +- Op: Array Access {I}
+   |                          |     |        |  +- Op: Local variable access: py {[I}
+   |                          |     |        |  +- Op: Literal: 2 {I}
+   |                          |     |        +- Op: Literal: 17 {I}
+   |                          |     +- St: =
+   |                          |     |  +- Op: Array Access {I}
+   |                          |     |  |  +- Op: Local variable access: py {[I}
+   |                          |     |  |  +- Op: Literal: 3 {I}
+   |                          |     |  +- Op: Literal: 16 {I}
+   |                          |     +- St: =
+   |                          |     |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |                          |     |     +- Ljavax/vecmath/Vector3f;
+   |                          |     |     +- St: Arguments
+   |                          |     |        +- Op: Literal: 1.0 {F}
+   |                          |     |        +- Op: Literal: 1.0 {F}
+   |                          |     |        +- Op: Literal: 1.0 {F}
+   |                          |     +- St: break
+   |                          +- St: for
+   |                          |  +- Local Variables:
+   |                          |  |  +- Symbol Var [ i ] Type [ I ]
+   |                          |  +- St: Statements:
+   |                          |  |  +- St: =
+   |                          |  |     +- Op: Local variable access: i {I}
+   |                          |  |     +- Op: Literal: 0 {I}
+   |                          |  +- Op: < {Z}
+   |                          |  |  +- Op: Local variable access: i {I}
+   |                          |  |  +- Op: Literal: 4 {I}
+   |                          |  +- St: Statements:
+   |                          |  |  +- St: Statement From Expression : ++X
+   |                          |  |     +- Op: Local variable access: i {I}
+   |                          |  +- St: Block
+   |                          |     +- Code:
+   |                          |        +- St: =
+   |                          |           +- Op: Array Access {I}
+   |                          |           |  +- Op: Local variable access: px {[I}
+   |                          |           |  +- Op: Local variable access: i {I}
+   |                          |           +- Op: - {I}
+   |                          |              +- Op: Array Access {I}
+   |                          |              |  +- Op: Local variable access: px {[I}
+   |                          |              |  +- Op: Local variable access: i {I}
+   |                          |              +- Op: Literal: 15 {I}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {[I}
+   |                          |  |  +- tetris.tetris.CPeçaSegüent -> px
+   |                          |  |  +- Op: Component Access {tetris.tetris.CPeçaSegüent}
+   |                          |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     +- Op: Type Access: tetris.tetris.CPeçaSegüent
+   |                          |  +- Op: Local variable access: px {[I}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {[I}
+   |                          |  |  +- tetris.tetris.CPeçaSegüent -> py
+   |                          |  |  +- Op: Component Access {tetris.tetris.CPeçaSegüent}
+   |                          |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     +- Op: Type Access: tetris.tetris.CPeçaSegüent
+   |                          |  +- Op: Local variable access: py {[I}
+   |                          +- St: Statements:
+   |                          +- St: =
+   |                          |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |     +- cat.quadriga.base.Transform -> position
+   |                          |     +- Op: Component Access {cat.quadriga.base.Transform}
+   |                          |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |        |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |        |  +- Op: Literal: "cub1" {Ljava/lang/String;}
+   |                          |        +- Op: Type Access: cat.quadriga.base.Transform
+   |                          +- St: =
+   |                          |  +- Op: Field: {F}
+   |                          |  |  +- javax.vecmath.Tuple3f -> x
+   |                          |  |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: * {F}
+   |                          |     +- Op: Array Access {I}
+   |                          |     |  +- Op: Local variable access: px {[I}
+   |                          |     |  +- Op: Literal: 0 {I}
+   |                          |     +- Op: Literal: 2.0 {F}
+   |                          +- St: =
+   |                          |  +- Op: Field: {F}
+   |                          |  |  +- javax.vecmath.Tuple3f -> z
+   |                          |  |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: * {F}
+   |                          |     +- Op: Array Access {I}
+   |                          |     |  +- Op: Local variable access: py {[I}
+   |                          |     |  +- Op: Literal: 0 {I}
+   |                          |     +- Op: Literal: 2.0 {F}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |  |  +- cat.quadriga.base.Transform -> position
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.Transform}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "cub1" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.Transform
+   |                          |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |  |  +- cat.quadriga.base.ColoredMaterial -> color
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.ColoredMaterial}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "cub1" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.ColoredMaterial
+   |                          |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          +- St: =
+   |                          |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |     +- cat.quadriga.base.Transform -> position
+   |                          |     +- Op: Component Access {cat.quadriga.base.Transform}
+   |                          |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |        |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |        |  +- Op: Literal: "cub2" {Ljava/lang/String;}
+   |                          |        +- Op: Type Access: cat.quadriga.base.Transform
+   |                          +- St: =
+   |                          |  +- Op: Field: {F}
+   |                          |  |  +- javax.vecmath.Tuple3f -> x
+   |                          |  |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: * {F}
+   |                          |     +- Op: Array Access {I}
+   |                          |     |  +- Op: Local variable access: px {[I}
+   |                          |     |  +- Op: Literal: 1 {I}
+   |                          |     +- Op: Literal: 2.0 {F}
+   |                          +- St: =
+   |                          |  +- Op: Field: {F}
+   |                          |  |  +- javax.vecmath.Tuple3f -> z
+   |                          |  |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: * {F}
+   |                          |     +- Op: Array Access {I}
+   |                          |     |  +- Op: Local variable access: py {[I}
+   |                          |     |  +- Op: Literal: 1 {I}
+   |                          |     +- Op: Literal: 2.0 {F}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |  |  +- cat.quadriga.base.Transform -> position
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.Transform}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "cub2" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.Transform
+   |                          |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |  |  +- cat.quadriga.base.ColoredMaterial -> color
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.ColoredMaterial}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "cub2" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.ColoredMaterial
+   |                          |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          +- St: =
+   |                          |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |     +- cat.quadriga.base.Transform -> position
+   |                          |     +- Op: Component Access {cat.quadriga.base.Transform}
+   |                          |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |        |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |        |  +- Op: Literal: "cub3" {Ljava/lang/String;}
+   |                          |        +- Op: Type Access: cat.quadriga.base.Transform
+   |                          +- St: =
+   |                          |  +- Op: Field: {F}
+   |                          |  |  +- javax.vecmath.Tuple3f -> x
+   |                          |  |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: * {F}
+   |                          |     +- Op: Array Access {I}
+   |                          |     |  +- Op: Local variable access: px {[I}
+   |                          |     |  +- Op: Literal: 2 {I}
+   |                          |     +- Op: Literal: 2.0 {F}
+   |                          +- St: =
+   |                          |  +- Op: Field: {F}
+   |                          |  |  +- javax.vecmath.Tuple3f -> z
+   |                          |  |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: * {F}
+   |                          |     +- Op: Array Access {I}
+   |                          |     |  +- Op: Local variable access: py {[I}
+   |                          |     |  +- Op: Literal: 2 {I}
+   |                          |     +- Op: Literal: 2.0 {F}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |  |  +- cat.quadriga.base.Transform -> position
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.Transform}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "cub3" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.Transform
+   |                          |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |  |  +- cat.quadriga.base.ColoredMaterial -> color
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.ColoredMaterial}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "cub3" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.ColoredMaterial
+   |                          |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          +- St: =
+   |                          |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |     +- cat.quadriga.base.Transform -> position
+   |                          |     +- Op: Component Access {cat.quadriga.base.Transform}
+   |                          |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |        |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |        |  +- Op: Literal: "cub4" {Ljava/lang/String;}
+   |                          |        +- Op: Type Access: cat.quadriga.base.Transform
+   |                          +- St: =
+   |                          |  +- Op: Field: {F}
+   |                          |  |  +- javax.vecmath.Tuple3f -> x
+   |                          |  |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: * {F}
+   |                          |     +- Op: Array Access {I}
+   |                          |     |  +- Op: Local variable access: px {[I}
+   |                          |     |  +- Op: Literal: 3 {I}
+   |                          |     +- Op: Literal: 2.0 {F}
+   |                          +- St: =
+   |                          |  +- Op: Field: {F}
+   |                          |  |  +- javax.vecmath.Tuple3f -> z
+   |                          |  |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: * {F}
+   |                          |     +- Op: Array Access {I}
+   |                          |     |  +- Op: Local variable access: py {[I}
+   |                          |     |  +- Op: Literal: 3 {I}
+   |                          |     +- Op: Literal: 2.0 {F}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |  |  +- cat.quadriga.base.Transform -> position
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.Transform}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "cub4" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.Transform
+   |                          |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          +- St: =
+   |                             +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                             |  +- cat.quadriga.base.ColoredMaterial -> color
+   |                             |  +- Op: Component Access {cat.quadriga.base.ColoredMaterial}
+   |                             |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                             |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                             |     |  +- Op: Literal: "cub4" {Ljava/lang/String;}
+   |                             |     +- Op: Type Access: cat.quadriga.base.ColoredMaterial
+   |                             +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
    +- "ELeft" : Symbol Type
    |  +- Event <+>
    |     +- fields
@@ -5787,9 +6488,6 @@
    |        +- Quadriga Field
    |           +- Lcat/quadriga/runtime/Entity;
    |           +- "taulell"
-   +- "cat.quadriga.base.BillboardRenderer" : Symbol Type
-   |  +- Component <+>
-   |     +- fields
    +- "CilynderRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -5815,6 +6513,9 @@
    |           +- F
    |           +- "radi"
    |           +- Op: Literal: 1.0 {F}
+   +- "cat.quadriga.base.BillboardRenderer" : Symbol Type
+   |  +- Component <+>
+   |     +- fields
    +- "SimpleRenderThread" : Symbol Type
    |  +- thread <+>
    |     +- cat.quadriga.base.SimpleCameraSystem
@@ -6286,6 +6987,15 @@
    |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
    |           |  |  +- Op: Literal: "Peça" {Ljava/lang/String;}
    |           |  +- tetris.tetris.PPeça
+   |           |  +- St: Named Arguments
+   |           |     +- quadriga argument
+   |           |        +- taulell
+   |           |        +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |           +- St: Apply Prototype to Entity
+   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
+   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |           |  |  +- Op: Literal: "PeçaSegüent" {Ljava/lang/String;}
+   |           |  +- tetris.tetris.PPeçaSegüent
    |           |  +- St: Named Arguments
    |           |     +- quadriga argument
    |           |        +- taulell
@@ -6964,6 +7674,622 @@
    |              |           +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
    |              |           +- Op: Literal: "Camera" {Ljava/lang/String;}
    |              +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   +- "LlògicaPeçaSegüent" : Symbol Type
+   |  +- System <+>
+   |     +- needed components
+   |     |  +- tetris.tetris.CPeçaSegüent
+   |     +- EventHandlers
+   |        +- tetris.tetris.NovaPeçaSegüent
+   |           +- Quadriga function
+   |              +- parameters
+   |              |  +- parameter
+   |              |  |  +- tetris.tetris.NovaPeçaSegüent
+   |              |  |  +- event
+   |              |  |  +- Semantic: EVENT
+   |              |  +- parameter
+   |              |     +- Lcat/quadriga/runtime/Entity;
+   |              |     +- entitat
+   |              |     +- Semantic: ENTITY
+   |              +- St: Block
+   |                 +- Code:
+   |                    +- St: Block
+   |                       +- Local Variables:
+   |                       |  +- Symbol Var [ px ] Type [ [I ]
+   |                       |  +- Symbol Var [ py ] Type [ [I ]
+   |                       |  +- Symbol Var [ color ] Type [ Ljavax/vecmath/Vector3f; ]
+   |                       |  +- Symbol Var [ pos ] Type [ Ljavax/vecmath/Vector3f; ]
+   |                       +- Code:
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {I}
+   |                          |  |  +- tetris.tetris.CPeçaSegüent -> tipus
+   |                          |  |  +- Op: Component Access {tetris.tetris.CPeçaSegüent}
+   |                          |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     +- Op: Type Access: tetris.tetris.CPeçaSegüent
+   |                          |  +- Op: Event Field: {I}
+   |                          |     +- tetris.tetris.NovaPeçaSegüent -> tipus
+   |                          |     +- Op: Local variable access: event {tetris.tetris.NovaPeçaSegüent}
+   |                          +- St: Statements:
+   |                          |  +- St: =
+   |                          |     +- Op: Local variable access: px {[I}
+   |                          |     +- Op: Component Field: {[I}
+   |                          |        +- tetris.tetris.CPeçaSegüent -> px
+   |                          |        +- Op: Component Access {tetris.tetris.CPeçaSegüent}
+   |                          |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |           +- Op: Type Access: tetris.tetris.CPeçaSegüent
+   |                          +- St: Statements:
+   |                          |  +- St: =
+   |                          |     +- Op: Local variable access: py {[I}
+   |                          |     +- Op: Component Field: {[I}
+   |                          |        +- tetris.tetris.CPeçaSegüent -> py
+   |                          |        +- Op: Component Access {tetris.tetris.CPeçaSegüent}
+   |                          |           +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |           +- Op: Type Access: tetris.tetris.CPeçaSegüent
+   |                          +- St: Statements:
+   |                          +- St: switch
+   |                          |  +- Op: Event Field: {I}
+   |                          |  |  +- tetris.tetris.NovaPeçaSegüent -> tipus
+   |                          |  |  +- Op: Local variable access: event {tetris.tetris.NovaPeçaSegüent}
+   |                          |  +- case
+   |                          |  |  +- Op: Literal: 1 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 1 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  |  +- Op: Literal: 6 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 1 {I}
+   |                          |  |  |     +- Op: = {I}
+   |                          |  |  |        +- Op: Array Access {I}
+   |                          |  |  |        |  +- Op: Local variable access: py {[I}
+   |                          |  |  |        |  +- Op: Literal: 2 {I}
+   |                          |  |  |        +- Op: = {I}
+   |                          |  |  |           +- Op: Array Access {I}
+   |                          |  |  |           |  +- Op: Local variable access: py {[I}
+   |                          |  |  |           |  +- Op: Literal: 3 {I}
+   |                          |  |  |           +- Op: Literal: 17 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |  +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |     +- Ljavax/vecmath/Vector3f;
+   |                          |  |  |     +- St: Arguments
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  +- St: break
+   |                          |  +- case
+   |                          |  |  +- Op: Literal: 2 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 1 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 1 {I}
+   |                          |  |  |     +- Op: Literal: 16 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 3 {I}
+   |                          |  |  |     +- Op: Literal: 17 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |  +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |     +- Ljavax/vecmath/Vector3f;
+   |                          |  |  |     +- St: Arguments
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  +- St: break
+   |                          |  +- case
+   |                          |  |  +- Op: Literal: 3 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 1 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  |  +- Op: Literal: 6 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 1 {I}
+   |                          |  |  |     +- Op: Literal: 17 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 3 {I}
+   |                          |  |  |     +- Op: Literal: 16 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |  +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |     +- Ljavax/vecmath/Vector3f;
+   |                          |  |  |     +- St: Arguments
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  +- St: break
+   |                          |  +- case
+   |                          |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 1 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 1 {I}
+   |                          |  |  |     +- Op: Literal: 17 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 3 {I}
+   |                          |  |  |     +- Op: Literal: 16 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |  +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |     +- Ljavax/vecmath/Vector3f;
+   |                          |  |  |     +- St: Arguments
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  +- St: break
+   |                          |  +- case
+   |                          |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 1 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 1 {I}
+   |                          |  |  |     +- Op: = {I}
+   |                          |  |  |        +- Op: Array Access {I}
+   |                          |  |  |        |  +- Op: Local variable access: py {[I}
+   |                          |  |  |        |  +- Op: Literal: 2 {I}
+   |                          |  |  |        +- Op: Literal: 17 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  |  +- Op: Literal: 16 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |  +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |     +- Ljavax/vecmath/Vector3f;
+   |                          |  |  |     +- St: Arguments
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  +- St: break
+   |                          |  +- case
+   |                          |  |  +- Op: Literal: 6 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 1 {I}
+   |                          |  |  |  +- Op: Literal: 5 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 2 {I}
+   |                          |  |  |  +- Op: Literal: 6 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: px {[I}
+   |                          |  |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  |  +- Op: Literal: 4 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 0 {I}
+   |                          |  |  |  +- Op: = {I}
+   |                          |  |  |     +- Op: Array Access {I}
+   |                          |  |  |     |  +- Op: Local variable access: py {[I}
+   |                          |  |  |     |  +- Op: Literal: 1 {I}
+   |                          |  |  |     +- Op: = {I}
+   |                          |  |  |        +- Op: Array Access {I}
+   |                          |  |  |        |  +- Op: Local variable access: py {[I}
+   |                          |  |  |        |  +- Op: Literal: 2 {I}
+   |                          |  |  |        +- Op: Literal: 17 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Array Access {I}
+   |                          |  |  |  |  +- Op: Local variable access: py {[I}
+   |                          |  |  |  |  +- Op: Literal: 3 {I}
+   |                          |  |  |  +- Op: Literal: 16 {I}
+   |                          |  |  +- St: =
+   |                          |  |  |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |  +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |                          |  |  |     +- Ljavax/vecmath/Vector3f;
+   |                          |  |  |     +- St: Arguments
+   |                          |  |  |        +- Op: Literal: 0.0 {F}
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  |        +- Op: Literal: 1.0 {F}
+   |                          |  |  +- St: break
+   |                          |  +- case
+   |                          |     +- Op: Literal: 7 {I}
+   |                          |     +- St: =
+   |                          |     |  +- Op: Array Access {I}
+   |                          |     |  |  +- Op: Local variable access: px {[I}
+   |                          |     |  |  +- Op: Literal: 0 {I}
+   |                          |     |  +- Op: Literal: 3 {I}
+   |                          |     +- St: =
+   |                          |     |  +- Op: Array Access {I}
+   |                          |     |  |  +- Op: Local variable access: px {[I}
+   |                          |     |  |  +- Op: Literal: 1 {I}
+   |                          |     |  +- Op: Literal: 4 {I}
+   |                          |     +- St: =
+   |                          |     |  +- Op: Array Access {I}
+   |                          |     |  |  +- Op: Local variable access: px {[I}
+   |                          |     |  |  +- Op: Literal: 2 {I}
+   |                          |     |  +- Op: Literal: 5 {I}
+   |                          |     +- St: =
+   |                          |     |  +- Op: Array Access {I}
+   |                          |     |  |  +- Op: Local variable access: px {[I}
+   |                          |     |  |  +- Op: Literal: 3 {I}
+   |                          |     |  +- Op: Literal: 4 {I}
+   |                          |     +- St: =
+   |                          |     |  +- Op: Array Access {I}
+   |                          |     |  |  +- Op: Local variable access: py {[I}
+   |                          |     |  |  +- Op: Literal: 0 {I}
+   |                          |     |  +- Op: = {I}
+   |                          |     |     +- Op: Array Access {I}
+   |                          |     |     |  +- Op: Local variable access: py {[I}
+   |                          |     |     |  +- Op: Literal: 1 {I}
+   |                          |     |     +- Op: = {I}
+   |                          |     |        +- Op: Array Access {I}
+   |                          |     |        |  +- Op: Local variable access: py {[I}
+   |                          |     |        |  +- Op: Literal: 2 {I}
+   |                          |     |        +- Op: Literal: 17 {I}
+   |                          |     +- St: =
+   |                          |     |  +- Op: Array Access {I}
+   |                          |     |  |  +- Op: Local variable access: py {[I}
+   |                          |     |  |  +- Op: Literal: 3 {I}
+   |                          |     |  +- Op: Literal: 16 {I}
+   |                          |     +- St: =
+   |                          |     |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |                          |     |     +- Ljavax/vecmath/Vector3f;
+   |                          |     |     +- St: Arguments
+   |                          |     |        +- Op: Literal: 1.0 {F}
+   |                          |     |        +- Op: Literal: 1.0 {F}
+   |                          |     |        +- Op: Literal: 1.0 {F}
+   |                          |     +- St: break
+   |                          +- St: for
+   |                          |  +- Local Variables:
+   |                          |  |  +- Symbol Var [ i ] Type [ I ]
+   |                          |  +- St: Statements:
+   |                          |  |  +- St: =
+   |                          |  |     +- Op: Local variable access: i {I}
+   |                          |  |     +- Op: Literal: 0 {I}
+   |                          |  +- Op: < {Z}
+   |                          |  |  +- Op: Local variable access: i {I}
+   |                          |  |  +- Op: Literal: 4 {I}
+   |                          |  +- St: Statements:
+   |                          |  |  +- St: Statement From Expression : ++X
+   |                          |  |     +- Op: Local variable access: i {I}
+   |                          |  +- St: Block
+   |                          |     +- Code:
+   |                          |        +- St: =
+   |                          |           +- Op: Array Access {I}
+   |                          |           |  +- Op: Local variable access: px {[I}
+   |                          |           |  +- Op: Local variable access: i {I}
+   |                          |           +- Op: - {I}
+   |                          |              +- Op: Array Access {I}
+   |                          |              |  +- Op: Local variable access: px {[I}
+   |                          |              |  +- Op: Local variable access: i {I}
+   |                          |              +- Op: Literal: 15 {I}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {[I}
+   |                          |  |  +- tetris.tetris.CPeçaSegüent -> px
+   |                          |  |  +- Op: Component Access {tetris.tetris.CPeçaSegüent}
+   |                          |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     +- Op: Type Access: tetris.tetris.CPeçaSegüent
+   |                          |  +- Op: Local variable access: px {[I}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {[I}
+   |                          |  |  +- tetris.tetris.CPeçaSegüent -> py
+   |                          |  |  +- Op: Component Access {tetris.tetris.CPeçaSegüent}
+   |                          |  |     +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     +- Op: Type Access: tetris.tetris.CPeçaSegüent
+   |                          |  +- Op: Local variable access: py {[I}
+   |                          +- St: Statements:
+   |                          +- St: =
+   |                          |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |     +- cat.quadriga.base.Transform -> position
+   |                          |     +- Op: Component Access {cat.quadriga.base.Transform}
+   |                          |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |        |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |        |  +- Op: Literal: "cub1" {Ljava/lang/String;}
+   |                          |        +- Op: Type Access: cat.quadriga.base.Transform
+   |                          +- St: =
+   |                          |  +- Op: Field: {F}
+   |                          |  |  +- javax.vecmath.Tuple3f -> x
+   |                          |  |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: * {F}
+   |                          |     +- Op: Array Access {I}
+   |                          |     |  +- Op: Local variable access: px {[I}
+   |                          |     |  +- Op: Literal: 0 {I}
+   |                          |     +- Op: Literal: 2.0 {F}
+   |                          +- St: =
+   |                          |  +- Op: Field: {F}
+   |                          |  |  +- javax.vecmath.Tuple3f -> z
+   |                          |  |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: * {F}
+   |                          |     +- Op: Array Access {I}
+   |                          |     |  +- Op: Local variable access: py {[I}
+   |                          |     |  +- Op: Literal: 0 {I}
+   |                          |     +- Op: Literal: 2.0 {F}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |  |  +- cat.quadriga.base.Transform -> position
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.Transform}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "cub1" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.Transform
+   |                          |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |  |  +- cat.quadriga.base.ColoredMaterial -> color
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.ColoredMaterial}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "cub1" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.ColoredMaterial
+   |                          |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          +- St: =
+   |                          |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |     +- cat.quadriga.base.Transform -> position
+   |                          |     +- Op: Component Access {cat.quadriga.base.Transform}
+   |                          |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |        |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |        |  +- Op: Literal: "cub2" {Ljava/lang/String;}
+   |                          |        +- Op: Type Access: cat.quadriga.base.Transform
+   |                          +- St: =
+   |                          |  +- Op: Field: {F}
+   |                          |  |  +- javax.vecmath.Tuple3f -> x
+   |                          |  |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: * {F}
+   |                          |     +- Op: Array Access {I}
+   |                          |     |  +- Op: Local variable access: px {[I}
+   |                          |     |  +- Op: Literal: 1 {I}
+   |                          |     +- Op: Literal: 2.0 {F}
+   |                          +- St: =
+   |                          |  +- Op: Field: {F}
+   |                          |  |  +- javax.vecmath.Tuple3f -> z
+   |                          |  |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: * {F}
+   |                          |     +- Op: Array Access {I}
+   |                          |     |  +- Op: Local variable access: py {[I}
+   |                          |     |  +- Op: Literal: 1 {I}
+   |                          |     +- Op: Literal: 2.0 {F}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |  |  +- cat.quadriga.base.Transform -> position
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.Transform}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "cub2" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.Transform
+   |                          |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |  |  +- cat.quadriga.base.ColoredMaterial -> color
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.ColoredMaterial}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "cub2" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.ColoredMaterial
+   |                          |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          +- St: =
+   |                          |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |     +- cat.quadriga.base.Transform -> position
+   |                          |     +- Op: Component Access {cat.quadriga.base.Transform}
+   |                          |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |        |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |        |  +- Op: Literal: "cub3" {Ljava/lang/String;}
+   |                          |        +- Op: Type Access: cat.quadriga.base.Transform
+   |                          +- St: =
+   |                          |  +- Op: Field: {F}
+   |                          |  |  +- javax.vecmath.Tuple3f -> x
+   |                          |  |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: * {F}
+   |                          |     +- Op: Array Access {I}
+   |                          |     |  +- Op: Local variable access: px {[I}
+   |                          |     |  +- Op: Literal: 2 {I}
+   |                          |     +- Op: Literal: 2.0 {F}
+   |                          +- St: =
+   |                          |  +- Op: Field: {F}
+   |                          |  |  +- javax.vecmath.Tuple3f -> z
+   |                          |  |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: * {F}
+   |                          |     +- Op: Array Access {I}
+   |                          |     |  +- Op: Local variable access: py {[I}
+   |                          |     |  +- Op: Literal: 2 {I}
+   |                          |     +- Op: Literal: 2.0 {F}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |  |  +- cat.quadriga.base.Transform -> position
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.Transform}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "cub3" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.Transform
+   |                          |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |  |  +- cat.quadriga.base.ColoredMaterial -> color
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.ColoredMaterial}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "cub3" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.ColoredMaterial
+   |                          |  +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
+   |                          +- St: =
+   |                          |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |     +- cat.quadriga.base.Transform -> position
+   |                          |     +- Op: Component Access {cat.quadriga.base.Transform}
+   |                          |        +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |        |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |        |  +- Op: Literal: "cub4" {Ljava/lang/String;}
+   |                          |        +- Op: Type Access: cat.quadriga.base.Transform
+   |                          +- St: =
+   |                          |  +- Op: Field: {F}
+   |                          |  |  +- javax.vecmath.Tuple3f -> x
+   |                          |  |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: * {F}
+   |                          |     +- Op: Array Access {I}
+   |                          |     |  +- Op: Local variable access: px {[I}
+   |                          |     |  +- Op: Literal: 3 {I}
+   |                          |     +- Op: Literal: 2.0 {F}
+   |                          +- St: =
+   |                          |  +- Op: Field: {F}
+   |                          |  |  +- javax.vecmath.Tuple3f -> z
+   |                          |  |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          |  +- Op: * {F}
+   |                          |     +- Op: Array Access {I}
+   |                          |     |  +- Op: Local variable access: py {[I}
+   |                          |     |  +- Op: Literal: 3 {I}
+   |                          |     +- Op: Literal: 2.0 {F}
+   |                          +- St: =
+   |                          |  +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                          |  |  +- cat.quadriga.base.Transform -> position
+   |                          |  |  +- Op: Component Access {cat.quadriga.base.Transform}
+   |                          |  |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                          |  |     |  +- Op: Literal: "cub4" {Ljava/lang/String;}
+   |                          |  |     +- Op: Type Access: cat.quadriga.base.Transform
+   |                          |  +- Op: Local variable access: pos {Ljavax/vecmath/Vector3f;}
+   |                          +- St: =
+   |                             +- Op: Component Field: {Ljavax/vecmath/Vector3f;}
+   |                             |  +- cat.quadriga.base.ColoredMaterial -> color
+   |                             |  +- Op: Component Access {cat.quadriga.base.ColoredMaterial}
+   |                             |     +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |                             |     |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |                             |     |  +- Op: Literal: "cub4" {Ljava/lang/String;}
+   |                             |     +- Op: Type Access: cat.quadriga.base.ColoredMaterial
+   |                             +- Op: Local variable access: color {Ljavax/vecmath/Vector3f;}
    +- "StaticMeshRenderer" : Symbol Type
    |  +- Component <+>
    |     +- fields
@@ -7458,6 +8784,12 @@
    +- "Exit" : Symbol Type
    |  +- Event <+>
    |     +- fields
+   +- "tetris.tetris.NovaPeçaSegüent" : Symbol Type
+   |  +- Event <+>
+   |     +- fields
+   |        +- Quadriga Field
+   |           +- I
+   |           +- "tipus"
    +- "EEscape" : Symbol Type
    |  +- Event <+>
    |     +- fields
@@ -8716,6 +10048,7 @@
    |     |           +- St: Block
    |     |              +- Local Variables:
    |     |              |  +- Symbol Var [ tipus ] Type [ I ]
+   |     |              |  +- Symbol Var [ tipus2 ] Type [ I ]
    |     |              +- Code:
    |     |                 +- St: Statements:
    |     |                 |  +- St: =
@@ -8728,14 +10061,33 @@
    |     |                 |        |  +- St: Arguments
    |     |                 |        |     +- Op: Literal: 7 {I}
    |     |                 |        +- Op: Literal: 1 {I}
+   |     |                 +- St: Statements:
+   |     |                 |  +- St: =
+   |     |                 |     +- Op: Local variable access: tipus2 {I}
+   |     |                 |     +- Op: + {I}
+   |     |                 |        +- Op: Call {I}
+   |     |                 |        |  +- Op: Method:
+   |     |                 |        |  |  +- java.util.Random -> nextInt
+   |     |                 |        |  |  +- Op: RND {Ljava/util/Random;}
+   |     |                 |        |  +- St: Arguments
+   |     |                 |        |     +- Op: Literal: 7 {I}
+   |     |                 |        +- Op: Literal: 1 {I}
    |     |                 +- St: Call to Event tetris.tetris.NovaPeça
+   |     |                 |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |     |                 |  |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |     |                 |  |  +- Op: Literal: "Peça" {Ljava/lang/String;}
+   |     |                 |  +- St: Named Arguments
+   |     |                 |     +- quadriga argument
+   |     |                 |        +- tipus
+   |     |                 |        +- Op: Local variable access: tipus {I}
+   |     |                 +- St: Call to Event tetris.tetris.NovaPeçaSegüent
    |     |                    +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
    |     |                    |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |     |                    |  +- Op: Literal: "Peça" {Ljava/lang/String;}
+   |     |                    |  +- Op: Literal: "PeçaSegüent" {Ljava/lang/String;}
    |     |                    +- St: Named Arguments
    |     |                       +- quadriga argument
    |     |                          +- tipus
-   |     |                          +- Op: Local variable access: tipus {I}
+   |     |                          +- Op: Local variable access: tipus2 {I}
    |     +- EventHandlers
    |        +- tetris.input.EEscape
    |        |  +- Quadriga function
@@ -9675,6 +11027,7 @@
    |     +- tetris.input.InputManager
    |     +- tetris.tetris.LlògicaTaulell
    |     +- tetris.tetris.LlògicaPeça
+   |     +- tetris.tetris.LlògicaPeçaSegüent
    +- "tetris.tetris.LlògicaTaulell" : Symbol Type
    |  +- System <+>
    |     +- needed components
@@ -9691,6 +11044,7 @@
    |     |           +- St: Block
    |     |              +- Local Variables:
    |     |              |  +- Symbol Var [ tipus ] Type [ I ]
+   |     |              |  +- Symbol Var [ tipus2 ] Type [ I ]
    |     |              +- Code:
    |     |                 +- St: Statements:
    |     |                 |  +- St: =
@@ -9703,14 +11057,33 @@
    |     |                 |        |  +- St: Arguments
    |     |                 |        |     +- Op: Literal: 7 {I}
    |     |                 |        +- Op: Literal: 1 {I}
+   |     |                 +- St: Statements:
+   |     |                 |  +- St: =
+   |     |                 |     +- Op: Local variable access: tipus2 {I}
+   |     |                 |     +- Op: + {I}
+   |     |                 |        +- Op: Call {I}
+   |     |                 |        |  +- Op: Method:
+   |     |                 |        |  |  +- java.util.Random -> nextInt
+   |     |                 |        |  |  +- Op: RND {Ljava/util/Random;}
+   |     |                 |        |  +- St: Arguments
+   |     |                 |        |     +- Op: Literal: 7 {I}
+   |     |                 |        +- Op: Literal: 1 {I}
    |     |                 +- St: Call to Event tetris.tetris.NovaPeça
+   |     |                 |  +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
+   |     |                 |  |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
+   |     |                 |  |  +- Op: Literal: "Peça" {Ljava/lang/String;}
+   |     |                 |  +- St: Named Arguments
+   |     |                 |     +- quadriga argument
+   |     |                 |        +- tipus
+   |     |                 |        +- Op: Local variable access: tipus {I}
+   |     |                 +- St: Call to Event tetris.tetris.NovaPeçaSegüent
    |     |                    +- Op: Child Access {Lcat/quadriga/runtime/Entity;}
    |     |                    |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
-   |     |                    |  +- Op: Literal: "Peça" {Ljava/lang/String;}
+   |     |                    |  +- Op: Literal: "PeçaSegüent" {Ljava/lang/String;}
    |     |                    +- St: Named Arguments
    |     |                       +- quadriga argument
    |     |                          +- tipus
-   |     |                          +- Op: Local variable access: tipus {I}
+   |     |                          +- Op: Local variable access: tipus2 {I}
    |     +- EventHandlers
    |        +- tetris.input.EEscape
    |        |  +- Quadriga function
@@ -10429,6 +11802,130 @@
    |                                         +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
    +- "cat.quadriga.render.simple.RenderManager" : Symbol Type
    |  +- Lcat/quadriga/render/simple/RenderManager;
+   +- "tetris.tetris.PPeçaSegüent" : Symbol Type
+   |  +- Prototype <+>
+   |     +- parameters
+   |     |  +- parameter
+   |     |     +- Lcat/quadriga/runtime/Entity;
+   |     |     +- taulell
+   |     +- St: Block
+   |        +- Local Variables:
+   |        |  +- Symbol Var [ taulell ] Type [ Lcat/quadriga/runtime/Entity; ]
+   |        +- Code:
+   |           +- St: Add Component
+   |           |  +- Op: Component Allocation {cat.quadriga.base.Transform}
+   |           |  |  +- Component <+>
+   |           |  |  |  +- fields
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- Ljavax/vecmath/Vector3f;
+   |           |  |  |     |  +- "position"
+   |           |  |  |     |  +- Op: Constructor {Ljavax/vecmath/Vector3f;}
+   |           |  |  |     |     +- Ljavax/vecmath/Vector3f;
+   |           |  |  |     |     +- St: Zero Arguments
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- F
+   |           |  |  |     |  +- "scale"
+   |           |  |  |     |  +- Op: Literal: 1.0 {F}
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |        +- Ljavax/vecmath/Quat4f;
+   |           |  |  |        +- "rotation"
+   |           |  |  |        +- Op: Constructor {Ljavax/vecmath/Quat4f;}
+   |           |  |  |           +- Ljavax/vecmath/Quat4f;
+   |           |  |  |           +- St: Arguments
+   |           |  |  |              +- Op: Literal: 0.0 {F}
+   |           |  |  |              +- Op: Literal: 0.0 {F}
+   |           |  |  |              +- Op: Literal: 0.0 {F}
+   |           |  |  |              +- Op: Literal: 1.0 {F}
+   |           |  |  +- St: Zero Arguments
+   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |           +- St: Add Component
+   |           |  +- Op: Component Allocation {tetris.tetris.CPeçaSegüent}
+   |           |  |  +- Component <+>
+   |           |  |  |  +- fields
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- [I
+   |           |  |  |     |  +- "px"
+   |           |  |  |     |  +- Op: new primitive array {[I}
+   |           |  |  |     |     +- I
+   |           |  |  |     |     +- Op: Literal: 4 {I}
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- [I
+   |           |  |  |     |  +- "py"
+   |           |  |  |     |  +- Op: new primitive array {[I}
+   |           |  |  |     |     +- I
+   |           |  |  |     |     +- Op: Literal: 4 {I}
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |     |  +- I
+   |           |  |  |     |  +- "tipus"
+   |           |  |  |     |  +- Op: Literal: 1 {I}
+   |           |  |  |     +- Quadriga Field
+   |           |  |  |        +- Lcat/quadriga/runtime/Entity;
+   |           |  |  |        +- "taulell"
+   |           |  |  +- St: Named Arguments
+   |           |  |     +- quadriga argument
+   |           |  |        +- taulell
+   |           |  |        +- Op: Local variable access: taulell {Lcat/quadriga/runtime/Entity;}
+   |           |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |           +- St: Apply Prototype to Entity
+   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
+   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |           |  |  +- Op: Literal: "cub1" {Ljava/lang/String;}
+   |           |  +- tetris.tetris.CubDeTaulell
+   |           |  +- St: Named Arguments
+   |           |     +- quadriga argument
+   |           |     |  +- posY
+   |           |     |  +- Op: Literal: 0 {I}
+   |           |     +- quadriga argument
+   |           |     |  +- posX
+   |           |     |  +- Op: Literal: 0 {I}
+   |           |     +- quadriga argument
+   |           |        +- color
+   |           |        +- Op: Literal: 1 {I}
+   |           +- St: Apply Prototype to Entity
+   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
+   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |           |  |  +- Op: Literal: "cub2" {Ljava/lang/String;}
+   |           |  +- tetris.tetris.CubDeTaulell
+   |           |  +- St: Named Arguments
+   |           |     +- quadriga argument
+   |           |     |  +- posY
+   |           |     |  +- Op: Literal: 0 {I}
+   |           |     +- quadriga argument
+   |           |     |  +- posX
+   |           |     |  +- Op: Literal: 0 {I}
+   |           |     +- quadriga argument
+   |           |        +- color
+   |           |        +- Op: Literal: 1 {I}
+   |           +- St: Apply Prototype to Entity
+   |           |  +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
+   |           |  |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |           |  |  +- Op: Literal: "cub3" {Ljava/lang/String;}
+   |           |  +- tetris.tetris.CubDeTaulell
+   |           |  +- St: Named Arguments
+   |           |     +- quadriga argument
+   |           |     |  +- posY
+   |           |     |  +- Op: Literal: 0 {I}
+   |           |     +- quadriga argument
+   |           |     |  +- posX
+   |           |     |  +- Op: Literal: 0 {I}
+   |           |     +- quadriga argument
+   |           |        +- color
+   |           |        +- Op: Literal: 1 {I}
+   |           +- St: Apply Prototype to Entity
+   |              +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
+   |              |  +- Op: Local variable access: this {Lcat/quadriga/runtime/Entity;}
+   |              |  +- Op: Literal: "cub4" {Ljava/lang/String;}
+   |              +- tetris.tetris.CubDeTaulell
+   |              +- St: Named Arguments
+   |                 +- quadriga argument
+   |                 |  +- posY
+   |                 |  +- Op: Literal: 0 {I}
+   |                 +- quadriga argument
+   |                 |  +- posX
+   |                 |  +- Op: Literal: 0 {I}
+   |                 +- quadriga argument
+   |                    +- color
+   |                    +- Op: Literal: 1 {I}
    +- "tetris.tetris.CubDeMarc" : Symbol Type
    |  +- Prototype <+>
    |     +- parameters
@@ -10586,4 +12083,26 @@
    |                                |  +- Op: Local variable access: entity {Lcat/quadriga/runtime/Entity;}
    |                                +- St: Zero Arguments
    +- "javax.vecmath.Vector3f" : Symbol Type
-      +- Ljavax/vecmath/Vector3f;
+   |  +- Ljavax/vecmath/Vector3f;
+   +- "tetris.tetris.CPeçaSegüent" : Symbol Type
+      +- Component <+>
+         +- fields
+            +- Quadriga Field
+            |  +- [I
+            |  +- "px"
+            |  +- Op: new primitive array {[I}
+            |     +- I
+            |     +- Op: Literal: 4 {I}
+            +- Quadriga Field
+            |  +- [I
+            |  +- "py"
+            |  +- Op: new primitive array {[I}
+            |     +- I
+            |     +- Op: Literal: 4 {I}
+            +- Quadriga Field
+            |  +- I
+            |  +- "tipus"
+            |  +- Op: Literal: 1 {I}
+            +- Quadriga Field
+               +- Lcat/quadriga/runtime/Entity;
+               +- "taulell"

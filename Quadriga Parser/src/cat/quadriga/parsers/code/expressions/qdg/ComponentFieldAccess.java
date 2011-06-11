@@ -86,10 +86,10 @@ public final class ComponentFieldAccess extends UnaryDataAccess {
         validC = component;
       } else {
         BaseSymbol symbol = symbolTable.findSymbol(component.getBinaryName());
-        try {
-          assert symbol != null;
-          assert symbol instanceof TypeSymbol;
-          assert ((TypeSymbol)symbol).type instanceof QuadrigaComponent;
+        if( symbol != null 
+            && symbol instanceof TypeSymbol
+            && ((TypeSymbol)symbol).type instanceof QuadrigaComponent)
+        {
           validC = (QuadrigaComponent)((TypeSymbol)symbol).type;
           if(!validC.isValid()) {
             validC = validC.getValid(symbolTable, errorLog);
@@ -98,7 +98,7 @@ public final class ComponentFieldAccess extends UnaryDataAccess {
             }
             symbolTable.addGlobalSymbol(new TypeSymbol(validC));
           }
-        } catch(AssertionError e) {
+        } else {
           errorLog.insertError("Error while finding the component" + component.getBinaryName(),this);
           return null;
         }
