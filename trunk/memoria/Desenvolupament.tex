@@ -7,14 +7,14 @@ En aquest capítol es parlarà primer del disseny del llenguatge en trets genera
 
 \section{Disseny i implementació}
 
-  A la introducció, s'han descrit diferents aproximacions als sistemes d'entitats, i quines 5 característiques tindrà Quadriga. Aqui s'explica com s'ha intentat complir cada punt:
+  A la introducció, s'han descrit diferents aproximacions als sistemes d'entitats, i quines 5 característiques tindrà Quadriga. Aquí s'explica com s'ha intentat complir cada punt:
 
   \begin{itemize}
     \item {\bf Open Source} \hfill \\
       El codi del projecte s'ha penjat públicament a GoogleCode sota una llicència LGPL, que permet usar-la lliurement amb l'única restricció d'haver de publicar els canvis fets sobre la mateixa llibreria sota la mateixa llicència. També s'ha optat per fer servir només llibreries OpenSource com l'analitzador de sintaxi ({\em JavaCC}), la llibreria gràfica ({\em LWJGL}) i la base de dades ({\em HSQLDB}).
       
     \item {\bf Independent} \hfill \\
-      S'ha optat per separar les {\em dades} de la funcionalitat, podent crear implementacions diferents per les mateixes dades, fent així que fins hi tot puguem substituir tot el módul senser de renderització (el motor gràfic) sense haver de tocar una línia de la definició de les entitats.
+      S'ha optat per separar les {\em dades} de la funcionalitat, podent crear implementacions diferents per les mateixes dades, fent així que fins hi tot puguem substituir tot el mòdul sencer de renderització (el motor gràfic) sense haver de tocar una línia de la definició de les entitats.
       
     \item {\bf Multi-plataforma de forma nativa} \hfill \\
       S'ha optat per programar sobre Java, i usar únicament llibreries escrites totalment amb Java o, en cas necessari, amb codi natiu multi-plataforma. S'intenta el màxim possible que no s'hagi de fer codi dependent de la plataforma.
@@ -28,13 +28,13 @@ En aquest capítol es parlarà primer del disseny del llenguatge en trets genera
 
   Per tal de facilitar el disseny, s'ha decidit partir d'un parser ja creat, de Java en la seva versió 1.5, i modificar-lo de tal manera que admeti definicions noves i rebutgi aquelles que en Quadriga no tenen sentit, com són les classes.
   
-  Podriem dir que s'ha modificat aquest parser tal que ara, en comptes de definir classes, es poden definir Components, Sistemes, Prototips, Events, Threads i objectes \"{}Main\"{}, que serviràn com a punt d'inici de l'execució.
+  Podríem dir que s'ha modificat aquest parser tal que ara, en comptes de definir classes, es poden definir Components, Sistemes, Prototips, Events, Threads i objectes \"{}Main\"{}, que serviran com a punt d'inici de l'execució.
   
   A la figura \ref{fig:EsquemaExecucio} es pot veure un esquema bàsic sobre el recorregut teòric que un programa escrit en Quadriga segueix:
   
   \begin{figure}
     \includegraphics[width=1\linewidth]{./img/EsquemaExecucio.png}
-    \caption{Esquema de l'execucio \label{fig:EsquemaExecucio}}
+    \caption{Esquema de l'execució \label{fig:EsquemaExecucio}}
   \end{figure}
   
   \begin{enumerate}
@@ -44,7 +44,7 @@ En aquest capítol es parlarà primer del disseny del llenguatge en trets genera
     \item Tenint el model de dades i un codi executable, l'interpret carrega les llibreries que necessita i executa aquest codi, que treballa sobre el model de dades creat.
   \end{enumerate}
   
-  A la figura \ref{fig:DiagramaDeModuls} es mostra de forma més detallada els móduls del programa i les sever interconnexions.
+  A la figura \ref{fig:DiagramaDeModuls} es mostra de forma més detallada els mòduls del programa i les sever interconnexions.
 
   \begin{figure}
     \includegraphics[width=1\linewidth]{./img/Moduls.png}
@@ -53,7 +53,7 @@ En aquest capítol es parlarà primer del disseny del llenguatge en trets genera
   
 \section{Definicions pròpies del llenguatge Quadriga}
 
-  Aquí s'explicaràn les definicions bàsiques de conceptes propis del Sistema d'entitats Quadriga. Per a més informació consultar \cite{EntityWikiB} o \cite{Martin07}, llocs d'on he tret la inspiració bàsica per crear aquest sistema.
+  Aquí s'explicaran les definicions bàsiques de conceptes propis del Sistema d'entitats Quadriga. Per a més informació consultar \cite{EntityWikiB} o \cite{Martin07}, llocs d'on he tret la inspiració bàsica per crear aquest sistema.
 
   Essencialment es tracta de crear una API idèntica a una Base de Dades relacional on:
 
@@ -108,25 +108,25 @@ En aquest capítol es parlarà primer del disseny del llenguatge en trets genera
   Com ja s'ha comentat, un sistema d'entitats acaba sent molt semblant a una Base de Dades relacional, on cada tipus de component equival a una taula, cada entitat a un identificador i en cada fila d'aquestes taules hi ha les dades corresponents. A més, aquesta base de dades ha de complir un seguit d'especificacions:
 
   \begin{itemize}
-    \item Els sistemes d'entitats consten de 4 elements bàsics: Entitats, Components, Sistemes i Events.
+    \item Els sistemes d'entitats consten de 4 elements bàsics: entitats, components, sistemes i events.
     
-    \item Cada Entitat és única i té un identificador. A més, pot tenir informació de Debug.
+    \item Cada entitat és única i té un identificador únic. A més, pot tenir informació de Debug.
       \begin{itemize}
-        \item Cada entitat pot tenir una entitat Pare associada, de manera que es pugui fer un graf amb les entitats (que sempre tindrà forma d'arbre.
+        \item Cada entitat pot tenir una entitat Pare associada, de manera que es pugui fer un graf amb les entitats (que sempre tindrà forma d'arbre).
         \item Cada entitat pot tenir un nom associat.
         \item Cada parella pare-nom equivaldrà a una única entitat.
       \end{itemize}
-    \item Cada Component tindrà el seu nom i un identificador únic.
+    \item Cada component tindrà el seu nom i un identificador únic.
     
-    \item Cada Sistema tindrà el seu nom i un identificador únic.
+    \item Cada sistema tindrà el seu nom i un identificador únic.
     
-    \item Cada Event tindrà el seu nom i un identificador únic.
+    \item Cada event tindrà el seu nom i un identificador únic.
     
-    \item Cada sistema s'ha d'associar amb els Components i Events als quals afecta.
+    \item Cada sistema s'ha d'associar amb els components i events als quals afecta.
     
     \item Cada sistema haurà de guardar un registre de totes les entitats a les que ha afectat en la darrera iteració del joc.
     
-    \item Quan un Component s'associa a una Entitat, es crea una instància d'aquest component i se'n guarden les dades.
+    \item Quan un component s'associa a una entitat, es crea una instància d'aquest component i se'n guarden les dades.
     
     \item Cada tipus de component té unes dades associades diferents que es programen mitjançant el llenguatge Quadriga.
   \end{itemize}
@@ -142,7 +142,11 @@ En aquest capítol es parlarà primer del disseny del llenguatge en trets genera
     \includegraphics[width=1\linewidth]{./img/BBDDRelacional.png}
     \caption{Base de dades. \label{fig:BBDDRelacional}}
   \end{figure}
+  
+  Cal destacar en aquest apartat, que el model serà lleugerament diferent per cada programa compilat amb Quadriga, doncs es generarà una taula addicional per a cada component descrit, amb els camps corresponents. No serà la mateixa base de dades per un joc simple, estil {\em Tetris}, que per un MMORPG estil {\em World of Warcraft}, tal i com la intuïció ens fa saber.
+  
+  La implementació d'aquesta base de dades s'ha optat per fer-la amb un motor SQL per a Java anomenat {\em HSQLDB}. Això ens proporciona eines com cerques optimitzades i facilitats de guardar i carregar la base de dades de forma molt senzilla, però a canvi es perd força rendiment respecte si la base de dades es fes de forma més específica.
 
 \section{Editar el llenguatge}
 
-  Per tal de facilitar l'edició de {\em Quadriga} s'ha implementat un senzill plug-in per a {\em Notepad++} que es pot descarregar des de \url{http://code.google.com/p/quadriga/downloads/detail?name=quadriga.xml} i importar al mateix {\em Notepad++}. No és tan complert com podria ser un editor d'una IDE, amb autocompletat i subratllament d'errors i advertències, sinó que simplement marca les paraules claus i els operadors per a fer una petita ajuda visual.
+  Per tal de facilitar l'edició de {\em Quadriga} s'ha implementat un senzill plug-in per a {\em Notepad++} que es pot descarregar des de \url{http://code.google.com/p/quadriga/downloads/detail?name=quadriga.xml} i importar al mateix {\em Notepad++}. No és tan complert com podria ser un editor d'una IDE, amb auto-completat i subratllament d'errors i advertències, sinó que simplement marca les paraules claus i els operadors per a fer una petita ajuda visual.

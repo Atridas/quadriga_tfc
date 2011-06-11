@@ -35,6 +35,156 @@
   Entity<Puntuació, Taulell> taulell;
 }
 
+
+
+// ----------------------------------------------------------------------------
+
+@component CPeçaSegüent
+{
+  int tipus = 1;
+  int[] px = new int[4], py = new int[4];
+  Entity<Puntuació, Taulell> taulell;
+}
+
+@prototype tetris.tetris.CubDeTaulell;
+
+@prototype PPeçaSegüent(Entity<Puntuació> taulell)
+{
+  Transform()
+  CPeçaSegüent(taulell: taulell)
+  @child {
+    "cub1" : CubDeTaulell(posX:0, posY:0, color: 1)
+    "cub2" : CubDeTaulell(posX:0, posY:0, color: 1)
+    "cub3" : CubDeTaulell(posX:0, posY:0, color: 1)
+    "cub4" : CubDeTaulell(posX:0, posY:0, color: 1)
+  }
+}
+
+@event NovaPeçaSegüent {
+  int tipus;
+}
+
+@system LlògicaPeçaSegüent {
+  @components {
+    CPeçaSegüent
+  }
+  
+  @event NovaPeçaSegüent(
+                  NovaPeçaSegüent event: EVENT, 
+                  Entity<CPeçaSegüent> entitat: ENTITY
+                  )
+  {
+    entitat[CPeçaSegüent].tipus = event.tipus;
+    int[] px = entitat[CPeçaSegüent].px;
+    int[] py = entitat[CPeçaSegüent].py;
+    Vector3f color;
+    switch(event.tipus)
+    {
+    case 1: 
+      px[0] = 3;
+      px[1] = 4;
+      px[2] = 5;
+      px[3] = 6;
+      py[0] = py[1] = py[2] = py[3] = 17;
+      color = new Vector3f(1.f, .0f, .0f);
+      break;
+    case 2: 
+      px[0] = 3;
+      px[1] = 4;
+      px[2] = 4;
+      px[3] = 5;
+      py[0] = py[1] = 16;
+      py[2] = py[3] = 17;
+      color = new Vector3f(0.f, 1.f, .0f);
+      break;
+    case 3: 
+      px[0] = 4;
+      px[1] = 5;
+      px[2] = 5;
+      px[3] = 6;
+      py[0] = py[1] = 17;
+      py[2] = py[3] = 16;
+      color = new Vector3f(.0f, .0f, 1.f);
+      break;
+    case 4: 
+      px[0] = 4;
+      px[1] = 5;
+      px[2] = 4;
+      px[3] = 5;
+      py[0] = py[1] = 17;
+      py[2] = py[3] = 16;
+      color = new Vector3f(1.f, 1.f, .0f);
+      break;
+    case 5: 
+      px[0] = 3;
+      px[1] = 4;
+      px[2] = 5;
+      px[3] = 5;
+      py[0] = py[1] = py[2] = 17;
+      py[3] = 16;
+      color = new Vector3f(1.f, .0f, 1.f);
+      break;
+    case 6: 
+      px[0] = 4;
+      px[1] = 5;
+      px[2] = 6;
+      px[3] = 4;
+      py[0] = py[1] = py[2] = 17;
+      py[3] = 16;
+      color = new Vector3f(.0f, 1.f, 1.f);
+      break;
+    case 7: 
+      px[0] = 3;
+      px[1] = 4;
+      px[2] = 5;
+      px[3] = 4;
+      py[0] = py[1] = py[2] = 17;
+      py[3] = 16;
+      color = new Vector3f(1.f, 1.f, 1.f);
+      break;
+    }
+    
+    for(int i = 0; i < 4; ++i)
+    {
+      px[i] = px[i] - 15;
+    }
+    
+    entitat[CPeçaSegüent].px = px;
+    entitat[CPeçaSegüent].py = py;
+    
+    Vector3f pos;
+    
+    pos = entitat["cub1"][Transform].position;
+    pos.x = px[0] * 2.f;
+    pos.z = py[0] * 2.f;
+    entitat["cub1"][Transform].position = pos;
+    entitat["cub1"][ColoredMaterial].color = color;
+    
+    pos = entitat["cub2"][Transform].position;
+    pos.x = px[1] * 2.f;
+    pos.z = py[1] * 2.f;
+    entitat["cub2"][Transform].position = pos;
+    entitat["cub2"][ColoredMaterial].color = color;
+    
+    pos = entitat["cub3"][Transform].position;
+    pos.x = px[2] * 2.f;
+    pos.z = py[2] * 2.f;
+    entitat["cub3"][Transform].position = pos;
+    entitat["cub3"][ColoredMaterial].color = color;
+    
+    pos = entitat["cub4"][Transform].position;
+    pos.x = px[3] * 2.f;
+    pos.z = py[3] * 2.f;
+    entitat["cub4"][Transform].position = pos;
+    entitat["cub4"][ColoredMaterial].color = color;
+  }
+}
+// ----------------------------------------------------------------------------
+
+
+
+
+
 @prototype tetris.tetris.CubDeTaulell
 @prototype cat.quadriga.base.TextRendererPrototype
 
@@ -70,6 +220,7 @@
                                     [Transform].position: new Vector3f(600.0f, 400.0f, 0.0f))
                              
     "Peça" : PPeça(taulell: this)
+    "PeçaSegüent" : PPeçaSegüent(taulell: this)
                              
     CubDeMarc(posX:-1,posY:-1)CubDeMarc(posX: 0,posY:-1)CubDeMarc(posX: 1,posY:-1)
     CubDeMarc(posX: 2,posY:-1)CubDeMarc(posX: 3,posY:-1)CubDeMarc(posX: 4,posY:-1) 
@@ -314,10 +465,20 @@
       
       for(int i = 0; i < 4; ++i) {
         if(py[i] < 0 || entitat[CPeça].taulell[Taulell].taulell[px[i]][py[i]] != 0) {
+          /*
           int tipus = @rnd.nextInt(7) + 1;
           ++py[0];++py[1];++py[2];++py[3];
           @event InsertarPeça(color: entitat[CPeça].tipus, px: px, py: py) : entitat[CPeça].taulell;
           @event NovaPeça(tipus: tipus) : entitat;
+          */
+          int tipus = @rnd.nextInt(7) + 1;
+          ++py[0];++py[1];++py[2];++py[3];
+          
+          Entity<CPeçaSegüent> peçaSegüent = entitat[CPeça].taulell["PeçaSegüent"];
+          
+          @event InsertarPeça(color: entitat[CPeça].tipus, px: px, py: py) : entitat[CPeça].taulell;
+          @event NovaPeça(tipus: peçaSegüent[CPeçaSegüent].tipus) : entitat;
+          @event NovaPeçaSegüent(tipus: tipus) : peçaSegüent;
           break;
         }
       }
@@ -435,10 +596,20 @@
     
     for(int i = 0; i < 4; ++i) {
       if(py[i] < 0 || entitat[CPeça].taulell[Taulell].taulell[px[i]][py[i]] != 0) {
+        /*
         int tipus = @rnd.nextInt(7) + 1;
         ++py[0];++py[1];++py[2];++py[3];
         @event InsertarPeça(color: entitat[CPeça].tipus, px: px, py: py) : entitat[CPeça].taulell;
         @event NovaPeça(tipus: tipus) : entitat;
+        */
+        int tipus = @rnd.nextInt(7) + 1;
+        ++py[0];++py[1];++py[2];++py[3];
+        
+        Entity<CPeçaSegüent> peçaSegüent = entitat[CPeça].taulell["PeçaSegüent"];
+        
+        @event InsertarPeça(color: entitat[CPeça].tipus, px: px, py: py) : entitat[CPeça].taulell;
+        @event NovaPeça(tipus: peçaSegüent[CPeçaSegüent].tipus) : entitat;
+        @event NovaPeçaSegüent(tipus: tipus) : peçaSegüent;
         break;
       }
     }
@@ -655,8 +826,10 @@
   }
   
   @newEntity(Entity<Taulell> entitat: ENTITY) {
-    int tipus = @rnd.nextInt(7) + 1;
+    int tipus  = @rnd.nextInt(7) + 1;
+    int tipus2 = @rnd.nextInt(7) + 1;
     @event NovaPeça(tipus: tipus) : entitat["Peça"];
+    @event NovaPeçaSegüent(tipus: tipus2) : entitat["PeçaSegüent"];
   }
   
   @event InsertarPeça(
@@ -777,6 +950,7 @@
   //@system ControladorDelJoc;
   @system LlògicaTaulell;
   @system LlògicaPeça;
+  @system LlògicaPeçaSegüent;
   
   @init {
     Entity tetris = @newEntity("tetris",null);

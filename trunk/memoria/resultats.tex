@@ -1,9 +1,10 @@
 \chapter{Resultats}
 
-  Per tal de comprovar si el sistema funcionava, s'ha provat de fer un joc senzill amb ell, en aquest cas, un clon del Tetris. En aquest capítol farem un resum del seu desenvolupament i en mirarem el rendiment. Se'n pot veure una captura a la figura \ref{fig:ImatgeTetris}.
+  Per tal de comprovar si el sistema funcionava, s'ha provat de fer un joc senzill amb ell, en aquest cas, un clon del Tetris. En aquest capítol es farà un resum del seu desenvolupament i se'n mirarà el rendiment. Se'n pot veure una captura a la figura \ref{fig:ImatgeTetris}.
 
   \begin{figure}
-    \includegraphics[width=1\linewidth]{./img/ImatgeTetris.png}
+    \centering
+    \includegraphics[width=0.5\linewidth]{./img/ImatgeTetris.png}
     \caption{Captura de pantalla del joc final \label{fig:ImatgeTetris}}
   \end{figure}
 
@@ -13,11 +14,12 @@
 
   \begin{figure}
     \includegraphics[width=1\linewidth]{./img/TetrisEntitats.png}
-    \caption{Esquema dels elements que formen el tetis \label{fig:TetrisEntitats}}
+    \caption{Esquema dels elements que formen el tetris \label{fig:TetrisEntitats}}
   \end{figure}
 
   \begin{figure}
-    \includegraphics[width=1\linewidth]{./img/GuiaDiagramaQuadriga.png}
+    \centering
+    \includegraphics[width=0.7\linewidth]{./img/GuiaDiagramaQuadriga.png}
     \caption{Llegenda \label{fig:GuiaDiagramaQuadriga}}
   \end{figure}
 
@@ -80,10 +82,10 @@
     \subsubsection{Sistemes}
 
       \begin{itemize}
-        \item {\bf LlògicaTaulell}
+        \item {\bf LògicaTaulell}
           Controla la inserció de peces, l'acumulació de punts i si s'han completat línies, augmentant el nivell si s'escau.
           
-        \item {\bf LlògicaPeça}
+        \item {\bf LògicaPeça}
           Controla que una peça es mogui segons les ordres del jugador i caigui a una velocitat donada per el nivell actual. També comprova si ha arribat al final i cal inserir-la.
           
         \item {\bf GameOverScreen}
@@ -142,26 +144,42 @@
       
 \section{Objectius de disseny}
 
-  Analitzem, punt per punt, si s'han complert els objectius de disseny del programa.
-
-  \begin{description}
-    \item[Open Source] \hfill \\
-      El codi es pot trobar a \url{https://code.google.com/p/quadriga/} sota llicència {\bf GNU Lesser GPL}.
-      
-    \item[El sistema d'entitats ha de ser independent] \hfill \\
-      En l'exemple s'usen unes quantes llibreries Java per implementar aspectes importants del joc. {\em OpenGL} i el {\em input} del jugador s'obtenen a partir de {\bf LWJGL}. Per fer-les servir des de {\em Quadriga} cal emprar {\em Components} que anomenaríem "estàndard" sota el paquet {\em cat.quadriga.base}. Fer aquests components no és senzill, però es podrien substituir els sistemes si es volgués fer l'esforç sense masses problemes.
-      
-    \item[Ha de ser multi-plataforma de forma nativa] \hfill \\
-      Com es veu a la figura \ref{fig:ImatgeUbuntu}, el joc corre sobre {\em Ubuntu} sense cap diferència. El codi Java i Quadriga no s'han tocat, però si que cal fer una petita modificació a l'hora de crear l'executable, doncs {\em OpenGL} necessita accedir a llibreries natives que són diferents en cada plataforma.
-      
-    \item[Ha de permetre un desenvolupament ràpid un cop estiguin fets els components bàsics] \hfill \\
-      El codi final són 2 arxius, un de lògica de unes 800 línies i un altre de input de 65. És de fet quasi més llarg fer el disseny que no implementar-lo.
-      
-    \item[Ha de ser fàcilment paral·lelitzable] \hfill \\
-      Actualment el programa conté una opció de fer córrer cada {\em Thread} en paral·lel, però la opció teòricament òptima de paral·lelitzar l'actualització de cada entitat sobre cada sistema (aconseguint una paral·lelització no sobre el nombre de threads, sinó sobre el nombre d'entitats) no s'ha implementat.
-  \end{description}
+  S'analitzarà, punt per punt, si s'han complert els objectius de disseny del programa.
     
   \begin{figure}
-    \includegraphics[width=1\linewidth]{./img/ImatgeUbuntu.png}
+    \centering
+    \includegraphics[width=0.5\linewidth]{./img/ImatgeUbuntu.png}
     \caption{Captura de pantalla del joc sobre Ubuntu \label{fig:ImatgeUbuntu}}
   \end{figure}
+
+  \begin{itemize}
+    \item {\bf Open Source} \hfill \\
+      El codi es pot trobar a \url{https://code.google.com/p/quadriga/} sota llicència {\bf GNU Lesser GPL}.
+      
+    \item {\bf Independent} \hfill \\
+      En l'exemple s'usen unes quantes llibreries Java per implementar aspectes importants del joc. {\em OpenGL} i el {\em input} del jugador s'obtenen a partir de {\bf LWJGL}. Per fer-les servir des de {\em Quadriga} cal emprar {\em Components} que anomenaríem "estàndard" sota el paquet {\em cat.quadriga.base}. Fer aquests components no és senzill, però es podrien substituir els sistemes si es volgués fer l'esforç sense masses problemes.
+      
+    \item {\bf Multi-plataforma de forma nativa} \hfill \\
+      Com es veu a la figura \ref{fig:ImatgeUbuntu}, el joc corre sobre {\em Ubuntu} sense cap diferència. El codi Java i Quadriga no s'han tocat, però si que cal fer una petita modificació a l'hora de crear l'executable, doncs {\em OpenGL} necessita accedir a llibreries natives que són diferents en cada plataforma.
+      
+    \item {\bf Permetre un desenvolupament ràpid un cop estiguin fets els components bàsics} \hfill \\
+      El codi final són 2 arxius, un de lògica de unes 800 línies i un altre de input de 65. És de fet quasi més llarg fer el disseny que no implementar-lo.
+      
+      Addicionalment s'ha provat d'afegir funcionalitat. En vint minuts s'ha aconseguit inserir una guia per indicar la peça següent a caure. En total s'han afegit 140 línies (afegir el component, prototip i sistema que controlin la peça següent), de les quals pràcticament totes són una còpia de codi ja fet, i s'han hagut de modificar 3 punts del joc, on s'instanciava una nova peça per tal de fer que agafés el tipus de peça que hi havia guardat. Veure figura \ref{fig:ImatgePecaSeguent}.
+      
+    \item {\bf Fàcilment paral·lelitzable} \hfill \\
+      Actualment el programa conté una opció de fer córrer cada {\em Thread} en paral·lel, però la opció teòricament òptima de paral·lelitzar l'actualització de cada entitat sobre cada sistema (aconseguint una paral·lelització no sobre el nombre de threads, sinó sobre el nombre d'entitats) no s'ha implementat.
+  \end{itemize}
+    
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{./img/ImatgePecaSeguent.png}
+    \caption{Captura de pantalla del joc amb modificacions \label{fig:ImatgePecaSeguent}}
+  \end{figure}
+  
+  
+\section{Validació}
+
+  Per tal de validar els resultats, s'ha considerat que el fet de poder-hi programar-hi un joc consisteix una prova força complerta de que el projecte funciona. Malauradament, no s'ha disposat de temps suficient per a fer un joc complex, ja que a més complex el joc programat, més garanties es poden donar de que el sistema funciona correctament.
+
+  
