@@ -1,37 +1,11 @@
 \chapter{Desenvolupament del Projecte}
 \label{chap:Desenvolupament}
 
-L'objectiu del projecte és crear una plataforma per al desenvolupament de videojocs basada en els sistemes d'entitats. Aquesta plataforma ha de permetre la creació de diferents elements, com Components, Sistemes, Prototips, etc., que seran explicats en detall més endavant.
-S'ha decidit que la millor manera de definir aquests elements és la de crear un llenguatge de programació que ho permeti. Aquest llenguatge s'anomenarà Quadriga, en honor a un dels esports amb més renom disputats als Jocs Olímpics clàssics.
-
-En aquest capítol es parlarà primer del disseny del llenguatge en trets generals i s'entrarà en algun detall de la seva implementació. Seguidament es farà una introducció més detallada de les construccions pròpies del llenguatge i la seva funcionalitat. A continuació s'analitzarà el model de dades d'un programa compilat amb Quadriga i finalment es farà una petita introducció a les eines que s'han desenvolupat per tal d'ajudar la programació en Quadriga.
+En aquest capítol es parlarà primer del disseny i implementació del llenguatge en trets generals i s'entrarà en algun detall de la seva implementació. Seguidament es farà una introducció més detallada de les construccions pròpies del llenguatge i la seva funcionalitat. A continuació s'analitzarà el model de dades d'un programa compilat amb Quadriga i finalment es farà una petita introducció a les eines que s'han desenvolupat per tal d'ajudar la programació en Quadriga.
 
 \section{Disseny i implementació}
 
-  A la introducció, s'han descrit diferents aproximacions als sistemes d'entitats, i quines 5 característiques tindrà Quadriga. Aquí s'explica com s'ha intentat complir cada punt:
-
-  \begin{itemize}
-    \item {\bf Open Source} \hfill \\
-      El codi del projecte s'ha penjat públicament a GoogleCode sota una llicència LGPL, que permet usar-la lliurement amb l'única restricció d'haver de publicar els canvis fets sobre la mateixa llibreria sota la mateixa llicència. També s'ha optat per fer servir només llibreries OpenSource com l'analitzador de sintaxi ({\em JavaCC}), la llibreria gràfica ({\em LWJGL}) i la base de dades ({\em HSQLDB}).
-      
-    \item {\bf Independent} \hfill \\
-      S'ha optat per separar les {\em dades} de la funcionalitat, podent crear implementacions diferents per les mateixes dades, fent així que fins i tot puguem substituir tot el mòdul sencer de renderització (el motor gràfic) sense haver de tocar una línia de la definició de les entitats.
-      
-    \item {\bf Multi-plataforma de forma nativa} \hfill \\
-      S'ha optat per programar sobre Java, i usar únicament llibreries escrites totalment amb Java o, en cas necessari, amb codi natiu multi-plataforma. S'intenta el màxim possible que no s'hagi de fer codi dependent de la plataforma.
-      
-    \item {\bf Permetre un desenvolupament ràpid un cop estiguin fets els components bàsics} \hfill \\
-      S'ha intentat que la creació d'entitats i la seva interacció sigui el més senzilla possible.
-      
-    \item {\bf Fàcilment paral·lelitzable} \hfill \\
-      S'han afegit expressament comportaments indefinits del programa, especialment en l'àmbit de l'ordre d'execució de certs elements, per exemple, d'ordre en que un sistema actualitza les entitats, o l'ordre en que 2 sistemes no relacionats s'actualitzen. D'aquesta manera es permet que el llenguatge mateix creï diferents fils d'execució i els balancegi de forma òptima.
-  \end{itemize}
-
-  Per tal de facilitar el disseny, s'ha decidit partir d'un parser de Java ja creat, en la seva versió 1.5, i modificar-lo de tal manera que admeti definicions noves i rebutgi aquelles que en Quadriga no tenen sentit, com són les classes.
-  
-  Podríem dir que s'ha modificat aquest parser tal que ara, en comptes de definir classes, es poden definir Components, Sistemes, Prototips, Events, Threads i objectes \"{}Main\"{}, que serviran com a punt d'inici de l'execució.
-  
-  A la figura \ref{fig:EsquemaExecucio} es pot veure un esquema bàsic sobre el recorregut teòric que un programa escrit en Quadriga segueix:
+  A l'hora de fer el disseny del projecte, primer s'ha hagut d'esquematitzar el funcionament final d'aquest. El funcionament proposat es detalla a continuació i es mostra a la figura \ref{fig:EsquemaExecucio}.
   
   \begin{figure}
     \includegraphics[width=1\linewidth]{./img/EsquemaExecucio.png}
@@ -40,28 +14,63 @@ En aquest capítol es parlarà primer del disseny del llenguatge en trets genera
   
   \begin{enumerate}
     \item Es crida l'execució de Quadriga passant-li per paràmetre l'objecte de tipus Main que volem executar, i en quin fitxer es troba.
-    \item El programa compila aquest fitxer i cerca quines dependències té. Cerca i compila aquestes dependències.
+    \item El programa compila aquest fitxer i cerca quines dependències (elements definits en altres fitxers) té. Cerca i compila aquestes dependències. En cap cas cal especificar explícitament directives {\bf \#{}include} similars a {\bf C}, sinó que amb el nom de l'element el compilador n'ha de tenir prou per saber on buscar-lo.
     \item Un cop compilat el programa, es crea un model de dades especial per a aquest, que depèn dels components definits, ja que per cada un d'aquests s'han de guardar unes dades diferents.
     \item Tenint el model de dades i un codi executable, l'intèrpret carrega les llibreries que necessita i executa aquest codi, que treballa sobre el model de dades creat.
   \end{enumerate}
-  
-  A la figura \ref{fig:DiagramaDeModuls} es mostren de forma més detallada els mòduls del programa i les seves interconnexions.
+
+  Aquest model teòric s'ha vist finalment implementat en un seguit de mòduls, tal com es mostren a la figura  \ref{fig:DiagramaDeModuls}.
 
   \begin{figure}
     \includegraphics[width=1\linewidth]{./img/Moduls.png}
     \caption{Diagrama de mòduls \label{fig:DiagramaDeModuls}}
   \end{figure}
   
-\section{Definicions pròpies del llenguatge Quadriga}
-
-  Aquí s'explicaran les definicions bàsiques de conceptes propis del Sistema d'entitats Quadriga. Per a més informació consultar \cite{EntityWikiB} o \cite{Martin07}, llocs d'on he tret la inspiració bàsica per crear aquest sistema.
-
-  Essencialment es tracta de crear una API idèntica a una Base de Dades relacional on:
+  El primer mòdul és el Compilador. Aquest està creat amb l'ajuda de JavaCC, una llibreria especialitzada en crear {\bf Analitzadors sintàctics LL} citep{WikiAnalitzadorLL}. S'ha modificat un analitzador de la gramàtica de Java, per tal de simplificar-ne la creació. En conseqüència el llenguatge creat és molt similar a Java, sobretot en el cos de funcions, ja els canvis que s'hi han fet es resumeixen en:
+  
+  \begin{itemize}
+    \item Eliminar la declaració de classes.
+    \item Afegir la declaració d'elements propis de Quadriga: {\em Component, Event, System, Prototype, Thread, Main}
+    \item Afegir el tipus de dades {\em Entity}
+    \item Afegir instruccions per a manipular entitats.
+  \end{itemize}
+  
+  Aquest analitzador sintàctic crea una taula amb totes les declaracions, i aquestes contenen en forma d'arbre el codi executable. Aquest codi és interpretat de forma recursiva per el mateix arbre, per iniciar l'execució es cerca l'objecte de tipus \"{}Main\"{} que l'usuari ha especificat per paràmetre.
+  
+  Un segon mòdul és l'entorn d'execució. Aquest s'encarrega de proporcionar a l'intèrpret les dades que necessita, de gestionar els diferents evens que es puguin succeir, de crear i eliminar entitats o afegir i treure els components d'aquestes. Aquest entorn s'ajuda d'una base de dades per a gestionar la majoria de la informació.
+  
+  Finalment s'ha optat per també crear un seguit de llibreries addicionals, que facin de mòduls complementaris d'un {\em Engine}, el que seria una petita llibreria estàndard de Quadriga, amb l'objectiu principal de poder fer-ne una bona demostració.
+  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+  Com a últim apunt, fem un resum de com es pensen aconseguir els objectius bàsics de disseny:
 
   \begin{itemize}
-    \item Les claus primàries són les \"{}Entitats\"{}
-    \item Cada fila és un array de dades, anomenat \"{}Component\"{}
+    \item {\bf Open Source:} El codi del projecte s'ha penjat públicament a GoogleCode sota una llicència LGPL, que permet usar-la lliurement amb l'única restricció d'haver de publicar els canvis fets sobre la mateixa llibreria sota la mateixa llicència. També s'ha optat per fer servir només llibreries OpenSource com l'analitzador de sintaxi ({\em JavaCC}), la llibreria gràfica ({\em LWJGL}) i la base de dades ({\em HSQLDB}).
+      
+    \item {\bf Independent:} S'ha optat per separar les {\em dades} de la funcionalitat, podent crear implementacions diferents per les mateixes dades, fent així que fins i tot puguem substituir tot el mòdul sencer de renderització (el motor gràfic) sense haver de tocar una línia de la definició de les entitats.
+      
+    \item {\bf Multi-plataforma de forma nativa:} S'ha optat a que el programa s'executi a la màquina virtual de Java, i usar únicament llibreries escrites totalment amb Java o, en cas necessari, amb codi natiu multi-plataforma. S'intenta el màxim possible que no s'hagi de fer codi dependent de la plataforma.
+      
+    \item {\bf Permetre un desenvolupament ràpid un cop estiguin fets els components bàsics:} S'ha intentat que la creació d'entitats i la seva interacció sigui el més senzilla possible.
+      
+    \item {\bf Fàcilment paral·lelitzable:} S'han afegit expressament comportaments indefinits del programa, especialment en l'àmbit de l'ordre d'execució de certs elements, per exemple, d'ordre en que un sistema actualitza les entitats, o l'ordre en que 2 sistemes no relacionats s'actualitzen. D'aquesta manera es permet que el llenguatge mateix creï diferents fils d'execució i els balancegi de forma òptima.
+  \end{itemize}
+  
+\section{Definicions pròpies del llenguatge Quadriga}
+
+  Aquí s'explicaran les definicions bàsiques de conceptes propis del Sistema d'entitats Quadriga. Per a més informació consultar \cite{EntityWikiB} o \cite{Martin07}, llocs d'on s'ha tret la inspiració bàsica per crear aquest sistema.
+
+  La idea bàsica és crear una interfície molt similar a una base de dades relacional. Els elements bàsics d'aquesta base de dades seran les entitats del joc i els components que les formen. Si creessim la base de dades, aleshores:
+
+  \begin{itemize}
     \item Cada taula està associada a un \"{}Component\"{}
+    \item Les claus primàries són les \"{}Entitats\"{}
+    \item Cada fila és un array de dades, o sigui, una instància d'un \"{}Component\"{}
   \end{itemize}
 
   A continuació es detallen les definicions, element a element:
@@ -71,17 +80,18 @@ En aquest capítol es parlarà primer del disseny del llenguatge en trets genera
 
       En un nivell molt concret, una entitat és simplement un enter, o identificador, únic. A nivell més abstracte, una entitat és tot aquell objecte que apareix d'alguna manera en un joc.
       
-      En general, qualsevol element del joc pot ser una entitat. Des de l'escenari, o parts de l'escenari, a l'avatar del jugador, cada enemic o PNJ (personatge no jugador), ítems, etc... Fins i tot poden haver entitats més abstractes, que creïn els programadors, com una entitat que representi un nivell, o la GUI (Graphical User Interface), o fins i tot un diàleg.
+      En general, qualsevol element del joc pot ser una entitat. Des de l'escenari, o parts de l'escenari, a l'avatar del jugador, cada enemic o PNJ (personatge no jugador), ítems, etc... Fins i tot poden haver entitats més abstractes, que creïn els programadors, com una entitat que representi un nivell, o la GUI ({\em Graphical User Interface}), o fins i tot un diàleg.
 
       Quadriga no permet definir un tipus de dades \"{}Entitat\"{} en sí, sinó ja la té definida com a tipus bàsic i permet d'instanciar-ne de noves, eliminar-les, afegir i treure components i aplicar-li prototips (explicats més endavant).
       
       També és important introduir la idea de que les entitats formen una jerarquia en forma d'arbre. Per exemple podem crear un personatge capaç de dur diverses armes. Sabem que les armes sempre s'hauran de veure a la mà d'aquest personatge, per tal de fer-ho, indiquem que l'arma duta pel personatge és filla d'aquest a la jerarquia.
       
+      
     \item{\bf Component}
 
-      Un component és un conjunt de dades que defineixen l'estat d'una entitat. Hi ha diferents tipus de components i cada un aporta diferents dades. Cada component també du associada certa funcionalitat, però aquesta mai es troba dintre del mateix component, sinó en un sistema (tenint sempre una separació de codi i dades, molt semblant l'esquema Model-View-Controller).
+      Un component és un conjunt de dades que defineixen l'estat d'una entitat. Hi ha diferents tipus de components i cada un aporta diferents dades. Cada component també du associada certa funcionalitat, però aquesta mai es troba dintre del mateix component, sinó en un sistema (tenint sempre una separació de codi i dades, molt semblant l'esquema {\em Model-View-Controller}).
       
-      Com a exemples tindríem: Transformació de l'objecte (la translació i rotació que un objecte té respecte l'origen del món), Objecte animat (component que indica quin model s'ha d'utilitzar per a renderitzar l'entitat, que a més pot contenir informació de quines animacions té, etc...), Component de IA que indicaria quines coses sap l'entitat tal que el sistema o mòdul de IA pot fer servir per a prendre decisions, etc\ldots
+      Com a exemples tindríem: Transformació de l'objecte (la translació i rotació que un objecte té respecte l'origen del món), Objecte animat (component que indica quin model s'ha d'utilitzar per a renderitzar l'entitat, que a més pot contenir informació de quines animacions té, etc...), Component de IA que indicaria quines coses sap l'entitat tal que el sistema o mòdul de IA pot fer servir per a prendre decisions, etc.
       
       Per a definir un component, Quadriga permet d'assignar-li un identificador i la llista de dades que contindrà. Addicionalment es permet de llistar requisits, o sigui, altres components que prèviament una entitat necessita tenir per tal de poder tenir aquest.
       
@@ -89,13 +99,13 @@ En aquest capítol es parlarà primer del disseny del llenguatge en trets genera
 
       Un event, o esdeveniment, és un objecte que serveix per a passar missatges entre entitats. Aquests events són llençats quan succeeix alguna cosa (un event d'input, o un sistema que en llença un) i pot ser tractat per un o més sistemes. Els events es poden llençar a una entitat concreta o fer un broadcast a totes les entitats.
       
-      Exemples en tindríem: cada possible ordre que el jugador dóna al joc; com moure's cap a endavant, disparar, activar un ordinador\ldots També podríem tenir events per indicar-li a una entitat que ha estat impactada per una bala, o que li diguessin que ha mort, de tal manera que es pugui activar la animació corresponent, etc\ldots
+      Exemples en tindríem: cada possible ordre que el jugador dóna al joc; com moure's cap a endavant, disparar, activar un ordinador, etc. També podríem tenir events per indicar-li a una entitat que ha estat impactada per una bala, o que li diguessin que ha mort, de tal manera que es pugui activar la animació corresponent, etc.
 
       Un event es declara a Quadriga de forma molt similar a un Component. Només cal indicar-ne el nom i quina informació aportarà.
 
     \item{\bf Sistema}
 
-      Un Sistema és un Objecte opac que s'encarrega d'una part de la funcionalitat del joc, per exemple:
+      Un Sistema és un objecte opac que s'encarrega d'una part de la funcionalitat del joc, per exemple:
       \begin{itemize}
         \item{\bf Physics System} s'activa cada 17ms i itera sobre totes les entitats amb física i fa un frame de simulació.
         \item{\bf Rendering System} itera sobre totes les entitats amb representació 2D/3D i les renderitza per pantalla.
@@ -117,7 +127,7 @@ En aquest capítol es parlarà primer del disseny del llenguatge en trets genera
 
       Un Thread és una agrupació de sistemes que s'han d'executar en un ordre establert, seguint així unes garanties.
       
-      Normalment agrupen els sistemes de formes temàtiques: Thread de IA, Thread de física, Thread de renderitzar, Thread de lògica, etc\ldots
+      Normalment agrupen els sistemes de formes temàtiques: Thread de IA, Thread de física, Thread de renderitzar, Thread de lògica, etc.
       
       Per especificar un Thread en Quadriga cal indicar-ne el nom, quins sistemes contindrà (l'ordre és important) i a més permet crear mètodes d'inicialització i finalització que es cridaran a l'inici i al final de l'execució del programa.
 
@@ -125,7 +135,7 @@ En aquest capítol es parlarà primer del disseny del llenguatge en trets genera
 
       Un prototip és una eina que ajuda a crear entitats. Conceptualment és semblant a una funció que insereix els components necessaris amb els paràmetres que toquen per crear-la. És, com el seu nom indica, el prototip d'un tipus d'entitats.
       
-      Un exemple força típic és tenir un prototip per a cada tipus d'enemic del joc, i a l'hora de crear els enemics d'un nivell s'indica de quin tipus són i s'afegeix informació concreta de cada instància: com la posició, el grup al qual pertanyen, etc\ldots És molt important remarcar que els prototips només serveixen per crear entitats i aquestes no recorden quin prototip les ha instanciat.
+      Un exemple força típic és tenir un prototip per a cada tipus d'enemic del joc, i a l'hora de crear els enemics d'un nivell s'indica de quin tipus són i s'afegeix informació concreta de cada instància: com la posició, el grup al qual pertanyen, etc. És molt important remarcar que els prototips només serveixen per crear entitats i aquestes no recorden quin prototip les ha instanciat.
       
       La creació d'un prototip en Quadriga és similar a la creació d'una funció, on s'especifica component a component com es construeix una entitat. A més permet de crear altres entitats \"{}filles\"{}, tal que es pugui crear un subarbre d'entitats cridant un sol prototip.
 

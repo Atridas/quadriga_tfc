@@ -27,7 +27,7 @@ En aquest capítol s'explicarà primer l'evolució històrica en quan a programa
 
 \subsection{L'aproximació clàssica}
 
-Quan un programador de {C++} o de qualsevol llenguatge orientat a objectes s'asseu davant el desafiament de programar la lògica d'un joc, llista les diferents entitats del joc (escenari, jugador, enemics, armes, etc\ldots) i els distribueix en diferents grups i subgrups. Després en programa les funcionalitats comunes i acaba creant una jerarquia de classes que defineixen totes les entitats i les seves interrelacions. 
+Quan un programador de {C++} o de qualsevol llenguatge orientat a objectes s'asseu davant el desafiament de programar la lògica d'un joc, llista les diferents entitats del joc (escenari, jugador, enemics, armes, etc.) i els distribueix en diferents grups i subgrups. Després en programa les funcionalitats comunes i acaba creant una jerarquia de classes que defineixen totes les entitats i les seves interrelacions. 
 
 Aquesta aproximació sembla senzilla, però acaba comportant diversos problemes. Com s'explica a \citep[p.~719]{Gregory09}, les jerarquies de classes massa grans pateixen dels següents inconvenients:
 
@@ -37,7 +37,7 @@ Aquesta aproximació sembla senzilla, però acaba comportant diversos problemes.
 \begin{itemize}
   \item {\bf Manteniment:} A més profunda és una classe dintre d'una jerarquia, més costa d'entendre, mantenir i modificar, ja que s'ha d'entendre tant ella com totes les seves classes superiors. Per exemple el fet de modificar una funció virtual aparentment innòcua, pot comportar trencar suposicions que faci alguna de les classes mare, cosa que du a errors subtils i difícils de detectar.
     
-  \item {\bf Impossibilitat de descriure taxonomies multi-dimensionals:} Crear classes en forma d'arbre és molt pràctic i sobretot intuïtiu, especialment on a cada nivell es fan separacions respecte un criteri per cada nivell. Inicialment, ens plantegem una llista de grups a classificar: Vehicles contra Animals, Terrestres contra Marítims, etc\ldots Aquí se'ns obra el primer dilema: Classifiquem primer entre animals i vehicles, o entre terrestres o marítims? Però el problema seriós arriba quan ens trobem amb classificacions que no havíem previst inicialment. Per exemple podríem havent classificat vehicles terrestres i aquàtics (figura \ref{fig:Vehicles}), i posteriorment podem haver d'afegir vehicles amfibis, repte que es pot intentar solucionar de les següents maneres:
+  \item {\bf Impossibilitat de descriure taxonomies multi-dimensionals:} Crear classes en forma d'arbre és molt pràctic i sobretot intuïtiu, especialment on a cada nivell es fan separacions respecte un criteri per cada nivell. Inicialment, ens plantegem una llista de grups a classificar: Vehicles contra Animals, Terrestres contra Marítims, etc. Aquí se'ns obra el primer dilema: Classifiquem primer entre animals i vehicles, o entre terrestres o marítims? Però el problema seriós arriba quan ens trobem amb classificacions que no havíem previst inicialment. Per exemple podríem havent classificat vehicles terrestres i aquàtics (figura \ref{fig:Vehicles}), i posteriorment podem haver d'afegir vehicles amfibis, repte que es pot intentar solucionar de les següents maneres:
   
   \begin{figure}
     \centering
@@ -192,14 +192,18 @@ Diversos motors de jocs han seguit aquesta filosofia, tant comercials, oberts o 
 
 \section{Objectius del projecte}
 
-Tenint en compte quines aproximacions teòriques hi ha, i quines se n'han fet fins ara, s'han decidit marcar un seguit d'objectius a l'hora de desenvolupar un nou projecte d'aquestes característiques, tal que el facin semblant als anteriors però aportant alguna cosa nova:
+L'objectiu del projecte és crear una plataforma per al desenvolupament de videojocs basada en els sistemes d'entitats. Aquesta plataforma ha de permetre la creació de diferents elements, com Components, Sistemes, Prototips, etc., que seran explicats en detall més endavant.
+
+S'ha decidit que la millor manera de definir aquests elements és la de crear un llenguatge de programació que ho permeti. Aquest llenguatge s'anomenarà Quadriga, en honor a un dels esports amb més renom disputats als Jocs Olímpics clàssics.
+
+A més, s'han marcat un seguit de característiques que es desitja que tingui la plataforma:
 
 \begin{itemize}
   \item {\bf Open Source} \hfill \\
     S'ha decidit que aquest projecte ha de poder servir de base a qualsevol altre i ser el màxim d'obert possible. L'objectiu final és, doncs, fer una eina que qualsevol pugui fer servir.
     
   \item {\bf Independent} \hfill \\
-    Un joc està format per molts mòduls, i el sistema d'entitats ha de poder utilitzar aquests mòduls, però no dependre d'ells.
+    De tots els mòduls dels quals un {\em Engine} està format, Quadriga només n'implementarà un, el mòdul de lògica, i serà totalment independent dels altres.
     
   \item {\bf Multi-plataforma de forma nativa} \hfill \\
     Intentar que un programa desenvolupat usant aquest projecte sobre una plataforma, per exemple Windows, funcioni a qualsevol altre, per exemple GNU/Linux sense fer grans ajustaments.
