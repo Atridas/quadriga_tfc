@@ -21,14 +21,19 @@ Una entitat, en Quadriga, és simplement un tipus de variable o paràmetre. Com 
 
 \subsection{Components}
 
-\begin{verbatim}
-@component Puntuació {
-  *CTaulell;
-  int punts  = 0;
-  int línies = 0;
-  int nivell = 0;
-}
-\end{verbatim}
+%\begin{verbatim}
+%@component Puntuació {
+%  *CTaulell;
+%  int punts  = 0;
+%  int línies = 0;
+%  int nivell = 0;
+%}
+%\end{verbatim}
+
+\begin{figure}[h!]
+  \includegraphics{./img/ExempleComponent.png}
+  \caption{Component}
+\end{figure}
 
 La declaració d'un Component comença amb la paraula clau {\em \"{}@component\"{}} seguida de l'identificador desitjat del component. Seguidament, dintre de claus (\{ \}), es declaren les variables d'estat de forma similar a Java, amb la possibilitat d'establir un valor inicial si es desitja, tal com es mostra en l'exemple.
 
@@ -38,55 +43,70 @@ Els tipus permesos són els tipus primitius de Java (byte, short, int, long, flo
 
 \subsection{Events}
 
-\begin{verbatim}
-@event NovaPeça {
-  int tipus;
-}
-\end{verbatim}
+%\begin{verbatim}
+%@event NovaPeça {
+%  int tipus;
+%}
+%\end{verbatim}
+
+\begin{figure}[h!]
+  \includegraphics{./img/ExempleEvent.png}
+  \caption{Event}
+\end{figure}
 
 Un event es declara de forma idèntica a un component, a excepció de la paraula clau inicial {\em \"{}@component\"{}} que és substituïda per {\em \"{}@event\"{}}; i no hi ha \"{}requisits\"{}.
 
 \subsection{Sistemes}
 
-\begin{verbatim}
-@system LògicaPeça {
-  @components {
-    CPeça
-  }
-  
-  @init {...}
-  
-  @cleanUp {...}
-  
-  @update(Entity<CPeça> entitat: ENTITY, float dt : DELTA_TIME) {...}
-  
-  @newEntity(Entity<CPeça> entitat: ENTITY) {...}
-  
-  @eraseEntity(Entity<CPeça> entitat: ENTITY) {...}
-  
-  @event NovaPeça(
-                  NovaPeça event: EVENT, 
-                  Entity<CPeça> entitat: ENTITY
-                  )
-  {...}
-  
-  @event ELeft(Entity<CPeça> entitat: ENTITY) {...}
-  
-  @event ERight(Entity<CPeça> entitat: ENTITY) {...}
-  
-  @event EDown(Entity<CPeça> entitat: ENTITY) {...}
-  
-  @event ETurnL(Entity<CPeça> entitat: ENTITY) {...}
-  
-  @event ETurnR(Entity<CPeça> entitat: ENTITY) {...}
-}
-\end{verbatim}
+%\begin{verbatim}
+%@system LògicaPeça {
+%  @components {
+%    CPeça
+%  }
+%  
+%  @init {...}
+%  
+%  @cleanUp {...}
+%  
+%  @update(Entity<CPeça> entitat: ENTITY, float dt : DELTA_TIME) {...}
+%  
+%  @newEntity(Entity<CPeça> entitat: ENTITY) {...}
+%  
+%  @eraseEntity(Entity<CPeça> entitat: ENTITY) {...}
+%  
+%  @event NovaPeça(
+%                  NovaPeça event: EVENT, 
+%                  Entity<CPeça> entitat: ENTITY
+%                  )
+%  {...}
+%  
+%  @event ELeft(Entity<CPeça> entitat: ENTITY) {...}
+%  
+%  @event ERight(Entity<CPeça> entitat: ENTITY) {...}
+%  
+%  @event EDown(Entity<CPeça> entitat: ENTITY) {...}
+%  
+%  @event ETurnL(Entity<CPeça> entitat: ENTITY) {...}
+%  
+%  @event ETurnR(Entity<CPeça> entitat: ENTITY) {...}
+%}
+%\end{verbatim}
 
-La declaració d'un Sistema comença de forma similar a la d'un component, amb la paraula clau {\em \"{}@system\"{}}, el nom del sistema, i els diferents elements d'aquest. El primer element que cal introduir sempre, i l'únic obligatori, és la llista de components que una Entitat necessita tenir per que aquest sistema l'afecti. Aquesta llista se situa entre les claus de la següent construcció:
+\begin{figure}[h!]
+  \includegraphics{./img/ExempleSystem.png}
+  \caption{Sistema}
+\end{figure}
 
-\begin{verbatim}
-  @components { }
-\end{verbatim}
+La declaració d'un Sistema comença de forma similar a la d'un component, amb la paraula clau {\em \"{}@system\"{}}, el nom del sistema, i els diferents elements d'aquest. El primer element que cal introduir sempre, i l'únic obligatori, és la llista de components que una Entitat necessita tenir per que aquest sistema l'afecti. Aquesta llista se situa entre claus, tal com es mostra a la figura \ref{fig:ExempleSystem2}
+
+%\begin{verbatim}
+%  @components { }
+%\end{verbatim}
+
+\begin{figure}[h!]
+  \includegraphics{./img/ExempleSystem2.png}
+  \caption{Declaració dels components necessàris \label{fig:ExempleSystem2}}
+\end{figure}
 
 Els elements de la llista poden anar separats de punts i coma ({\bf ;}), però poden estar separats únicament per espais.
 
@@ -105,19 +125,24 @@ Finalment hi ha les funcions que tracten events. Aquestes funcions comencen amb 
 
 \subsection{Prototips}
 
-\begin{verbatim}
-@prototype PPeça(Entity<Puntuació> taulell)
-{
-  Transform()
-  CPeça(taulell: taulell)
-  @child {
-    "cub1" : CubDeTaulell(posX:0, posY:0, color: 1)
-    "cub2" : CubDeTaulell(posX:0, posY:0, color: 1)
-    "cub3" : CubDeTaulell(posX:0, posY:0, color: 1)
-    "cub4" : CubDeTaulell(posX:0, posY:0, color: 1)
-  }
-}
-\end{verbatim}
+%\begin{verbatim}
+%@prototype PPeça(Entity<Puntuació> taulell)
+%{
+%  Transform()
+%  CPeça(taulell: taulell)
+%  @child {
+%    "cub1" : CubDeTaulell(posX:0, posY:0, color: 1)
+%    "cub2" : CubDeTaulell(posX:0, posY:0, color: 1)
+%    "cub3" : CubDeTaulell(posX:0, posY:0, color: 1)
+%    "cub4" : CubDeTaulell(posX:0, posY:0, color: 1)
+%  }
+%}
+%\end{verbatim}
+
+\begin{figure}[h!]
+  \includegraphics{./img/ExemplePrototype.png}
+  \caption{Prototip}
+\end{figure}
 
 L'estructura d'un prototip és una mica més complexa. Primer cal especificar-ne el nom, seguit dels paràmetres que té el prototip. Després se li afegeixen un seguit de plantilles per a dues coses: Components que tindrà l'entitat, i altres entitats filles que crearà. Els elements sempre es creen i afegeixen en l'ordre establert.
 
@@ -129,37 +154,49 @@ Finalment també es pot executar codi si aquest va dintre d'una estructura {\em\
 
 \subsection{Threads}
 
-\begin{verbatim}
-@thread LlogicaTetris {
-  @system SGameOverScreen;
-  @system InputManager;
-  @system LlògicaTaulell;
-  @system LlògicaPeça;
-  
-  @init {...}
-  
-  @cleanUp {...}
-}
-\end{verbatim}
+%\begin{verbatim}
+%@thread LlogicaTetris {
+%  @system SGameOverScreen;
+%  @system InputManager;
+%  @system LlògicaTaulell;
+%  @system LlògicaPeça;
+%  
+%  @init {...}
+%  
+%  @cleanUp {...}
+%}
+%\end{verbatim}
+
+\begin{figure}[h!]
+  \includegraphics{./img/ExempleThread.png}
+  \caption{Thread}
+\end{figure}
 
 Un Thread indica quins Sistemes s'executaran, i en quin ordre, i una funció d'Init i CleanUp (opcionals) que s'executaran a l'inici i final de l'execució del programa.
 
 \subsection{Main}
 
-\begin{verbatim}
-@main Main {
-  @thread SimpleRenderThread
-  @thread LlogicaTetris
-  
-  @init {...}
-  
-  @cleanUp {...}
-}
-\end{verbatim}
+%\begin{verbatim}
+%@main Main {
+%  @thread SimpleRenderThread
+%  @thread LlogicaTetris
+%  
+%  @init {...}
+%  
+%  @cleanUp {...}
+%}
+%\end{verbatim}
+
+\begin{figure}[h!]
+  \includegraphics{./img/ExempleMain.png}
+  \caption{Main}
+\end{figure}
 
 L'objecte Main indica quins Threads s'executen i l'ordre d'aquests (si l'execució no és paral·lela), a més d'un Init i un CleanUp.
 
 \section{Instruccions pròpies}
+
+Aquí es mostraran les instruccions pròpies de Quadriga. Per veure-les degudament remarcades, consultar la figura \ref{fig:ExempleSentencia}.
 
 \subsection{Nova Entitat}
 
@@ -234,6 +271,11 @@ Accedeix a una Entitat filla amb el nom especificat.
 \end{verbatim}
 
 Retorna un objecte del tipus {\em java.util.Random}.
+
+\begin{figure}[h!]
+  \includegraphics{./img/ExempleSentencies.png}
+  \caption{Main \label{fig:ExempleSentencia}}
+\end{figure}
 
 \section{Execució}
 
