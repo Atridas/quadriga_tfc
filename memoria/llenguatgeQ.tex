@@ -15,7 +15,7 @@ El llenguatge utilitza essencialment la mateixa estructura que Java, amb la dife
 Entity<Component1, Component2, ...>
 \end{verbatim}
 
-Una entitat, en Quadriga, és simplement un tipus de variable o paràmetre. Com que cada entitat està identificada per els seus components, es permet de nombrar quins components se suposa que té associats de forma similar a com es fan els {\em Generics} en Java.
+Una entitat, en Quadriga, és simplement un tipus de variable o paràmetre. Com que cada entitat està identificada pels seus components, es permet de nombrar quins components se suposa que té associats de forma similar a com es fan els {\em Generics} en Java.
 
 \section{Declaració de tipus de dades}
 
@@ -30,7 +30,7 @@ Una entitat, en Quadriga, és simplement un tipus de variable o paràmetre. Com 
 }
 \end{verbatim}
 
-La declaració d'un Component comença amb la paraula clau {\em \"{}@component\"{}} seguida de l'identificador desitjat del component. Seguidament, dintre de claus d'ator (\{ \}), es declaren les variables d'estat de forma similar a Java, amb la possibilitat d'establir un valor inicial si es desitja, tal com es mostra en l'exemple.
+La declaració d'un Component comença amb la paraula clau {\em \"{}@component\"{}} seguida de l'identificador desitjat del component. Seguidament, dintre de claus (\{ \}), es declaren les variables d'estat de forma similar a Java, amb la possibilitat d'establir un valor inicial si es desitja, tal com es mostra en l'exemple.
 
 També dintre de les claus, i a l'inici es pot especificar quins Components necessita aquest Component (requisits previs), afegint un asterisc {\bf *} i el nom d'aquests components.
 
@@ -49,7 +49,7 @@ Un event es declara de forma idèntica a un component, a excepció de la paraula
 \subsection{Sistemes}
 
 \begin{verbatim}
-@system LlògicaPeça {
+@system LògicaPeça {
   @components {
     CPeça
   }
@@ -82,7 +82,7 @@ Un event es declara de forma idèntica a un component, a excepció de la paraula
 }
 \end{verbatim}
 
-La declaració d'un Sistem comença de forma similar a la d'un component, amb la paraula clau {\em \"{}@system\"{}}, el nom del sistema, i els diferents elements d'aquest. El primer element que cal introduir sempre, i l'únic obligatori, és la llista de components que una Entitat necessita tenir per que aquest sistema l'afecti. Aquesta llista se situa entre les claus d'ator de la següent construcció:
+La declaració d'un Sistema comença de forma similar a la d'un component, amb la paraula clau {\em \"{}@system\"{}}, el nom del sistema, i els diferents elements d'aquest. El primer element que cal introduir sempre, i l'únic obligatori, és la llista de components que una Entitat necessita tenir per que aquest sistema l'afecti. Aquesta llista se situa entre les claus de la següent construcció:
 
 \begin{verbatim}
   @components { }
@@ -90,7 +90,7 @@ La declaració d'un Sistem comença de forma similar a la d'un component, amb la
 
 Els elements de la llista poden anar separats de punts i coma ({\bf ;}), però poden estar separats únicament per espais.
 
-A continuació vindran les funcions del sistema. Les dues primeres a destacar són {\bf @init} i {\bf @cleanUp}. Aquestes s'executen a l'inici i fi de l'execució, una única vegada. Entre 2 sistemes, l'ordre de en que s'executin aquestes funcions depèn únicament de l'ordre en la qual s'han declarat en un Thread. Si 2 Threads declaren el mateix sistema, aquest s'executarà dues vegades.
+A continuació vindran les funcions del sistema. Les dues primeres a destacar són {\bf @init} i {\bf @cleanUp}. Aquestes s'executen a l'inici i a la fi de l'execució, una única vegada. Entre 2 sistemes, l'ordre de en que s'executin aquestes funcions depèn únicament de l'ordre en el qual s'han declarat en un Thread. Si 2 Threads declaren el mateix sistema, aquest s'executarà dues vegades.
 
 La funció més important d'un sistema és normalment la funció {\bf @update}. Aquesta funció s'executa un cop per {\em tick} del joc. En el pas de paràmetres cal comentar la introducció del concepte de {\bf semàntiques}. Aquestes semàntiques s'indiquen després de cada paràmetre usant el símbol dos punts {\bf :}. El tipus de paràmetre cal que sigui compatible amb la semàntica. En el cas de la funció {\bf @update} se'n proporcionen 2:
 
@@ -119,11 +119,11 @@ Finalment hi ha les funcions que tracten events. Aquestes funcions comencen amb 
 }
 \end{verbatim}
 
-La estructura d'un prototip és una mica més complexa. Primer cal especificar-ne el nom, seguit dels paràmetres que té el prototip. Després se li afegeixen un seguit de plantilles per a dues coses: Components que tindrà l'entitat, i altres entitats filles que crearà. Els elements sempre es creen i afegeixen en l'ordre establert.
+L'estructura d'un prototip és una mica més complexa. Primer cal especificar-ne el nom, seguit dels paràmetres que té el prototip. Després se li afegeixen un seguit de plantilles per a dues coses: Components que tindrà l'entitat, i altres entitats filles que crearà. Els elements sempre es creen i afegeixen en l'ordre establert.
 
-Per a afegir un component, simplement cal escriure el nom i, entre parèntesi, donar valor als camps. Per fer-ho, només cal escriure el nom del camp, dos punts {\bf :} i el valor a assignar-hi. Aquells camps que tinguin valor per defecte no cal qui siguin assignats.
+Per a afegir un component, simplement cal escriure el nom i, entre parèntesi, donar valor als camps. Per fer-ho, només cal escriure el nom del camp, dos punts {\bf :} i el valor a assignar-hi. Aquells camps que tinguin valor per defecte no cal que siguin assignats.
 
-Per a especificar Entitats filles, cal especificar-les dintre d'una estructura {\em\"{}@child\{ \}\"{}}. Aquí la fórmula a utilitzar és indicar primer el nom (de forma opcional), a continuació el prototip utilitzat i finalment els paràmetres, de forma similar als Components. Si es vol sobreescriure un valor d'un Component d'algun d'aquests fills, s'haurà d'especificar el nom del component, punt {\bf .} i finalment el camp del component.
+Per a especificar Entitats filles, cal especificar-les dintre d'una estructura {\em\"{}@child\{ \}\"{}}. Aquí la fòrmula a utilitzar és indicar primer el nom (de forma opcional), a continuació el prototip utilitzat i finalment els paràmetres, de forma similar als Components. Si es vol sobreescriure un valor d'un Component d'algun d'aquests fills, s'haurà d'especificar el nom del component, punt {\bf .} i finalment el camp del component.
 
 Finalment també es pot executar codi si aquest va dintre d'una estructura {\em\"{}@init\{ \}\"{}}, que pot ser repetida diverses vegades al prototip.
 
@@ -188,7 +188,9 @@ Cerca una Entitat amb el nom especificat i sense pare.
 \subsection{Aplicar prototip}
 
 \begin{verbatim}
-@prototype entitat : nomPrototip( param1: valor1, param2: valor2, Component1.camp1: valor3, Component1.camp2: valor4, ...)
+@prototype entitat : nomPrototip( param1: valor1, param2: valor2, 
+                                  Component1.camp1: valor3, Component1.camp2: valor4,
+                                  ...)
 \end{verbatim}
 
 Fa que a una Entitat se li apliqui un Prototip.

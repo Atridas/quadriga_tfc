@@ -12,15 +12,15 @@ S'ha dissenyat i implementat un {\bf compilador} i un {\bf entorn d'execució} p
 Com a {\bf incidències} importants cal destacar:
 
 \begin{itemize}
-  \item Degut a limitacions de temps, no s'ha pogut implementar un compilador complert, sinó que es fa servir un intèrpret. En principi només cal implementar el pas final a bytecode per a que tot funcioni correctament i a una velocitat molt més alta i amb un consum de memòria menor (el intèrpret actual usa memòria de forma massa intensiva).
+  \item Degut a limitacions de temps, no s'ha pogut implementar un compilador complert, sinó que es fa servir un intèrpret. En principi només cal implementar el pas final a bytecode per a que tot funcioni correctament i a una velocitat molt més alta i amb un consum de memòria menor (l'intèrpret actual usa memòria de forma massa intensiva).
   \item La idea d'usar una base de dades {\em SQL} no ha donat resultats massa bons, ja que consumeix molts recursos. Tot i això, es pot fer servir amb poques modificacions per tal de guardar l'estat del joc (funcionalitat de partida guardada) i carregar-lo de forma molt simple.
-  \item Degut als dos punts anteriors, no s'ha pogut fer un anàlisi del rendiment de la plataforma correcte, ja que les dues coses consumeixen molts recursos i es fa molt difícil de trobar colls d'ampolla fora dels dos punts anteriors, o fins hi tot distingir quin dels dos és més problemàtic.
+  \item Degut als dos punts anteriors, no s'ha pogut fer correctament un anàlisi del rendiment de la plataforma, ja que les dues coses consumeixen molts recursos i es fa molt difícil de trobar colls d'ampolla fora dels dos punts anteriors, o fins i tot distingir quin dels dos és més problemàtic.
 \end{itemize}
 
 Com a possibles {\bf millores} que aportar al projecte:
 
 \begin{itemize}
-  \item Solucionar les dues incidències principals esmentades anteriorment: fer que el compilador generi bytecode a executar directament a la màquina virtual de Java, i crear una implementació específica del model de dades, sense usar una base de dades SQL. Així el rendiment milloraria considerablement.
+  \item Solucionar les dues incidències principals esmentades anteriorment: fer que el compilador generi bytecode per executar directament a la màquina virtual de Java, i crear una implementació específica del model de dades, sense usar una base de dades SQL. Així el rendiment milloraria considerablement.
   \item Ampliar la llibreria estàndard per incloure la següent funcionalitat:
   \begin{itemize}
     \item Renderitzar formes geomètriques arbitràries (actualment només se suporten cubs, esferes i textos).
