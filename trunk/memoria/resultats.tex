@@ -29,7 +29,7 @@
 
       \begin{itemize}
         \item {\bf Tetris}
-          Representa l'estat actual del taulell de joc, amb els cubs posats, així com també conté informació sobre el nivell actual, els punts i les línies aconseguides per el jugador.
+          Representa l'estat actual del taulell de joc, amb els cubs posats, així com també conté informació sobre el nivell actual, els punts i les línies aconseguides pel jugador.
           
         \item {\bf Peça}
           Representa la peça que el jugador ha de col·locar en cada moment. Seria el més semblant a l'Avatar del jugador.
@@ -86,7 +86,7 @@
           Controla la inserció de peces, l'acumulació de punts i si s'han completat línies, augmentant el nivell si s'escau.
           
         \item {\bf LògicaPeça}
-          Controla que una peça es mogui segons les ordres del jugador i caigui a una velocitat donada per el nivell actual. També comprova si ha arribat al final i cal inserir-la.
+          Controla que una peça es mogui segons les ordres del jugador i caigui a una velocitat donada pel nivell actual. També comprova si ha arribat al final i cal inserir-la.
           
         \item {\bf GameOverScreen}
           Un cop el jugador ha acabat la partida, en mostra la puntuació i espera que el jugador doni ordres de tancar el programa.
@@ -157,7 +157,7 @@
       El codi es pot trobar a \url{https://code.google.com/p/quadriga/} sota llicència {\bf GNU Lesser GPL}.
       
     \item {\bf Independent} \hfill \\
-      En l'exemple s'usen unes quantes llibreries Java per implementar aspectes importants del joc. {\em OpenGL} i el {\em input} del jugador s'obtenen a partir de {\bf LWJGL}. Per fer-les servir des de {\em Quadriga} cal emprar {\em Components} que anomenaríem "estàndard" sota el paquet {\em cat.quadriga.base}. Fer aquests components no és senzill, però es podrien substituir els sistemes si es volgués fer l'esforç sense masses problemes.
+      En l'exemple s'usen unes quantes llibreries Java per implementar aspectes importants del joc. {\em OpenGL} i l'{\em input} del jugador s'obtenen a partir de {\bf LWJGL}. Per fer-les servir des de {\em Quadriga} cal emprar {\em Components} que anomenaríem "estàndard" sota el paquet {\em cat.quadriga.base}. Fer aquests components no és senzill, però es podrien substituir els sistemes si es volgués fer l'esforç sense masses problemes.
       
     \item {\bf Multi-plataforma de forma nativa} \hfill \\
       Com es veu a la figura \ref{fig:ImatgeUbuntu}, el joc corre sobre {\em Ubuntu} sense cap diferència. El codi Java i Quadriga no s'han tocat, però si que cal fer una petita modificació a l'hora de crear l'executable, doncs {\em OpenGL} necessita accedir a llibreries natives que són diferents en cada plataforma.
@@ -168,7 +168,7 @@
       Addicionalment s'ha provat d'afegir funcionalitat. En vint minuts s'ha aconseguit inserir una guia per indicar la peça següent a caure. En total s'han afegit 140 línies (afegir el component, prototip i sistema que controlin la peça següent), de les quals pràcticament totes són una còpia de codi ja fet, i s'han hagut de modificar 3 punts del joc, on s'instanciava una nova peça per tal de fer que agafés el tipus de peça que hi havia guardat. Veure figura \ref{fig:ImatgePecaSeguent}.
       
     \item {\bf Fàcilment paral·lelitzable} \hfill \\
-      Actualment el programa conté una opció de fer córrer cada {\em Thread} en paral·lel, però la opció teòricament òptima de paral·lelitzar l'actualització de cada entitat sobre cada sistema (aconseguint una paral·lelització no sobre el nombre de threads, sinó sobre el nombre d'entitats) no s'ha implementat.
+      Actualment el programa conté una opció de fer córrer cada {\em Thread} en paral·lel, però l'opció teòricament òptima de paral·lelitzar l'actualització de cada entitat sobre cada sistema (aconseguint una paral·lelització no sobre el nombre de threads, sinó sobre el nombre d'entitats) no s'ha implementat.
   \end{itemize}
     
   \begin{figure}
@@ -180,6 +180,6 @@
   
 \section{Validació}
 
-  Per tal de validar els resultats, s'ha considerat que el fet de poder-hi programar-hi un joc consisteix una prova força complerta de que el projecte funciona. Malauradament, no s'ha disposat de temps suficient per a fer un joc complex, ja que a més complex el joc programat, més garanties es poden donar de que el sistema funciona correctament.
+  Per tal de validar els resultats, s'ha considerat que el fet de poder-hi programar-hi un joc consisteix una prova força complerta de que el projecte funciona. Malauradament, no s'ha disposat de temps suficient per a fer un joc complex, ja que a més complex el joc programat, més garanties es poden donar de que el sistema funcioni correctament.
 
   
