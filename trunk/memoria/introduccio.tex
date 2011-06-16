@@ -8,7 +8,7 @@ A poc a poc van apareixent els motors gràfics - programes o mòduls encarregats
 
 Un pas més endavant el va dur Id Software amb el seu {\em id Tech}  \citep{WikiScumm}. Aquest motor - i les seves evolucions - no només es feu servir per fer jocs com Doom (1993) i Doom II (1994) d'Id Software, sinó que es va vendre a altres companyies per a fer altres jocs, tot i que aquests jocs serien molt semblants al Doom original, com serà el Half-Life (1998) basat en el Quake engine, una evolució de l'{\em id Tech}. Posteriorment fins i tot hi va haver companyies que basaven el seu negoci no en vendre jocs, sinó en vendre motors a altres companyies que els fessin servir; és doncs l'aparició definitiva dels motors com a Middleware.
 
-Paral·lelament a l'evolució tecnològica ja esmentada, la metodologia de desenvolupament i els mateixos llenguatges de programació han anat evolucionant. L'evolució més important fou quan es va passar de programar bàsicament en {\bf C} a {\bf C++}. El canvi de paradigma, però, s'ha demostrat difícil i, tot i que l'ús de la metodologia orientada a objectes és predominant a quasi totes les àrees d'un motor, encara n'hi ha alguna on s'ha demostrat no ser la millor solució. A la figura \ref{fig:EsquemaEngine} es mostren algunes parts d'un {\em Engine} i com el módul de lògica usa els altres. D'aquesta manera un pot imaginar-se un {\em Engine} com a un proveïdor de serveis per al módul de lògica.
+Paral·lelament a l'evolució tecnològica ja esmentada, la metodologia de desenvolupament i els mateixos llenguatges de programació han anat evolucionant. L'evolució més important fou quan es va passar de programar bàsicament en {\bf C} a {\bf C++}. El canvi de paradigma, però, s'ha demostrat difícil i, tot i que l'ús de la metodologia orientada a objectes és predominant a quasi totes les àrees d'un motor, encara n'hi ha alguna on s'ha demostrat no ser la millor solució. A la figura \ref{fig:EsquemaEngine} es mostren algunes parts d'un {\em Engine} i com el mòdul de lògica usa els altres. D'aquesta manera un pot imaginar-se un {\em Engine} com a un proveïdor de serveis per al mòdul de lògica.
 
 
 \begin{figure}
@@ -17,13 +17,13 @@ Paral·lelament a l'evolució tecnològica ja esmentada, la metodologia de desen
   \caption{Esquema genèric d'un Engine \label{fig:EsquemaEngine}}
 \end{figure}
 
-L'àmbit on més canvis hi ha hagut, en quan a metodologia de desenvolupament, i el que en aquest treball ens centrarem és en la definició de la lògica d'un joc. Les lògiques dels jocs, també conegudes com a mecàniques, són les normes que defineixen els jocs. Aquestes normes estan compostes per diverses peçes: elements interactius i no interactius (com l'escenari del joc, els personatges, {\em attrezzo}, i altres), accions que poden fer els elements interactius i els objectius que té el jugador.
+L'àmbit on més canvis hi ha hagut, en quan a metodologia de desenvolupament, i el que en aquest treball ens centrarem és en la definició de la lògica d'un joc. Les lògiques dels jocs, també conegudes com a mecàniques, són les normes que defineixen els jocs. Aquestes normes estan compostes per diverses peces: elements interactius i no interactius (com l'escenari del joc, els personatges, {\em attrezzo}, i altres), accions que poden fer els elements interactius i els objectius que té el jugador.
 
 En aquest capítol s'explicarà primer l'evolució històrica en quan a programació de la lògica dels jocs. Seguidament agafarem la mostra que volem implementar i la definirem, i es mostraran alguns exemples de jocs i {\em Engines} que han implementat solucions semblants. Finalment s'esmentaràn els objectius d'aquest projecte.
 
 \section{Evolució en les mecàniques dels jocs}
 
- En aquesta secció s'explicarà l'evolució que han anat prenent els mètodes que tenen els desenvolupadors per a definir aquestes normes; des de l'aproximació clàssica, jeràrquica i intuïtiva, agrupant els elements per característiques comunes, seguida d'un replantejament estructural, on se segueix una arquitectura menys intuitiva, però més flexible, sense definir jerarquies de elements, amb característiques comunes, sinó definint cada característica per separat i després deixant que cada element agrupi les que necessita. I finalment presentant una arquitectura que trenca per complet l'aproximació clàssica sense deixar de ser una evolució del pas anterior.
+ En aquesta secció s'explicarà l'evolució que han anat prenent els mètodes que tenen els desenvolupadors per a definir aquestes normes; des de l'aproximació clàssica, jeràrquica i intuïtiva, agrupant els elements per característiques comunes, seguida d'un replantejament estructural, on se segueix una arquitectura menys intuïtiva, però més flexible, sense definir jerarquies de elements, amb característiques comunes, sinó definint cada característica per separat i després deixant que cada element agrupi les que necessita. I finalment presentant una arquitectura que trenca per complet l'aproximació clàssica sense deixar de ser una evolució del pas anterior.
 
 \subsection{L'aproximació clàssica}
 
@@ -35,9 +35,9 @@ Aquesta aproximació sembla senzilla, però acaba comportant diversos problemes.
 
 
 \begin{itemize}
-  \item {\bf Manteniment:} A més profunda és una classe dintre d'una jerarquia, més costa d'entendre, mantenir i modificar, ja que s'ha d'entendre tant ella com totes les seves classes superiors. Per exemple el fet de modificar una funció virtual aparentment inocua, pot comportar trencar suposicions que faci alguna de les classes mare, cosa que du a errors subtils i difícils de detectar.
+  \item {\bf Manteniment:} A més profunda és una classe dintre d'una jerarquia, més costa d'entendre, mantenir i modificar, ja que s'ha d'entendre tant ella com totes les seves classes superiors. Per exemple el fet de modificar una funció virtual aparentment innòcua, pot comportar trencar suposicions que faci alguna de les classes mare, cosa que du a errors subtils i difícils de detectar.
     
-  \item {\bf Impossibilitat de descriure taxonomies multi-dimensionals:} Crear classes en forma d'arbre és molt pràctic i sobretot intuïtiu, especialment on a cada nivell es fan separacions respecte un criteri per cada nivell. Inicialment, ens plantejem una llista de grups a classificar: Vehicles contra Animals, Terrestres contra Marítims, etc\ldots Aqui se'ns obra el primer dilema: Classifiquem primer entre animals i vehicles, o entre terrestres o marítims? Però el problema seriós arriba quan ens trobem amb classificacions que no havíem previst inicialment. Per exemple podríem havent classificat vehicles terrestres i acuàtics (figura \ref{fig:Vehicles}), i posteriorment podem haver d'afegir vehicles amfibis, repte que es pot intentar solucionar de les següents maneres:
+  \item {\bf Impossibilitat de descriure taxonomies multi-dimensionals:} Crear classes en forma d'arbre és molt pràctic i sobretot intuïtiu, especialment on a cada nivell es fan separacions respecte un criteri per cada nivell. Inicialment, ens plantegem una llista de grups a classificar: Vehicles contra Animals, Terrestres contra Marítims, etc\ldots Aquí se'ns obra el primer dilema: Classifiquem primer entre animals i vehicles, o entre terrestres o marítims? Però el problema seriós arriba quan ens trobem amb classificacions que no havíem previst inicialment. Per exemple podríem havent classificat vehicles terrestres i aquàtics (figura \ref{fig:Vehicles}), i posteriorment podem haver d'afegir vehicles amfibis, repte que es pot intentar solucionar de les següents maneres:
   
   \begin{figure}
     \centering
@@ -46,7 +46,7 @@ Aquesta aproximació sembla senzilla, però acaba comportant diversos problemes.
   \end{figure}
   
     \begin{enumerate}
-      \item {\bf Crear una nova classe hereva de vehicle \"{}VehicleAmfibi\"{}:} Solució òptima a primer cop d'ull, però comporta duplicar codi, ja que el codi necessàri per fer que un vehicle vagi per terra ja es troba a {\em VehicleTerrestre}, per exemple. Això ens du a intentar la segona solució.
+      \item {\bf Crear una nova classe hereva de vehicle \"{}VehicleAmfibi\"{}:} Solució òptima a primer cop d'ull, però comporta duplicar codi, ja que el codi necessari per fer que un vehicle vagi per terra ja es troba a {\em VehicleTerrestre}, per exemple. Això ens du a intentar la segona solució.
       
       \item {\bf Herència múltiple. El diamant de la mort:} La solució naïf del problema anterior seria crear la classe {\em VehicleAmfibi} hereva tant de {\em VehicleTerrestre} com de {\em VehicleAquàtic}, cosa que ens porta directament a l'herència múltiple. Com s'explica a \cite[p.~2]{Martin97}, l'herència múltiple causa diversos problemes, moltes vegades més grans que aquells que soluciona. Per exemple en aquest cas veuríem que la classe {\em VehicleAmfibi} heretaria dues vegades {\em Vehicle}, amb els problemes d'ambigüitat que això duria (figura \ref{fig:RombeMort}).
         
@@ -76,7 +76,7 @@ Per a més informació sobre els defectes de l'aproximació clàssica, consultar
 
 \subsection{De l'{\em és-un} al {\em conté-un}}
 
-La primera millora, o petit canvi, que es proposa respecte l'aproximació anterior, és agregar la funcionalitat en comptes d'heretar-la. Si es vol crear un objecte amb moviment, que es renderitzi, que col·lisioni i que s'animi - un enemic, per exemple -, en l'aproximació clàssic la classe que representa aquest objecte heretaría d'una jerarquia on, més amunt o més avall, estigui implementada tota aquesta funcionalitat (figura \ref{fig:EnemicHerencia}). La millora proposada consta de fer que aquesta classe contingui aquelles que ens aportin cada una la funcionalitat que busquem (figura \ref{fig:EnemicAgregacio}).
+La primera millora, o petit canvi, que es proposa respecte l'aproximació anterior, és agregar la funcionalitat en comptes d'heretar-la. Si es vol crear un objecte amb moviment, que es renderitzi, que col·lisioni i que s'animi - un enemic, per exemple -, en l'aproximació clàssic la classe que representa aquest objecte heretaria d'una jerarquia on, més amunt o més avall, estigui implementada tota aquesta funcionalitat (figura \ref{fig:EnemicHerencia}). La millora proposada consta de fer que aquesta classe contingui aquelles que ens aportin cada una la funcionalitat que busquem (figura \ref{fig:EnemicAgregacio}).
 
 \begin{figure}
   \centering
@@ -92,13 +92,13 @@ Aquesta aproximació millora en certs aspectes l'anterior, com es mostra més en
 
 Un pas més enllà es troba l'aproximació on cada tipus de {\em Component} implementa una interfície comuna molt bàsica i després el {\em GameObject} simplement conté un array dinàmic que els conté tots, i crida les seves funcions ordenadament. Aquesta aproximació comporta sovint el problema de que els components cal ordenar-los, ja que moltes vegades la seva funcionalitat no és commutativa.
 
-Un últim pas en aquesta línia és eliminar per complet el {\em GameObject} i tenir arrays de components i lligar-los simplement per l'índex; Arrays o una implementació menys costosa en memòria com Taules Hash. Aquesta aproximació sovint anomenada com a {\em Model de Components Pur} \citep{Martin07} guanya sobretot en localitat de memòria. Normalment tots els components d'un tipus s'actualitzen alhora, en estar tots seguits en un array, el programa troba totes les dades juntes i s'executa més ràpidament que si les dades estiguéssin dispersades.
+Un últim pas en aquesta línia és eliminar per complet el {\em GameObject} i tenir arrays de components i lligar-los simplement per l'índex; Arrays o una implementació menys costosa en memòria com Taules Hash. Aquesta aproximació sovint anomenada com a {\em Model de Components Pur} \citep{Martin07} guanya sobretot en localitat de memòria. Normalment tots els components d'un tipus s'actualitzen alhora, en estar tots seguits en un array, el programa troba totes les dades juntes i s'executa més ràpidament que si les dades estiguessin dispersades.
 
 Finalment, un gran avantatge d'un sistema d'aquest tipus és, com s'explica a \citep{Leonard99}, la possibilitat de, un cop definits els tipus de components i les seves propietats, crear un \"{}editor del joc\"{} que permeti, amb l'ajuda d'una interfície gràfica, crear, manipular, modificar, afegir, treure, etc. objectes i components del món de forma molt senzilla. Una eina d'aquestes característiques disminueix la dependència que hi ha entre dissenyadors i programadors i permet que cada un d'ells pugui fer la seva feina en paral·lel de la forma més eficient possible.
 
 \subsection{De centrar-nos en els objectes, a centrar-nos en les propietats}
 
-L'últim pas, que abstreu totes les idees anteriorment exposades, és trencar totalment l'esquema orientat a objectes. Aquest canvi s'inspira en part en l'arquitectura Model-Vista-Controlador. Concretament n'agafa el concepte de que cal separar les dades de la lògica que les controla. Si en féssim una base de dades hauríem de primer llistar tots els tipus de propietats que una entitat del joc pot tenir; de cada element d'aquesta llista l'anomenarem {\bf Component}, ja que les esmentades entitats seràn formades a partir d'aquests. D'aquesta manera podem crear una taula per cada tipus de component que una entitat del joc pot tenir, i fer-ne una columna per cada propietat i una fila per cada objecte que el contingui, tenint cada objecte del joc, el que abans coneixíem com un {\em GameObject}, un identificador únic.
+L'últim pas, que abstreu totes les idees anteriorment exposades, és trencar totalment l'esquema orientat a objectes. Aquest canvi s'inspira en part en l'arquitectura Model-Vista-Controlador. Concretament n'agafa el concepte de que cal separar les dades de la lògica que les controla. Si en féssim una base de dades hauríem de primer llistar tots els tipus de propietats que una entitat del joc pot tenir; de cada element d'aquesta llista l'anomenarem {\bf Component}, ja que les esmentades entitats seran formades a partir d'aquests. D'aquesta manera podem crear una taula per cada tipus de component que una entitat del joc pot tenir, i fer-ne una columna per cada propietat i una fila per cada objecte que el contingui, tenint cada objecte del joc, el que abans coneixíem com un {\em GameObject}, un identificador únic.
 
 Aquesta aproximació no està pas mancada de defectes, i cal tenir-los en compte. El primer d'ells és la dificultat que hi ha d'establir relacions entre les {\em entitats} del joc, ja que no existeix una implementació en sí, d'aquesta entitat. Relacionat amb això hi ha el problema d'inicialitzar aquestes {\em entitats}, que s'ha de fer d'una forma més o menys aliena al mateix sistema. Finalment, el dilema més gran, és decidir on es programa el comportament de les entitats. Hi ha bàsicament 2 solucions, amb les seves variants:
 
@@ -122,7 +122,7 @@ Finalment podem veure a la taula \ref{tab:comparacioFilosofies} una comparació 
      
      {\bf Aproximació clàssica} &
      A més complexitat del sistema, més difícil és de modificar o ampliar. &
-     Un cop s'han decidit quins atributs seràn diferenciadors en cada punt de la gerarquia, canviar-los porta problemes. &
+     Un cop s'han decidit quins atributs seran diferenciadors en cada punt de la jerarquia, canviar-los porta problemes. &
      Si volem modificar una dependència (per exemple, canviar la llibreria de física) caldrà modificar aquelles classes que encapsulin la física i adaptar totes aquelles hereves i en conseqüència cal fer molts canvis al programa, especialment si hi ha entitats que no fan servir aquesta característica però la duen incorporada, degut a l'efecte bombolla.\\
      \hline
      
@@ -143,7 +143,7 @@ Finalment podem veure a la taula \ref{tab:comparacioFilosofies} una comparació 
 
 \section{Sistema d'Entitats}
 
-En aquesta secció donarem una definició, la nostra, del que és un sistema d'entitats. Tot seguit, es mostraran diferens implementacions que s'han fet, tant de Videojocs com d'{\em Engines}.
+En aquesta secció donarem una definició, la nostra, del que és un sistema d'entitats. Tot seguit, es mostraran diferents implementacions que s'han fet, tant de Videojocs com d'{\em Engines}.
 
 \subsection{Definicions}
 
@@ -151,7 +151,7 @@ Un sistema d'entitats està compost de diferents elements que cal entendre.
 
 En primer lloc, les {\bf entitats}. Una {\bf entitat} en un videojoc és cada element que d'alguna manera apareix en el videojoc de forma concreta. Per exemple, l'escenari del videojoc, l'{\em avatar} del jugador, els enemics, les armes, els objectes que el jugador recull. Si féssim un llistat exhaustiu del joc dels escacs, donaríem les peces, el taulell i, si s'escau, el rellotge que marca el temps límit.
 
-Seguidament, els {\bf components} són les característiques que defineixen les {\em entitats}. La vida d'un personatge, el model 3D de l'escenari i la velocitat d'un cotxe en són exemples, però també n'hi ha de més abstractes, com un component que defines que un objecte fa so, o un altre que el marca com a {\em vehicle}. En resum, totes les característiques que les {\bf entitats} poden tenir s'agrupen en {\bf components}.
+Seguidament, els {\bf components} són les característiques que defineixen les {\em entitats}. La vida d'un personatge, el model 3D de l'escenari i la velocitat d'un cotxe en són exemples, però també n'hi ha de més abstractes, com un component que defineix que un objecte fa so, o un altre que el marca com a {\em vehicle}. En resum, totes les característiques que les {\bf entitats} poden tenir s'agrupen en {\bf components}.
 
 Finalment definim un {\bf sistema d'entitats} aquell {\bf sistema} que regeix el comportament d'un seguit d'{\bf entitats}, definides a partir d'uns {\bf components}. Cada entitat té associat com a màxim un component de cada tipus. El comportament d'aquestes entitats ve únicament regit per quins {\bf components} té associats i les dades que aquests contenen.
 
