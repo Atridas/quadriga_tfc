@@ -14,7 +14,7 @@ En aquest capítol es parlarà primer del disseny i implementació del llenguatg
   
   \begin{enumerate}
     \item Es crida l'execució de Quadriga passant-li per paràmetre l'objecte de tipus Main que volem executar, i en quin fitxer es troba.
-    \item El programa compila aquest fitxer i cerca quines dependències (elements definits en altres fitxers) té. Cerca i compila aquestes dependències. En cap cas cal especificar explícitament directives {\bf \#{}include} similars a {\bf C}, sinó que amb el nom de l'element el compilador n'ha de tenir prou per saber on buscar-lo.
+    \item El programa compila aquest fitxer, cerca quines dependències (elements definits en altres fitxers) té i compila aquestes dependències. En cap cas cal especificar explícitament directives {\bf \#{}include} similars a {\bf C}, sinó que amb el nom de l'element el compilador n'ha de tenir prou per saber on buscar-lo.
     \item Un cop compilat el programa, es crea un model de dades especial per a aquest, que depèn dels components definits, ja que per cada un d'aquests s'han de guardar unes dades diferents.
     \item Tenint el model de dades i un codi executable, l'intèrpret carrega les llibreries que necessita i executa aquest codi, que treballa sobre el model de dades creat.
   \end{enumerate}
@@ -26,7 +26,7 @@ En aquest capítol es parlarà primer del disseny i implementació del llenguatg
     \caption{Diagrama de mòduls \label{fig:DiagramaDeModuls}}
   \end{figure}
   
-  El primer mòdul és el Compilador. Aquest està creat amb l'ajuda de JavaCC, una llibreria especialitzada en crear {\bf Analitzadors sintàctics LL} citep{WikiAnalitzadorLL}. S'ha modificat un analitzador de la gramàtica de Java, per tal de simplificar-ne la creació. En conseqüència el llenguatge creat és molt similar a Java, sobretot en el cos de funcions, ja els canvis que s'hi han fet es resumeixen en:
+  El primer mòdul és el Compilador. Aquest està creat amb l'ajuda de JavaCC, una llibreria especialitzada en crear {\bf Analitzadors sintàctics LL} citep{WikiAnalitzadorLL}. S'ha modificat un analitzador de la gramàtica de Java per tal de simplificar-ne la creació. En conseqüència el llenguatge creat és molt similar a Java, sobretot en el cos de funcions, ja que els canvis que s'hi han fet es resumeixen en:
   
   \begin{itemize}
     \item Eliminar la declaració de classes.
@@ -35,11 +35,11 @@ En aquest capítol es parlarà primer del disseny i implementació del llenguatg
     \item Afegir instruccions per a manipular entitats.
   \end{itemize}
   
-  Aquest analitzador sintàctic crea una taula amb totes les declaracions, i aquestes contenen en forma d'arbre el codi executable. Aquest codi és interpretat de forma recursiva per el mateix arbre, per iniciar l'execució es cerca l'objecte de tipus \"{}Main\"{} que l'usuari ha especificat per paràmetre.
+  Aquest analitzador sintàctic crea una taula amb totes les declaracions, i aquestes contenen en forma d'arbre el codi executable. Aquest codi és interpretat de forma recursiva pel mateix arbre. Per iniciar l'execució es cerca l'objecte de tipus \"{}Main\"{} que l'usuari ha especificat per paràmetre.
   
-  Un segon mòdul és l'entorn d'execució. Aquest s'encarrega de proporcionar a l'intèrpret les dades que necessita, de gestionar els diferents evens que es puguin succeir, de crear i eliminar entitats o afegir i treure els components d'aquestes. Aquest entorn s'ajuda d'una base de dades per a gestionar la majoria de la informació.
+  Un segon mòdul és l'entorn d'execució. Aquest s'encarrega de proporcionar a l'intèrpret les dades que necessita, de gestionar els diferents events que es puguin succeir, de crear i eliminar entitats o afegir i treure els components d'aquestes. Aquest entorn s'ajuda d'una base de dades per a gestionar la majoria de la informació.
   
-  Finalment s'ha optat per també crear un seguit de llibreries addicionals, que facin de mòduls complementaris d'un {\em Engine}, el que seria una petita llibreria estàndard de Quadriga, amb l'objectiu principal de poder fer-ne una bona demostració.
+  Finalment s'ha optat per crear també un seguit de llibreries addicionals, que facin de mòduls complementaris d'un {\em Engine}, el que seria una petita llibreria estàndard de Quadriga, amb l'objectiu principal de poder fer-ne una bona demostració.
   
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -52,13 +52,13 @@ En aquest capítol es parlarà primer del disseny i implementació del llenguatg
   \begin{itemize}
     \item {\bf Open Source:} El codi del projecte s'ha penjat públicament a GoogleCode sota una llicència LGPL, que permet usar-la lliurement amb l'única restricció d'haver de publicar els canvis fets sobre la mateixa llibreria sota la mateixa llicència. També s'ha optat per fer servir només llibreries OpenSource com l'analitzador de sintaxi ({\em JavaCC}), la llibreria gràfica ({\em LWJGL}) i la base de dades ({\em HSQLDB}).
       
-    \item {\bf Independent:} S'ha optat per separar les {\em dades} de la funcionalitat, podent crear implementacions diferents per les mateixes dades, fent així que fins i tot puguem substituir tot el mòdul sencer de renderització (el motor gràfic) sense haver de tocar una línia de la definició de les entitats.
+    \item {\bf Independent:} S'ha optat per separar les dades de la funcionalitat, podent crear implementacions diferents per les mateixes dades, fent així que fins i tot puguem substituir tot el mòdul sencer de renderització (el motor gràfic) sense haver de tocar una línia de la definició de les entitats.
       
-    \item {\bf Multi-plataforma de forma nativa:} S'ha optat a que el programa s'executi a la màquina virtual de Java, i usar únicament llibreries escrites totalment amb Java o, en cas necessari, amb codi natiu multi-plataforma. S'intenta el màxim possible que no s'hagi de fer codi dependent de la plataforma.
+    \item {\bf Multi-plataforma de forma nativa:} S'ha optat a que el programa s'executi a la màquina virtual de Java i usar únicament llibreries escrites totalment amb Java o, en cas necessari, amb codi natiu multi-plataforma. S'intenta el màxim possible que no s'hagi de fer codi dependent de la plataforma.
       
     \item {\bf Permetre un desenvolupament ràpid un cop estiguin fets els components bàsics:} S'ha intentat que la creació d'entitats i la seva interacció sigui el més senzilla possible.
       
-    \item {\bf Fàcilment paral·lelitzable:} S'han afegit expressament comportaments indefinits del programa, especialment en l'àmbit de l'ordre d'execució de certs elements, per exemple, d'ordre en que un sistema actualitza les entitats, o l'ordre en que 2 sistemes no relacionats s'actualitzen. D'aquesta manera es permet que el llenguatge mateix creï diferents fils d'execució i els balancegi de forma òptima.
+    \item {\bf Fàcilment paral·lelitzable:} S'han afegit expressament comportaments indefinits del programa, especialment en l'àmbit de l'ordre d'execució de certs elements, per exemple, l'ordre en que un sistema actualitza les entitats, o l'ordre en que 2 sistemes no relacionats s'actualitzen. D'aquesta manera es permet que el llenguatge mateix creï diferents fils d'execució i els balancegi de forma òptima.
   \end{itemize}
   
 \section{Definicions pròpies del llenguatge Quadriga}
@@ -134,8 +134,11 @@ En aquest capítol es parlarà primer del disseny i implementació del llenguatg
 
 \section{Model de Dades}
 
-  CUn sistema d'entitats acaba sent molt semblant a una Base de Dades relacional, on cada tipus de component equival a una taula, cada entitat a un identificador i en cada fila d'aquestes taules hi ha les dades corresponents. A més, aquesta base de dades ha de complir un seguit d'especificacions:
-
+  Un sistema d'entitats acaba sent molt semblant a una Base de Dades relacional, on cada tipus de component equival a una taula, cada entitat a un identificador i en cada fila d'aquestes taules hi ha les dades corresponents. A més, aquesta base de dades ha de complir un seguit d'especificacions.
+  
+  \subsection{Especificacions}
+  \label{subsec:Especificacions}
+  
   \begin{itemize}
     \item Els sistemes d'entitats consten de 4 elements bàsics: entitats, components, sistemes i events.
     
@@ -159,12 +162,14 @@ En aquest capítol es parlarà primer del disseny i implementació del llenguatg
     
     \item Cada tipus de component té unes dades associades diferents que es programen mitjançant el llenguatge Quadriga.
   \end{itemize}
+  
+  \subsection{Implementació}
 
   L'esquema Entiat-Relació resultant es mostra a la figura \ref{fig:EntitatRelacio}. I la base de dades relacional tindria la forma mostrada a la figura \ref{fig:BBDDRelacional}.
 
   \begin{figure}
     \includegraphics[width=1\linewidth]{./img/EntitatRelacio.png}
-    \caption{Model Enitat-Relació \label{fig:EntitatRelacio}}
+    \caption{Model Entitat-Relació \label{fig:EntitatRelacio}}
   \end{figure}
 
   \begin{figure}
@@ -174,7 +179,7 @@ En aquest capítol es parlarà primer del disseny i implementació del llenguatg
   
   Cal destacar en aquest apartat, que el model serà lleugerament diferent per cada programa compilat amb Quadriga, doncs es generarà una taula addicional per a cada component descrit, amb els camps corresponents. No serà la mateixa base de dades per un joc simple, estil {\em Tetris}, que per un MMORPG estil {\em World of Warcraft}, tal i com la intuïció ens fa saber.
   
-  La implementació d'aquesta base de dades s'ha optat per fer-la amb un motor SQL per a Java anomenat {\em HSQLDB}. Això ens proporciona eines com les cerques optimitzades (per exemple, cercar totes les entitats que continguin un seguit de components, o saber a quins sistemes cal enviar un event) i facilitats de guardar i carregar la base de dades de forma molt senzilla, però a canvi es perd força rendiment respecte si la implementació del model de dades es fes específicament a aquestes especificacions.
+  La implementació d'aquesta base de dades s'ha optat per fer-la amb un motor SQL per a Java anomenat {\em HSQLDB}. Això ens proporciona eines com les cerques optimitzades (per exemple, cercar totes les entitats que continguin un seguit de components, o saber a quins sistemes cal enviar un event) i facilitats com guardar i carregar la base de dades de forma molt senzilla, però a canvi es perd força rendiment respecte si la implementació del model de dades es fes directament respecte a les especificacions esmentades a la secció \ref{subsec:Especificacions}.
 
 \section{Editar el llenguatge}
 
