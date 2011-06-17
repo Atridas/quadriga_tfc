@@ -1,33 +1,37 @@
 \chapter{Resultats}
 \label{chap:Resultats}
 
-  Per tal de comprovar si el sistema funcionava, s'ha provat de fer un joc senzill amb ell, en aquest cas, un clon del Tetris. En aquest capítol es farà un resum del seu desenvolupament i se'n mirarà el rendiment. Se'n pot veure una captura a la figura \ref{fig:ImatgeTetris}.
-
+  Per tal de validar el sistema funcionava, s'ha provat de fer un joc senzill amb ell, en aquest cas, un clon del Tetris.
+  
+  El Tetris és un joc creat el 1984, de mecàniques similars a un puzzle i molt conegut arreu del món. La seva simplicitat i la seva fama el fan ideal com a exercici de programació. En podem veure una imatge a la figura \ref{fig:ImatgeTetris}.
+  
   \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{./img/ImatgeTetris.png}
     \caption{Captura de pantalla del joc final \label{fig:ImatgeTetris}}
   \end{figure}
+  
+  Les mecàniques del Tetris són molt senzilles: distingim dues entitats bàsiques, el taulell i la peça. La peça cau des de la part superior del taulell, i el jugador pot modificar-ne la trajectòria i girar-la. Un cop la peça no pot descendre més, aquesta queda fixada al taulell i apareix una altra peça a la part superior. Si no pot apareixer aquesta peça, el joc finalitza. Al fixar una peça, pot ser que s'ocupi una línia sencera, en aquest cas s'elimina la línia i es beneficia al jugador amb un seguit de punts.
 
-\section{Estructura del Tetris en Quadriga}
+  En aquest capítol farem un repàs primer dels elements de Quadriga que s'han creat per programar el Tetris, seguidament es farà un cop d'ull a uns elements \"{}estàndard\"{} que s'han creat per tal d'ajudar-ne al desenvolupament. Finalment es farà un anàlisi sobre els objectius de disseny, punt per punt.
+  
+  \section{Elements propis del Tetris}
 
-  Per tal de veure visualment com està muntat aquest tetris, s'ha fet un diagrama semblant a l'UML de la seva estructura a la figura \ref{fig:TetrisEntitats}. També s'ha confeccionat una llegenda per entendre-ho millor que es pot veure a la figura \ref{fig:GuiaDiagramaQuadriga}.
+    Per tal de veure visualment com està muntat aquest tetris, s'ha fet un diagrama semblant a l'UML de la seva estructura a la figura \ref{fig:TetrisEntitats}. També s'ha confeccionat una llegenda per entendre-ho millor que es pot veure a la figura \ref{fig:GuiaDiagramaQuadriga}.
 
-  \begin{figure}
-    \includegraphics[width=1\linewidth]{./img/TetrisEntitats.png}
-    \caption{Esquema dels elements que formen el tetris \label{fig:TetrisEntitats}}
-  \end{figure}
+    \begin{figure}
+      \includegraphics[width=1\linewidth]{./img/TetrisEntitats.png}
+      \caption{Esquema dels elements que formen el tetris \label{fig:TetrisEntitats}}
+    \end{figure}
 
-  \begin{figure}
-    \centering
-    \includegraphics[width=0.7\linewidth]{./img/GuiaDiagramaQuadriga.png}
-    \caption{Llegenda \label{fig:GuiaDiagramaQuadriga}}
-  \end{figure}
+    \begin{figure}
+      \centering
+      \includegraphics[width=0.7\linewidth]{./img/GuiaDiagramaQuadriga.png}
+      \caption{Llegenda \label{fig:GuiaDiagramaQuadriga}}
+    \end{figure}
 
-  \subsection{Elements propis del Tetris}
-
-    \subsubsection{Entitats / Prototips}
-
+    \subsection{Entitats / Prototips}
+      
       \begin{itemize}
         \item {\bf Tetris}
           Representa l'estat actual del taulell de joc, amb els cubs posats, així com també conté informació sobre el nivell actual, els punts i les línies aconseguides pel jugador.
@@ -43,7 +47,7 @@
           
       \end{itemize}
 
-    \subsubsection{Components}
+    \subsection{Components}
 
       \begin{itemize}
         \item {\bf Taulell}
@@ -63,7 +67,7 @@
           
       \end{itemize}
 
-    \subsubsection{Events}
+    \subsection{Events}
 
       \begin{itemize}
         \item {\bf NovaPeça}
@@ -80,7 +84,7 @@
           
       \end{itemize}
 
-    \subsubsection{Sistemes}
+    \subsection{Sistemes}
 
       \begin{itemize}
         \item {\bf LògicaTaulell}
@@ -97,7 +101,7 @@
           
       \end{itemize}
       
-    \subsubsection{Threads}
+    \subsection{Threads}
     
       \begin{itemize}
         \item {\bf ThreadTetris}
@@ -105,9 +109,9 @@
           
       \end{itemize}
     
-  \subsection{Llibreria SimpleRender}
+  \section{Llibreria SimpleRender}
 
-    \subsubsection{Entitats / Prototips}
+    \subsection{Entitats / Prototips}
 
       \begin{itemize}
         \item {\bf TextRenderer}
@@ -115,7 +119,7 @@
       \end{itemize}
 
 
-    \subsubsection{Components}
+    \subsection{Components}
 
       \begin{itemize}
         \item {\bf Transform}
@@ -135,7 +139,7 @@
           
       \end{itemize}
       
-    \subsubsection{Threads}
+    \subsection{Threads}
     
       \begin{itemize}
         \item {\bf SimpleRenderThread}
@@ -145,7 +149,7 @@
       
 \section{Objectius de disseny}
 
-  S'analitzarà, punt per punt, si s'han complert els objectius de disseny del programa.
+  S'analitza, punt per punt, si s'han complert els objectius de disseny del programa.
     
   \begin{figure}
     \centering
@@ -177,10 +181,17 @@
     \includegraphics[width=0.5\linewidth]{./img/ImatgePecaSeguent.png}
     \caption{Captura de pantalla del joc amb modificacions \label{fig:ImatgePecaSeguent}}
   \end{figure}
-  
-  
-\section{Validació}
 
-  Per tal de validar els resultats, s'ha considerat que el fet de poder-hi programar-hi un joc consisteix una prova força complerta de que el projecte funciona. Malauradament, no s'ha disposat de temps suficient per a fer un joc complex, ja que a més complex el joc programat, més garanties es poden donar de que el sistema funcioni correctament.
+  Per tal de validar els resultats, s'ha considerat que el fet de poder-hi programar-hi un joc consisteix una prova força complerta de que el projecte funciona. S'ha demostrat que el joc es pot ampliar fàcilment, ara es proposaran alguns dissenys de millora:
+  
+  \begin{itemize}
+    \item {\bf Multijugador a pantalla dividida:} Per tal d'implementar aquesta millora, cal duplicar les entitats principals: tenir 2 sistemes i 2 peçes. També cal ampliar els events d'ordres del jugador tal que aportin informació de quin jugador l'ha feta, i que les funcions que responen a aquests events actuin sobre la peça adequada.
+    
+    \item {\bf Multijugador en xarxa:} Aquesta ampliació és en part més complexa que l'anterior, ja que implica crear un módul de xarxa. Un cop creat aquest módul, les modificacions al programa Quadriga són mínimes, ja que només cal fer que els events que el jugador local crea s'enviin al remot, i fer que els events remots es tradueixin als events locals.
+    
+    \item {\bf Crear un fons de pantalla més estètic:} Cal crear un component i entitat que ho controlin, així com ampliar la llibreria gràfica. Tot això aniria associat a la llibreria estàndard de Quadriga i les modificacions des del nucli de la lògica serien mínimes.
+    
+    \item {\em Crear un menú principal, amb pantalla de rècords:} Caldria crear una màquina d'estats que implementés aquest menú. La llibreria estàndard ja incorpora utilitats per renderitzar qualsevol text en {\bf Unicode}. Adicionalment, es podria afegir funcionalitat per guardar l'estat de la base de dades i així mantenir els rècords entre partides.
+  \end{itemize}
 
   
