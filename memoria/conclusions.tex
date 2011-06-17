@@ -3,12 +3,14 @@
 
 
 \begin{itemize}
-  \item S'ha dissenyat un llenguatge de programació que segueix el paradigma dels {\em Sistemes d'Entitats} que s'ha anomenat Quadriga.
-  \item S'ha dissenyat i implementat un {\bf compilador} i un {\bf entorn d'execució} per al prototipatge i/o programació de videojocs.
-  \item S'ha creat una base de dades creada dinàmicament que suporta qualsevol tipus de joc sobre un format estandaritzat.
+  \item S'ha dissenyat un llenguatge de programació que segueix el paradigma dels {\em Sistemes d'Entitats} i s'ha anomenat Quadriga.
+  \item S'ha dissenyat i implementat un {\bf compilador} per aquest llenguatge.
+  \item S'ha implementat un {\bf entorn d'execució} que proporcioni al programa tots els elements necessaris per al seu correcte funcionament en qualsevol plataforma suportada per Java.
+  \item S'ha creat una base de dades especificada dinàmicament (resultat de la compilació) que suporta qualsevol tipus de joc sobre un format estandaritzat.
   \item S'ha creat un subratllador de sintaxi per facilitar la seva programació.
   \item S'ha implementat un joc d'exemple basat en el clàssic {\bf Tetris}.
-  \item S'ha desenvolupat una petita llibreria bàsica per a renderitzar textos i alguns formes geomètriques simples: cubs i esferes.
+  \item S'ha desenvolupat una petita llibreria bàsica per a renderitzar textos i algunes formes geomètriques simples: cubs i esferes.
+  \item S'ha dissenyat un model de llibreria tal que sigui fàcil de transportar a altres plataformes (fins i tot plataformes mòbils) emprant les últimes tècniques de renderitzat (mitjançant els {\em Shaders} d'OpenGL 2.0).
 \end{itemize}
 
 Com a {\bf incidències} importants cal destacar:
@@ -17,7 +19,7 @@ Com a {\bf incidències} importants cal destacar:
   \item La idea d'usar una base de dades {\em SQL} no ha donat resultats massa bons, ja que consumeix molts recursos. Tot i això, es pot fer servir amb poques modificacions per tal de guardar l'estat del joc (funcionalitat de partida guardada) i carregar-lo de forma molt simple.
 \end{itemize}
 
-Com a possibles {\bf millores} que aportar al projecte:
+Com a possibles {\bf millores} a aportar al projecte:
 
 \begin{itemize}
   \item Fer que el compilador generi bytecode per executar directament a la màquina virtual de Java, millorant el rendiment dels programes desenvolupats a Quadriga.
