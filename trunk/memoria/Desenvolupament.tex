@@ -65,19 +65,10 @@ En aquest capítol es parlarà primer del disseny i implementació del llenguatg
 
   Aquí s'explicaran les definicions bàsiques de conceptes propis del Sistema d'entitats Quadriga. Per a més informació consultar \cite{EntityWikiB} o \cite{Martin07}, llocs d'on s'ha tret la inspiració bàsica per crear aquest sistema.
 
-  La idea bàsica és crear una interfície molt similar a una base de dades relacional. Els elements bàsics d'aquesta base de dades seran les entitats del joc i els components que les formen. Si creessim la base de dades, aleshores:
-
-  \begin{itemize}
-    \item Cada taula està associada a un \"{}Component\"{}
-    \item Les claus primàries són les \"{}Entitats\"{}
-    \item Cada fila és un array de dades, o sigui, una instància d'un \"{}Component\"{}
-  \end{itemize}
-
-  A continuació es detallen les definicions, element a element:
+  A continuació es detallen les definicions, element a element. Per veure'n exemples més detallats, consultar l'apèndix \ref{chap:llenguatgeQ}.
   
   \begin{itemize}
-    \item{\bf Entitat}
-
+    \item{\bf Entitat:}
       En un nivell molt concret, una entitat és simplement un enter, o identificador, únic. A nivell més abstracte, una entitat és tot aquell objecte que apareix d'alguna manera en un joc.
       
       En general, qualsevol element del joc pot ser una entitat. Des de l'escenari, o parts de l'escenari, a l'avatar del jugador, cada enemic o PNJ (personatge no jugador), ítems, etc... Fins i tot poden haver entitats més abstractes, que creïn els programadors, com una entitat que representi un nivell, o la GUI ({\em Graphical User Interface}), o fins i tot un diàleg.
@@ -87,24 +78,21 @@ En aquest capítol es parlarà primer del disseny i implementació del llenguatg
       També és important introduir la idea de que les entitats formen una jerarquia en forma d'arbre. Per exemple podem crear un personatge capaç de dur diverses armes. Sabem que les armes sempre s'hauran de veure a la mà d'aquest personatge, per tal de fer-ho, indiquem que l'arma duta pel personatge és filla d'aquest a la jerarquia.
       
       
-    \item{\bf Component}
-
+    \item{\bf Component:}
       Un component és un conjunt de dades que defineixen l'estat d'una entitat. Hi ha diferents tipus de components i cada un aporta diferents dades. Cada component també du associada certa funcionalitat, però aquesta mai es troba dintre del mateix component, sinó en un sistema (tenint sempre una separació de codi i dades, molt semblant l'esquema {\em Model-View-Controller}).
       
       Com a exemples tindríem: Transformació de l'objecte (la translació i rotació que un objecte té respecte l'origen del món), Objecte animat (component que indica quin model s'ha d'utilitzar per a renderitzar l'entitat, que a més pot contenir informació de quines animacions té, etc...), Component de IA que indicaria quines coses sap l'entitat tal que el sistema o mòdul de IA pot fer servir per a prendre decisions, etc.
       
       Per a definir un component, Quadriga permet d'assignar-li un identificador i la llista de dades que contindrà. Addicionalment es permet de llistar requisits, o sigui, altres components que prèviament una entitat necessita tenir per tal de poder tenir aquest.
       
-    \item{\bf Event}
-
+    \item{\bf Event:}
       Un event, o esdeveniment, és un objecte que serveix per a passar missatges entre entitats. Aquests events són llençats quan succeeix alguna cosa (un event d'input, o un sistema que en llença un) i pot ser tractat per un o més sistemes. Els events es poden llençar a una entitat concreta o fer un broadcast a totes les entitats.
       
       Exemples en tindríem: cada possible ordre que el jugador dóna al joc; com moure's cap a endavant, disparar, activar un ordinador, etc. També podríem tenir events per indicar-li a una entitat que ha estat impactada per una bala, o que li diguessin que ha mort, de tal manera que es pugui activar la animació corresponent, etc.
 
       Un event es declara a Quadriga de forma molt similar a un Component. Només cal indicar-ne el nom i quina informació aportarà.
 
-    \item{\bf Sistema}
-
+    \item{\bf Sistema:}
       Un Sistema és un objecte opac que s'encarrega d'una part de la funcionalitat del joc, per exemple:
       \begin{itemize}
         \item{\bf Physics System} s'activa cada 17ms i itera sobre totes les entitats amb física i fa un frame de simulació.
@@ -123,35 +111,30 @@ En aquest capítol es parlarà primer del disseny i implementació del llenguatg
         \item {\bf Inicialització i neteja del sistema:} Es cridaran una vegada a l'inici i final de l'execució del programa.
       \end{enumerate}
       
-    \item{\bf Thread}
-
+    \item{\bf Thread:}
       Un Thread és una agrupació de sistemes que s'han d'executar en un ordre establert, seguint així unes garanties.
       
       Normalment agrupen els sistemes de formes temàtiques: Thread de IA, Thread de física, Thread de renderitzar, Thread de lògica, etc.
       
       Per especificar un Thread en Quadriga cal indicar-ne el nom, quins sistemes contindrà (l'ordre és important) i a més permet crear mètodes d'inicialització i finalització que es cridaran a l'inici i al final de l'execució del programa.
 
-    \item{\bf Prototip}
-
+    \item{\bf Prototip:}
       Un prototip és una eina que ajuda a crear entitats. Conceptualment és semblant a una funció que insereix els components necessaris amb els paràmetres que toquen per crear-la. És, com el seu nom indica, el prototip d'un tipus d'entitats.
       
       Un exemple força típic és tenir un prototip per a cada tipus d'enemic del joc, i a l'hora de crear els enemics d'un nivell s'indica de quin tipus són i s'afegeix informació concreta de cada instància: com la posició, el grup al qual pertanyen, etc. És molt important remarcar que els prototips només serveixen per crear entitats i aquestes no recorden quin prototip les ha instanciat.
       
       La creació d'un prototip en Quadriga és similar a la creació d'una funció, on s'especifica component a component com es construeix una entitat. A més permet de crear altres entitats \"{}filles\"{}, tal que es pugui crear un subarbre d'entitats cridant un sol prototip.
 
-    \item{\bf Main}
-
+    \item{\bf Main:}
       L'Objecte Main defineix quins threads executa l'aplicació i una funció d'inicialització de la mateixa. Quan s'executa un programa Quadriga, s'ha d'especificar el nom d'un objecte tipus Main per a executar.
     
       Un Main es declara a Quadriga indicant quins Threads ha de crear, i afegint funcions d'inicialització i finalització.
     
   \end{itemize}
-  
-  Per a més informació sobre el llenguatge en sí, consultar l'apèndix \ref{chap:llenguatgeQ}.
 
 \section{Model de Dades}
 
-  Com ja s'ha comentat, un sistema d'entitats acaba sent molt semblant a una Base de Dades relacional, on cada tipus de component equival a una taula, cada entitat a un identificador i en cada fila d'aquestes taules hi ha les dades corresponents. A més, aquesta base de dades ha de complir un seguit d'especificacions:
+  CUn sistema d'entitats acaba sent molt semblant a una Base de Dades relacional, on cada tipus de component equival a una taula, cada entitat a un identificador i en cada fila d'aquestes taules hi ha les dades corresponents. A més, aquesta base de dades ha de complir un seguit d'especificacions:
 
   \begin{itemize}
     \item Els sistemes d'entitats consten de 4 elements bàsics: entitats, components, sistemes i events.
@@ -191,8 +174,8 @@ En aquest capítol es parlarà primer del disseny i implementació del llenguatg
   
   Cal destacar en aquest apartat, que el model serà lleugerament diferent per cada programa compilat amb Quadriga, doncs es generarà una taula addicional per a cada component descrit, amb els camps corresponents. No serà la mateixa base de dades per un joc simple, estil {\em Tetris}, que per un MMORPG estil {\em World of Warcraft}, tal i com la intuïció ens fa saber.
   
-  La implementació d'aquesta base de dades s'ha optat per fer-la amb un motor SQL per a Java anomenat {\em HSQLDB}. Això ens proporciona eines com les cerques optimitzades i facilitats de guardar i carregar la base de dades de forma molt senzilla, però a canvi es perd força rendiment respecte si la base de dades es fes de forma més específica.
+  La implementació d'aquesta base de dades s'ha optat per fer-la amb un motor SQL per a Java anomenat {\em HSQLDB}. Això ens proporciona eines com les cerques optimitzades (per exemple, cercar totes les entitats que continguin un seguit de components, o saber a quins sistemes cal enviar un event) i facilitats de guardar i carregar la base de dades de forma molt senzilla, però a canvi es perd força rendiment respecte si la implementació del model de dades es fes específicament a aquestes especificacions.
 
 \section{Editar el llenguatge}
 
-  Per tal de facilitar l'edició de {\em Quadriga} s'ha implementat un senzill plug-in per a {\em Notepad++} que es pot descarregar des de \url{http://code.google.com/p/quadriga/downloads/detail?name=quadriga.xml} i importar al mateix {\em Notepad++}. No és tan complert com podria ser un editor d'una IDE, amb auto-completat i subratllament d'errors i advertències, sinó que simplement marca les paraules claus i els operadors per a fer una petita ajuda visual.
+  Per tal de facilitar l'edició de {\em Quadriga} s'ha implementat un senzill plug-in per a {\em Notepad++} que es pot descarregar des de \url{http://code.google.com/p/quadriga/downloads/detail?name=quadriga.xml} i importar al mateix {\em Notepad++}. Aquest programa és un simple editor de text que ampliem d'aquesta manera per a que ressalti paraules claus de Quadriga, no aporta funcions de completat automàtic ni marcat d'errors.
