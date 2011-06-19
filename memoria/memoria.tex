@@ -16,6 +16,10 @@
 
 \usepackage[pdftex]{graphicx}
 
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\onehalfspacing
+
+
 \begin{document}
 
 \pagestyle{empty}
@@ -30,10 +34,13 @@
 \setcounter{page}{1}
 \pagenumbering{roman}
 
-\tableofcontents
-\listoffigures
-\listoftables
-
+\begin{singlespace}
+\setlength{\parskip}{0ex}
+  \tableofcontents
+  \listoffigures
+  \listoftables
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\end{singlespace}
 
 \input{./introduccio}
 
@@ -44,12 +51,9 @@
 \input{./conclusions}
 
 
-
-\begin{onehalfspace}
 \bibliographystyle{ieeetr}
 \bibliography{referencies}
 \addcontentsline{toc}{chapter}{Bibliografia}
-\end{onehalfspace}
 
 \appendix
 \newpage
@@ -59,8 +63,6 @@
 \newpage
 \pagestyle{empty}
 
-\begin{onehalfspace}
-
 {\bf RESUM:} Aquest projecte tracta del desenvolupament d'una plataforma on crear la lògica de videojocs. S'ha decidit crear un llenguatge especial per a descriure aquesta lògica i per fer-ho s'ha seguit l'arquitectura del \"{}Sistemes d'Entitats\"{}, ja que és una arquitectura que s'ha anat desenvolupant al llarg dels anys dins del mateix sector dels videojocs. Per a fer-ho s'ha creat un analitzador sintàctic i un generador de codi, així com un intèrpret i un entorn d'execució. Addicionalment s'hi ha afegit una llibreria que proveeixi els altres mòduls necessaris per desenvolupar un videojoc i s'ha implementat el Tetris a mode de prova i exemple.
 \\
 
@@ -68,8 +70,6 @@
 \\
 
 {\bf ABSTRACT:} This project is about the development of a platform where one can create the logic of a video game. To do so, a language has been created to describe this logic using the architecture known as \"{}Entity System\"{}, because this architecture was developed in the video game industry itself. In order to accomplish that, a parser and a code generator have been created, also a code interpreter and an execution environment have been added. In order to have all the needed functionality to create a video game, a standard library has been developed and a Tetris Clone was created as a test and example.
-
-\end{onehalfspace}
 
 
 \end{document}
