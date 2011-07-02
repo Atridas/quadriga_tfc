@@ -42,15 +42,15 @@
     \begin{frame}\frametitle{Motivació}
      \begin{itemize}
       \item Augment de la complexitat en la creació de videojocs. \pause
-      \item Surt més compte comprar un motor que crear-lo. \pause
-      \item Molts motors disponibles, fins hi tot lliures (Ogre, jMonkeyEngine, etc.).\pause
+      \item Surt més a compte comprar un motor que crear-lo. \pause
+      \item Molts motors disponibles, fins i tot lliures (Ogre, jMonkeyEngine, etc.).\pause
       \item Com crear un joc sobre aquests motors? Mòdul de Lògica.
      \end{itemize}
     \end{frame}
 
-    \begin{frame}\frametitle{Motivació}
+    \begin{frame}\frametitle{Mòdul de Lògica}
       \begin{itemize}
-        \item Ha de permetre crear els objectes del joc (arbres, vegetació, monstres, nivells, portes, herois, objectes d'inventari, triggers, secuències de càmera...) i el seu comportament (renderitzar, cerca de camins, animar, fer desicions d'IA...).\pause
+        \item Ha de permetre crear els objectes del joc (arbres, vegetació, monstres, nivells, portes, herois, objectes d'inventari, triggers, seqüències de càmera...) i el seu comportament (renderitzar, cerca de camins, animar, fer decisions d'IA...).\pause
         \item Ha de crear/destruir els objectes en el joc i coordinar els missatges entre ells.\pause
         \item Ha de mantenir una BBDD dels objectes actius, i crear-se a partir d'una altra BBDD estàtica (que defineix el joc).\pause
         \item Esquemàticament, {\bf tots} els jocs tenen això d'una manera o altra.
@@ -87,15 +87,15 @@
 
     \begin{frame}\frametitle{Disseny}
       \begin{itemize}
-        \item Crear llenguatge de programació, Quadriga. \pause\medskip
+        \item Crear un llenguatge de programació, Quadriga. \pause\medskip
         \begin{itemize}
-          \item Components.\pause
-          \item Sistemes.\pause
-          \item Events.\pause
-          \item Prototips.\pause
+          \item Components.
+          \item Sistemes.
+          \item Events.
+          \item Prototips.
           \item Thread, Main.
         \end{itemize}\pause
-        \item Crear un entorn d'execució: dirigir events, manternir la BBDD.
+        \item Crear un entorn d'execució: dirigir events, mantenir la BBDD.
       \end{itemize}
     \end{frame}
   
