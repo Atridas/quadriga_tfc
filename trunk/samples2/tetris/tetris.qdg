@@ -608,6 +608,12 @@
         Entity<CPeçaSegüent> peçaSegüent = entitat[CPeça].taulell["PeçaSegüent"];
         
         @event InsertarPeça(color: entitat[CPeça].tipus, px: px, py: py) : entitat[CPeça].taulell;
+        
+        if( @find["GameOver"] != null )
+        {
+          break;
+        }
+        
         @event NovaPeça(tipus: peçaSegüent[CPeçaSegüent].tipus) : entitat;
         @event NovaPeçaSegüent(tipus: tipus) : peçaSegüent;
         break;
@@ -915,7 +921,7 @@
     }
     
     if(gameover) {
-      Entity gameOverScreen = @newEntity(null,null);
+      Entity gameOverScreen = @newEntity("GameOver",null);
       @prototype gameOverScreen : TextRendererPrototype(
                                     text: "Game Over\n\nPunts\n" + entitat[Puntuació].punts
                                         + "\n\nLínies\n" + entitat[Puntuació].línies
@@ -929,7 +935,7 @@
   }
   
   @event EEscape(Entity<Taulell> entitat: ENTITY) {
-    Entity gameOverScreen = @newEntity(null,null);
+    Entity gameOverScreen = @newEntity("GameOver",null);
     @prototype gameOverScreen : TextRendererPrototype(
                                   text: "Game Over\n\nPunts\n" + entitat[Puntuació].punts
                                       + "\n\nLínies\n" + entitat[Puntuació].línies

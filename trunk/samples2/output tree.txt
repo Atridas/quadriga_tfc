@@ -2268,6 +2268,16 @@
    |        |                                      |     +- quadriga argument
    |        |                                      |        +- py
    |        |                                      |        +- Op: Local variable access: py {[I}
+   |        |                                      +- St: If Statement:
+   |        |                                      |  +- Condition:
+   |        |                                      |  |  +- Op: ! {Z}
+   |        |                                      |  |     +- Op: isnull {Z}
+   |        |                                      |  |        +- Op: Find Entity {Lcat/quadriga/runtime/Entity;}
+   |        |                                      |  |           +- Op: Literal: "GameOver" {Ljava/lang/String;}
+   |        |                                      |  +- If Code:
+   |        |                                      |     +- St: Block
+   |        |                                      |        +- Code:
+   |        |                                      |           +- St: break
    |        |                                      +- St: Call to Event tetris.tetris.NovaPeça
    |        |                                      |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
    |        |                                      |  +- St: Named Arguments
@@ -5061,6 +5071,16 @@
    |        |                                      |     +- quadriga argument
    |        |                                      |        +- py
    |        |                                      |        +- Op: Local variable access: py {[I}
+   |        |                                      +- St: If Statement:
+   |        |                                      |  +- Condition:
+   |        |                                      |  |  +- Op: ! {Z}
+   |        |                                      |  |     +- Op: isnull {Z}
+   |        |                                      |  |        +- Op: Find Entity {Lcat/quadriga/runtime/Entity;}
+   |        |                                      |  |           +- Op: Literal: "GameOver" {Ljava/lang/String;}
+   |        |                                      |  +- If Code:
+   |        |                                      |     +- St: Block
+   |        |                                      |        +- Code:
+   |        |                                      |           +- St: break
    |        |                                      +- St: Call to Event tetris.tetris.NovaPeça
    |        |                                      |  +- Op: Local variable access: entitat {Lcat/quadriga/runtime/Entity;}
    |        |                                      |  +- St: Named Arguments
@@ -10107,7 +10127,7 @@
    |        |                 |     +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
    |        |                 |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
    |        |                 |        +- Op: Literal: Null {Null type}
-   |        |                 |        +- Op: Literal: Null {Null type}
+   |        |                 |        +- Op: Literal: "GameOver" {Ljava/lang/String;}
    |        |                 +- St: Apply Prototype to Entity
    |        |                 |  +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
    |        |                 |  +- cat.quadriga.base.TextRendererPrototype
@@ -10745,7 +10765,7 @@
    |                                      |     +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
    |                                      |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
    |                                      |        +- Op: Literal: Null {Null type}
-   |                                      |        +- Op: Literal: Null {Null type}
+   |                                      |        +- Op: Literal: "GameOver" {Ljava/lang/String;}
    |                                      +- St: Apply Prototype to Entity
    |                                      |  +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
    |                                      |  +- cat.quadriga.base.TextRendererPrototype
@@ -11103,7 +11123,7 @@
    |        |                 |     +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
    |        |                 |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
    |        |                 |        +- Op: Literal: Null {Null type}
-   |        |                 |        +- Op: Literal: Null {Null type}
+   |        |                 |        +- Op: Literal: "GameOver" {Ljava/lang/String;}
    |        |                 +- St: Apply Prototype to Entity
    |        |                 |  +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
    |        |                 |  +- cat.quadriga.base.TextRendererPrototype
@@ -11741,7 +11761,7 @@
    |                                      |     +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
    |                                      |     +- Op: New Entity {Lcat/quadriga/runtime/Entity;}
    |                                      |        +- Op: Literal: Null {Null type}
-   |                                      |        +- Op: Literal: Null {Null type}
+   |                                      |        +- Op: Literal: "GameOver" {Ljava/lang/String;}
    |                                      +- St: Apply Prototype to Entity
    |                                      |  +- Op: Local variable access: gameOverScreen {Lcat/quadriga/runtime/Entity;}
    |                                      |  +- cat.quadriga.base.TextRendererPrototype
