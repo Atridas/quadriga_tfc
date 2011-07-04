@@ -8,8 +8,10 @@ import cat.quadriga.parsers.code.expressions.ExpressionNode;
 import cat.quadriga.parsers.code.expressions.ExpressionNodeClass;
 import cat.quadriga.parsers.code.expressions.dataaccess.LiteralData;
 import cat.quadriga.parsers.code.types.BaseType;
+import cat.quadriga.parsers.code.types.NullType;
 import cat.quadriga.parsers.code.types.qdg.QuadrigaEntity;
 import cat.quadriga.runtime.ComputedValue;
+import cat.quadriga.runtime.JavaReference;
 import cat.quadriga.runtime.RuntimeEnvironment;
 
 public class FindEntity extends ExpressionNodeClass {
@@ -78,7 +80,12 @@ public class FindEntity extends ExpressionNodeClass {
   
   @Override
   public ComputedValue compute(RuntimeEnvironment runtime) {
-    return runtime.findEntity(name.compute(runtime).getStringValue());
+    ComputedValue e = runtime.findEntity(name.compute(runtime).getStringValue());
+    if(e == null) {
+      return new JavaReference(null);
+    } else {
+      return e;
+    }
   }
 
 }

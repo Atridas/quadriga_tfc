@@ -13,7 +13,7 @@
 \AtBeginSection[]
 {
   \begin{frame}<beamer>
-    \frametitle{Overview}
+    \frametitle{Continguts}
     \tableofcontents[currentsection]
   \end{frame}
 }
@@ -138,30 +138,30 @@
 
   \begin{frame}\frametitle{Conclusions}
     \begin{itemize}
-      \item S'ha dissenyat un llenguatge de programació que segueix el paradigma dels {\em Sistemes d'Entitats} i s'ha anomenat Quadriga.\pause
-      \item S'ha dissenyat i implementat un {\bf compilador} per aquest llenguatge.\pause
-      \item S'ha implementat un {\bf entorn d'execució} que proporcioni al programa tots els elements necessaris per al seu correcte funcionament en qualsevol plataforma suportada per Java.\pause
-      \item S'ha creat una base de dades especificada dinàmicament (resultat de la compilació) que suporta qualsevol tipus de joc sobre un format estandaritzat.\pause
-      \item S'ha creat un subratllador de sintaxi per facilitar la seva programació.\pause
-      \item S'ha implementat un joc d'exemple basat en el clàssic {\bf Tetris}.\pause
-      \item S'ha desenvolupat una petita llibreria bàsica per a renderitzar textos i algunes formes geomètriques simples: cubs i esferes.\pause
+      \item S'ha dissenyat un llenguatge de programació que segueix el paradigma dels {\em Sistemes d'Entitats} i s'ha anomenat Quadriga.
+      \item S'ha dissenyat i implementat un {\bf compilador} per aquest llenguatge.
+      \item S'ha implementat un {\bf entorn d'execució} que proporcioni al programa tots els elements necessaris per al seu correcte funcionament en qualsevol plataforma suportada per Java.
+      \item S'ha creat una base de dades especificada dinàmicament (resultat de la compilació) que suporta qualsevol tipus de joc sobre un format estandaritzat.
+      \item S'ha creat un subratllador de sintaxi per facilitar la seva programació.
+      \item S'ha implementat un joc d'exemple basat en el clàssic {\bf Tetris}.
+      \item S'ha desenvolupat una petita llibreria bàsica per a renderitzar textos i algunes formes geomètriques simples: cubs i esferes.
       \item S'ha dissenyat un model de llibreria tal que sigui fàcil de transportar a altres plataformes (fins i tot plataformes mòbils) emprant les últimes tècniques de renderitzat (mitjançant els {\em Shaders} d'OpenGL 2.0).
     \end{itemize}
   \end{frame}
   
   \begin{frame}\frametitle{Millores}
     \begin{itemize}
-      \item Fer que el compilador generi bytecode per executar directament a la màquina virtual de Java, millorant el rendiment dels programes desenvolupats a Quadriga.\pause
-      \item Crear una implementació específica del model de dades, sense usar una base de dades SQL. Així el rendiment milloraria considerablement.\pause
-      \item Ampliar la llibreria estàndard per incloure la següent funcionalitat:\pause
+      \item Fer que el compilador generi bytecode per executar directament a la màquina virtual de Java, millorant el rendiment dels programes desenvolupats a Quadriga.
+      \item Crear una implementació específica del model de dades, sense usar una base de dades SQL. Així el rendiment milloraria considerablement.
+      \item Ampliar la llibreria estàndard per incloure la següent funcionalitat:
       \begin{itemize}
-        \item Renderitzar formes geomètriques arbitràries (actualment només se suporten cubs, esferes i textos).\pause
-        \item Crear una manera de renderitzar models animats per esquelet.\pause
-        \item Ampliar els materials per a tenir efectes més complexos.\pause
-        \item Afegir funcionalitat de so.\pause
+        \item Renderitzar formes geomètriques arbitràries (actualment només se suporten cubs, esferes i textos).
+        \item Crear una manera de renderitzar models animats per esquelet.
+        \item Ampliar els materials per a tenir efectes més complexos.
+        \item Afegir funcionalitat de so.
         \item Afegir funcionalitat de joc en xarxa.
-      \end{itemize}\pause
-      D'aquesta manera el programador o dissenyador tindria més facilitat per desenvolupar-hi jocs.\pause
+      \end{itemize}
+      D'aquesta manera el programador o dissenyador tindria més facilitat per desenvolupar-hi jocs.
       \item Crear un plug-in de la {\bf IDE} {\em Eclipse} per a desenvolupar i debugar més fàcilment.
     \end{itemize}
   \end{frame}
